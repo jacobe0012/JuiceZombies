@@ -1,0 +1,1348 @@
+// generate 2025-07-07 16:47:36 , protoSize: 79
+// https://github.com/iohao/ioGame
+
+syntax = "proto3";
+package common;
+
+// 
+message ActiveValidTime {
+  string id = 1;
+  // 活动id
+  int32 activity_id = 2;
+  // 角色id
+  int64 role_id = 3;
+  // 第一次查看活动时间
+  int64 search_time = 4;
+}
+
+// 
+message ActivityFlag {
+  map<int32,int32> activity_flag_map = 1;
+}
+
+// 
+message ActivityMap {
+  int64 role_id = 1;
+  // 活动id -  对应活动信息活动信息
+  map<int32,GameActivity> activity_map = 2;
+}
+
+// 
+message ActivityRes {
+  // 只有金猪的时候采用金猪特有的id
+  int32 id = 1;
+  repeated string rewards = 2;
+}
+
+// 
+message ActivitySign {
+  int32 activity_id = 1;
+  repeated ActivityTask task_list = 2;
+  int64 end_time = 3;
+}
+
+// 
+message ActivityTask {
+  int32 task_id = 1;
+  // 任务参数
+  int32 para = 2;
+  // case 0 未领取 1 领取
+  int32 status = 3;
+  // 对应积分
+  int32 score = 4;
+  // 对应天数
+  int32 day = 5;
+}
+
+// 
+message BagItem {
+  int64 part_id = 1;
+  // 角色id
+  int64 role_id = 2;
+  // 物品id
+  int32 item_id = 3;
+  // 物品数量
+  int64 count = 4;
+}
+
+// 
+message BattleGain {
+  // 对局id
+  int64 battle_id = 1;
+  // 关卡id
+  int32 level_id = 2;
+  // 关卡类型
+  int32 type = 3;
+  // 资源串
+  repeated string args = 4;
+  // 角色id
+  int64 role_id = 5;
+  // 通关状态
+  string pass_status = 6;
+  // 存活时间
+  int64 live_time = 7;
+  // 小怪数量
+  int32 kill_mobs = 8;
+  // 精英数量
+  int32 kill_elite = 9;
+  // boss数量
+  int32 kill_boss = 10;
+  // 斩杀boss id
+  repeated int32 boss_idlist = 11;
+  // 斩杀怪物id（包含boss）
+  repeated int32 book_idlist = 12;
+  // 武器id
+  repeated int32 weapon_idlist = 13;
+  // 战斗时间
+  int64 battle_time = 14;
+}
+
+// 
+message BattleLog {
+  // 战斗id
+  int64 battle_id = 1;
+  // 关卡id
+  int32 level_id = 2;
+  // 1 通关 2 未通关
+  int32 pass_level = 3;
+  // 技能id组
+  repeated int32 skill_list = 4;
+  // 攻击力
+  int32 attr = 5;
+  // 生命值
+  int32 hp = 6;
+  // 杀敌数
+  int32 kill_sum = 7;
+  // 钞票
+  int32 banknotes = 8;
+  // 复活次数
+  int32 resurrection_sum = 9;
+}
+
+// 
+message BattleProperty {
+  // 属性列表 用; 分隔id 与 value
+  repeated string properties = 1;
+  // 技能列表 id
+  repeated int32 skills = 2;
+  // 武器ID
+  int32 weapon_id = 3;
+}
+
+// 
+message BoxInfo {
+  int32 id = 1;
+  // 保底次数
+  repeated int32 numbers = 2;
+  // 抽奖保底记录 品质type;保底次数  4;10,54;50
+  repeated string draw_guarantee = 3;
+  // 奖励
+  repeated string reward = 4;
+  // 广告次数
+  int32 ad_count = 5;
+  // 抽奖时间
+  int64 draw_time = 6;
+  // 广告抽奖时间 限时专用
+  int32 ad_draw_time = 7;
+  // 剩余抽奖次数 限时专用
+  int32 draw_count = 8;
+  // 倒计时
+  int64 sum_time = 9;
+  // gm 设置开始时间 限时专用
+  int64 set_start_time = 10;
+}
+
+// 
+message BroadcastPb {
+  int32 code = 1;
+  string data = 2;
+}
+
+// 
+message ChargeInfo {
+  int32 id = 1;
+  // 模块
+  int32 tag_func = 2;
+  // 充值次数
+  int32 charge_sum = 3;
+  // 免费次数
+  int32 free_sum = 4;
+  // 广告次数
+  int32 ad_sum = 5;
+}
+
+// 
+message CheckResult {
+  string status = 1;
+  int64 value = 2;
+}
+
+// 
+message ClickClaimRes {
+  // 奖励列表
+  repeated string rewards = 1;
+  // 查询结果
+  RoleTaskInfo task_info = 2;
+}
+
+// 
+message ConfigurationLoad {
+  // 角色id
+  int64 role_id = 1;
+  // 主页面显示的章节的id
+  int32 chapter_id = 2;
+}
+
+// 
+message DailyBuy {
+  // 唯一值
+  int32 sign = 1;
+  // 购买次数
+  int32 buy_count = 2;
+  // 更新时间
+  int64 up_time = 3;
+}
+
+// 
+message DrawInfo {
+  // 抽奖获得
+  repeated string reward = 1;
+  // 保底次数
+  repeated int32 guarantee = 2;
+}
+
+// 
+message DrawParam {
+  int32 box_id = 1;
+  // 抽几次
+  int32 draw_count = 2;
+  // 0 是无广告 1 广告
+  int32 draw_type = 3;
+}
+
+// 
+message EnergyRecord {
+  int64 part_id = 1;
+  int64 role_id = 2;
+  // 活动id
+  int32 activity_id = 3;
+  // 商店id
+  int32 shop_id = 4;
+  // id对应兑换情况
+  map<int32,int32> energy_limit_map = 5;
+  // 开始时间
+  int64 start_time = 6;
+  // 倒计时
+  int64 end_time = 7;
+}
+
+// 
+message EquipDes {
+  // 装备id
+  int32 equip_id = 1;
+  // 品质
+  int32 quality = 2;
+  // 等级
+  int32 level = 3;
+}
+
+// 
+message EquipDto {
+  // 唯一值
+  int64 part_id = 1;
+  // 角色 id
+  int64 role_id = 2;
+  // 装备id
+  int32 equip_id = 3;
+  // 装备等级
+  int32 equip_level = 4;
+  // 装备品质
+  int32 quality = 5;
+  // 合成材料数量
+  int32 count = 6;
+}
+
+// 
+message EquipResDto {
+  repeated EquipDto equip_dto_list = 1;
+  repeated string reward_list = 2;
+}
+
+// 
+message GameAchieve {
+  // 角色id
+  int64 role_id = 1;
+  // 成就等级
+  int32 id = 2;
+  // 领取 1 未领取 0
+  int32 status = 3;
+}
+
+// 
+message GameActivity {
+  // 活动id
+  int32 activity_id = 1;
+  // 开服七日活动
+  OpenServerActivity open_server_activity = 2;
+  // 七日签到活动
+  ActivitySign activity_sign = 3;
+  // 大富翁
+  MonopolyRecord monopoly_record = 4;
+  // 体力兑换
+  EnergyRecord energy_record = 5;
+}
+
+// 
+message GameChallenge {
+  int64 part_id = 1;
+  // 关卡id
+  int32 level_id = 2;
+  // 角色id
+  int64 role_id = 3;
+  // 挑战状态 1 未解锁 2 已解锁 3 可领取 4 已领取
+  int32 challenge_status = 4;
+  // 失败次数
+  int32 fail_count = 5;
+  // 成功次数
+  int32 success_count = 6;
+  // 战斗次数
+  int32 battle_count = 7;
+}
+
+// 
+message GameChapter {
+  // 关卡id
+  int32 level_id = 1;
+  // 章节id
+  int32 chapter_id = 2;
+  // true 开启 false 未开启
+  string chapter_status = 3;
+  // 通关 true 通关 false 未通关
+  string chapter_pass = 4;
+  // 是否首通 true 为是 false 不是
+  string is_first = 5;
+  // 章节宝箱1 默认"id:lock:true""
+  repeated string box_status_list = 6;
+  // 最长生存时间
+  int64 max_live_time = 7;
+  // 失败次数
+  int32 fail_count = 8;
+  // 成功次数
+  int32 success_count = 9;
+  // 战斗次数
+  int32 battle_count = 10;
+}
+
+// 
+message GameCheckIn {
+  // 主键id
+  int64 role_id = 1;
+  // 服务器开启的度过的自然日
+  int64 server_day = 2;
+  // 签到的次数
+  int32 check_in_day = 3;
+  // 当天的每日奖励领取状态 1 可领取 0不可领取
+  int32 on_day_status = 4;
+  // 当天的累积的签到天数宝箱领取状态 1 可领取 0不可领取
+  int32 box_on_day_status = 5;
+  // 记录上一次修改时间s
+  int64 up_time = 6;
+}
+
+// 
+enum GameCodeEnum {
+  // 
+  paramError = 0;
+  // 
+  jsonParseError = 1;
+  // 
+  mongodbError = 2;
+  // 
+  redisError = 3;
+  // 
+  serverCommunicationError = 4;
+  // 
+  cacheError = 5;
+  // 
+  dbDataError = 6;
+  // 
+  initError = 7;
+  // 
+  taskLocKError = 8;
+  // 
+  serverError = 9;
+  // 
+  payError = 10;
+  // 
+  gmError = 11;
+  // 功能未解锁
+  functionUnlock = 12;
+  // 商品参数异常
+  goodsParamError = 13;
+  // 号已经在线上，不允许重复登录
+  accountOnline = 14;
+  // 登录异常
+  loginError = 15;
+  // 
+  loginLockError = 16;
+  // 
+  unLogin = 17;
+  // 
+  loginExitUserError = 18;
+  // 
+  accountBanError = 19;
+  // 
+  versionBanError = 20;
+  // 快速登陆已超时
+  quickLoginTimeout = 21;
+  // 
+  machineCodeError = 22;
+  // 账号格式不符合规则
+  accountFormatError = 23;
+  // 账号绑定失败
+  accountBindError = 24;
+  // 创建角色失败
+  createRoleError = 25;
+  // 绑定用户角色
+  bindUserRoleError = 26;
+  // 角色操作失败
+  roleOperationError = 27;
+  // 体力不足
+  energyDeficit = 28;
+  // 金币不足
+  goldDeficit = 29;
+  // 宝石不足
+  gemDeficit = 30;
+  // 昵称不能重复
+  nicknameRepeat = 31;
+  // 支付档位异常
+  payLevelError = 32;
+  // 邮件发送失败
+  mailSendError = 33;
+  // 邮件删除失败
+  mailDeleteError = 34;
+  // 邮件不存在
+  mailNotExist = 35;
+  // 
+  unChaptersExistError = 36;
+  // 
+  chapterBoxNotExistError = 37;
+  // 
+  unPassChaptersError = 38;
+  // 对局id不存在
+  gameIdNotExist = 39;
+  // 
+  levelIdUnlockError = 40;
+  // 
+  levelIdUnPassError = 41;
+  // 整顿功能未解锁
+  unlockError = 42;
+  // 
+  unUpgrade = 43;
+  // 
+  qualityConfig = 44;
+  // 
+  consumableError = 45;
+  // 
+  missingParameterError = 46;
+  // 
+  nonDegradedError = 47;
+  // 
+  unExistError = 48;
+  // 
+  unSatisfyError = 49;
+  // 
+  alreadyWearError = 50;
+  // 装备升级材料不足
+  upgradeMaterialError = 51;
+  // 
+  unlockTalentError = 52;
+  // 
+  alUnlockTalentError = 53;
+  // 
+  unExistTalentError = 54;
+  // 
+  unExistItemError = 55;
+  // 
+  unEnergyError = 56;
+  // 
+  itemUnUsableError = 57;
+  // 
+  itemUnContinuousUsableError = 58;
+  // 
+  itemUsableCountError = 59;
+  // 
+  unPatrolCountError = 60;
+  // 
+  unPatrolTimeError = 61;
+  // 
+  adTimeCdError = 62;
+  // 
+  giftUnLockError = 63;
+  // 
+  giftEmptyError = 64;
+  // 
+  giftUnItemError = 65;
+  // 
+  giftUnBuyError = 66;
+  // 
+  shopDailyUnLockError = 67;
+  // 
+  shopUnBuyError = 68;
+  // 商城充值模块初始化异常
+  shopRechargeInitError = 69;
+  // 商城礼包模块初始化异常
+  shopGiftInitError = 70;
+  // 商城特惠模块初始化异常
+  shopSpecialInitError = 71;
+  // 商城金猪模块初始化异常
+  shopGoldenPigInitError = 72;
+  // 
+  taskUnExitError = 73;
+  // 
+  taskBoxUnLockError = 74;
+  // 
+  taskBoxUnExitError = 75;
+  // 
+  taskGainError = 76;
+  // 
+  taskBoxGainError = 77;
+  // 
+  lotteryCountError = 78;
+  // 
+  lotteryConditionError = 79;
+  // 
+  checkInGainError = 80;
+  // 
+  checkBoxUnlockError = 81;
+  // 
+  cardMaxError = 82;
+  // 
+  cardUnExitError = 83;
+  // 
+  cardAlClamError = 84;
+  // 
+  cardClamCountError = 85;
+  // 
+  cardUnExpError = 86;
+  // 
+  cardPayError = 87;
+  // 
+  foundUnLockError = 88;
+  // 
+  foundUnChargeError = 89;
+  // 
+  foundAlClamError = 90;
+  // 
+  specialsError = 91;
+  // 通行证初始化异常
+  passInitError = 92;
+  // 基金初始化异常
+  foundInitError = 93;
+  // 
+  sharIdUnExceptional = 94;
+  // 反馈次数超过
+  feedbackCountError = 95;
+  // 反馈字数超长
+  feedbackWordCountError = 96;
+  // 反馈处理异常请再试一次
+  feedbackHandleError = 97;
+  // 
+  unlockGoldPigError = 98;
+  // 
+  unBuyGoldPigError = 99;
+  // 
+  unExistResourceError = 100;
+  // 
+  unBuyEquityError = 101;
+  // 
+  unBuyAdFreeError = 102;
+  // 
+  unInitMonthCardError = 103;
+  // 月卡初始化异常
+  monthCardInitError = 104;
+  // 
+  unExistSceneError = 105;
+  // 
+  unOpenActivityError = 106;
+  // 
+  unOpenBuyError = 107;
+  // 
+  buyLimitError = 108;
+  // 
+  exchangeShowError = 109;
+  // 
+  activityOverError = 110;
+  // 
+  exchangeGoodsNotExistError = 111;
+}
+
+// 
+message GameEquip {
+  // 主键id
+  int64 part_id = 1;
+  // 角色id
+  int64 role_id = 2;
+  // 装备id
+  int32 equip_id = 3;
+  // 装备位置
+  int32 pos_id = 4;
+  // 装备品质
+  int32 quality = 5;
+  // 装备等级
+  int32 level = 6;
+  // 解锁技能组
+  repeated int32 unlock_skill_group = 7;
+  // 主词条id
+  int32 main_entry_id = 8;
+  // 主词条初始
+  int32 main_entry_init = 9;
+  // 每级成长
+  int32 main_entry_grow = 10;
+}
+
+// 
+message GameEventDate {
+  // 主键id
+  int64 role_id = 1;
+  // 日常任务 活跃度
+  int32 day_task_score = 2;
+  // 周常任务 活跃度
+  int32 week_task_score = 3;
+  // 成就 对应升级点数
+  int32 achieve_score = 4;
+  // 活动活跃度
+  int32 activity_task_score = 5;
+  // 日常活动参数
+  int64 day_task_param = 6;
+  // 周常活动参数
+  int64 week_task_param = 7;
+}
+
+// 
+message GameFoundation {
+  int64 part_id = 1;
+  // 角色Id
+  int64 role_id = 2;
+  // 基金id
+  int32 found_id = 3;
+  // 领取免费线等级列表
+  repeated int32 reward_one_list = 4;
+  // 领取基金线2等级列表
+  repeated int32 reward_two_list = 5;
+  // 领取基金线2 等级状态 0 - 未购买 1 - 已购买
+  int32 reward_two_status = 6;
+  // 领取基金线3等级列表
+  repeated int32 reward_three_list = 7;
+  // 领取基金线3等级状态  0 - 未购买 1 - 已购买
+  int32 reward_three_status = 8;
+  // 是否查看 0 - 未查看 1 - 已查看
+  int32 is_look = 9;
+}
+
+// 
+message GameMail {
+  // 模板 id
+  int32 id = 1;
+  // 走模板 0 走服务器 1
+  int32 is_module = 2;
+  // 0 文本类型 1 附件类型（有领取资源）
+  int32 type = 3;
+  // 资源串
+  repeated string reward = 4;
+  // 失效时间(天)
+  int32 expire_day = 5;
+}
+
+// 
+message GameMonster {
+  int64 role_id = 1;
+  // 怪物图鉴 id, status  val(2 解锁 1 已领取)
+  map<int32,int32> monster_map = 2;
+  // 武器图鉴 id, status  val(2 解锁 1 已领取)
+  map<int32,int32> weapon_map = 3;
+}
+
+// 
+message GameNotice {
+  // 公告id
+  int32 id = 1;
+  // 公告内容（uri）
+  string link = 2;
+  // 文本参数
+  string para = 3;
+  // 公告图片
+  string pic = 4;
+  // 公告标题
+  string title = 5;
+  // 发件人
+  string from = 6;
+  // 有效期（天数）
+  int32 valid = 7;
+  // 公告状态 0 失效 1有效
+  int32 status = 8;
+  // 阅读状态 0 未读 1已读
+  int32 read_status = 9;
+  // 初始化时间
+  int64 init_time = 10;
+}
+
+// 
+message GamePass {
+  int64 part_id = 1;
+  // 玩家角色id
+  int64 role_id = 2;
+  // 赛季id
+  int32 version = 3;
+  // 等级
+  int32 level = 4;
+  // 等级对应的经验
+  int32 exp = 5;
+  // 状态 0-未领取 1-已领取
+  int32 item_status = 6;
+  // 付费资源领取状态
+  int32 vip_status = 7;
+  // 领取次数
+  int32 receive_count = 8;
+  // 类型 0-未充钱 1-vip
+  int32 type = 9;
+  // 倒计时(s)
+  int64 end_time = 10;
+}
+
+// {classComment}
+message GameRole {
+  // 角色ID
+  int64 role_id = 1;
+  // 用户id
+  int64 user_id = 2;
+  // 呢称
+  string nickname = 3;
+  // 修改呢称时间
+  int64 update_time_nickname = 4;
+  // 头像id
+  int32 role_avatar = 5;
+  // 头像框id
+  int32 role_avatar_frame = 6;
+  // 角色资产
+  GameRoleAssets role_assets = 7;
+  // 巡逻加权参数；
+  int32 patrol_gain_name = 8;
+  // 日常点数
+  int32 daily_point = 9;
+  // 周长点数
+  int32 weekly_point = 10;
+  // 通行证经验
+  int32 passport_exp = 11;
+  // 体力加权参数；
+  int32 energy_param = 12;
+  // 快速巡逻次数
+  int32 patrol_quick_count = 13;
+  // 免广告标识  0 不免  1 免
+  int32 ad_free_flag = 14;
+  // 月卡剩余天数
+  int32 month_card_remain_days = 15;
+  // 角色拥有头像
+  RoleAvatarMap avatar_map = 16;
+  // 最大章节id
+  int32 max_chapter_id = 17;
+  // 最大关卡id
+  int32 max_level_id = 18;
+}
+
+// {classComment}
+message GameRoleAssets {
+  // 资产主键id
+  int64 assets_id = 1;
+  // game_role 表的主键id
+  int64 role_id = 2;
+  // 玩家等级
+  int32 level = 3;
+  // 总经验值
+  int64 exp = 4;
+  // 当前体力，默认初始30
+  int32 energy = 5;
+  // 体力上限版本 消耗体力的时间(s)
+  int32 energy_max = 6;
+  // 上一次体力刷新时间
+  int64 energy_update = 7;
+  // 体力刷新倒计时
+  int64 energy_countdown = 8;
+  // 比特币
+  int64 bitcoin = 9;
+  // 美钞
+  int64 us_bill = 10;
+  // 等级
+  int32 equip_gradle = 11;
+  // 更新时间
+  int64 update = 12;
+  // 体力消耗
+  int32 energy_cost = 13;
+  // 背包物品
+  repeated BagItem bag_items = 14;
+}
+
+// 
+message GameShare {
+  // 角色id
+  int64 role_id = 1;
+  // 分享id
+  int64 id = 2;
+  // 是否分享 true 已分享
+  bool is_share = 3;
+}
+
+// 
+message GameShop {
+  int64 role_id = 1;
+  repeated IndexModule index_modules = 2;
+}
+
+// 
+message GameShopMap {
+  map<int32,IndexModule> index_module_map = 1;
+}
+
+// 
+message GameSpecials {
+  int64 part_id = 1;
+  // 角色id
+  int64 role_id = 2;
+  // 特惠id
+  int32 special_id = 3;
+  // 刷新的单位（日/周/月）
+  int32 type = 4;
+  // 免费（广告次数）
+  int32 free_count = 5;
+  // 特惠总购买次数
+  int32 buy_count = 6;
+  // 下次购买时间刷新
+  int64 next_buy_time = 7;
+}
+
+// 
+message GameTalent {
+  int64 role_id = 1;
+  // 解锁天赋id
+  repeated int32 talent_ids = 2;
+}
+
+// 
+message GameTaskInfo {
+  // 主键id
+  int64 part_id = 1;
+  // 角色id
+  int64 role_id = 2;
+  // 任务id
+  int32 id = 3;
+  // 任务类型
+  int32 type = 4;
+  // 任务组
+  int32 group = 5;
+  // 模块
+  int32 tag_func = 6;
+  // case 0 未领取 1 领取
+  int32 status = 7;
+  // case 0 未解锁 1 解锁
+  int32 lock = 8;
+  // 参数条件
+  int32 para = 9;
+  // 积分
+  int32 score = 10;
+  // 开启时间
+  int64 start_time = 11;
+  // 结束时间
+  int64 end_time = 12;
+  // 更新时间
+  int64 up_datetime = 13;
+  // 更新次数
+  int32 up_count = 14;
+}
+
+// 
+message GameTaskScore {
+  // 主键id
+  int64 part_id = 1;
+  // 角色Id
+  int64 role_id = 2;
+  // 宝箱id
+  int32 id = 3;
+  // 领取状态 0 未领取 1 领取 2 待领取（活动专用状态）
+  int32 status = 4;
+  // 宝箱所属模块
+  int32 tag_func = 5;
+  // 生效与否 0 未生效 1 生效
+  int32 valid = 6;
+}
+
+// {classComment}
+message GameUser {
+  // 分布式主键id
+  int64 id = 1;
+  // 用户账号
+  string user_name = 2;
+  // 呢称
+  string nick_name = 3;
+  // 用户密码
+  string user_pass = 4;
+  // 第三方登录来源表
+  string source_table = 5;
+  // 账号类型 1 账号密码登录 2 第三方登录
+  int32 type = 6;
+  // 角色id
+  int64 role_id = 7;
+  // 在线状态 0 未登录 1 登录
+  int32 on_line = 8;
+  // 锁定状态 0 未锁定 1 锁定 2白名单
+  int32 lock_status = 9;
+  // 私钥
+  string private_key = 10;
+  // 上次登录时间
+  int64 last_login_time = 11;
+  // 注册时间
+  int32 day_for_int = 12;
+  // 序章新手引导 1:全部完成 2:未全部完成
+  int32 intro_guide_finished = 13;
+}
+
+// 
+message GiftInfo {
+  // 礼包id
+  int32 gift_id = 1;
+  // 模块
+  int32 tag_func = 2;
+  // 限时礼包倒计时
+  int64 end_time = 3;
+  // 免费购买次数
+  int32 free_times = 4;
+  // 可购买次数
+  int32 times = 5;
+  // 创建时间
+  int64 create_time = 6;
+}
+
+// 
+message GiftResult {
+  // reward串
+  repeated string reward = 1;
+  // 剩余次数
+  int32 residue_num = 2;
+}
+
+// 
+message GoldPig {
+  int64 role_id = 1;
+  // 金猪未购买档位 类型，档位
+  map<int32,PigIds> pig_map = 2;
+  // 类型
+  int32 pig_type = 3;
+  // 当前金猪档位
+  int32 pig_level = 4;
+  // 解锁 0 未解锁 1 已解锁
+  int32 unlock = 5;
+  // 当前金币存量 存满为止
+  int32 gold_bank = 6;
+  // 当前金猪倒计时结束时间
+  int64 countdown = 7;
+  // 消失时间（s）
+  int64 absent_time = 8;
+  // 当前金猪的生效时间(gm修改类型的时间)
+  int64 gold_bank_time = 9;
+}
+
+// 
+message IndexModule {
+  int32 module_id = 1;
+  // 抽奖
+  repeated BoxInfo box_info_list = 2;
+  // 充值
+  repeated ChargeInfo charge_info_list = 3;
+  // 礼包
+  repeated GiftInfo gift_info_list = 4;
+  // 每日购买
+  repeated DailyBuy daily_buy_list = 5;
+  // 基金
+  repeated GameFoundation game_foundation_list = 6;
+  // 特惠
+  repeated GameSpecials game_specials_list = 7;
+  // 月卡
+  SpecialInterest special_card = 8;
+}
+
+// 
+message LevelInfo {
+  // 生存时间（秒）
+  int64 live_time = 1;
+  // 是否首通
+  string is_first = 2;
+  // 结算奖励
+  repeated string args = 3;
+}
+
+// 逻辑请求 PB
+message LogicRequestPb {
+  string name = 1;
+  // 机器码
+  string ud_id = 2;
+  // 私钥
+  string private_key = 3;
+  // 客户端类型 1 本机登录 name 不为空 2.快速登录 私钥不能为空 3 uid 不为空 游客登陆
+  int32 type = 4;
+  // 手机类型 "|"
+  string phone_type = 5;
+  // ip
+  string ip = 6;
+}
+
+// 
+message MailInfo {
+  // 主键id
+  int64 id = 1;
+  // 邮件模板主键id
+  int32 mail_module_id = 2;
+  // 玩家
+  int64 user_id = 3;
+  // 角色
+  int64 role_id = 4;
+  // 0 未读 1 已读
+  int32 status = 5;
+  // 发送时间
+  int64 send_time = 6;
+  // 失效时间
+  int64 expire_date = 7;
+  // 0 附件 1 文本
+  int32 type = 8;
+  // 标题
+  string title = 9;
+  // 资源串
+  repeated string reward_list = 10;
+  // 正文
+  string content = 11;
+  // 参数
+  string para = 12;
+  // 失效天数
+  int32 valid_day = 13;
+  // 备注
+  string remark = 14;
+}
+
+// 
+message MonopolyActionInfo {
+  repeated string resource_list = 1;
+  // 格子数
+  int32 grid_index = 2;
+  // 第几圈
+  int32 circle_index = 3;
+  // 事件id
+  int32 event_id = 4;
+  // 彩票id
+  int32 lottery_id = 5;
+  // 当前层数代币加权
+  int32 token_weight = 6;
+  int32 activity_id = 7;
+  // 骰子点数
+  int32 dice_num = 8;
+}
+
+// 
+message MonopolyRecord {
+  int64 part_id = 1;
+  int64 role_id = 2;
+  // key sort value count 记录兑换限制
+  map<int32,int32> exchange_record = 3;
+  // 大富翁格子
+  int32 monopoly_grid_num = 4;
+  // 大富翁游玩层数
+  int32 monopoly_num = 5;
+  // 大富翁活动ID
+  int32 activity_id = 6;
+  // 代币加权数
+  int32 token_weight = 7;
+  // 结束时间
+  int64 end_time = 8;
+}
+
+// 
+message OpenServerActivity {
+  int32 activity_id = 1;
+  // 活动对应的任务列表
+  repeated ActivityTask task_list = 2;
+  // 该活动对应的宝箱列表
+  repeated GameTaskScore task_score_list = 3;
+  // 活动结束时间
+  int64 end_time = 4;
+}
+
+// 
+message OrderInfo {
+  string order = 1;
+  int64 user_id = 2;
+  int64 role_id = 3;
+  // status 1待支付 2已支付 3支付失败
+  int32 status = 4;
+  // 1成功 2 失败
+  int32 send_status = 5;
+  // 1 执行成功 2执行失败
+  int32 execute_status = 6;
+  // 支付的返回 只返回的购买物品 或者结果
+  string pay_res = 7;
+  // 花费的钱
+  int32 price = 8;
+  // 支付渠道 1 appStore 2.
+  int32 pay_type = 9;
+  // 时间（s）
+  int64 pay_time = 10;
+  // 时间（s）
+  int64 create_time = 11;
+}
+
+// 
+message OtherBoxInfo {
+  int64 part_id = 1;
+  // 角色id
+  int64 role_id = 2;
+  // 抽奖宝箱id
+  int32 box_id = 3;
+  // 剩余抽奖次数
+  int32 draw_count = 4;
+  // 抽奖保底记录 品质type;保底次数  4;10,54;50
+  repeated string draw_guarantee = 5;
+  // 广告抽奖时间 限时专用
+  int32 ad_draw_time = 6;
+  // 抽的物品串
+  repeated string reward = 7;
+}
+
+// 
+message PatrolConfig {
+  // 主键id
+  int64 role_id = 1;
+  // 巡逻次数
+  int32 patrol_once_times_day = 2;
+  // 广告次数
+  int32 patrol_once_ad_times = 3;
+  // 体力广告次数
+  int32 ad_energy_times = 4;
+  // 购买体力次数
+  int32 buy_energy_times = 5;
+}
+
+// 
+message PatrolGain {
+  int64 id = 1;
+  int64 role_id = 2;
+  int32 chapter_id = 3;
+  // 每十分钟一个阶段
+  int32 time_num = 4;
+  // 累计的金币
+  int32 money = 5;
+  // 累计的经验
+  int32 exp = 6;
+  // 收益对应掉落组id
+  int32 patrol_unit = 7;
+  // 巡逻收益
+  repeated string patrol_once = 8;
+  // 巡逻时间
+  int64 patrol_time = 9;
+  // 加权参数
+  int32 patrol_gain_name = 10;
+  // 领取状态 0 未领 1 领取
+  int32 status = 11;
+}
+
+// 
+message PatrolRes {
+  // 
+  PatrolGain patrol_gain = 1;
+  // 
+  PatrolConfig patrol_config = 2;
+}
+
+// 
+message PigIds {
+  repeated int32 ids = 1;
+}
+
+// 
+message ReadMail {
+  int64 read_mail_id = 1;
+  int64 mai_info_id = 2;
+  int64 role_id = 3;
+}
+
+// 
+message ResultMailList {
+  // 已读邮件id
+  repeated ReadMail read_mail_list = 1;
+  // 全部邮件
+  repeated MailInfo mail_info_list = 2;
+}
+
+// 
+message RoleAvatar {
+  int32 id = 1;
+  int32 type = 2;
+  int32 quality = 3;
+}
+
+// 
+message RoleAvatarMap {
+  int64 role_id = 1;
+  repeated RoleAvatar avatar_list = 2;
+}
+
+// 
+message RoleChapters {
+  int64 role_id = 1;
+  repeated GameChapter chapter_list = 2;
+}
+
+// 
+message RoleEquip {
+  int64 role_id = 1;
+  repeated int64 equip_ids = 2;
+}
+
+// 
+message RoleTaskInfo {
+  // 玩家id
+  int64 role_id = 1;
+  // 玩家对应的任务情况
+  repeated GameTaskInfo task_info_list = 2;
+  // 任务宝箱解锁信息
+  repeated GameTaskScore task_score_list = 3;
+  // 成就等级对应资源
+  GameAchieve achieve = 4;
+  // 总积分
+  int32 score_sum = 5;
+}
+
+// 
+message SendMail {
+  int32 id = 1;
+  // 模板id
+  int32 module_id = 2;
+  // 角色
+  repeated int64 role_ids = 3;
+  // 用户
+  repeated int64 user_ids = 4;
+  // 发送邮件的对象 0:全服 1:一组玩家
+  int32 mail_type = 5;
+  // 1 附件 0 文本
+  int32 type = 6;
+  // 标题
+  string title = 7;
+  // 定时发送
+  string send_time_str = 8;
+  int64 send_time = 9;
+  // 发送状态 0 未发送 1 已发送 2 取消发送
+  int32 send_status = 10;
+  // 资源串
+  repeated string reward_list = 11;
+  // 存取方便转为String
+  string reward = 12;
+  // 正文
+  string content = 13;
+  // 失效天数
+  int32 valid_day = 14;
+  // 参数
+  string para = 15;
+  // 备注
+  string remark = 16;
+}
+
+// 
+message SettingDate {
+  int64 role_id = 1;
+  // 画面质量(帧率) 1
+  int32 quality = 2;
+  // 声音 true
+  bool enable_fx = 3;
+  // 音乐 true
+  bool enable_bgm = 4;
+  // 震动 true
+  bool enable_shock = 5;
+  // 特效弱化 true
+  bool enable_weak_effect = 6;
+  // 摇杆显示 true
+  bool enable_show_stick = 7;
+  // 当前语言 1 英文
+  int32 current_l10_n = 8;
+  // 已经引导步骤
+  repeated int32 guide_list = 9;
+  // 存储玩家解锁 key:场景id value:场景状态  val只有关于新手引导的才会最终记录为0.其他都为1
+  map<int32,int32> unlock_map = 10;
+}
+
+// 
+message SpecialInterest {
+  int64 role_id = 1;
+  // 待领取的 ID,领取后置空
+  map<int32,UnReward> unclaimed = 2;
+}
+
+// 
+message TaskRedFlag {
+  // (key) tagFunc （value）1 没有 2 有红点
+  map<int32,int32> tag_func_map = 1;
+}
+
+// 
+message TaskResult {
+  // 收益
+  repeated string reward = 1;
+  // true false
+  string res = 2;
+  // 任务id
+  int32 activity_id = 3;
+  // 阶段
+  int32 stage = 4;
+}
+
+// 
+message UnReward {
+  // 权益id（月卡）
+  int32 id = 1;
+  // 领取数量
+  int32 num = 2;
+  // 累计天数
+  int32 sum_day = 3;
+  // 结束时间
+  int64 end_time = 4;
+  // 领取状态 是当天购买true 定时任务不执行
+  bool is_first = 5;
+}
+
+// 
+message UseItemParam {
+  // 道具对象
+  BagItem item_val = 1;
+  // 自选奖励
+  repeated string reward = 2;
+}
+
+// {classComment}
+message UserRole {
+
+}
+
+// 
+message VersionPo {
+  int32 id = 1;
+  string version = 2;
+  // 当前状态 1 热更 2 废弃 3 对应“-” 4 强更
+  int32 on_status = 3;
+  // 预状态 1 热更 2 废弃 3 对应“-” 4 强更
+  int32 fr_status = 4;
+  // cdn地址 多个用;隔开
+  string cdn = 5;
+}
+
+// 
+message WearRequest {
+  // 装备id 第一个是装武器，第二个是卸武器
+  repeated int64 equip_ids = 1;
+  // 类型 1 装武器 2 卸武器 3 替换武器
+  int32 type = 2;
+}
+

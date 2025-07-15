@@ -1,0 +1,188 @@
+对应接口：一键领取日常周常 3-7
+功能描述：自动领取日常周常
+代码逻辑梳理：
+第一步：查出日常周常任务信息
+第二步：日常、周常累计的任务积分
+第三步：查出宝箱的db数据（分组为日常宝箱 与周常宝箱）
+第四步：如果日常累计积分 > 0 
+		1.从缓存中取出对应的宝箱数据
+		2.循环宝箱db数据状态为 未领取的 对应缓存配置的领取积分阈值 <= 日常累计分数 累加对应资源
+		3.领取资源
+		4.批量修改状态
+第四步：如果周常累计积分 > 0 
+		1.从缓存中取出对应的宝箱数据
+		2.循环宝箱db数据状态为 未领取的 对应缓存配置的领取积分阈值 <= 周常累计分数 累加对应资源
+		3.领取资源
+		4.批量修改状态
+第五步：构建返回值
+public class ClickClaimRes {
+
+    /**
+     * 奖励列表
+     */
+    List<String> rewards;
+
+    /**
+     * 查询结果
+     */
+    RoleTaskInfo taskInfo;
+}
+public class RoleTaskInfo {
+
+    /**
+     * 玩家id
+     */
+    Long roleId;
+
+    /**
+     * 玩家对应的任务情况
+     */
+    List<GameTaskInfo> taskInfoList;
+
+    /**
+     * 任务宝箱解锁信息
+     */
+    List<GameTaskScore> taskScoreList;
+
+    /**
+     * 成就等级对应资源
+     */
+    GameAchieve achieve;
+
+    /**
+     * 总积分
+     */
+    Integer scoreSum;
+
+}
+
+public class GameTaskInfo {
+
+    /**
+     * 主键id
+     */
+    @Id
+    @Field(targetType = FieldType.STRING)
+    Long partId;
+
+    /**
+     * 角色id
+     */
+    Long roleId;
+
+    /**
+     * 任务id
+     */
+    Integer id;
+
+    /**
+     * 任务类型
+     */
+    Integer type;
+
+    /**
+     * 任务组
+     */
+    Integer group;
+
+    /**
+     * 模块
+     */
+    Integer tagFunc;
+
+
+    /**
+     * case 0 未领取 1 领取
+     */
+    Integer status;
+
+
+    /**
+     * case 0 未解锁 1 解锁
+     */
+    Integer lock;
+
+
+    /**
+     * 参数条件
+     */
+    Integer para;
+
+    /**
+     * 积分
+     */
+    Integer score;
+
+    /**
+     * 开启时间
+     */
+    Long startTime;
+
+    /**
+     * 结束时间
+     */
+    Long endTime;
+
+    /**
+     * 更新时间
+     */
+    Long upDatetime;
+
+    /**
+     * 更新次数
+     */
+    Integer upCount;
+}
+public class GameTaskScore {
+
+    /**
+     * 主键id
+     */
+    @Id
+    @Field(targetType = FieldType.STRING)
+    Long partId;
+
+    /**
+     * 角色Id
+     */
+    Long roleId;
+
+    /**
+     * 宝箱id
+     */
+    Integer id;
+
+    /**
+     * 领取状态 0 未领取 1 领取 2 待领取（活动专用状态）
+     */
+    Integer status;
+
+    /**
+     * 宝箱所属模块
+     */
+    Integer tagFunc;
+
+    /**
+     * 生效与否 0 未生效 1 生效
+     */
+    Integer valid;
+}
+public class GameAchieve {
+
+    /**
+     * 角色id
+     */
+    @Id
+    @Field(targetType = FieldType.STRING)
+    Long roleId;
+
+    /**
+     * 成就等级
+     */
+    Integer id;
+
+    /**
+     * 领取 1 未领取 0
+     */
+    Integer status;
+}

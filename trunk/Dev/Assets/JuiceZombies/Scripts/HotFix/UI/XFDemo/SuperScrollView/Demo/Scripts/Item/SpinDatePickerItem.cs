@@ -1,0 +1,21 @@
+﻿using UnityEngine;
+using UnityEngine.UI;
+
+namespace SuperScrollView
+{
+    public class SpinDatePickerItem : MonoBehaviour
+    {
+        public Text mText;
+        public int mValue;
+
+        public void Init()
+        {
+        }
+
+        public int Value
+        {
+            get { return mValue; }
+            set { mValue = value; }
+        }
+    }
+}

@@ -1,0 +1,545 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &-9094292166851590157
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ceb653cd98e289a4e8697a1af55201f2, type: 3}
+  m_Name: event:/RunTimeBGM
+  m_EditorClassIdentifier: 
+  Path: event:/RunTimeBGM
+  Guid:
+    Data1: 862849031
+    Data2: 1295335550
+    Data3: -1259676543
+    Data4: 962732155
+  Banks:
+  - {fileID: 8731602212291488484}
+  IsStream: 1
+  Is3D: 0
+  IsOneShot: 0
+  Parameters: []
+  MinDistance: 0
+  MaxDistance: 0
+  Length: 0
+--- !u!114 &-8865144972579108864
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ceb653cd98e289a4e8697a1af55201f2, type: 3}
+  m_Name: event:/GoblinGetHitSound
+  m_EditorClassIdentifier: 
+  Path: event:/GoblinGetHitSound
+  Guid:
+    Data1: -1073818207
+    Data2: 1114879452
+    Data3: -1552199795
+    Data4: -1322324317
+  Banks:
+  - {fileID: -5283630629967239487}
+  IsStream: 0
+  Is3D: 1
+  IsOneShot: 1
+  Parameters: []
+  MinDistance: 1
+  MaxDistance: 20
+  Length: 0
+--- !u!114 &-7175330402101495586
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ceb653cd98e289a4e8697a1af55201f2, type: 3}
+  m_Name: event:/RifleShootSound
+  m_EditorClassIdentifier: 
+  Path: event:/RifleShootSound
+  Guid:
+    Data1: 1227983497
+    Data2: 1147778731
+    Data3: -100320127
+    Data4: 1339646951
+  Banks:
+  - {fileID: -5283630629967239487}
+  IsStream: 0
+  Is3D: 1
+  IsOneShot: 1
+  Parameters: []
+  MinDistance: 1
+  MaxDistance: 20
+  Length: 0
+--- !u!114 &-5283630629967239487
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c18180ecb35941f4682ae60107b85b7c, type: 3}
+  m_Name: bank:/SoundEffects.bank
+  m_EditorClassIdentifier: 
+  Path: FMODProject/MyFmod/Build/Desktop/SoundEffects.bank
+  Name: SoundEffects
+  StudioPath: bank:/SoundEffects
+  lastModified: 638832674210334240
+  FileSizes:
+  - Name: Desktop
+    Value: 1916896
+  Exists: 1
+--- !u!114 &-4822189230050592817
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ceb653cd98e289a4e8697a1af55201f2, type: 3}
+  m_Name: event:/GoblinFireSound
+  m_EditorClassIdentifier: 
+  Path: event:/GoblinFireSound
+  Guid:
+    Data1: -1072853837
+    Data2: 1222140184
+    Data3: -298224963
+    Data4: -944338251
+  Banks:
+  - {fileID: -5283630629967239487}
+  IsStream: 0
+  Is3D: 1
+  IsOneShot: 1
+  Parameters: []
+  MinDistance: 1
+  MaxDistance: 20
+  Length: 0
+--- !u!114 &-4357285273966998262
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ceb653cd98e289a4e8697a1af55201f2, type: 3}
+  m_Name: event:/GoblinDieSound
+  m_EditorClassIdentifier: 
+  Path: event:/GoblinDieSound
+  Guid:
+    Data1: 1863214167
+    Data2: 1160701010
+    Data3: 1087576712
+    Data4: 1760285577
+  Banks:
+  - {fileID: -5283630629967239487}
+  IsStream: 0
+  Is3D: 1
+  IsOneShot: 1
+  Parameters: []
+  MinDistance: 1
+  MaxDistance: 20
+  Length: 0
+--- !u!114 &-2917678855357513208
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c18180ecb35941f4682ae60107b85b7c, type: 3}
+  m_Name: bank:/BGM.strings.bank
+  m_EditorClassIdentifier: 
+  Path: FMODProject/MyFmod/Build/Desktop/BGM.strings.bank
+  Name: BGM.strings
+  StudioPath: bank:/BGM.strings
+  lastModified: 638832674210434111
+  FileSizes:
+  - Name: Desktop
+    Value: 1608
+  Exists: 1
+--- !u!114 &-2754845798945702166
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ceb653cd98e289a4e8697a1af55201f2, type: 3}
+  m_Name: event:/GoblinIceSound
+  m_EditorClassIdentifier: 
+  Path: event:/GoblinIceSound
+  Guid:
+    Data1: -836993955
+    Data2: 1241557107
+    Data3: -1182221684
+    Data4: 1120196231
+  Banks:
+  - {fileID: -5283630629967239487}
+  IsStream: 0
+  Is3D: 1
+  IsOneShot: 1
+  Parameters: []
+  MinDistance: 1
+  MaxDistance: 20
+  Length: 0
+--- !u!114 &-2249510590051440497
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ceb653cd98e289a4e8697a1af55201f2, type: 3}
+  m_Name: event:/ShotgunPumpSound
+  m_EditorClassIdentifier: 
+  Path: event:/ShotgunPumpSound
+  Guid:
+    Data1: 229019568
+    Data2: 1185129159
+    Data3: 2109599883
+    Data4: 262543399
+  Banks:
+  - {fileID: -5283630629967239487}
+  IsStream: 0
+  Is3D: 1
+  IsOneShot: 1
+  Parameters: []
+  MinDistance: 1
+  MaxDistance: 20
+  Length: 0
+--- !u!114 &-747362626739328251
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ceb653cd98e289a4e8697a1af55201f2, type: 3}
+  m_Name: event:/Orc vs Wizard - Loop
+  m_EditorClassIdentifier: 
+  Path: event:/Orc vs Wizard - Loop
+  Guid:
+    Data1: 1679212685
+    Data2: 1212310745
+    Data3: -663579231
+    Data4: 287406348
+  Banks:
+  - {fileID: -5283630629967239487}
+  IsStream: 1
+  Is3D: 0
+  IsOneShot: 0
+  Parameters: []
+  MinDistance: 0
+  MaxDistance: 0
+  Length: 0
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d32cf7c32a3ed8347bac48ef5ed56d82, type: 3}
+  m_Name: FMODStudioCache
+  m_EditorClassIdentifier: 
+  EditorBanks:
+  - {fileID: -2917678855357513208}
+  - {fileID: 7393497112265405393}
+  - {fileID: 477010541255208166}
+  - {fileID: 8731602212291488484}
+  - {fileID: 5952617321392922314}
+  - {fileID: -5283630629967239487}
+  EditorEvents:
+  - {fileID: -9094292166851590157}
+  - {fileID: 8836188566861704427}
+  - {fileID: 3311115684629264311}
+  - {fileID: -4357285273966998262}
+  - {fileID: -2754845798945702166}
+  - {fileID: 3354987913698480907}
+  - {fileID: -7175330402101495586}
+  - {fileID: 3044332688194100173}
+  - {fileID: -747362626739328251}
+  - {fileID: -8865144972579108864}
+  - {fileID: 1929385754236289462}
+  - {fileID: 2427187386098901677}
+  - {fileID: -2249510590051440497}
+  - {fileID: -4822189230050592817}
+  EditorParameters: []
+  MasterBanks:
+  - {fileID: 8731602212291488484}
+  - {fileID: 5952617321392922314}
+  - {fileID: -5283630629967239487}
+  StringsBanks:
+  - {fileID: -2917678855357513208}
+  - {fileID: 7393497112265405393}
+  - {fileID: 477010541255208166}
+  cacheTime: 638832674210434111
+  cacheVersion: 131619
+--- !u!114 &477010541255208166
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c18180ecb35941f4682ae60107b85b7c, type: 3}
+  m_Name: bank:/SoundEffects.strings.bank
+  m_EditorClassIdentifier: 
+  Path: FMODProject/MyFmod/Build/Desktop/SoundEffects.strings.bank
+  Name: SoundEffects.strings
+  StudioPath: bank:/SoundEffects.strings
+  lastModified: 638832674210120703
+  FileSizes:
+  - Name: Desktop
+    Value: 1608
+  Exists: 1
+--- !u!114 &1929385754236289462
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ceb653cd98e289a4e8697a1af55201f2, type: 3}
+  m_Name: event:/PickGemSound
+  m_EditorClassIdentifier: 
+  Path: event:/PickGemSound
+  Guid:
+    Data1: 1394599587
+    Data2: 1324774371
+    Data3: -1751730020
+    Data4: -1153895541
+  Banks:
+  - {fileID: -5283630629967239487}
+  IsStream: 0
+  Is3D: 1
+  IsOneShot: 1
+  Parameters: []
+  MinDistance: 1
+  MaxDistance: 20
+  Length: 0
+--- !u!114 &2427187386098901677
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ceb653cd98e289a4e8697a1af55201f2, type: 3}
+  m_Name: event:/ShotgunInsertSound
+  m_EditorClassIdentifier: 
+  Path: event:/ShotgunInsertSound
+  Guid:
+    Data1: 423161252
+    Data2: 1295456475
+    Data3: -217140058
+    Data4: 726847980
+  Banks:
+  - {fileID: -5283630629967239487}
+  IsStream: 0
+  Is3D: 1
+  IsOneShot: 1
+  Parameters: []
+  MinDistance: 1
+  MaxDistance: 20
+  Length: 0
+--- !u!114 &3044332688194100173
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ceb653cd98e289a4e8697a1af55201f2, type: 3}
+  m_Name: event:/NormalCollideSound
+  m_EditorClassIdentifier: 
+  Path: event:/NormalCollideSound
+  Guid:
+    Data1: -1386040439
+    Data2: 1150901417
+    Data3: 1479768245
+    Data4: 1677137984
+  Banks:
+  - {fileID: -5283630629967239487}
+  IsStream: 0
+  Is3D: 1
+  IsOneShot: 1
+  Parameters: []
+  MinDistance: 1
+  MaxDistance: 20
+  Length: 0
+--- !u!114 &3311115684629264311
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ceb653cd98e289a4e8697a1af55201f2, type: 3}
+  m_Name: event:/GoblinBulletHitSound
+  m_EditorClassIdentifier: 
+  Path: event:/GoblinBulletHitSound
+  Guid:
+    Data1: 443710872
+    Data2: 1156850847
+    Data3: -1266166628
+    Data4: -517620142
+  Banks:
+  - {fileID: 8731602212291488484}
+  IsStream: 0
+  Is3D: 1
+  IsOneShot: 1
+  Parameters: []
+  MinDistance: 1
+  MaxDistance: 20
+  Length: 0
+--- !u!114 &3354987913698480907
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ceb653cd98e289a4e8697a1af55201f2, type: 3}
+  m_Name: event:/GoblinBulletCriticalHitSound
+  m_EditorClassIdentifier: 
+  Path: event:/GoblinBulletCriticalHitSound
+  Guid:
+    Data1: -455408772
+    Data2: 1094248558
+    Data3: 1625812865
+    Data4: -1532793258
+  Banks:
+  - {fileID: -5283630629967239487}
+  IsStream: 0
+  Is3D: 1
+  IsOneShot: 1
+  Parameters: []
+  MinDistance: 1
+  MaxDistance: 20
+  Length: 0
+--- !u!114 &5952617321392922314
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c18180ecb35941f4682ae60107b85b7c, type: 3}
+  m_Name: bank:/Master.bank
+  m_EditorClassIdentifier: 
+  Path: FMODProject/MyFmod/Build/Desktop/Master.bank
+  Name: Master
+  StudioPath: bank:/Master
+  lastModified: 638832674210394119
+  FileSizes:
+  - Name: Desktop
+    Value: 944
+  Exists: 1
+--- !u!114 &7393497112265405393
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c18180ecb35941f4682ae60107b85b7c, type: 3}
+  m_Name: bank:/Master.strings.bank
+  m_EditorClassIdentifier: 
+  Path: FMODProject/MyFmod/Build/Desktop/Master.strings.bank
+  Name: Master.strings
+  StudioPath: bank:/Master.strings
+  lastModified: 638832674210165777
+  FileSizes:
+  - Name: Desktop
+    Value: 1608
+  Exists: 1
+--- !u!114 &8731602212291488484
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c18180ecb35941f4682ae60107b85b7c, type: 3}
+  m_Name: bank:/BGM.bank
+  m_EditorClassIdentifier: 
+  Path: FMODProject/MyFmod/Build/Desktop/BGM.bank
+  Name: BGM
+  StudioPath: bank:/BGM
+  lastModified: 638832674210265167
+  FileSizes:
+  - Name: Desktop
+    Value: 5695552
+  Exists: 1
+--- !u!114 &8836188566861704427
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ceb653cd98e289a4e8697a1af55201f2, type: 3}
+  m_Name: event:/UIBGM
+  m_EditorClassIdentifier: 
+  Path: event:/UIBGM
+  Guid:
+    Data1: 1716965520
+    Data2: 1287437464
+    Data3: 913796229
+    Data4: -591754914
+  Banks:
+  - {fileID: 8731602212291488484}
+  IsStream: 1
+  Is3D: 0
+  IsOneShot: 0
+  Parameters: []
+  MinDistance: 0
+  MaxDistance: 0
+  Length: 0

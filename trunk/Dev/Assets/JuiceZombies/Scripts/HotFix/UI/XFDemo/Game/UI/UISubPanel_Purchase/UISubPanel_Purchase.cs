@@ -1,0 +1,117 @@
+//---------------------------------------------------------------------
+// JiYuStudio
+// Author: xxx
+// Time: #CreateTime#
+//---------------------------------------------------------------------
+
+using cfg.config;
+using Common;
+using Google.Protobuf;
+using HotFix_UI;
+using UnityEngine;
+
+namespace XFramework
+{
+    [UIEvent(UIType.UISubPanel_Purchase)]
+    internal sealed class UISubPanel_PurchaseEvent : AUIEvent, IUILayer
+    {
+        public override string Key => UIPathSet.UISubPanel_Purchase;
+
+        public override bool IsFromPool => true;
+
+        public override bool AllowManagement => true;
+
+        public UILayer Layer => UILayer.Mid;
+
+        public override UI OnCreate()
+        {
+            return UI.Create<UISubPanel_Purchase>();
+        }
+    }
+
+    public partial class UISubPanel_Purchase : UI, IAwake<UICommon_Btn1.Parameter>
+    {
+        public int currentTalentID;
+        bool isLockSucess;
+        private Tbtalent talentMap;
+        private Tblanguage lang;
+
+        protected override void OnClose()
+        {
+            WebMessageHandler.Instance.RemoveHandler(CMD.LOCKTALENT, JudegeLockTalent);
+            Log.Debug("ClosePanel");
+            base.OnClose();
+        }
+
+        private void JudegeLockTalent(object sender, WebMessageHandler.Execute e)
+        {
+            var value = new StringValue();
+            value.MergeFrom(e.data);
+            Log.Debug(value.Value, Color.cyan);
+            if (value.Value != "true")
+            {
+                return;
+            }
+
+            isLockSucess = true;
+            if (isLockSucess)
+            {
+                //NetWorkManager.Instance.SendMessage(CMD.QUERYPROPERTY);
+                Log.Debug("wewqeeeeeeeeeeeeeeeeeee");
+                ResourcesSingleton.Instance.talentID.talentPropID = currentTalentID;
+
+                var cost = new Vector3(talentMap[currentTalentID].cost[0].x, talentMap[currentTalentID].cost[0].y,
+                    talentMap[currentTalentID].cost[0].z);
+                JiYuUIHelper.TryReduceReward(cost);
+
+                if (JiYuUIHelper.TryGetUI(UIType.UIPanel_Talent, out UI ui))
+                {
+                    var uiPanel_Talent = ui as UIPanel_Talent;
+                    uiPanel_Talent?.UpdateContainer();
+                }
+            }
+
+            Close();
+        }
+
+        private void OnButtonLockClick()
+        {
+            //解锁天赋
+            NetWorkManager.Instance.SendMessage(CMD.LOCKTALENT, new IntValue { Value = currentTalentID });
+        }
+
+
+        public void Initialize(UICommon_Btn1.Parameter args)
+        {
+            InitJson();
+            isLockSucess = false;
+            currentTalentID = args.talentID;
+            this.SetParent(args.parentUI, false);
+            GetFromReference(KImg_Left).SetActive(true);
+            GetFromReference(KText_Right).SetActive(true);
+            GetFromReference(KText_Mid).SetActive(true);
+            GetFromReference(KImg_Arrow).SetActive(true);
+            GetFromReference(KImg_Left).GetImage().SetSprite("icon_money", false);
+            if (talentMap.GetOrDefault(args.talentID).cost.Count > 0)
+            {
+                var cost = talentMap.GetOrDefault(args.talentID).cost[0].z;
+                GetFromReference(KText_Mid).GetTextMeshPro().SetTMPText(cost.ToString());
+                GetFromReference(KText_Right).GetTextMeshPro().SetTMPText(lang.Get("talent_attr_unlock").current);
+                JiYuTweenHelper.DoScaleTweenOnClickAndLongPress(this.GetFromReference(KBtn_Common), () => OnButtonLockClick());
+                WebMessageHandler.Instance.AddHandler(CMD.LOCKTALENT, JudegeLockTalent);
+                this.GetFromReference(KBtn_Close)?.GetComponent<XButton>()?.onClick.Add(Close);
+            }
+            else
+            {
+                Debug.LogError("检查表配置！！！！！！！！！！！！！！！！！！！！！！！！！！！！！！！");
+                return;
+            }
+        }
+
+        private void InitJson()
+        {
+            talentMap = ConfigManager.Instance.Tables.Tbtalent;
+            lang = ConfigManager.Instance.Tables.Tblanguage;
+        }
+    }
+}

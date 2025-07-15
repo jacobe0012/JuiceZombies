@@ -1,0 +1,193 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &-5005672644584241368
+MonoBehaviour:
+  m_ObjectHideFlags: 11
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d0353a89b1f911e48b9e16bdc9f2e058, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  version: 9
+--- !u!21 &2100000
+Material:
+  serializedVersion: 8
+  m_ObjectHideFlags: 32
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_Name: JiYuDamageNumberMat2
+  m_Shader: {fileID: 4800000, guid: face816e890ebed4fa147919adba61db, type: 3}
+  m_Parent: {fileID: 0}
+  m_ModifiedSerializedProperties: 0
+  m_ValidKeywords: []
+  m_InvalidKeywords: []
+  m_LightmapFlags: 4
+  m_EnableInstancingVariants: 0
+  m_DoubleSidedGI: 0
+  m_CustomRenderQueue: -1
+  stringTagMap: {}
+  disabledShaderPasses: []
+  m_LockedProperties: 
+  m_SavedProperties:
+    serializedVersion: 3
+    m_TexEnvs:
+    - _BackgroundTex:
+        m_Texture: {fileID: 2800000, guid: 7fdead7257cef384a8fdeeda879e29f8, type: 3}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - _BaseMap:
+        m_Texture: {fileID: 0}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - _BumpMap:
+        m_Texture: {fileID: 0}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - _DetailAlbedoMap:
+        m_Texture: {fileID: 0}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - _DetailMask:
+        m_Texture: {fileID: 0}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - _DetailNormalMap:
+        m_Texture: {fileID: 0}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - _EmissionMap:
+        m_Texture: {fileID: 0}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - _JiYuDamageTextureArray:
+        m_Texture: {fileID: 18700000, guid: 9384fb3902dada147a0f036d73f7ac17, type: 3}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - _JiYuTextureArray:
+        m_Texture: {fileID: 18700000, guid: 18c150d9426206d49abf8daac41d3222, type: 3}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - _MainTex:
+        m_Texture: {fileID: 2800000, guid: 13cf0ff808f012b41b7c4c22ec471555, type: 3}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - _MetallicGlossMap:
+        m_Texture: {fileID: 0}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - _Numbers:
+        m_Texture: {fileID: 2800000, guid: a87e1ea251032c941a49691fe45630b9, type: 3}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - _OcclusionMap:
+        m_Texture: {fileID: 0}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - _ParallaxMap:
+        m_Texture: {fileID: 0}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - _SpecGlossMap:
+        m_Texture: {fileID: 0}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - unity_Lightmaps:
+        m_Texture: {fileID: 0}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - unity_LightmapsInd:
+        m_Texture: {fileID: 0}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - unity_ShadowMasks:
+        m_Texture: {fileID: 0}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    m_Ints: []
+    m_Floats:
+    - _AddPrecomputedVelocity: 0
+    - _AlphaClip: 0
+    - _AlphaCutoff: 0.5
+    - _AlphaToMask: 0
+    - _AnimDuration: 2
+    - _Blend: 0
+    - _BlendModePreserveSpecular: 1
+    - _BumpScale: 1
+    - _ClearCoatMask: 0
+    - _ClearCoatSmoothness: 0
+    - _Cull: 2
+    - _Cutoff: 0.5
+    - _DetailAlbedoMapScale: 1
+    - _DetailNormalMapScale: 1
+    - _DstBlend: 0
+    - _DstBlendAlpha: 0
+    - _Duration1: 0.33
+    - _Duration2: 0
+    - _Duration3: 0.3
+    - _EnvironmentReflections: 1
+    - _FrameCol: 3
+    - _FrameRow: 1
+    - _Gap: 0.27
+    - _GlossMapScale: 0
+    - _Glossiness: 0
+    - _GlossyReflections: 0
+    - _InitSize: 0.25
+    - _JiYuAnimIndex: 1
+    - _JiYuFrameAnimLoop: 0
+    - _JiYuFrameAnimSpeed: 1
+    - _JiYuNumber: 0
+    - _JiYuPivot: 0.5
+    - _JiYuStartTime: 0
+    - _MaxSize: 0.5825
+    - _Metallic: 0
+    - _NumberInternal: 0.369
+    - _OcclusionStrength: 1
+    - _OffsetY: 0.06
+    - _OverlayBlend: 1
+    - _OverlayGlow: 1
+    - _OverlayIndex: 0
+    - _OverlayTexEnable: 0
+    - _OverlayTexSpeedX: 5
+    - _OverlayTexSpeedY: 5
+    - _Parallax: 0.005
+    - _Pos1: 0.2
+    - _QueueControl: 0
+    - _QueueOffset: 0
+    - _ReceiveShadows: 1
+    - _Smoothness: 0.5
+    - _SmoothnessTextureChannel: 0
+    - _SpecularHighlights: 1
+    - _SrcBlend: 1
+    - _SrcBlendAlpha: 1
+    - _Surface: 0
+    - _TimeScale: 10
+    - _WorkflowMode: 1
+    - _ZWrite: 1
+    m_Colors:
+    - _BaseColor: {r: 1, g: 1, b: 1, a: 1}
+    - _BgColor: {r: 1, g: 1, b: 1, a: 1}
+    - _Color: {r: 1, g: 1, b: 1, a: 1}
+    - _Dir: {r: 0.38, g: 0.56, b: 0, a: 0}
+    - _Direction: {r: 0, g: 4.65, b: 0, a: 0}
+    - _EmissionColor: {r: 0, g: 0, b: 0, a: 1}
+    - _FrontColor: {r: 1, g: 1, b: 1, a: 1}
+    - _JiYuFlip: {r: 0, g: 0, b: 0, a: 0}
+    - _JiYuFrontColor: {r: 1, g: 1, b: 1, a: 1}
+    - _JiYuFrontColor1: {r: 1, g: 1, b: 1, a: 1}
+    - _JiYuFrontColor2: {r: 1, g: 1, b: 1, a: 1}
+    - _JiYuSort: {r: 0, g: 0, b: 0, a: 0}
+    - _OverlayColor: {r: 1, g: 1, b: 1, a: 1}
+    - _OverlayTillingAndOffset: {r: 1, g: 1, b: 0, a: 0}
+    - _ST0: {r: 5, g: 5, b: 0, a: 2}
+    - _ST1: {r: 5, g: 5, b: 1, a: 2}
+    - _ST2: {r: 5, g: 5, b: 2, a: 2}
+    - _ST3: {r: 5, g: 5, b: 3, a: 2}
+    - _ST4: {r: 5, g: 5, b: 4, a: 2}
+    - _SpecColor: {r: 0.19999996, g: 0.19999996, b: 0.19999996, a: 1}
+  m_BuildTextureStacks: []
+  m_AllowLocking: 1
