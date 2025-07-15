@@ -7,7 +7,7 @@
 #pragma warning (disable : 4008)  // floating point division by zero
 #pragma warning (disable : 3206)  // implicit truncation of vector type
 
-//#include "Assets\ApesGang\Shaders\JiYuShaders\JiYuTest\Cginc\JiYuShaderUtility.cginc"
+//#include "Assets\JuiceZombies\Shaders\JiYuShaders\JiYuTest\Cginc\JiYuShaderUtility.cginc"
 //BLURS-------------------------------------------------------------------------
 half4 Blur(half2 uv, sampler2D source, half Intensity)
 {

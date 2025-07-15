@@ -11,7 +11,7 @@ public class ChangeFontInPrefabs
     //private GameObject[] prefabs;
 
     [Title("输出路径:(默认为存放预制件的目录)")] [FolderPath]
-    public string inputPath = "Assets/ApesGang/Art_Resources/UI/Prefabs";
+    public string inputPath = "Assets/JuiceZombies/Art_Resources/UI/Prefabs";
 
     [Title("是否替换字体/给所有text组件加TMP_SpriteAsset")]
     public bool isFront; // 设置新的字体
@@ -49,7 +49,7 @@ public class ChangeFontInPrefabs
                 //     else
                 //     {
                 //         var asset = AssetDatabase.LoadAssetAtPath<TMP_SpriteAsset>(
-                //             "Assets/ApesGang/Art_Resources/UI/Atlas/Resources/Sprite Assets/item_atlas_tsa.asset");
+                //             "Assets/JuiceZombies/Art_Resources/UI/Atlas/Resources/Sprite Assets/item_atlas_tsa.asset");
                 //
                 //         text.spriteAsset = asset;
                 //     }
@@ -65,7 +65,7 @@ public class ChangeFontInPrefabs
                     else
                     {
                         var asset = AssetDatabase.LoadAssetAtPath<TMP_SpriteAsset>(
-                            "Assets/ApesGang/Art_Resources/UI/Atlas/Resources/Sprite Assets/item_atlas_tsa.asset");
+                            "Assets/JuiceZombies/Art_Resources/UI/Atlas/Resources/Sprite Assets/item_atlas_tsa.asset");
 
                         text.spriteAsset = asset;
                     }

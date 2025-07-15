@@ -11,36 +11,36 @@ namespace XFramework.Editor
     public class UIReferenceConfig : ScriptableObject
     {
         /// <summary>
-        /// Éú³ÉµÄÀàµÄÄ¿Â¼
+        /// ï¿½ï¿½ï¿½Éµï¿½ï¿½ï¿½ï¿½Ä¿Â¼
         /// </summary>
-        [Header("Éú³ÉµÄÀàµÄÄ¿Â¼")] [TextArea] public string ClassExploer = "Assets/ApesGang/Scripts/HotFix/UI/XFDemo/Game/UI";
+        [Header("ï¿½ï¿½ï¿½Éµï¿½ï¿½ï¿½ï¿½Ä¿Â¼")] [TextArea] public string ClassExploer = "Assets/JuiceZombies/Scripts/HotFix/UI/XFDemo/Game/UI";
 
         /// <summary>
-        /// ´úÂëÄ£°åÎÄ¼þÂ·¾¶
+        /// ï¿½ï¿½ï¿½ï¿½Ä£ï¿½ï¿½ï¿½Ä¼ï¿½Â·ï¿½ï¿½
         /// </summary>
-        [Header("´úÂëÄ£°åÎÄ¼þÂ·¾¶")] [TextArea] public string CodeTemplateFilePath = "./Template/UICodeTemplate.txt";
+        [Header("ï¿½ï¿½ï¿½ï¿½Ä£ï¿½ï¿½ï¿½Ä¼ï¿½Â·ï¿½ï¿½")] [TextArea] public string CodeTemplateFilePath = "./Template/UICodeTemplate.txt";
 
         /// <summary>
-        /// keyµÄÄ£°åÎÄ¼þÂ·¾¶
+        /// keyï¿½ï¿½Ä£ï¿½ï¿½ï¿½Ä¼ï¿½Â·ï¿½ï¿½
         /// </summary>
-        [Header("keyµÄÄ£°åÎÄ¼þÂ·¾¶")] [TextArea] public string KeyTemplateFilePath = "./Template/UIReferenceKeyTemplate.txt";
+        [Header("keyï¿½ï¿½Ä£ï¿½ï¿½ï¿½Ä¼ï¿½Â·ï¿½ï¿½")] [TextArea] public string KeyTemplateFilePath = "./Template/UIReferenceKeyTemplate.txt";
 
         /// <summary>
-        /// UIÂ·¾¶¼¯ºÏÀàµÄÂ·¾¶
+        /// UIÂ·ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Â·ï¿½ï¿½
         /// </summary>
-        [Header("UIÂ·¾¶¼¯ºÏÀàµÄÂ·¾¶")] [TextArea]
-        public string UIPathSetFilePath = "Assets/ApesGang/Scripts/HotFix/UI/XFDemo/Game/UI/Types/UIPathSet.cs";
+        [Header("UIÂ·ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Â·ï¿½ï¿½")] [TextArea]
+        public string UIPathSetFilePath = "Assets/JuiceZombies/Scripts/HotFix/UI/XFDemo/Game/UI/Types/UIPathSet.cs";
 
         /// <summary>
-        /// UITypeÀàµÄÂ·¾¶
+        /// UITypeï¿½ï¿½ï¿½Â·ï¿½ï¿½
         /// </summary>
-        [Header("UITypeÀàµÄÂ·¾¶")] [TextArea]
-        public string UITypeFilePath = "Assets/ApesGang/Scripts/HotFix/UI/XFDemo/Game/UI/Types/UIType.cs";
+        [Header("UITypeï¿½ï¿½ï¿½Â·ï¿½ï¿½")] [TextArea]
+        public string UITypeFilePath = "Assets/JuiceZombies/Scripts/HotFix/UI/XFDemo/Game/UI/Types/UIType.cs";
 
         /// <summary>
-        /// ÃüÃû¿Õ¼ä
+        /// ï¿½ï¿½ï¿½ï¿½ï¿½Õ¼ï¿½
         /// </summary>
-        [Header("ÃüÃû¿Õ¼ä")] public string Namespace = "XFramework";
+        [Header("ï¿½ï¿½ï¿½ï¿½ï¿½Õ¼ï¿½")] public string Namespace = "XFramework";
     }
 }
 #endif

@@ -26,7 +26,7 @@ namespace HotFix_Logic
             "Unity.Transforms.dll",
             "Unity.Mathematics.dll",
             "Unity.Burst.dll",
-            "ApesGang.ConfigGen.dll",
+            "JuiceZombies.ConfigGen.dll",
             "UnityEngine.ContentLoadModule.dll",
             "UnityEngine.CoreModule.dll",
             "DOTween.dll",
@@ -71,14 +71,14 @@ namespace HotFix_Logic
                 LoadDllMono.ShowProgressUI(InitCover, ratios, "正在载入场景...");
 
                 AssetHandle handle =
-                    package.LoadAssetAsync<TextAsset>("Assets/ApesGang/HotFixDlls/" + aotDllName + ".bytes");
+                    package.LoadAssetAsync<TextAsset>("Assets/JuiceZombies/HotFixDlls/" + aotDllName + ".bytes");
 
                 await handle.ToUniTask();
                 var textAsset = handle.AssetObject as TextAsset;
 
                 byte[] dllBytes = textAsset.bytes;
 
-                // var handle = package.LoadRawFileAsync("Assets/ApesGang/HotFixDlls/" + aotDllName + ".bytes");
+                // var handle = package.LoadRawFileAsync("Assets/JuiceZombies/HotFixDlls/" + aotDllName + ".bytes");
                 // await handle.Task;
                 // byte[] dllBytes = handle.GetRawFileData();
 
@@ -127,7 +127,7 @@ namespace HotFix_Logic
             var package = YooAssets.GetPackage("DefaultPackage");
             var handle =
                 package.LoadAssetAsync<GameObject>(
-                    "Assets/ApesGang/Scripts/HotFix/HotFixPrefab/GameRoot.prefab");
+                    "Assets/JuiceZombies/Scripts/HotFix/HotFixPrefab/GameRoot.prefab");
             await handle.ToUniTask();
 
             GameObject go = handle.AssetObject as GameObject;

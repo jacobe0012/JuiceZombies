@@ -38,7 +38,7 @@ namespace HotFix_UI
         public async UniTask<JSONNode> Loader(string name)
         {
 #if UNITY_EDITOR
-            var textAsset = await File.ReadAllTextAsync("Assets/ApesGang/ConfigJsonData/" + name + ".json");
+            var textAsset = await File.ReadAllTextAsync("Assets/JuiceZombies/ConfigJsonData/" + name + ".json");
 
             string fileText = textAsset;
             return JSON.Parse(fileText);
@@ -46,7 +46,7 @@ namespace HotFix_UI
            var package = YooAssets.GetPackage("DefaultPackage");
 
             AssetHandle handle =
-                package.LoadAssetAsync<TextAsset>("Assets/ApesGang/ConfigJsonData/" + name + ".json");
+                package.LoadAssetAsync<TextAsset>("Assets/JuiceZombies/ConfigJsonData/" + name + ".json");
 
             await handle.ToUniTask();
             var textAsset = handle.AssetObject as TextAsset;

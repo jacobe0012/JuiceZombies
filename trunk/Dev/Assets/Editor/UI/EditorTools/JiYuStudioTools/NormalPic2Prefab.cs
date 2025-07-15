@@ -13,9 +13,9 @@ using Material = UnityEngine.Material;
 
 public class NormalPic2Prefab
 {
-    [Title("贴图输入路径:")] [FolderPath] public string inputPath = "Assets/ApesGang/Prefabs/Map/MapTexturesNew";
+    [Title("贴图输入路径:")] [FolderPath] public string inputPath = "Assets/JuiceZombies/Prefabs/Map/MapTexturesNew";
 
-    [Title("预制件输出路径:")] [FolderPath] public string outputPath = "Assets/ApesGang/Prefabs/Map/MapTexturesNew/Prefabs";
+    [Title("预制件输出路径:")] [FolderPath] public string outputPath = "Assets/JuiceZombies/Prefabs/Map/MapTexturesNew/Prefabs";
 
     //[Title("是否对根据有效像素归一化预制件尺寸:")] public bool isNormalizePrefab = true;
     [Title("转为普通预制件:")] public bool normal = false;
@@ -25,7 +25,7 @@ public class NormalPic2Prefab
     [Title("转为地形序列帧预制件:")] public bool toArea = false;
     //[Title("转为地图预制件:")] public bool toMap = false;
 
-    private string meshPath = "Assets/ApesGang/Prefabs/CommonMesh";
+    private string meshPath = "Assets/JuiceZombies/Prefabs/CommonMesh";
 
     [Button(name: "一键转换")]
     public void Button()

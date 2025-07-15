@@ -15,14 +15,14 @@ Shader "Custom/UIDefault"
         ZTest LEqual
         ZWrite On
 
-        // Ë®Æ½Ä£ºý Pass
+        // Ë®Æ½Ä£ï¿½ï¿½ Pass
         Pass
         {
             CGPROGRAM
             #pragma vertex vert
             #pragma fragment frag
             #include "UnityCG.cginc"
-            #include "Assets\ApesGang\Shaders\JiYuShaders\JiYuTest\Cginc\JiYuShaderUtility.cginc"
+            #include "Assets\JuiceZombies\Shaders\JiYuShaders\JiYuTest\Cginc\JiYuShaderUtility.cginc"
             struct appdata
             {
                 float4 vertex : POSITION;
@@ -58,11 +58,11 @@ Shader "Custom/UIDefault"
                 fixed4 col = 0;
                 float2 uv = i.uv;
 
-                // ¸ßË¹Ä£ºýÈ¨ÖØ£¨¼òµ¥ 5 ²ÉÑùµã£©
+                // ï¿½ï¿½Ë¹Ä£ï¿½ï¿½È¨ï¿½Ø£ï¿½ï¿½ï¿½ 5 ï¿½ï¿½ï¿½ï¿½ï¿½ã£©
                 //float weight[3] = { 0.4026, 0.2442, 0.0545 };
                 col = tex2D(_MainTex, uv);
 
-                // Ë®Æ½·½Ïò²ÉÑù
+                // Ë®Æ½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
                 // for (int j = 1; j < 3; j++)
                 // {
                 //     col += tex2D(_MainTex, uv + float2(_MainTex_TexelSize.x * j * _BlurSize, 0)) * weight[j];

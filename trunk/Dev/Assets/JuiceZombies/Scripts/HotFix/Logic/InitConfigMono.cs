@@ -72,7 +72,7 @@
 //         {
 //             var package = YooAssets.GetPackage("DefaultPackage");
 //             RawFileOperationHandle handle =
-//                 package.LoadRawFileAsync("Assets/ApesGang/ConfigJsonData/" + name + ".json");
+//                 package.LoadRawFileAsync("Assets/JuiceZombies/ConfigJsonData/" + name + ".json");
 //             await handle.Task;
 //             string fileText = handle.GetRawFileText();
 //             Debug.Log($"[{GetType().FullName}] LoadJson:{handle.GetAssetInfo().AssetPath}");
@@ -101,9 +101,9 @@
 //             //YooAssets.Initialize();
 //             var package = YooAssets.GetPackage("DefaultPackage");
 //             AssetOperationHandle handle =
-//                 package.LoadAssetAsync<GameObject>("Assets/ApesGang/Prefabs/Rewired Input Manager.prefab");
+//                 package.LoadAssetAsync<GameObject>("Assets/JuiceZombies/Prefabs/Rewired Input Manager.prefab");
 //             AssetOperationHandle handle0 =
-//                 package.LoadAssetAsync<GameObject>("Assets/ApesGang/Prefabs/Rewired Touch Control Canvas.prefab");
+//                 package.LoadAssetAsync<GameObject>("Assets/JuiceZombies/Prefabs/Rewired Touch Control Canvas.prefab");
 //
 //             await Task.WhenAll(handle.Task, handle0.Task);
 //

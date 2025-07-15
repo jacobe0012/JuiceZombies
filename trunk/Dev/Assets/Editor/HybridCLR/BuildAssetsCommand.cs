@@ -54,8 +54,8 @@ namespace HybridCLR.Editor
         [MenuItem("HybridCLR/Build/CopyFMODBanksToArtResources")]
         public static void CopyFMODBanksToArtResources()
         {
-            string banksSrcDir = $"{Application.dataPath}/ApesGang/FMOD/Banks/Desktop";
-            string banksDstDir = $"{Application.dataPath}/ApesGang/Art_Resources/AudioClips/Banks";
+            string banksSrcDir = $"{Application.dataPath}/JuiceZombies/FMOD/Banks/Desktop";
+            string banksDstDir = $"{Application.dataPath}/JuiceZombies/Art_Resources/AudioClips/Banks";
             foreach (var bank in XFramework.AudioManager.banks)
             {
                 string dllPath = $"{banksSrcDir}/{bank}";
@@ -73,7 +73,7 @@ namespace HybridCLR.Editor
             var target = EditorUserBuildSettings.activeBuildTarget;
 
             string hotfixDllSrcDir = SettingsUtil.GetHotUpdateDllsOutputDirByTarget(target);
-            string hotfixAssembliesDstDir = $"{Application.dataPath}/ApesGang/HotFixDlls";
+            string hotfixAssembliesDstDir = $"{Application.dataPath}/JuiceZombies/HotFixDlls";
             foreach (var dll in SettingsUtil.HotUpdateAssemblyFilesExcludePreserved)
             {
                 string dllPath = $"{hotfixDllSrcDir}/{dll}";
@@ -87,7 +87,7 @@ namespace HybridCLR.Editor
         {
             var target = EditorUserBuildSettings.activeBuildTarget;
             string aotAssembliesSrcDir = SettingsUtil.GetAssembliesPostIl2CppStripDir(target);
-            string aotAssembliesDstDir = $"{Application.dataPath}/ApesGang/HotFixDlls";
+            string aotAssembliesDstDir = $"{Application.dataPath}/JuiceZombies/HotFixDlls";
 
             foreach (var dll in SettingsUtil.AOTAssemblyNames)
             {

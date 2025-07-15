@@ -12,18 +12,18 @@ public class TextureCleaner
     //[Title("非透明像素最大宽高/像素")] public int littleMaxWidth = 256 - 40; // 5x5 grid
     //[Title("是否逆时针旋转")] public bool isLeftRotate = false; // 5x5 grid
     [Title("拖入使用到的所有预制件文件夹路径:")] [FolderPath]
-    public string prefabsPath = "Assets/ApesGang/Art_Resources/UI/Prefabs";
+    public string prefabsPath = "Assets/JuiceZombies/Art_Resources/UI/Prefabs";
 
-    [Title("拖入待清理的图片文件夹路径:")] [FolderPath] public string texturesPath = "Assets/ApesGang/Art_Resources/UI/Textures";
+    [Title("拖入待清理的图片文件夹路径:")] [FolderPath] public string texturesPath = "Assets/JuiceZombies/Art_Resources/UI/Textures";
 
-    [Title("拖入白名单文本文件夹路径:")] [FolderPath] public string cleanListText = "Assets/ApesGang/Art_Resources/PicsWhiteList";
+    [Title("拖入白名单文本文件夹路径:")] [FolderPath] public string cleanListText = "Assets/JuiceZombies/Art_Resources/PicsWhiteList";
 
     [Title("拖入白名单图片文件夹路径:")] [FolderPath]
-    public string cleanListPic = "Assets/ApesGang/Art_Resources/UI/Textures/commonNew";
+    public string cleanListPic = "Assets/JuiceZombies/Art_Resources/UI/Textures/commonNew";
 
-    private string deleteFloder = "Assets/ApesGang/Art_Resources/UI/Textures/DeleteFloder";
+    private string deleteFloder = "Assets/JuiceZombies/Art_Resources/UI/Textures/DeleteFloder";
 
-    private string configPicFloder = "Assets/ApesGang/Art_Resources/UI/Textures/configPicFloder";
+    private string configPicFloder = "Assets/JuiceZombies/Art_Resources/UI/Textures/configPicFloder";
     // [Title("输出路径:(默认为存放预制件的目录)")] [FolderPath]
     // public string outputPath = "Assets/FramePicTempFloder";
 

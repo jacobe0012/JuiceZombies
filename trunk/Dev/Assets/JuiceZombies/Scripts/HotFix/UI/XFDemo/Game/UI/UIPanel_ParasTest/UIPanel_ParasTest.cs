@@ -431,7 +431,7 @@ namespace XFramework
             {
                 //黄金国修改
                 string materialPath =
-                    "Assets/ApesGang/Art_Resources/UI_Effects/BattleNumber/DamageNumber/NumberMaterial01.mat";
+                    "Assets/JuiceZombies/Art_Resources/UI_Effects/BattleNumber/DamageNumber/NumberMaterial01.mat";
                 //Material material = AssetDatabase.LoadAssetAtPath<Material>(materialPath);
                 Material material = default;
                 if (material == null)
@@ -784,7 +784,7 @@ namespace XFramework
                         case 2:
                             //黄金国
                             string materialPath =
-                                "Assets/ApesGang/Art_Resources/UI_Effects/BattleNumber/DamageNumber/NumberMaterial01.mat";
+                                "Assets/JuiceZombies/Art_Resources/UI_Effects/BattleNumber/DamageNumber/NumberMaterial01.mat";
                             //Material material = AssetDatabase.LoadAssetAtPath<Material>(materialPath);
                             Material material = default;
                             if (material == null)

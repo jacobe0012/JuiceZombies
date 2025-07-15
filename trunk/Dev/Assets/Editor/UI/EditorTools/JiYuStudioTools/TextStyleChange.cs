@@ -29,13 +29,13 @@ using Object = UnityEngine.Object;
 public class TextStyleChange
 {
     // [Title("输出路径:(默认为存放预制件的目录)")] [FolderPath]
-    // public string outputPath = "Assets/ApesGang/Prefabs/Monster/Animator2GPUAnimTempFloder";
+    // public string outputPath = "Assets/JuiceZombies/Prefabs/Monster/Animator2GPUAnimTempFloder";
 
     [Title("拖入使用到的所有预制件文件夹路径:")] [FolderPath]
-    public string prefabsPath = "Assets/ApesGang/Art_Resources/UI/Prefabs";
+    public string prefabsPath = "Assets/JuiceZombies/Art_Resources/UI/Prefabs";
 
-    // private string sharedTexturePath = "Assets/ApesGang/Shaders/JiYuShaders/Texture/JiYuShaderTextureArray.png";
-    // private string disloveTexturePath = "Assets/ApesGang/Shaders/JiYuShaders/Texture/seamlessNoise.png";
+    // private string sharedTexturePath = "Assets/JuiceZombies/Shaders/JiYuShaders/Texture/JiYuShaderTextureArray.png";
+    // private string disloveTexturePath = "Assets/JuiceZombies/Shaders/JiYuShaders/Texture/seamlessNoise.png";
 
     [Button(name: "一键烘焙")]
     public async void Button()
@@ -49,32 +49,32 @@ public class TextStyleChange
         }
 
         var asset1 = AssetDatabase.LoadAssetAtPath<TMP_FontAsset>(
-            "Assets/ApesGang/Art_Resources/UI/Fonts/youshebiaotiyuan SDF.asset");
+            "Assets/JuiceZombies/Art_Resources/UI/Fonts/youshebiaotiyuan SDF.asset");
 
         var asset2 = AssetDatabase.LoadAssetAtPath<TMP_FontAsset>(
-            "Assets/ApesGang/Art_Resources/UI/Fonts/SourceHanSansSC-Bold-2 SDF.asset");
+            "Assets/JuiceZombies/Art_Resources/UI/Fonts/SourceHanSansSC-Bold-2 SDF.asset");
 
         Dictionary<string, Material> type1nameToMaterial = new Dictionary<string, Material>();
 
         Dictionary<string, Material> type2nameToMaterial = new Dictionary<string, Material>();
 
         var type2Mat = AssetDatabase.LoadAssetAtPath<Material>(
-            "Assets/ApesGang/Art_Resources/UI/Fonts/fonts material/SourceHanSansSC-Bold-2-all SDF.mat");
+            "Assets/JuiceZombies/Art_Resources/UI/Fonts/fonts material/SourceHanSansSC-Bold-2-all SDF.mat");
         type2nameToMaterial.Add("type2_default", type2Mat);
         var type2color000000 = AssetDatabase.LoadAssetAtPath<Material>(
-            "Assets/ApesGang/Art_Resources/UI/Fonts/fonts material/SourceHanSansSC-Bold-2-yinying SDF_color_000000.mat");
+            "Assets/JuiceZombies/Art_Resources/UI/Fonts/fonts material/SourceHanSansSC-Bold-2-yinying SDF_color_000000.mat");
         type2nameToMaterial.Add("type2_color000000", type2color000000);
         var type2color2e2924 = AssetDatabase.LoadAssetAtPath<Material>(
-            "Assets/ApesGang/Art_Resources/UI/Fonts/fonts material/SourceHanSansSC-Bold-2-yinying SDF_color_2e2924.mat");
+            "Assets/JuiceZombies/Art_Resources/UI/Fonts/fonts material/SourceHanSansSC-Bold-2-yinying SDF_color_2e2924.mat");
         type2nameToMaterial.Add("type2_color2e2924", type2color2e2924);
         var type2color19273b = AssetDatabase.LoadAssetAtPath<Material>(
-            "Assets/ApesGang/Art_Resources/UI/Fonts/fonts material/SourceHanSansSC-Bold-2-yinying SDF_color_19273b.mat");
+            "Assets/JuiceZombies/Art_Resources/UI/Fonts/fonts material/SourceHanSansSC-Bold-2-yinying SDF_color_19273b.mat");
         type2nameToMaterial.Add("type2_color19273b", type2color19273b);
         var type1Mat = AssetDatabase.LoadAssetAtPath<Material>(
-            "Assets/ApesGang/Art_Resources/UI/Fonts/fonts material/youshebiaotiyuan-all SDF.mat");
+            "Assets/JuiceZombies/Art_Resources/UI/Fonts/fonts material/youshebiaotiyuan-all SDF.mat");
         type1nameToMaterial.Add("type1_default", type1Mat);
         var type1color000000 = AssetDatabase.LoadAssetAtPath<Material>(
-            "Assets/ApesGang/Art_Resources/UI/Fonts/fonts material/youshebiaotiyuan-yinying SDF_color_000000.mat");
+            "Assets/JuiceZombies/Art_Resources/UI/Fonts/fonts material/youshebiaotiyuan-yinying SDF_color_000000.mat");
         type1nameToMaterial.Add("type1_color000000", type1color000000);
 
         await ConfigManager.Instance.InitTables();

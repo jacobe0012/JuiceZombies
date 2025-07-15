@@ -48,8 +48,8 @@ namespace Main
         //热更新dll的列表，Yooasset中不需要带后缀
         public static List<string> HotDllNames { get; } = new List<string>()
         {
-            "ApesGang.HotFix_Logic.dll",
-            "ApesGang.HotFix_UI.dll"
+            "JuiceZombies.HotFix_Logic.dll",
+            "JuiceZombies.HotFix_UI.dll"
         };
 
         public static List<System.Reflection.Assembly> AssList { get; } = new List<System.Reflection.Assembly>();
@@ -445,9 +445,9 @@ namespace Main
             foreach (var asset in HotDllNames)
             {
                 // RawFileHandle handle =
-                //     package.LoadRawFileAsync("Assets/ApesGang/HotFixDlls/" + asset + ".bytes");
+                //     package.LoadRawFileAsync("Assets/JuiceZombies/HotFixDlls/" + asset + ".bytes");
                 AssetHandle handle =
-                    package.LoadAssetAsync<TextAsset>("Assets/ApesGang/HotFixDlls/" + asset + ".bytes");
+                    package.LoadAssetAsync<TextAsset>("Assets/JuiceZombies/HotFixDlls/" + asset + ".bytes");
 
                 await handle.ToUniTask();
                 var textAsset = handle.AssetObject as TextAsset;
@@ -492,7 +492,7 @@ namespace Main
             var package = YooAssets.GetPackage("DefaultPackage");
             AssetHandle handle =
                 package.LoadAssetAsync<GameObject>(
-                    "Assets/ApesGang/Scripts/HotFix/HotFixPrefab/HotUpdatePrefab.prefab");
+                    "Assets/JuiceZombies/Scripts/HotFix/HotFixPrefab/HotUpdatePrefab.prefab");
             await handle.ToUniTask();
 
             GameObject go = handle.AssetObject as GameObject;

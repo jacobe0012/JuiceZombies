@@ -369,8 +369,8 @@ Shader "JiYuStudio/JiYuGPUAnimationOutlineTest"
             TEXTURE2D_ARRAY(_JiYuTextureArray);
             SAMPLER(sampler_JiYuTextureArray);
             // Graph Includes
-            #include "Assets/ApesGang/Shaders/JiYuShaders/JiYuTest/Cginc/JiYuGpuEcsAnimator.cginc"
-            #include "Assets\ApesGang\Shaders\JiYuShaders\JiYuTest\Cginc\JiYuShaderUtility.cginc"
+            #include "Assets/JuiceZombies/Shaders/JiYuShaders/JiYuTest/Cginc/JiYuGpuEcsAnimator.cginc"
+            #include "Assets\JuiceZombies\Shaders\JiYuShaders\JiYuTest\Cginc\JiYuShaderUtility.cginc"
             // -- Property used by ScenePickingPass
             #ifdef SCENEPICKINGPASS
         float4 _SelectionID;

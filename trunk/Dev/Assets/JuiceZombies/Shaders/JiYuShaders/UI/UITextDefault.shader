@@ -94,7 +94,7 @@ SubShader {
 		#include "UnityCG.cginc"
 		#include "UnityUI.cginc"
 		#include "Assets\ThirdPartyPackages\TextMesh Pro\Shaders\TMPro_Properties.cginc"
-		#include "Assets\ApesGang\Shaders\JiYuShaders\JiYuTest\Cginc\JiYuShaderUtility.cginc"
+		#include "Assets\JuiceZombies\Shaders\JiYuShaders\JiYuTest\Cginc\JiYuShaderUtility.cginc"
 		
 		struct vertex_t {
 			UNITY_VERTEX_INPUT_INSTANCE_ID

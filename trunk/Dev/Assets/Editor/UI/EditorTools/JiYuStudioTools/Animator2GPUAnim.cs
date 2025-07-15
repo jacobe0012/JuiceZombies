@@ -23,14 +23,14 @@ using Object = UnityEngine.Object;
 public class Animator2GPUAnim
 {
     [Title("输出路径:(默认为存放预制件的目录)")] [FolderPath]
-    public string outputPath = "Assets/ApesGang/Prefabs/Monster/Animator2GPUAnimTempFloder";
+    public string outputPath = "Assets/JuiceZombies/Prefabs/Monster/Animator2GPUAnimTempFloder";
 
     [Title("预烘焙的预制件列表:")] public List<GameObject> GameObjects;
 
-    private string prefabPath = "Assets/ApesGang/Prefabs/Monster/Prefab/Normal";
+    private string prefabPath = "Assets/JuiceZombies/Prefabs/Monster/Prefab/Normal";
 
-    private string sharedTexturePath = "Assets/ApesGang/Shaders/JiYuShaders/Texture/JiYuShaderTextureArray.png";
-    private string disloveTexturePath = "Assets/ApesGang/Shaders/JiYuShaders/Texture/seamlessNoise.png";
+    private string sharedTexturePath = "Assets/JuiceZombies/Shaders/JiYuShaders/Texture/JiYuShaderTextureArray.png";
+    private string disloveTexturePath = "Assets/JuiceZombies/Shaders/JiYuShaders/Texture/seamlessNoise.png";
 
     [Button(name: "一键烘焙")]
     public void Button()
