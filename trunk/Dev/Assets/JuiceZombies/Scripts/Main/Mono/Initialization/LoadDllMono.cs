@@ -24,7 +24,7 @@ namespace Main
     public class LoadDllMono : MonoBehaviour
     {
         // 资源系统运行模式
-        private EPlayMode PlayMode = EPlayMode.HostPlayMode;
+        private EPlayMode PlayMode =EPlayMode.EditorSimulateMode;
 
         private bool localTest = true;
 
