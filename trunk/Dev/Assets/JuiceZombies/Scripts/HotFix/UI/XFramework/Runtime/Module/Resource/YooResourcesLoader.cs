@@ -275,13 +275,13 @@ namespace XFramework
         {
             Log.Debug("UnloadUnusedAssets");
             var package = YooAssets.GetPackage("DefaultPackage");
-            package.UnloadUnusedAssets();
+            package.UnloadUnusedAssetsAsync();
         }
 
         public async override UniTask ClearPackageAllCacheBundleFiles()
         {
             var package = YooAssets.GetPackage("DefaultPackage");
-            var op = package.ClearAllCacheFilesAsync();
+            var op = package.ClearCacheFilesAsync(EFileClearMode.ClearAllBundleFiles);
 
             await op.ToUniTask();
 

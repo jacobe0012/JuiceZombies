@@ -7,6 +7,7 @@
 using System.Collections.Generic;
 using Cysharp.Threading.Tasks;
 using HybridCLR;
+using JuiceZombies.Main;
 using Main;
 using UnityEngine;
 using YooAsset;

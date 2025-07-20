@@ -200,7 +200,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ccea9ea98e38942e0b0938c27ed1903e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  m_MotionType: 0
+  m_MotionType: 1
   m_Smoothing: 1
   m_Mass: 1
   m_LinearDamping: 0.71
@@ -251,14 +251,14 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b275e5f92732148048d7b77e264ac30e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  m_ShapeType: 0
+  m_ShapeType: 2
   m_PrimitiveCenter:
     x: 0
     y: 0
     z: 0
   m_PrimitiveSize:
-    x: 1.167
-    y: 1.484
+    x: 1
+    y: 1
     z: 1
   m_PrimitiveOrientation:
     Value:
@@ -267,15 +267,15 @@ MonoBehaviour:
       z: 0
     RotationOrder: 4
   m_Capsule:
-    Height: 1.484
-    Radius: 0.5835
-    Axis: 1
+    Height: 1
+    Radius: 0.5
+    Axis: 2
   m_Cylinder:
-    Height: 1.484
-    Radius: 0.5835
-    Axis: 1
+    Height: 1
+    Radius: 0.5
+    Axis: 2
   m_CylinderSideCount: 3
-  m_SphereRadius: 0.742
+  m_SphereRadius: 0.5
   m_MinimumSkinnedVertexWeight: 0.1
   m_ConvexHullGenerationParameters:
     m_SimplificationTolerance: 0.015
@@ -288,7 +288,7 @@ MonoBehaviour:
     m_Template: {fileID: 0}
     m_CollisionResponse:
       m_Override: 0
-      m_Value: 1
+      m_Value: 3
     m_Friction:
       m_Override: 0
       m_Value:
@@ -520,7 +520,8 @@ MonoBehaviour:
         y: 0
       restrictView: 0
       softForce: 0
-      bossCanMoveAndFlip: 0
+      bossCanMove: 0
+      bossCanFlip: 0
     chaImmuneState:
       immunePush: 0
       immuneDamage: 0
@@ -555,6 +556,7 @@ MonoBehaviour:
     enemyRefreshGroupId: 0
     isHybridSpine: 0
     canCastSkill: 0
+    changeDirYn: 0
 --- !u!114 &2951875180101664903
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -586,7 +588,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d100d0744d5954b4cb6bc1932de8472c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  Radius: 0.65
+  Radius: 0.5
 --- !u!114 &3732140342669046206
 MonoBehaviour:
   m_ObjectHideFlags: 0

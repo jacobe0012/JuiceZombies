@@ -1046,9 +1046,9 @@ namespace HotFix_UI
                 entityManager.CreateEntityQuery(new EntityQueryBuilder(Allocator.Temp).WithAll<WorldBlackBoardTag>());
             var playerQuery =
                 entityManager.CreateEntityQuery(new EntityQueryBuilder(Allocator.Temp).WithAll<PlayerData>());
-            var crowdQuery =
-                entityManager.CreateEntityQuery(new EntityQueryBuilder(Allocator.Temp).WithAll<CrowdSurface>()
-                    .WithAll<LinkedEntityGroup>());
+            // var crowdQuery =
+            //     entityManager.CreateEntityQuery(new EntityQueryBuilder(Allocator.Temp).WithAll<CrowdSurface>()
+            //         .WithAll<LinkedEntityGroup>());
 
             if (entityQuery.IsEmpty) return;
             var player = playerQuery.ToEntityArray(Allocator.Temp)[0];
@@ -1062,24 +1062,24 @@ namespace HotFix_UI
             prefabMapData.prefabHashMap.Dispose();
             configData.Dispose();
             gameOthersData.Dispose();
-            Debug.Log($"crowdQuery1 {crowdQuery.IsEmpty}");
-            if (!crowdQuery.IsEmpty)
-            {
-                Debug.Log($"crowdQuery {crowdQuery.CalculateEntityCount()}");
-                foreach (var VARIABLE in crowdQuery.ToEntityArray(Allocator.Temp))
-                {
-                    var linkedEntityGroups = entityManager.GetBuffer<LinkedEntityGroup>(VARIABLE);
-                    var temp = linkedEntityGroups.ToNativeArray(Allocator.Temp);
-                    foreach (var entityGroup in temp)
-                    {
-                        entityManager.DestroyEntity(entityGroup.Value);
-                    }
-
-                    entityManager.DestroyEntity(VARIABLE);
-                }
-
-                //entityManager.DestroyEntity(crowdQuery);
-            }
+            // Debug.Log($"crowdQuery1 {crowdQuery.IsEmpty}");
+            // if (!crowdQuery.IsEmpty)
+            // {
+            //     Debug.Log($"crowdQuery {crowdQuery.CalculateEntityCount()}");
+            //     foreach (var VARIABLE in crowdQuery.ToEntityArray(Allocator.Temp))
+            //     {
+            //         var linkedEntityGroups = entityManager.GetBuffer<LinkedEntityGroup>(VARIABLE);
+            //         var temp = linkedEntityGroups.ToNativeArray(Allocator.Temp);
+            //         foreach (var entityGroup in temp)
+            //         {
+            //             entityManager.DestroyEntity(entityGroup.Value);
+            //         }
+            //
+            //         entityManager.DestroyEntity(VARIABLE);
+            //     }
+            //
+            //     //entityManager.DestroyEntity(crowdQuery);
+            // }
 
             entityManager.DestroyEntity(entityQuery);
         }

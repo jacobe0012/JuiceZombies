@@ -53,7 +53,7 @@ namespace Main
 
             var ecb = singleton.CreateCommandBuffer(state.WorldUnmanaged).AsParallelWriter();
             var obstacleQuery = SystemAPI.QueryBuilder().WithAll<ObstacleTag, MapElementData>().Build();
-            var crowdSurfaceQuery = SystemAPI.QueryBuilder().WithAll<CrowdSurface>().Build();
+            //var crowdSurfaceQuery = SystemAPI.QueryBuilder().WithAll<CrowdSurface>().Build();
 
             new SpawnEnemyJob
             {
@@ -85,7 +85,7 @@ namespace Main
                 enemyDatas = enemyQuery.ToComponentDataArray<EnemyData>(Allocator.TempJob),
                 enemies = enemyQuery.ToEntityArray(Allocator.TempJob),
                 obstacles = obstacleQuery.ToEntityArray(Allocator.TempJob),
-                crowdSurfaces = crowdSurfaceQuery.ToEntityArray(Allocator.TempJob),
+                //crowdSurfaces = crowdSurfaceQuery.ToEntityArray(Allocator.TempJob),
             }.ScheduleParallel();
         }
 
@@ -123,7 +123,7 @@ namespace Main
 
             [ReadOnly] [DeallocateOnJobCompletion] public NativeArray<Entity> obstacles;
             [ReadOnly] [DeallocateOnJobCompletion] public NativeArray<Entity> enemies;
-            [ReadOnly] [DeallocateOnJobCompletion] public NativeArray<Entity> crowdSurfaces;
+            //[ReadOnly] [DeallocateOnJobCompletion] public NativeArray<Entity> crowdSurfaces;
             [ReadOnly] public ComponentLookup<PostTransformMatrix> cdfePostTransformMatrix;
 
             private void Execute([EntityIndexInQuery] int entityIndexInQuery, Entity e, ref GameTimeData jiyuTimeData)
@@ -1148,10 +1148,10 @@ namespace Main
                         bosspos.y += 50f;
                         newpos.Position = bosspos;
                         //TODO:
-                        ecb.AddSharedComponent(sortkey, ins, new AgentCrowdPath
-                        {
-                            Group = groupEntity
-                        });
+                        // ecb.AddSharedComponent(sortkey, ins, new AgentCrowdPath
+                        // {
+                        //     Group = groupEntity
+                        // });
                         ecb.AppendToBuffer(sortkey, surfaceEntity, new LinkedEntityGroup
                         {
                             Value = ins

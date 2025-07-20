@@ -143,7 +143,7 @@ public class JenkinsBuildTools
             string PackageName = "DefaultPackage";
             // var buildMode = AssetBundleBuilderSetting.GetPackageBuildMode(PackageName, eBuildPipeline);
             //
-            var buildMode = buildTypeInt == 1 ? EBuildMode.IncrementalBuild : EBuildMode.ForceRebuild;
+            //var buildMode = buildTypeInt == 1 ? EBuildMode.IncrementalBuild : EBuildMode.ForceRebuild;
             // var fileNameStyle = AssetBundleBuilderSetting.GetPackageFileNameStyle(PackageName, eBuildPipeline);
             // var buildinFileCopyOption =
             //     AssetBundleBuilderSetting.GetPackageBuildinFileCopyOption(PackageName, eBuildPipeline);
@@ -156,7 +156,7 @@ public class JenkinsBuildTools
             buildParameters.BuildinFileRoot = AssetBundleBuilderHelper.GetStreamingAssetsRoot();
             buildParameters.BuildPipeline = EBuildPipeline.BuiltinBuildPipeline.ToString();
             buildParameters.BuildTarget = BuildTarget.Android;
-            buildParameters.BuildMode = buildMode;
+            //buildParameters.BuildMode = buildMode;
             buildParameters.PackageName = PackageName;
             buildParameters.PackageVersion = hotUpdateVersion;
             buildParameters.EnableSharePackRule = true;
@@ -182,7 +182,7 @@ public class JenkinsBuildTools
         IEncryptionServices CreateEncryptionInstance(string PackageName, EBuildPipeline eBuildPipeline)
         {
             var encyptionClassName =
-                AssetBundleBuilderSetting.GetPackageEncyptionClassName(PackageName, eBuildPipeline);
+                AssetBundleBuilderSetting.GetPackageEncyptionServicesClassName(PackageName, eBuildPipeline.ToString());
             var encryptionClassTypes = EditorTools.GetAssignableTypes(typeof(IEncryptionServices));
             var classType = encryptionClassTypes.Find(x => x.FullName.Equals(encyptionClassName));
             if (classType != null)

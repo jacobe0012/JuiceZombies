@@ -9,7 +9,7 @@ using System.Collections.Generic;
 using System.Globalization;
 using System.Runtime.CompilerServices;
 using cfg.config;
-using ProjectDawn.ContinuumCrowds;
+//using ProjectDawn.ContinuumCrowds;
 using ProjectDawn.Navigation;
 using Rewired;
 using Unity.Burst;
@@ -1053,24 +1053,24 @@ namespace Main
             });
             Debug.Log($"scalescalescale {size}");
 
-            ecb.SetComponent(sortKey, surface, new CrowdSurface
-            {
-                Size = crowdSize,
-                Width = (int)(crowdSize / 2f),
-                Height = (int)(crowdSize / 2f),
-                Density = new Density
-                {
-                    Min = 0.7f,
-                    Max = 2f,
-                    Exponent = 0.3f
-                },
-                Slope = new Slope
-                {
-                    Min = 0,
-                    Max = 1
-                },
-                Layers = NavigationLayers.Everything
-            });
+            // ecb.SetComponent(sortKey, surface, new CrowdSurface
+            // {
+            //     Size = crowdSize,
+            //     Width = (int)(crowdSize / 2f),
+            //     Height = (int)(crowdSize / 2f),
+            //     Density = new Density
+            //     {
+            //         Min = 0.7f,
+            //         Max = 2f,
+            //         Exponent = 0.3f
+            //     },
+            //     Slope = new Slope
+            //     {
+            //         Min = 0,
+            //         Max = 1
+            //     },
+            //     Layers = NavigationLayers.Everything
+            // });
             //var group = Entity.Null;
             var group = ecb.CreateEntity(sortKey);
 
@@ -1080,25 +1080,25 @@ namespace Main
             });
             ecb.AddComponent(sortKey, group, LocalTransform.Identity);
             ecb.AddComponent(sortKey, group, new LocalToWorld());
-            ecb.AddComponent(sortKey, group, new CrowdGroup
-            {
-                Surface = surface,
-                Speed = new Speed
-                {
-                    Min = 0.1f,
-                    Max = 20f
-                },
-                CostWeights = new CostWeights
-                {
-                    Distance = 0.1f,
-                    Time = 0.1f,
-                    Discomfort = 0.8f,
-                    Normalize = true
-                },
-                GoalSource = CrowdGoalSource.AgentDestination,
-                Grounded = true,
-                MappingRadius = 5f
-            });
+            // ecb.AddComponent(sortKey, group, new CrowdGroup
+            // {
+            //     Surface = surface,
+            //     Speed = new Speed
+            //     {
+            //         Min = 0.1f,
+            //         Max = 20f
+            //     },
+            //     CostWeights = new CostWeights
+            //     {
+            //         Distance = 0.1f,
+            //         Time = 0.1f,
+            //         Discomfort = 0.8f,
+            //         Normalize = true
+            //     },
+            //     GoalSource = CrowdGoalSource.AgentDestination,
+            //     Grounded = true,
+            //     MappingRadius = 5f
+            // });
             groupEntity = group;
             surfaceEntity = surface;
             for (int i = 0; i < eventGroup.Length; i++)

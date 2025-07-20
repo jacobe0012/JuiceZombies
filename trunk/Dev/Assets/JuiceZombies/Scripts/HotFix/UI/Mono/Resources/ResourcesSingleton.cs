@@ -8,7 +8,8 @@ using Google.Protobuf.Collections;
 using Main;
 using UnityEngine;
 using XFramework;
-using Version = Main.Version;
+
+
 
 namespace HotFix_UI
 {

@@ -12,6 +12,7 @@ using Cysharp.Threading.Tasks;
 using DG.Tweening;
 using Google.Protobuf;
 using HotFix_UI;
+using JuiceZombies.Main;
 using Main;
 using UnityEngine;
 

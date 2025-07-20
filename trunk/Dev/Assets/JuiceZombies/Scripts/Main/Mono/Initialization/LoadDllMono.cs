@@ -1,5 +1,5 @@
 //---------------------------------------------------------------------
-// JiYuStudio
+// SYStudio
 // Author: 格伦
 // Time: 2023-07-12 12:15:10
 //---------------------------------------------------------------------
@@ -18,15 +18,15 @@ using YooAsset;
 // using VoxelBusters.CoreLibrary;
 // using VoxelBusters.EssentialKit;
 
-namespace Main
+namespace JuiceZombies.Main
 {
     //cdn资源加载初始化&&热更初始化脚本，放到AOT层
     public class LoadDllMono : MonoBehaviour
     {
         // 资源系统运行模式
-        private EPlayMode PlayMode =EPlayMode.EditorSimulateMode;
+        private EPlayMode PlayMode = EPlayMode.EditorSimulateMode;
 
-        private bool localTest = true;
+        private bool localTest = false;
 
         //public static bool isStandAlone = false;
 
@@ -38,7 +38,7 @@ namespace Main
         private string FallbackHostServer = "https://gleen-test-0012.oss-cn-beijing.aliyuncs.com/Dev/Android";
 
 
-        private string LocalServer = "http://192.168.2.112/Dev";
+        private string LocalServer = "http://192.168.2.224/JuiceZombies";
 
 
         //弹窗对象,此对象当前为AOT层中的预制体对象，不放入热更新
@@ -96,7 +96,6 @@ namespace Main
 #else
             PlayMode = EPlayMode.HostPlayMode;
 #endif
-            //PlayMode = EPlayMode.HostPlayMode;
         }
 
         async UniTask DownloadAssetsAndStartGame()
@@ -183,29 +182,31 @@ namespace Main
             {
                 if (PlayMode == EPlayMode.EditorSimulateMode)
                 {
-                    //编辑器模拟模式
+                    var buildResult = EditorSimulateModeHelper.SimulateBuild("DefaultPackage");
+                    var packageRoot = buildResult.PackageRootDirectory;
+                    var editorFileSystemParams =
+                        FileSystemParameters.CreateDefaultEditorFileSystemParameters(packageRoot);
                     var initParameters = new EditorSimulateModeParameters();
-                    initParameters.SimulateManifestFilePath =
-                        EditorSimulateModeHelper.SimulateBuild("BuiltinBuildPipeline",
-                            "DefaultPackage");
+                    initParameters.EditorFileSystemParameters = editorFileSystemParams;
+
+                    //编辑器模拟模式
+                    // var initParameters = new EditorSimulateModeParameters();
+                    // initParameters.SimulateManifestFilePath =
+                    //     EditorSimulateModeHelper.SimulateBuild("BuiltinBuildPipeline",
+                    //         "DefaultPackage");
                     //package.InitializeStatus == EOperationStatus.Succeed
                     await package.InitializeAsync(initParameters).ToUniTask();
                 }
                 else if (PlayMode == EPlayMode.HostPlayMode)
                 {
+                    IRemoteServices remoteServices = new RemoteServices(DefaultHostServer, FallbackHostServer);
+                    var cacheFileSystemParams =
+                        FileSystemParameters.CreateDefaultCacheFileSystemParameters(remoteServices);
+                    var buildinFileSystemParams = FileSystemParameters.CreateDefaultBuildinFileSystemParameters();
+
                     var initParameters = new HostPlayModeParameters();
-                    initParameters.BuildinQueryServices =
-                        new GameQueryServices(); //太空战机DEMO的脚本类，详细见StreamingAssetsHelper
-                    // initParameters.DeliveryQueryServices = new DeliveryQueryServices();
-                    //initParameters.DecryptionServices = new GameDecryptionServices();
-                    initParameters.RemoteServices = new RemoteServices(DefaultHostServer, FallbackHostServer);
-
-
-                    // var initParameters = new HostPlayModeParameters();
-                    // initParameters.BuildinQueryServices = new GameQueryServices(); //太空战机DEMO的脚本类，详细见StreamingAssetsHelper
-                    // initParameters.DecryptionServices = new GameDecryptionServices();
-                    // initParameters.RemoteServices = new RemoteServices(DefaultHostServer, FallbackHostServer);
-
+                    initParameters.BuildinFileSystemParameters = buildinFileSystemParams;
+                    initParameters.CacheFileSystemParameters = cacheFileSystemParams;
                     await package.InitializeAsync(initParameters).ToUniTask();
                 }
                 else if (PlayMode == EPlayMode.OfflinePlayMode)
@@ -228,7 +229,7 @@ namespace Main
                 oldVersion = package.GetPackageVersion();
             }
 
-            var operation = package.UpdatePackageVersionAsync();
+            var operation = package.RequestPackageVersionAsync();
 
             await operation.ToUniTask();
 
@@ -352,10 +353,19 @@ namespace Main
             var package = YooAssets.GetPackage("DefaultPackage");
             var downloader = package.CreateResourceDownloader(downloadingMaxNum, failedTryAgain, timeout);
             //注册回调方法
-            downloader.OnDownloadErrorCallback = OnDownloadErrorFunction;
-            downloader.OnDownloadProgressCallback = OnDownloadProgressUpdateFunction;
-            downloader.OnDownloadOverCallback = OnDownloadOverFunction;
-            downloader.OnStartDownloadFileCallback = OnStartDownloadFileFunction;
+            downloader.DownloadErrorCallback += (a) => { OnDownloadErrorFunction(a.FileName, a.ErrorInfo); };
+            downloader.DownloadUpdateCallback += (a) =>
+            {
+                OnDownloadProgressUpdateFunction(a.TotalDownloadCount, a.CurrentDownloadCount, a.TotalDownloadBytes,
+                    a.CurrentDownloadBytes);
+            };
+            downloader.DownloadFinishCallback += (a) => { OnDownloadOverFunction(a.Succeed); };
+            downloader.DownloadFileBeginCallback += (a) => { OnStartDownloadFileFunction(a.FileName, a.FileSize); };
+
+            // downloader.OnDownloadErrorCallback = OnDownloadErrorFunction;
+            // downloader.OnDownloadProgressCallback = OnDownloadProgressUpdateFunction;
+            // downloader.OnDownloadOverCallback = OnDownloadOverFunction;
+            // downloader.OnStartDownloadFileCallback = OnStartDownloadFileFunction;
             //开启下载
             downloader.BeginDownload();
             await downloader.ToUniTask();
@@ -455,9 +465,8 @@ namespace Main
                 byte[] fileData = textAsset.bytes;
 
                 s_assetDatas[asset] = fileData;
-                Debug.Log($"[{GetType().FullName}] dll:{asset} size:{fileData.Length}");
+                //Debug.Log($"[{GetType().FullName}] dll:{asset} size:{fileData.Length}");
             }
-
             //DestroyImmediate(tx);
             await StartGame();
         }
@@ -497,8 +506,8 @@ namespace Main
 
             GameObject go = handle.AssetObject as GameObject;
             Instantiate(go);
-            Debug.Log($"[{GetType().FullName}] Prefab name is {go.name}");
-            Debug.Log($"[{GetType().FullName}] FinishLoadDll.cs!");
+            //Debug.Log($"[{GetType().FullName}] Prefab name is {go.name}");
+            Debug.Log($"[{GetType().FullName}] LoadDllMono Finished!");
         }
 
         void OpenURL(string url)

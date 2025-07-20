@@ -6,14 +6,14 @@ using YooAsset;
 /// <summary>
 /// 资源文件查询服务类
 /// </summary>
-public class GameQueryServices : IBuildinQueryServices
-{
-    public bool Query(string packageName, string fileName, string fileCRC)
-    {
-        // 注意：fileName包含文件格式
-        return StreamingAssetsHelper.FileExists(packageName, fileName);
-    }
-}
+// public class GameQueryServices : Ibu
+// {
+//     public bool Query(string packageName, string fileName, string fileCRC)
+//     {
+//         // 注意：fileName包含文件格式
+//         return StreamingAssetsHelper.FileExists(packageName, fileName);
+//     }
+// }
 
 #if UNITY_EDITOR
 /// <summary>
