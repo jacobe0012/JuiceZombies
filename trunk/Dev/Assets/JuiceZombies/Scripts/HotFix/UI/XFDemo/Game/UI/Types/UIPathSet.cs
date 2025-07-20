@@ -363,6 +363,8 @@ namespace XFramework
 
 		public const string UICommon_Reward_TipWithTitle = "Common_Reward_TipWithTitle";
 
+		public const string UIBoxNormal = "BoxNormal";
+
         #endregion 1
 
 
