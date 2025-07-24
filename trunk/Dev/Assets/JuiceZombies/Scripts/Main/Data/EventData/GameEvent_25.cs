@@ -1,11 +1,5 @@
-
-using ProjectDawn.Navigation;
-using System.Globalization;
-using Unity.Collections;
 using Unity.Entities;
 using Unity.Mathematics;
-using Unity.Transforms;
-using UnityEngine;
 
 namespace Main
 {
@@ -141,9 +135,7 @@ namespace Main
 
         public void OnOccur(ref GameEventData_ReadWrite refData, in GameEventData_ReadOnly inData)
         {
-
             RefreshModule(ref refData, inData);
-
         }
 
 
@@ -156,7 +148,6 @@ namespace Main
             if (isinBoss)
             {
                 mapWidth = mapHeight = refData.cdfePlayerData[inData.player].playerOtherData.bossScenePos.y;
-
             }
             else
             {
@@ -174,6 +165,7 @@ namespace Main
                     break;
                 }
             }
+
             if (eventIndex == -1) return;
 
             //TODO:这两个值跟地图有关
@@ -199,6 +191,7 @@ namespace Main
                         mapCenterPos = new float3(1999, 1999, 0);
                         break;
                 }
+
                 startPos = new float3(mapCenterPos.x - mapWidth / 2f, mapCenterPos.y + mapHeight / 2f, 0);
             }
             else
@@ -206,7 +199,8 @@ namespace Main
                 switch (mapType)
                 {
                     case 1:
-                        var curMapIndex = (int)((inData.cdfeLocalTransform[inData.player].Position.y + mapWidth * 3) / mapHeight) + 1;
+                        var curMapIndex = (int)((inData.cdfeLocalTransform[inData.player].Position.y + mapWidth * 3) /
+                                                mapHeight) + 1;
                         startPos = new float3(-mapWidth / 2f, -(mapWidth * 3) + mapHeight * curMapIndex, 0);
                         mapCenterPos = new float3(startPos.x + mapWidth / 2f, startPos.y - mapHeight / 2f, 0);
                         break;
@@ -220,7 +214,10 @@ namespace Main
             }
 
             //该事件执行刷新模版在boss场景的时候 地形和障碍物不会销毁
-            BuffHelper.GenerateMapElement(inData.mapModels,inData.cdfeMapElementData,inData.cdfeLocalTransform, inData.gameRandomData.seed, inData.cdfePostTransformMatrix, inData.config, args123.x, ref eventsconfig[eventIndex].paraList, mapCenterPos, inData.prefabMapData, refData.ecb, inData.sortKey, bossNow, mapType, mapWidth, mapHeight, true, isinBoss,inData.gameRandomData.seed);
+            BuffHelper.GenerateMapElement(inData.mapModels, inData.cdfeMapElementData, inData.cdfeLocalTransform,
+                inData.gameRandomData.seed, inData.cdfePostTransformMatrix, inData.config, args123.x,
+                ref eventsconfig[eventIndex].paraList, mapCenterPos, inData.prefabMapData, refData.ecb, inData.sortKey,
+                bossNow, mapType, mapWidth, mapHeight, true, isinBoss, inData.gameRandomData.seed);
         }
 
 

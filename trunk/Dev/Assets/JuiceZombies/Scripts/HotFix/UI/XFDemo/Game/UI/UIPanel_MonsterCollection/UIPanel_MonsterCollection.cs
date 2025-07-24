@@ -167,7 +167,8 @@ namespace XFramework
                 UIHelper.CreateAsync(UIType.UICommon_Resource, tblanguage.Get("book_click_fail_text").current);
             });
             CreateBottomBtnList().Forget();
-            JiYuTweenHelper.SetEaseAlphaAndPosUtoB(this.GetFromReference(UIPanel_MonsterCollection.KScrollView_Item0), 0,
+            JiYuTweenHelper.SetEaseAlphaAndPosUtoB(this.GetFromReference(UIPanel_MonsterCollection.KScrollView_Item0),
+                0,
                 50f, cancellationToken: cts.Token);
         }
 

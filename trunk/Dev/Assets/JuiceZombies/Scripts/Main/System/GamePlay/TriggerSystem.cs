@@ -5,15 +5,10 @@
 //---------------------------------------------------------------------
 
 using cfg.blobstruct;
-using cfg.config;
 using ProjectDawn.Navigation;
-using System.Globalization;
-using System.Threading;
-using Unity.Android.Gradle.Manifest;
 using Unity.Burst;
 using Unity.Collections;
 using Unity.Entities;
-using Unity.Entities.UniversalDelegates;
 using Unity.Mathematics;
 using Unity.Physics;
 using Unity.Transforms;
