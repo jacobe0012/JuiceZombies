@@ -51,5 +51,6 @@ namespace XFramework
 		public const string KBtn_Money = "Btn_Money";
 		public const string KText_Diamond = "Text_Diamond";
 		public const string KText_Money = "Text_Money";
+		public const string Ktest = "test";
 	}
 }
