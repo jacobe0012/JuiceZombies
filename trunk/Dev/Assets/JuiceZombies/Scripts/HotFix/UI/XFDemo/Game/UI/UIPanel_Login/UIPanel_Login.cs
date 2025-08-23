@@ -55,7 +55,7 @@ namespace XFramework
             var KIsGuide = GetFromReference(UIPanel_Login.KIsGuide);
             var global = Common.Instance.Get<Global>();
 
-            Game.Instance.Restart();
+            //Game.Instance.Restart();
 
 
             var language = ConfigManager.Instance.Tables.Tblanguage;

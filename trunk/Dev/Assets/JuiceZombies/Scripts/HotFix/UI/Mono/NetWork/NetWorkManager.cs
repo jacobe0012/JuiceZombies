@@ -54,6 +54,42 @@ namespace HotFix_UI
 
         private int curReconnectAttempts = 0;
 
+        public static string url;
+
+        public void Init()
+        {
+            // if (!File.Exists(savePath))
+            // {
+            //     // 如果 JSON 文件不存在，创建一个示例 JSON 数据
+            //     CreateSampleData();
+            // }
+            //
+            // // 读取数据
+            // string json = File.ReadAllText(savePath);
+            // WebUrlData data = JsonConvert.DeserializeObject<WebUrlData>(json);
+            // string url = data.webUrl;
+            //
+            // //Log.Error($"{url}");
+            // var sharedData = await JsonManager.Instance.LoadSharedData();
+            // if (sharedData.lastLoginUserId > 0)
+            // {
+            //     var playerData = await JsonManager.Instance.LoadPlayerData(sharedData.lastLoginUserId);
+            //     url += $"?token={playerData.privateKey}&udId={SystemInfo.deviceUniqueIdentifier}";
+            // }
+
+            url = $"ws://{MyUrl.urlipv4}/ws";
+
+            debugColor = Color.cyan;
+            socket = new WebSocket(url);
+            Log.Debug($"准备建立链接,websocketURL:{url}", Color.cyan);
+            socket.OnOpen += OnOpen;
+            socket.OnClose += OnClose;
+            socket.OnError += OnError;
+            socket.OnMessage += OnMessage;
+            socket.ConnectAsync();
+            //curReconnectAttempts = 0;
+        }
+
 
         // 尝试重连
         async UniTaskVoid AttemptReconnect(bool isNew = false)
@@ -112,43 +148,6 @@ namespace HotFix_UI
             File.WriteAllText(savePath, json);
         }
 
-
-        public async void Init()
-        {
-            if (!File.Exists(savePath))
-            {
-                // 如果 JSON 文件不存在，创建一个示例 JSON 数据
-                CreateSampleData();
-            }
-
-            // 读取数据
-            string json = File.ReadAllText(savePath);
-            WebUrlData data = JsonConvert.DeserializeObject<WebUrlData>(json);
-            string url = data.webUrl;
-
-            //Log.Error($"{url}");
-            var sharedData = await JsonManager.Instance.LoadSharedData();
-            if (sharedData.lastLoginUserId > 0)
-            {
-                var playerData = await JsonManager.Instance.LoadPlayerData(sharedData.lastLoginUserId);
-                url += $"?token={playerData.privateKey}&udId={SystemInfo.deviceUniqueIdentifier}";
-            }
-
-            Log.Debug($"建立链接,websocketURL:{url}", Color.cyan);
-            debugColor = Color.cyan;
-            socket = new WebSocket(url);
-            // 注册回调
-            socket.OnOpen += OnOpen;
-            socket.OnClose += OnClose;
-            socket.OnMessage += OnMessage;
-
-            socket.OnError += OnError;
-            socket.ConnectAsync();
-
-            //curReconnectAttempts = 0;
-        }
-
-
         public void ReInit()
         {
             if (!File.Exists(savePath))
@@ -166,6 +165,7 @@ namespace HotFix_UI
 
             debugColor = Color.cyan;
             socket = new WebSocket(url);
+            
             // 注册回调
             socket.OnOpen += OnOpen;
             socket.OnClose += OnClose;
@@ -216,7 +216,7 @@ namespace HotFix_UI
             curReconnectAttempts = 0;
             StartTimer();
             ResourcesSingleton.Instance.isConnectSuccess = true;
-            //JiYuUIHelper.ReConnect();
+           
         }
 
         public void OnClose(object o, CloseEventArgs args)

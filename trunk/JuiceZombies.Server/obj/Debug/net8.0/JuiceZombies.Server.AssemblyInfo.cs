@@ -13,7 +13,7 @@ using System.Reflection;
 [assembly: System.Reflection.AssemblyCompanyAttribute("JuiceZombies.Server")]
 [assembly: System.Reflection.AssemblyConfigurationAttribute("Debug")]
 [assembly: System.Reflection.AssemblyFileVersionAttribute("1.0.0.0")]
-[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+797b5516afe2358133274268d182fc94cc4ece87")]
+[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+ce136988fd1a8a115f8fd9ea2c92b9532ee81ae2")]
 [assembly: System.Reflection.AssemblyProductAttribute("JuiceZombies.Server")]
 [assembly: System.Reflection.AssemblyTitleAttribute("JuiceZombies.Server")]
 [assembly: System.Reflection.AssemblyVersionAttribute("1.0.0.0")]
