@@ -23,6 +23,13 @@ public  struct ConfigTbmonthCard
         configTbmonthCards[i].id = tables.TbmonthCard.DataList[i].id;
         configTbmonthCards[i].time = tables.TbmonthCard.DataList[i].time;
         configTbmonthCards[i].name = tables.TbmonthCard.DataList[i].name;
+        var allocatedescparas =
+        builder.Allocate(ref configTbmonthCards[i].descpara,
+        tables.TbmonthCard.DataList[i].descpara.Count);
+        for (var descparas = 0; descparas < tables.TbmonthCard.DataList[i].descpara.Count; descparas++)
+        {
+            allocatedescparas[descparas] = tables.TbmonthCard.DataList[i].descpara[descparas];
+        }
         var allocatedescs =
         builder.Allocate(ref configTbmonthCards[i].desc,
         tables.TbmonthCard.DataList[i].desc.Count);
@@ -48,6 +55,10 @@ public  struct ConfigTbmonthCard
     /// 名称
     /// </summary>
     public FixedString128Bytes name;
+    /// <summary>
+    /// 描述
+    /// </summary>
+    public BlobArray<int> descpara;    
     /// <summary>
     /// 描述
     /// </summary>
