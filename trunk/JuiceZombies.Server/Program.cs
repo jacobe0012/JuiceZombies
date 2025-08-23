@@ -2,12 +2,12 @@ using System.Net;
 using JuiceZombies.Server.Datas.Config.Scripts;
 using JuiceZombies.Server.Services;
 using HotFix_UI;
-using Newtonsoft.Json;
-using Newtonsoft.Json.Linq;
+using JuiceZombies.Server.Datas;
 using StackExchange.Redis;
+using Microsoft.EntityFrameworkCore; // 新增：引入 EF Core
+
 
 var builder = WebApplication.CreateBuilder(args);
-
 builder.Services.AddControllers();
 
 //
@@ -37,6 +37,11 @@ builder.Services.AddStackExchangeRedisCache(options =>
     options.Configuration = builder.Configuration.GetConnectionString("Redis");
 });
 builder.Services.AddScoped<IRedisCacheService, RedisCacheService>();
+
+var postgresConnectionString = builder.Configuration.GetConnectionString("PostgresConnection");
+// 注册 DbContext 并配置使用 Npgsql
+builder.Services.AddDbContext<MyPostDbContext>(options =>
+    options.UseNpgsql(postgresConnectionString));
 
 var app = builder.Build();
 // <snippet_UseWebSockets>

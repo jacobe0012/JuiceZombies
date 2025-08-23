@@ -1,15 +1,39 @@
 ﻿{
   "$schema": "http://json.schemastore.org/launchsettings.json",
   "profiles": {
-
     "https": {
       "commandName": "Project",
       "dotnetRunMessages": true,
       "launchBrowser": false,
       "applicationUrl": "https://192.168.2.112:7176;http://192.168.2.112:5159",
       "environmentVariables": {
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+         
+        
+        
+        
+        
+        
+        
+        
         "ASPNETCORE_ENVIRONMENT": "Development"
       }
     }
+  },
+  "ConnectionStrings": {
+    "Redis": "localhost:6379",
+    "PostgresConnection": "Host=localhost;Port=5432;Database=your_database_name;Username=your_username;Password=your_password"
   }
 }
