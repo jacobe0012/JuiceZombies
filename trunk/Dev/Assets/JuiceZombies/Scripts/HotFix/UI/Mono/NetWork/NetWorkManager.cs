@@ -9,6 +9,7 @@ using System.IO;
 using Common;
 using Cysharp.Threading.Tasks;
 using Google.Protobuf;
+using MessagePack;
 using Newtonsoft.Json;
 using UnityEngine;
 using UnityWebSocket;
@@ -55,6 +56,9 @@ namespace HotFix_UI
         private int curReconnectAttempts = 0;
 
         public static string url;
+
+        private static readonly MessagePackSerializerOptions options =
+            MessagePackSerializerOptions.Standard.WithCompression(MessagePackCompression.Lz4Block);
 
         public void Init()
         {
@@ -165,7 +169,7 @@ namespace HotFix_UI
 
             debugColor = Color.cyan;
             socket = new WebSocket(url);
-            
+
             // 注册回调
             socket.OnOpen += OnOpen;
             socket.OnClose += OnClose;
@@ -216,7 +220,6 @@ namespace HotFix_UI
             curReconnectAttempts = 0;
             StartTimer();
             ResourcesSingleton.Instance.isConnectSuccess = true;
-           
         }
 
         public void OnClose(object o, CloseEventArgs args)
@@ -290,28 +293,43 @@ namespace HotFix_UI
             //UniTask.Delay(111);
         }
 
-        // public void OnMessage(object o)
-        // {
-        //     //将字节数组转换为
-        //     // IMessage message = new MyExternalMessage();
-        //     //
-        //     // var mySelf = (MyExternalMessage)message.Descriptor.Parser.ParseFrom(args.RawData);
-        //     // if (mySelf.ResponseStatus != 0)
-        //     // {
-        //     //     ErrorMsg.LogErrorMsg(mySelf.ResponseStatus);
-        //     // }
-        //     //
-        //     // //Log.Debug($"ResponseStatus:{mySelf.ResponseStatus}", debugColor);
-        //     //
-        //     // // byte[] byteArray = mySelf.DataContent.ToByteArray();
-        //     // // string content = System.Text.Encoding.Default.GetString(byteArray);
-        //     //
-        //     // //Log.Debug($"OnMessage:{content}", debugColor);
-        //     //
-        //     //
-        //     // WebMessageHandler.Instance.PackageHandler(mySelf.CmdMerge, mySelf.DataContent);
-        //     //UniTask.Delay(111);
-        // }
+        /// <summary>
+        /// 向服务器发送proto消息
+        /// </summary>
+        /// <param name="cmd">业务主路由</param>
+        /// <param name="subCmd">业务子路由</param>
+        /// <param name="protoMessage">发送的proto消息类</param>
+        /// <typeparam name="T"></typeparam>
+        public void SendMsg(int cmd, string args = "")
+        {
+            var myExternalMessage = new MyMessage
+            {
+                Cmd = cmd,
+                Args = args
+            };
+            socket.SendAsync(MessagePackSerializer.Serialize(myExternalMessage, options));
+        }
+
+        /// <summary>
+        /// 向服务器发送proto消息
+        /// </summary>
+        /// <param name="cmd">业务主路由</param>
+        /// <param name="subCmd">业务子路由</param>
+        /// <param name="protoMessage">发送的proto消息类</param>
+        /// <typeparam name="T"></typeparam>
+        public void SendMsg<T>(int cmd, T protoMessage, string args = "") where T : IMessagePack
+        {
+            var myExternalMessage = new MyMessage
+            {
+                Cmd = cmd,
+                Content = MessagePackSerializer.Serialize(protoMessage,
+                    options),
+                ErrorCode = 0,
+                Args = args,
+            };
+
+            socket.SendAsync(MessagePackSerializer.Serialize(myExternalMessage, options));
+        }
 
 
         /// <summary>
