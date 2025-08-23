@@ -365,6 +365,8 @@ namespace XFramework
 
 		public const string UIBoxNormal = "BoxNormal";
 
+		public const string UIResources = "Resources";
+
         #endregion 1
 
 

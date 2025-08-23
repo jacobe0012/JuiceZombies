@@ -345,6 +345,8 @@ namespace XFramework
 
 		public const string UIBoxNormal = nameof(XFramework.UIBoxNormal);
 
+		public const string UIResources = nameof(XFramework.UIResources);
+
         #endregion 1
 
 
