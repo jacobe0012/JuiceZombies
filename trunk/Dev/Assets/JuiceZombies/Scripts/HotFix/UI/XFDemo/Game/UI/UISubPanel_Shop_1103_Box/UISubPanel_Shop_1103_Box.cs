@@ -293,7 +293,7 @@ namespace XFramework
         private void BtnOnClickUp()
         {
             DrawCount = drawParamUp.DrawCount;
-            WebMessageHandler.Instance.AddHandler(11, 3, OnClickBoxBtnResponse);
+            WebMessageHandlerOld.Instance.AddHandler(11, 3, OnClickBoxBtnResponse);
             NetWorkManager.Instance.SendMessage(11, 3, drawParamUp);
             if (drawParamUp.DrawType == 1)
             {
@@ -311,21 +311,21 @@ namespace XFramework
         {
             //drawParam
             DrawCount = drawParamMid.DrawCount;
-            WebMessageHandler.Instance.AddHandler(11, 3, OnClickBoxBtnResponse);
+            WebMessageHandlerOld.Instance.AddHandler(11, 3, OnClickBoxBtnResponse);
             NetWorkManager.Instance.SendMessage(11, 3, drawParamMid);
             if (drawParamMid.DrawType == 1)
             {
                 isAdvert = true;
                 //CDint = tbdraw_Box[boxID].adCd;
             }
-            //WebMessageHandler.Instance.RemoveHandler(11, 3, OnClickBoxBtnResponse);
+            //WebMessageHandlerOld.Instance.RemoveHandler(11, 3, OnClickBoxBtnResponse);
         }
 
         private void BtnOnClickDown()
         {
             //drawParam
             DrawCount = drawParamDown.DrawCount;
-            WebMessageHandler.Instance.AddHandler(11, 3, OnClickBoxBtnResponse);
+            WebMessageHandlerOld.Instance.AddHandler(11, 3, OnClickBoxBtnResponse);
             NetWorkManager.Instance.SendMessage(11, 3, drawParamDown);
             if (drawParamDown.DrawType == 1)
             {
@@ -373,9 +373,9 @@ namespace XFramework
             var ui = UIHelper.Create<int>(UIType.UISubPanel_Shop_Pre, boxID);
         }
 
-        private void OnClickBoxBtnResponse(object sender, WebMessageHandler.Execute e)
+        private void OnClickBoxBtnResponse(object sender, WebMessageHandlerOld.Execute e)
         {
-            WebMessageHandler.Instance.RemoveHandler(11, 3, OnClickBoxBtnResponse);
+            WebMessageHandlerOld.Instance.RemoveHandler(11, 3, OnClickBoxBtnResponse);
             DrawInfo drawInfo = new DrawInfo();
             drawInfo.MergeFrom(e.data);
             Debug.Log(e);

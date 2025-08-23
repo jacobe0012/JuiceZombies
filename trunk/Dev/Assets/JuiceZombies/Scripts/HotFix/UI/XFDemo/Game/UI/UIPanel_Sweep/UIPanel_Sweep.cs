@@ -223,7 +223,7 @@ namespace XFramework
 
 
         /// <summary>
-        /// È¥ÔÂ¿¨½çÃæ
+        /// È¥ï¿½Â¿ï¿½ï¿½ï¿½ï¿½ï¿½
         /// </summary>
         private void GotoMonth()
         {
@@ -294,7 +294,7 @@ namespace XFramework
             var tempR = (curSelect + 1 < 6) ? curSelect + 1 : 1;
             this.GetXButton(KBtnR).OnClick.Add(() => ChangeMagnification(tempR).Forget());
             param = tbsweep_times.Get(param).times;
-            Log.Debug($"±¶ÂÊ£º{param}", Color.cyan);
+            Log.Debug($"ï¿½ï¿½ï¿½Ê£ï¿½{param}", Color.cyan);
 
             UpdateDisplay(param);
 
@@ -367,7 +367,7 @@ namespace XFramework
             if (JiYuUIHelper.TryReduceReward(cost))
             {
                 Log.Debug("OnBtnGetClick", Color.cyan);
-                WebMessageHandler.Instance.AddHandler(CMD.GETSWEEPREWARD, OnSweepGet);
+                WebMessageHandlerOld.Instance.AddHandler(CMD.GETSWEEPREWARD, OnSweepGet);
                 NetWorkManager.Instance.SendMessage(CMD.GETSWEEPREWARD,
                     new IntValue { Value = tbsweep_times.Get(curSelect).times });
                 //JiYuTweenHelper.EnableLoading(true);
@@ -381,9 +381,9 @@ namespace XFramework
             }
         }
 
-        private void OnSweepGet(object sender, WebMessageHandler.Execute e)
+        private void OnSweepGet(object sender, WebMessageHandlerOld.Execute e)
         {
-            WebMessageHandler.Instance.RemoveHandler(CMD.GETSWEEPREWARD, OnSweepGet);
+            WebMessageHandlerOld.Instance.RemoveHandler(CMD.GETSWEEPREWARD, OnSweepGet);
             StringValueList stringValueList = new StringValueList();
             stringValueList.MergeFrom(e.data);
             Debug.Log(e);

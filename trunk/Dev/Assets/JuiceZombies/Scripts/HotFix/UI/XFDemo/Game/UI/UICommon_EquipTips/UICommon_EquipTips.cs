@@ -171,18 +171,18 @@ namespace XFramework
             }
 
             //DestorySubPanel();
-            WebMessageHandler.Instance.RemoveHandler(CMD.EQUIPWEARORUNWEAR, OnEquipWearResponse);
-            // WebMessageHandler.Instance.RemoveHandler(CMD.EQUIPUNWEAR, OnEquipWearResponse);
-            // WebMessageHandler.Instance.RemoveHandler(CMD.EQUIPWEAR, OnEquipWearResponse);
+            WebMessageHandlerOld.Instance.RemoveHandler(CMD.EQUIPWEARORUNWEAR, OnEquipWearResponse);
+            // WebMessageHandlerOld.Instance.RemoveHandler(CMD.EQUIPUNWEAR, OnEquipWearResponse);
+            // WebMessageHandlerOld.Instance.RemoveHandler(CMD.EQUIPWEAR, OnEquipWearResponse);
             var equip = myGameEquip.equip;
             Log.Debug($"{myGameEquip.equip.ToString()}", Color.green);
-            // WebMessageHandler.Instance.AddHandler(CMD.EQUIPUNWEAR, OnEquipWearResponse);
-            // WebMessageHandler.Instance.AddHandler(CMD.EQUIPWEAR, OnEquipWearResponse);
-            WebMessageHandler.Instance.AddHandler(CMD.EQUIPDOWNGRADE, OnEquipUpGradeResponse);
-            WebMessageHandler.Instance.AddHandler(CMD.EQUIPUPGRADE, OnEquipUpGradeResponse);
+            // WebMessageHandlerOld.Instance.AddHandler(CMD.EQUIPUNWEAR, OnEquipWearResponse);
+            // WebMessageHandlerOld.Instance.AddHandler(CMD.EQUIPWEAR, OnEquipWearResponse);
+            WebMessageHandlerOld.Instance.AddHandler(CMD.EQUIPDOWNGRADE, OnEquipUpGradeResponse);
+            WebMessageHandlerOld.Instance.AddHandler(CMD.EQUIPUPGRADE, OnEquipUpGradeResponse);
 
-            WebMessageHandler.Instance.AddHandler(CMD.EQUIPALLUPGRADE, OnEquipAllUpGradeResponse);
-            //WebMessageHandler.Instance.AddHandler(CMD.QUERYPROPERTY, OnQueryPropertyResponse);
+            WebMessageHandlerOld.Instance.AddHandler(CMD.EQUIPALLUPGRADE, OnEquipAllUpGradeResponse);
+            //WebMessageHandlerOld.Instance.AddHandler(CMD.QUERYPROPERTY, OnQueryPropertyResponse);
             //DestorySubPanel();
 
 
@@ -575,7 +575,7 @@ namespace XFramework
             //StartTimer();
         }
 
-        void OnQueryPropertyResponse(object sender, WebMessageHandler.Execute e)
+        void OnQueryPropertyResponse(object sender, WebMessageHandlerOld.Execute e)
         {
             Log.Error("OnInitPlayerPropertyResponse");
             var battleProperty = new BattleProperty();
@@ -869,9 +869,9 @@ namespace XFramework
             return true;
         }
 
-        public void OnEquipWearResponse(object sender, WebMessageHandler.Execute e)
+        public void OnEquipWearResponse(object sender, WebMessageHandlerOld.Execute e)
         {
-            //WebMessageHandler.Instance.RemoveHandler(CMD.EQUIPWEAR, OnEquipWearResponse);
+            //WebMessageHandlerOld.Instance.RemoveHandler(CMD.EQUIPWEAR, OnEquipWearResponse);
             // GameEquip gameEquip = new GameEquip();
             // gameEquip.MergeFrom(e.data);
             Log.Debug("OnEquipWearOrUnwearResponse", Color.red);
@@ -884,9 +884,9 @@ namespace XFramework
             //Log.Debug($"gameEquip{gameEquip}", Color.red);
         }
 
-        public void OnEquipAllUpGradeResponse(object sender, WebMessageHandler.Execute e)
+        public void OnEquipAllUpGradeResponse(object sender, WebMessageHandlerOld.Execute e)
         {
-            WebMessageHandler.Instance.RemoveHandler(CMD.EQUIPALLUPGRADE, OnEquipAllUpGradeResponse);
+            WebMessageHandlerOld.Instance.RemoveHandler(CMD.EQUIPALLUPGRADE, OnEquipAllUpGradeResponse);
             GameEquip gameEquip = new GameEquip();
             gameEquip.MergeFrom(e.data);
 
@@ -899,9 +899,9 @@ namespace XFramework
             Log.Debug($"gameEquip{gameEquip}", Color.red);
         }
 
-        public void OnEquipUpGradeResponse(object sender, WebMessageHandler.Execute e)
+        public void OnEquipUpGradeResponse(object sender, WebMessageHandlerOld.Execute e)
         {
-            WebMessageHandler.Instance.RemoveHandler(CMD.EQUIPUPGRADE, OnEquipUpGradeResponse);
+            WebMessageHandlerOld.Instance.RemoveHandler(CMD.EQUIPUPGRADE, OnEquipUpGradeResponse);
             GameEquip gameEquip = new GameEquip();
             gameEquip.MergeFrom(e.data);
 
@@ -931,13 +931,13 @@ namespace XFramework
                 //uiequip.lastClickTipItem = btnui;
             }
 
-            //WebMessageHandler.Instance.RemoveHandler(CMD.QUERYPROPERTY, OnQueryPropertyResponse);
-            //WebMessageHandler.Instance.RemoveHandler(CMD.EQUIPUNWEAR, OnEquipWearResponse);
-            //WebMessageHandler.Instance.RemoveHandler(CMD.EQUIPWEAR, OnEquipWearResponse);
+            //WebMessageHandlerOld.Instance.RemoveHandler(CMD.QUERYPROPERTY, OnQueryPropertyResponse);
+            //WebMessageHandlerOld.Instance.RemoveHandler(CMD.EQUIPUNWEAR, OnEquipWearResponse);
+            //WebMessageHandlerOld.Instance.RemoveHandler(CMD.EQUIPWEAR, OnEquipWearResponse);
 
-            WebMessageHandler.Instance.RemoveHandler(CMD.EQUIPUPGRADE, OnEquipUpGradeResponse);
-            WebMessageHandler.Instance.RemoveHandler(CMD.EQUIPDOWNGRADE, OnEquipUpGradeResponse);
-            WebMessageHandler.Instance.RemoveHandler(CMD.EQUIPALLUPGRADE, OnEquipAllUpGradeResponse);
+            WebMessageHandlerOld.Instance.RemoveHandler(CMD.EQUIPUPGRADE, OnEquipUpGradeResponse);
+            WebMessageHandlerOld.Instance.RemoveHandler(CMD.EQUIPDOWNGRADE, OnEquipUpGradeResponse);
+            WebMessageHandlerOld.Instance.RemoveHandler(CMD.EQUIPALLUPGRADE, OnEquipAllUpGradeResponse);
 
 
             base.OnClose();

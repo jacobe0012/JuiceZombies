@@ -369,7 +369,7 @@ namespace XFramework
             }
 
 
-            WebMessageHandler.Instance.AddHandler(9, 3, OnResponseEquipLevelup);
+            WebMessageHandlerOld.Instance.AddHandler(9, 3, OnResponseEquipLevelup);
 
             NetWorkManager.Instance.SendMessage(9, 3, equipStruct.equip);
         }
@@ -393,7 +393,7 @@ namespace XFramework
                 return;
             }
 
-            WebMessageHandler.Instance.AddHandler(CMD.EQUIPALLUPGRADE, OnResponseEquipLevelup);
+            WebMessageHandlerOld.Instance.AddHandler(CMD.EQUIPALLUPGRADE, OnResponseEquipLevelup);
 
             NetWorkManager.Instance.SendMessage(9, 7, equipStruct.equip);
         }
@@ -439,9 +439,9 @@ namespace XFramework
 
 
         //升级回调
-        private void OnResponseEquipLevelup(object sender, WebMessageHandler.Execute e)
+        private void OnResponseEquipLevelup(object sender, WebMessageHandlerOld.Execute e)
         {
-            WebMessageHandler.Instance.RemoveHandler(9, 3, OnResponseEquipLevelup);
+            WebMessageHandlerOld.Instance.RemoveHandler(9, 3, OnResponseEquipLevelup);
             this.tempitem.equip = new GameEquip();
             this.tempitem.equip.MergeFrom(e.data);
             //减少图纸和金币

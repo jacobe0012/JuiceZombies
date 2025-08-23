@@ -113,7 +113,7 @@ namespace XFramework
 
         async UniTaskVoid InitNode()
         {
-            WebMessageHandler.Instance.AddHandler(CMD.MONOEXCHANGE, OnExchangeResponse);
+            WebMessageHandlerOld.Instance.AddHandler(CMD.MONOEXCHANGE, OnExchangeResponse);
             var KScrollView = GetFromReference(UIPanel_MonopolyShop.KScrollView);
             var KBtn_Desc = GetFromReference(UIPanel_MonopolyShop.KBtn_Desc);
             var KText_Title = GetFromReference(UIPanel_MonopolyShop.KText_Title);
@@ -377,7 +377,7 @@ namespace XFramework
         //     return false;
         // }
 
-        async public void OnExchangeResponse(object sender, WebMessageHandler.Execute e)
+        async public void OnExchangeResponse(object sender, WebMessageHandlerOld.Execute e)
         {
             StringValue buyDice = new StringValue();
             buyDice.MergeFrom(e.data);
@@ -669,7 +669,7 @@ namespace XFramework
 
         protected override void OnClose()
         {
-            WebMessageHandler.Instance.RemoveHandler(CMD.MONOEXCHANGE, OnExchangeResponse);
+            WebMessageHandlerOld.Instance.RemoveHandler(CMD.MONOEXCHANGE, OnExchangeResponse);
             RemoveTimer();
             cts.Cancel();
             cts.Dispose();

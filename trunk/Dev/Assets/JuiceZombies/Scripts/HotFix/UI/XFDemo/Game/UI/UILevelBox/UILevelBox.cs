@@ -45,7 +45,7 @@ namespace XFramework
         public void Initialize()
         {
             rewardItems = new List<GameObject>(4);
-            WebMessageHandler.Instance.AddHandler(2, 4, GetChapterBoxInfo);
+            WebMessageHandlerOld.Instance.AddHandler(2, 4, GetChapterBoxInfo);
             //GetBoxShow(ResourcesSingleton.Instance.levelInfo.levelBox.minNotGetBoxID);
 
             this.GetButton(KBackButton)?.OnClick.Add(Close);
@@ -53,7 +53,7 @@ namespace XFramework
         }
 
 
-        private void GetChapterBoxInfo(object sender, WebMessageHandler.Execute e)
+        private void GetChapterBoxInfo(object sender, WebMessageHandlerOld.Execute e)
         {
             Log.Debug("233333333333333333");
             var roleInfo = new RoleChapters();
@@ -65,9 +65,9 @@ namespace XFramework
             }
 
 
-            //ÄÃµ½×îÐ¡Î´ÁìÈ¡µÄboxID
+            //ï¿½Ãµï¿½ï¿½ï¿½Ð¡Î´ï¿½ï¿½È¡ï¿½ï¿½boxID
             int minNoGetBoxID = 2999;
-            //ÄÃµ½×îÐ¡Î´½âËøµÄboxID
+            //ï¿½Ãµï¿½ï¿½ï¿½Ð¡Î´ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½boxID
             int minNotLockBoxID = 2999;
             for (int i = 0; i < roleInfo.ChapterList.Count; i++)
             {
@@ -123,14 +123,14 @@ namespace XFramework
             //NetWorkManager.Instance.SendMessage(2, 8, new IntValue { Value = lastBoxID });
             //NetWorkManager.Instance.SendMessage(2, 4);
 
-            //Ç°¶Ë¼ÆËãÏÂ¸öÒ»±¦Ïäid
+            //Ç°ï¿½Ë¼ï¿½ï¿½ï¿½ï¿½Â¸ï¿½Ò»ï¿½ï¿½ï¿½ï¿½id
             //int minNoGetBoxID = lastBoxID;
             //var boxTable = ConfigManager.Instance.Tables.Tbchapter_box.DataList;
             //for (int i = 0; i < boxTable.Count; i++)
             //{
             //    if (boxTable[i].id == 1003 || i + 1 >= boxTable.Count)
             //    {
-            //        Log.Debug("ÎÞ¿ÉÁìÈ¡±¦Ïä Çë¼ì²éË÷Òý", Color.red);
+            //        Log.Debug("ï¿½Þ¿ï¿½ï¿½ï¿½È¡ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½", Color.red);
             //        return;
             //    }
 
@@ -163,7 +163,7 @@ namespace XFramework
             // int minNoGetBoxID = ResourcesSingleton.Instance.levelInfo.levelBox.minNotGetBoxID;
             int minNotLockBoxID = ResourcesSingleton.Instance.levelInfo.levelBox.minNotLockBoxID;
             // Log.Debug($"minNoGetBoxID{minNoGetBoxID}minNotLockBoxID{minNotLockBoxID}",Color.green);
-            //Í¨¹ýÃ»ÁìÈ¡µÄboxIDÉèÖÃbox½çÃæ
+            //Í¨ï¿½ï¿½Ã»ï¿½ï¿½È¡ï¿½ï¿½boxIDï¿½ï¿½ï¿½ï¿½boxï¿½ï¿½ï¿½ï¿½
             //int boxID = 101;
             UpdateAwardBoxInfo(nextBoxID, minNotLockBoxID);
         }
@@ -215,7 +215,7 @@ namespace XFramework
             int leftBoxID = -1, rightBoxID = -1;
             for (int i = 0; i < boxTable.Count; i++)
             {
-                //×î´óºÍ×îÐ¡µÄµ¥¶ÀÅÐ¶Ï
+                //ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ð¡ï¿½Äµï¿½ï¿½ï¿½ï¿½Ð¶ï¿½
                 if (boxID == 101)
                 {
                     rightBoxID = boxID + 1;
@@ -337,8 +337,8 @@ namespace XFramework
 
         protected override void OnClose()
         {
-            //WebMessageHandler.Instance.RemoveHandler(2, 4, NoGetBoxIDResponce);
-            WebMessageHandler.Instance.RemoveHandler(2, 4, GetChapterBoxInfo);
+            //WebMessageHandlerOld.Instance.RemoveHandler(2, 4, NoGetBoxIDResponce);
+            WebMessageHandlerOld.Instance.RemoveHandler(2, 4, GetChapterBoxInfo);
 
 
             rewardItems.Clear();

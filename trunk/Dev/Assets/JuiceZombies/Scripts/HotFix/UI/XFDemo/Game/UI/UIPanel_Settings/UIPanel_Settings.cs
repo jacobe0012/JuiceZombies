@@ -59,14 +59,14 @@ namespace XFramework
         {
             await JiYuUIHelper.InitBlur(this);
             SetUpdate();
-            WebMessageHandler.Instance.AddHandler(CMD.SENDGIFTCODE, OnSendGiftCodeResponse);
+            WebMessageHandlerOld.Instance.AddHandler(CMD.SENDGIFTCODE, OnSendGiftCodeResponse);
             OnClickEvent();
             Init().Forget();
         }
 
-        private void OnSendGiftCodeResponse(object sender, WebMessageHandler.Execute e)
+        private void OnSendGiftCodeResponse(object sender, WebMessageHandlerOld.Execute e)
         {
-            //WebMessageHandler.Instance.RemoveHandler(CMD.SENDGIFTCODE, OnSendGiftCodeResponse);
+            //WebMessageHandlerOld.Instance.RemoveHandler(CMD.SENDGIFTCODE, OnSendGiftCodeResponse);
             var strValue = new StringValue();
             strValue.MergeFrom(e.data);
 
@@ -642,7 +642,7 @@ namespace XFramework
             };
 
             NetWorkManager.Instance.SendMessage(CMD.CHANGESETTINGS, settings);
-            WebMessageHandler.Instance.RemoveHandler(CMD.SENDGIFTCODE, OnSendGiftCodeResponse);
+            WebMessageHandlerOld.Instance.RemoveHandler(CMD.SENDGIFTCODE, OnSendGiftCodeResponse);
 
             base.OnClose();
         }

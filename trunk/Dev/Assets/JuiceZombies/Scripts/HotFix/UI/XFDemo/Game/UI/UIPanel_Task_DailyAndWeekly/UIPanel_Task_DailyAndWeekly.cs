@@ -89,9 +89,9 @@ namespace XFramework
         {
             await JiYuUIHelper.InitBlur(this);
             InitJson();
-            WebMessageHandler.Instance.AddHandler(CMD.QUERYDAYANDWEEKTASK, OnDayAndWeekResponse);
-            WebMessageHandler.Instance.AddHandler(CMD.GETTASKSCORE, OnGetTaskResponse);
-            WebMessageHandler.Instance.AddHandler(CMD.GETALLDAILY, OnGetAllDailyResponse);
+            WebMessageHandlerOld.Instance.AddHandler(CMD.QUERYDAYANDWEEKTASK, OnDayAndWeekResponse);
+            WebMessageHandlerOld.Instance.AddHandler(CMD.GETTASKSCORE, OnGetTaskResponse);
+            WebMessageHandlerOld.Instance.AddHandler(CMD.GETALLDAILY, OnGetAllDailyResponse);
             
 
             
@@ -140,7 +140,7 @@ namespace XFramework
             //CreateTask(100).Forget();
             // if (ResourcesSingleton.Instance.gamePassStart)
             // {
-            //     WebMessageHandler.Instance.AddHandler(3, 1, OnRoleTaskInfoResponse);
+            //     WebMessageHandlerOld.Instance.AddHandler(3, 1, OnRoleTaskInfoResponse);
             //     NetWorkManager.Instance.SendMessage(3, 1);
             // }
 
@@ -171,7 +171,7 @@ namespace XFramework
             RedDotManager.Instance.InsterNode(itemStr2);
         }
 
-        private void OnGetTaskResponse(object sender, WebMessageHandler.Execute e)
+        private void OnGetTaskResponse(object sender, WebMessageHandlerOld.Execute e)
         {
             TaskResult taskResult = new TaskResult();
             taskResult.MergeFrom(e.data);
@@ -233,16 +233,16 @@ namespace XFramework
             //CreateTask(100).Forget();
             // if (ResourcesSingleton.Instance.gamePassStart)
             // {
-            //     WebMessageHandler.Instance.AddHandler(3, 1, OnRoleTaskInfoResponse);
+            //     WebMessageHandlerOld.Instance.AddHandler(3, 1, OnRoleTaskInfoResponse);
             //     NetWorkManager.Instance.SendMessage(3, 1);
             // }
 
             //TopScoreInit();
         }
 
-        private async void OnGetAllDailyResponse(object sender, WebMessageHandler.Execute e)
+        private async void OnGetAllDailyResponse(object sender, WebMessageHandlerOld.Execute e)
         {
-            //WebMessageHandler.Instance.RemoveHandler(CMD.QUERYDAYANDWEEKTASK, OnDayAndWeekResponse);
+            //WebMessageHandlerOld.Instance.RemoveHandler(CMD.QUERYDAYANDWEEKTASK, OnDayAndWeekResponse);
             ClickClaimRes clickClaimRes = new ClickClaimRes();
             clickClaimRes.MergeFrom(e.data);
             if (e.data.IsEmpty)
@@ -285,9 +285,9 @@ namespace XFramework
             }
         }
 
-        private void OnDayAndWeekResponse(object sender, WebMessageHandler.Execute e)
+        private void OnDayAndWeekResponse(object sender, WebMessageHandlerOld.Execute e)
         {
-            //WebMessageHandler.Instance.RemoveHandler(CMD.QUERYDAYANDWEEKTASK, OnDayAndWeekResponse);
+            //WebMessageHandlerOld.Instance.RemoveHandler(CMD.QUERYDAYANDWEEKTASK, OnDayAndWeekResponse);
             RoleTaskInfo roleTaskInfo = new RoleTaskInfo();
             roleTaskInfo.MergeFrom(e.data);
 
@@ -648,7 +648,7 @@ namespace XFramework
             //             {
             //                 //claim
             //                 ClearTip();
-            //                 WebMessageHandler.Instance.AddHandler(3, 2, OnCliamTaskResponse);
+            //                 WebMessageHandlerOld.Instance.AddHandler(3, 2, OnCliamTaskResponse);
             //                 clickTaskID = (int)t.x;
             //                 IntValue intValue = new IntValue();
             //                 intValue.Value = (int)t.x;
@@ -729,9 +729,9 @@ namespace XFramework
         /// </summary>
         /// <param name="sender"></param>
         /// <param name="e"></param>
-        private async void OnCliamTaskResponse(object sender, WebMessageHandler.Execute e)
+        private async void OnCliamTaskResponse(object sender, WebMessageHandlerOld.Execute e)
         {
-            WebMessageHandler.Instance.RemoveHandler(3, 2, OnCliamTaskResponse);
+            WebMessageHandlerOld.Instance.RemoveHandler(3, 2, OnCliamTaskResponse);
             TaskResult taskResult = new TaskResult();
             //StringValueList stringValueList = new StringValueList();
             taskResult.MergeFrom(e.data);
@@ -772,7 +772,7 @@ namespace XFramework
 
                 await UniTask.Delay(delayTime);
 
-                WebMessageHandler.Instance.AddHandler(3, 1, OnRoleTaskInfoResponse);
+                WebMessageHandlerOld.Instance.AddHandler(3, 1, OnRoleTaskInfoResponse);
                 NetWorkManager.Instance.SendMessage(3, 1);
             }
 
@@ -787,9 +787,9 @@ namespace XFramework
         /// </summary>
         /// <param name="sender"></param>
         /// <param name="e"></param>
-        private void OnRoleTaskInfoResponse(object sender, WebMessageHandler.Execute e)
+        private void OnRoleTaskInfoResponse(object sender, WebMessageHandlerOld.Execute e)
         {
-            WebMessageHandler.Instance.RemoveHandler(3, 1, OnRoleTaskInfoResponse);
+            WebMessageHandlerOld.Instance.RemoveHandler(3, 1, OnRoleTaskInfoResponse);
             RoleTaskInfo roleTaskInfo = new RoleTaskInfo();
             roleTaskInfo.MergeFrom(e.data);
             Debug.Log(e);
@@ -1220,7 +1220,7 @@ namespace XFramework
                         .SetSprite("icon_score_box_close", false);
                     JiYuTweenHelper.DoScaleTweenOnClickAndLongPress(claimBtn, () =>
                     {
-                        WebMessageHandler.Instance.AddHandler(3, 3, OnCliamScoreBoxResponse);
+                        WebMessageHandlerOld.Instance.AddHandler(3, 3, OnCliamScoreBoxResponse);
                         IntValue intValue = new IntValue();
                         intValue.Value = taskScore.id;
                         NetWorkManager.Instance.SendMessage(3, 3, intValue);
@@ -1262,14 +1262,14 @@ namespace XFramework
                 //             .SetSprite("icon_score_box_close", false);
                 //         // JiYuTweenHelper.DoScaleTweenOnClickAndLongPress(claimBtn, () =>
                 //         // {
-                //         //     WebMessageHandler.Instance.AddHandler(3, 3, OnCliamScoreBoxResponse);
+                //         //     WebMessageHandlerOld.Instance.AddHandler(3, 3, OnCliamScoreBoxResponse);
                 //         //     //clickBoxUI = uibox;
                 //         //     clickBoxID = tslist[ihelp].id;
                 //         //     IntValue intValue = new IntValue();
                 //         //     intValue.Value = tslist[ihelp].id;
                 //         //     NetWorkManager.Instance.SendMessage(3, 3, intValue);
                 //         // });
-                //         //WebMessageHandler.Instance.AddHandler(3, 3, OnCliamScoreBoxResponse);
+                //         //WebMessageHandlerOld.Instance.AddHandler(3, 3, OnCliamScoreBoxResponse);
                 //         //clickBoxUI = uibox;
                 //         clickBoxID = tslist[ihelp].id;
                 //         IntValue intValue = new IntValue();
@@ -1347,14 +1347,14 @@ namespace XFramework
             //                 .SetSprite("icon_score_box_close", true);
             //             // JiYuTweenHelper.DoScaleTweenOnClickAndLongPress(claimBtn, () =>
             //             // {
-            //             //     WebMessageHandler.Instance.AddHandler(3, 3, OnCliamScoreBoxResponse);
+            //             //     WebMessageHandlerOld.Instance.AddHandler(3, 3, OnCliamScoreBoxResponse);
             //             //     //clickBoxUI = uibox;
             //             //     clickBoxID = tslist[ihelp].id;
             //             //     IntValue intValue = new IntValue();
             //             //     intValue.Value = tslist[ihelp].id;
             //             //     NetWorkManager.Instance.SendMessage(3, 3, intValue);
             //             // });
-            //             //WebMessageHandler.Instance.AddHandler(3, 3, OnCliamScoreBoxResponse);
+            //             //WebMessageHandlerOld.Instance.AddHandler(3, 3, OnCliamScoreBoxResponse);
             //             //clickBoxUI = uibox;
             //             clickBoxID = tslist[ihelp].id;
             //             IntValue intValue = new IntValue();
@@ -1462,9 +1462,9 @@ namespace XFramework
         /// </summary>
         /// <param name="sender"></param>
         /// <param name="e"></param>
-        private async void OnCliamScoreBoxResponse(object sender, WebMessageHandler.Execute e)
+        private async void OnCliamScoreBoxResponse(object sender, WebMessageHandlerOld.Execute e)
         {
-            WebMessageHandler.Instance.RemoveHandler(3, 3, OnCliamScoreBoxResponse);
+            WebMessageHandlerOld.Instance.RemoveHandler(3, 3, OnCliamScoreBoxResponse);
             StringValueList stringValueList = new StringValueList();
             stringValueList.MergeFrom(e.data);
             Debug.Log(stringValueList);
@@ -1492,7 +1492,7 @@ namespace XFramework
             UIHelper.Create(UIType.UICommon_Reward, reList);
 
 
-            // WebMessageHandler.Instance.AddHandler(3, 1, OnRoleTaskInfoResponse);
+            // WebMessageHandlerOld.Instance.AddHandler(3, 1, OnRoleTaskInfoResponse);
             // NetWorkManager.Instance.SendMessage(3, 1);
             //ResourcesSingleton.Instance.UpdateResourceUI();
 
@@ -1638,9 +1638,9 @@ namespace XFramework
 
         protected override void OnClose()
         {
-            WebMessageHandler.Instance.RemoveHandler(CMD.GETALLDAILY, OnGetAllDailyResponse);
-            WebMessageHandler.Instance.RemoveHandler(CMD.QUERYDAYANDWEEKTASK, OnDayAndWeekResponse);
-            WebMessageHandler.Instance.RemoveHandler(CMD.GETTASKSCORE, OnGetTaskResponse);
+            WebMessageHandlerOld.Instance.RemoveHandler(CMD.GETALLDAILY, OnGetAllDailyResponse);
+            WebMessageHandlerOld.Instance.RemoveHandler(CMD.QUERYDAYANDWEEKTASK, OnDayAndWeekResponse);
+            WebMessageHandlerOld.Instance.RemoveHandler(CMD.GETTASKSCORE, OnGetTaskResponse);
             //DestroyTaskList();
             RemoveTimer();
             cts.Cancel();

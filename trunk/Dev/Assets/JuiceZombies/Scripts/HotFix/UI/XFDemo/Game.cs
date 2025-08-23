@@ -44,7 +44,8 @@ namespace XFramework
             ResourcesSingleton.Instance.Init();
 
             RedDotManager.Instance.Clear();
-            WebMessageHandler.Instance.Clear();
+            WebMessageHandlerOld.Instance.Clear();
+            WebMsgHandler.Instance.Clear();
         }
 
         public void Dispose()

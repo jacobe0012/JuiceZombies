@@ -83,14 +83,14 @@ namespace XFramework
 
         private void InitData()
         {
-            //²éÑ¯¹ºÂò´ÎÊý
-            WebMessageHandler.Instance.AddHandler(6, 5, OnQueryBuyTimes);
+            //ï¿½ï¿½Ñ¯ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
+            WebMessageHandlerOld.Instance.AddHandler(6, 5, OnQueryBuyTimes);
             NetWorkManager.Instance.SendMessage(6, 5);
         }
 
-        private void OnQueryBuyTimes(object sender, WebMessageHandler.Execute e)
+        private void OnQueryBuyTimes(object sender, WebMessageHandlerOld.Execute e)
         {
-            WebMessageHandler.Instance.RemoveHandler(6, 5, OnQueryBuyTimes);
+            WebMessageHandlerOld.Instance.RemoveHandler(6, 5, OnQueryBuyTimes);
             var configTimes = new PatrolConfig();
             configTimes.MergeFrom(e.data);
             if (e.data.IsEmpty)
@@ -101,7 +101,7 @@ namespace XFramework
 
             raminAdTimes = configTimes.AdEnergyTimes;
             raminDiamondTimes = configTimes.BuyEnergyTimes;
-            WebMessageHandler.Instance.AddHandler(CMD.INITPLAYER, OnRequreTimeDownResponse);
+            WebMessageHandlerOld.Instance.AddHandler(CMD.INITPLAYER, OnRequreTimeDownResponse);
             NetWorkManager.Instance.SendMessage(CMD.INITPLAYER);
         }
 
@@ -143,14 +143,14 @@ namespace XFramework
             {
                 Value = buyType
             };
-            //¹ºÂòÌåÁ¦µÄ½Ó¿Ú
-            WebMessageHandler.Instance.AddHandler(13, 7, OnBuyEnergyResponse);
+            //ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ä½Ó¿ï¿½
+            WebMessageHandlerOld.Instance.AddHandler(13, 7, OnBuyEnergyResponse);
             NetWorkManager.Instance.SendMessage(13, 7, type);
         }
 
-        private async void OnBuyEnergyResponse(object sender, WebMessageHandler.Execute e)
+        private async void OnBuyEnergyResponse(object sender, WebMessageHandlerOld.Execute e)
         {
-            WebMessageHandler.Instance.RemoveHandler(13, 7, OnBuyEnergyResponse);
+            WebMessageHandlerOld.Instance.RemoveHandler(13, 7, OnBuyEnergyResponse);
             var str = new StringValue();
             str.MergeFrom(e.data);
 
@@ -180,7 +180,7 @@ namespace XFramework
                 JiYuUIHelper.AddReward(item, true);
             }
 
-            WebMessageHandler.Instance.AddHandler(CMD.INITPLAYER, OnRequreTimeDownResponse);
+            WebMessageHandlerOld.Instance.AddHandler(CMD.INITPLAYER, OnRequreTimeDownResponse);
             NetWorkManager.Instance.SendMessage(CMD.INITPLAYER);
             if (JiYuUIHelper.TryGetUI(UIType.UIPanel_Patrol, out UI ui))
             {
@@ -195,9 +195,9 @@ namespace XFramework
             }
         }
 
-        private void OnRequreTimeDownResponse(object sender, WebMessageHandler.Execute e)
+        private void OnRequreTimeDownResponse(object sender, WebMessageHandlerOld.Execute e)
         {
-            WebMessageHandler.Instance.RemoveHandler(CMD.INITPLAYER, OnRequreTimeDownResponse);
+            WebMessageHandlerOld.Instance.RemoveHandler(CMD.INITPLAYER, OnRequreTimeDownResponse);
             var gameRole = new GameRole();
             gameRole.MergeFrom(e.data);
             if (e.data.IsEmpty)
@@ -323,15 +323,15 @@ namespace XFramework
 
         public string ToTimeFormat(float time)
         {
-            //ÃëÊýÈ¡Õû
+            //ï¿½ï¿½ï¿½ï¿½È¡ï¿½ï¿½
             int seconds = (int)time;
-            //Ò»Ð¡Ê±Îª3600Ãë ÃëÊý¶Ô3600È¡Õû¼´ÎªÐ¡Ê±
+            //Ò»Ð¡Ê±Îª3600ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½3600È¡ï¿½ï¿½ï¿½ï¿½ÎªÐ¡Ê±
             int hour = seconds / 3600;
-            //Ò»·ÖÖÓÎª60Ãë ÃëÊý¶Ô3600È¡ÓàÔÙ¶Ô60È¡Õû¼´Îª·ÖÖÓ
+            //Ò»ï¿½ï¿½ï¿½ï¿½Îª60ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½3600È¡ï¿½ï¿½ï¿½Ù¶ï¿½60È¡ï¿½ï¿½ï¿½ï¿½Îªï¿½ï¿½ï¿½ï¿½
             int minute = seconds % 3600 / 60;
-            //¶Ô3600È¡ÓàÔÙ¶Ô60È¡Óà¼´ÎªÃëÊý
+            //ï¿½ï¿½3600È¡ï¿½ï¿½ï¿½Ù¶ï¿½60È¡ï¿½à¼´Îªï¿½ï¿½ï¿½ï¿½
             seconds = seconds % 3600 % 60;
-            //·µ»Ø00:00:00Ê±¼ä¸ñÊ½
+            //ï¿½ï¿½ï¿½ï¿½00:00:00Ê±ï¿½ï¿½ï¿½Ê½
             return string.Format("{0:D2}:{1:D2}", minute, seconds);
         }
 

@@ -177,18 +177,18 @@ namespace XFramework
 
 
             //DestorySubPanel();
-            WebMessageHandler.Instance.RemoveHandler(CMD.EQUIPWEARORUNWEAR, OnEquipWearResponse);
-            // WebMessageHandler.Instance.RemoveHandler(CMD.EQUIPUNWEAR, OnEquipWearResponse);
-            // WebMessageHandler.Instance.RemoveHandler(CMD.EQUIPWEAR, OnEquipWearResponse);
+            WebMessageHandlerOld.Instance.RemoveHandler(CMD.EQUIPWEARORUNWEAR, OnEquipWearResponse);
+            // WebMessageHandlerOld.Instance.RemoveHandler(CMD.EQUIPUNWEAR, OnEquipWearResponse);
+            // WebMessageHandlerOld.Instance.RemoveHandler(CMD.EQUIPWEAR, OnEquipWearResponse);
             var equip = myGameEquip.equip;
             Log.Debug($"{myGameEquip.equip.ToString()}", Color.green);
-            // WebMessageHandler.Instance.AddHandler(CMD.EQUIPUNWEAR, OnEquipWearResponse);
-            // WebMessageHandler.Instance.AddHandler(CMD.EQUIPWEAR, OnEquipWearResponse);
-            WebMessageHandler.Instance.AddHandler(CMD.EQUIPDOWNGRADE, OnEquipUpGradeResponse);
-            WebMessageHandler.Instance.AddHandler(CMD.EQUIPUPGRADE, OnEquipUpGradeResponse);
+            // WebMessageHandlerOld.Instance.AddHandler(CMD.EQUIPUNWEAR, OnEquipWearResponse);
+            // WebMessageHandlerOld.Instance.AddHandler(CMD.EQUIPWEAR, OnEquipWearResponse);
+            WebMessageHandlerOld.Instance.AddHandler(CMD.EQUIPDOWNGRADE, OnEquipUpGradeResponse);
+            WebMessageHandlerOld.Instance.AddHandler(CMD.EQUIPUPGRADE, OnEquipUpGradeResponse);
 
-            WebMessageHandler.Instance.AddHandler(CMD.EQUIPALLUPGRADE, OnEquipAllUpGradeResponse);
-            //WebMessageHandler.Instance.AddHandler(CMD.QUERYPROPERTY, OnQueryPropertyResponse);
+            WebMessageHandlerOld.Instance.AddHandler(CMD.EQUIPALLUPGRADE, OnEquipAllUpGradeResponse);
+            //WebMessageHandlerOld.Instance.AddHandler(CMD.QUERYPROPERTY, OnQueryPropertyResponse);
             //DestorySubPanel();
 
 
@@ -369,7 +369,7 @@ namespace XFramework
                 }
             }
 
-            //TODO:ÊôÐÔid
+            //TODO:ï¿½ï¿½ï¿½ï¿½id
             switch (equip_data.mainEntryId)
             {
                 case 103010:
@@ -457,25 +457,25 @@ namespace XFramework
             RefreshLevelUp(0, myGameEquip);
 
 
-            //TODO:×°±¸ÏêÇé ×°±¸ÒÑ¾­´ïµ½µÈ¼¶ÉÏÏÞ È±¶àÓïÑÔ
-            //attr_hpÉúÃü
-            //µÈ¼¶attr_info_level
-            //¹¥»÷attr_atk
-            //attr_speed ÒÆ¶¯ËÙ¶È
-            //Éý¼¶ÏûºÄequip_levelup_cost
-            //common_state_common×°±¸
-            //common_state_levelupÉý¼¶
-            //Ò»¼üÉý¼¶common_state_levelupclick
-            //common_state_removeÐ¶ÏÂ
-            //common_state_leveldown½µ¼¶
-            //common_state_qualitydown½µÆ·
-            //common_state_cancelÈ¡Ïû
-            //common_state_equipping×°±¸ÖÐ
-            //common_state_change¸ü»»
-            //common_state_mergeºÏ³É
-            //common_state_mergeclickÒ»¼üºÏ³É
+            //TODO:×°ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ×°ï¿½ï¿½ï¿½Ñ¾ï¿½ï¿½ïµ½ï¿½È¼ï¿½ï¿½ï¿½ï¿½ï¿½ È±ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
+            //attr_hpï¿½ï¿½ï¿½ï¿½
+            //ï¿½È¼ï¿½attr_info_level
+            //ï¿½ï¿½ï¿½ï¿½attr_atk
+            //attr_speed ï¿½Æ¶ï¿½ï¿½Ù¶ï¿½
+            //ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½equip_levelup_cost
+            //common_state_common×°ï¿½ï¿½
+            //common_state_levelupï¿½ï¿½ï¿½ï¿½
+            //Ò»ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½common_state_levelupclick
+            //common_state_removeÐ¶ï¿½ï¿½
+            //common_state_leveldownï¿½ï¿½ï¿½ï¿½
+            //common_state_qualitydownï¿½ï¿½Æ·
+            //common_state_cancelÈ¡ï¿½ï¿½
+            //common_state_equipping×°ï¿½ï¿½ï¿½ï¿½
+            //common_state_changeï¿½ï¿½ï¿½ï¿½
+            //common_state_mergeï¿½Ï³ï¿½
+            //common_state_mergeclickÒ»ï¿½ï¿½ï¿½Ï³ï¿½
 
-            //Éý¼¶
+            //ï¿½ï¿½ï¿½ï¿½
             JiYuTweenHelper.DoScaleTweenOnClickAndLongPress(KBtn_LevelUp,
                 () =>
                 {
@@ -511,10 +511,10 @@ namespace XFramework
                         JiYuUIHelper.ClearCommonResource();
                         var str = languageConfig.Get("equip_levelup_error").current;
                         UIHelper.CreateAsync(UIType.UICommon_Resource, str);
-                        Log.Debug("×ÊÔ´²»×ã", Color.red);
+                        Log.Debug("ï¿½ï¿½Ô´ï¿½ï¿½ï¿½ï¿½", Color.red);
                     }
                 });
-            //Ò»¼üÉý¼¶
+            //Ò»ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
             JiYuTweenHelper.DoScaleTweenOnClickAndLongPress(KBtn_AllLevelUp,
                 () =>
                 {
@@ -539,7 +539,7 @@ namespace XFramework
                         JiYuUIHelper.ClearCommonResource();
                         var str = languageConfig.Get("equip_levelup_error").current;
                         UIHelper.CreateAsync(UIType.UICommon_Resource, str);
-                        Log.Debug("×ÊÔ´²»×ã", Color.red);
+                        Log.Debug("ï¿½ï¿½Ô´ï¿½ï¿½ï¿½ï¿½", Color.red);
                         return;
                     }
 
@@ -565,7 +565,7 @@ namespace XFramework
                     }
 
                     JiYuUIHelper.WearOrUnWearEquipProperty(equip, true);
-                    //TODO:Ë¢ÐÂtip½çÃæ
+                    //TODO:Ë¢ï¿½ï¿½tipï¿½ï¿½ï¿½ï¿½
                     RefreshLevelUp(equipUid);
                     if (JiYuUIHelper.TryGetUI(UIType.UIPanel_Equipment, out var ui))
                     {
@@ -653,11 +653,11 @@ namespace XFramework
 
         string ColorizeOperatorsAndNumbers(string input, string hex)
         {
-            // ¶¨ÒåÕýÔò±í´ïÊ½£ºÆ¥ÅäÔËËã·û (+-*/%) ºÍÊý×Ö
+            // ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ê½ï¿½ï¿½Æ¥ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ (+-*/%) ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
             string pattern = @"([+\-*/%])|(\d+)";
             string result = Regex.Replace(input, pattern, match =>
             {
-                // ÎªÆ¥Åäµ½µÄÔËËã·û»òÊý×ÖÌí¼ÓºìÉ«±êÇ©
+                // ÎªÆ¥ï¿½äµ½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Óºï¿½É«ï¿½ï¿½Ç©
                 return UnityHelper.RichTextColor(match.Value, hex);
             });
             return result;
@@ -673,7 +673,7 @@ namespace XFramework
             KImg_RedDot.SetActive(false);
         }
 
-        void OnQueryPropertyResponse(object sender, WebMessageHandler.Execute e)
+        void OnQueryPropertyResponse(object sender, WebMessageHandlerOld.Execute e)
         {
             Log.Error("OnInitPlayerPropertyResponse");
             var battleProperty = new BattleProperty();
@@ -778,7 +778,7 @@ namespace XFramework
                 KnotMaxLevel.SetActive(false);
                 KBtn_LevelUp.SetActive(false);
                 KBtn_AllLevelUp.SetActive(false);
-                //TODO:×°±¸ÒÑ¾­´ïµ½µÈ¼¶ÉÏÏÞ ¶àÓïÑÔ
+                //TODO:×°ï¿½ï¿½ï¿½Ñ¾ï¿½ï¿½ïµ½ï¿½È¼ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
                 //KText_LevelMaxInfo.GetTextMeshPro().SetTMPText(languageConfig.Get("attr_info_level").current);
                 return;
             }
@@ -789,7 +789,7 @@ namespace XFramework
             KBtn_AllLevelUp.SetActive(true);
             foreach (var cost in costs)
             {
-                //Log.Error("´´½¨Item");
+                //Log.Error("ï¿½ï¿½ï¿½ï¿½Item");
                 var ui = await uiList.CreateWithUITypeAsync(UIType.UISubPanel_EquipLevelConsumeItem, cost, false);
 
                 // var ui = await UIHelper.CreateAsync(KItemPos, UIType.UISubPanel_EquipLevelConsumeItem,
@@ -800,7 +800,7 @@ namespace XFramework
                 JiYuUIHelper.SetIconOnly(cost, icon);
                 var text = ui.GetFromReference(UISubPanel_EquipLevelConsumeItem.KText_Consume);
                 var count = JiYuUIHelper.GetRewardCount(cost);
-                //TODO:count  k´¦
+                //TODO:count  kï¿½ï¿½
                 var countStr = JiYuUIHelper.ReturnFormatResourceNum(count);
                 var countCostStr = JiYuUIHelper.ReturnFormatResourceNum((long)cost.z);
                 JiYuUIHelper.SetGrayOrNot(KBtn_LevelUp, "common_button_gray2", "common_green_button_7",
@@ -978,9 +978,9 @@ namespace XFramework
             return true;
         }
 
-        public void OnEquipWearResponse(object sender, WebMessageHandler.Execute e)
+        public void OnEquipWearResponse(object sender, WebMessageHandlerOld.Execute e)
         {
-            //WebMessageHandler.Instance.RemoveHandler(CMD.EQUIPWEAR, OnEquipWearResponse);
+            //WebMessageHandlerOld.Instance.RemoveHandler(CMD.EQUIPWEAR, OnEquipWearResponse);
             // GameEquip gameEquip = new GameEquip();
             // gameEquip.MergeFrom(e.data);
             Log.Debug("OnEquipWearOrUnwearResponse", Color.red);
@@ -993,9 +993,9 @@ namespace XFramework
             //Log.Debug($"gameEquip{gameEquip}", Color.red);
         }
 
-        public void OnEquipAllUpGradeResponse(object sender, WebMessageHandler.Execute e)
+        public void OnEquipAllUpGradeResponse(object sender, WebMessageHandlerOld.Execute e)
         {
-            WebMessageHandler.Instance.RemoveHandler(CMD.EQUIPALLUPGRADE, OnEquipAllUpGradeResponse);
+            WebMessageHandlerOld.Instance.RemoveHandler(CMD.EQUIPALLUPGRADE, OnEquipAllUpGradeResponse);
             GameEquip gameEquip = new GameEquip();
             gameEquip.MergeFrom(e.data);
 
@@ -1008,9 +1008,9 @@ namespace XFramework
             Log.Debug($"gameEquip{gameEquip}", Color.red);
         }
 
-        public void OnEquipUpGradeResponse(object sender, WebMessageHandler.Execute e)
+        public void OnEquipUpGradeResponse(object sender, WebMessageHandlerOld.Execute e)
         {
-            WebMessageHandler.Instance.RemoveHandler(CMD.EQUIPUPGRADE, OnEquipUpGradeResponse);
+            WebMessageHandlerOld.Instance.RemoveHandler(CMD.EQUIPUPGRADE, OnEquipUpGradeResponse);
             GameEquip gameEquip = new GameEquip();
             gameEquip.MergeFrom(e.data);
 
@@ -1022,7 +1022,7 @@ namespace XFramework
 
             if (!ResourcesSingleton.Instance.equipmentData.equipments.ContainsKey(gameEquip.PartId))
             {
-                Log.Error($"×°±¸Éý¼¶ºó·µ»Ø²»´æÔÚµÄ×°±¸uid", Color.red);
+                Log.Error($"×°ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ó·µ»Ø²ï¿½ï¿½ï¿½ï¿½Úµï¿½×°ï¿½ï¿½uid", Color.red);
                 return;
             }
 
@@ -1040,13 +1040,13 @@ namespace XFramework
                 //uiequip.lastClickTipItem = btnui;
             }
 
-            //WebMessageHandler.Instance.RemoveHandler(CMD.QUERYPROPERTY, OnQueryPropertyResponse);
-            //WebMessageHandler.Instance.RemoveHandler(CMD.EQUIPUNWEAR, OnEquipWearResponse);
-            //WebMessageHandler.Instance.RemoveHandler(CMD.EQUIPWEAR, OnEquipWearResponse);
+            //WebMessageHandlerOld.Instance.RemoveHandler(CMD.QUERYPROPERTY, OnQueryPropertyResponse);
+            //WebMessageHandlerOld.Instance.RemoveHandler(CMD.EQUIPUNWEAR, OnEquipWearResponse);
+            //WebMessageHandlerOld.Instance.RemoveHandler(CMD.EQUIPWEAR, OnEquipWearResponse);
 
-            WebMessageHandler.Instance.RemoveHandler(CMD.EQUIPUPGRADE, OnEquipUpGradeResponse);
-            WebMessageHandler.Instance.RemoveHandler(CMD.EQUIPDOWNGRADE, OnEquipUpGradeResponse);
-            WebMessageHandler.Instance.RemoveHandler(CMD.EQUIPALLUPGRADE, OnEquipAllUpGradeResponse);
+            WebMessageHandlerOld.Instance.RemoveHandler(CMD.EQUIPUPGRADE, OnEquipUpGradeResponse);
+            WebMessageHandlerOld.Instance.RemoveHandler(CMD.EQUIPDOWNGRADE, OnEquipUpGradeResponse);
+            WebMessageHandlerOld.Instance.RemoveHandler(CMD.EQUIPALLUPGRADE, OnEquipAllUpGradeResponse);
 
 
             base.OnClose();

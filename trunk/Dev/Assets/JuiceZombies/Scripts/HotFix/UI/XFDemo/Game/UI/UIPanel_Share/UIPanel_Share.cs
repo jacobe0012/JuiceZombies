@@ -80,17 +80,17 @@ namespace XFramework
 
         private void WebInit()
         {
-            WebMessageHandler.Instance.AddHandler(CMD.QUERYSHARE, OnShareInfoResponse);
-            WebMessageHandler.Instance.AddHandler(CMD.SETSHARE, OnSetShareResponse);
+            WebMessageHandlerOld.Instance.AddHandler(CMD.QUERYSHARE, OnShareInfoResponse);
+            WebMessageHandlerOld.Instance.AddHandler(CMD.SETSHARE, OnSetShareResponse);
         }
 
-        private void OnSetShareResponse(object sender, WebMessageHandler.Execute e)
+        private void OnSetShareResponse(object sender, WebMessageHandlerOld.Execute e)
         {
             Log.Debug($"OnShareResponse ", Color.green);
             NetWorkManager.Instance.SendMessage(CMD.QUERYSHARE);
         }
 
-        private void OnShareInfoResponse(object sender, WebMessageHandler.Execute e)
+        private void OnShareInfoResponse(object sender, WebMessageHandlerOld.Execute e)
         {
             var shareData = new GameShare();
             shareData.MergeFrom(e.data);
@@ -244,8 +244,8 @@ namespace XFramework
 
         protected override void OnClose()
         {
-            WebMessageHandler.Instance.RemoveHandler(CMD.QUERYSHARE, OnShareInfoResponse);
-            WebMessageHandler.Instance.RemoveHandler(CMD.SETSHARE, OnSetShareResponse);
+            WebMessageHandlerOld.Instance.RemoveHandler(CMD.QUERYSHARE, OnShareInfoResponse);
+            WebMessageHandlerOld.Instance.RemoveHandler(CMD.SETSHARE, OnSetShareResponse);
 
             base.OnClose();
         }

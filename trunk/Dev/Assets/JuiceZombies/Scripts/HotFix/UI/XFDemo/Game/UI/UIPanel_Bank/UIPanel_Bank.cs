@@ -103,9 +103,9 @@ namespace XFramework
             Close();
         }
 
-        private void OnBankResponse(object sender, WebMessageHandler.Execute e)
+        private void OnBankResponse(object sender, WebMessageHandlerOld.Execute e)
         {
-            WebMessageHandler.Instance.RemoveHandler(CMD.QUERYBANK, OnBankResponse);
+            WebMessageHandlerOld.Instance.RemoveHandler(CMD.QUERYBANK, OnBankResponse);
             var gameBank = new GoldPig();
             gameBank.MergeFrom(e.data);
             Debug.Log(gameBank);
@@ -263,7 +263,7 @@ namespace XFramework
                     const string Fund1 = "B03";
                     JiYuUIHelper.SendBuyMessage(Fund1, BankID);
                     /*
-                    WebMessageHandler.Instance.AddHandler(15, 2, OnBuyBankResponse);
+                    WebMessageHandlerOld.Instance.AddHandler(15, 2, OnBuyBankResponse);
                     NetWorkManager.Instance.SendMessage(15, 2);*/
                 }
                 else
@@ -275,9 +275,9 @@ namespace XFramework
             });
         }
 
-        private void OnBuyBankResponse(object sender, WebMessageHandler.Execute e)
+        private void OnBuyBankResponse(object sender, WebMessageHandlerOld.Execute e)
         {
-            WebMessageHandler.Instance.RemoveHandler(15, 2, OnBuyBankResponse);
+            WebMessageHandlerOld.Instance.RemoveHandler(15, 2, OnBuyBankResponse);
 
             StringValueList stringValueList = new StringValueList();
             stringValueList.MergeFrom(e.data);
@@ -296,7 +296,7 @@ namespace XFramework
 
             Debug.Log("15, 2, OnBuyBankResponse");
 
-            WebMessageHandler.Instance.AddHandler(CMD.QUERYBANK, OnBankResponse);
+            WebMessageHandlerOld.Instance.AddHandler(CMD.QUERYBANK, OnBankResponse);
             NetWorkManager.Instance.SendMessage(CMD.QUERYBANK);
         }
 
@@ -347,7 +347,7 @@ namespace XFramework
                     if (!HaveSendMessage)
                     {
                         HaveSendMessage = true;
-                        WebMessageHandler.Instance.AddHandler(CMD.QUERYBANK, OnBankResponse);
+                        WebMessageHandlerOld.Instance.AddHandler(CMD.QUERYBANK, OnBankResponse);
                         NetWorkManager.Instance.SendMessage(CMD.QUERYBANK);
                     }
                 }

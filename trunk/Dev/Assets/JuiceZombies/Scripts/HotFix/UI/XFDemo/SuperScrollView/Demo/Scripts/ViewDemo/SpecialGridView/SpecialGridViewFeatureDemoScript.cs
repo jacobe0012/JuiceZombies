@@ -39,7 +39,7 @@ namespace SuperScrollView
         // Use this for initialization
         void Start()
         {
-            WebMessageHandler.Instance.AddHandler(9, 5, OnInitEquipmentResponse);
+            WebMessageHandlerOld.Instance.AddHandler(9, 5, OnInitEquipmentResponse);
             NetWorkManager.Instance.SendMessage(9, 5);
         }
 
@@ -288,7 +288,7 @@ namespace SuperScrollView
         }
 
 
-        public void OnInitEquipmentResponse(object sender, WebMessageHandler.Execute e)
+        public void OnInitEquipmentResponse(object sender, WebMessageHandlerOld.Execute e)
         {
             EquipitemCache.GameEquips.Clear();
             ByteValueList gameEquips = new ByteValueList();

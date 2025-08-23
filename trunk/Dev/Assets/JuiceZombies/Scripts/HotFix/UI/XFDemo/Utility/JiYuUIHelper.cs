@@ -1095,7 +1095,7 @@ namespace HotFix_UI
             }
 
             DestoryWbe();
-            WebMessageHandler.Instance.Clear();
+            WebMessageHandlerOld.Instance.Clear();
 
             var sceneController = XFramework.Common.Instance.Get<SceneController>();
             var sceneObj = sceneController.LoadSceneAsync<MenuScene>(SceneName.UIMenu);

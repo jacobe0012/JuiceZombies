@@ -125,16 +125,16 @@ namespace XFramework
 
         private void WebInit()
         {
-            WebMessageHandler.Instance.AddHandler(CMD.UNLOCKNEXTPASSLEVEL, OnUnLockNowResponse);
-            WebMessageHandler.Instance.AddHandler(CMD.QUERYPASS, OnPassInfoResponse);
-            WebMessageHandler.Instance.AddHandler(CMD.GETPASSREWARD, OnGetRewardResponse);
+            WebMessageHandlerOld.Instance.AddHandler(CMD.UNLOCKNEXTPASSLEVEL, OnUnLockNowResponse);
+            WebMessageHandlerOld.Instance.AddHandler(CMD.QUERYPASS, OnPassInfoResponse);
+            WebMessageHandlerOld.Instance.AddHandler(CMD.GETPASSREWARD, OnGetRewardResponse);
         }
 
         private void WebRemove()
         {
-            WebMessageHandler.Instance.RemoveHandler(CMD.UNLOCKNEXTPASSLEVEL, OnUnLockNowResponse);
-            WebMessageHandler.Instance.RemoveHandler(CMD.QUERYPASS, OnPassInfoResponse);
-            WebMessageHandler.Instance.RemoveHandler(CMD.GETPASSREWARD, OnGetRewardResponse);
+            WebMessageHandlerOld.Instance.RemoveHandler(CMD.UNLOCKNEXTPASSLEVEL, OnUnLockNowResponse);
+            WebMessageHandlerOld.Instance.RemoveHandler(CMD.QUERYPASS, OnPassInfoResponse);
+            WebMessageHandlerOld.Instance.RemoveHandler(CMD.GETPASSREWARD, OnGetRewardResponse);
         }
 
         private void CloseTip1()
@@ -232,7 +232,7 @@ namespace XFramework
             });
         }
 
-        // private void OnGetTokenResponse(object sender, WebMessageHandler.Execute e)
+        // private void OnGetTokenResponse(object sender, WebMessageHandlerOld.Execute e)
         // {
         //     StringValue stringValue = new StringValue();
         //     stringValue.MergeFrom(e.data);
@@ -594,9 +594,9 @@ namespace XFramework
                 itemui.GetFromReference(UISubPanel_Pass_Item.KReward_Right));
         }
 
-        private void OnGetRewardResponse(object sender, WebMessageHandler.Execute e)
+        private void OnGetRewardResponse(object sender, WebMessageHandlerOld.Execute e)
         {
-            //WebMessageHandler.Instance.RemoveHandler(14, 3, OnGetRewardResponse);
+            //WebMessageHandlerOld.Instance.RemoveHandler(14, 3, OnGetRewardResponse);
             StringValueList stringValueList = new StringValueList();
             stringValueList.MergeFrom(e.data);
             Log.Debug($"OnGetRewardResponse:{stringValueList.Values}", Color.green);
@@ -767,7 +767,7 @@ namespace XFramework
             }
         }
 
-        private void OnUnLockNowResponse(object sender, WebMessageHandler.Execute e)
+        private void OnUnLockNowResponse(object sender, WebMessageHandlerOld.Execute e)
         {
             var unLockStr = new StringValue();
             unLockStr.MergeFrom(e.data);
@@ -792,7 +792,7 @@ namespace XFramework
             }
         }
 
-        private void OnPassInfoResponse(object sender, WebMessageHandler.Execute e)
+        private void OnPassInfoResponse(object sender, WebMessageHandlerOld.Execute e)
         {
             var passList = new ByteValueList();
             passList.MergeFrom(e.data);

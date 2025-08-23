@@ -112,7 +112,7 @@ namespace XFramework
             InitJson();
             var KImg_Title = GetFromReference(UIPanel_Activity_Monopoly.KImg_Title);
             //KImg_Title.SetActive(false);
-            WebMessageHandler.Instance.AddHandler(CMD.QUERTSINGLEACTIVITY, OnMonopolyResponse);
+            WebMessageHandlerOld.Instance.AddHandler(CMD.QUERTSINGLEACTIVITY, OnMonopolyResponse);
 
             NetWorkManager.Instance.SendMessage(CMD.QUERTSINGLEACTIVITY, new IntValue()
             {
@@ -123,9 +123,9 @@ namespace XFramework
             //long clientT = (long)(TimeHelper.ClientNowSeconds() - ResourcesSingleton.Instance.ServerDeltaTime / 1000f);
         }
 
-        private void OnMonopolyResponse(object sender, WebMessageHandler.Execute e)
+        private void OnMonopolyResponse(object sender, WebMessageHandlerOld.Execute e)
         {
-            WebMessageHandler.Instance.RemoveHandler(CMD.QUERTSINGLEACTIVITY, OnMonopolyResponse);
+            WebMessageHandlerOld.Instance.RemoveHandler(CMD.QUERTSINGLEACTIVITY, OnMonopolyResponse);
             GameActivity gameActivity = new GameActivity();
             gameActivity.MergeFrom(e.data);
             if (e.data.IsEmpty)
@@ -191,8 +191,8 @@ namespace XFramework
 
         async void InitNode()
         {
-            WebMessageHandler.Instance.AddHandler(CMD.MONOPOLYACTION, OnRollDiceResponse);
-            WebMessageHandler.Instance.AddHandler(CMD.QUERYACTIVITYTASK, OnQueryMonopolyTaskResponse);
+            WebMessageHandlerOld.Instance.AddHandler(CMD.MONOPOLYACTION, OnRollDiceResponse);
+            WebMessageHandlerOld.Instance.AddHandler(CMD.QUERYACTIVITYTASK, OnQueryMonopolyTaskResponse);
             var KConTainer = GetFromReference(UIPanel_Activity_Monopoly.KConTainer);
             var KContaineTop = GetFromReference(UIPanel_Activity_Monopoly.KContaineTop);
             var KContainerMid = GetFromReference(UIPanel_Activity_Monopoly.KContainerMid);
@@ -880,7 +880,7 @@ namespace XFramework
         }
 
 
-        async public void OnQueryMonopolyTaskResponse(object sender, WebMessageHandler.Execute e)
+        async public void OnQueryMonopolyTaskResponse(object sender, WebMessageHandlerOld.Execute e)
         {
             if (!isInit)
             {
@@ -985,7 +985,7 @@ namespace XFramework
             }
         }
 
-        async public void OnRollDiceResponse(object sender, WebMessageHandler.Execute e)
+        async public void OnRollDiceResponse(object sender, WebMessageHandlerOld.Execute e)
         {
             MonopolyActionInfo monopolyAction = new MonopolyActionInfo();
             monopolyAction.MergeFrom(e.data);
@@ -1147,9 +1147,9 @@ namespace XFramework
         protected override void OnClose()
         {
             JiYuUIHelper.DestoryAllTips();
-            WebMessageHandler.Instance.RemoveHandler(CMD.QUERTSINGLEACTIVITY, OnMonopolyResponse);
-            WebMessageHandler.Instance.RemoveHandler(CMD.MONOPOLYACTION, OnRollDiceResponse);
-            WebMessageHandler.Instance.RemoveHandler(CMD.QUERYACTIVITYTASK, OnQueryMonopolyTaskResponse);
+            WebMessageHandlerOld.Instance.RemoveHandler(CMD.QUERTSINGLEACTIVITY, OnMonopolyResponse);
+            WebMessageHandlerOld.Instance.RemoveHandler(CMD.MONOPOLYACTION, OnRollDiceResponse);
+            WebMessageHandlerOld.Instance.RemoveHandler(CMD.QUERYACTIVITYTASK, OnQueryMonopolyTaskResponse);
             RedDotManager.Instance.ClearChildrenListeners(m_RedDotName);
             RemoveTimer();
             cts.Cancel();

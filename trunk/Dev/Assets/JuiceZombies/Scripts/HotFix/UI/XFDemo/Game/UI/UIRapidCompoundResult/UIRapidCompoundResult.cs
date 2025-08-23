@@ -40,7 +40,7 @@ namespace XFramework
             //刷新装备页面,也就是这里需要注册一下事件
             InitEquipPanel?.Invoke();
             //刷新一下资产
-            //WebMessageHandler.Instance.AddHandler(CMD.INITPLAYER, OnOpenMainPanelResponse);
+            //WebMessageHandlerOld.Instance.AddHandler(CMD.INITPLAYER, OnOpenMainPanelResponse);
             //NetWorkManager.Instance.SendMessage(CMD.INITPLAYER);
 
 
@@ -50,7 +50,7 @@ namespace XFramework
             //UIHelper.Create(UIType.UICompound, UILayer.Mid);
         }
 
-        // async void OnOpenMainPanelResponse(object sender, WebMessageHandler.Execute e)
+        // async void OnOpenMainPanelResponse(object sender, WebMessageHandlerOld.Execute e)
         // {
         //     var gameRole = new GameRole();
         //     gameRole.MergeFrom(e.data);
@@ -78,7 +78,7 @@ namespace XFramework
         //
         //     Log.Debug($"{gameRole}", Color.red);
         //
-        //     WebMessageHandler.Instance.RemoveHandler(CMD.INITPLAYER, OnOpenMainPanelResponse);
+        //     WebMessageHandlerOld.Instance.RemoveHandler(CMD.INITPLAYER, OnOpenMainPanelResponse);
         // }
         //
 

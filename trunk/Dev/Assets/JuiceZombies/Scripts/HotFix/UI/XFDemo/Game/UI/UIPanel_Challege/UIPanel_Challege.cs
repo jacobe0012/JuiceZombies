@@ -484,7 +484,7 @@ namespace XFramework
                     //     SceneResManager.WaitForCompleted(sceneObj).ToCoroutine();
                     // }
 
-                    WebMessageHandler.Instance.AddHandler(CMD.QUERYCANSTART, OnClickPlayBtnResponse);
+                    WebMessageHandlerOld.Instance.AddHandler(CMD.QUERYCANSTART, OnClickPlayBtnResponse);
                     var battleGain = new BattleGain
                     {
                         LevelId = ResourcesSingleton.Instance.levelInfo.levelId
@@ -492,8 +492,8 @@ namespace XFramework
                     NetWorkManager.Instance.SendMessage(CMD.QUERYCANSTART, battleGain);
 
 
-                    // WebMessageHandler.Instance.AddHandler(2, 3, OnClickPlayBtnBeforeResponse0);
-                    // WebMessageHandler.Instance.AddHandler(2, 5, OnClickPlayBtnResponse0);
+                    // WebMessageHandlerOld.Instance.AddHandler(2, 3, OnClickPlayBtnBeforeResponse0);
+                    // WebMessageHandlerOld.Instance.AddHandler(2, 5, OnClickPlayBtnResponse0);
                     // Log.Debug($"发送请求挑战", Color.green);
                     // NetWorkManager.Instance.SendMessage(2, 3);
                     break;
@@ -550,9 +550,9 @@ namespace XFramework
             }
         }
 
-        void OnClickPlayBtnResponse(object sender, WebMessageHandler.Execute e)
+        void OnClickPlayBtnResponse(object sender, WebMessageHandlerOld.Execute e)
         {
-            WebMessageHandler.Instance.RemoveHandler(CMD.QUERYCANSTART, OnClickPlayBtnResponse);
+            WebMessageHandlerOld.Instance.RemoveHandler(CMD.QUERYCANSTART, OnClickPlayBtnResponse);
             var longValue = new LongValue();
             longValue.MergeFrom(e.data);
             if (e.data.IsEmpty)
@@ -590,9 +590,9 @@ namespace XFramework
                 Log.Debug($"对局不可以开始{longValue.Value}", Color.green);
             }
         }
-        // void OnClickPlayBtnBeforeResponse0(object sender, WebMessageHandler.Execute e)
+        // void OnClickPlayBtnBeforeResponse0(object sender, WebMessageHandlerOld.Execute e)
         // {
-        //     WebMessageHandler.Instance.RemoveHandler(2, 3, OnClickPlayBtnBeforeResponse0);
+        //     WebMessageHandlerOld.Instance.RemoveHandler(2, 3, OnClickPlayBtnBeforeResponse0);
         //     var longValue = new LongValue();
         //     longValue.MergeFrom(e.data);
         //
@@ -621,9 +621,9 @@ namespace XFramework
         //     NetWorkManager.Instance.SendMessage(2, 5, battleGain);
         // }
         //
-        // void OnClickPlayBtnResponse0(object sender, WebMessageHandler.Execute e)
+        // void OnClickPlayBtnResponse0(object sender, WebMessageHandlerOld.Execute e)
         // {
-        //     WebMessageHandler.Instance.RemoveHandler(2, 5, OnClickPlayBtnResponse0);
+        //     WebMessageHandlerOld.Instance.RemoveHandler(2, 5, OnClickPlayBtnResponse0);
         //     var longValue = new BoolValue();
         //     longValue.MergeFrom(e.data);
         //     if (e.data.IsEmpty)

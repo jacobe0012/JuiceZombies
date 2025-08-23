@@ -222,9 +222,9 @@ namespace XFramework
             }
         }
 
-        private void JudegeLockTalentSkill(object sender, WebMessageHandler.Execute e)
+        private void JudegeLockTalentSkill(object sender, WebMessageHandlerOld.Execute e)
         {
-            WebMessageHandler.Instance.RemoveHandler(CMD.LOCKTALENT, JudegeLockTalentSkill);
+            WebMessageHandlerOld.Instance.RemoveHandler(CMD.LOCKTALENT, JudegeLockTalentSkill);
             var value = new StringValue();
             value.MergeFrom(e.data);
             Log.Debug(value.Value, Color.cyan);
@@ -420,7 +420,7 @@ namespace XFramework
         {
             Log.Debug($"talentID:{nextId}", Color.cyan);
             nextTalentSkillID = nextId;
-            WebMessageHandler.Instance.AddHandler(CMD.LOCKTALENT, JudegeLockTalentSkill);
+            WebMessageHandlerOld.Instance.AddHandler(CMD.LOCKTALENT, JudegeLockTalentSkill);
             NetWorkManager.Instance.SendMessage(CMD.LOCKTALENT, new IntValue { Value = nextId });
         }
 
@@ -723,7 +723,7 @@ namespace XFramework
 
         protected override void OnClose()
         {
-            WebMessageHandler.Instance.RemoveHandler(CMD.LOCKTALENT, JudegeLockTalentSkill);
+            WebMessageHandlerOld.Instance.RemoveHandler(CMD.LOCKTALENT, JudegeLockTalentSkill);
             if (uiTalentProps.Count > 0)
             {
                 foreach (var child in uiTalentProps)

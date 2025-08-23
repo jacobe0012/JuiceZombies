@@ -286,7 +286,7 @@ namespace XFramework
 
         void InitNode()
         {
-            WebMessageHandler.Instance.AddHandler(CMD.EQUIPALLCOMPOUND, OnEquipAllCompoundResponse);
+            WebMessageHandlerOld.Instance.AddHandler(CMD.EQUIPALLCOMPOUND, OnEquipAllCompoundResponse);
         }
 
 
@@ -412,9 +412,9 @@ namespace XFramework
             return AsyncUnit.Default;
         }
 
-        private async void OnEquipAllCompoundResponse(object sender, WebMessageHandler.Execute e)
+        private async void OnEquipAllCompoundResponse(object sender, WebMessageHandlerOld.Execute e)
         {
-            WebMessageHandler.Instance.RemoveHandler(CMD.EQUIPALLCOMPOUND, OnEquipAllCompoundResponse);
+            WebMessageHandlerOld.Instance.RemoveHandler(CMD.EQUIPALLCOMPOUND, OnEquipAllCompoundResponse);
             EquipResDto resultCraft = new EquipResDto();
             resultCraft.MergeFrom(e.data);
             //RepeatedField<string> repeatedField = new RepeatedField<string>();

@@ -119,14 +119,14 @@ namespace XFramework
             }
             else
             {
-                WebMessageHandler.Instance.AddHandler(CMD.QUERYBANK, On3405BankResponse);
+                WebMessageHandlerOld.Instance.AddHandler(CMD.QUERYBANK, On3405BankResponse);
                 NetWorkManager.Instance.SendMessage(CMD.QUERYBANK);
             }
         }
 
-        private void On3405BankResponse(object sender, WebMessageHandler.Execute e)
+        private void On3405BankResponse(object sender, WebMessageHandlerOld.Execute e)
         {
-            WebMessageHandler.Instance.RemoveHandler(CMD.QUERYBANK, On3405BankResponse);
+            WebMessageHandlerOld.Instance.RemoveHandler(CMD.QUERYBANK, On3405BankResponse);
             var gameBank = new GoldPig();
             gameBank.MergeFrom(e.data);
 

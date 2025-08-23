@@ -661,7 +661,7 @@ namespace XFramework
         async UniTaskVoid InitPanel()
         {
             //equip_merge_all全部装备
-            //WebMessageHandler.Instance.AddHandler(CMD.EQUIPALLCOMPOUND, OnEquipAllCompoundResponse);
+            //WebMessageHandlerOld.Instance.AddHandler(CMD.EQUIPALLCOMPOUND, OnEquipAllCompoundResponse);
 
             var attr_variableConfig = ConfigManager.Instance.Tables.Tbattr_variable;
             var equip_levelConfig = ConfigManager.Instance.Tables.Tbequip_level;
@@ -1410,7 +1410,7 @@ namespace XFramework
             }
         }
 
-        private async void OnEquipAllCompoundResponse(object sender, WebMessageHandler.Execute e)
+        private async void OnEquipAllCompoundResponse(object sender, WebMessageHandlerOld.Execute e)
         {
             EquipResDto resultCraft = new EquipResDto();
             resultCraft.MergeFrom(e.data);
@@ -1446,7 +1446,7 @@ namespace XFramework
                 this.cts.Dispose();
             }
 
-            //WebMessageHandler.Instance.RemoveHandler(CMD.EQUIPALLCOMPOUND, OnEquipAllCompoundResponse);
+            //WebMessageHandlerOld.Instance.RemoveHandler(CMD.EQUIPALLCOMPOUND, OnEquipAllCompoundResponse);
 
             selectedEquips.Clear();
             RefreshEquipPanel();

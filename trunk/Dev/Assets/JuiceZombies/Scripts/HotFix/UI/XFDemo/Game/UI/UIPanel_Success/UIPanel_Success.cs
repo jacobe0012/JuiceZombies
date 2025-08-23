@@ -52,7 +52,7 @@ namespace XFramework
             AudioManager.Instance.PlayFModAudio(2203);
             language = ConfigManager.Instance.Tables.Tblanguage;
 
-            WebMessageHandler.Instance.AddHandler(CMD.BATTLEGAIN, OnBattleGainResponse);
+            WebMessageHandlerOld.Instance.AddHandler(CMD.BATTLEGAIN, OnBattleGainResponse);
             //NetWorkManager.Instance.SendMessage(CMD.BATTLEGAIN);
 
             QueryBattleGain();
@@ -83,7 +83,7 @@ namespace XFramework
                 () => { UIHelper.CreateAsync(UIType.UIPanel_BattleDamageInfo); });
         }
 
-        void OnIsFirstResponse(object sender, WebMessageHandler.Execute e)
+        void OnIsFirstResponse(object sender, WebMessageHandlerOld.Execute e)
         {
             var gameChapter = new GameChapter();
             gameChapter.MergeFrom(e.data);
@@ -161,7 +161,7 @@ namespace XFramework
         }
 
 
-        void OnBattleGainResponse(object sender, WebMessageHandler.Execute e)
+        void OnBattleGainResponse(object sender, WebMessageHandlerOld.Execute e)
         {
             var levelInfo = new LevelInfo();
             levelInfo.MergeFrom(e.data);
@@ -357,7 +357,7 @@ namespace XFramework
 
         protected override void OnClose()
         {
-            WebMessageHandler.Instance.RemoveHandler(CMD.BATTLEGAIN, OnBattleGainResponse);
+            WebMessageHandlerOld.Instance.RemoveHandler(CMD.BATTLEGAIN, OnBattleGainResponse);
             JiYuUIHelper.StartStopTime(true);
 
             base.OnClose();

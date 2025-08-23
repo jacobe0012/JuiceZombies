@@ -70,60 +70,60 @@ namespace XFramework
 
             #region 基础数据
 
-            WebMessageHandler.Instance.AddHandler(CMD.INITPLAYER, OnOpenMainPanelResponse, 1);
-            WebMessageHandler.Instance.AddHandler(CMD.OPENBAG, OnOpenBagPanelResponse, 1);
-            //WebMessageHandler.Instance.AddHandler(CMD.QUERYPROPERTY, OnInitPlayerPropertyResponse, 1);
-            WebMessageHandler.Instance.AddHandler(CMD.QUERYLEVEL, OnLevelRequsetResponse, 1);
-            WebMessageHandler.Instance.AddHandler(CMD.QUERYSETTINGS, OnQuerySettingsResponse, 1);
-            WebMessageHandler.Instance.AddHandler(CMD.GETMAINPROPERTY, OnGetMainPropertyResponse, 1);
-            WebMessageHandler.Instance.AddHandler(CMD.QUERYREDDOT, OnQueryRedDotResponse);
+            WebMessageHandlerOld.Instance.AddHandler(CMD.INITPLAYER, OnOpenMainPanelResponse, 1);
+            WebMessageHandlerOld.Instance.AddHandler(CMD.OPENBAG, OnOpenBagPanelResponse, 1);
+            //WebMessageHandlerOld.Instance.AddHandler(CMD.QUERYPROPERTY, OnInitPlayerPropertyResponse, 1);
+            WebMessageHandlerOld.Instance.AddHandler(CMD.QUERYLEVEL, OnLevelRequsetResponse, 1);
+            WebMessageHandlerOld.Instance.AddHandler(CMD.QUERYSETTINGS, OnQuerySettingsResponse, 1);
+            WebMessageHandlerOld.Instance.AddHandler(CMD.GETMAINPROPERTY, OnGetMainPropertyResponse, 1);
+            WebMessageHandlerOld.Instance.AddHandler(CMD.QUERYREDDOT, OnQueryRedDotResponse);
 
             #endregion
 
             #region 上层数据
 
-            WebMessageHandler.Instance.AddHandler(CMD.PREPAY, OnPrePayResponse);
-            WebMessageHandler.Instance.AddHandler(CMD.CHAPTERINFO, OnLevelInfoShowResponse, 2);
-            WebMessageHandler.Instance.AddHandler(CMD.SERVERTIME, OnServerTimeResponse, 2);
-            WebMessageHandler.Instance.AddHandler(CMD.UPDATETIME, OnQueryUpdateTimeResponse, 2);
-            WebMessageHandler.Instance.AddHandler(CMD.QUERYEQUIP, OnQueryEquipResponse, 2);
-            WebMessageHandler.Instance.AddHandler(CMD.QUERYMAIL, OnQueryMailResponse, 2);
-            //WebMessageHandler.Instance.AddHandler(11, 1, OnShopInitResponse);
-            WebMessageHandler.Instance.AddHandler(CMD.QUERYSHOP, OnShopInitResponse, 2);
-            WebMessageHandler.Instance.AddHandler(CMD.QUERYWEAR, OnQueryWearingEquipResponse);
-            //WebMessageHandler.Instance.AddHandler(CMD.QUERYDAYANDWEEKTASK, OnDayAndWeekResponse, 2);
-            //WebMessageHandler.Instance.AddHandler(CMD.QUERYACHIEVE, OnAchieveResponse, 2);
-            WebMessageHandler.Instance.AddHandler(12, 1, OnSignResponse, 2);
-            //WebMessageHandler.Instance.AddHandler(13, 1, OnNoticeResponse);
-            WebMessageHandler.Instance.AddHandler(CMD.QUERYTALENT, OnQueryTalentResponse, 2);
+            WebMessageHandlerOld.Instance.AddHandler(CMD.PREPAY, OnPrePayResponse);
+            WebMessageHandlerOld.Instance.AddHandler(CMD.CHAPTERINFO, OnLevelInfoShowResponse, 2);
+            WebMessageHandlerOld.Instance.AddHandler(CMD.SERVERTIME, OnServerTimeResponse, 2);
+            WebMessageHandlerOld.Instance.AddHandler(CMD.UPDATETIME, OnQueryUpdateTimeResponse, 2);
+            WebMessageHandlerOld.Instance.AddHandler(CMD.QUERYEQUIP, OnQueryEquipResponse, 2);
+            WebMessageHandlerOld.Instance.AddHandler(CMD.QUERYMAIL, OnQueryMailResponse, 2);
+            //WebMessageHandlerOld.Instance.AddHandler(11, 1, OnShopInitResponse);
+            WebMessageHandlerOld.Instance.AddHandler(CMD.QUERYSHOP, OnShopInitResponse, 2);
+            WebMessageHandlerOld.Instance.AddHandler(CMD.QUERYWEAR, OnQueryWearingEquipResponse);
+            //WebMessageHandlerOld.Instance.AddHandler(CMD.QUERYDAYANDWEEKTASK, OnDayAndWeekResponse, 2);
+            //WebMessageHandlerOld.Instance.AddHandler(CMD.QUERYACHIEVE, OnAchieveResponse, 2);
+            WebMessageHandlerOld.Instance.AddHandler(12, 1, OnSignResponse, 2);
+            //WebMessageHandlerOld.Instance.AddHandler(13, 1, OnNoticeResponse);
+            WebMessageHandlerOld.Instance.AddHandler(CMD.QUERYTALENT, OnQueryTalentResponse, 2);
 
-            WebMessageHandler.Instance.AddHandler(CMD.QUERYCHALLENGE, OnQueryChallengeResponse, 2);
-            WebMessageHandler.Instance.AddHandler(CMD.QUERYMONSTERCOLLECTION, OnQueryMonsterCollectionResponse, 2);
-            WebMessageHandler.Instance.AddHandler(CMD.QUERYCHARGE, OnFirstChargeResponse, 2);
-            WebMessageHandler.Instance.AddHandler(CMD.QUERYBANK, OnQueryBankResponse, 2);
-            //WebMessageHandler.Instance.AddHandler(CMD.PASSTIME, OnPassTimeResponse, 2);
-            //WebMessageHandler.Instance.AddHandler(CMD.QUERYPASS, OnQueryPassResponse, 2);
-            WebMessageHandler.Instance.AddHandler(CMD.QUERYACTIVITY, OnQueryActivityResponse, 2);
-            //WebMessageHandler.Instance.AddHandler(CMD.QUERYACTIVITYTASK, OnQueryMonopolyTaskResponse, 2);
-            WebMessageHandler.Instance.AddHandler(CMD.QUERYACTIVITYREDDOT, OnQueryActivityRedDotResponse, 2);
-            WebMessageHandler.Instance.AddHandler(CMD.PASSEXP, OnQueryPassExpReddot, 2);
-            WebMessageHandler.Instance.AddHandler(CMD.QUERYSHARE, OnShareInfoInitResponse, 2);
+            WebMessageHandlerOld.Instance.AddHandler(CMD.QUERYCHALLENGE, OnQueryChallengeResponse, 2);
+            WebMessageHandlerOld.Instance.AddHandler(CMD.QUERYMONSTERCOLLECTION, OnQueryMonsterCollectionResponse, 2);
+            WebMessageHandlerOld.Instance.AddHandler(CMD.QUERYCHARGE, OnFirstChargeResponse, 2);
+            WebMessageHandlerOld.Instance.AddHandler(CMD.QUERYBANK, OnQueryBankResponse, 2);
+            //WebMessageHandlerOld.Instance.AddHandler(CMD.PASSTIME, OnPassTimeResponse, 2);
+            //WebMessageHandlerOld.Instance.AddHandler(CMD.QUERYPASS, OnQueryPassResponse, 2);
+            WebMessageHandlerOld.Instance.AddHandler(CMD.QUERYACTIVITY, OnQueryActivityResponse, 2);
+            //WebMessageHandlerOld.Instance.AddHandler(CMD.QUERYACTIVITYTASK, OnQueryMonopolyTaskResponse, 2);
+            WebMessageHandlerOld.Instance.AddHandler(CMD.QUERYACTIVITYREDDOT, OnQueryActivityRedDotResponse, 2);
+            WebMessageHandlerOld.Instance.AddHandler(CMD.PASSEXP, OnQueryPassExpReddot, 2);
+            WebMessageHandlerOld.Instance.AddHandler(CMD.QUERYSHARE, OnShareInfoInitResponse, 2);
 
-            WebMessageHandler.Instance.AddHandler(CMD.QUERYDAILYREDDOT, OnQueryDailyRedDotResponse, 2);
+            WebMessageHandlerOld.Instance.AddHandler(CMD.QUERYDAILYREDDOT, OnQueryDailyRedDotResponse, 2);
 
             #endregion
 
 
             #region 广播
 
-            WebMessageHandler.Instance.AddHandler(99, 2, OnGiftChangeResponse);
-            WebMessageHandler.Instance.AddHandler(99, 6, OnFirstChargeChangeResponse);
-            //WebMessageHandler.Instance.AddHandler(CMD.BOARDCASTUPDATEPROPERTY, OnInitPlayerPropertyBoardResponse);
-            WebMessageHandler.Instance.AddHandler(99, 3, OnNoticeStatusChangeResponse);
-            // WebMessageHandler.Instance.AddHandler(100, 1, OnTaskChangeResponse);
-            WebMessageHandler.Instance.AddHandler(CMD.BOARDCASTMAIL, OnBoardCastMail);
-            WebMessageHandler.Instance.AddHandler(CMD.BOARDCASTUPDATEFUCTASK, OnBoardCastUpdateFuncTaskResponse);
-            WebMessageHandler.Instance.AddHandler(CMD.BOARDCASTPAYRESPONSE, OnBoardCastPaymentResponse);
+            WebMessageHandlerOld.Instance.AddHandler(99, 2, OnGiftChangeResponse);
+            WebMessageHandlerOld.Instance.AddHandler(99, 6, OnFirstChargeChangeResponse);
+            //WebMessageHandlerOld.Instance.AddHandler(CMD.BOARDCASTUPDATEPROPERTY, OnInitPlayerPropertyBoardResponse);
+            WebMessageHandlerOld.Instance.AddHandler(99, 3, OnNoticeStatusChangeResponse);
+            // WebMessageHandlerOld.Instance.AddHandler(100, 1, OnTaskChangeResponse);
+            WebMessageHandlerOld.Instance.AddHandler(CMD.BOARDCASTMAIL, OnBoardCastMail);
+            WebMessageHandlerOld.Instance.AddHandler(CMD.BOARDCASTUPDATEFUCTASK, OnBoardCastUpdateFuncTaskResponse);
+            WebMessageHandlerOld.Instance.AddHandler(CMD.BOARDCASTPAYRESPONSE, OnBoardCastPaymentResponse);
 
             #endregion
 
@@ -137,7 +137,7 @@ namespace XFramework
 
             //13,2 查询设置*
             NetWorkManager.Instance.SendMessage(CMD.QUERYSETTINGS);
-            WebMessageHandler.Instance.AddTagEvnetHandler(1, (a, b) =>
+            WebMessageHandlerOld.Instance.AddTagEvnetHandler(1, (a, b) =>
             {
                 //2,4 查询章节信息 精简 *
                 NetWorkManager.Instance.SendMessage(CMD.CHAPTERINFO);
@@ -183,7 +183,7 @@ namespace XFramework
                 //Log.Error("SendMessage(CMD.CHALLENGEQUERY)");
                 //Log.Debug($"进入UIMenu场景SendMessageDone", Color.green);
             });
-            WebMessageHandler.Instance.AddTagEvnetHandler(2, async (a, b) =>
+            WebMessageHandlerOld.Instance.AddTagEvnetHandler(2, async (a, b) =>
             {
                 //Log.Error("CreateUIPanel_JiyuGame");
                 if (!JiYuUIHelper.TryGetUI(UIType.UISubPanel_RawBackground, out var ui))
@@ -226,13 +226,13 @@ namespace XFramework
 
         // private void SendUpdateMessage()
         // {
-        //     WebMessageHandler.Instance.AddHandler(CMD.QUERYSHOP, OnShopInitResponse);
+        //     WebMessageHandlerOld.Instance.AddHandler(CMD.QUERYSHOP, OnShopInitResponse);
         //     NetWorkManager.Instance.SendMessage(CMD.QUERYSHOP);
-        //     WebMessageHandler.Instance.AddHandler(CMD.PASSTIME, OnPassTimeResponse);
+        //     WebMessageHandlerOld.Instance.AddHandler(CMD.PASSTIME, OnPassTimeResponse);
         //     NetWorkManager.Instance.SendMessage(CMD.PASSTIME);
         // }
 
-        void OnQueryRedDotResponse(object sender, WebMessageHandler.Execute e)
+        void OnQueryRedDotResponse(object sender, WebMessageHandlerOld.Execute e)
         {
             StringValue stringValue = new StringValue();
             stringValue.MergeFrom(e.data);
@@ -260,13 +260,13 @@ namespace XFramework
             }
         }
 
-        void OnQueryPassResponse(object sender, WebMessageHandler.Execute e)
+        void OnQueryPassResponse(object sender, WebMessageHandlerOld.Execute e)
         {
         }
 
-        async public void OnQueryMonopolyTaskResponse(object sender, WebMessageHandler.Execute e)
+        async public void OnQueryMonopolyTaskResponse(object sender, WebMessageHandlerOld.Execute e)
         {
-            WebMessageHandler.Instance.RemoveHandler(CMD.QUERYACTIVITYTASK, OnQueryMonopolyTaskResponse);
+            WebMessageHandlerOld.Instance.RemoveHandler(CMD.QUERYACTIVITYTASK, OnQueryMonopolyTaskResponse);
 
             ByteValueList taskList = new ByteValueList();
 
@@ -332,9 +332,9 @@ namespace XFramework
             ResourcesSingleton.Instance.activity.activityTaskDic.TryAdd(activityId, tasks);
         }
 
-        private void OnLevelRequsetResponse(object sender, WebMessageHandler.Execute e)
+        private void OnLevelRequsetResponse(object sender, WebMessageHandlerOld.Execute e)
         {
-            WebMessageHandler.Instance.RemoveHandler(CMD.QUERYLEVEL, OnLevelRequsetResponse);
+            WebMessageHandlerOld.Instance.RemoveHandler(CMD.QUERYLEVEL, OnLevelRequsetResponse);
 
             var chapterList = ConfigManager.Instance.Tables.Tbchapter.DataList;
             var config = new ConfigurationLoad();
@@ -351,9 +351,9 @@ namespace XFramework
             ResourcesSingleton.Instance.levelInfo.levelId = currentID;
         }
 
-        private void OnServerTimeResponse(object sender, WebMessageHandler.Execute e)
+        private void OnServerTimeResponse(object sender, WebMessageHandlerOld.Execute e)
         {
-            WebMessageHandler.Instance.RemoveHandler(CMD.SERVERTIME, OnServerTimeResponse);
+            WebMessageHandlerOld.Instance.RemoveHandler(CMD.SERVERTIME, OnServerTimeResponse);
             LongValue longValue = new LongValue();
             longValue.MergeFrom(e.data);
             Log.Debug($"服务器时间戳: {longValue}", Color.green);
@@ -367,9 +367,9 @@ namespace XFramework
             Log.Debug($"ServerDeltaTime: {ResourcesSingleton.Instance.serverDeltaTime}", Color.green);
         }
 
-        private void OnShareInfoInitResponse(object sender, WebMessageHandler.Execute e)
+        private void OnShareInfoInitResponse(object sender, WebMessageHandlerOld.Execute e)
         {
-            WebMessageHandler.Instance.RemoveHandler(CMD.QUERYSHARE, OnShareInfoInitResponse);
+            WebMessageHandlerOld.Instance.RemoveHandler(CMD.QUERYSHARE, OnShareInfoInitResponse);
             var shareData = new GameShare();
             shareData.MergeFrom(e.data);
             Log.Debug($"OnShareInfoResponse {shareData}", Color.green);
@@ -384,7 +384,7 @@ namespace XFramework
             JiYuUIHelper.DownloadShare().Forget();
         }
 
-        private void OnQueryPassExpReddot(object sender, WebMessageHandler.Execute e)
+        private void OnQueryPassExpReddot(object sender, WebMessageHandlerOld.Execute e)
         {
             IntValue longValue = new IntValue();
             longValue.MergeFrom(e.data);
@@ -403,9 +403,9 @@ namespace XFramework
             }
         }
 
-        private void OnQueryActivityRedDotResponse(object sender, WebMessageHandler.Execute e)
+        private void OnQueryActivityRedDotResponse(object sender, WebMessageHandlerOld.Execute e)
         {
-            WebMessageHandler.Instance.RemoveHandler(CMD.QUERYACTIVITYREDDOT, OnQueryActivityRedDotResponse);
+            WebMessageHandlerOld.Instance.RemoveHandler(CMD.QUERYACTIVITYREDDOT, OnQueryActivityRedDotResponse);
             ActivityFlag activityMap = new ActivityFlag();
             activityMap.MergeFrom(e.data);
             if (e.data.IsEmpty)
@@ -424,9 +424,9 @@ namespace XFramework
         }
 
 
-        private void OnQueryDailyRedDotResponse(object sender, WebMessageHandler.Execute e)
+        private void OnQueryDailyRedDotResponse(object sender, WebMessageHandlerOld.Execute e)
         {
-            WebMessageHandler.Instance.RemoveHandler(CMD.QUERYDAILYREDDOT, OnQueryDailyRedDotResponse);
+            WebMessageHandlerOld.Instance.RemoveHandler(CMD.QUERYDAILYREDDOT, OnQueryDailyRedDotResponse);
             TaskRedFlag taskRedFlag = new TaskRedFlag();
             taskRedFlag.MergeFrom(e.data);
             if (e.data.IsEmpty)
@@ -444,9 +444,9 @@ namespace XFramework
             ResourcesSingleton.Instance.taskRedFlag = taskRedFlag;
         }
 
-        private void OnQueryActivityResponse(object sender, WebMessageHandler.Execute e)
+        private void OnQueryActivityResponse(object sender, WebMessageHandlerOld.Execute e)
         {
-            WebMessageHandler.Instance.RemoveHandler(CMD.QUERYACTIVITY, OnQueryActivityResponse);
+            WebMessageHandlerOld.Instance.RemoveHandler(CMD.QUERYACTIVITY, OnQueryActivityResponse);
             ActivityMap activityMap = new ActivityMap();
             activityMap.MergeFrom(e.data);
             if (e.data.IsEmpty)
@@ -465,9 +465,9 @@ namespace XFramework
         }
 
 
-        private void OnPassTimeResponse(object sender, WebMessageHandler.Execute e)
+        private void OnPassTimeResponse(object sender, WebMessageHandlerOld.Execute e)
         {
-            // WebMessageHandler.Instance.RemoveHandler(CMD.PASSTIME, OnPassTimeResponse);
+            // WebMessageHandlerOld.Instance.RemoveHandler(CMD.PASSTIME, OnPassTimeResponse);
             // if (e.data.IsEmpty)
             // {
             //     // ResourcesSingleton.Instance.passTime.id = 0;
@@ -550,7 +550,7 @@ namespace XFramework
             //
             // if (ResourcesSingleton.Instance.gamePassStart && ResourcesSingleton.Instance.gamePasses.Count == 0)
             // {
-            //     WebMessageHandler.Instance.AddHandler(CMD.QUERYPASS, OnQueryPassResponse);
+            //     WebMessageHandlerOld.Instance.AddHandler(CMD.QUERYPASS, OnQueryPassResponse);
             //     NetWorkManager.Instance.SendMessage(CMD.QUERYPASS);
             // }
             //
@@ -565,13 +565,13 @@ namespace XFramework
         {
             // if (input < 0) return;
             // await UniTask.Delay(input * 1000, false, PlayerLoopTiming.Update, cts.Token);
-            // WebMessageHandler.Instance.AddHandler(CMD.PASSTIME, OnPassTimeResponse);
+            // WebMessageHandlerOld.Instance.AddHandler(CMD.PASSTIME, OnPassTimeResponse);
             // NetWorkManager.Instance.SendMessage(CMD.PASSTIME);
         }
 
-        private void OnQueryUpdateTimeResponse(object sender, WebMessageHandler.Execute e)
+        private void OnQueryUpdateTimeResponse(object sender, WebMessageHandlerOld.Execute e)
         {
-            WebMessageHandler.Instance.RemoveHandler(CMD.UPDATETIME, OnQueryUpdateTimeResponse);
+            WebMessageHandlerOld.Instance.RemoveHandler(CMD.UPDATETIME, OnQueryUpdateTimeResponse);
             LongValue longValue = new LongValue();
             longValue.MergeFrom(e.data);
 
@@ -585,10 +585,10 @@ namespace XFramework
             SetUpdateDataFromServer().Forget();
         }
 
-        private void OnQueryMonsterCollectionResponse(object sender, WebMessageHandler.Execute e)
+        private void OnQueryMonsterCollectionResponse(object sender, WebMessageHandlerOld.Execute e)
         {
             Log.Debug($"接收到后端数据,刷新怪物图鉴数据", Color.cyan);
-            WebMessageHandler.Instance.RemoveHandler(CMD.QUERYMONSTERCOLLECTION, OnQueryMonsterCollectionResponse);
+            WebMessageHandlerOld.Instance.RemoveHandler(CMD.QUERYMONSTERCOLLECTION, OnQueryMonsterCollectionResponse);
             //ResourcesSingleton.Instance.resMonster.MonsterMap.Clear();
             if (e.data.IsEmpty)
             {
@@ -665,10 +665,10 @@ namespace XFramework
             modelA.PrintTree();
         }
 
-        private void OnQueryChallengeResponse(object sender, WebMessageHandler.Execute e)
+        private void OnQueryChallengeResponse(object sender, WebMessageHandlerOld.Execute e)
         {
             //Log.Error("QueryChallengeResponse");
-            WebMessageHandler.Instance.RemoveHandler(CMD.QUERYCHALLENGE, OnQueryChallengeResponse);
+            WebMessageHandlerOld.Instance.RemoveHandler(CMD.QUERYCHALLENGE, OnQueryChallengeResponse);
             var tbChallenge = ConfigManager.Instance.Tables.Tbchallenge;
             var tbChallengeList = tbChallenge.DataList;
             Dictionary<int, int> switchID = new Dictionary<int, int>();
@@ -854,10 +854,10 @@ namespace XFramework
             // }
         }
 
-        private void OnQueryEquipResponse(object sender, WebMessageHandler.Execute e)
+        private void OnQueryEquipResponse(object sender, WebMessageHandlerOld.Execute e)
         {
             Log.Debug($"接收到后端数据,刷新装备缓存数据", Color.cyan);
-            //WebMessageHandler.Instance.RemoveHandler(CMD.QUERYEQUIP, OnQueryEquipResponse);
+            //WebMessageHandlerOld.Instance.RemoveHandler(CMD.QUERYEQUIP, OnQueryEquipResponse);
             ResourcesSingleton.Instance.equipmentData.equipments.Clear();
             ResourcesSingleton.Instance.equipmentData.isMaterials.Clear();
             ByteValueList gameEquips = new ByteValueList();
@@ -906,9 +906,9 @@ namespace XFramework
         }
 
 
-        private void OnLevelInfoShowResponse(object sender, WebMessageHandler.Execute e)
+        private void OnLevelInfoShowResponse(object sender, WebMessageHandlerOld.Execute e)
         {
-            WebMessageHandler.Instance.RemoveHandler(CMD.CHAPTERINFO, OnLevelInfoShowResponse);
+            WebMessageHandlerOld.Instance.RemoveHandler(CMD.CHAPTERINFO, OnLevelInfoShowResponse);
             //Log.Error($"OnLevelInfoShowResponse {333333}", Color.green);
             var roleInfo = new RoleChapters();
             roleInfo.MergeFrom(e.data);
@@ -1142,16 +1142,16 @@ namespace XFramework
             return status == "true" ? true : false;
         }
 
-        private void OnFirstChargeChangeResponse(object sender, WebMessageHandler.Execute e)
+        private void OnFirstChargeChangeResponse(object sender, WebMessageHandlerOld.Execute e)
         {
-            WebMessageHandler.Instance.RemoveHandler(99, 6, OnFirstChargeChangeResponse);
-            WebMessageHandler.Instance.AddHandler(CMD.QUERYCHARGE, OnFirstChargeResponse);
+            WebMessageHandlerOld.Instance.RemoveHandler(99, 6, OnFirstChargeChangeResponse);
+            WebMessageHandlerOld.Instance.AddHandler(CMD.QUERYCHARGE, OnFirstChargeResponse);
             NetWorkManager.Instance.SendMessage(CMD.QUERYCHARGE);
         }
 
-        private void OnQueryTalentResponse(object sender, WebMessageHandler.Execute e)
+        private void OnQueryTalentResponse(object sender, WebMessageHandlerOld.Execute e)
         {
-            WebMessageHandler.Instance.RemoveHandler(2, 10, OnQueryTalentResponse);
+            WebMessageHandlerOld.Instance.RemoveHandler(2, 10, OnQueryTalentResponse);
             ResourcesSingleton.Instance.talentID.talentPropID = 0;
             ResourcesSingleton.Instance.talentID.talentSkillID = 0;
             var tanlentInfo = new IntValueList();
@@ -1205,10 +1205,10 @@ namespace XFramework
             //}
         }
 
-        private void OnQueryWearingEquipResponse(object sender, WebMessageHandler.Execute e)
+        private void OnQueryWearingEquipResponse(object sender, WebMessageHandlerOld.Execute e)
         {
             //Log.Error($"接收到后端数据,刷新装备缓存数据222", Color.green);
-            //WebMessageHandler.Instance.RemoveHandler(CMD.QUERYWEAR, OnQueryWearingEquipResponse);
+            //WebMessageHandlerOld.Instance.RemoveHandler(CMD.QUERYWEAR, OnQueryWearingEquipResponse);
             ResourcesSingleton.Instance.equipmentData.isWearingEquipments.Clear();
             ByteValueList gameEquips = new ByteValueList();
             gameEquips.MergeFrom(e.data);
@@ -1253,9 +1253,9 @@ namespace XFramework
             }
         }
 
-        private void OnFirstChargeResponse(object sender, WebMessageHandler.Execute e)
+        private void OnFirstChargeResponse(object sender, WebMessageHandlerOld.Execute e)
         {
-            WebMessageHandler.Instance.RemoveHandler(CMD.QUERYCHARGE, OnFirstChargeResponse);
+            WebMessageHandlerOld.Instance.RemoveHandler(CMD.QUERYCHARGE, OnFirstChargeResponse);
             IntValue intValue = new IntValue();
             intValue.MergeFrom(e.data);
             Log.Debug($"OnFirstChargeResponse:{intValue.Value}", Color.green);
@@ -1268,9 +1268,9 @@ namespace XFramework
             ResourcesSingleton.Instance.firstChargeInt = intValue.Value;
         }
 
-        private void OnQueryMailResponse(object sender, WebMessageHandler.Execute e)
+        private void OnQueryMailResponse(object sender, WebMessageHandlerOld.Execute e)
         {
-            WebMessageHandler.Instance.RemoveHandler(CMD.QUERYMAIL, OnQueryMailResponse);
+            WebMessageHandlerOld.Instance.RemoveHandler(CMD.QUERYMAIL, OnQueryMailResponse);
 
             var resultMailList = new ResultMailList();
             resultMailList.MergeFrom(e.data);
@@ -1376,7 +1376,7 @@ namespace XFramework
                 RedDotManager.Instance.SetRedPointCnt(tagFunName, 1);
         }
 
-        private void OnPrePayResponse(object sender, WebMessageHandler.Execute e)
+        private void OnPrePayResponse(object sender, WebMessageHandlerOld.Execute e)
         {
             StringValue stringValue = new StringValue();
             stringValue.MergeFrom(e.data);
@@ -1412,7 +1412,7 @@ namespace XFramework
             www.SendWebRequest();
         }
 
-        async void OnBoardCastPaymentResponse(object sender, WebMessageHandler.Execute e)
+        async void OnBoardCastPaymentResponse(object sender, WebMessageHandlerOld.Execute e)
         {
             StringValue stringListValue = new StringValue();
             stringListValue.MergeFrom(e.data);
@@ -1449,7 +1449,7 @@ namespace XFramework
             }
         }
 
-        async void OnBoardCastUpdateFuncTaskResponse(object sender, WebMessageHandler.Execute e)
+        async void OnBoardCastUpdateFuncTaskResponse(object sender, WebMessageHandlerOld.Execute e)
         {
             //TODO:根据模块id更新对应
 
@@ -1480,14 +1480,14 @@ namespace XFramework
                 //intdd.MergeFrom(intValue);
             }
 
-            // WebMessageHandler.Instance.AddHandler(CMD.QUERYMAIL, OnQueryMailResponse);
+            // WebMessageHandlerOld.Instance.AddHandler(CMD.QUERYMAIL, OnQueryMailResponse);
             // NetWorkManager.Instance.SendMessage(CMD.QUERYMAIL);
         }
 
-        void OnBoardCastMail(object sender, WebMessageHandler.Execute e)
+        void OnBoardCastMail(object sender, WebMessageHandlerOld.Execute e)
         {
             Log.Debug($"OnBoardCastMail", Color.cyan);
-            WebMessageHandler.Instance.AddHandler(CMD.QUERYMAIL, OnQueryMailResponse);
+            WebMessageHandlerOld.Instance.AddHandler(CMD.QUERYMAIL, OnQueryMailResponse);
             NetWorkManager.Instance.SendMessage(CMD.QUERYMAIL);
         }
 
@@ -1496,7 +1496,7 @@ namespace XFramework
         /// </summary>
         /// <param name="sender"></param>
         /// <param name="e"></param>
-        void OnInitPlayerPropertyBoardResponse(object sender, WebMessageHandler.Execute e)
+        void OnInitPlayerPropertyBoardResponse(object sender, WebMessageHandlerOld.Execute e)
         {
             var stringValue = new StringValue();
             stringValue.MergeFrom(e.data);
@@ -1525,7 +1525,7 @@ namespace XFramework
         }
 
 
-        void OnGetMainPropertyResponse(object sender, WebMessageHandler.Execute e)
+        void OnGetMainPropertyResponse(object sender, WebMessageHandlerOld.Execute e)
         {
             var battleProperty = new BattleProperty();
             battleProperty.MergeFrom(e.data);
@@ -1562,7 +1562,7 @@ namespace XFramework
         /// </summary>
         /// <param name="sender"></param>
         /// <param name="e"></param>
-        void OnInitPlayerPropertyResponse(object sender, WebMessageHandler.Execute e)
+        void OnInitPlayerPropertyResponse(object sender, WebMessageHandlerOld.Execute e)
         {
             // var stringValue = new StringValue();
             // stringValue.MergeFrom(e.data);
@@ -1590,9 +1590,9 @@ namespace XFramework
             JiYuUIHelper.RefreshPlayerPropertyEquipPanelUI();
         }
 
-        void OnOpenBagPanelResponse(object sender, WebMessageHandler.Execute e)
+        void OnOpenBagPanelResponse(object sender, WebMessageHandlerOld.Execute e)
         {
-            WebMessageHandler.Instance.RemoveHandler(CMD.OPENBAG, OnOpenBagPanelResponse);
+            WebMessageHandlerOld.Instance.RemoveHandler(CMD.OPENBAG, OnOpenBagPanelResponse);
             var valueList = new ByteValueList();
             valueList.MergeFrom(e.data);
 
@@ -1646,9 +1646,9 @@ namespace XFramework
             bagList.Clear();
         }
 
-        async void OnOpenMainPanelResponse(object sender, WebMessageHandler.Execute e)
+        async void OnOpenMainPanelResponse(object sender, WebMessageHandlerOld.Execute e)
         {
-            //WebMessageHandler.Instance.RemoveHandler(CMD.INITPLAYER, OnOpenMainPanelResponse);
+            //WebMessageHandlerOld.Instance.RemoveHandler(CMD.INITPLAYER, OnOpenMainPanelResponse);
             var gameRole = new GameRole();
             gameRole.MergeFrom(e.data);
             if (e.data.IsEmpty)
@@ -1683,9 +1683,9 @@ namespace XFramework
         }
 
 
-        private void OnQueryBankResponse(object sender, WebMessageHandler.Execute e)
+        private void OnQueryBankResponse(object sender, WebMessageHandlerOld.Execute e)
         {
-            WebMessageHandler.Instance.RemoveHandler(CMD.QUERYBANK, OnQueryBankResponse);
+            WebMessageHandlerOld.Instance.RemoveHandler(CMD.QUERYBANK, OnQueryBankResponse);
             var gameBank = new GoldPig();
             gameBank.MergeFrom(e.data);
             Debug.Log("menu scene game bank:" + gameBank);
@@ -1700,7 +1700,7 @@ namespace XFramework
             ResourcesSingleton.Instance.goldPig = gameBank;
         }
 
-        private void OnGiftChangeResponse(object sender, WebMessageHandler.Execute e)
+        private void OnGiftChangeResponse(object sender, WebMessageHandlerOld.Execute e)
         {
             ByteValueList byteValueList = new ByteValueList();
             byteValueList.MergeFrom(e.data);
@@ -1788,9 +1788,9 @@ namespace XFramework
             ResourcesSingleton.Instance.UpdateResourceUI();
         }
 
-        private void OnShopInitResponse(object sender, WebMessageHandler.Execute e)
+        private void OnShopInitResponse(object sender, WebMessageHandlerOld.Execute e)
         {
-            WebMessageHandler.Instance.RemoveHandler(CMD.QUERYSHOP, OnShopInitResponse);
+            WebMessageHandlerOld.Instance.RemoveHandler(CMD.QUERYSHOP, OnShopInitResponse);
             var shopMap = new GameShopMap();
             shopMap.MergeFrom(e.data);
             Debug.Log(shopMap);
@@ -1879,11 +1879,11 @@ namespace XFramework
 
             //ResourcesSingleton.Instance.UpdateResourceUI();
             //await UniTask.Delay(1000 * (int)TimeHelper.GetToTomorrowTime());
-            //WebMessageHandler.Instance.AddHandler(11, 1, OnShopInitResponse);
+            //WebMessageHandlerOld.Instance.AddHandler(11, 1, OnShopInitResponse);
             //NetWorkManager.Instance.SendMessage(11, 1);
         }
 
-        private void OnTaskChangeResponse(object sender, WebMessageHandler.Execute e)
+        private void OnTaskChangeResponse(object sender, WebMessageHandlerOld.Execute e)
         {
             IntValue intValue = new IntValue();
             intValue.MergeFrom(e.data);
@@ -1898,16 +1898,16 @@ namespace XFramework
 
             //Debug.Log("100 - 1 Task change");
 
-            // WebMessageHandler.Instance.AddHandler(CMD.QUERYDAYANDWEEKTASK, OnDayAndWeekResponse);
+            // WebMessageHandlerOld.Instance.AddHandler(CMD.QUERYDAYANDWEEKTASK, OnDayAndWeekResponse);
             // NetWorkManager.Instance.SendMessage(CMD.QUERYDAYANDWEEKTASK);
 
-            // WebMessageHandler.Instance.AddHandler(3, 4, OnAchieveResponse);
+            // WebMessageHandlerOld.Instance.AddHandler(3, 4, OnAchieveResponse);
             // NetWorkManager.Instance.SendMessage(3, 4);
         }
 
-        private void OnDayAndWeekResponse(object sender, WebMessageHandler.Execute e)
+        private void OnDayAndWeekResponse(object sender, WebMessageHandlerOld.Execute e)
         {
-            WebMessageHandler.Instance.RemoveHandler(CMD.QUERYDAYANDWEEKTASK, OnDayAndWeekResponse);
+            WebMessageHandlerOld.Instance.RemoveHandler(CMD.QUERYDAYANDWEEKTASK, OnDayAndWeekResponse);
             RoleTaskInfo roleTaskInfo = new RoleTaskInfo();
             roleTaskInfo.MergeFrom(e.data);
 
@@ -1952,9 +1952,9 @@ namespace XFramework
             }
         }
 
-        private void OnAchieveResponse(object sender, WebMessageHandler.Execute e)
+        private void OnAchieveResponse(object sender, WebMessageHandlerOld.Execute e)
         {
-            WebMessageHandler.Instance.RemoveHandler(CMD.QUERYACHIEVE, OnAchieveResponse);
+            WebMessageHandlerOld.Instance.RemoveHandler(CMD.QUERYACHIEVE, OnAchieveResponse);
             RoleTaskInfo roleTaskInfo = new RoleTaskInfo();
             roleTaskInfo.MergeFrom(e.data);
             Log.Debug($"OnAchieveResponse {roleTaskInfo.ToString()}", Color.green);
@@ -2010,9 +2010,9 @@ namespace XFramework
             }
         }
 
-        private async void OnSignResponse(object sender, WebMessageHandler.Execute e)
+        private async void OnSignResponse(object sender, WebMessageHandlerOld.Execute e)
         {
-            WebMessageHandler.Instance.RemoveHandler(12, 1, OnSignResponse);
+            WebMessageHandlerOld.Instance.RemoveHandler(12, 1, OnSignResponse);
             GameCheckIn gameCheckIn = new GameCheckIn();
             gameCheckIn.MergeFrom(e.data);
             Debug.Log(gameCheckIn);
@@ -2031,13 +2031,13 @@ namespace XFramework
             }
 
             await UniTask.Delay(1000 * (int)TimeHelper.GetToTomorrowTime());
-            WebMessageHandler.Instance.AddHandler(12, 1, OnSignSecResponse);
+            WebMessageHandlerOld.Instance.AddHandler(12, 1, OnSignSecResponse);
             NetWorkManager.Instance.SendMessage(12, 1);
         }
 
-        private async void OnSignSecResponse(object sender, WebMessageHandler.Execute e)
+        private async void OnSignSecResponse(object sender, WebMessageHandlerOld.Execute e)
         {
-            WebMessageHandler.Instance.RemoveHandler(12, 1, OnSignSecResponse);
+            WebMessageHandlerOld.Instance.RemoveHandler(12, 1, OnSignSecResponse);
             GameCheckIn gameCheckIn = new GameCheckIn();
             gameCheckIn.MergeFrom(e.data);
             Debug.Log(gameCheckIn);
@@ -2061,18 +2061,18 @@ namespace XFramework
             //     }
             // }
             await UniTask.Delay(1000 * (int)TimeHelper.GetToTomorrowTime());
-            WebMessageHandler.Instance.AddHandler(12, 1, OnSignSecResponse);
+            WebMessageHandlerOld.Instance.AddHandler(12, 1, OnSignSecResponse);
             NetWorkManager.Instance.SendMessage(12, 1);
         }
 
-        private void OnNoticeStatusChangeResponse(object sender, WebMessageHandler.Execute e)
+        private void OnNoticeStatusChangeResponse(object sender, WebMessageHandlerOld.Execute e)
         {
             JiYuUIHelper.DownloadNotice().Forget();
         }
 
-        private async void OnQuerySettingsResponse(object sender, WebMessageHandler.Execute e)
+        private async void OnQuerySettingsResponse(object sender, WebMessageHandlerOld.Execute e)
         {
-            WebMessageHandler.Instance.RemoveHandler(CMD.QUERYSETTINGS, OnQuerySettingsResponse);
+            WebMessageHandlerOld.Instance.RemoveHandler(CMD.QUERYSETTINGS, OnQuerySettingsResponse);
             SettingDate settingDate = new SettingDate();
             settingDate.MergeFrom(e.data);
             Log.Debug($"OnQuerySettingsResponse{settingDate}", Color.green);
@@ -2138,7 +2138,7 @@ namespace XFramework
             {
                 isInit = true;
                 Log.Debug($"OnBoardCast", Color.cyan);
-                WebMessageHandler.Instance.AddHandler(CMD.QUERYMAIL, OnQueryMailResponse);
+                WebMessageHandlerOld.Instance.AddHandler(CMD.QUERYMAIL, OnQueryMailResponse);
                 NetWorkManager.Instance.SendMessage(CMD.QUERYMAIL);
             }
 
@@ -2209,15 +2209,15 @@ namespace XFramework
         {
             Log.Debug("离开Menu场景");
             //cts.Cancel();
-            WebMessageHandler.Instance.RemoveHandler(CMD.BOARDCASTMAIL, OnBoardCastMail);
-            WebMessageHandler.Instance.RemoveHandler(99, 2, OnGiftChangeResponse);
-            WebMessageHandler.Instance.RemoveHandler(99, 3, OnNoticeStatusChangeResponse);
-            WebMessageHandler.Instance.RemoveHandler(99, 6, OnFirstChargeChangeResponse);
-            WebMessageHandler.Instance.RemoveHandler(100, 1, OnTaskChangeResponse);
-            WebMessageHandler.Instance.RemoveHandler(CMD.QUERYWEAR, OnQueryWearingEquipResponse);
-            WebMessageHandler.Instance.RemoveHandler(CMD.QUERYEQUIP, OnQueryEquipResponse);
-            WebMessageHandler.Instance.RemoveHandler(CMD.QUERYPROPERTY, OnInitPlayerPropertyResponse);
-            WebMessageHandler.Instance.RemoveHandler(CMD.INITPLAYER, OnOpenMainPanelResponse);
+            WebMessageHandlerOld.Instance.RemoveHandler(CMD.BOARDCASTMAIL, OnBoardCastMail);
+            WebMessageHandlerOld.Instance.RemoveHandler(99, 2, OnGiftChangeResponse);
+            WebMessageHandlerOld.Instance.RemoveHandler(99, 3, OnNoticeStatusChangeResponse);
+            WebMessageHandlerOld.Instance.RemoveHandler(99, 6, OnFirstChargeChangeResponse);
+            WebMessageHandlerOld.Instance.RemoveHandler(100, 1, OnTaskChangeResponse);
+            WebMessageHandlerOld.Instance.RemoveHandler(CMD.QUERYWEAR, OnQueryWearingEquipResponse);
+            WebMessageHandlerOld.Instance.RemoveHandler(CMD.QUERYEQUIP, OnQueryEquipResponse);
+            WebMessageHandlerOld.Instance.RemoveHandler(CMD.QUERYPROPERTY, OnInitPlayerPropertyResponse);
+            WebMessageHandlerOld.Instance.RemoveHandler(CMD.INITPLAYER, OnOpenMainPanelResponse);
             base.OnDestroy();
         }
 

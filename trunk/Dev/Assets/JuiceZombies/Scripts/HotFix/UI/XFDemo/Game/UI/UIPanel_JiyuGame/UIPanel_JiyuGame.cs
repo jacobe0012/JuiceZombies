@@ -1496,7 +1496,7 @@ namespace XFramework
             this.timerId0 = 0;
         }
 
-        private void OnQueryMailResponse(object sender, WebMessageHandler.Execute e)
+        private void OnQueryMailResponse(object sender, WebMessageHandlerOld.Execute e)
         {
             //new MailInfo()
             var resultMailList = new ResultMailList();
@@ -1519,8 +1519,8 @@ namespace XFramework
             }
 
 
-            WebMessageHandler.Instance.RemoveHandler(5, 1, OnQueryMailResponse);
-            WebMessageHandler.Instance.RemoveHandler(5, 2, OnQueryMailResponse);
+            WebMessageHandlerOld.Instance.RemoveHandler(5, 1, OnQueryMailResponse);
+            WebMessageHandlerOld.Instance.RemoveHandler(5, 2, OnQueryMailResponse);
         }
 
         // void CaptureScreenshot()

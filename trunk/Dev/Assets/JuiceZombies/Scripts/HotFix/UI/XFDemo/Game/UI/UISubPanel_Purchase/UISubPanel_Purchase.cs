@@ -38,12 +38,12 @@ namespace XFramework
 
         protected override void OnClose()
         {
-            WebMessageHandler.Instance.RemoveHandler(CMD.LOCKTALENT, JudegeLockTalent);
+            WebMessageHandlerOld.Instance.RemoveHandler(CMD.LOCKTALENT, JudegeLockTalent);
             Log.Debug("ClosePanel");
             base.OnClose();
         }
 
-        private void JudegeLockTalent(object sender, WebMessageHandler.Execute e)
+        private void JudegeLockTalent(object sender, WebMessageHandlerOld.Execute e)
         {
             var value = new StringValue();
             value.MergeFrom(e.data);
@@ -76,7 +76,7 @@ namespace XFramework
 
         private void OnButtonLockClick()
         {
-            //½âËøÌì¸³
+            //ï¿½ï¿½ï¿½ï¿½ï¿½ì¸³
             NetWorkManager.Instance.SendMessage(CMD.LOCKTALENT, new IntValue { Value = currentTalentID });
         }
 
@@ -98,12 +98,12 @@ namespace XFramework
                 GetFromReference(KText_Mid).GetTextMeshPro().SetTMPText(cost.ToString());
                 GetFromReference(KText_Right).GetTextMeshPro().SetTMPText(lang.Get("talent_attr_unlock").current);
                 JiYuTweenHelper.DoScaleTweenOnClickAndLongPress(this.GetFromReference(KBtn_Common), () => OnButtonLockClick());
-                WebMessageHandler.Instance.AddHandler(CMD.LOCKTALENT, JudegeLockTalent);
+                WebMessageHandlerOld.Instance.AddHandler(CMD.LOCKTALENT, JudegeLockTalent);
                 this.GetFromReference(KBtn_Close)?.GetComponent<XButton>()?.onClick.Add(Close);
             }
             else
             {
-                Debug.LogError("¼ì²é±íÅäÖÃ£¡£¡£¡£¡£¡£¡£¡£¡£¡£¡£¡£¡£¡£¡£¡£¡£¡£¡£¡£¡£¡£¡£¡£¡£¡£¡£¡£¡£¡£¡£¡");
+                Debug.LogError("ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ã£ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½");
                 return;
             }
         }

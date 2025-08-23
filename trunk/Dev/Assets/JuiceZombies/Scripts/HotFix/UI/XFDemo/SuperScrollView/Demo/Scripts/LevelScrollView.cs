@@ -33,7 +33,7 @@ namespace SuperScrollView
         // Use this for initialization
         void Start()
         {
-            //WebMessageHandler.Instance.AddHandler(2, 4, LevelLockResponse);
+            //WebMessageHandlerOld.Instance.AddHandler(2, 4, LevelLockResponse);
             ////请求一次关卡数据
             //NetWorkManager.Instance.SendMessage(2, 4);
             //maxLcokItemID = ResourcesSingleton.Instance.levelInfo.maxLockChapterID;
@@ -241,7 +241,7 @@ namespace SuperScrollView
 
         private void OnDestroy()
         {
-            //WebMessageHandler.Instance.RemoveHandler(2, 4, LevelLockResponse);
+            //WebMessageHandlerOld.Instance.RemoveHandler(2, 4, LevelLockResponse);
         }
     }
 }

@@ -120,7 +120,7 @@ namespace XFramework
 
         async UniTaskVoid InitNode()
         {
-            WebMessageHandler.Instance.AddHandler(CMD.GETTASKSCORE, OnGetTaskResponse);
+            WebMessageHandlerOld.Instance.AddHandler(CMD.GETTASKSCORE, OnGetTaskResponse);
 
             var KScrollView = GetFromReference(UIPanel_MonopolyShop.KScrollView);
             var KBtn_Desc = GetFromReference(UIPanel_MonopolyShop.KBtn_Desc);
@@ -237,7 +237,7 @@ namespace XFramework
             //
             //     JiYuTweenHelper.DoScaleTweenOnClickAndLongPress(KBtn_Buy, () =>
             //     {
-            //         //TODO:Ç°Íù£º
+            //         //TODO:Ç°ï¿½ï¿½ï¿½ï¿½
             //         if (canReceive)
             //         {
             //             NetWorkManager.Instance.SendMessage(CMD.GETTASKSCORE, new IntValue
@@ -276,7 +276,7 @@ namespace XFramework
             RedDotManager.Instance.SetRedPointCnt(taskListStr, redDotNum);
         }
 
-        async private void OnGetTaskResponse(object sender, WebMessageHandler.Execute e)
+        async private void OnGetTaskResponse(object sender, WebMessageHandlerOld.Execute e)
         {
             TaskResult taskResult = new TaskResult();
             taskResult.MergeFrom(e.data);
@@ -378,7 +378,7 @@ namespace XFramework
 
             JiYuTweenHelper.DoScaleTweenOnClickAndLongPress(KCommon_Btn, () =>
             {
-                //TODO:Ç°Íù£º
+                //TODO:Ç°ï¿½ï¿½ï¿½ï¿½
                 if (canReceive)
                 {
                     NetWorkManager.Instance.SendMessage(CMD.GETTASKSCORE, new IntValue
@@ -388,7 +388,7 @@ namespace XFramework
                 }
                 else
                 {
-                    Log.Debug($"Ç°Íù");
+                    Log.Debug($"Ç°ï¿½ï¿½");
                     var taskType = tbtask_type.Get(tbtask.Get(gameTask.Id).type);
 
                     JiYuUIHelper.GoToSomePanel(taskType.goto0);
@@ -408,7 +408,7 @@ namespace XFramework
         {
             cts.Cancel();
             cts.Dispose();
-            WebMessageHandler.Instance.RemoveHandler(CMD.GETTASKSCORE, OnGetTaskResponse);
+            WebMessageHandlerOld.Instance.RemoveHandler(CMD.GETTASKSCORE, OnGetTaskResponse);
             base.OnClose();
         }
     }

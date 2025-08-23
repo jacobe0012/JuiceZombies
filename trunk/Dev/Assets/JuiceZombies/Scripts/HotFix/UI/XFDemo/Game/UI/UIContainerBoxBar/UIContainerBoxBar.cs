@@ -172,14 +172,14 @@ namespace XFramework
         {
             boxClickedID = boxID;
             //ResourcesSingleton.Instance.levelInfo.levelBox.boxStateDic[boxID] = true;
-            WebMessageHandler.Instance.AddHandler(2, 8, OnBoxGetResponce);
+            WebMessageHandlerOld.Instance.AddHandler(2, 8, OnBoxGetResponce);
             NetWorkManager.Instance.SendMessage(2, 8, new IntValue { Value = boxID });
         }
 
-        private async void OnBoxGetResponce(object sender, WebMessageHandler.Execute e)
+        private async void OnBoxGetResponce(object sender, WebMessageHandlerOld.Execute e)
         {
             Log.Debug("OnBoxGetResponce", Color.yellow);
-            WebMessageHandler.Instance.RemoveHandler(2, 8, OnBoxGetResponce);
+            WebMessageHandlerOld.Instance.RemoveHandler(2, 8, OnBoxGetResponce);
 
             StringValueList stringValueList = new StringValueList();
             stringValueList.MergeFrom(e.data);

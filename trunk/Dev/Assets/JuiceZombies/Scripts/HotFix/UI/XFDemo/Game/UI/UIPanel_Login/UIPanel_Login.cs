@@ -61,7 +61,7 @@ namespace XFramework
             var language = ConfigManager.Instance.Tables.Tblanguage;
 
 
-            WebMessageHandler.Instance.AddHandler(CMD.LOGIN, OnLoginResponse);
+            WebMessageHandlerOld.Instance.AddHandler(CMD.LOGIN, OnLoginResponse);
 
             KBtnText.GetTextMeshPro().SetTMPText(language.Get("common_state_confirm").current);
 
@@ -199,9 +199,9 @@ namespace XFramework
             //global.isStandAlone =
         }
 
-        async void OnQueryLoginSettingsResponse(object sender, WebMessageHandler.Execute e)
+        async void OnQueryLoginSettingsResponse(object sender, WebMessageHandlerOld.Execute e)
         {
-            WebMessageHandler.Instance.RemoveHandler(CMD.QUERYSETTINGS, OnQueryLoginSettingsResponse);
+            WebMessageHandlerOld.Instance.RemoveHandler(CMD.QUERYSETTINGS, OnQueryLoginSettingsResponse);
             SettingDate settingDate = new SettingDate();
             settingDate.MergeFrom(e.data);
             Log.Debug($"OnQueryLoginSettingsResponse{settingDate}", Color.green);
@@ -239,7 +239,7 @@ namespace XFramework
             //InitSettings();
         }
 
-        async void OnLoginResponse(object sender, WebMessageHandler.Execute e)
+        async void OnLoginResponse(object sender, WebMessageHandlerOld.Execute e)
         {
             var gameUser = new GameUser();
             gameUser.MergeFrom(e.data);
@@ -321,7 +321,7 @@ namespace XFramework
                 if (global.isIntroGuide)
                 {
                     Log.Debug($"global.isIntroGuide{global.isIntroGuide}");
-                    WebMessageHandler.Instance.AddHandler(CMD.QUERYSETTINGS, OnQueryLoginSettingsResponse);
+                    WebMessageHandlerOld.Instance.AddHandler(CMD.QUERYSETTINGS, OnQueryLoginSettingsResponse);
                     NetWorkManager.Instance.SendMessage(CMD.QUERYSETTINGS);
                 }
                 else
@@ -403,7 +403,7 @@ namespace XFramework
 
         protected override void OnClose()
         {
-            WebMessageHandler.Instance.RemoveHandler(CMD.LOGIN, OnLoginResponse);
+            WebMessageHandlerOld.Instance.RemoveHandler(CMD.LOGIN, OnLoginResponse);
 
             base.OnClose();
         }

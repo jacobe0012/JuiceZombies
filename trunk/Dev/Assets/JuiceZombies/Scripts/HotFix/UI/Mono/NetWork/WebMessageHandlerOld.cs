@@ -12,7 +12,7 @@ using XFramework;
 
 namespace HotFix_UI
 {
-    public sealed class WebMessageHandler : Singleton<WebMessageHandler>, IDisposable
+    public sealed class WebMessageHandlerOld : Singleton<WebMessageHandlerOld>, IDisposable
     {
         private Dictionary<int, Dictionary<string, EventHandler<Execute>>> handlers =
             new Dictionary<int, Dictionary<string, EventHandler<Execute>>>();

@@ -794,14 +794,14 @@ namespace XFramework
             if (ModuleID == 1102)
             {
                 drawNum = 1;
-                WebMessageHandler.Instance.AddHandler(11, 2, OnClickBoxBtnResponse);
+                WebMessageHandlerOld.Instance.AddHandler(11, 2, OnClickBoxBtnResponse);
                 NetWorkManager.Instance.SendMessage(11, 2, drawParamLeft);
                 Debug.Log("left: " + drawParamLeft.DrawCount.ToString());
             }
             else if (ModuleID == 1101)
             {
                 drawNum = 1;
-                WebMessageHandler.Instance.AddHandler(11, 14, OnClick1101BoxBtnResponse);
+                WebMessageHandlerOld.Instance.AddHandler(11, 14, OnClick1101BoxBtnResponse);
                 NetWorkManager.Instance.SendMessage(11, 14, drawParamLeft);
                 Debug.Log("left: " + drawParamLeft.DrawCount.ToString());
             }
@@ -1133,14 +1133,14 @@ namespace XFramework
             if (ModuleID == 1102)
             {
                 drawNum = 10;
-                WebMessageHandler.Instance.AddHandler(11, 2, OnClickBoxBtnResponse);
+                WebMessageHandlerOld.Instance.AddHandler(11, 2, OnClickBoxBtnResponse);
                 NetWorkManager.Instance.SendMessage(11, 2, drawParamRight);
                 Debug.Log("Right: " + drawParamRight.DrawCount.ToString());
             }
             else if (ModuleID == 1101)
             {
                 drawNum = 10;
-                WebMessageHandler.Instance.AddHandler(11, 14, OnClick1101BoxBtnResponse);
+                WebMessageHandlerOld.Instance.AddHandler(11, 14, OnClick1101BoxBtnResponse);
                 NetWorkManager.Instance.SendMessage(11, 14, drawParamRight);
                 Debug.Log("Right: " + drawParamRight.DrawCount.ToString());
             }
@@ -1184,7 +1184,7 @@ namespace XFramework
             JiYuUIHelper.DestoryAllTips();
 
             drawNum = 1;
-            WebMessageHandler.Instance.AddHandler(11, 14, OnClick1101BoxBtnResponse);
+            WebMessageHandlerOld.Instance.AddHandler(11, 14, OnClick1101BoxBtnResponse);
             NetWorkManager.Instance.SendMessage(11, 14, drawParamLeft);
 
 
@@ -1226,9 +1226,9 @@ namespace XFramework
             var ui = UIHelper.Create<int>(UIType.UISubPanel_Shop_Pre, boxID);
         }
 
-        private void OnClickBoxBtnResponse(object sender, WebMessageHandler.Execute e)
+        private void OnClickBoxBtnResponse(object sender, WebMessageHandlerOld.Execute e)
         {
-            WebMessageHandler.Instance.RemoveHandler(11, 2, OnClickBoxBtnResponse);
+            WebMessageHandlerOld.Instance.RemoveHandler(11, 2, OnClickBoxBtnResponse);
             DrawInfo drawInfo = new DrawInfo();
             drawInfo.MergeFrom(e.data);
             Debug.Log(e);
@@ -1311,9 +1311,9 @@ namespace XFramework
             ResourcesSingleton.Instance.UpdateResourceUI();
         }
 
-        private void OnClick1101BoxBtnResponse(object sender, WebMessageHandler.Execute e)
+        private void OnClick1101BoxBtnResponse(object sender, WebMessageHandlerOld.Execute e)
         {
-            WebMessageHandler.Instance.RemoveHandler(11, 14, OnClick1101BoxBtnResponse);
+            WebMessageHandlerOld.Instance.RemoveHandler(11, 14, OnClick1101BoxBtnResponse);
 
             DrawInfo drawInfo = new DrawInfo();
             drawInfo.MergeFrom(e.data);

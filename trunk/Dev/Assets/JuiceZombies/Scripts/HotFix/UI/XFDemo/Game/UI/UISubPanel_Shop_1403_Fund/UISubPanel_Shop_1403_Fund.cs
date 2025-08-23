@@ -683,7 +683,7 @@ namespace XFramework
                         switch (shopNum)
                         {
                             case "C03":
-                                WebMessageHandler.Instance.AddHandler(11, 8, On1403QueryFundAndUpdateDownResponse);
+                                WebMessageHandlerOld.Instance.AddHandler(11, 8, On1403QueryFundAndUpdateDownResponse);
                                 NetWorkManager.Instance.SendMessage(11, 8);
                                 break;
                         }
@@ -721,14 +721,14 @@ namespace XFramework
                         {
                             case "C04":
 
-                                WebMessageHandler.Instance.AddHandler(11, 8, On1403QueryFundAndUpdateDownResponse);
+                                WebMessageHandlerOld.Instance.AddHandler(11, 8, On1403QueryFundAndUpdateDownResponse);
                                 NetWorkManager.Instance.SendMessage(11, 8);
                                 break;
                         }
                     });
                     /*
                     //Module1403_Last_Time = TimeHelper.ClientNow();
-                    WebMessageHandler.Instance.AddHandler(11, 11, On1403BuyFundResponse);
+                    WebMessageHandlerOld.Instance.AddHandler(11, 11, On1403BuyFundResponse);
                     string buyFundStr = id.ToString() + ";3";
                     StringValue stringValue = new StringValue();
                     stringValue.Value = buyFundStr;
@@ -1018,7 +1018,7 @@ namespace XFramework
                             }
                             else
                             {
-                                WebMessageHandler.Instance.AddHandler(11, 9, On1403GetFundRewardResponse);
+                                WebMessageHandlerOld.Instance.AddHandler(11, 9, On1403GetFundRewardResponse);
                                 string reStr = tbfr.id.ToString() + ";1;" + tbfr.level.ToString();
                                 StringValue stringValue = new StringValue();
                                 stringValue.Value = reStr;
@@ -1084,7 +1084,7 @@ namespace XFramework
                                 {
                                     //Module1403_Last_Time = TimeHelper.ClientNow();
                                     //get reward
-                                    WebMessageHandler.Instance.AddHandler(11, 9, On1403GetFundRewardResponse);
+                                    WebMessageHandlerOld.Instance.AddHandler(11, 9, On1403GetFundRewardResponse);
                                     string reStr = tbfr.id.ToString() + ";2;" + tbfr.level.ToString();
                                     StringValue stringValue = new StringValue();
                                     stringValue.Value = reStr;
@@ -1151,7 +1151,7 @@ namespace XFramework
                                 {
                                     //Module1403_Last_Time = TimeHelper.ClientNow();
                                     //get reward
-                                    WebMessageHandler.Instance.AddHandler(11, 9, On1403GetFundRewardResponse);
+                                    WebMessageHandlerOld.Instance.AddHandler(11, 9, On1403GetFundRewardResponse);
                                     string reStr = tbfr.id.ToString() + ";3;" + tbfr.level.ToString();
                                     StringValue stringValue = new StringValue();
                                     stringValue.Value = reStr;
@@ -1309,7 +1309,7 @@ namespace XFramework
                         ResourcesSingleton.Instance.shopMap.IndexModuleMap[1403].GameFoundationList[i].IsLook = 1;
                         IntValue intValue = new IntValue();
                         intValue.Value = id;
-                        WebMessageHandler.Instance.AddHandler(11, 15, On1403LookFundResponse);
+                        WebMessageHandlerOld.Instance.AddHandler(11, 15, On1403LookFundResponse);
                         NetWorkManager.Instance.SendMessage(11, 15, intValue);
                     }
 
@@ -1519,14 +1519,14 @@ namespace XFramework
             return fundIdAndLevel;
         }
 
-        private void On1403LookFundResponse(object sender, WebMessageHandler.Execute e)
+        private void On1403LookFundResponse(object sender, WebMessageHandlerOld.Execute e)
         {
-            WebMessageHandler.Instance.RemoveHandler(11, 15, On1403LookFundResponse);
+            WebMessageHandlerOld.Instance.RemoveHandler(11, 15, On1403LookFundResponse);
         }
 
-        private void On1403BuyFundResponse(object sender, WebMessageHandler.Execute e)
+        private void On1403BuyFundResponse(object sender, WebMessageHandlerOld.Execute e)
         {
-            WebMessageHandler.Instance.RemoveHandler(11, 11, On1403BuyFundResponse);
+            WebMessageHandlerOld.Instance.RemoveHandler(11, 11, On1403BuyFundResponse);
             var str = new StringValue();
             str.MergeFrom(e.data);
 
@@ -1538,7 +1538,7 @@ namespace XFramework
 
             if (str.Value == "success")
             {
-                WebMessageHandler.Instance.AddHandler(11, 8, On1403QueryFundAndUpdateDownResponse);
+                WebMessageHandlerOld.Instance.AddHandler(11, 8, On1403QueryFundAndUpdateDownResponse);
                 NetWorkManager.Instance.SendMessage(11, 8);
             }
             else
@@ -1547,9 +1547,9 @@ namespace XFramework
             }
         }
 
-        private void On1403QueryFundAndUpdateDownResponse(object sender, WebMessageHandler.Execute e)
+        private void On1403QueryFundAndUpdateDownResponse(object sender, WebMessageHandlerOld.Execute e)
         {
-            WebMessageHandler.Instance.RemoveHandler(11, 8, On1403QueryFundAndUpdateDownResponse);
+            WebMessageHandlerOld.Instance.RemoveHandler(11, 8, On1403QueryFundAndUpdateDownResponse);
 
             var fundList = new ByteValueList();
             fundList.MergeFrom(e.data);
@@ -1589,9 +1589,9 @@ namespace XFramework
             UpdateDown();
         }
 
-        private void On1403QueryFundResponse(object sender, WebMessageHandler.Execute e)
+        private void On1403QueryFundResponse(object sender, WebMessageHandlerOld.Execute e)
         {
-            WebMessageHandler.Instance.RemoveHandler(11, 8, On1403QueryFundResponse);
+            WebMessageHandlerOld.Instance.RemoveHandler(11, 8, On1403QueryFundResponse);
             var fundList = new ByteValueList();
             fundList.MergeFrom(e.data);
 
@@ -1665,9 +1665,9 @@ namespace XFramework
         {
         }
 
-        private void On1403GetFundRewardResponse(object sender, WebMessageHandler.Execute e)
+        private void On1403GetFundRewardResponse(object sender, WebMessageHandlerOld.Execute e)
         {
-            WebMessageHandler.Instance.RemoveHandler(11, 9, On1403GetFundRewardResponse);
+            WebMessageHandlerOld.Instance.RemoveHandler(11, 9, On1403GetFundRewardResponse);
 
             StringValueList stringValueList = new StringValueList();
             stringValueList.MergeFrom(e.data);
@@ -1682,7 +1682,7 @@ namespace XFramework
                 JiYuUIHelper.AddReward(UnityHelper.StrToVector3(itemstr), true);
             }
 
-            WebMessageHandler.Instance.AddHandler(11, 8, On1403QueryFundAndUpdateDownResponse);
+            WebMessageHandlerOld.Instance.AddHandler(11, 8, On1403QueryFundAndUpdateDownResponse);
             NetWorkManager.Instance.SendMessage(11, 8);
         }
 

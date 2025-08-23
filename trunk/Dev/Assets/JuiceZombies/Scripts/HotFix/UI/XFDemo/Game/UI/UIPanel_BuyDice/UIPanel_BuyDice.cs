@@ -125,7 +125,7 @@ namespace XFramework
 
         async void InitNode()
         {
-            WebMessageHandler.Instance.AddHandler(CMD.BUYDICE, OnBuyDiceResponse);
+            WebMessageHandlerOld.Instance.AddHandler(CMD.BUYDICE, OnBuyDiceResponse);
             var KText_Name = GetFromReference(UIPanel_BuyDice.KText_Name);
             var KReward_Pos = GetFromReference(UIPanel_BuyDice.KReward_Pos);
             var KBtn_Left = GetFromReference(UIPanel_BuyDice.KBtn_Left);
@@ -304,7 +304,7 @@ namespace XFramework
             });
         }
 
-        async public void OnBuyDiceResponse(object sender, WebMessageHandler.Execute e)
+        async public void OnBuyDiceResponse(object sender, WebMessageHandlerOld.Execute e)
         {
             StringValue buyDice = new StringValue();
             buyDice.MergeFrom(e.data);
@@ -330,7 +330,7 @@ namespace XFramework
 
         protected override void OnClose()
         {
-            WebMessageHandler.Instance.RemoveHandler(CMD.BUYDICE, OnBuyDiceResponse);
+            WebMessageHandlerOld.Instance.RemoveHandler(CMD.BUYDICE, OnBuyDiceResponse);
             base.OnClose();
         }
     }

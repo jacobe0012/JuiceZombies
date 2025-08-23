@@ -310,14 +310,14 @@ namespace XFramework
         //{
         //    Debug.Log($"onTaskButtonClick");
         //    //��������
-        //    WebMessageHandler.Instance.AddHandler(3, 1, OnRoleTaskInfoResponse);
+        //    WebMessageHandlerOld.Instance.AddHandler(3, 1, OnRoleTaskInfoResponse);
         //    NetWorkManager.Instance.SendMessage(3, 1);
         //    //await UIHelper.CreateAsync(UIType.UIPanel_Task_DailyAndWeekly);
         //}
 
-        //private async void OnRoleTaskInfoResponse(object sender, WebMessageHandler.Execute e)
+        //private async void OnRoleTaskInfoResponse(object sender, WebMessageHandlerOld.Execute e)
         //{
-        //    WebMessageHandler.Instance.RemoveHandler(3, 1, OnRoleTaskInfoResponse);
+        //    WebMessageHandlerOld.Instance.RemoveHandler(3, 1, OnRoleTaskInfoResponse);
         //    RoleTaskInfo roleTaskInfo = new RoleTaskInfo();
         //    roleTaskInfo.MergeFrom(e.data);
         //    Debug.Log(e);
@@ -1045,7 +1045,7 @@ namespace XFramework
         ///// </summary>
         //public void onWebResponse()
         //{
-        //    WebMessageHandler.Instance.AddHandler(6, 3, WebMessagePatrol);
+        //    WebMessageHandlerOld.Instance.AddHandler(6, 3, WebMessagePatrol);
 
         //    long timeValue = TimeHelper.ClientNowSeconds();
         //    var partorlValue = new LongValue();
@@ -1054,14 +1054,14 @@ namespace XFramework
         //    NetWorkManager.Instance.SendMessage(6, 3, partorlValue);
         //}
 
-        //private void WebMessagePatrol(object sender, WebMessageHandler.Execute e)
+        //private void WebMessagePatrol(object sender, WebMessageHandlerOld.Execute e)
         //{
         //    var Proclass = new PatrolRes();
         //    Proclass.MergeFrom(e.data);
 
         //    if (e.data.IsEmpty)
         //    {
-        //        WebMessageHandler.Instance.RemoveHandler(6, 3, WebMessagePatrol);
+        //        WebMessageHandlerOld.Instance.RemoveHandler(6, 3, WebMessagePatrol);
         //        Log.Debug("e.data.IsEmpty", Color.blue);
         //        return;
         //    }
@@ -1093,7 +1093,7 @@ namespace XFramework
         //        TimerManager.Instance.WaitTill(WillTime * 1000, ShowPatrolRedPoint);
         //    }
 
-        //    WebMessageHandler.Instance.RemoveHandler(6, 3, WebMessagePatrol);
+        //    WebMessageHandlerOld.Instance.RemoveHandler(6, 3, WebMessagePatrol);
         //}
 
 
@@ -1323,7 +1323,7 @@ namespace XFramework
 
         //protected override void OnClose()
         //{
-        //    //WebMessageHandler.Instance.RemoveHandler(2, 4, LevelResponse);
+        //    //WebMessageHandlerOld.Instance.RemoveHandler(2, 4, LevelResponse);
         //    RedPointMgr.instance.Remove(Battle_Red_Point_Root, Battle_Red_Point_Root);
         //    UILevelScrollView.ChangeEvent -= ChangeLevelSprite;
         //    //ClearView();
@@ -1380,17 +1380,17 @@ namespace XFramework
         //        SceneResManager.WaitForCompleted(sceneObj).ToCoroutine();
         //    }
 
-        //    WebMessageHandler.Instance.AddHandler(2, 3, OnClickPlayBtnBeforeResponse);
-        //    WebMessageHandler.Instance.AddHandler(2, 5, OnClickPlayBtnResponse);
+        //    WebMessageHandlerOld.Instance.AddHandler(2, 3, OnClickPlayBtnBeforeResponse);
+        //    WebMessageHandlerOld.Instance.AddHandler(2, 5, OnClickPlayBtnResponse);
 
 
         //    NetWorkManager.Instance.SendMessage(2, 3);
         //}
 
 
-        //void OnClickPlayBtnBeforeResponse(object sender, WebMessageHandler.Execute e)
+        //void OnClickPlayBtnBeforeResponse(object sender, WebMessageHandlerOld.Execute e)
         //{
-        //    WebMessageHandler.Instance.RemoveHandler(2, 3, OnClickPlayBtnBeforeResponse);
+        //    WebMessageHandlerOld.Instance.RemoveHandler(2, 3, OnClickPlayBtnBeforeResponse);
         //    var longValue = new LongValue();
         //    longValue.MergeFrom(e.data);
 
@@ -1419,9 +1419,9 @@ namespace XFramework
         //    NetWorkManager.Instance.SendMessage(2, 5, battleGain);
         //}
 
-        //void OnClickPlayBtnResponse(object sender, WebMessageHandler.Execute e)
+        //void OnClickPlayBtnResponse(object sender, WebMessageHandlerOld.Execute e)
         //{
-        //    WebMessageHandler.Instance.RemoveHandler(2, 5, OnClickPlayBtnResponse);
+        //    WebMessageHandlerOld.Instance.RemoveHandler(2, 5, OnClickPlayBtnResponse);
         //    var longValue = new BoolValue();
         //    longValue.MergeFrom(e.data);
         //    if (e.data.IsEmpty)

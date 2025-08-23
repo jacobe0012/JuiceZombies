@@ -163,7 +163,7 @@ namespace XFramework
                 JiYuUIHelper.DestoryAllTips();
                 if (ResourcesSingleton.Instance.firstChargeInt == 2 || ResourcesSingleton.Instance.firstChargeInt == 3)
                 {
-                    WebMessageHandler.Instance.AddHandler(CMD.GETCHARGE, OnGetFirstChargeResponse);
+                    WebMessageHandlerOld.Instance.AddHandler(CMD.GETCHARGE, OnGetFirstChargeResponse);
                     NetWorkManager.Instance.SendMessage(CMD.GETCHARGE);
                 }
                 else
@@ -182,9 +182,9 @@ namespace XFramework
             JiYuUIHelper.DestroyAllSubPanel();
         }
 
-        private void OnGetFirstChargeResponse(object sender, WebMessageHandler.Execute e)
+        private void OnGetFirstChargeResponse(object sender, WebMessageHandlerOld.Execute e)
         {
-            WebMessageHandler.Instance.RemoveHandler(CMD.GETCHARGE, OnGetFirstChargeResponse);
+            WebMessageHandlerOld.Instance.RemoveHandler(CMD.GETCHARGE, OnGetFirstChargeResponse);
             Google.Protobuf.WellKnownTypes.BoolValue boolValue = new Google.Protobuf.WellKnownTypes.BoolValue();
             boolValue.MergeFrom(e.data);
 

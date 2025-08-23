@@ -275,9 +275,9 @@ namespace XFramework
             }
         }
 
-        private void OnShopTestResponse(object sender, WebMessageHandler.Execute e)
+        private void OnShopTestResponse(object sender, WebMessageHandlerOld.Execute e)
         {
-            WebMessageHandler.Instance.RemoveHandler(11, 10, OnShopTestResponse);
+            WebMessageHandlerOld.Instance.RemoveHandler(11, 10, OnShopTestResponse);
             var shopMap = new GameShopMap();
             shopMap.MergeFrom(e.data);
             Debug.Log(shopMap);
@@ -2340,7 +2340,7 @@ namespace XFramework
             {
                 //发送查询
                 //Debug.Log("发送1201查询");
-                WebMessageHandler.Instance.AddHandler(11, 6, On1201QueryResponse);
+                WebMessageHandlerOld.Instance.AddHandler(11, 6, On1201QueryResponse);
                 NetWorkManager.Instance.SendMessage(11, 6);
             }
         }
@@ -3526,7 +3526,7 @@ namespace XFramework
             //    //    m1401IntHelp = recharge.value + recharge.valueExtra;
             //    //}
 
-            //    //WebMessageHandler.Instance.AddHandler(11, 4, On1401BuyResponse);
+            //    //WebMessageHandlerOld.Instance.AddHandler(11, 4, On1401BuyResponse);
             //    //NetWorkManager.Instance.SendMessage(11, 4, intValue);
             //});
             JiYuTweenHelper.PlayUIImageSweepFX(ui.GetFromReference(UISubPanel_Shop_item.KImg_Btn),
@@ -3732,7 +3732,7 @@ namespace XFramework
             //    //m1402UI = ui;
             //    //Recharge = recharge;
 
-            //    //WebMessageHandler.Instance.AddHandler(11, 4, On1402Response);
+            //    //WebMessageHandlerOld.Instance.AddHandler(11, 4, On1402Response);
             //    //NetWorkManager.Instance.SendMessage(11, 4, intValue);
             //});
         }
@@ -4229,7 +4229,7 @@ namespace XFramework
         //             });
         //             /*
         //             //Module1403_Last_Time = TimeHelper.ClientNow();
-        //             WebMessageHandler.Instance.AddHandler(11, 11, On1403BuyFundResponse);
+        //             WebMessageHandlerOld.Instance.AddHandler(11, 11, On1403BuyFundResponse);
         //             string buyFundStr = id.ToString() + ";2";
         //             StringValue stringValue = new StringValue();
         //             stringValue.Value = buyFundStr;
@@ -4266,7 +4266,7 @@ namespace XFramework
         //             });
         //             /*
         //             //Module1403_Last_Time = TimeHelper.ClientNow();
-        //             WebMessageHandler.Instance.AddHandler(11, 11, On1403BuyFundResponse);
+        //             WebMessageHandlerOld.Instance.AddHandler(11, 11, On1403BuyFundResponse);
         //             string buyFundStr = id.ToString() + ";3";
         //             StringValue stringValue = new StringValue();
         //             stringValue.Value = buyFundStr;
@@ -4525,7 +4525,7 @@ namespace XFramework
         //                 {
         //                     //Module1403_Last_Time = TimeHelper.ClientNow();
         //                     //get reward
-        //                     WebMessageHandler.Instance.AddHandler(11, 9, On1403GetFundRewardResponse);
+        //                     WebMessageHandlerOld.Instance.AddHandler(11, 9, On1403GetFundRewardResponse);
         //                     string reStr = tbfr.id.ToString() + ";1;" + tbfr.level.ToString();
         //                     StringValue stringValue = new StringValue();
         //                     stringValue.Value = reStr;
@@ -4569,7 +4569,7 @@ namespace XFramework
         //                     {
         //                         //Module1403_Last_Time = TimeHelper.ClientNow();
         //                         //get reward
-        //                         WebMessageHandler.Instance.AddHandler(11, 9, On1403GetFundRewardResponse);
+        //                         WebMessageHandlerOld.Instance.AddHandler(11, 9, On1403GetFundRewardResponse);
         //                         string reStr = tbfr.id.ToString() + ";2;" + tbfr.level.ToString();
         //                         StringValue stringValue = new StringValue();
         //                         stringValue.Value = reStr;
@@ -4613,7 +4613,7 @@ namespace XFramework
         //                     {
         //                         //Module1403_Last_Time = TimeHelper.ClientNow();
         //                         //get reward
-        //                         WebMessageHandler.Instance.AddHandler(11, 9, On1403GetFundRewardResponse);
+        //                         WebMessageHandlerOld.Instance.AddHandler(11, 9, On1403GetFundRewardResponse);
         //                         string reStr = tbfr.id.ToString() + ";3;" + tbfr.level.ToString();
         //                         StringValue stringValue = new StringValue();
         //                         stringValue.Value = reStr;
@@ -4719,7 +4719,7 @@ namespace XFramework
         //     //}
         //     IntValue intValue = new IntValue();
         //     intValue.Value = id;
-        //     WebMessageHandler.Instance.AddHandler(11, 15, On1403LookFundResponse);
+        //     WebMessageHandlerOld.Instance.AddHandler(11, 15, On1403LookFundResponse);
         //     NetWorkManager.Instance.SendMessage(11, 15, intValue);
         //     Debug.Log("send 1403 11-15 web");
         //     for (int i = 0; i < ResourcesSingleton.Instance.shopMap.IndexModuleMap[1403].GameFoundationList.Count; i++)
@@ -5271,7 +5271,7 @@ namespace XFramework
                         {
                             case "C02":
 
-                                WebMessageHandler.Instance.AddHandler(CMD.INITPLAYER, OnRefreshAddVaule);
+                                WebMessageHandlerOld.Instance.AddHandler(CMD.INITPLAYER, OnRefreshAddVaule);
                                 NetWorkManager.Instance.SendMessage(CMD.INITPLAYER);
                                 break;
                         }
@@ -5337,9 +5337,9 @@ namespace XFramework
                             switch (shopNum)
                             {
                                 case "C02":
-                                    WebMessageHandler.Instance.AddHandler(16, 3, On1404QueryCardResponse);
+                                    WebMessageHandlerOld.Instance.AddHandler(16, 3, On1404QueryCardResponse);
                                     NetWorkManager.Instance.SendMessage(16, 3);
-                                    WebMessageHandler.Instance.AddHandler(CMD.INITPLAYER, OnRefreshAddVaule);
+                                    WebMessageHandlerOld.Instance.AddHandler(CMD.INITPLAYER, OnRefreshAddVaule);
                                     NetWorkManager.Instance.SendMessage(CMD.INITPLAYER);
                                     break;
                             }
@@ -5385,7 +5385,7 @@ namespace XFramework
                 var getBtn = card.GetFromReference(UISubPanel_Shop_MonCard.KBtn_Get);
                 JiYuTweenHelper.DoScaleTweenOnClickAndLongPress(getBtn, () =>
                 {
-                    WebMessageHandler.Instance.AddHandler(16, 2, On1404GetCardResponse);
+                    WebMessageHandlerOld.Instance.AddHandler(16, 2, On1404GetCardResponse);
                     IntValue intValue = new IntValue();
                     intValue.Value = tbm.id;
                     NetWorkManager.Instance.SendMessage(16, 2, intValue);
@@ -5734,9 +5734,9 @@ namespace XFramework
 
         #region 1201Response
 
-        private void On1201QueryResponse(object sender, WebMessageHandler.Execute e)
+        private void On1201QueryResponse(object sender, WebMessageHandlerOld.Execute e)
         {
-            WebMessageHandler.Instance.RemoveHandler(11, 6, On1201QueryResponse);
+            WebMessageHandlerOld.Instance.RemoveHandler(11, 6, On1201QueryResponse);
 
             ByteValueList dailyBuys = new ByteValueList();
             dailyBuys.MergeFrom(e.data);
@@ -5774,9 +5774,9 @@ namespace XFramework
 
         #region 1401Response
 
-        //private void On1401BuyResponse(object sender, WebMessageHandler.Execute e)
+        //private void On1401BuyResponse(object sender, WebMessageHandlerOld.Execute e)
         //{
-        //    WebMessageHandler.Instance.RemoveHandler(11, 4, On1401BuyResponse);
+        //    WebMessageHandlerOld.Instance.RemoveHandler(11, 4, On1401BuyResponse);
         //    var intvalue = new IntValue();
         //    intvalue.MergeFrom(e.data);
         //    Debug.Log(e);
@@ -5795,9 +5795,9 @@ namespace XFramework
 
         #region 1403Response
 
-        private void On1403LookFundResponse(object sender, WebMessageHandler.Execute e)
+        private void On1403LookFundResponse(object sender, WebMessageHandlerOld.Execute e)
         {
-            WebMessageHandler.Instance.RemoveHandler(11, 15, On1403LookFundResponse);
+            WebMessageHandlerOld.Instance.RemoveHandler(11, 15, On1403LookFundResponse);
 
             //Debug.Log("On1403LookFundResponse");
 
@@ -5811,14 +5811,14 @@ namespace XFramework
 
             //if (stringValue.Value == "success")
             //{
-            //    WebMessageHandler.Instance.AddHandler(11, 8, On1403QueryFundResponse);
+            //    WebMessageHandlerOld.Instance.AddHandler(11, 8, On1403QueryFundResponse);
             //    NetWorkManager.Instance.SendMessage(11, 8);
             //}
         }
 
-        private void On1403BuyFundResponse(object sender, WebMessageHandler.Execute e)
+        private void On1403BuyFundResponse(object sender, WebMessageHandlerOld.Execute e)
         {
-            WebMessageHandler.Instance.RemoveHandler(11, 11, On1403BuyFundResponse);
+            WebMessageHandlerOld.Instance.RemoveHandler(11, 11, On1403BuyFundResponse);
             var str = new StringValue();
             str.MergeFrom(e.data);
 
@@ -5830,7 +5830,7 @@ namespace XFramework
 
             if (str.Value == "success")
             {
-                WebMessageHandler.Instance.AddHandler(11, 8, On1403QueryFundResponse);
+                WebMessageHandlerOld.Instance.AddHandler(11, 8, On1403QueryFundResponse);
                 NetWorkManager.Instance.SendMessage(11, 8);
             }
             else
@@ -5839,9 +5839,9 @@ namespace XFramework
             }
         }
 
-        private void On1403QueryFundResponse(object sender, WebMessageHandler.Execute e)
+        private void On1403QueryFundResponse(object sender, WebMessageHandlerOld.Execute e)
         {
-            WebMessageHandler.Instance.RemoveHandler(11, 8, On1403QueryFundResponse);
+            WebMessageHandlerOld.Instance.RemoveHandler(11, 8, On1403QueryFundResponse);
             var fundList = new ByteValueList();
             fundList.MergeFrom(e.data);
 
@@ -5879,9 +5879,9 @@ namespace XFramework
             ResourcesSingleton.Instance.UpdateResourceUI();
         }
 
-        private void On1403GetFundRewardResponse(object sender, WebMessageHandler.Execute e)
+        private void On1403GetFundRewardResponse(object sender, WebMessageHandlerOld.Execute e)
         {
-            WebMessageHandler.Instance.RemoveHandler(11, 9, On1403GetFundRewardResponse);
+            WebMessageHandlerOld.Instance.RemoveHandler(11, 9, On1403GetFundRewardResponse);
 
             StringValueList stringValueList = new StringValueList();
             stringValueList.MergeFrom(e.data);
@@ -5896,7 +5896,7 @@ namespace XFramework
                 JiYuUIHelper.AddReward(UnityHelper.StrToVector3(itemstr), true);
             }
 
-            WebMessageHandler.Instance.AddHandler(11, 8, On1403QueryFundResponse);
+            WebMessageHandlerOld.Instance.AddHandler(11, 8, On1403QueryFundResponse);
             NetWorkManager.Instance.SendMessage(11, 8);
         }
 
@@ -5904,9 +5904,9 @@ namespace XFramework
 
         #region 1404Response
 
-        private void On1404GetCardResponse(object sender, WebMessageHandler.Execute e)
+        private void On1404GetCardResponse(object sender, WebMessageHandlerOld.Execute e)
         {
-            WebMessageHandler.Instance.RemoveHandler(16, 2, On1404GetCardResponse);
+            WebMessageHandlerOld.Instance.RemoveHandler(16, 2, On1404GetCardResponse);
 
             StringValueList stringValueList = new StringValueList();
             stringValueList.MergeFrom(e.data);
@@ -5922,13 +5922,13 @@ namespace XFramework
             }
 
 
-            WebMessageHandler.Instance.AddHandler(CMD.INITPLAYER, OnRefreshAddVaule);
+            WebMessageHandlerOld.Instance.AddHandler(CMD.INITPLAYER, OnRefreshAddVaule);
             NetWorkManager.Instance.SendMessage(CMD.INITPLAYER);
         }
 
-        private void OnRefreshAddVaule(object sender, WebMessageHandler.Execute e)
+        private void OnRefreshAddVaule(object sender, WebMessageHandlerOld.Execute e)
         {
-            WebMessageHandler.Instance.RemoveHandler(CMD.INITPLAYER, OnRefreshAddVaule);
+            WebMessageHandlerOld.Instance.RemoveHandler(CMD.INITPLAYER, OnRefreshAddVaule);
             var gameRole = new GameRole();
             gameRole.MergeFrom(e.data);
             if (e.data.IsEmpty)
@@ -5940,14 +5940,14 @@ namespace XFramework
             ResourcesSingleton.Instance.UserInfo.PatrolGainName = gameRole.PatrolGainName;
             ResourcesSingleton.Instance.UserInfo.AdFreeFlag = gameRole.AdFreeFlag;
             Log.Debug($"gameRole.AdFreeFlag:{gameRole.AdFreeFlag}", Color.red);
-            WebMessageHandler.Instance.AddHandler(16, 3, On1404QueryCardResponse);
+            WebMessageHandlerOld.Instance.AddHandler(16, 3, On1404QueryCardResponse);
             NetWorkManager.Instance.SendMessage(16, 3);
         }
 
 
-        private void On1404BuyCardResponse(object sender, WebMessageHandler.Execute e)
+        private void On1404BuyCardResponse(object sender, WebMessageHandlerOld.Execute e)
         {
-            WebMessageHandler.Instance.RemoveHandler(16, 1, On1404BuyCardResponse);
+            WebMessageHandlerOld.Instance.RemoveHandler(16, 1, On1404BuyCardResponse);
 
             StringValueList stringValueList = new StringValueList();
             stringValueList.MergeFrom(e.data);
@@ -5963,13 +5963,13 @@ namespace XFramework
                 JiYuUIHelper.AddReward(UnityHelper.StrToVector3(itemstr), true);
             }
 
-            WebMessageHandler.Instance.AddHandler(16, 3, On1404QueryCardResponse);
+            WebMessageHandlerOld.Instance.AddHandler(16, 3, On1404QueryCardResponse);
             NetWorkManager.Instance.SendMessage(16, 3);
         }
 
-        private void On1404QueryCardResponse(object sender, WebMessageHandler.Execute e)
+        private void On1404QueryCardResponse(object sender, WebMessageHandlerOld.Execute e)
         {
-            WebMessageHandler.Instance.RemoveHandler(16, 3, On1404QueryCardResponse);
+            WebMessageHandlerOld.Instance.RemoveHandler(16, 3, On1404QueryCardResponse);
 
             SpecialInterest specialInterest = new SpecialInterest();
             specialInterest.MergeFrom(e.data);

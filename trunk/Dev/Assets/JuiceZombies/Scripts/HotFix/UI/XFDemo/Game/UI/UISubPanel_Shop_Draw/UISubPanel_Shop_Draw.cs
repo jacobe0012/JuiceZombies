@@ -586,17 +586,17 @@ namespace XFramework
             Log.Debug("buybtnclick", Color.cyan);
             if (thisTag_func == 1101)
             {
-                WebMessageHandler.Instance.AddHandler(11, 14, OnClick1101BoxBtnResponse);
+                WebMessageHandlerOld.Instance.AddHandler(11, 14, OnClick1101BoxBtnResponse);
                 NetWorkManager.Instance.SendMessage(11, 14, drawParam);
             }
             else if (thisTag_func == 1102)
             {
-                WebMessageHandler.Instance.AddHandler(11, 2, OnSResponse);
+                WebMessageHandlerOld.Instance.AddHandler(11, 2, OnSResponse);
                 NetWorkManager.Instance.SendMessage(11, 2, drawParam);
             }
             else if (thisTag_func == 1103)
             {
-                WebMessageHandler.Instance.AddHandler(11, 3, OnCommonResponse);
+                WebMessageHandlerOld.Instance.AddHandler(11, 3, OnCommonResponse);
                 NetWorkManager.Instance.SendMessage(11, 3, drawParam);
             }
             else
@@ -605,10 +605,10 @@ namespace XFramework
             }
         }
 
-        private void OnSResponse(object sender, WebMessageHandler.Execute e)
+        private void OnSResponse(object sender, WebMessageHandlerOld.Execute e)
         {
             Log.Debug("OnSResponse", Color.cyan);
-            WebMessageHandler.Instance.RemoveHandler(11, 2, OnSResponse);
+            WebMessageHandlerOld.Instance.RemoveHandler(11, 2, OnSResponse);
             DrawInfo drawInfo = new DrawInfo();
             drawInfo.MergeFrom(e.data);
             Debug.Log(e);
@@ -694,10 +694,10 @@ namespace XFramework
             DisplayInit();
         }
 
-        private void OnClick1101BoxBtnResponse(object sender, WebMessageHandler.Execute e)
+        private void OnClick1101BoxBtnResponse(object sender, WebMessageHandlerOld.Execute e)
         {
             Log.Debug("OnClick1101BoxBtnResponse", Color.cyan);
-            WebMessageHandler.Instance.RemoveHandler(11, 14, OnClick1101BoxBtnResponse);
+            WebMessageHandlerOld.Instance.RemoveHandler(11, 14, OnClick1101BoxBtnResponse);
 
             DrawInfo drawInfo = new DrawInfo();
             drawInfo.MergeFrom(e.data);
@@ -794,11 +794,11 @@ namespace XFramework
             DisplayInit();
         }
 
-        private void OnCommonResponse(object sender, WebMessageHandler.Execute e)
+        private void OnCommonResponse(object sender, WebMessageHandlerOld.Execute e)
         {
 
             Log.Debug("OnCommonResponse", Color.cyan);
-            WebMessageHandler.Instance.RemoveHandler(11, 3, OnCommonResponse);
+            WebMessageHandlerOld.Instance.RemoveHandler(11, 3, OnCommonResponse);
             DrawInfo drawInfo = new DrawInfo();
             drawInfo.MergeFrom(e.data);
             Debug.Log(e);

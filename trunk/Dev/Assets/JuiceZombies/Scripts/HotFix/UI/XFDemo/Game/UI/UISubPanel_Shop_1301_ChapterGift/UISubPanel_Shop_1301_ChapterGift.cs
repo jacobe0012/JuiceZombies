@@ -394,7 +394,7 @@ namespace XFramework
                         {
                             NowGiftID = g.id;
                             NetLock = false;
-                            WebMessageHandler.Instance.AddHandler(11, 5, OnBuyGiftResponse);
+                            WebMessageHandlerOld.Instance.AddHandler(11, 5, OnBuyGiftResponse);
                             NetWorkManager.Instance.SendMessage(11, 5, intValue);
                         }
                     });
@@ -462,9 +462,9 @@ namespace XFramework
             }
         }
 
-        private void OnBuyGiftResponse(object sender, WebMessageHandler.Execute e)
+        private void OnBuyGiftResponse(object sender, WebMessageHandlerOld.Execute e)
         {
-            WebMessageHandler.Instance.RemoveHandler(11, 5, OnBuyGiftResponse);
+            WebMessageHandlerOld.Instance.RemoveHandler(11, 5, OnBuyGiftResponse);
             GiftResult giftResult = new GiftResult();
             giftResult.MergeFrom(e.data);
 

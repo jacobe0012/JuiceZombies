@@ -58,7 +58,7 @@ namespace XFramework
         public void Initialize()
         {
             cts = new CancellationTokenSource();
-            WebMessageHandler.Instance.AddHandler(99, 3, OnHttpTestResponse);
+            WebMessageHandlerOld.Instance.AddHandler(99, 3, OnHttpTestResponse);
             //RedPointMgr.instance.Add(Person_Red_Point_Root, null, null, RedPointType.Enternal);
             InitRedDot();
             DataInit();
@@ -95,7 +95,7 @@ namespace XFramework
                             $"{ResourcesSingleton.Instance.UserInfo.RoleAssets.EnergyMax}");
         }
 
-        private void OnHttpTestResponse(object sender, WebMessageHandler.Execute e)
+        private void OnHttpTestResponse(object sender, WebMessageHandlerOld.Execute e)
         {
             Debug.Log("OnHttpTestResponse receive");
         }
@@ -141,9 +141,9 @@ namespace XFramework
             this.GetFromReference(KText_ID).GetTextMeshPro().SetTMPText("ID:" + UserInfo.UserId.ToString());
         }
 
-        private async void OnChangeNameStatusResponse(object sender, WebMessageHandler.Execute e)
+        private async void OnChangeNameStatusResponse(object sender, WebMessageHandlerOld.Execute e)
         {
-            WebMessageHandler.Instance.RemoveHandler(CMD.CHANGESTATUS, OnChangeNameStatusResponse);
+            WebMessageHandlerOld.Instance.RemoveHandler(CMD.CHANGESTATUS, OnChangeNameStatusResponse);
             var checkResult = new CheckResult();
             checkResult.MergeFrom(e.data);
             Debug.Log(checkResult);
@@ -189,7 +189,7 @@ namespace XFramework
             UIDic2.Clear();
             JiYuTweenHelper.DoScaleTweenOnClickAndLongPress(this.GetFromReference(KBtn_Name), () =>
             {
-                WebMessageHandler.Instance.AddHandler(CMD.CHANGESTATUS, OnChangeNameStatusResponse);
+                WebMessageHandlerOld.Instance.AddHandler(CMD.CHANGESTATUS, OnChangeNameStatusResponse);
                 NetWorkManager.Instance.SendMessage(CMD.CHANGESTATUS);
             },1104);
 
@@ -365,26 +365,26 @@ namespace XFramework
                     break;
                 case 5102:
                     //工会
-                    //WebMessageHandler.Instance.AddHandler(8, 1, Ontttt);
+                    //WebMessageHandlerOld.Instance.AddHandler(8, 1, Ontttt);
                     //NetWorkManager.Instance.SendMessage(8, 1);
                     Debug.Log("5102");
                     break;
                 case 5103:
                     //好友
-                    //WebMessageHandler.Instance.AddHandler(15, 2, OntestR);
+                    //WebMessageHandlerOld.Instance.AddHandler(15, 2, OntestR);
                     //NetWorkManager.Instance.SendMessage(15, 2);
                     //UIHelper.Create(UIType.UIPanel_Activity_SevenDays);
                     Debug.Log("5103");
                     break;
                 case 5104:
                     UIHelper.CreateAsync(UIType.UIPanel_MonsterCollection);
-                    //WebMessageHandler.Instance.AddHandler(17, 1, Ontttt);
+                    //WebMessageHandlerOld.Instance.AddHandler(17, 1, Ontttt);
                     //NetWorkManager.Instance.SendMessage(17, 1);
                     Debug.Log("5104");
                     break;
                 case 5105:
                     UIHelper.CreateAsync(UIType.UIPanel_Achieve);
-                    //WebMessageHandler.Instance.AddHandler(17, 1, Ontttt);
+                    //WebMessageHandlerOld.Instance.AddHandler(17, 1, Ontttt);
                     //NetWorkManager.Instance.SendMessage(17, 1);
                     Debug.Log("5104");
                     break;
@@ -402,9 +402,9 @@ namespace XFramework
         //private void 
 
 
-        private void Ontttt(object sender, WebMessageHandler.Execute e)
+        private void Ontttt(object sender, WebMessageHandlerOld.Execute e)
         {
-            WebMessageHandler.Instance.RemoveHandler(8, 1, Ontttt);
+            WebMessageHandlerOld.Instance.RemoveHandler(8, 1, Ontttt);
             //BoolValue boolValue = new BoolValue();
             //boolValue.MergeFrom(e.data);
             //Debug.Log(boolValue.Value);
@@ -413,15 +413,15 @@ namespace XFramework
             Debug.Log(activityMap);
         }
 
-        private void OntestR(object sender, WebMessageHandler.Execute e)
+        private void OntestR(object sender, WebMessageHandlerOld.Execute e)
         {
-            WebMessageHandler.Instance.RemoveHandler(15, 2, OntestR);
+            WebMessageHandlerOld.Instance.RemoveHandler(15, 2, OntestR);
             Debug.Log(e.data);
         }
 
-        private void OnShopTestResponse(object sender, WebMessageHandler.Execute e)
+        private void OnShopTestResponse(object sender, WebMessageHandlerOld.Execute e)
         {
-            WebMessageHandler.Instance.RemoveHandler(CMD.QUERYBANK, OnShopTestResponse);
+            WebMessageHandlerOld.Instance.RemoveHandler(CMD.QUERYBANK, OnShopTestResponse);
             var shopMap = new GoldPig();
             shopMap.MergeFrom(e.data);
             Debug.Log(shopMap);
@@ -454,7 +454,7 @@ namespace XFramework
 
         public void SetTest()
         {
-            WebMessageHandler.Instance.AddHandler(CMD.QUERYBANK, OnShopTestResponse);
+            WebMessageHandlerOld.Instance.AddHandler(CMD.QUERYBANK, OnShopTestResponse);
             NetWorkManager.Instance.SendMessage(CMD.QUERYBANK);
         }
 

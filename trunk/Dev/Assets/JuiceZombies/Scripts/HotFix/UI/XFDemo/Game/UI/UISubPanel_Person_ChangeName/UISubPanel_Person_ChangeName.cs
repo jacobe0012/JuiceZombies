@@ -93,8 +93,8 @@ namespace XFramework
 
         private void NetInit()
         {
-            WebMessageHandler.Instance.AddHandler(1, 6, OnChangeNameResponse);
-            WebMessageHandler.Instance.AddHandler(1, 5, OnChangeStatusResponse);
+            WebMessageHandlerOld.Instance.AddHandler(1, 6, OnChangeNameResponse);
+            WebMessageHandlerOld.Instance.AddHandler(1, 5, OnChangeStatusResponse);
         }
 
         private void TextInit()
@@ -269,7 +269,7 @@ namespace XFramework
         /// <summary>
         /// 回调gameRole后进行对应操作
         /// </summary>
-        public void OnChangeNameResponse(object sender, WebMessageHandler.Execute e)
+        public void OnChangeNameResponse(object sender, WebMessageHandlerOld.Execute e)
         {
             var changeSuccess = new BoolValue();
             changeSuccess.MergeFrom(e.data);
@@ -340,7 +340,7 @@ namespace XFramework
         /// <summary>
         /// 回调改名状态后进行对应操作
         /// </summary>
-        public void OnChangeStatusResponse(object sender, WebMessageHandler.Execute e)
+        public void OnChangeStatusResponse(object sender, WebMessageHandlerOld.Execute e)
         {
             var checkResult = new CheckResult();
             checkResult.MergeFrom(e.data);
@@ -363,8 +363,8 @@ namespace XFramework
 
         protected override void OnClose()
         {
-            WebMessageHandler.Instance.RemoveHandler(1, 5, OnChangeStatusResponse);
-            WebMessageHandler.Instance.RemoveHandler(1, 6, OnChangeNameResponse);
+            WebMessageHandlerOld.Instance.RemoveHandler(1, 5, OnChangeStatusResponse);
+            WebMessageHandlerOld.Instance.RemoveHandler(1, 6, OnChangeNameResponse);
 
             if (_guideId > 0 && JiYuUIHelper.TryGetUI(UIType.UIPanel_Main, out UI ui))
             {

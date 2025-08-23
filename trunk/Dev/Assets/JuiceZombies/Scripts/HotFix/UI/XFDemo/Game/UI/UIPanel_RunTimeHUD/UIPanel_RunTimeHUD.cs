@@ -698,12 +698,12 @@ namespace XFramework
                         var player904Tran = entityManager.GetComponentData<LocalTransform>(player904);
                         //JiYuUIHelper.DestoryWbe();
                         JiYuUIHelper.DestoryWbe();
-                        WebMessageHandler.Instance.Clear();
+                        WebMessageHandlerOld.Instance.Clear();
                         var sceneController = XFramework.Common.Instance.Get<SceneController>();
                         var sceneObj0 = sceneController.LoadSceneAsync<MenuScene>(SceneName.UIMenu);
                         await SceneResManager.WaitForCompleted(sceneObj0);
                         JiYuUIHelper.EnterChapter(1);
-                        WebMessageHandler.Instance.AddHandler(CMD.QUERYCANSTART, OnClick1PlayBtnResponse);
+                        WebMessageHandlerOld.Instance.AddHandler(CMD.QUERYCANSTART, OnClick1PlayBtnResponse);
                         var battleGain = new BattleGain
                         {
                             LevelId = ResourcesSingleton.Instance.levelInfo.levelId
@@ -742,9 +742,9 @@ namespace XFramework
             }
         }
 
-        void OnClick1PlayBtnResponse(object sender, WebMessageHandler.Execute e)
+        void OnClick1PlayBtnResponse(object sender, WebMessageHandlerOld.Execute e)
         {
-            WebMessageHandler.Instance.RemoveHandler(CMD.QUERYCANSTART, OnClick1PlayBtnResponse);
+            WebMessageHandlerOld.Instance.RemoveHandler(CMD.QUERYCANSTART, OnClick1PlayBtnResponse);
             var longValue = new LongValue();
             longValue.MergeFrom(e.data);
             if (e.data.IsEmpty)

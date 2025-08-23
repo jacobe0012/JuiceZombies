@@ -103,8 +103,8 @@ namespace XFramework
             activityId = acID;
             InitJson();
 
-            WebMessageHandler.Instance.AddHandler(CMD.QUERTSINGLEACTIVITY, OnActivityChallengeResponse);
-            WebMessageHandler.Instance.AddHandler(CMD.GETTASKSCORE, OnGetTaskResponse);
+            WebMessageHandlerOld.Instance.AddHandler(CMD.QUERTSINGLEACTIVITY, OnActivityChallengeResponse);
+            WebMessageHandlerOld.Instance.AddHandler(CMD.GETTASKSCORE, OnGetTaskResponse);
 
             var activity = tbactivity.Get(acID);
             var daysChallenge = tbdays_challenge.Get(activity.link);
@@ -496,7 +496,7 @@ namespace XFramework
                                 break;
                             case 2:
                                 KImg_Claimed.SetActive(true);
-                                WebMessageHandler.Instance.AddHandler(CMD.GETTASKBOX, OnGetBoxResponse);
+                                WebMessageHandlerOld.Instance.AddHandler(CMD.GETTASKBOX, OnGetBoxResponse);
                                 IntValue intValue = new IntValue();
                                 intValue.Value = tbtsList[ihelp].id;
                                 NetWorkManager.Instance.SendMessage(CMD.GETTASKBOX, intValue);
@@ -538,7 +538,7 @@ namespace XFramework
                                 CreateBoxTip(a1, ui);
                                 break;
                             case 2:
-                                WebMessageHandler.Instance.AddHandler(CMD.GETTASKBOX, OnGetBoxResponse);
+                                WebMessageHandlerOld.Instance.AddHandler(CMD.GETTASKBOX, OnGetBoxResponse);
                                 IntValue intValue = new IntValue();
                                 intValue.Value = tbtsList[ihelp].id;
                                 NetWorkManager.Instance.SendMessage(CMD.GETTASKBOX, intValue);
@@ -673,7 +673,7 @@ namespace XFramework
                             // JiYuTweenHelper.DoScaleTweenOnClickAndLongPress(
                             //     reUI.GetFromReference(UICommon_RewardItem.KBtn_Item), () =>
                             //     {
-                            //         WebMessageHandler.Instance.AddHandler(CMD.GETTASKBOX, OnGetBoxResponse);
+                            //         WebMessageHandlerOld.Instance.AddHandler(CMD.GETTASKBOX, OnGetBoxResponse);
                             //         IntValue intValue = new IntValue();
                             //         intValue.Value = tbtsList[ihelp].id;
                             //         NetWorkManager.Instance.SendMessage(CMD.GETTASKBOX, intValue);
@@ -716,7 +716,7 @@ namespace XFramework
                     //             CreateBoxTip(a1, ui);
                     //             break;
                     //         case 2:
-                    //             WebMessageHandler.Instance.AddHandler(CMD.GETTASKBOX, OnGetBoxResponse);
+                    //             WebMessageHandlerOld.Instance.AddHandler(CMD.GETTASKBOX, OnGetBoxResponse);
                     //             IntValue intValue = new IntValue();
                     //             intValue.Value = tbtsList[ihelp].id;
                     //             NetWorkManager.Instance.SendMessage(CMD.GETTASKBOX, intValue);
@@ -1289,7 +1289,7 @@ namespace XFramework
         }
 
 
-        private void OnGetTaskResponse(object sender, WebMessageHandler.Execute e)
+        private void OnGetTaskResponse(object sender, WebMessageHandlerOld.Execute e)
         {
             TaskResult taskResult = new TaskResult();
             taskResult.MergeFrom(e.data);
@@ -1320,9 +1320,9 @@ namespace XFramework
             }
         }
 
-        private void OnGetBoxResponse(object sender, WebMessageHandler.Execute e)
+        private void OnGetBoxResponse(object sender, WebMessageHandlerOld.Execute e)
         {
-            WebMessageHandler.Instance.RemoveHandler(CMD.GETTASKBOX, OnGetBoxResponse);
+            WebMessageHandlerOld.Instance.RemoveHandler(CMD.GETTASKBOX, OnGetBoxResponse);
             StringValueList stringValueList = new StringValueList();
             stringValueList.MergeFrom(e.data);
             Log.Debug("OnGetBoxResponse", Color.red);
@@ -1340,17 +1340,17 @@ namespace XFramework
 
             UIHelper.Create(UIType.UICommon_Reward, reList);
 
-            //WebMessageHandler.Instance.AddHandler(CMD.QUERTSINGLEACTIVITY, OnAllDataResponse);
+            //WebMessageHandlerOld.Instance.AddHandler(CMD.QUERTSINGLEACTIVITY, OnAllDataResponse);
             NetWorkManager.Instance.SendMessage(CMD.QUERTSINGLEACTIVITY, new IntValue()
             {
                 Value = activityId
             });
         }
 
-        private void OnActivityChallengeResponse(object sender, WebMessageHandler.Execute e)
+        private void OnActivityChallengeResponse(object sender, WebMessageHandlerOld.Execute e)
         {
             //var s=sender as GameActivity;
-            //WebMessageHandler.Instance.RemoveHandler(CMD.QUERTSINGLEACTIVITY, OnInitResponse);
+            //WebMessageHandlerOld.Instance.RemoveHandler(CMD.QUERTSINGLEACTIVITY, OnInitResponse);
             GameActivity gameActivity = new GameActivity();
             gameActivity.MergeFrom(e.data);
             if (e.data.IsEmpty)
@@ -1381,9 +1381,9 @@ namespace XFramework
             }
         }
 
-        private void OnAllDataResponse(object sender, WebMessageHandler.Execute e)
+        private void OnAllDataResponse(object sender, WebMessageHandlerOld.Execute e)
         {
-            //WebMessageHandler.Instance.RemoveHandler(CMD.QUERTSINGLEACTIVITY, OnAllDataResponse);
+            //WebMessageHandlerOld.Instance.RemoveHandler(CMD.QUERTSINGLEACTIVITY, OnAllDataResponse);
             GameActivity gameActivity = new GameActivity();
             gameActivity.MergeFrom(e.data);
             if (e.data.IsEmpty)
@@ -1405,7 +1405,7 @@ namespace XFramework
             AllPanelUpdate();
         }
 
-        // private void OnOnlyUpDataResponse(object sender, WebMessageHandler.Execute e)
+        // private void OnOnlyUpDataResponse(object sender, WebMessageHandlerOld.Execute e)
         // {
         //     GameActivity gameActivity = new GameActivity();
         //     gameActivity.MergeFrom(e.data);
@@ -1433,8 +1433,8 @@ namespace XFramework
             JiYuUIHelper.DestoryAllTips();
             cts.Cancel();
             cts.Dispose();
-            WebMessageHandler.Instance.RemoveHandler(CMD.QUERTSINGLEACTIVITY, OnActivityChallengeResponse);
-            WebMessageHandler.Instance.RemoveHandler(CMD.GETTASKSCORE, OnGetTaskResponse);
+            WebMessageHandlerOld.Instance.RemoveHandler(CMD.QUERTSINGLEACTIVITY, OnActivityChallengeResponse);
+            WebMessageHandlerOld.Instance.RemoveHandler(CMD.GETTASKSCORE, OnGetTaskResponse);
             RedDotManager.Instance.ClearChildrenListeners(m_RedDotName);
             base.OnClose();
         }

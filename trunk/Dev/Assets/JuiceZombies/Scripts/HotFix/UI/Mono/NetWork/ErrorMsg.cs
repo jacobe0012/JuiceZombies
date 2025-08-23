@@ -116,17 +116,17 @@ namespace HotFix_UI
                     break;
                 case 110004:
                     Log.Error("体力不足");
-                    // WebMessageHandler.Instance.AddHandler(CMD.INITPLAYER, OnCheckResourceEnoughResponse1);
+                    // WebMessageHandlerOld.Instance.AddHandler(CMD.INITPLAYER, OnCheckResourceEnoughResponse1);
                     // NetWorkManager.Instance.SendMessage(CMD.INITPLAYER);
                     break;
                 case 110005:
                     Log.Error("金币不足");
-                    // WebMessageHandler.Instance.AddHandler(CMD.INITPLAYER, OnCheckResourceEnoughResponse3);
+                    // WebMessageHandlerOld.Instance.AddHandler(CMD.INITPLAYER, OnCheckResourceEnoughResponse3);
                     // NetWorkManager.Instance.SendMessage(CMD.INITPLAYER);
                     break;
                 case 110006:
                     Log.Error("宝石不足");
-                    // WebMessageHandler.Instance.AddHandler(CMD.INITPLAYER, OnCheckResourceEnoughResponse2);
+                    // WebMessageHandlerOld.Instance.AddHandler(CMD.INITPLAYER, OnCheckResourceEnoughResponse2);
                     // NetWorkManager.Instance.SendMessage(CMD.INITPLAYER);
                     break;
                 case 110003:
@@ -286,7 +286,7 @@ namespace HotFix_UI
                     break;
             }
 
-            // void OnCheckResourceEnoughResponse1(object sender, WebMessageHandler.Execute e)
+            // void OnCheckResourceEnoughResponse1(object sender, WebMessageHandlerOld.Execute e)
             // {
             //     var gameRole = new GameRole();
             //     gameRole.MergeFrom(e.data);
@@ -311,10 +311,10 @@ namespace HotFix_UI
             //     UIHelper.CreateAsync(UIType.UILack, 1);
             //
             //
-            //     WebMessageHandler.Instance.RemoveHandler(CMD.INITPLAYER, OnCheckResourceEnoughResponse1);
+            //     WebMessageHandlerOld.Instance.RemoveHandler(CMD.INITPLAYER, OnCheckResourceEnoughResponse1);
             // }
             //
-            // void OnCheckResourceEnoughResponse2(object sender, WebMessageHandler.Execute e)
+            // void OnCheckResourceEnoughResponse2(object sender, WebMessageHandlerOld.Execute e)
             // {
             //     var gameRole = new GameRole();
             //     gameRole.MergeFrom(e.data);
@@ -339,10 +339,10 @@ namespace HotFix_UI
             //     UIHelper.CreateAsync(UIType.UILack, 2);
             //
             //
-            //     WebMessageHandler.Instance.RemoveHandler(CMD.INITPLAYER, OnCheckResourceEnoughResponse2);
+            //     WebMessageHandlerOld.Instance.RemoveHandler(CMD.INITPLAYER, OnCheckResourceEnoughResponse2);
             // }
             //
-            // void OnCheckResourceEnoughResponse3(object sender, WebMessageHandler.Execute e)
+            // void OnCheckResourceEnoughResponse3(object sender, WebMessageHandlerOld.Execute e)
             // {
             //     var gameRole = new GameRole();
             //     gameRole.MergeFrom(e.data);
@@ -367,7 +367,7 @@ namespace HotFix_UI
             //     UIHelper.CreateAsync(UIType.UILack, 3);
             //
             //
-            //     WebMessageHandler.Instance.RemoveHandler(CMD.INITPLAYER, OnCheckResourceEnoughResponse3);
+            //     WebMessageHandlerOld.Instance.RemoveHandler(CMD.INITPLAYER, OnCheckResourceEnoughResponse3);
             // }
             //
         }

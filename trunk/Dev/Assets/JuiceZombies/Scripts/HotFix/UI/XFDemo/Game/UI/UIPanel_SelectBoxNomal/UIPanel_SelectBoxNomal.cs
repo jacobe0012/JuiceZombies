@@ -64,7 +64,7 @@ namespace XFramework
 
         async UniTaskVoid InitNode()
         {
-            WebMessageHandler.Instance.AddHandler(CMD.SELFCHOOSEBOX, OnSelfChooseBoxResponse);
+            WebMessageHandlerOld.Instance.AddHandler(CMD.SELFCHOOSEBOX, OnSelfChooseBoxResponse);
 
             var KImg_Bg = GetFromReference(UIPanel_SelectBoxNomal.KImg_Bg);
             var KText_Tittle = GetFromReference(UIPanel_SelectBoxNomal.KText_Tittle);
@@ -239,7 +239,7 @@ namespace XFramework
             //this.SetActive(true);
         }
 
-        private async void OnSelfChooseBoxResponse(object sender, WebMessageHandler.Execute e)
+        private async void OnSelfChooseBoxResponse(object sender, WebMessageHandlerOld.Execute e)
         {
             var rawList = new StringValueList();
             rawList.MergeFrom(e.data);
@@ -268,7 +268,7 @@ namespace XFramework
         protected override void OnClose()
         {
             JiYuUIHelper.DestoryAllTips();
-            WebMessageHandler.Instance.RemoveHandler(CMD.SELFCHOOSEBOX, OnSelfChooseBoxResponse);
+            WebMessageHandlerOld.Instance.RemoveHandler(CMD.SELFCHOOSEBOX, OnSelfChooseBoxResponse);
             rewardsList.Clear();
             base.OnClose();
         }

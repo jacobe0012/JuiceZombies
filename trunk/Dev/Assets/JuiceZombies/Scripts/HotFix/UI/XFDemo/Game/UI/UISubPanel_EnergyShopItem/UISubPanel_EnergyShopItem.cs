@@ -177,8 +177,8 @@ namespace XFramework
                                 {
                                     IntValue intValue = new IntValue();
                                     intValue.Value = uId;
-                                    //WebMessageHandler.Instance.AddHandler(CMD.SHOP1201, On1201BuyResponse);
-                                    WebMessageHandler.Instance.AddHandler(8, 6, OnBuyResponse);
+                                    //WebMessageHandlerOld.Instance.AddHandler(CMD.SHOP1201, On1201BuyResponse);
+                                    WebMessageHandlerOld.Instance.AddHandler(8, 6, OnBuyResponse);
                                     NetWorkManager.Instance.SendMessage(8, 6, intValue);
                                 });
                             }
@@ -199,9 +199,9 @@ namespace XFramework
             }
         }
 
-        private void OnBuyResponse(object sender, WebMessageHandler.Execute e)
+        private void OnBuyResponse(object sender, WebMessageHandlerOld.Execute e)
         {
-            WebMessageHandler.Instance.RemoveHandler(8, 6, OnBuyResponse);
+            WebMessageHandlerOld.Instance.RemoveHandler(8, 6, OnBuyResponse);
 
             ActivityRes res = new ActivityRes();
 

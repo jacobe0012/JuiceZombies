@@ -83,7 +83,7 @@ namespace XFramework
                     KBorder.GetImage().SetColor(monthColorBorder);
                     KText_Title.GetTextMeshPro().SetTMPText(tblanguage.Get("title_moncard").current);
                     SetContainerItem(type);
-                    WebMessageHandler.Instance.AddHandler(JuiceZombieCMD.QUERYMONCARD, OnRequreMonthTime);
+                    WebMessageHandlerOld.Instance.AddHandler(JuiceZombieCMD.QUERYMONCARD, OnRequreMonthTime);
                     break;
                 case 2:
                     KBg.GetImage().SetColor(noAdColorBg);
@@ -118,7 +118,7 @@ namespace XFramework
             });
         }
 
-        private void OnRequreMonthTime(object sender, WebMessageHandler.Execute e)
+        private void OnRequreMonthTime(object sender, WebMessageHandlerOld.Execute e)
         {
 
 

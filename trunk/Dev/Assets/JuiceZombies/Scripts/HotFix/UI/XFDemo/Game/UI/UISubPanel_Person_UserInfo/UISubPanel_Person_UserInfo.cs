@@ -97,7 +97,7 @@ namespace XFramework
             HeadHelp = ResourcesSingleton.Instance.UserInfo.RoleAvatar;
             FrameHelp = ResourcesSingleton.Instance.UserInfo.RoleAvatarFrame;
 
-            #region ¼ÙÊý¾Ý
+            #region ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
 
             //HeadLockDic[1004] = 1;
             //HeadLockDic[1007] = 1;
@@ -125,7 +125,7 @@ namespace XFramework
 
         private void NetInit()
         {
-            WebMessageHandler.Instance.AddHandler(1, 2, OnChangeAvaterResponse);
+            WebMessageHandlerOld.Instance.AddHandler(1, 2, OnChangeAvaterResponse);
         }
 
         private void LockSorting()
@@ -536,7 +536,7 @@ namespace XFramework
             BottomList.Clear();
         }
 
-        private void OnChangeAvaterResponse(object sender, WebMessageHandler.Execute e)
+        private void OnChangeAvaterResponse(object sender, WebMessageHandlerOld.Execute e)
         {
             var gameRole = new GameRole();
             gameRole.MergeFrom(e.data);
@@ -585,9 +585,9 @@ namespace XFramework
             }
         }
 
-        private async void OnChangeNameStatusResponse(object sender, WebMessageHandler.Execute e)
+        private async void OnChangeNameStatusResponse(object sender, WebMessageHandlerOld.Execute e)
         {
-            WebMessageHandler.Instance.RemoveHandler(CMD.CHANGESTATUS, OnChangeNameStatusResponse);
+            WebMessageHandlerOld.Instance.RemoveHandler(CMD.CHANGESTATUS, OnChangeNameStatusResponse);
             var checkResult = new CheckResult();
             checkResult.MergeFrom(e.data);
             Debug.Log(checkResult);
@@ -617,13 +617,13 @@ namespace XFramework
 
         public void OpenChangeName()
         {
-            WebMessageHandler.Instance.AddHandler(CMD.CHANGESTATUS, OnChangeNameStatusResponse);
+            WebMessageHandlerOld.Instance.AddHandler(CMD.CHANGESTATUS, OnChangeNameStatusResponse);
             NetWorkManager.Instance.SendMessage(CMD.CHANGESTATUS);
         }
 
         protected override void OnClose()
         {
-            WebMessageHandler.Instance.RemoveHandler(1, 2, OnChangeAvaterResponse);
+            WebMessageHandlerOld.Instance.RemoveHandler(1, 2, OnChangeAvaterResponse);
             DestroyList();
             DestroyBottomUI();
             base.OnClose();

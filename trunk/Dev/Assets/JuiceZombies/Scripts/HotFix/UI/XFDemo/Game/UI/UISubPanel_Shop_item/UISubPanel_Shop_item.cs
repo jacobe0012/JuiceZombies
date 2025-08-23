@@ -116,7 +116,7 @@ namespace XFramework
                     {
                         IntValue intValue = new IntValue();
                         intValue.Value = sign;
-                        WebMessageHandler.Instance.AddHandler(CMD.SHOP1201, On1201BuyResponse);
+                        WebMessageHandlerOld.Instance.AddHandler(CMD.SHOP1201, On1201BuyResponse);
                         NetWorkManager.Instance.SendMessage(CMD.SHOP1201, intValue);
                     }
                     else
@@ -156,7 +156,7 @@ namespace XFramework
                             {
                                 IntValue intValue = new IntValue();
                                 intValue.Value = sign;
-                                WebMessageHandler.Instance.AddHandler(CMD.SHOP1201, On1201BuyResponse);
+                                WebMessageHandlerOld.Instance.AddHandler(CMD.SHOP1201, On1201BuyResponse);
                                 NetWorkManager.Instance.SendMessage(CMD.SHOP1201, intValue);
                             });
 
@@ -212,7 +212,7 @@ namespace XFramework
                         Log.Debug("DFDFDSFDFDSF", Color.cyan);
                         IntValue intValue = new IntValue();
                         intValue.Value = ID;
-                        WebMessageHandler.Instance.AddHandler(CMD.SHOP1202, On1202BuyResponse);
+                        WebMessageHandlerOld.Instance.AddHandler(CMD.SHOP1202, On1202BuyResponse);
                         NetWorkManager.Instance.SendMessage(CMD.SHOP1202, intValue);
                     });
                 }
@@ -224,7 +224,7 @@ namespace XFramework
                 {
                     IntValue intValue = new IntValue();
                     intValue.Value = ID;
-                    WebMessageHandler.Instance.AddHandler(11, 5, On1302BuyResponse);
+                    WebMessageHandlerOld.Instance.AddHandler(11, 5, On1302BuyResponse);
                     NetWorkManager.Instance.SendMessage(11, 5, intValue);
                 });
             }
@@ -250,7 +250,7 @@ namespace XFramework
                 {
                     IntValue intValue = new IntValue();
                     intValue.Value = ID;
-                    WebMessageHandler.Instance.AddHandler(CMD.SHOP1402, On1402BuyResponse);
+                    WebMessageHandlerOld.Instance.AddHandler(CMD.SHOP1402, On1402BuyResponse);
                     NetWorkManager.Instance.SendMessage(CMD.SHOP1402, intValue);
                 });
             }
@@ -477,9 +477,9 @@ namespace XFramework
         }
 
 
-        private void On1201BuyResponse(object sender, WebMessageHandler.Execute e)
+        private void On1201BuyResponse(object sender, WebMessageHandlerOld.Execute e)
         {
-            WebMessageHandler.Instance.RemoveHandler(CMD.SHOP1201, On1201BuyResponse);
+            WebMessageHandlerOld.Instance.RemoveHandler(CMD.SHOP1201, On1201BuyResponse);
             StringValueList stringValueList = new StringValueList();
             stringValueList.MergeFrom(e.data);
             Log.Debug($"购买1201物品:{stringValueList}", Color.green);
@@ -713,9 +713,9 @@ namespace XFramework
             //ResourcesSingleton.Instance.UpdateResourceUI();
         }
 
-        private void On1202BuyResponse(object sender, WebMessageHandler.Execute e)
+        private void On1202BuyResponse(object sender, WebMessageHandlerOld.Execute e)
         {
-            WebMessageHandler.Instance.RemoveHandler(CMD.SHOP1202, On1202BuyResponse);
+            WebMessageHandlerOld.Instance.RemoveHandler(CMD.SHOP1202, On1202BuyResponse);
 
             StringValueList stringValueList = new StringValueList();
             stringValueList.MergeFrom(e.data);
@@ -776,9 +776,9 @@ namespace XFramework
             }
         }
 
-        private void On1302BuyResponse(object sender, WebMessageHandler.Execute e)
+        private void On1302BuyResponse(object sender, WebMessageHandlerOld.Execute e)
         {
-            WebMessageHandler.Instance.RemoveHandler(11, 5, On1302BuyResponse);
+            WebMessageHandlerOld.Instance.RemoveHandler(11, 5, On1302BuyResponse);
             GiftResult giftResult = new GiftResult();
             giftResult.MergeFrom(e.data);
             Debug.Log(e);
@@ -806,9 +806,9 @@ namespace XFramework
             ResourcesSingleton.Instance.UpdateResourceUI();
         }
 
-        private void On1401BuyResponse(object sender, WebMessageHandler.Execute e)
+        private void On1401BuyResponse(object sender, WebMessageHandlerOld.Execute e)
         {
-            WebMessageHandler.Instance.RemoveHandler(11, 4, On1401BuyResponse);
+            WebMessageHandlerOld.Instance.RemoveHandler(11, 4, On1401BuyResponse);
             var intvalue = new IntValue();
             intvalue.MergeFrom(e.data);
             Debug.Log(e);
@@ -870,9 +870,9 @@ namespace XFramework
             ResourcesSingleton.Instance.UpdateResourceUI();
         }
 
-        private void On1402BuyResponse(object sender, WebMessageHandler.Execute e)
+        private void On1402BuyResponse(object sender, WebMessageHandlerOld.Execute e)
         {
-            WebMessageHandler.Instance.RemoveHandler(11, 4, On1402BuyResponse);
+            WebMessageHandlerOld.Instance.RemoveHandler(11, 4, On1402BuyResponse);
             var intvalue = new IntValue();
             intvalue.MergeFrom(e.data);
             Debug.Log(e);

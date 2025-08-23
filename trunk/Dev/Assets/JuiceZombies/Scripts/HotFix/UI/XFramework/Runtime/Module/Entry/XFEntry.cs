@@ -21,7 +21,7 @@ namespace XFramework
             ResourcesManager.Instance.Dispose();
             SceneResManager.Instance.Dispose();
             ConfigManager.Instance.Dispose();
-            WebMessageHandler.Instance.Dispose();
+            WebMessageHandlerOld.Instance.Dispose();
             NetWorkManager.Instance.Dispose();
             ResourcesSingleton.Instance.Dispose();
             //RedPointMgr.instance.Dispose();

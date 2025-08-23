@@ -88,7 +88,7 @@ namespace XFramework
 
             InitJson();
             activityId = acID;
-            WebMessageHandler.Instance.AddHandler(CMD.QUERTSINGLEACTIVITY, OnInitNewSignResponse);
+            WebMessageHandlerOld.Instance.AddHandler(CMD.QUERTSINGLEACTIVITY, OnInitNewSignResponse);
             var activity = tbactivity.Get(activityId);
             var daysSign = tbdays_sign.Get(activity.link);
             tagFunc = daysSign.tagFunc;
@@ -133,9 +133,9 @@ namespace XFramework
         {
             ui.GetButton().OnClick?.Add(()=> { JiYuUIHelper.DestoryAllTips();ui.SetActive(false); });
         }
-        private async void OnInitNewSignResponse(object sender, WebMessageHandler.Execute e)
+        private async void OnInitNewSignResponse(object sender, WebMessageHandlerOld.Execute e)
         {
-            //WebMessageHandler.Instance.RemoveHandler(CMD.QUERTSINGLEACTIVITY, OnInitNewSignResponse);
+            //WebMessageHandlerOld.Instance.RemoveHandler(CMD.QUERTSINGLEACTIVITY, OnInitNewSignResponse);
             GameActivity gameActivity = new GameActivity();
             gameActivity.MergeFrom(e.data);
             if (e.data.IsEmpty)
@@ -291,9 +291,9 @@ namespace XFramework
             KImg.GetImage().SetSpriteAsync(daysSign.pic, false).Forget();
         }
 
-        private void OnGetTaskResponse(object sender, WebMessageHandler.Execute e)
+        private void OnGetTaskResponse(object sender, WebMessageHandlerOld.Execute e)
         {
-            WebMessageHandler.Instance.RemoveHandler(CMD.GETTASKSCORE, OnGetTaskResponse);
+            WebMessageHandlerOld.Instance.RemoveHandler(CMD.GETTASKSCORE, OnGetTaskResponse);
             TaskResult taskResult = new TaskResult();
             taskResult.MergeFrom(e.data);
             if (e.data.IsEmpty)
@@ -402,7 +402,7 @@ namespace XFramework
                         JiYuTweenHelper.DoScaleTweenOnClickAndLongPress(KBtn_Get, () =>
                         {
                             JiYuUIHelper.DestoryAllTips();
-                            WebMessageHandler.Instance.AddHandler(CMD.GETTASKSCORE, OnGetTaskResponse);
+                            WebMessageHandlerOld.Instance.AddHandler(CMD.GETTASKSCORE, OnGetTaskResponse);
                             NetWorkManager.Instance.SendMessage(CMD.GETTASKSCORE, new IntValue
                             {
                                 Value = aT.TaskId
@@ -594,7 +594,7 @@ namespace XFramework
 
         protected override void OnClose()
         {
-            WebMessageHandler.Instance.RemoveHandler(CMD.QUERTSINGLEACTIVITY, OnInitNewSignResponse);
+            WebMessageHandlerOld.Instance.RemoveHandler(CMD.QUERTSINGLEACTIVITY, OnInitNewSignResponse);
             RedDotManager.Instance.ClearChildrenListeners(m_RedDotName);
             cts.Cancel();
             cts.Dispose();

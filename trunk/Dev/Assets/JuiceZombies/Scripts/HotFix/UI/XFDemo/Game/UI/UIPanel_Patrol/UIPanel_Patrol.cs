@@ -105,8 +105,8 @@ namespace XFramework
             }
             SetCloseTip(GetFromReference(KBg_Close));
             RemoveTimer();
-            WebMessageHandler.Instance.AddHandler(CMD.INITPLAYER, OnReceiveAddVaule);
-            WebMessageHandler.Instance.AddHandler(CMD.QUERYAUTOPATROL, OnReceiveAutoPatrol);
+            WebMessageHandlerOld.Instance.AddHandler(CMD.INITPLAYER, OnReceiveAddVaule);
+            WebMessageHandlerOld.Instance.AddHandler(CMD.QUERYAUTOPATROL, OnReceiveAutoPatrol);
             NetWorkManager.Instance.SendMessage(CMD.INITPLAYER);
             InitWidgetAction();
 
@@ -166,9 +166,9 @@ namespace XFramework
                 true);
         }
 
-        private void OnReceiveAddVaule(object sender, WebMessageHandler.Execute e)
+        private void OnReceiveAddVaule(object sender, WebMessageHandlerOld.Execute e)
         {
-            WebMessageHandler.Instance.RemoveHandler(CMD.INITPLAYER, OnReceiveAddVaule);
+            WebMessageHandlerOld.Instance.RemoveHandler(CMD.INITPLAYER, OnReceiveAddVaule);
             var gameRole = new GameRole();
             gameRole.MergeFrom(e.data);
             if (e.data.IsEmpty)
@@ -289,7 +289,7 @@ namespace XFramework
         {
             //UIHelper.Remove(UIType.UICommon_ItemTips);
             ClearAllTips();
-            WebMessageHandler.Instance.AddHandler(6, 4, OnReceiveAutoPatrolDrop);
+            WebMessageHandlerOld.Instance.AddHandler(6, 4, OnReceiveAutoPatrolDrop);
             long timeValue = TimeHelper.ClientNowSeconds();
             var partorlValue = new LongValue();
             partorlValue.Value = timeValue;
@@ -304,7 +304,7 @@ namespace XFramework
             var intType = new IntValue();
             intType.Value = 1;
 
-            WebMessageHandler.Instance.AddHandler(6, 1, OnReceiveRapidPatrol);
+            WebMessageHandlerOld.Instance.AddHandler(6, 1, OnReceiveRapidPatrol);
             NetWorkManager.Instance.SendMessage(6, 1, intType);
         }
 
@@ -324,7 +324,7 @@ namespace XFramework
             {
                 var intType = new IntValue();
                 intType.Value = 2;
-                WebMessageHandler.Instance.AddHandler(6, 1, OnReceiveRapidPatrol);
+                WebMessageHandlerOld.Instance.AddHandler(6, 1, OnReceiveRapidPatrol);
                 NetWorkManager.Instance.SendMessage(6, 1, intType);
 
 
@@ -718,7 +718,7 @@ namespace XFramework
 
         private void DelayTask()
         {
-            WebMessageHandler.Instance.AddHandler(6, 3, OnReceiveAutoPatrol2);
+            WebMessageHandlerOld.Instance.AddHandler(6, 3, OnReceiveAutoPatrol2);
 
             long timeValue = TimeHelper.ClientNowSeconds();
             var partorlValue = new LongValue();
@@ -846,7 +846,7 @@ namespace XFramework
         }
 
         //初始化自动巡逻查询
-        private void OnReceiveAutoPatrol(object sender, WebMessageHandler.Execute e)
+        private void OnReceiveAutoPatrol(object sender, WebMessageHandlerOld.Execute e)
         {
             var patrolRes = new PatrolRes();
             patrolRes.MergeFrom(e.data);
@@ -857,7 +857,7 @@ namespace XFramework
                 AddTimer();
                 SetUpdate();
                 Log.Debug("e.data.IsEmpty", Color.red);
-                WebMessageHandler.Instance.RemoveHandler(CMD.QUERYAUTOPATROL, OnReceiveAutoPatrol);
+                WebMessageHandlerOld.Instance.RemoveHandler(CMD.QUERYAUTOPATROL, OnReceiveAutoPatrol);
                 return;
             }
 
@@ -904,13 +904,13 @@ namespace XFramework
             if (MoenyNum != 0 && ExpNum != 0) CreateAutoAward(MoenyNum, ExpNum, RewardList);
 
 
-            WebMessageHandler.Instance.RemoveHandler(6, 3, OnReceiveAutoPatrol);
+            WebMessageHandlerOld.Instance.RemoveHandler(6, 3, OnReceiveAutoPatrol);
         }
 
         //自动巡逻奖励
-        private void OnReceiveAutoPatrolDrop(object sender, WebMessageHandler.Execute e)
+        private void OnReceiveAutoPatrolDrop(object sender, WebMessageHandlerOld.Execute e)
         {
-            WebMessageHandler.Instance.RemoveHandler(6, 4, OnReceiveAutoPatrolDrop);
+            WebMessageHandlerOld.Instance.RemoveHandler(6, 4, OnReceiveAutoPatrolDrop);
             var patrolRes = new PatrolGain();
             patrolRes.MergeFrom(e.data);
             //测试代码
@@ -934,15 +934,15 @@ namespace XFramework
             }
 
             UI CommonReWard = UIHelper.Create(UIType.UICommon_Reward, RewardList2);
-            WebMessageHandler.Instance.AddHandler(CMD.QUERYAUTOPATROL, OnUpdatePatrolTime);
+            WebMessageHandlerOld.Instance.AddHandler(CMD.QUERYAUTOPATROL, OnUpdatePatrolTime);
             NetWorkManager.Instance.SendMessage(CMD.QUERYAUTOPATROL);
             GetFromReference(KImage_RewardInfo).GetList().Clear();
             JiYuUIHelper.ForceRefreshLayout(this.GetFromReference(KImage_RewardInfo));
         }
 
-        private void OnUpdatePatrolTime(object sender, WebMessageHandler.Execute e)
+        private void OnUpdatePatrolTime(object sender, WebMessageHandlerOld.Execute e)
         {
-            WebMessageHandler.Instance.RemoveHandler(CMD.QUERYAUTOPATROL, OnUpdatePatrolTime);
+            WebMessageHandlerOld.Instance.RemoveHandler(CMD.QUERYAUTOPATROL, OnUpdatePatrolTime);
             var patrolRes = new PatrolRes();
             patrolRes.MergeFrom(e.data);
             if (e.data.IsEmpty)
@@ -952,7 +952,7 @@ namespace XFramework
                 AddTimer();
                 SetUpdate();
                 Log.Debug("e.data.IsEmpty", Color.red);
-                WebMessageHandler.Instance.RemoveHandler(CMD.QUERYAUTOPATROL, OnReceiveAutoPatrol);
+                WebMessageHandlerOld.Instance.RemoveHandler(CMD.QUERYAUTOPATROL, OnReceiveAutoPatrol);
                 return;
             }
 
@@ -966,9 +966,9 @@ namespace XFramework
         }
 
         //快速巡逻奖励领取
-        private void OnReceiveRapidPatrol(object sender, WebMessageHandler.Execute e)
+        private void OnReceiveRapidPatrol(object sender, WebMessageHandlerOld.Execute e)
         {
-            WebMessageHandler.Instance.RemoveHandler(6, 1, OnReceiveRapidPatrol);
+            WebMessageHandlerOld.Instance.RemoveHandler(6, 1, OnReceiveRapidPatrol);
             var patrolRes = new PatrolRes();
             patrolRes.MergeFrom(e.data);
             var MoenyNum = patrolRes.PatrolGain.Money;
@@ -1019,14 +1019,14 @@ namespace XFramework
         }
 
         //自动巡逻查询
-        private void OnReceiveAutoPatrol2(object sender, WebMessageHandler.Execute e)
+        private void OnReceiveAutoPatrol2(object sender, WebMessageHandlerOld.Execute e)
         {
             var patrolRes = new PatrolRes();
             patrolRes.MergeFrom(e.data);
             if (e.data.IsEmpty)
             {
                 Log.Debug("e.data.IsEmpty", Color.red);
-                WebMessageHandler.Instance.RemoveHandler(6, 3, OnReceiveAutoPatrol2);
+                WebMessageHandlerOld.Instance.RemoveHandler(6, 3, OnReceiveAutoPatrol2);
                 return;
             }
 
@@ -1059,7 +1059,7 @@ namespace XFramework
             //生成预览
             if (MoenyNum != 0 && ExpNum != 0) CreateAutoAward(MoenyNum, ExpNum, RewardList);
 
-            WebMessageHandler.Instance.RemoveHandler(6, 3, OnReceiveAutoPatrol2);
+            WebMessageHandlerOld.Instance.RemoveHandler(6, 3, OnReceiveAutoPatrol2);
         }
 
 

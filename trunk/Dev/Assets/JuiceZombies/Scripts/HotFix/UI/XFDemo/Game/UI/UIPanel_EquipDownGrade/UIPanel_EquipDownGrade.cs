@@ -43,9 +43,9 @@ namespace XFramework
             InitPanel(myGameEquip);
         }
 
-        public void OnEquipDownGradePanelResponse(object sender, WebMessageHandler.Execute e)
+        public void OnEquipDownGradePanelResponse(object sender, WebMessageHandlerOld.Execute e)
         {
-            WebMessageHandler.Instance.RemoveHandler(CMD.EQUIPDOWNGRADE, OnEquipDownGradePanelResponse);
+            WebMessageHandlerOld.Instance.RemoveHandler(CMD.EQUIPDOWNGRADE, OnEquipDownGradePanelResponse);
             GameEquip gameEquip = new GameEquip();
             gameEquip.MergeFrom(e.data);
 
@@ -96,7 +96,7 @@ namespace XFramework
         {
             var equip = myGameEquip.equip;
 
-            WebMessageHandler.Instance.AddHandler(CMD.EQUIPDOWNGRADE, OnEquipDownGradePanelResponse);
+            WebMessageHandlerOld.Instance.AddHandler(CMD.EQUIPDOWNGRADE, OnEquipDownGradePanelResponse);
 
             var attr_variableConfig = ConfigManager.Instance.Tables.Tbattr_variable;
             var equip_levelConfig = ConfigManager.Instance.Tables.Tbequip_level;

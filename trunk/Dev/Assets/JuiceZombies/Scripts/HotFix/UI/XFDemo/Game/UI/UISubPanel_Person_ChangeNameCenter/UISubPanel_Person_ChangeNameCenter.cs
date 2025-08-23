@@ -40,7 +40,7 @@ namespace XFramework
         private Tbitem tbitem;
         private Tbuser_variable tbuser_Variable;
 
-        //0ÊÇ¸ÄÃû½øÈëÀäÈ´×´Ì¬²¢ÏÔÊ¾ÀäÈ´Ê±¼ä£¬1ÊÇÃâ·ÑÐÞ¸Ä£¬2ÊÇ¸ÄÃû¿¨ÐÞ¸Ä£¬3ÊÇ¸¶·Ñ×Ê²ú¸ÄÃûÇÒ×Ê²ú³ä×ã£¬4ÊÇ¸¶·Ñ×Ê²ú¸ÄÃûÇÒ×Ê²ú²»³ä×ã
+        //0ï¿½Ç¸ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½È´×´Ì¬ï¿½ï¿½ï¿½ï¿½Ê¾ï¿½ï¿½È´Ê±ï¿½ä£¬1ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Þ¸Ä£ï¿½2ï¿½Ç¸ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Þ¸Ä£ï¿½3ï¿½Ç¸ï¿½ï¿½ï¿½ï¿½Ê²ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ê²ï¿½ï¿½ï¿½ï¿½ã£¬4ï¿½Ç¸ï¿½ï¿½ï¿½ï¿½Ê²ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ê²ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
         private int isFree = 0;
 
         private long timerId;
@@ -93,8 +93,8 @@ namespace XFramework
 
         private void NetInit()
         {
-            WebMessageHandler.Instance.AddHandler(1, 6, OnChangeNameResponse);
-            WebMessageHandler.Instance.AddHandler(1, 5, OnChangeStatusResponse);
+            WebMessageHandlerOld.Instance.AddHandler(1, 6, OnChangeNameResponse);
+            WebMessageHandlerOld.Instance.AddHandler(1, 5, OnChangeStatusResponse);
         }
 
         private void TextInit()
@@ -131,7 +131,7 @@ namespace XFramework
 
                 if (state)
                 {
-                    //´ò¿ª¸ü¸ÄÃû³ÆµÄ¶þ´ÎÈ·ÈÏ£¬ÔÝÊ±ÏÈ²»¼Ó¶þ´ÎÈ·ÈÏ
+                    //ï¿½ò¿ª¸ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ÆµÄ¶ï¿½ï¿½ï¿½È·ï¿½Ï£ï¿½ï¿½ï¿½Ê±ï¿½È²ï¿½ï¿½Ó¶ï¿½ï¿½ï¿½È·ï¿½ï¿½
                     ResourcesSingleton.Instance.UserInfo.Nickname = nameStr;
                     var str = new StringValue();
                     str.Value = nameStr;
@@ -148,8 +148,8 @@ namespace XFramework
                 else
                 {
                     CreatePrompt(tblanguage.Get("user_info_name_change_fail_2").current);
-                    //´ò¿ªÍ¨ÓÃUIÌáÊ¾°üº¬ÏÞÖÆ´Ê»ã
-                    Debug.Log("´ò¿ªÍ¨ÓÃUIÌáÊ¾°üº¬ÏÞÖÆ´Ê»ã");
+                    //ï¿½ï¿½Í¨ï¿½ï¿½UIï¿½ï¿½Ê¾ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Æ´Ê»ï¿½
+                    Debug.Log("ï¿½ï¿½Í¨ï¿½ï¿½UIï¿½ï¿½Ê¾ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Æ´Ê»ï¿½");
                 }
             });
         }
@@ -160,7 +160,7 @@ namespace XFramework
             switch (isFree)
             {
                 case 0:
-                    //½øÈë¸ÄÃûÀäÈ´Ê±¼ä
+                    //ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½È´Ê±ï¿½ï¿½
                     inCD = true;
                     this.GetFromReference(KText_InCD).GetTextMeshPro().SetTMPText(
                         tblanguage.Get("user_info_name_change_cd").current
@@ -174,7 +174,7 @@ namespace XFramework
                     break;
 
                 case 1:
-                    //¿ÉÒÔÃâ·ÑÐÞ¸Ä
+                    //ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Þ¸ï¿½
                     await this.GetFromReference(KIcon_Btn).GetImage().SetSpriteAsync(isFreeButtonStr, false);
                     this.GetFromReference(KBtn_ChangeName).SetActive(true);
                     this.GetFromReference(KText_InCD).SetActive(false);
@@ -185,7 +185,7 @@ namespace XFramework
                     break;
 
                 case 2:
-                    //¿ÉÒÔ¸ÄÃû¿¨ÐÞ¸Ä
+                    //ï¿½ï¿½ï¿½Ô¸ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Þ¸ï¿½
                     await this.GetFromReference(KIcon_Btn).GetImage().SetSpriteAsync(isNotFreeButtonStr, false);
                     if (tbitem.Get(1010001) != null)
                     {
@@ -204,7 +204,7 @@ namespace XFramework
                     break;
 
                 case 3:
-                    //¸¶·Ñ×Ê²ú¸ÄÃûÇÒ×Ê²ú³ä×ã
+                    //ï¿½ï¿½ï¿½ï¿½ï¿½Ê²ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ê²ï¿½ï¿½ï¿½ï¿½ï¿½
                     await this.GetFromReference(KImg_CardOrDiamond).GetImage()
                         .SetSpriteAsync(tbuser_Variable.Get(2).icon, false);
                     this.GetFromReference(KText_Num).GetTextMeshPro()
@@ -219,7 +219,7 @@ namespace XFramework
                     break;
 
                 case 4:
-                    //¸¶·Ñ×Ê²ú¸ÄÃûµ«ÊÇ×Ê²ú²»³ä×ã
+                    //ï¿½ï¿½ï¿½ï¿½ï¿½Ê²ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ê²ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
                     await this.GetFromReference(KIcon_Btn).GetImage().SetSpriteAsync(isNotFreeButtonStr, false);
                     await this.GetFromReference(KImg_CardOrDiamond).GetImage()
                         .SetSpriteAsync(tbuser_Variable.Get(2).icon, false);
@@ -247,7 +247,7 @@ namespace XFramework
         }
 
         /// <summary>
-        /// ÅÐ¶ÏÊäÈëÃû³ÆÊÇ·ñ¿É¸ü¸Ä£¬1ÊÇ¿ÉÒÔ¸ü¸Ä£¬0ÊÇ°üº¬ÏÞÖÆ´Ê»ã
+        /// ï¿½Ð¶ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ç·ï¿½É¸ï¿½ï¿½Ä£ï¿½1ï¿½Ç¿ï¿½ï¿½Ô¸ï¿½ï¿½Ä£ï¿½0ï¿½Ç°ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Æ´Ê»ï¿½
         /// </summary>
         private bool JudgeStatus(string namestr)
         {
@@ -268,9 +268,9 @@ namespace XFramework
         }
 
         /// <summary>
-        /// »Øµ÷gameRoleºó½øÐÐ¶ÔÓ¦²Ù×÷
+        /// ï¿½Øµï¿½gameRoleï¿½ï¿½ï¿½ï¿½Ð¶ï¿½Ó¦ï¿½ï¿½ï¿½ï¿½
         /// </summary>
-        public void OnChangeNameResponse(object sender, WebMessageHandler.Execute e)
+        public void OnChangeNameResponse(object sender, WebMessageHandlerOld.Execute e)
         {
             var changeSuccess = new BoolValue();
             changeSuccess.MergeFrom(e.data);
@@ -315,9 +315,9 @@ namespace XFramework
             if (inCD)
             {
                 timeHelp++;
-                if (timeHelp == 3000) //Ã¿¹ýÒ»·ÖÖÓ
+                if (timeHelp == 3000) //Ã¿ï¿½ï¿½Ò»ï¿½ï¿½ï¿½ï¿½
                 {
-                    CDS -= 60; //¼õÈ¥60Ãë
+                    CDS -= 60; //ï¿½ï¿½È¥60ï¿½ï¿½
                     SelectStatus();
                     timeHelp = 0;
                 }
@@ -339,9 +339,9 @@ namespace XFramework
         }
 
         /// <summary>
-        /// »Øµ÷¸ÄÃû×´Ì¬ºó½øÐÐ¶ÔÓ¦²Ù×÷
+        /// ï¿½Øµï¿½ï¿½ï¿½ï¿½ï¿½×´Ì¬ï¿½ï¿½ï¿½ï¿½Ð¶ï¿½Ó¦ï¿½ï¿½ï¿½ï¿½
         /// </summary>
-        public void OnChangeStatusResponse(object sender, WebMessageHandler.Execute e)
+        public void OnChangeStatusResponse(object sender, WebMessageHandlerOld.Execute e)
         {
             var checkResult = new CheckResult();
             checkResult.MergeFrom(e.data);
@@ -364,8 +364,8 @@ namespace XFramework
 
         protected override void OnClose()
         {
-            WebMessageHandler.Instance.RemoveHandler(1, 5, OnChangeStatusResponse);
-            WebMessageHandler.Instance.RemoveHandler(1, 6, OnChangeNameResponse);
+            WebMessageHandlerOld.Instance.RemoveHandler(1, 5, OnChangeStatusResponse);
+            WebMessageHandlerOld.Instance.RemoveHandler(1, 6, OnChangeNameResponse);
 
             if (_guideId > 0 && JiYuUIHelper.TryGetUI(UIType.UIPanel_Main, out UI ui))
             {

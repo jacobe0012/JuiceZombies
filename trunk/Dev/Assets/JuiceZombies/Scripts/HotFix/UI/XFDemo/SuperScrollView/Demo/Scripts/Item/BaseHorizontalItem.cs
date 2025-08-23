@@ -24,7 +24,7 @@ namespace SuperScrollView
 
         public void Init()
         {
-            //WebMessageHandler.Instance.AddHandler(9, 5, OnInitEquipmentResponse);
+            //WebMessageHandlerOld.Instance.AddHandler(9, 5, OnInitEquipmentResponse);
 
 
             //从缓存中拿取数据进行排序

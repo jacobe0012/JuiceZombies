@@ -101,7 +101,7 @@ namespace XFramework
             await UniTask.Delay(1000 * (int)timeHelp);
             if (JiYuUIHelper.TryGetUI(UIType.UIPanel_Sign, out UI uuii))
             {
-                WebMessageHandler.Instance.AddHandler(12, 1, OnQueryResponse);
+                WebMessageHandlerOld.Instance.AddHandler(12, 1, OnQueryResponse);
                 NetWorkManager.Instance.SendMessage(12, 1);
             }*/
         }
@@ -132,7 +132,7 @@ namespace XFramework
                 bigMaxDay = 0;
             }
 
-            WebMessageHandler.Instance.AddHandler(12, 1, OnSignResponse);
+            WebMessageHandlerOld.Instance.AddHandler(12, 1, OnSignResponse);
             NetWorkManager.Instance.SendMessage(12, 1);
         }
 
@@ -364,7 +364,7 @@ namespace XFramework
         {
             if (DailyCanSignOrNot == 0)
             {
-                WebMessageHandler.Instance.AddHandler(12, 2, OnDailResponse);
+                WebMessageHandlerOld.Instance.AddHandler(12, 2, OnDailResponse);
                 LongValue longValue = new LongValue();
                 longValue.Value = thisSignDayNum;
                 NetWorkManager.Instance.SendMessage(12, 2, longValue);
@@ -377,9 +377,9 @@ namespace XFramework
         /// </summary>
         /// <param name="sender"></param>
         /// <param name="e"></param>
-        private async void OnDailResponse(object sender, WebMessageHandler.Execute e)
+        private async void OnDailResponse(object sender, WebMessageHandlerOld.Execute e)
         {
-            WebMessageHandler.Instance.RemoveHandler(12, 2, OnDailResponse);
+            WebMessageHandlerOld.Instance.RemoveHandler(12, 2, OnDailResponse);
             StringValueList stringValueList = new StringValueList();
             stringValueList.MergeFrom(e.data);
             Debug.Log(e);
@@ -399,7 +399,7 @@ namespace XFramework
             }
 
             UIHelper.Create(UIType.UICommon_Reward, reList);
-            WebMessageHandler.Instance.AddHandler(12, 1, OnSignResponse);
+            WebMessageHandlerOld.Instance.AddHandler(12, 1, OnSignResponse);
             NetWorkManager.Instance.SendMessage(12, 1);
             //Close();
         }
@@ -409,9 +409,9 @@ namespace XFramework
         /// </summary>
         /// <param name="sender"></param>
         /// <param name="e"></param>
-        private void OnSignResponse(object sender, WebMessageHandler.Execute e)
+        private void OnSignResponse(object sender, WebMessageHandlerOld.Execute e)
         {
-            WebMessageHandler.Instance.RemoveHandler(12, 1, OnSignResponse);
+            WebMessageHandlerOld.Instance.RemoveHandler(12, 1, OnSignResponse);
             GameCheckIn gameCheckIn = new GameCheckIn();
             gameCheckIn.MergeFrom(e.data);
             Debug.Log(gameCheckIn);
@@ -437,7 +437,7 @@ namespace XFramework
         {
             if (accCanBeGetOrNot())
             {
-                WebMessageHandler.Instance.AddHandler(12, 3, OnBigResponse);
+                WebMessageHandlerOld.Instance.AddHandler(12, 3, OnBigResponse);
                 LongValue longValue = new LongValue();
                 longValue.Value = thisSignDayNum;
                 NetWorkManager.Instance.SendMessage(12, 3, longValue);
@@ -486,9 +486,9 @@ namespace XFramework
         /// </summary>
         /// <param name="sender"></param>
         /// <param name="e"></param>
-        private async void OnBigResponse(object sender, WebMessageHandler.Execute e)
+        private async void OnBigResponse(object sender, WebMessageHandlerOld.Execute e)
         {
-            WebMessageHandler.Instance.RemoveHandler(12, 3, OnBigResponse);
+            WebMessageHandlerOld.Instance.RemoveHandler(12, 3, OnBigResponse);
             StringValueList stringValueList = new StringValueList();
             stringValueList.MergeFrom(e.data);
             Debug.Log(e);
@@ -508,7 +508,7 @@ namespace XFramework
             }
 
             UIHelper.Create(UIType.UICommon_Reward, reList);
-            WebMessageHandler.Instance.AddHandler(12, 1, OnSignResponse);
+            WebMessageHandlerOld.Instance.AddHandler(12, 1, OnSignResponse);
             NetWorkManager.Instance.SendMessage(12, 1);
             //SetData();
             //SetState();

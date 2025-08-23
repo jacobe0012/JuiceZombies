@@ -219,7 +219,7 @@ namespace XFramework
 
         async UniTaskVoid InitNode()
         {
-            //WebMessageHandler.Instance.AddHandler(CMD.QUERYACTIVITYTASK, OnQueryMonopolyTaskResponse);
+            //WebMessageHandlerOld.Instance.AddHandler(CMD.QUERYACTIVITYTASK, OnQueryMonopolyTaskResponse);
 
             var KScrollView = GetFromReference(UIPanel_Main.KScrollView);
             var KIconBtnPos = GetFromReference(UIPanel_Main.KIconBtnPos);
@@ -1607,7 +1607,7 @@ namespace XFramework
             switch (guide.guideType)
             {
                 case 315:
-                    WebMessageHandler.Instance.AddHandler(CMD.CHANGESTATUS, OnChangeNameStatusResponse);
+                    WebMessageHandlerOld.Instance.AddHandler(CMD.CHANGESTATUS, OnChangeNameStatusResponse);
                     NetWorkManager.Instance.SendMessage(CMD.CHANGESTATUS);
                     break;
                 case 316:
@@ -1669,9 +1669,9 @@ namespace XFramework
             }
         }
 
-        private async void OnChangeNameStatusResponse(object sender, WebMessageHandler.Execute e)
+        private async void OnChangeNameStatusResponse(object sender, WebMessageHandlerOld.Execute e)
         {
-            WebMessageHandler.Instance.RemoveHandler(CMD.CHANGESTATUS, OnChangeNameStatusResponse);
+            WebMessageHandlerOld.Instance.RemoveHandler(CMD.CHANGESTATUS, OnChangeNameStatusResponse);
             var checkResult = new CheckResult();
             checkResult.MergeFrom(e.data);
             Debug.Log(checkResult);
@@ -1874,9 +1874,9 @@ namespace XFramework
             }
         }
 
-        async public void OnQueryMonopolyTaskResponse(object sender, WebMessageHandler.Execute e)
+        async public void OnQueryMonopolyTaskResponse(object sender, WebMessageHandlerOld.Execute e)
         {
-            WebMessageHandler.Instance.RemoveHandler(CMD.QUERYACTIVITYTASK, OnQueryMonopolyTaskResponse);
+            WebMessageHandlerOld.Instance.RemoveHandler(CMD.QUERYACTIVITYTASK, OnQueryMonopolyTaskResponse);
 
             ByteValueList taskList = new ByteValueList();
 
@@ -2575,8 +2575,8 @@ namespace XFramework
                 // }
             }
 
-            //WebMessageHandler.Instance.AddHandler(CMD.REQUESTBATTLEID, OnClickPlayBtnBeforeResponse);
-            WebMessageHandler.Instance.AddHandler(CMD.QUERYCANSTART, OnClickPlayBtnResponse);
+            //WebMessageHandlerOld.Instance.AddHandler(CMD.REQUESTBATTLEID, OnClickPlayBtnBeforeResponse);
+            WebMessageHandlerOld.Instance.AddHandler(CMD.QUERYCANSTART, OnClickPlayBtnResponse);
             var battleGain = new BattleGain
             {
                 LevelId = ResourcesSingleton.Instance.levelInfo.levelId
@@ -2585,9 +2585,9 @@ namespace XFramework
             NetWorkManager.Instance.SendMessage(CMD.QUERYCANSTART, battleGain);
         }
 
-        void OnClickPlayBtnResponse(object sender, WebMessageHandler.Execute e)
+        void OnClickPlayBtnResponse(object sender, WebMessageHandlerOld.Execute e)
         {
-            WebMessageHandler.Instance.RemoveHandler(CMD.QUERYCANSTART, OnClickPlayBtnResponse);
+            WebMessageHandlerOld.Instance.RemoveHandler(CMD.QUERYCANSTART, OnClickPlayBtnResponse);
             var longValue = new LongValue();
             longValue.MergeFrom(e.data);
             if (e.data.IsEmpty)

@@ -62,14 +62,14 @@ namespace XFramework
             NetWorkManager.Instance.SendMessage(CMD.SUBMITQUEST, new StringValue {
                 Value =str,
             });
-            WebMessageHandler.Instance.AddHandler(CMD.SUBMITQUEST, OnResponceQuest);
+            WebMessageHandlerOld.Instance.AddHandler(CMD.SUBMITQUEST, OnResponceQuest);
 
 
         }
 
-        private void OnResponceQuest(object sender, WebMessageHandler.Execute e)
+        private void OnResponceQuest(object sender, WebMessageHandlerOld.Execute e)
         {
-            WebMessageHandler.Instance.RemoveHandler(CMD.SUBMITQUEST, OnResponceQuest);
+            WebMessageHandlerOld.Instance.RemoveHandler(CMD.SUBMITQUEST, OnResponceQuest);
 
             var submitInfo = new BoolValue();
             submitInfo.MergeFrom(e.data);

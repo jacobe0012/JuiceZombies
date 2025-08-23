@@ -252,7 +252,7 @@ namespace XFramework
         //            m1401IdHelp = recharge.id;
         //            m1401Extra = recharge.valueExtra;
 
-        //            WebMessageHandler.Instance.AddHandler(11, 4, On1401Response);
+        //            WebMessageHandlerOld.Instance.AddHandler(11, 4, On1401Response);
         //            NetWorkManager.Instance.SendMessage(11, 4, intValue);
         //        });
         //    }
@@ -261,9 +261,9 @@ namespace XFramework
         //    PosSort();
         //}
 
-        //private void On1401Response(object sender, WebMessageHandler.Execute e)
+        //private void On1401Response(object sender, WebMessageHandlerOld.Execute e)
         //{
-        //    WebMessageHandler.Instance.RemoveHandler(11, 4, On1401Response);
+        //    WebMessageHandlerOld.Instance.RemoveHandler(11, 4, On1401Response);
         //    var intvalue = new IntValue();
         //    //ConfigurationLoad.ChapterIdFieldNumber=
         //    intvalue.MergeFrom(e.data);
@@ -421,7 +421,7 @@ namespace XFramework
         //            m1402UI = ui;
         //            Recharge = recharge;
 
-        //            WebMessageHandler.Instance.AddHandler(11, 4, On1402Response);
+        //            WebMessageHandlerOld.Instance.AddHandler(11, 4, On1402Response);
         //            NetWorkManager.Instance.SendMessage(11, 4, intValue);
         //        });
         //    }
@@ -431,9 +431,9 @@ namespace XFramework
         //}
 
 
-        //private void On1402Response(object sender, WebMessageHandler.Execute e)
+        //private void On1402Response(object sender, WebMessageHandlerOld.Execute e)
         //{
-        //    WebMessageHandler.Instance.RemoveHandler(11, 4, On1402Response);
+        //    WebMessageHandlerOld.Instance.RemoveHandler(11, 4, On1402Response);
         //    var intvalue = new IntValue();
         //    //ConfigurationLoad.ChapterIdFieldNumber=
         //    intvalue.MergeFrom(e.data);
@@ -518,7 +518,7 @@ namespace XFramework
         //        giftsHelp = tbchapter[1].id;
         //    }
 
-        //    //WebMessageHandler.Instance.AddHandler(11, 1, On1301Response);
+        //    //WebMessageHandlerOld.Instance.AddHandler(11, 1, On1301Response);
         //    //NetWorkManager.Instance.SendMessage(11, 1);
         //    int giftHelp = 0;
         //    List<gift> giftList = new List<gift>();
@@ -633,7 +633,7 @@ namespace XFramework
         //        JiYuTweenHelper.DoScaleTweenOnClickAndLongPress(buyBtn, () =>
         //        {
         //            giftId = gift.id;
-        //            WebMessageHandler.Instance.AddHandler(11, 5, OnBuyGiftResponse);
+        //            WebMessageHandlerOld.Instance.AddHandler(11, 5, OnBuyGiftResponse);
         //            IntValue intValue = new IntValue();
         //            intValue.Value = gift.id;
         //            //Debug.Log(intValue.Value.ToString());
@@ -646,9 +646,9 @@ namespace XFramework
         //    GiftSort();
         //}
 
-        //private void OnBuyGiftResponse(object sender, WebMessageHandler.Execute e)
+        //private void OnBuyGiftResponse(object sender, WebMessageHandlerOld.Execute e)
         //{
-        //    WebMessageHandler.Instance.RemoveHandler(11, 5, OnBuyGiftResponse);
+        //    WebMessageHandlerOld.Instance.RemoveHandler(11, 5, OnBuyGiftResponse);
         //    GiftResult giftResult = new GiftResult();
         //    giftResult.MergeFrom(e.data);
         //    Debug.Log(e);
@@ -943,7 +943,7 @@ namespace XFramework
         //                        intValue.Value = sign;
         //                        pos1201 = ihelp;
         //                        secUI = uis;
-        //                        WebMessageHandler.Instance.AddHandler(CMD.SHOP1201, OnDailyBuyResponse);
+        //                        WebMessageHandlerOld.Instance.AddHandler(CMD.SHOP1201, OnDailyBuyResponse);
         //                        NetWorkManager.Instance.SendMessage(CMD.SHOP1201, intValue);
         //                    });
         //                });
@@ -956,7 +956,7 @@ namespace XFramework
         //                    intValue.Value = sign;
         //                    pos1201 = ihelp;
         //                    secUI = null;
-        //                    WebMessageHandler.Instance.AddHandler(CMD.SHOP1201, OnDailyBuyResponse);
+        //                    WebMessageHandlerOld.Instance.AddHandler(CMD.SHOP1201, OnDailyBuyResponse);
         //                    NetWorkManager.Instance.SendMessage(CMD.SHOP1201, intValue);
         //                });
         //            }
@@ -968,7 +968,7 @@ namespace XFramework
         //    if (JiYuUIHelper.TryGetUI(UIType.UISubPanel_Shop_Tag1, out UI ui1))
         //    {
         //        //发送查询
-        //        WebMessageHandler.Instance.AddHandler(11, 6, OnDailyShopResponse);
+        //        WebMessageHandlerOld.Instance.AddHandler(11, 6, OnDailyShopResponse);
         //        NetWorkManager.Instance.SendMessage(11, 6);
         //    }
         //}
@@ -980,9 +980,9 @@ namespace XFramework
         //    Debug.Log("are you ready?");
         //}
 
-        //private void OnDailyBuyResponse(object sender, WebMessageHandler.Execute e)
+        //private void OnDailyBuyResponse(object sender, WebMessageHandlerOld.Execute e)
         //{
-        //    WebMessageHandler.Instance.RemoveHandler(CMD.SHOP1201, OnDailyBuyResponse);
+        //    WebMessageHandlerOld.Instance.RemoveHandler(CMD.SHOP1201, OnDailyBuyResponse);
         //    StringValue stringValue = new StringValue();
         //    stringValue.MergeFrom(e.data);
         //    Debug.Log(e);
@@ -1036,9 +1036,9 @@ namespace XFramework
         //    }
         //}
 
-        //private void OnDailyShopResponse(object sender, WebMessageHandler.Execute e)
+        //private void OnDailyShopResponse(object sender, WebMessageHandlerOld.Execute e)
         //{
-        //    WebMessageHandler.Instance.RemoveHandler(11, 6, OnDailyShopResponse);
+        //    WebMessageHandlerOld.Instance.RemoveHandler(11, 6, OnDailyShopResponse);
         //    ByteValueList dailyBuys = new ByteValueList();
         //    dailyBuys.MergeFrom(e.data);
         //    Debug.Log(e);

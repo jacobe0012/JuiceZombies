@@ -67,7 +67,7 @@ namespace XFramework
             StartTimer();
             var KImg_Achieve = GetFromReference(UIPanel_Achieve.KImg_Achieve);
             KImg_Achieve.SetActive(false);
-            WebMessageHandler.Instance.AddHandler(CMD.QUERYACHIEVEMENT, OnQueryAchievementResponse);
+            WebMessageHandlerOld.Instance.AddHandler(CMD.QUERYACHIEVEMENT, OnQueryAchievementResponse);
 
             //tagFunc = daysSign.tagFunc;
 
@@ -762,15 +762,15 @@ namespace XFramework
 
         private void GetGift(int level)
         {
-            WebMessageHandler.Instance.AddHandler(3, 5, OnGetGiftResponse);
+            WebMessageHandlerOld.Instance.AddHandler(3, 5, OnGetGiftResponse);
             IntValue intValue = new IntValue();
             intValue.Value = level - 1;
             NetWorkManager.Instance.SendMessage(3, 5, intValue);
         }
 
-        private void OnGetGiftResponse(object sender, WebMessageHandler.Execute e)
+        private void OnGetGiftResponse(object sender, WebMessageHandlerOld.Execute e)
         {
-            WebMessageHandler.Instance.RemoveHandler(3, 5, OnGetGiftResponse);
+            WebMessageHandlerOld.Instance.RemoveHandler(3, 5, OnGetGiftResponse);
             StringValueList stringValueList = new StringValueList();
             stringValueList.MergeFrom(e.data);
             Debug.Log(e);
@@ -789,13 +789,13 @@ namespace XFramework
 
             UIHelper.Create(UIType.UICommon_Reward, reList);
 
-            //WebMessageHandler.Instance.AddHandler(3, 4, OnQueryAchievementResponse);
+            //WebMessageHandlerOld.Instance.AddHandler(3, 4, OnQueryAchievementResponse);
             NetWorkManager.Instance.SendMessage(CMD.QUERYACHIEVEMENT);
         }
 
-        private async void OnQueryAchievementResponse(object sender, WebMessageHandler.Execute e)
+        private async void OnQueryAchievementResponse(object sender, WebMessageHandlerOld.Execute e)
         {
-            //WebMessageHandler.Instance.RemoveHandler(3, 4, OnQueryAchievementResponse);
+            //WebMessageHandlerOld.Instance.RemoveHandler(3, 4, OnQueryAchievementResponse);
             RoleTaskInfo roleTaskInfo = new RoleTaskInfo();
             roleTaskInfo.MergeFrom(e.data);
             //Debug.Log(e);
@@ -845,7 +845,7 @@ namespace XFramework
 
         protected override void OnClose()
         {
-            WebMessageHandler.Instance.RemoveHandler(CMD.QUERYACHIEVEMENT, OnQueryAchievementResponse);
+            WebMessageHandlerOld.Instance.RemoveHandler(CMD.QUERYACHIEVEMENT, OnQueryAchievementResponse);
             CloseStrongTip();
             //groupDic.Clear();
             //this.GetFromReference(KScrollView).GetScrollRect().Content.GetList().Clear();

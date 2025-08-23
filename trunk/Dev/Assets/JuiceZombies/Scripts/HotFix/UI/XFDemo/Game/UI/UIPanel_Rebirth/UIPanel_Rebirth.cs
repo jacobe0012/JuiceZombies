@@ -156,7 +156,7 @@ namespace XFramework
                     ResourcesSingleton.Instance.levelInfo.rebirthNum--;
 
 
-                    WebMessageHandler.Instance.AddHandler(CMD.CONSUMEREBIRTHCOIN, OnConsumeCoinResponse);
+                    WebMessageHandlerOld.Instance.AddHandler(CMD.CONSUMEREBIRTHCOIN, OnConsumeCoinResponse);
                     NetWorkManager.Instance.SendMessage(CMD.CONSUMEREBIRTHCOIN, new StringValue
                     {
                         Value = $"{5};{1010002};{1}"
@@ -217,9 +217,9 @@ namespace XFramework
             this.timerId = 0;
         }
 
-        private void OnConsumeCoinResponse(object sender, WebMessageHandler.Execute e)
+        private void OnConsumeCoinResponse(object sender, WebMessageHandlerOld.Execute e)
         {
-            WebMessageHandler.Instance.RemoveHandler(CMD.CONSUMEREBIRTHCOIN, OnConsumeCoinResponse);
+            WebMessageHandlerOld.Instance.RemoveHandler(CMD.CONSUMEREBIRTHCOIN, OnConsumeCoinResponse);
             var response = new StringValue();
             response.MergeFrom(e.data);
             if (e.data.IsEmpty)

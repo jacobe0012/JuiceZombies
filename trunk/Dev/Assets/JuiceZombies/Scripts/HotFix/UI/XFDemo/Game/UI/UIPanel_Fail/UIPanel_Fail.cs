@@ -54,7 +54,7 @@ namespace XFramework
             AudioManager.Instance.PlayFModAudio(2204);
             language = ConfigManager.Instance.Tables.Tblanguage;
             artConfig = ConfigManager.Instance.Tables.Tbart;
-            WebMessageHandler.Instance.AddHandler(CMD.BATTLEGAIN, OnBattleGainResponse);
+            WebMessageHandlerOld.Instance.AddHandler(CMD.BATTLEGAIN, OnBattleGainResponse);
 
             QueryBattleGain();
 
@@ -139,7 +139,7 @@ namespace XFramework
         }
 
 
-        // void OnBattleIDResponse(object sender, WebMessageHandler.Execute e)
+        // void OnBattleIDResponse(object sender, WebMessageHandlerOld.Execute e)
         // {
         //     var longValue = new LongValue();
         //     longValue.MergeFrom(e.data);
@@ -204,7 +204,7 @@ namespace XFramework
         //     }
         // }
 
-        void OnBattleGainResponse(object sender, WebMessageHandler.Execute e)
+        void OnBattleGainResponse(object sender, WebMessageHandlerOld.Execute e)
         {
             var levelInfo = new LevelInfo();
             levelInfo.MergeFrom(e.data);
@@ -414,7 +414,7 @@ namespace XFramework
         {
             JiYuUIHelper.StartStopTime(true);
 
-            WebMessageHandler.Instance.RemoveHandler(CMD.BATTLEGAIN, OnBattleGainResponse);
+            WebMessageHandlerOld.Instance.RemoveHandler(CMD.BATTLEGAIN, OnBattleGainResponse);
             base.OnClose();
         }
     }

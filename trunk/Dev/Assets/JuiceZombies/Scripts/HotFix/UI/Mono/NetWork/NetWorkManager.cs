@@ -273,13 +273,13 @@ namespace HotFix_UI
         public void OnMessage(object o, MessageEventArgs args)
         {
             //将字节数组转换为
-            IMessage message = new MyExternalMessage();
+            //IMessage message = new MyExternalMessage();
 
-            var mySelf = (MyExternalMessage)message.Descriptor.Parser.ParseFrom(args.RawData);
-            if (mySelf.ResponseStatus != 0)
-            {
-                ErrorMsg.LogErrorMsg(mySelf.ResponseStatus);
-            }
+            //var mySelf = (MyExternalMessage)message.Descriptor.Parser.ParseFrom(args.RawData);
+            // if (mySelf.ResponseStatus != 0)
+            // {
+            //     ErrorMsg.LogErrorMsg(mySelf.ResponseStatus);
+            // }
 
             //Log.Debug($"ResponseStatus:{mySelf.ResponseStatus}", debugColor);
 
@@ -288,8 +288,21 @@ namespace HotFix_UI
 
             //Log.Debug($"OnMessage:{mySelf}", debugColor);
 
+            if (args.RawData == null)
+            {
+                Log.Debug($"empty message", debugColor);
+                return;
+            }
 
-            WebMessageHandler.Instance.PackageHandler(mySelf.CmdMerge, mySelf.DataContent);
+            var message = MessagePackSerializer.Deserialize<MyMessage>(args.RawData, options);
+            if (message.ErrorCode != 0)
+            {
+                ErrorMsg.LogErrorMsg(message.ErrorCode);
+            }
+
+            WebMsgHandler.Instance.PackageHandler(message.Cmd, message.Content);
+            //var playerData = MessagePackSerializer.Deserialize<PlayerData>(message.Content);
+
             //UniTask.Delay(111);
         }
 

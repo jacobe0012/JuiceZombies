@@ -152,7 +152,7 @@ namespace XFramework
 
                         if (isRedDot)
                         {
-                            WebMessageHandler.Instance.AddHandler(CMD.GETTASKSCORE, OnClaimResponse);
+                            WebMessageHandlerOld.Instance.AddHandler(CMD.GETTASKSCORE, OnClaimResponse);
                             NetWorkManager.Instance.SendMessage(CMD.GETTASKSCORE, new IntValue
                             {
                                 Value = gameTaskInfo.Id
@@ -219,9 +219,9 @@ namespace XFramework
             //JiYuUIHelper.ForceRefreshLayout(this.GetFromReference(KScrollView).GetScrollRect().Content);
         }
 
-        private void OnClaimResponse(object sender, WebMessageHandler.Execute e)
+        private void OnClaimResponse(object sender, WebMessageHandlerOld.Execute e)
         {
-            WebMessageHandler.Instance.RemoveHandler(CMD.GETTASKSCORE, OnClaimResponse);
+            WebMessageHandlerOld.Instance.RemoveHandler(CMD.GETTASKSCORE, OnClaimResponse);
             StringValueList stringValueList = new StringValueList();
             stringValueList.MergeFrom(e.data);
             //Debug.Log(e);
@@ -241,14 +241,14 @@ namespace XFramework
 
             UIHelper.CreateAsync(UIType.UICommon_Reward, reList);
 
-            WebMessageHandler.Instance.AddHandler(CMD.QUERYACHIEVEMENT, OnAchieveResponse);
+            WebMessageHandlerOld.Instance.AddHandler(CMD.QUERYACHIEVEMENT, OnAchieveResponse);
             NetWorkManager.Instance.SendMessage(CMD.QUERYACHIEVEMENT);
         }
 
-        private void OnAchieveResponse(object sender, WebMessageHandler.Execute e)
+        private void OnAchieveResponse(object sender, WebMessageHandlerOld.Execute e)
         {
             //TODO:
-            WebMessageHandler.Instance.RemoveHandler(CMD.QUERYACHIEVEMENT, OnAchieveResponse);
+            WebMessageHandlerOld.Instance.RemoveHandler(CMD.QUERYACHIEVEMENT, OnAchieveResponse);
             RoleTaskInfo roleTaskInfo = new RoleTaskInfo();
             roleTaskInfo.MergeFrom(e.data);
             Log.Debug($"roleTaskInfo:{roleTaskInfo}", Color.green);

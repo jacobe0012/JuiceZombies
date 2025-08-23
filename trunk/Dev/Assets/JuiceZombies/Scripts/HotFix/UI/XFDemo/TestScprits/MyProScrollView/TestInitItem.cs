@@ -21,8 +21,8 @@ public class TestInitItem : MonoBehaviour
 
     private void WebMessage()
     {
-        WebMessageHandler.Instance.AddHandler(9, 5, OnInitEquipmentResponse);
-        WebMessageHandler.Instance.AddHandler(9, 11, OnInitISEquipmentResponse);
+        WebMessageHandlerOld.Instance.AddHandler(9, 5, OnInitEquipmentResponse);
+        WebMessageHandlerOld.Instance.AddHandler(9, 11, OnInitISEquipmentResponse);
         NetWorkManager.Instance.SendMessage(9, 5);
         Log.Debug("webMessage", Color.red);
     }
@@ -102,9 +102,9 @@ public class TestInitItem : MonoBehaviour
     }
 
 
-    public void OnInitEquipmentResponse(object sender, WebMessageHandler.Execute e)
+    public void OnInitEquipmentResponse(object sender, WebMessageHandlerOld.Execute e)
     {
-        WebMessageHandler.Instance.RemoveHandler(9, 5, OnInitEquipmentResponse);
+        WebMessageHandlerOld.Instance.RemoveHandler(9, 5, OnInitEquipmentResponse);
         EquipitemCache.MaterialsTypeDic.Clear();
         EquipitemCache.GameEquips.Clear();
         ByteValueList gameEquips = new ByteValueList();
@@ -139,9 +139,9 @@ public class TestInitItem : MonoBehaviour
     }
 
 
-    public void OnInitISEquipmentResponse(object sender, WebMessageHandler.Execute e)
+    public void OnInitISEquipmentResponse(object sender, WebMessageHandlerOld.Execute e)
     {
-        WebMessageHandler.Instance.RemoveHandler(9, 11, OnInitISEquipmentResponse);
+        WebMessageHandlerOld.Instance.RemoveHandler(9, 11, OnInitISEquipmentResponse);
         EquipitemCache.isWearUID.Clear();
         ByteValueList gameEquips = new ByteValueList();
         gameEquips.MergeFrom(e.data.ToByteArray());

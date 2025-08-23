@@ -323,9 +323,9 @@ namespace HotFix_UI
             Log.Debug($"EnableISystem<SpawnEnemySystem>");
         }
 
-        void OnClickPlayBtnFinishResponse(object sender, WebMessageHandler.Execute e)
+        void OnClickPlayBtnFinishResponse(object sender, WebMessageHandlerOld.Execute e)
         {
-            WebMessageHandler.Instance.RemoveHandler(CMD.QUERYPROPERTY, OnClickPlayBtnFinishResponse);
+            WebMessageHandlerOld.Instance.RemoveHandler(CMD.QUERYPROPERTY, OnClickPlayBtnFinishResponse);
 
             var battleProperty = new BattleProperty();
             battleProperty.MergeFrom(e.data);
@@ -346,7 +346,7 @@ namespace HotFix_UI
             var global = XFramework.Common.Instance.Get<Global>();
             if (!global.isIntroGuide)
             {
-                WebMessageHandler.Instance.AddHandler(CMD.QUERYPROPERTY, OnClickPlayBtnFinishResponse);
+                WebMessageHandlerOld.Instance.AddHandler(CMD.QUERYPROPERTY, OnClickPlayBtnFinishResponse);
                 NetWorkManager.Instance.SendMessage(CMD.QUERYPROPERTY, new StringValue()
                 {
                     Value =

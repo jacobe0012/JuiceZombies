@@ -1,6 +1,6 @@
 //---------------------------------------------------------------------
 // JiYuStudio
-// Author: »Æ½ð¹ú
+// Author: ï¿½Æ½ï¿½ï¿½
 // Time: #CreateTime#
 //---------------------------------------------------------------------
 
@@ -52,7 +52,7 @@ namespace XFramework
         public List<int2> HeadLockList = new List<int2>();
         public List<int2> FrameLockList = new List<int2>();
 
-        //´¢´æ½ÇÉ«ÐÅÏ¢
+        //ï¿½ï¿½ï¿½ï¿½ï¿½É«ï¿½ï¿½Ï¢
         private GameRole role;
 
         private Transform itemPos;
@@ -69,24 +69,24 @@ namespace XFramework
             // JiYuTweenHelper.OpenPanelScale(this.GetFromReference(KBack));
             // JiYuTweenHelper.OpenPanelScale(this.GetFromReference(KItemPos));
             role = _gameRole;
-            WebMessageHandler.Instance.AddHandler(1, 2, OnChangeAvaterResponse);
+            WebMessageHandlerOld.Instance.AddHandler(1, 2, OnChangeAvaterResponse);
 
             Log.Debug($"{_gameRole}");
-            //¶Á±í
+            //ï¿½ï¿½ï¿½ï¿½
             var language = ConfigManager.Instance.Tables.Tblanguage;
             var userHead = ConfigManager.Instance.Tables.Tbuser_avatar.DataMap;
             var quality = ConfigManager.Instance.Tables.Tbquality.DataMap;
 
-            //×óÓÒÑ¡Ôñ×´Ì¬³õÊ¼»¯
+            //ï¿½ï¿½ï¿½ï¿½Ñ¡ï¿½ï¿½×´Ì¬ï¿½ï¿½Ê¼ï¿½ï¿½
             bool isLeft = true;
             bool isRight = false;
 
-            //ºó¶Ë¶ÁÈ¡Í·Ïñ¿òIDºÍÍ·ÏñID¡¢êÇ³ÆºÍÕËºÅID
+            //ï¿½ï¿½Ë¶ï¿½È¡Í·ï¿½ï¿½ï¿½IDï¿½ï¿½Í·ï¿½ï¿½IDï¿½ï¿½ï¿½Ç³Æºï¿½ï¿½Ëºï¿½ID
             HeadID = _gameRole.RoleAvatar;
             FrameID = _gameRole.RoleAvatarFrame;
             UserName = _gameRole.Nickname;
             UserID = _gameRole.UserId;
-            //0ÊÇÎ´½âËø£¬1ÊÇ½âËø
+            //0ï¿½ï¿½Î´ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½1ï¿½Ç½ï¿½ï¿½ï¿½
             for (int i = 0; i < HeadInt; i++)
             {
                 HeadLockList.Add(new int2(1001 + i, 0));
@@ -97,7 +97,7 @@ namespace XFramework
                 FrameLockList.Add(new int2(2001 + i, 0));
             }
 
-            //¸ù¾Ýºó¶ËÊý¾Ý¶ÁÈ¡½âËø×´Ì¬
+            //ï¿½ï¿½ï¿½Ýºï¿½ï¿½ï¿½ï¿½ï¿½Ý¶ï¿½È¡ï¿½ï¿½ï¿½ï¿½×´Ì¬
             foreach (var i in _gameRole.AvatarMap.AvatarList)
             {
                 int indexHelper = i.Id % 1000 - 1;
@@ -119,32 +119,32 @@ namespace XFramework
             //FrameLockList[3] = new int2(FrameLockList[3].x, 1);
 
 
-            //¶Ôºó¶Ë´«À´µÄ½âËø×´Ì¬Êý¾Ý½øÐÐÅÅÐò
+            //ï¿½Ôºï¿½Ë´ï¿½ï¿½ï¿½ï¿½Ä½ï¿½ï¿½ï¿½×´Ì¬ï¿½ï¿½ï¿½Ý½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
             HeadLockList = LockSorting(HeadLockList, HeadInt);
             FrameLockList = LockSorting(FrameLockList, FrameInt);
 
             #region Init
 
-            //½çÃæ³õÊ¼»¯
-            //³õÊ¼»¯Ñ¡Ôñ°´Å¥Ãû³ÆÎÄ±¾
+            //ï¿½ï¿½ï¿½ï¿½ï¿½Ê¼ï¿½ï¿½
+            //ï¿½ï¿½Ê¼ï¿½ï¿½Ñ¡ï¿½ï¿½Å¥ï¿½ï¿½ï¿½ï¿½ï¿½Ä±ï¿½
             //this.GetFromReference(KLeftNameTxt).GetTextMeshPro().SetTMPText(language["user_info_profile_name"].current);
             //this.GetFromReference(KRightNameTxt).GetTextMeshPro()
             //    .SetTMPText(language["user_info_profileframe_name"].current);
-            //³õÊ¼»¯Íæ¼ÒêÇ³Æ
+            //ï¿½ï¿½Ê¼ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ç³ï¿½
             this.GetFromReference(KNameTxt).GetTextMeshPro().SetTMPText(UserName);
-            //³õÊ¼»¯Íæ¼ÒID
+            //ï¿½ï¿½Ê¼ï¿½ï¿½ï¿½ï¿½ï¿½ID
             this.GetFromReference(KIDTxt).GetTextMeshPro()
                 .SetTMPText(language["user_info_userid_name"].current + ": " + UserID.ToString());
-            //³õÊ¼»¯Ñ¡Ôñ°´Å¥×´Ì¬
+            //ï¿½ï¿½Ê¼ï¿½ï¿½Ñ¡ï¿½ï¿½Å¥×´Ì¬
             GetFromReference(KLeftImage).GetImage().SetAlpha(255);
             GetFromReference(KRightImage).GetImage().SetAlpha(0);
-            //³õÊ¼»¯Ê¹ÓÃÖÐÍ·ÏñÓëÍ·Ïñ¿ò
+            //ï¿½ï¿½Ê¼ï¿½ï¿½Ê¹ï¿½ï¿½ï¿½ï¿½Í·ï¿½ï¿½ï¿½ï¿½Í·ï¿½ï¿½ï¿½
             await this.GetFromReference(KHeadImage).GetImage().SetSpriteAsync(userHead[HeadID].icon, false);
             await this.GetFromReference(KFrame).GetImage().SetSpriteAsync(userHead[FrameID].icon, false);
-            //³õÊ¼»¯Í·ÏñÑ¡Ôñ½çÃæ
+            //ï¿½ï¿½Ê¼ï¿½ï¿½Í·ï¿½ï¿½Ñ¡ï¿½ï¿½ï¿½ï¿½ï¿½
             InitHeadItem(UIType.UIHeadBtn, UIItemDic, HeadInt, HeadID, HeadLockList,
                 language["common_state_using"].current);
-            //³õÊ¼»¯Ê¹ÓÃÖÐÍ·ÏñÃèÊö
+            //ï¿½ï¿½Ê¼ï¿½ï¿½Ê¹ï¿½ï¿½ï¿½ï¿½Í·ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
             this.GetFromReference(KDescTxt).GetTextMeshPro().SetTMPText(language[userHead[HeadID].desc].current);
             this.GetFromReference(KQualityTxt).GetTextMeshPro()
                 .SetTMPText(language[quality[userHead[HeadID].quality].name].current);
@@ -152,7 +152,7 @@ namespace XFramework
                 .SetColor("#" + quality[userHead[HeadID].quality].fontColor);
             // await this.GetFromReference(KQuality).GetImage()
             //     .SetSpriteAsync(quality[userHead[HeadID].quality].bg, false);
-            //³õÊ¼»¯Ê¹ÓÃ°´Å¥
+            //ï¿½ï¿½Ê¼ï¿½ï¿½Ê¹ï¿½Ã°ï¿½Å¥
             this.GetFromReference(KUseTxt).GetTextMeshPro().SetTMPText(language["item_state_use"].current);
             this.GetFromReference(KUseBtn).SetActive(false);
             this.GetFromReference(KStateTxt).GetTextMeshPro().SetTMPText(language["common_state_using"].current);
@@ -164,7 +164,7 @@ namespace XFramework
             var NameChange = this.GetFromReference(KNameChange);
             var UseBtn = this.GetFromReference(KUseBtn);
 
-            //¹Ø±ÕÍæ¼ÒÐÅÏ¢½çÃæ
+            //ï¿½Ø±ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ï¢ï¿½ï¿½ï¿½ï¿½
             JiYuTweenHelper.DoScaleTweenOnClickAndLongPress(CloseBack, () =>
             {
                 CloseLastItemView(UIItemDic);
@@ -177,14 +177,14 @@ namespace XFramework
                 Close();
             });
 
-            //´ò¿ª¸ÄÃû½çÃæ
+            //ï¿½ò¿ª¸ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
             JiYuTweenHelper.DoScaleTweenOnClickAndLongPress(NameChange, async () =>
             {
-                WebMessageHandler.Instance.AddHandler(CMD.CHANGESTATUS, OnChangeNameStatusResponse);
+                WebMessageHandlerOld.Instance.AddHandler(CMD.CHANGESTATUS, OnChangeNameStatusResponse);
                 NetWorkManager.Instance.SendMessage(CMD.CHANGESTATUS);
             });
 
-            //´ò¿ªÍ·ÏñÑ¡Ôñ½çÃæ
+            //ï¿½ï¿½Í·ï¿½ï¿½Ñ¡ï¿½ï¿½ï¿½ï¿½ï¿½
             this.GetButton(KLeftBtn)?.OnClick.Add(async () =>
             {
                 GetFromReference(KLeftBtn);
@@ -199,9 +199,9 @@ namespace XFramework
                 isLeft = true;
                 isRight = false;
 
-                //ÉèÖÃÍ·Ïñ¿ò»Ö¸´Ä¬ÈÏ
+                //ï¿½ï¿½ï¿½ï¿½Í·ï¿½ï¿½ï¿½Ö¸ï¿½Ä¬ï¿½ï¿½
                 await this.GetFromReference(KFrame).GetImage().SetSpriteAsync(userHead[FrameID].icon, false);
-                //ÉèÖÃÍ·ÏñÃèÊö»Ö¸´Ä¬ÈÏ
+                //ï¿½ï¿½ï¿½ï¿½Í·ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ö¸ï¿½Ä¬ï¿½ï¿½
                 this.GetFromReference(KDescTxt).GetTextMeshPro().SetTMPText(language[userHead[HeadID].desc].current);
                 this.GetFromReference(KQualityTxt).GetTextMeshPro()
                     .SetTMPText(language[quality[userHead[HeadID].quality].name].current);
@@ -209,13 +209,13 @@ namespace XFramework
                     .SetColor("#" + quality[userHead[HeadID].quality].fontColor);
                 // await this.GetFromReference(KQuality).GetImage()
                 //     .SetSpriteAsync(quality[userHead[HeadID].quality].bg, false);
-                //»Ö¸´Í·ÏñÊ¹ÓÃ×´Ì¬
+                //ï¿½Ö¸ï¿½Í·ï¿½ï¿½Ê¹ï¿½ï¿½×´Ì¬
                 this.GetFromReference(KUseBtn).SetActive(false);
                 this.GetFromReference(KStateTxt).GetTextMeshPro().SetTMPText(language["common_state_using"].current);
                 this.GetFromReference(KStateTxt).SetActive(true);
             });
 
-            //´ò¿ªÍ·Ïñ¿òÑ¡Ôñ½çÃæ
+            //ï¿½ï¿½Í·ï¿½ï¿½ï¿½Ñ¡ï¿½ï¿½ï¿½ï¿½ï¿½
             this.GetButton(KRightBtn)?.OnClick.Add(async () =>
             {
                 GetFromReference(KRightBtn);
@@ -231,9 +231,9 @@ namespace XFramework
                 isRight = true;
                 isLeft = false;
 
-                //ÉèÖÃÍ·Ïñ»Ö¸´Ä¬ÈÏ
+                //ï¿½ï¿½ï¿½ï¿½Í·ï¿½ï¿½Ö¸ï¿½Ä¬ï¿½ï¿½
                 await this.GetFromReference(KHeadImage).GetImage().SetSpriteAsync(userHead[HeadID].icon, false);
-                //ÉèÖÃÍ·Ïñ¿òÃèÊö»Ö¸´Ä¬ÈÏ
+                //ï¿½ï¿½ï¿½ï¿½Í·ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ö¸ï¿½Ä¬ï¿½ï¿½
                 this.GetFromReference(KDescTxt).GetTextMeshPro().SetTMPText(language[userHead[FrameID].desc].current);
                 this.GetFromReference(KQualityTxt).GetTextMeshPro()
                     .SetTMPText(language[quality[userHead[FrameID].quality].name].current);
@@ -241,7 +241,7 @@ namespace XFramework
                     .SetColor("#" + quality[userHead[FrameID].quality].fontColor);
                 // await this.GetFromReference(KQuality).GetImage()
                 //     .SetSpriteAsync(quality[userHead[FrameID].quality].bg, false);
-                //»Ö¸´Í·Ïñ¿òÊ¹ÓÃ×´Ì¬
+                //ï¿½Ö¸ï¿½Í·ï¿½ï¿½ï¿½Ê¹ï¿½ï¿½×´Ì¬
                 this.GetFromReference(KUseBtn).SetActive(false);
                 this.GetFromReference(KStateTxt).GetTextMeshPro().SetTMPText(language["common_state_using"].current);
                 this.GetFromReference(KStateTxt).SetActive(true);
@@ -249,7 +249,7 @@ namespace XFramework
 
             JiYuTweenHelper.DoScaleTweenOnClickAndLongPress(UseBtn, async () =>
             {
-                //¸ü¸ÄÍ·Ïñ
+                //ï¿½ï¿½ï¿½ï¿½Í·ï¿½ï¿½
                 if (isLeft)
                 {
                     HeadID = HeadLockList[lastIndex].x;
@@ -266,7 +266,7 @@ namespace XFramework
                         language["common_state_using"].current);
                 }
 
-                //¸ü¸ÄÍ·Ïñ¿ò
+                //ï¿½ï¿½ï¿½ï¿½Í·ï¿½ï¿½ï¿½
                 if (isRight)
                 {
                     FrameID = FrameLockList[lastIndex].x;
@@ -284,7 +284,7 @@ namespace XFramework
                 }
             });
 
-            //ÉèÖÃÎÄ×Ö
+            //ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
             this.GetFromReference(KTitleTxt).GetTextMeshPro().SetTMPText(language["user_info_title"].current);
         }
 
@@ -328,18 +328,18 @@ namespace XFramework
 
                 itemDic.Add(i, ui.GameObject);
 
-                //ÉèÖÃÍ¼Æ¬
+                //ï¿½ï¿½ï¿½ï¿½Í¼Æ¬
                 int Index = HeadLock[i].x;
                 await ui.GetFromPath("Button/HeadBack/HeadImage").GetImage()
                     .SetSpriteAsync(userHead[Index].icon, false);
 
-                //ÉèÖÃ½âËø
+                //ï¿½ï¿½ï¿½Ã½ï¿½ï¿½ï¿½
                 if (HeadLock[i].y == 0 ? false : true)
                 {
                     ui.GetFromPath("Button/Lock").SetActive(false);
                 }
 
-                //ÉèÖÃÊ¹ÓÃÖÐ
+                //ï¿½ï¿½ï¿½ï¿½Ê¹ï¿½ï¿½ï¿½ï¿½
                 if (Index == usingID)
                 {
                     ui.GetFromPath("Button/TxtBack").SetActive(true);
@@ -367,17 +367,17 @@ namespace XFramework
 
                 itemDic.Add(i, ui.GameObject);
 
-                //ÉèÖÃÍ¼Æ¬
+                //ï¿½ï¿½ï¿½ï¿½Í¼Æ¬
                 int Index = FrameLock[i].x;
                 await ui.GetFromPath("Button/Frame").GetImage().SetSpriteAsync(userHead[Index].icon, false);
 
-                //ÉèÖÃ½âËø
+                //ï¿½ï¿½ï¿½Ã½ï¿½ï¿½ï¿½
                 if (FrameLock[i].y == 0 ? false : true)
                 {
                     ui.GetFromPath("Button/Lock").SetActive(false);
                 }
 
-                //ÉèÖÃÊ¹ÓÃÖÐ
+                //ï¿½ï¿½ï¿½ï¿½Ê¹ï¿½ï¿½ï¿½ï¿½
                 if (Index == usingID)
                 {
                     ui.GetFromPath("Button/TxtBack/UsingTxt").GetTextMeshPro().SetTMPText(inUsing);
@@ -388,7 +388,7 @@ namespace XFramework
             }
         }
 
-        //¸ù¾Ý½âËøÇé¿öÅÅÐò
+        //ï¿½ï¿½ï¿½Ý½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
         private List<int2> LockSorting(List<int2> input, int length)
         {
             int i = 0;
@@ -415,7 +415,7 @@ namespace XFramework
             return sortingHelp;
         }
 
-        private void OnChangeAvaterResponse(object sender, WebMessageHandler.Execute e)
+        private void OnChangeAvaterResponse(object sender, WebMessageHandlerOld.Execute e)
         {
             var gameRole = new GameRole();
             gameRole.MergeFrom(e.data);
@@ -431,7 +431,7 @@ namespace XFramework
             FrameID = gameRole.RoleAvatarFrame;
         }
 
-        private async void OnChangeNameStatusResponse(object sender, WebMessageHandler.Execute e)
+        private async void OnChangeNameStatusResponse(object sender, WebMessageHandlerOld.Execute e)
         {
             var checkResult = new CheckResult();
             checkResult.MergeFrom(e.data);
@@ -447,13 +447,13 @@ namespace XFramework
             // ui.SetParent(this, true);
             // //var ui = await UIHelper.CreateAsync(UIType.UICommon_TopTab);
             // //UIHelper.Create(UIType.UIRedPointT);
-            // WebMessageHandler.Instance.RemoveHandler(CMD.CHANGESTATUS, OnChangeNameStatusResponse);
+            // WebMessageHandlerOld.Instance.RemoveHandler(CMD.CHANGESTATUS, OnChangeNameStatusResponse);
         }
 
         protected override void OnClose()
         {
             CloseLastItemView(UIItemDic);
-            WebMessageHandler.Instance.RemoveHandler(1, 2, OnChangeAvaterResponse);
+            WebMessageHandlerOld.Instance.RemoveHandler(1, 2, OnChangeAvaterResponse);
             base.OnClose();
         }
     }
