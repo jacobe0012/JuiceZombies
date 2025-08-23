@@ -28,7 +28,7 @@ parent_dir = os.path.dirname(dir_path)
 #parent_dir = os.path.dirname(parent_dir)
 #parent_dir = os.path.dirname(parent_dir)
        
-picWhiteListPath = parent_dir + r"\trunk\Dev\Assets\ApesGang\Art_Resources\PicsWhiteList"
+picWhiteListPath = parent_dir + r"\trunk\Dev\Assets\JuiceZombies\Art_Resources\PicsWhiteList"
 lubanOutputPath = dir_path + r"\Luban\ConfigRoot\Datas"
 
 my_excel = []
