@@ -347,6 +347,12 @@ namespace XFramework
 
 		public const string UIResources = nameof(XFramework.UIResources);
 
+		public const string UIItemMonCard = nameof(XFramework.UIItemMonCard);
+
+		public const string UICommonBtn = nameof(XFramework.UICommonBtn);
+
+		public const string UIItemMonCardIDes = nameof(XFramework.UIItemMonCardIDes);
+
         #endregion 1
 
 

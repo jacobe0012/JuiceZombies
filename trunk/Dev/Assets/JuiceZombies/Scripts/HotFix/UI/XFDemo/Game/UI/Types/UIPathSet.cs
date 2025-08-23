@@ -367,6 +367,12 @@ namespace XFramework
 
 		public const string UIResources = "Resources";
 
+		public const string UIItemMonCard = "ItemMonCard";
+
+		public const string UICommonBtn = "CommonBtn";
+
+		public const string UIItemMonCardIDes = "ItemMonCardIDes";
+
         #endregion 1
 
 

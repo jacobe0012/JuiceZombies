@@ -18,6 +18,9 @@ namespace HotFix_UI
     /// </summary>
     public sealed class ResourcesSingleton : Singleton<ResourcesSingleton>, IDisposable
     {
+
+        public long monCardTime = 0;
+        #region old
         /// <summary>
         /// 当前缓存的玩家资产
         /// </summary>
@@ -253,6 +256,8 @@ namespace HotFix_UI
         /// 链接是否成功
         /// </summary>
         public bool isConnectSuccess;
+        #endregion
+
 
         public void Init()
         {
