@@ -3,6 +3,7 @@ using System.Net.WebSockets;
 using JuiceZombies.Server.Datas;
 using JuiceZombies.Server.Datas.Config.Scripts;
 using HotFix_UI;
+using JuiceZombies.Server.Log;
 using MessagePack;
 using Newtonsoft.Json;
 using StackExchange.Redis;
@@ -19,6 +20,7 @@ public class LoginCommandHandler : HandleBase, ICommandHandler
 
     public async Task<Context> HandleAsync(MyMessage message, WebSocket webSocket)
     {
+        Console.WriteLine($"message {message.ToString()}");
         var db = _redis.GetDatabase();
         var playerData = MessagePackSerializer.Deserialize<UserData>(message.Content, options);
         var inputContentStr = JsonConvert.SerializeObject(playerData);

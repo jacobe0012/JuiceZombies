@@ -24,6 +24,7 @@ public class CommandHandlerFactory
         return command switch
         {
             JuiceZombieCMD.LOGIN => new LoginCommandHandler(_redis, _connections),
+            JuiceZombieCMD.QUERYMONCARD => new QueryGameShopHandler(_redis, _connections),
             // CMD.QUERYRESOURCE => new QueryPlayerResourceHandler(_redis, _connections),
             // CMD.RECEIVEDAILYSIGN => new ReceiveDailySignHandler(_redis, _connections),
             // CMD.RECEIVEACHIEVEITEM => new ReceiveAchieveItemHandler(_redis, _connections),

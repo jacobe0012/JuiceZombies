@@ -226,7 +226,7 @@ namespace HotFix_UI
         {
             Log.Debug($"OnClose", debugColor);
             RemoveTimer();
-            AttemptReconnect(true);
+            //AttemptReconnect(true);
             ResourcesSingleton.Instance.isConnectSuccess = false;
         }
 
@@ -318,6 +318,10 @@ namespace HotFix_UI
             var myExternalMessage = new MyMessage
             {
                 Cmd = cmd,
+                Content = new byte[]
+                {
+                },
+                ErrorCode = 0,
                 Args = args
             };
             socket.SendAsync(MessagePackSerializer.Serialize(myExternalMessage, options));

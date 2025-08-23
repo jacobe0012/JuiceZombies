@@ -1,4 +1,5 @@
-﻿using MessagePack;
+﻿using JetBrains.Annotations;
+using MessagePack;
 
 namespace HotFix_UI
 {
@@ -8,7 +9,7 @@ namespace HotFix_UI
         [Key(0)] public int Cmd { get; set; }
 
     
-        [Key(1)] public byte[] Content { get; set; }
+        [Key(1)]  public byte[] Content { get; set; }
 
         [Key(2)] public int ErrorCode { get; set; }
         

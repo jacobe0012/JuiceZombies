@@ -140,7 +140,8 @@ public class WebSocketController : ControllerBase
 
         string errorStr = message.ErrorCode != 0 ? $"ErrorCode:{message.ErrorCode},Content:" : "";
         stopwatch.Stop();
-        MyLogger.Log(message.Cmd.ToString(), _connections[webSocket], context.inputContentStr,
+        _connections.TryGetValue(webSocket, out var openId);
+        MyLogger.Log(message.Cmd.ToString(), openId, context.inputContentStr,
             $"{errorStr}{context.outputContentStr}",
             stopwatch);
         // 调用处理器的 HandleAsync 方法
@@ -569,7 +570,7 @@ public class WebSocketController : ControllerBase
 
             stopwatch.Stop();
             string errorStr = message.ErrorCode != 0 ? $"ErrorCode:{message.ErrorCode}" : "";
-
+          
             MyLogger.Log(message.Cmd.ToString(), _connections[webSocket], $"ToUser:{openId}",
                 $"ErrorCode:{errorStr},Content:",
                 stopwatch);
