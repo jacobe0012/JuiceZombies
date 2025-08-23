@@ -23,8 +23,8 @@ set CONF_ROOT=%WORKSPACE%\Luban
 %GEN_CLIENT% -j cfg --^
  -d %CONF_ROOT%\ConfigRoot\Defines\__root__.xml ^
  --input_data_dir %CONF_ROOT%\ConfigRoot\Datas ^
- --output_code_dir %PARENT_WORKSPACE%\trunk\Dev\Assets\ApesGang\ConfigGenScripts\GenScripts ^
- --output_data_dir %PARENT_WORKSPACE%\trunk\Dev\Assets\ApesGang\ConfigJsonData ^
+ --output_code_dir %PARENT_WORKSPACE%\trunk\Dev\Assets\JuiceZombies\ConfigGenScripts\GenScripts ^
+ --output_data_dir %PARENT_WORKSPACE%\trunk\Dev\Assets\JuiceZombies\ConfigJsonData ^
  --naming_convention:bean_member camelCase ^
  --gen_types code_cs_unity_json,data_json ^
 
