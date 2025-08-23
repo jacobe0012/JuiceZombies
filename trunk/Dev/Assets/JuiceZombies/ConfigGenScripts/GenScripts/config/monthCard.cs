@@ -21,6 +21,7 @@ public sealed partial class monthCard :  Bright.Config.BeanBase
         { if(!_json["id"].IsNumber) { throw new SerializationException(); }  id = _json["id"]; }
         { if(!_json["time"].IsNumber) { throw new SerializationException(); }  time = _json["time"]; }
         { if(!_json["name"].IsString) { throw new SerializationException(); }  name = _json["name"]; }
+        { var __json0 = _json["descpara"]; if(!__json0.IsArray) { throw new SerializationException(); } descpara = new System.Collections.Generic.List<int>(__json0.Count); foreach(JSONNode __e0 in __json0.Children) { int __v0;  { if(!__e0.IsNumber) { throw new SerializationException(); }  __v0 = __e0; }  descpara.Add(__v0); }   }
         { var __json0 = _json["desc"]; if(!__json0.IsArray) { throw new SerializationException(); } desc = new System.Collections.Generic.List<string>(__json0.Count); foreach(JSONNode __e0 in __json0.Children) { string __v0;  { if(!__e0.IsString) { throw new SerializationException(); }  __v0 = __e0; }  desc.Add(__v0); }   }
         { if(!_json["icon"].IsString) { throw new SerializationException(); }  icon = _json["icon"]; }
         { if(!_json["sort"].IsNumber) { throw new SerializationException(); }  sort = _json["sort"]; }
@@ -28,11 +29,12 @@ public sealed partial class monthCard :  Bright.Config.BeanBase
         PostInit();
     }
 
-    public monthCard(int id, int time, string name, System.Collections.Generic.List<string> desc, string icon, int sort, int price ) 
+    public monthCard(int id, int time, string name, System.Collections.Generic.List<int> descpara, System.Collections.Generic.List<string> desc, string icon, int sort, int price ) 
     {
         this.id = id;
         this.time = time;
         this.name = name;
+        this.descpara = descpara;
         this.desc = desc;
         this.icon = icon;
         this.sort = sort;
@@ -58,6 +60,10 @@ public sealed partial class monthCard :  Bright.Config.BeanBase
     /// 名称
     /// </summary>
     public string name { get; private set; }
+    /// <summary>
+    /// 描述
+    /// </summary>
+    public System.Collections.Generic.List<int> descpara { get; private set; }
     /// <summary>
     /// 描述
     /// </summary>
@@ -92,6 +98,7 @@ public sealed partial class monthCard :  Bright.Config.BeanBase
         + "id:" + id + ","
         + "time:" + time + ","
         + "name:" + name + ","
+        + "descpara:" + Bright.Common.StringUtil.CollectionToString(descpara) + ","
         + "desc:" + Bright.Common.StringUtil.CollectionToString(desc) + ","
         + "icon:" + icon + ","
         + "sort:" + sort + ","

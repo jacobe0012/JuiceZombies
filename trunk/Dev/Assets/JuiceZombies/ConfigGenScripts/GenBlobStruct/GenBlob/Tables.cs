@@ -119,6 +119,7 @@ public struct ConfigData
     public ConfigTbfrs configTbfrs;
     public ConfigTbmonthlys configTbmonthlys;
     public ConfigTbgoodss configTbgoodss;
+    public ConfigTbItemss configTbItemss;
     public ConfigTbmonthCards configTbmonthCards;
     public ConfigTbachieves configTbachieves;
     public ConfigTbachieve_groups configTbachieve_groups;
@@ -825,6 +826,13 @@ public static BlobAssetReference<ConfigData> CreateBlob(Tables tables)
     for (var i = 0; i < tables.Tbgoods.DataList.Count; i++)
     {   
         ConfigTbgoods.Create(i,ref builder,ref configTbgoodss,tables);
+    }
+    BlobBuilderArray<ConfigTbItems> configTbItemss = builder.Allocate(
+        ref root.configTbItemss.configTbItemss,
+        tables.TbItems.DataList.Count);
+    for (var i = 0; i < tables.TbItems.DataList.Count; i++)
+    {   
+        ConfigTbItems.Create(i,ref builder,ref configTbItemss,tables);
     }
     BlobBuilderArray<ConfigTbmonthCard> configTbmonthCards = builder.Allocate(
         ref root.configTbmonthCards.configTbmonthCards,

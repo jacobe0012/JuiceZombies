@@ -113,6 +113,7 @@ public sealed partial class Tables
     public config.Tbfr Tbfr {get; private set; }
     public config.Tbmonthly Tbmonthly {get; private set; }
     public config.Tbgoods Tbgoods {get; private set; }
+    public config.TbItems TbItems {get; private set; }
     public config.TbmonthCard TbmonthCard {get; private set; }
     public config.Tbachieve Tbachieve {get; private set; }
     public config.Tbachieve_group Tbachieve_group {get; private set; }
@@ -327,6 +328,8 @@ public sealed partial class Tables
         tables.Add("config.Tbmonthly", Tbmonthly);
         Tbgoods = new config.Tbgoods(loader("config_tbgoods")); 
         tables.Add("config.Tbgoods", Tbgoods);
+        TbItems = new config.TbItems(loader("config_tbitems")); 
+        tables.Add("config.TbItems", TbItems);
         TbmonthCard = new config.TbmonthCard(loader("config_tbmonthcard")); 
         tables.Add("config.TbmonthCard", TbmonthCard);
         Tbachieve = new config.Tbachieve(loader("config_tbachieve")); 
@@ -453,6 +456,7 @@ public sealed partial class Tables
         Tbfr.Resolve(tables); 
         Tbmonthly.Resolve(tables); 
         Tbgoods.Resolve(tables); 
+        TbItems.Resolve(tables); 
         TbmonthCard.Resolve(tables); 
         Tbachieve.Resolve(tables); 
         Tbachieve_group.Resolve(tables); 
@@ -668,6 +672,8 @@ public sealed partial class Tables
         tables.Add("config.Tbmonthly", Tbmonthly);
         Tbgoods = new config.Tbgoods(await loader("config_tbgoods")); 
         tables.Add("config.Tbgoods", Tbgoods);
+        TbItems = new config.TbItems(await loader("config_tbitems")); 
+        tables.Add("config.TbItems", TbItems);
         TbmonthCard = new config.TbmonthCard(await loader("config_tbmonthcard")); 
         tables.Add("config.TbmonthCard", TbmonthCard);
         Tbachieve = new config.Tbachieve(await loader("config_tbachieve")); 
@@ -794,6 +800,7 @@ public sealed partial class Tables
         Tbfr.Resolve(tables); 
         Tbmonthly.Resolve(tables); 
         Tbgoods.Resolve(tables); 
+        TbItems.Resolve(tables); 
         TbmonthCard.Resolve(tables); 
         Tbachieve.Resolve(tables); 
         Tbachieve_group.Resolve(tables); 
@@ -910,6 +917,7 @@ public sealed partial class Tables
         Tbfr.TranslateText(translator); 
         Tbmonthly.TranslateText(translator); 
         Tbgoods.TranslateText(translator); 
+        TbItems.TranslateText(translator); 
         TbmonthCard.TranslateText(translator); 
         Tbachieve.TranslateText(translator); 
         Tbachieve_group.TranslateText(translator); 

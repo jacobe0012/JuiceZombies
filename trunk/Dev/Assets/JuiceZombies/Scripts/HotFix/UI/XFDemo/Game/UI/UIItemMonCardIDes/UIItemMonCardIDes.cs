@@ -28,19 +28,18 @@ namespace XFramework
         }
     }
 
-    public partial class UIItemMonCardIDes : UI, IAwake
-	{	
-		public void Initialize()
+    public partial class UIItemMonCardIDes : UI, IAwake<int>
+	{
+		public int index;
+		public void Initialize(int i)
 		{
-			 InitNode();
-		}
-		 void InitNode()
-		{
-			var KText_Description = GetFromReference(UIItemMonCardIDes.KText_Description);
+			index = i;
 		}
 		protected override void OnClose()
 		{
 			base.OnClose();
 		}
-	}
+
+
+    }
 }

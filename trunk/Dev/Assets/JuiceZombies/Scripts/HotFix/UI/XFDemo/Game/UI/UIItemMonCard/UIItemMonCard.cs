@@ -68,7 +68,7 @@ namespace XFramework
             var KImage_Card = GetFromReference(UIItemMonCard.KImage_Card);
             var KGradient_Bottom = GetFromReference(UIItemMonCard.KGradient_Bottom);
             var KTextDiscord = GetFromReference(UIItemMonCard.KTextDiscord);
-            var KGroup_Items = GetFromReference(UIItemMonCard.KGroup_Items);
+            
             var KBuyBtn = GetFromReference(UIItemMonCard.KBuyBtn);
             var KTextBtn = GetFromReference(UIItemMonCard.KTextBtn);
             var KTextGet = GetFromReference(UIItemMonCard.KTextGet);
@@ -99,10 +99,23 @@ namespace XFramework
             var desc = tbmonthCard.Get(type).desc;
             var KItemContainer = GetFromReference(UIItemMonCard.KItemContainer);
             var list = KItemContainer.GetList();
+
+            var KGroup_Items = GetFromReference(UIItemMonCard.KGroup_Items);
+            var iconList=KGroup_Items.GetList().Children;
             for (int i = 0; i < desc.Count; i++)
             {
-                await list.CreateWithUITypeAsync<string>(UIType.UIItemMonCardIDes, desc[i], false);
+                int index = i;
+                var ui=await list.CreateWithUITypeAsync<int>(UIType.UIItemMonCardIDes, index, false);
+                var KText_Description = ui.GetFromReference(UIItemMonCardIDes.KText_Description);
+                KText_Description.GetTextMeshPro().SetTMPText(desc[i]);
+                //iconList[i].GetComponent<Image>().SetSprite();
             }
+            list.Sort((a, b) =>
+            {
+                var uiA = a as UIItemMonCardIDes;
+                var uiB = b as UIItemMonCardIDes;
+                return uiA.index.CompareTo(uiB.index);
+            });
         }
 
         private void OnRequreMonthTime(object sender, WebMessageHandler.Execute e)
