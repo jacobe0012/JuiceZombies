@@ -120,6 +120,8 @@ namespace XFramework
 
         private void OnRequreMonthTime(object sender, WebMessageHandler.Execute e)
         {
+
+
             var time = ResourcesSingleton.Instance.monCardTime;
             if (time <= 0)
             {
