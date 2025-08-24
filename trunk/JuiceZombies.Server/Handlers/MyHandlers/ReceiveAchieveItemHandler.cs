@@ -2,6 +2,7 @@
 using System.Net.WebSockets;
 using JuiceZombies.Server.Datas.Config.Scripts;
 using HotFix_UI;
+using JuiceZombies.Server.Datas;
 using MessagePack;
 using Newtonsoft.Json;
 using StackExchange.Redis;
@@ -10,9 +11,7 @@ namespace JuiceZombies.Server.Handlers;
 
 public class ReceiveAchieveItemHandler : HandleBase, ICommandHandler
 {
-    public ReceiveAchieveItemHandler(IConnectionMultiplexer redis,
-        ConcurrentDictionary<WebSocket, string> connections) :
-        base(redis, connections)
+    public ReceiveAchieveItemHandler(MyPostgresDbContext context, IConnectionMultiplexer redis, ConcurrentDictionary<WebSocket, string> connections) : base(context, redis, connections)
     {
     }
 

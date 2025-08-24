@@ -6,6 +6,7 @@ using MessagePack;
 using Microsoft.AspNetCore.Mvc;
 using StackExchange.Redis;
 using System.Diagnostics;
+using JuiceZombies.Server.Datas;
 using JuiceZombies.Server.Handlers;
 using JuiceZombies.Server.Log;
 
@@ -17,6 +18,7 @@ public class WebSocketController : ControllerBase
     private readonly IConnectionMultiplexer _redis;
     private readonly HttpClient _httpClient;
     private readonly IRedisCacheService _redisCache;
+    private readonly MyPostgresDbContext _context;
 
     private static readonly MessagePackSerializerOptions options =
         MessagePackSerializerOptions.Standard.WithCompression(MessagePackCompression.Lz4Block);
@@ -24,9 +26,10 @@ public class WebSocketController : ControllerBase
     //链接 openid
     private static readonly ConcurrentDictionary<WebSocket, string> _connections = new();
 
-    public WebSocketController(IConnectionMultiplexer redis, HttpClient httpClient,
+    public WebSocketController(MyPostgresDbContext context, IConnectionMultiplexer redis, HttpClient httpClient,
         IRedisCacheService redisCache)
     {
+        _context = context;
         _redis = redis;
         _httpClient = httpClient;
         _redisCache = redisCache;
@@ -41,6 +44,7 @@ public class WebSocketController : ControllerBase
             using var webSocket = await HttpContext.WebSockets.AcceptWebSocketAsync();
             Console.WriteLine(
                 $"ConnectionId:{HttpContext.Connection.Id} Ip:{HttpContext.Connection.RemoteIpAddress}");
+
             await Echo(webSocket);
         }
         else
@@ -73,6 +77,7 @@ public class WebSocketController : ControllerBase
 
                     return;
                 }
+
                 Console.WriteLine($"ConnectionId:{HttpContext.Connection.Id} 收到消息");
                 //webSocket.
                 var receivedMessage = MessagePackSerializer.Deserialize<MyMessage>(buffer, options);
@@ -132,7 +137,7 @@ public class WebSocketController : ControllerBase
         var stopwatch = new Stopwatch();
         stopwatch.Start();
 
-        var commandHandlerFactory = new CommandHandlerFactory(_redis, _connections);
+        var commandHandlerFactory = new CommandHandlerFactory(_context, _redis, _connections);
         ICommandHandler handler = commandHandlerFactory.CreateHandler(message.Cmd);
         var context = await handler.HandleAsync(message, webSocket);
 

@@ -40,7 +40,7 @@ builder.Services.AddScoped<IRedisCacheService, RedisCacheService>();
 
 var postgresConnectionString = builder.Configuration.GetConnectionString("PostgresConnection");
 // 注册 DbContext 并配置使用 Npgsql
-builder.Services.AddDbContext<MyPostDbContext>(options =>
+builder.Services.AddDbContext<MyPostgresDbContext>(options =>
     options.UseNpgsql(postgresConnectionString));
 
 var app = builder.Build();

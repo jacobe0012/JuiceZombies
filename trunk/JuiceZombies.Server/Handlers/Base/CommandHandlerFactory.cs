@@ -1,6 +1,7 @@
 ﻿using System.Collections.Concurrent;
 using System.Net.WebSockets;
 using HotFix_UI;
+using JuiceZombies.Server.Datas;
 using StackExchange.Redis;
 
 namespace JuiceZombies.Server.Handlers;
@@ -12,9 +13,12 @@ public class CommandHandlerFactory
 
     //private readonly IConnections _connections;
     private readonly ConcurrentDictionary<WebSocket, string> _connections;
+    private readonly MyPostgresDbContext _context;
 
-    public CommandHandlerFactory(IConnectionMultiplexer redis, ConcurrentDictionary<WebSocket, string> connections)
+    public CommandHandlerFactory(MyPostgresDbContext context, IConnectionMultiplexer redis,
+        ConcurrentDictionary<WebSocket, string> connections)
     {
+        _context = context;
         _redis = redis;
         _connections = connections;
     }
@@ -23,8 +27,8 @@ public class CommandHandlerFactory
     {
         return command switch
         {
-            JuiceZombieCMD.LOGIN => new LoginCommandHandler(_redis, _connections),
-            JuiceZombieCMD.QUERYMONCARD => new QueryGameShopHandler(_redis, _connections),
+            JuiceZombieCMD.LOGIN => new LoginCommandHandler(_context, _redis, _connections),
+            JuiceZombieCMD.QUERYMONCARD => new QueryGameShopHandler(_context, _redis, _connections),
             // CMD.QUERYRESOURCE => new QueryPlayerResourceHandler(_redis, _connections),
             // CMD.RECEIVEDAILYSIGN => new ReceiveDailySignHandler(_redis, _connections),
             // CMD.RECEIVEACHIEVEITEM => new ReceiveAchieveItemHandler(_redis, _connections),

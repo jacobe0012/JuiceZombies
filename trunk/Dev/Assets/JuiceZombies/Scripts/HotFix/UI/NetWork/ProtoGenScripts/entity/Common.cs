@@ -373,7 +373,7 @@ namespace Common {
             new pbr::GeneratedClrTypeInfo(typeof(global::Common.GameTalent), global::Common.GameTalent.Parser, new[]{ "RoleId", "TalentIds" }, null, null, null, null),
             new pbr::GeneratedClrTypeInfo(typeof(global::Common.GameTaskInfo), global::Common.GameTaskInfo.Parser, new[]{ "PartId", "RoleId", "Id", "Type", "Group", "TagFunc", "Status", "Lock", "Para", "Score", "StartTime", "EndTime", "UpDatetime", "UpCount" }, null, null, null, null),
             new pbr::GeneratedClrTypeInfo(typeof(global::Common.GameTaskScore), global::Common.GameTaskScore.Parser, new[]{ "PartId", "RoleId", "Id", "Status", "TagFunc", "Valid" }, null, null, null, null),
-            new pbr::GeneratedClrTypeInfo(typeof(global::Common.GameUser), global::Common.GameUser.Parser, new[]{ "Id", "UserName", "NickName", "UserPass", "SourceTable", "Type", "RoleId", "OnLine", "LockStatus", "PrivateKey", "LastLoginTime", "DayForInt", "IntroGuideFinished" }, null, null, null, null),
+            new pbr::GeneratedClrTypeInfo(typeof(global::Common.GameUserOld), global::Common.GameUserOld.Parser, new[]{ "Id", "UserName", "NickName", "UserPass", "SourceTable", "Type", "RoleId", "OnLine", "LockStatus", "PrivateKey", "LastLoginTime", "DayForInt", "IntroGuideFinished" }, null, null, null, null),
             new pbr::GeneratedClrTypeInfo(typeof(global::Common.GiftInfo), global::Common.GiftInfo.Parser, new[]{ "GiftId", "TagFunc", "EndTime", "FreeTimes", "Times", "CreateTime" }, null, null, null, null),
             new pbr::GeneratedClrTypeInfo(typeof(global::Common.GiftResult), global::Common.GiftResult.Parser, new[]{ "Reward", "ResidueNum" }, null, null, null, null),
             new pbr::GeneratedClrTypeInfo(typeof(global::Common.GoldPig), global::Common.GoldPig.Parser, new[]{ "RoleId", "PigMap", "PigType", "PigLevel", "Unlock", "GoldBank", "Countdown", "AbsentTime", "GoldBankTime" }, null, null, null, new pbr::GeneratedClrTypeInfo[] { null, }),
@@ -17261,16 +17261,16 @@ namespace Common {
   /// <summary>
   /// {classComment}
   /// </summary>
-  public sealed partial class GameUser : pb::IMessage<GameUser>
+  public sealed partial class GameUserOld : pb::IMessage<GameUserOld>
   #if !GOOGLE_PROTOBUF_REFSTRUCT_COMPATIBILITY_MODE
       , pb::IBufferMessage
   #endif
   {
-    private static readonly pb::MessageParser<GameUser> _parser = new pb::MessageParser<GameUser>(() => new GameUser());
+    private static readonly pb::MessageParser<GameUserOld> _parser = new pb::MessageParser<GameUserOld>(() => new GameUserOld());
     private pb::UnknownFieldSet _unknownFields;
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
     [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
-    public static pb::MessageParser<GameUser> Parser { get { return _parser; } }
+    public static pb::MessageParser<GameUserOld> Parser { get { return _parser; } }
 
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
     [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
@@ -17286,7 +17286,7 @@ namespace Common {
 
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
     [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
-    public GameUser() {
+    public GameUserOld() {
       OnConstruction();
     }
 
@@ -17294,7 +17294,7 @@ namespace Common {
 
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
     [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
-    public GameUser(GameUser other) : this() {
+    public GameUserOld(GameUserOld other) : this() {
       id_ = other.id_;
       userName_ = other.userName_;
       nickName_ = other.nickName_;
@@ -17313,8 +17313,8 @@ namespace Common {
 
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
     [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
-    public GameUser Clone() {
-      return new GameUser(this);
+    public GameUserOld Clone() {
+      return new GameUserOld(this);
     }
 
     /// <summary>Field number for the "id" field.</summary>
@@ -17515,12 +17515,12 @@ namespace Common {
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
     [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
     public override bool Equals(object other) {
-      return Equals(other as GameUser);
+      return Equals(other as GameUserOld);
     }
 
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
     [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
-    public bool Equals(GameUser other) {
+    public bool Equals(GameUserOld other) {
       if (ReferenceEquals(other, null)) {
         return false;
       }
@@ -17749,7 +17749,7 @@ namespace Common {
 
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
     [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
-    public void MergeFrom(GameUser other) {
+    public void MergeFrom(GameUserOld other) {
       if (other == null) {
         return;
       }

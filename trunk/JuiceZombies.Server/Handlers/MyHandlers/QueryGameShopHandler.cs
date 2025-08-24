@@ -10,14 +10,13 @@ namespace JuiceZombies.Server.Handlers;
 
 public class QueryGameShopHandler : HandleBase, ICommandHandler
 {
-    public QueryGameShopHandler(IConnectionMultiplexer redis,
-        ConcurrentDictionary<WebSocket, string> connections) :
-        base(redis, connections)
+    public QueryGameShopHandler(MyPostgresDbContext context, IConnectionMultiplexer redis, ConcurrentDictionary<WebSocket, string> connections) : base(context, redis, connections)
     {
     }
 
     public async Task<Context> HandleAsync(MyMessage message, WebSocket webSocket)
     {
+        _context.GameShops.FindAsync(1);
         Console.WriteLine($"message1 {message.ToString()}");
         GameShop gameShop;
         // if (!_connections.TryGetValue(webSocket, out var openId))

@@ -10,9 +10,7 @@ namespace JuiceZombies.Server.Handlers;
 
 public class QueryPlayerResourceHandler : HandleBase, ICommandHandler
 {
-    public QueryPlayerResourceHandler(IConnectionMultiplexer redis,
-        ConcurrentDictionary<WebSocket, string> connections) :
-        base(redis, connections)
+    public QueryPlayerResourceHandler(MyPostgresDbContext context, IConnectionMultiplexer redis, ConcurrentDictionary<WebSocket, string> connections) : base(context, redis, connections)
     {
     }
 

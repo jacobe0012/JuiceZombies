@@ -103,7 +103,7 @@ namespace XFramework
                                 Log.Error($"进入单机模式");
 
                                 //NetWorkManager.Instance.Close();
-                                var gameUser = new GameUser
+                                var gameUser = new GameUserOld
                                 {
                                     Id = -1,
                                     UserName = "单机账号001",
@@ -144,7 +144,7 @@ namespace XFramework
                                 Log.Error($"进入单机模式");
 
                                 //NetWorkManager.Instance.Close();
-                                var gameUser = new GameUser
+                                var gameUser = new GameUserOld
                                 {
                                     Id = -1,
                                     UserName = "单机账号001",
@@ -170,7 +170,7 @@ namespace XFramework
                 Log.Error($"进入单机模式");
                 //NetWorkManager.Instance.Close();
                 global.isStandAlone = true;
-                var gameUser = new GameUser
+                var gameUser = new GameUserOld
                 {
                     Id = -1,
                     UserName = "单机账号001",
@@ -241,7 +241,7 @@ namespace XFramework
 
         async void OnLoginResponse(object sender, WebMessageHandlerOld.Execute e)
         {
-            var gameUser = new GameUser();
+            var gameUser = new GameUserOld();
             gameUser.MergeFrom(e.data);
             Log.Debug($"接收到登录消息:{gameUser}", Color.green);
 
@@ -277,7 +277,7 @@ namespace XFramework
                             Log.Error($"进入单机模式");
 
                             //NetWorkManager.Instance.Close();
-                            var gameUser = new GameUser
+                            var gameUser = new GameUserOld
                             {
                                 Id = -1,
                                 UserName = "单机账号001",

@@ -11,6 +11,7 @@ namespace JuiceZombies.Server.Handlers;
 public abstract class HandleBase
 {
     const int Hour = 6;
+    protected readonly MyPostgresDbContext _context;
     protected readonly IConnectionMultiplexer _redis;
 
     protected readonly ConcurrentDictionary<WebSocket, string> _connections;
@@ -18,8 +19,10 @@ public abstract class HandleBase
     protected static MessagePackSerializerOptions options =
         MessagePackSerializerOptions.Standard.WithCompression(MessagePackCompression.Lz4Block);
 
-    public HandleBase(IConnectionMultiplexer redis, ConcurrentDictionary<WebSocket, string> connections)
+    public HandleBase(MyPostgresDbContext context, IConnectionMultiplexer redis,
+        ConcurrentDictionary<WebSocket, string> connections)
     {
+        _context = context;
         _redis = redis;
         _connections = connections;
     }

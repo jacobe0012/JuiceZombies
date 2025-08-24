@@ -43,18 +43,18 @@ public class LoginHub : Hub
         return responseBody;
     }
 
-    public async void Login(UserData player)
+    public async void Login(GameUser player)
     {
-        Console.WriteLine($"serverLogin:{player}");
-        var db = _redis.GetDatabase();
-
-        //long timestamp = DateTimeOffset.UtcNow.ToUnixTimeMilliseconds();
-        //var playerdata = await db.StringGetAsync(player.Id.ToString());
-        var userInfoJson = await GetSessionJson(player.OtherData.Code);
-        Console.WriteLine($"userInfoJson:{userInfoJson}");
-        //var userData = JsonConvert.DeserializeObject<UserData>(jsonData);
-        string jsonData = JsonConvert.SerializeObject(player);
-        await db.StringSetAsync(player.ThirdId, jsonData);
+        // Console.WriteLine($"serverLogin:{player}");
+        // var db = _redis.GetDatabase();
+        //
+        // //long timestamp = DateTimeOffset.UtcNow.ToUnixTimeMilliseconds();
+        // //var playerdata = await db.StringGetAsync(player.Id.ToString());
+        // var userInfoJson = await GetSessionJson(player.OtherData.Code);
+        // Console.WriteLine($"userInfoJson:{userInfoJson}");
+        // //var userData = JsonConvert.DeserializeObject<GameUser>(jsonData);
+        // string jsonData = JsonConvert.SerializeObject(player);
+        // await db.StringSetAsync(player.ThirdId, jsonData);
 
         //Clients.Caller.SendAsync("", player);
         //Console.WriteLine(timestamp);

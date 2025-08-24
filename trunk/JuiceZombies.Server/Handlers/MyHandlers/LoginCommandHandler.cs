@@ -13,67 +13,18 @@ namespace JuiceZombies.Server.Handlers;
 
 public class LoginCommandHandler : HandleBase, ICommandHandler
 {
-    public LoginCommandHandler(IConnectionMultiplexer redis, ConcurrentDictionary<WebSocket, string> connections) :
-        base(redis, connections)
+    public LoginCommandHandler(MyPostgresDbContext context, IConnectionMultiplexer redis,
+        ConcurrentDictionary<WebSocket, string> connections) : base(context, redis, connections)
     {
     }
 
     public async Task<Context> HandleAsync(MyMessage message, WebSocket webSocket)
     {
-        Console.WriteLine($"message {message.ToString()}");
-        var db = _redis.GetDatabase();
-        var playerData = MessagePackSerializer.Deserialize<UserData>(message.Content, options);
-        var inputContentStr = JsonConvert.SerializeObject(playerData);
+        GameUser gameUser;
 
-        //Console.WriteLine($"UserData:{JsonConvert.SerializeObject(playerData)}");
-        //long timestamp = DateTimeOffset.UtcNow.ToUnixTimeMilliseconds();
-        //var playerdata = await db.StringGetAsync(player.Id.ToString());
-        var wxCode2Session = await GetSessionJson(playerData.OtherData.Code);
-        var openId = wxCode2Session.openid;
-
-        _connections.TryAdd(webSocket, openId);
-
-
-        var player = await db.StringGetAsync(openId);
-        PlayerResource playerRes;
-        if (player.IsNullOrEmpty)
-        {
-            await db.StringSetAsync(openId, JsonConvert.SerializeObject(playerData));
-            playerRes = InitPlayerResource();
-        }
-        else
-        {
-            var rvRes = await db.StringGetAsync(GetRedisDBStr(1, openId));
-            playerRes = JsonConvert.DeserializeObject<PlayerResource>(rvRes);
-        }
-
-        if (CanSignOrLoginToday(playerRes.PlayerServerData.LastLoginTimeStamp, out var date, out var utclong))
-        {
-            var lastDate = DateTimeOffset.FromUnixTimeMilliseconds(playerRes.PlayerServerData.LastLoginTimeStamp)
-                .DateTime;
-            playerRes.PlayerServerData.LastLoginTimeStamp = utclong;
-            playerRes.PlayerServerData.LoginCount++;
-            var timeSpan = date - lastDate;
-            playerRes.PlayerServerData.ContinuousLoginCount = timeSpan.TotalHours < 48
-                ? playerRes.PlayerServerData.ContinuousLoginCount + 1
-                : 0;
-            if (player.IsNullOrEmpty)
-            {
-                playerRes.PlayerServerData.ContinuousLoginCount = 1;
-            }
-
-            playerRes.GameAchieve?.SetAchievePara(1012);
-        }
-
-        await SetPlayerResDB(openId, playerRes);
-
-        playerData.ThirdId = MyEncryptor.Decrypt(openId);
-        var temp = playerData.OtherData;
-        temp.UnionidId = wxCode2Session.unionid;
-        playerData.OtherData = temp;
-
-        message.Content = MessagePackSerializer.Serialize(playerData, options);
-        var outputContentStr = JsonConvert.SerializeObject(playerData);
+        gameUser = MessagePackSerializer.Deserialize<GameUser>(message.Content, options);
+        var inputContentStr = JsonConvert.SerializeObject(gameUser);
+        var outputContentStr = JsonConvert.SerializeObject(gameUser);
 
         var context = new Context
         {
@@ -83,6 +34,72 @@ public class LoginCommandHandler : HandleBase, ICommandHandler
         };
         return context;
     }
+
+    // public async Task<Context> HandleAsync(MyMessage message, WebSocket webSocket)
+    // {
+    //     Console.WriteLine($"message {message.ToString()}");
+    //     var db = _redis.GetDatabase();
+    //     var playerData = MessagePackSerializer.Deserialize<GameUser>(message.Content, options);
+    //     var inputContentStr = JsonConvert.SerializeObject(playerData);
+    //
+    //     //Console.WriteLine($"GameUser:{JsonConvert.SerializeObject(playerData)}");
+    //     //long timestamp = DateTimeOffset.UtcNow.ToUnixTimeMilliseconds();
+    //     //var playerdata = await db.StringGetAsync(player.Id.ToString());
+    //     var wxCode2Session = await GetSessionJson(playerData.OtherData.Code);
+    //     var openId = wxCode2Session.openid;
+    //
+    //     _connections.TryAdd(webSocket, openId);
+    //
+    //
+    //     var player = await db.StringGetAsync(openId);
+    //     PlayerResource playerRes;
+    //     if (player.IsNullOrEmpty)
+    //     {
+    //         await db.StringSetAsync(openId, JsonConvert.SerializeObject(playerData));
+    //         playerRes = InitPlayerResource();
+    //     }
+    //     else
+    //     {
+    //         var rvRes = await db.StringGetAsync(GetRedisDBStr(1, openId));
+    //         playerRes = JsonConvert.DeserializeObject<PlayerResource>(rvRes);
+    //     }
+    //
+    //     if (CanSignOrLoginToday(playerRes.PlayerServerData.LastLoginTimeStamp, out var date, out var utclong))
+    //     {
+    //         var lastDate = DateTimeOffset.FromUnixTimeMilliseconds(playerRes.PlayerServerData.LastLoginTimeStamp)
+    //             .DateTime;
+    //         playerRes.PlayerServerData.LastLoginTimeStamp = utclong;
+    //         playerRes.PlayerServerData.LoginCount++;
+    //         var timeSpan = date - lastDate;
+    //         playerRes.PlayerServerData.ContinuousLoginCount = timeSpan.TotalHours < 48
+    //             ? playerRes.PlayerServerData.ContinuousLoginCount + 1
+    //             : 0;
+    //         if (player.IsNullOrEmpty)
+    //         {
+    //             playerRes.PlayerServerData.ContinuousLoginCount = 1;
+    //         }
+    //
+    //         playerRes.GameAchieve?.SetAchievePara(1012);
+    //     }
+    //
+    //     await SetPlayerResDB(openId, playerRes);
+    //
+    //     playerData.ThirdId = MyEncryptor.Decrypt(openId);
+    //     var temp = playerData.OtherData;
+    //     temp.UnionidId = wxCode2Session.unionid;
+    //     playerData.OtherData = temp;
+    //
+    //     message.Content = MessagePackSerializer.Serialize(playerData, options);
+    //     var outputContentStr = JsonConvert.SerializeObject(playerData);
+    //
+    //     var context = new Context
+    //     {
+    //         message = message,
+    //         inputContentStr = inputContentStr,
+    //         outputContentStr = outputContentStr
+    //     };
+    //     return context;
+    // }
 
     /// <summary>
     /// 初始化玩家数据
