@@ -1655,12 +1655,12 @@ namespace XFramework
             //     //JiYuUIHelper.PrintMemery();
             // }
             //
-            // if (Input.GetKeyDown(KeyCode.M))
-            // {
-            //     await JiYuTweenHelper.EnableLoading(true, UIManager.LoadingType.TranstionShattersExit);
-            //     Log.Debug($"333");
-            // }
-            //
+            if (Input.GetKeyDown(KeyCode.M))
+            {
+                NetWorkManager.Instance.SendMsg(JuiceZombieCMD.LOGIN);
+                Log.Debug("SendMsg", Color.cyan);
+            }
+
             // if (Input.GetKeyDown(KeyCode.P))
             // {
             //     var uim = Common.Instance.Get<UIManager>();
