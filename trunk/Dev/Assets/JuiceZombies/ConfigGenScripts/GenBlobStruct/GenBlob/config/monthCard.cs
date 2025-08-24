@@ -28,7 +28,7 @@ public  struct ConfigTbmonthCard
         tables.TbmonthCard.DataList[i].descpara.Count);
         for (var descparas = 0; descparas < tables.TbmonthCard.DataList[i].descpara.Count; descparas++)
         {
-            allocatedescparas[descparas] = tables.TbmonthCard.DataList[i].descpara[descparas];
+            allocatedescparas[descparas] = (int2) math.round(tables.TbmonthCard.DataList[i].descpara[descparas]);
         }
         var allocatedescs =
         builder.Allocate(ref configTbmonthCards[i].desc,
@@ -58,7 +58,7 @@ public  struct ConfigTbmonthCard
     /// <summary>
     /// 描述
     /// </summary>
-    public BlobArray<int> descpara;    
+    public BlobArray<int2> descpara;  
     /// <summary>
     /// 描述
     /// </summary>

@@ -42,6 +42,7 @@ namespace XFramework
         const string noAdColorBg = "4D9CF4";
         private TbmonthCard tbmonthCard;
         private Tblanguage tblanguage;
+        private TbItems tbItems;
 
         enum MonCardState
         {
@@ -75,6 +76,7 @@ namespace XFramework
             var KTextGet = GetFromReference(UIItemMonCard.KTextGet);
             tbmonthCard = ConfigManager.Instance.Tables.TbmonthCard;
             tblanguage = ConfigManager.Instance.Tables.Tblanguage;
+            tbItems=ConfigManager.Instance.Tables.TbItems;
             switch (type)
             {
                 //type 1 月卡 2免广告卡
@@ -104,14 +106,17 @@ namespace XFramework
             var list = KItemContainer.GetList();
 
             var KGroup_Items = GetFromReference(UIItemMonCard.KGroup_Items);
-            var iconList = KGroup_Items.GetList().Children;
+            var iconList = KGroup_Items.GetList();
             for (int i = 0; i < desc.Count; i++)
             {
                 int index = i;
                 var ui = await list.CreateWithUITypeAsync<int>(UIType.UIItemMonCardIDes, index, false);
                 var KText_Description = ui.GetFromReference(UIItemMonCardIDes.KText_Description);
                 KText_Description.GetTextMeshPro().SetTMPText(desc[i]);
-                //iconList[i].GetComponent<Image>().SetSprite();
+                int iconId = (int)tbmonthCard.Get(type).descpara[i].x;
+                Log.Debug("iconId:" + iconId);
+                var iconUI= iconList.Create(iconList.Get().GetChild(i).gameObject);
+                iconUI.GetImage().SetSpriteAsync(tbItems.Get(iconId).icon, false);
             }
 
             list.Sort((a, b) =>
@@ -125,6 +130,7 @@ namespace XFramework
         private void OnRequreMonthTime(object sender, WebMsgHandler.Execute e)
         {
             var gameShop = NetWorkManager.Instance.UnPackMsg<GameShop>(e);
+            ResourcesSingleton.Instance.monCardTime = gameShop.buyedMonthCardms;
             //var receivedMessage = MessagePackSerializer.Deserialize<MyMessage>(e.data, options);
 
             Log.Debug("OnRequreMonthTime:" + e.ToString());
