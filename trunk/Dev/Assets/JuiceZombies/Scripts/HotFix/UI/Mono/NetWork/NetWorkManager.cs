@@ -349,6 +349,12 @@ namespace HotFix_UI
         }
 
 
+        public T UnPackMsg<T>(WebMsgHandler.Execute e) where T : IMessagePack
+        {
+            var a = MessagePackSerializer.Deserialize<T>(e.data, options);
+            return a;
+        }
+
         /// <summary>
         /// 向服务器发送proto消息
         /// </summary>
