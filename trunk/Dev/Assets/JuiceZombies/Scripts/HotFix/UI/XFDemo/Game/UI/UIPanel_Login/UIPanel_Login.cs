@@ -102,7 +102,7 @@ namespace XFramework
                             {
                                 Log.Error($"进入单机模式");
 
-                                NetWorkManager.Instance.Close();
+                                //NetWorkManager.Instance.Close();
                                 var gameUser = new GameUser
                                 {
                                     Id = -1,
@@ -143,7 +143,7 @@ namespace XFramework
                             {
                                 Log.Error($"进入单机模式");
 
-                                NetWorkManager.Instance.Close();
+                                //NetWorkManager.Instance.Close();
                                 var gameUser = new GameUser
                                 {
                                     Id = -1,
@@ -168,7 +168,7 @@ namespace XFramework
             {
                 //TODO:单机模式
                 Log.Error($"进入单机模式");
-                NetWorkManager.Instance.Close();
+                //NetWorkManager.Instance.Close();
                 global.isStandAlone = true;
                 var gameUser = new GameUser
                 {
@@ -276,7 +276,7 @@ namespace XFramework
                         {
                             Log.Error($"进入单机模式");
 
-                            NetWorkManager.Instance.Close();
+                            //NetWorkManager.Instance.Close();
                             var gameUser = new GameUser
                             {
                                 Id = -1,

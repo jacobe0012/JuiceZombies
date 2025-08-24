@@ -241,7 +241,7 @@ namespace HotFix_UI
         void SendHeartbeat()
         {
             //Log.Debug($"SendHeartbeat()", debugColor);
-
+            return;
             var myExternalMessage = new MyExternalMessage
             {
                 CmdCode = 0,
@@ -358,6 +358,7 @@ namespace HotFix_UI
         /// <typeparam name="T"></typeparam>
         public void SendMessage<T>(int cmd, int subCmd, T protoMessage) where T : IMessage<T>, IBufferMessage
         {
+            return;
             var myExternalMessage = new MyExternalMessage
             {
                 CmdMerge = CmdHelper.GetMergeCmd(cmd, subCmd),
@@ -378,6 +379,7 @@ namespace HotFix_UI
         /// <typeparam name="T"></typeparam>
         public void SendMessage(int cmd, int subCmd, ByteString byteString)
         {
+            return;
             var myExternalMessage = new MyExternalMessage
             {
                 CmdMerge = CmdHelper.GetMergeCmd(cmd, subCmd),
@@ -398,6 +400,7 @@ namespace HotFix_UI
         /// <typeparam name="T"></typeparam>
         public void SendMessage<T>(int mergeCmd, T protoMessage) where T : IMessage<T>, IBufferMessage
         {
+            return;
             var myExternalMessage = new MyExternalMessage
             {
                 CmdMerge = mergeCmd,
@@ -416,6 +419,7 @@ namespace HotFix_UI
         /// <param name="subCmd">业务子路由</param>
         public void SendMessage(int cmd, int subCmd)
         {
+            return;
             var myExternalMessage = new MyExternalMessage
             {
                 CmdMerge = CmdHelper.GetMergeCmd(cmd, subCmd),
@@ -432,6 +436,7 @@ namespace HotFix_UI
         /// <param name="mergeCmd">合并路由</param>
         public void SendMessage(int mergeCmd)
         {
+            return;
             //Log.Debug($"SendMessageSendMessageSendMessageSendMessage",Color.green);
             var myExternalMessage = new MyExternalMessage
             {
