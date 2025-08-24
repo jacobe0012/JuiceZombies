@@ -352,8 +352,11 @@ namespace HotFix_UI
         public T UnPackMsg<T>(WebMsgHandler.Execute e) where T : IMessagePack
         {
             var a = MessagePackSerializer.Deserialize<T>(e.data, options);
-
-            Log.Debug($"ReceiveMsg:{typeof(T).ToString()} Content:{a.ToString()}", debugColor);
+#if UNITY_EDITOR
+            var b = MessagePackSerializer.SerializeToJson<T>(a);
+            Log.Debug($"ReceiveMsg:{typeof(T).ToString()} Content:{b.ToString()}", debugColor);
+#endif
+           
             return a;
         }
 
