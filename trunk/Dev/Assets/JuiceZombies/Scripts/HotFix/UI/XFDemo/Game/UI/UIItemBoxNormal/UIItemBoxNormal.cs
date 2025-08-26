@@ -70,7 +70,9 @@ namespace XFramework
                     //KImg_Box.sprite = ResManager.Instance.Load<Sprite>("Textures/ItemBoxes/BeginnerBox");
                     break;
 				case 2:
-				break;
+                    KBg_Mask.GetImage().SetColor("14D492");
+                    KBorder.GetImage().SetColor("46FFA1");
+                    break;
 				case 3:
 				break;
 				default:
