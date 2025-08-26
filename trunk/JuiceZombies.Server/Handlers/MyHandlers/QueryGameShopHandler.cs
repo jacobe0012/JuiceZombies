@@ -1,5 +1,6 @@
 ﻿using System.Collections.Concurrent;
 using System.Net.WebSockets;
+using AutoMapper;
 using JuiceZombies.Server.Datas;
 using HotFix_UI;
 using MessagePack;
@@ -8,26 +9,14 @@ using StackExchange.Redis;
 
 namespace JuiceZombies.Server.Handlers;
 
-public class QueryGameShopHandler : HandleBase, ICommandHandler<C2S_QueryShop>, ICommandHandler
+public class QueryGameShopHandler : HandleBase,  ICommandHandler
 {
-    public QueryGameShopHandler(MyPostgresDbContext context, IConnectionMultiplexer redis
-    ) : base(context, redis)
+    public QueryGameShopHandler(IMapper mapper,MyPostgresDbContext context
+    ) : base(mapper,context)
     {
     }
-
-    public Task<Context> HandleAsync(C2S_QueryShop command)
-    {
-        Console.WriteLine($"QueryGameShopHandler");
-        return default;
-    }
-
-    public Task<Context> HandleAsync(object command)
-    {
-        Console.WriteLine($"QueryGameShopHandler1");
-        return HandleAsync((C2S_QueryShop)command);
-    }
-
-    public async Task<Context> HandleAsync(MyMessage message, WebSocket webSocket)
+ 
+    public async Task<Context> HandleAsync(MyMessage message)
     {
         // _context.GameShops.FindAsync(1);
         // Console.WriteLine($"message1 {message.ToString()}");
@@ -46,7 +35,7 @@ public class QueryGameShopHandler : HandleBase, ICommandHandler<C2S_QueryShop>, 
         {
             isBuyADCard = false,
             isBuyMonthCard = false,
-            buyedMonthCardms = 21312123123123
+            buyedMonthCardms = 0
         };
 
 
@@ -63,4 +52,6 @@ public class QueryGameShopHandler : HandleBase, ICommandHandler<C2S_QueryShop>, 
         };
         return context;
     }
+
+  
 }

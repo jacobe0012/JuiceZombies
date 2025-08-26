@@ -41,29 +41,38 @@ builder.Services.AddStackExchangeRedisCache(options =>
 builder.Services.AddScoped<IRedisCacheService, RedisCacheService>();
 
 var postgresConnectionString = builder.Configuration.GetConnectionString("PostgresConnection");
+
+if (string.IsNullOrEmpty(postgresConnectionString))
+{
+    // 这行代码可以帮助你在开发时发现连接字符串为空的问题
+    // 如果连接字符串为空，程序会在启动时报错，而不是在运行时报错
+    throw new InvalidOperationException("DefaultConnection connection string is not set.");
+}
 // 注册 DbContext 并配置使用 Npgsql
 builder.Services.AddDbContext<MyPostgresDbContext>(options =>
     options.UseNpgsql(postgresConnectionString));
+
+builder.Services.AddAutoMapper(typeof(Program));
 
 // === 新增：依赖注入注册逻辑 ===
 
 // 注册 CommandHandlerFactory 为 Singleton
 // 它的构造函数会执行一次性反射扫描
-builder.Services.AddSingleton<CommandHandlerFactory>();
-
-// 自动扫描并注册所有 ICommandHandler<T> 的实现
-var handlerInterfaceType = typeof(ICommandHandler<>);
-var handlerAssembly = typeof(JuiceZombies.Server.Handlers.LoginCommandHandler).Assembly; // 替换为你的处理程序所在的程序集
-
-var handlerImplementations = handlerAssembly.GetTypes()
-    .Where(t => !t.IsAbstract && !t.IsInterface && t.GetInterfaces()
-        .Any(i => i.IsGenericType && i.GetGenericTypeDefinition() == handlerInterfaceType));
-
-foreach (var implementation in handlerImplementations)
-{
-    // 注册为 Transient 生命周期，以确保每次请求都有新的实例
-    builder.Services.AddTransient(implementation);
-}
+// builder.Services.AddSingleton<CommandHandlerFactory>();
+//
+// // 自动扫描并注册所有 ICommandHandler<T> 的实现
+// var handlerInterfaceType = typeof(ICommandHandler<>);
+// var handlerAssembly = typeof(JuiceZombies.Server.Handlers.LoginCommandHandler).Assembly; // 替换为你的处理程序所在的程序集
+//
+// var handlerImplementations = handlerAssembly.GetTypes()
+//     .Where(t => !t.IsAbstract && !t.IsInterface && t.GetInterfaces()
+//         .Any(i => i.IsGenericType && i.GetGenericTypeDefinition() == handlerInterfaceType));
+//
+// foreach (var implementation in handlerImplementations)
+// {
+//     // 注册为 Transient 生命周期，以确保每次请求都有新的实例
+//     builder.Services.AddTransient(implementation);
+// }
 
 // === 新增注册逻辑结束 ===
 

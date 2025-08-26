@@ -11,50 +11,55 @@
     </PropertyGroup>
 
     <ItemGroup>
+      <PackageReference Include="AutoMapper.Extensions.Microsoft.DependencyInjection" Version="12.0.1" />
       <PackageReference Include="MessagePack.UnityShims" Version="2.5.140" />
       <PackageReference Include="Microsoft.AspNetCore.SignalR.Protocols.MessagePack" Version="8.0.8" />
       <PackageReference Include="Microsoft.AspNetCore.SignalR.StackExchangeRedis" Version="8.0.8" />
-      <Compile Include="..\Dev\Assets\JuiceZombies\Scripts\HotFix\UI\Protocol\Protocol\**\*.cs" LinkBase="Protocol" />
+      <Compile Include="..\Dev\Assets\JuiceZombies\Scripts\HotFix\UI\Shared\Protocol\**\*.cs" LinkBase="Protocol" />
       <PackageReference Include="Microsoft.EntityFrameworkCore" Version="9.0.8" />
+      <PackageReference Include="Microsoft.EntityFrameworkCore.Design" Version="9.0.8">
+        <PrivateAssets>all</PrivateAssets>
+        <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
+      </PackageReference>
       <PackageReference Include="Microsoft.Extensions.Caching.StackExchangeRedis" Version="8.0.8" />
       <PackageReference Include="Newtonsoft.Json" Version="13.0.3" />
-      <Compile Update="..\Dev\Assets\JuiceZombies\Scripts\HotFix\UI\Protocol\Protocol\Class\MyMessage.cs">
+      <Compile Update="..\Dev\Assets\JuiceZombies\Scripts\HotFix\UI\Shared\Protocol\Class\MyMessage.cs">
         <LinkBase>Protocol\</LinkBase>
         <Link>Protocol\Class\MyMessage.cs</Link>
       </Compile>
-      <Compile Update="..\JuiceZombies.Client\Assets\JuiceZombies\Scripts\HotFix\UI\Protocol\Protocol\Class\MyUrl.cs">
+      <Compile Update="..\JuiceZombies.Client\Assets\JuiceZombies\Scripts\HotFix\UI\Shared\Protocol\Class\MyUrl.cs">
         <Link>Protocol\Class\MyUrl.cs</Link>
       </Compile>
       <PackageReference Include="Npgsql" Version="9.0.3" />
       <PackageReference Include="Npgsql.EntityFrameworkCore.PostgreSQL" Version="9.0.4" />
       <PackageReference Include="StackExchange.Redis" Version="2.8.0" />
-      <Compile Update="..\JuiceZombies.Client\Assets\JuiceZombies\Scripts\HotFix\UI\Protocol\Protocol\PlayerResource.cs">
+      <Compile Update="..\JuiceZombies.Client\Assets\JuiceZombies\Scripts\HotFix\UI\Shared\Protocol\PlayerResource.cs">
         <LinkBase>Protocol\</LinkBase>
         <Link>Protocol\PlayerResource.cs</Link>
       </Compile>
-      <Compile Update="..\JuiceZombies.Client\Assets\JuiceZombies\Scripts\HotFix\UI\Protocol\Protocol\Rewards.cs">
+      <Compile Update="..\JuiceZombies.Client\Assets\JuiceZombies\Scripts\HotFix\UI\Shared\Protocol\Rewards.cs">
         <LinkBase>Protocol\</LinkBase>
         <Link>Protocol\Rewards.cs</Link>
       </Compile>
-      <Compile Update="..\JuiceZombies.Client\Assets\JuiceZombies\Scripts\HotFix\UI\Protocol\Protocol\GameAchievement.cs">
+      <Compile Update="..\JuiceZombies.Client\Assets\JuiceZombies\Scripts\HotFix\UI\Shared\Protocol\GameAchievement.cs">
         <Link>Protocol\GameAchievement.cs</Link>
       </Compile>
-      <Compile Update="..\JuiceZombies.Client\Assets\JuiceZombies\Scripts\HotFix\UI\Protocol\Protocol\GameMail.cs">
+      <Compile Update="..\JuiceZombies.Client\Assets\JuiceZombies\Scripts\HotFix\UI\Shared\Protocol\GameMail.cs">
         <LinkBase>Protocol\</LinkBase>
         <Link>Protocol\GameMail.cs</Link>
       </Compile>
-      <Compile Update="..\JuiceZombies.Client\Assets\JuiceZombies\Scripts\HotFix\UI\Protocol\Protocol\ServerData\PlayerServerData.cs">
+      <Compile Update="..\JuiceZombies.Client\Assets\JuiceZombies\Scripts\HotFix\UI\Shared\Protocol\ServerData\PlayerServerData.cs">
         <Link>Protocol\ServerData\PlayerServerData.cs</Link>
       </Compile>
-      <Compile Update="..\JuiceZombies.Client\Assets\JuiceZombies\Scripts\HotFix\UI\Protocol\Protocol\GameSign.cs">
+      <Compile Update="..\JuiceZombies.Client\Assets\JuiceZombies\Scripts\HotFix\UI\Shared\Protocol\GameSign.cs">
         <LinkBase>Protocol\</LinkBase>
         <Link>Protocol\GameSign.cs</Link>
       </Compile>
-      <Compile Update="..\JuiceZombies.Client\Assets\JuiceZombies\Scripts\HotFix\UI\Protocol\Protocol\GameSignAcc7.cs">
+      <Compile Update="..\JuiceZombies.Client\Assets\JuiceZombies\Scripts\HotFix\UI\Shared\Protocol\GameSignAcc7.cs">
         <LinkBase>Protocol\</LinkBase>
         <Link>Protocol\GameSign7.cs</Link>
       </Compile>
-      <Compile Update="..\JuiceZombies.Client\Assets\JuiceZombies\Scripts\HotFix\UI\Protocol\Protocol\ServerData\ServerRootData.cs">
+      <Compile Update="..\JuiceZombies.Client\Assets\JuiceZombies\Scripts\HotFix\UI\Shared\Protocol\ServerData\ServerRootData.cs">
         <Link>Protocol\ServerData\ServerRootData.cs</Link>
       </Compile>
       <Compile Update="Datas\ServerData\ServerRootData.cs">

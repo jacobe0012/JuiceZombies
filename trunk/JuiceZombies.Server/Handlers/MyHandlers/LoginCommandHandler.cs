@@ -1,44 +1,57 @@
-﻿using System.Collections.Concurrent;
-using System.Net.WebSockets;
+﻿using AutoMapper;
 using JuiceZombies.Server.Datas;
 using JuiceZombies.Server.Datas.Config.Scripts;
 using HotFix_UI;
-using JuiceZombies.Server.Log;
 using MessagePack;
+using Microsoft.EntityFrameworkCore;
 using Newtonsoft.Json;
-using StackExchange.Redis;
 using UnityEngine;
 
 namespace JuiceZombies.Server.Handlers;
 
-public class LoginCommandHandler : HandleBase, ICommandHandler<C2S_LoginRequest>, ICommandHandler
+public class LoginCommandHandler : HandleBase, ICommandHandler
 {
-    public LoginCommandHandler(MyPostgresDbContext context, IConnectionMultiplexer redis) : base(context, redis)
+    public LoginCommandHandler(IMapper mapper, MyPostgresDbContext context) : base(mapper, context)
     {
     }
 
-    public Task<Context> HandleAsync(C2S_LoginRequest command)
+    public async Task<Context> HandleAsync(MyMessage message)
     {
-        Console.WriteLine($"LoginCommandHandler");
-        return default;
-    }
-    public Task<Context> HandleAsync(object command)
-    {
-        Console.WriteLine($"LoginCommandHandler1");
-        return HandleAsync((C2S_LoginRequest)command);
-    }
-    public async Task<Context> HandleAsync(MyMessage message, WebSocket webSocket)
-    {
-        S2C_UserResData gameUser;
+        var request = MessagePackSerializer.Deserialize<C2S_LoginRequest>(message.Content, options);
 
-        gameUser = MessagePackSerializer.Deserialize<S2C_UserResData>(message.Content, options);
-        var inputContentStr = JsonConvert.SerializeObject(gameUser);
-        var outputContentStr = JsonConvert.SerializeObject(gameUser);
+        Console.WriteLine($" 收到消息1");
+        UserResData newUser = null;
+        // 1. 查找现有用户
+        var user = await _context.UserResDatas
+            .FirstOrDefaultAsync(u => u.UserName == request.Name);
 
+        // 如果找到，直接返回
+        if (user != null)
+        {
+            newUser = user;
+        }
+        else
+        {
+            // 2. 如果不存在，则创建新用户
+            newUser = new UserResData
+            {
+                UserName = request.Name,
+            };
+            _context.UserResDatas. Add(newUser);
+
+            // 3. 保存到数据库
+            await _context.SaveChangesAsync();
+        }
+        Console.WriteLine($" 收到消息2");
+
+        var resData = _mapper.Map<S2C_UserResData>(newUser);
+        var outputContentStr = JsonConvert.SerializeObject(resData);
+        Console.WriteLine($" 收到消息3");
+        message.Content = MessagePackSerializer.Serialize(resData, options);
         var context = new Context
         {
             message = message,
-            inputContentStr = inputContentStr,
+            //inputContentStr = inputContentStr,
             outputContentStr = outputContentStr
         };
         return context;
@@ -199,6 +212,4 @@ public class LoginCommandHandler : HandleBase, ICommandHandler<C2S_LoginRequest>
         //Console.WriteLine($"responseBody:{wxCode2Session.ToString()}");
         return wxCode2Session;
     }
-
-
 }

@@ -7,15 +7,9 @@ namespace HotFix_UI
     public class S2C_UserResData : IMessagePack
     {
         /// <summary>
-        /// 用户id
-        /// </summary>
-        [Key(0)]
-        public long Id { get; set; }
-
-        /// <summary>
         /// 用户昵称
         /// </summary>
-        [Key(1)]
+        [Key(0)]
         public string? UserName { get; set; }
 
 

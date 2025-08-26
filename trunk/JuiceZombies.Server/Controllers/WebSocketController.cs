@@ -6,6 +6,7 @@ using MessagePack;
 using Microsoft.AspNetCore.Mvc;
 using StackExchange.Redis;
 using System.Diagnostics;
+using AutoMapper;
 using JuiceZombies.Server.Datas;
 using JuiceZombies.Server.Handlers;
 using JuiceZombies.Server.Log;
@@ -20,6 +21,7 @@ public class WebSocketController : ControllerBase
     private readonly IRedisCacheService _redisCache;
     private readonly MyPostgresDbContext _context;
     private readonly IServiceProvider _serviceProvider;
+    private readonly IMapper _mapper;
 
     private static readonly MessagePackSerializerOptions _options =
         MessagePackSerializerOptions.Standard.WithCompression(MessagePackCompression.Lz4Block);
@@ -28,13 +30,14 @@ public class WebSocketController : ControllerBase
     private static readonly ConcurrentDictionary<WebSocket, string> _connections = new();
 
     public WebSocketController(MyPostgresDbContext context, IConnectionMultiplexer redis, HttpClient httpClient,
-        IRedisCacheService redisCache, IServiceProvider serviceProvider)
+        IRedisCacheService redisCache, IServiceProvider serviceProvider,IMapper mapper)
     {
         _context = context;
         _redis = redis;
         _httpClient = httpClient;
         _redisCache = redisCache;
         _serviceProvider = serviceProvider;
+        _mapper = mapper;
     }
 
 
@@ -80,10 +83,10 @@ public class WebSocketController : ControllerBase
                     return;
                 }
 
-                Console.WriteLine($"ConnectionId:{HttpContext.Connection.Id} 收到消息1");
+               
                 //webSocket.
                 var receivedMessage = MessagePackSerializer.Deserialize<MyMessage>(buffer, _options);
-                Console.WriteLine($"ConnectionId:{HttpContext.Connection.Id} 收到消息2");
+               
                 // 处理消息并生成回复
                 var responseMessage = await ProcessMessage(receivedMessage, webSocket);
 
@@ -139,8 +142,8 @@ public class WebSocketController : ControllerBase
         var stopwatch = new Stopwatch();
         stopwatch.Start();
 
-        var commandHandlerFactory = new CommandHandlerFactory();
-        var handler = commandHandlerFactory.CreateHandler(message.Cmd, _serviceProvider);
+        var commandHandlerFactory = new CommandHandlerFactory(_mapper, _context);
+        var handler = commandHandlerFactory.CreateHandler(message.Cmd);
         var context = await handler.HandleAsync(message);
 
         string errorStr = message.ErrorCode != 0 ? $"ErrorCode:{message.ErrorCode},Content:" : "";
