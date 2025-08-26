@@ -1,0 +1,66 @@
+<Project Sdk="Microsoft.NET.Sdk.Web">
+
+    <PropertyGroup>
+        <TargetFramework>net8.0</TargetFramework>
+        <Nullable>enable</Nullable>
+        <ImplicitUsings>enable</ImplicitUsings>
+        <DockerDefaultTargetOS>Linux</DockerDefaultTargetOS>
+        <AllowUnsafeBlocks>true</AllowUnsafeBlocks>
+        <RootNamespace>JuiceZombies.Server</RootNamespace>
+    	<DefineConstants>$(DefineConstants);SERVER_BUILD</DefineConstants>
+    </PropertyGroup>
+
+    <ItemGroup>
+      <PackageReference Include="MessagePack.UnityShims" Version="2.5.140" />
+      <PackageReference Include="Microsoft.AspNetCore.SignalR.Protocols.MessagePack" Version="8.0.8" />
+      <PackageReference Include="Microsoft.AspNetCore.SignalR.StackExchangeRedis" Version="8.0.8" />
+      <Compile Include="..\Dev\Assets\JuiceZombies\Scripts\HotFix\UI\Protocol\Protocol\**\*.cs" LinkBase="Protocol" />
+      <PackageReference Include="Microsoft.EntityFrameworkCore" Version="9.0.8" />
+      <PackageReference Include="Microsoft.Extensions.Caching.StackExchangeRedis" Version="8.0.8" />
+      <PackageReference Include="Newtonsoft.Json" Version="13.0.3" />
+      <Compile Update="..\Dev\Assets\JuiceZombies\Scripts\HotFix\UI\Protocol\Protocol\Class\MyMessage.cs">
+        <LinkBase>Protocol\</LinkBase>
+        <Link>Protocol\Class\MyMessage.cs</Link>
+      </Compile>
+      <Compile Update="..\JuiceZombies.Client\Assets\JuiceZombies\Scripts\HotFix\UI\Protocol\Protocol\Class\MyUrl.cs">
+        <Link>Protocol\Class\MyUrl.cs</Link>
+      </Compile>
+      <PackageReference Include="Npgsql" Version="9.0.3" />
+      <PackageReference Include="Npgsql.EntityFrameworkCore.PostgreSQL" Version="9.0.4" />
+      <PackageReference Include="StackExchange.Redis" Version="2.8.0" />
+      <Compile Update="..\JuiceZombies.Client\Assets\JuiceZombies\Scripts\HotFix\UI\Protocol\Protocol\PlayerResource.cs">
+        <LinkBase>Protocol\</LinkBase>
+        <Link>Protocol\PlayerResource.cs</Link>
+      </Compile>
+      <Compile Update="..\JuiceZombies.Client\Assets\JuiceZombies\Scripts\HotFix\UI\Protocol\Protocol\Rewards.cs">
+        <LinkBase>Protocol\</LinkBase>
+        <Link>Protocol\Rewards.cs</Link>
+      </Compile>
+      <Compile Update="..\JuiceZombies.Client\Assets\JuiceZombies\Scripts\HotFix\UI\Protocol\Protocol\GameAchievement.cs">
+        <Link>Protocol\GameAchievement.cs</Link>
+      </Compile>
+      <Compile Update="..\JuiceZombies.Client\Assets\JuiceZombies\Scripts\HotFix\UI\Protocol\Protocol\GameMail.cs">
+        <LinkBase>Protocol\</LinkBase>
+        <Link>Protocol\GameMail.cs</Link>
+      </Compile>
+      <Compile Update="..\JuiceZombies.Client\Assets\JuiceZombies\Scripts\HotFix\UI\Protocol\Protocol\ServerData\PlayerServerData.cs">
+        <Link>Protocol\ServerData\PlayerServerData.cs</Link>
+      </Compile>
+      <Compile Update="..\JuiceZombies.Client\Assets\JuiceZombies\Scripts\HotFix\UI\Protocol\Protocol\GameSign.cs">
+        <LinkBase>Protocol\</LinkBase>
+        <Link>Protocol\GameSign.cs</Link>
+      </Compile>
+      <Compile Update="..\JuiceZombies.Client\Assets\JuiceZombies\Scripts\HotFix\UI\Protocol\Protocol\GameSignAcc7.cs">
+        <LinkBase>Protocol\</LinkBase>
+        <Link>Protocol\GameSign7.cs</Link>
+      </Compile>
+      <Compile Update="..\JuiceZombies.Client\Assets\JuiceZombies\Scripts\HotFix\UI\Protocol\Protocol\ServerData\ServerRootData.cs">
+        <Link>Protocol\ServerData\ServerRootData.cs</Link>
+      </Compile>
+      <Compile Update="Datas\ServerData\ServerRootData.cs">
+        <LinkBase>Protocol\</LinkBase>
+        <Link>Protocol\ServerData\ServerRootData.cs</Link>
+      </Compile>
+    </ItemGroup>
+
+</Project>
