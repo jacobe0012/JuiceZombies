@@ -1,5 +1,5 @@
 ﻿//---------------------------------------------------------------------
-// JiYuStudio
+// UnicornStudio
 // Author: xxx
 // Time: #CreateTime#
 //---------------------------------------------------------------------
@@ -96,15 +96,15 @@ namespace XFramework
 
         public async void Initialize(int acID)
         {
-            await JiYuUIHelper.InitBlur(this);
+            await UnicornUIHelper.InitBlur(this);
 
             GetFromReference(KBg_ScoreBox).GetComponent<CanvasGroup>().alpha = 0;
 
             activityId = acID;
             InitJson();
 
-            WebMessageHandlerOld.Instance.AddHandler(CMD.QUERTSINGLEACTIVITY, OnActivityChallengeResponse);
-            WebMessageHandlerOld.Instance.AddHandler(CMD.GETTASKSCORE, OnGetTaskResponse);
+            WebMessageHandlerOld.Instance.AddHandler(CMDOld.QUERTSINGLEACTIVITY, OnActivityChallengeResponse);
+            WebMessageHandlerOld.Instance.AddHandler(CMDOld.GETTASKSCORE, OnGetTaskResponse);
 
             var activity = tbactivity.Get(acID);
             var daysChallenge = tbdays_challenge.Get(activity.link);
@@ -113,7 +113,7 @@ namespace XFramework
             KImg_Pic.GetImage().SetSpriteAsync(daysChallenge.pic, false).Forget();
             //m_RedDotName = NodeNames.GetTagFuncRedDotName(tagFunc);
 
-            NetWorkManager.Instance.SendMessage(CMD.QUERTSINGLEACTIVITY, new IntValue()
+            NetWorkManager.Instance.SendMessage(CMDOld.QUERTSINGLEACTIVITY, new IntValue()
             {
                 Value = activityId
             });
@@ -121,9 +121,9 @@ namespace XFramework
 
         private void InitEffect()
         {
-            JiYuTweenHelper.SetEaseAlphaAndPosUtoB(GetFromReference(KBg_ScoreBox), 0, cancellationToken: cts.Token);
+            UnicornTweenHelper.SetEaseAlphaAndPosUtoB(GetFromReference(KBg_ScoreBox), 0, cancellationToken: cts.Token);
             var posY = GetFromReference(KPos_Select).GetRectTransform().AnchoredPosition().y;
-            JiYuTweenHelper.SetEaseAlphaAndPosB2U(GetFromReference(KPos_Select), posY, 100,
+            UnicornTweenHelper.SetEaseAlphaAndPosB2U(GetFromReference(KPos_Select), posY, 100,
                 cancellationToken: cts.Token);
             GetFromReference(KPos_Select).GetComponent<CanvasGroup>().alpha = 0f;
             GetFromReference(KPos_Select).GetComponent<CanvasGroup>().DOFade(1, 0.4f).SetEase(Ease.InQuad);
@@ -161,9 +161,9 @@ namespace XFramework
         private void SetCloseTip()
         {
             //GetFromReference(KBg_ScoreBox).GetXButton()?.OnClick?.Add(CloseAllTip);
-            GetFromReference(KScrollView).GetXScrollRect().OnDrag.Add((f) => { JiYuUIHelper.DestoryAllTips(); });
+            GetFromReference(KScrollView).GetXScrollRect().OnDrag.Add((f) => { UnicornUIHelper.DestoryAllTips(); });
             var KBtn_Tip_Close = GetFromReference(UIPanel_Activity_Challenge.KBtn_Tip_Close);
-            KBtn_Tip_Close.GetButton().OnClick.Add(JiYuUIHelper.DestoryAllTips);
+            KBtn_Tip_Close.GetButton().OnClick.Add(UnicornUIHelper.DestoryAllTips);
         }
 
 
@@ -289,25 +289,25 @@ namespace XFramework
 
             //lockDay = 0;
             //test_Scores = 0;
-            lockDay = ResourcesSingleton.Instance.activity.activityMap.ActivityMap_[activityId]
+            lockDay = ResourcesSingletonOld.Instance.activity.activityMap.ActivityMap_[activityId]
                 .OpenServerActivity.TaskList.Max(p => p.Day);
-            // foreach (var VARIABLE in ResourcesSingleton.Instance.activity.activityMap.ActivityMap_[activityID]
+            // foreach (var VARIABLE in ResourcesSingletonOld.Instance.activity.activityMap.ActivityMap_[activityID]
             //              .OpenServerActivity.TaskList)
             // {
             //     Log.Debug($"TaskList:{VARIABLE.ToString()}", Color.green);
             // }
-            scores = ResourcesSingleton.Instance.activity.activityMap.ActivityMap_[activityId]
+            scores = ResourcesSingletonOld.Instance.activity.activityMap.ActivityMap_[activityId]
                 .OpenServerActivity.TaskList.Where(a => a.Status == 1).Sum(p => tbtask.Get(p.TaskId).score);
-            var scorList = ResourcesSingleton.Instance.activity.activityMap.ActivityMap_[activityId]
+            var scorList = ResourcesSingletonOld.Instance.activity.activityMap.ActivityMap_[activityId]
                 .OpenServerActivity.TaskScoreList;
             Log.Debug($"scorList :{scorList.ToString()}");
 
-            // scores = ResourcesSingleton.Instance.activity.activityMap.ActivityMap_[activityID]
+            // scores = ResourcesSingletonOld.Instance.activity.activityMap.ActivityMap_[activityID]
             //     .OpenServerActivity.TaskScoreList.Where(a => a.TagFunc == tagFunc && a.Valid == 1)
             //     .Sum(p => tbtask_Score.Get(p.Id).score);
 
 
-            // foreach (var VARIABLE in ResourcesSingleton.Instance.activity.activityMap.ActivityMap_[activityID]
+            // foreach (var VARIABLE in ResourcesSingletonOld.Instance.activity.activityMap.ActivityMap_[activityID]
             //              .OpenServerActivity.TaskScoreList)
             // {
             //     Log.Debug($"TaskScoreList:{VARIABLE.ToString()}", Color.green);
@@ -315,10 +315,10 @@ namespace XFramework
             // }
 
             // 找到得分最高的玩家
-            // var activityTask = ResourcesSingleton.Instance.activity.activityMap.ActivityMap_[activityID]
+            // var activityTask = ResourcesSingletonOld.Instance.activity.activityMap.ActivityMap_[activityID]
             //     .OpenServerActivity.TaskList.FirstOrDefault(p => p.Day == maxDay);
 
-            // foreach (var severTask in ResourcesSingleton.Instance.activity.activityMap.ActivityMap_[activityID]
+            // foreach (var severTask in ResourcesSingletonOld.Instance.activity.activityMap.ActivityMap_[activityID]
             //              .OpenServerActivity.TaskList)
             // {
             //     if (lockDay < severTask.Day)
@@ -331,19 +331,19 @@ namespace XFramework
             //     //     test_Scores += tbtask.Get(severTask.TaskId).score;
             //     // }
             // }
-            endTime = ResourcesSingleton.Instance.activity.activityMap.ActivityMap_[activityId].OpenServerActivity
+            endTime = ResourcesSingletonOld.Instance.activity.activityMap.ActivityMap_[activityId].OpenServerActivity
                 .EndTime;
-            // endTime = ResourcesSingleton.Instance.activity.activityMap.ActivityMap_[activityID].OpenServerActivity
+            // endTime = ResourcesSingletonOld.Instance.activity.activityMap.ActivityMap_[activityID].OpenServerActivity
             //               .EndTime -
-            //           (ResourcesSingleton.Instance.ServerDeltaTime / 1000);
+            //           (ResourcesSingletonOld.Instance.ServerDeltaTime / 1000);
         }
 
         private void Update()
         {
             var KText_Time = GetFromReference(UIPanel_Activity_Challenge.KText_Time);
             string cdStr = tblanguage.Get("active_countdown_text").current;
-            long clientT = JiYuUIHelper.GetServerTimeStamp(true);
-            if (!JiYuUIHelper.TryGetRemainingTime(clientT, endTime, out var timeStr))
+            long clientT = UnicornUIHelper.GetServerTimeStamp(true);
+            if (!UnicornUIHelper.TryGetRemainingTime(clientT, endTime, out var timeStr))
             {
                 Close();
             }
@@ -482,9 +482,9 @@ namespace XFramework
                         KSubPanel_Activity_Equip_Btn.GetFromReference(UISubPanel_Activity_Equip_Btn.KImg_Claimed);
                     KImg_Claimed.SetActive(false);
 
-                    JiYuUIHelper.SetRewardIconAndCountText(tbtsList[ihelp].reward[0], reUI);
+                    UnicornUIHelper.SetRewardIconAndCountText(tbtsList[ihelp].reward[0], reUI);
 
-                    JiYuTweenHelper.DoScaleTweenOnClickAndLongPress(KBtn_Item, () =>
+                    UnicornTweenHelper.DoScaleTweenOnClickAndLongPress(KBtn_Item, () =>
                     {
                         var taskScoreData = SelectBoxServerData(tbtsList[ihelp].id);
                         int state = taskScoreData.Status;
@@ -492,14 +492,14 @@ namespace XFramework
                         {
                             case 0:
                             case 1:
-                                JiYuUIHelper.SetRewardOnClickWithNoBtn(tbtsList[ihelp].reward[0], reUI);
+                                UnicornUIHelper.SetRewardOnClickWithNoBtn(tbtsList[ihelp].reward[0], reUI);
                                 break;
                             case 2:
                                 KImg_Claimed.SetActive(true);
-                                WebMessageHandlerOld.Instance.AddHandler(CMD.GETTASKBOX, OnGetBoxResponse);
+                                WebMessageHandlerOld.Instance.AddHandler(CMDOld.GETTASKBOX, OnGetBoxResponse);
                                 IntValue intValue = new IntValue();
                                 intValue.Value = tbtsList[ihelp].id;
-                                NetWorkManager.Instance.SendMessage(CMD.GETTASKBOX, intValue);
+                                NetWorkManager.Instance.SendMessage(CMDOld.GETTASKBOX, intValue);
 
                                 break;
                         }
@@ -523,12 +523,12 @@ namespace XFramework
                         .GetTextMeshPro()
                         .SetTMPText(tbtsList[ihelp].score.ToString());
 
-                    JiYuTweenHelper.DoScaleTweenOnClickAndLongPress(boxBtn, () =>
+                    UnicornTweenHelper.DoScaleTweenOnClickAndLongPress(boxBtn, () =>
                     {
                         var taskScoreData = SelectBoxServerData(tbtsList[ihelp].id);
                         int state = taskScoreData.Status;
                         //Log.Error($"boxBtn ");
-                        JiYuUIHelper.DestoryAllTips();
+                        UnicornUIHelper.DestoryAllTips();
                         switch (state)
                         {
                             case 0:
@@ -538,10 +538,10 @@ namespace XFramework
                                 CreateBoxTip(a1, ui);
                                 break;
                             case 2:
-                                WebMessageHandlerOld.Instance.AddHandler(CMD.GETTASKBOX, OnGetBoxResponse);
+                                WebMessageHandlerOld.Instance.AddHandler(CMDOld.GETTASKBOX, OnGetBoxResponse);
                                 IntValue intValue = new IntValue();
                                 intValue.Value = tbtsList[ihelp].id;
-                                NetWorkManager.Instance.SendMessage(CMD.GETTASKBOX, intValue);
+                                NetWorkManager.Instance.SendMessage(CMDOld.GETTASKBOX, intValue);
                                 //Log.Error($"send mess boxBtn ");
                                 break;
                         }
@@ -657,26 +657,26 @@ namespace XFramework
                         KSubPanel_Activity_Equip_Btn.GetFromReference(UISubPanel_Activity_Equip_Btn.KImg_Claimed);
                     KImg_Claimed.SetActive(false);
 
-                    JiYuUIHelper.SetRewardIconAndCountText(tbtsList[ihelp].reward[0], reUI);
+                    UnicornUIHelper.SetRewardIconAndCountText(tbtsList[ihelp].reward[0], reUI);
                     switch (state)
                     {
                         case 0:
-                            //JiYuUIHelper.SetRewardOnClick(tbtsList[ihelp].reward[0], reUI);
+                            //UnicornUIHelper.SetRewardOnClick(tbtsList[ihelp].reward[0], reUI);
                             break;
                         case 1:
 
-                            //JiYuUIHelper.SetRewardOnClick(tbtsList[ihelp].reward[0], reUI);
+                            //UnicornUIHelper.SetRewardOnClick(tbtsList[ihelp].reward[0], reUI);
                             break;
                         case 2:
                             KImg_Claimed.SetActive(true);
 
-                            // JiYuTweenHelper.DoScaleTweenOnClickAndLongPress(
+                            // UnicornTweenHelper.DoScaleTweenOnClickAndLongPress(
                             //     reUI.GetFromReference(UICommon_RewardItem.KBtn_Item), () =>
                             //     {
-                            //         WebMessageHandlerOld.Instance.AddHandler(CMD.GETTASKBOX, OnGetBoxResponse);
+                            //         WebMessageHandlerOld.Instance.AddHandler(CMDOld.GETTASKBOX, OnGetBoxResponse);
                             //         IntValue intValue = new IntValue();
                             //         intValue.Value = tbtsList[ihelp].id;
-                            //         NetWorkManager.Instance.SendMessage(CMD.GETTASKBOX, intValue);
+                            //         NetWorkManager.Instance.SendMessage(CMDOld.GETTASKBOX, intValue);
                             //     });
                             break;
                     }
@@ -699,10 +699,10 @@ namespace XFramework
                         .GetTextMeshPro()
                         .SetTMPText(tbtsList[ihelp].score.ToString());
 
-                    // JiYuTweenHelper.DoScaleTweenOnClickAndLongPress(boxBtn, () =>
+                    // UnicornTweenHelper.DoScaleTweenOnClickAndLongPress(boxBtn, () =>
                     // {
                     //     Log.Error($"boxBtn ");
-                    //     JiYuUIHelper.DestoryAllTips();
+                    //     UnicornUIHelper.DestoryAllTips();
                     //     switch (state)
                     //     {
                     //         case 0:
@@ -716,10 +716,10 @@ namespace XFramework
                     //             CreateBoxTip(a1, ui);
                     //             break;
                     //         case 2:
-                    //             WebMessageHandlerOld.Instance.AddHandler(CMD.GETTASKBOX, OnGetBoxResponse);
+                    //             WebMessageHandlerOld.Instance.AddHandler(CMDOld.GETTASKBOX, OnGetBoxResponse);
                     //             IntValue intValue = new IntValue();
                     //             intValue.Value = tbtsList[ihelp].id;
-                    //             NetWorkManager.Instance.SendMessage(CMD.GETTASKBOX, intValue);
+                    //             NetWorkManager.Instance.SendMessage(CMDOld.GETTASKBOX, intValue);
                     //             Log.Error($"send mess boxBtn ");
                     //             break;
                     //     }
@@ -730,18 +730,18 @@ namespace XFramework
 
         private GameTaskScore SelectBoxServerData(int input)
         {
-            return ResourcesSingleton.Instance.activity.activityMap.ActivityMap_[activityId].OpenServerActivity
+            return ResourcesSingletonOld.Instance.activity.activityMap.ActivityMap_[activityId].OpenServerActivity
                 .TaskScoreList.Where(a => a.Id == input).FirstOrDefault();
         }
 
         private void CreateBoxTip(List<Vector3> rewardList, UI boxUI)
         {
-            JiYuUIHelper.DestoryAllTips();
+            UnicornUIHelper.DestoryAllTips();
             var tipUI = UIHelper.Create<List<Vector3>>(UIType.UICommon_Reward_Tip, rewardList);
             tipUI.GetFromReference(UICommon_Reward_Tip.KImg_ArrowDownLeft).SetActive(false);
             tipUI.GetFromReference(UICommon_Reward_Tip.KImg_ArrowDownRight).SetActive(false);
             tipUI.GetFromReference(UICommon_Reward_Tip.KImg_ArrowDownUp).SetActive(true);
-            var uiPos = JiYuUIHelper.GetUIPos(boxUI);
+            var uiPos = UnicornUIHelper.GetUIPos(boxUI);
             tipUI.GetRectTransform().SetAnchoredPositionX(uiPos.x);
             float boxH = boxUI.GetFromReference($"Pos_Box").GetRectTransform().Height();
             float tipH = tipUI.GetRectTransform().Height();
@@ -801,13 +801,13 @@ namespace XFramework
 
                 if (index + 1 <= lockDay)
                 {
-                    JiYuTweenHelper.DoScaleTweenOnClickAndLongPress(KBtn, () =>
+                    UnicornTweenHelper.DoScaleTweenOnClickAndLongPress(KBtn, () =>
                     {
                         //var LastBottomBtnUI = LastBottomBtn as UISubPanel_Select_Tab_Btn2;
                         if (lastDayId == index + 1)
                             return;
 
-                        JiYuUIHelper.DestoryAllTips();
+                        UnicornUIHelper.DestoryAllTips();
 
                         foreach (var child in downList.Children)
                         {
@@ -829,7 +829,7 @@ namespace XFramework
                             .SetTMPText((index + 1).ToString());
                         lastDayId = index + 1;
                         KBtn.GetRectTransform().SetAnchoredPositionY(0);
-                        JiYuUIHelper.ForceRefreshLayout(select);
+                        UnicornUIHelper.ForceRefreshLayout(select);
                         CreateTasks(index + 1).Forget();
                     }, 1101);
                 }
@@ -855,7 +855,7 @@ namespace XFramework
             }
 
             Log.Debug($"CreateTasks", Color.green);
-            if (!ResourcesSingleton.Instance.activity.activityMap.ActivityMap_.TryGetValue(activityId,
+            if (!ResourcesSingletonOld.Instance.activity.activityMap.ActivityMap_.TryGetValue(activityId,
                     out var activityMap))
             {
                 Log.Error($"拿不到活动数据activityID:{activityId}");
@@ -973,8 +973,8 @@ namespace XFramework
                 taskUI.GetFromReference(UISubPanel_Task_DAndW.KText_Task_Num2).SetActive(false);
                 var reUI = taskUI.GetFromReference(UISubPanel_Task_DAndW.KCommon_RewardItem);
                 reUI.SetActive(true);
-                JiYuUIHelper.SetRewardIconAndCountText(task.reward[0], reUI);
-                JiYuUIHelper.SetRewardOnClick(task.reward[0], reUI);
+                UnicornUIHelper.SetRewardIconAndCountText(task.reward[0], reUI);
+                UnicornUIHelper.SetRewardOnClick(task.reward[0], reUI);
                 taskUI.GetFromReference(UISubPanel_Task_DAndW.KText_ScoreNum).GetTextMeshPro()
                     .SetTMPText(task.score.ToString());
                 // taskUI.GetFromReference(UISubPanel_Task_DAndW.KText_ScoreNum2).GetTextMeshPro()
@@ -1008,7 +1008,7 @@ namespace XFramework
                     case 0:
                         //可领取
                         //taskUI.GetFromReference(UISubPanel_Task_DAndW.KBg).GetXImage().SetAlpha(1);
-                        JiYuUIHelper.SetRewardIconAndCountText(task.reward[0], reUI);
+                        UnicornUIHelper.SetRewardIconAndCountText(task.reward[0], reUI);
                         //SetTaskUIAlpha(taskUI);
                         taskUI.GetFromReference(UISubPanel_Task_DAndW.KBtn).SetActive(true);
                         taskUI.GetFromReference(UISubPanel_Task_DAndW.KImg_Dui).SetActive(false);
@@ -1022,7 +1022,7 @@ namespace XFramework
                         // taskUI.GetFromReference(UISubPanel_Task_DAndW.KBg).GetXImage()
                         //     .SetSpriteAsync(picConnotClaim, false);
                         //taskUI.GetFromReference(UISubPanel_Task_DAndW.KBg).GetXImage().SetAlpha(1);
-                        JiYuUIHelper.SetRewardIconAndCountText(task.reward[0], reUI);
+                        UnicornUIHelper.SetRewardIconAndCountText(task.reward[0], reUI);
                         //SetTaskUIAlpha(taskUI);
                         taskUI.GetFromReference(UISubPanel_Task_DAndW.KBtn).SetActive(true);
                         taskUI.GetFromReference(UISubPanel_Task_DAndW.KImg_Dui).SetActive(false);
@@ -1037,7 +1037,7 @@ namespace XFramework
                         // taskUI.GetFromReference(UISubPanel_Task_DAndW.KBg).GetXImage()
                         //     .SetSpriteAsync(picClaimed, false);
                         //taskUI.GetFromReference(UISubPanel_Task_DAndW.KBg).GetXImage().SetAlpha(0.3f);
-                        JiYuUIHelper.SetRewardIconAndCountText(task.reward[0], reUI, 0.3f);
+                        UnicornUIHelper.SetRewardIconAndCountText(task.reward[0], reUI, 0.3f);
                         KBg_Mask.SetActive(true);
                         taskUI.GetFromReference(UISubPanel_Task_DAndW.KBtn).SetActive(false);
                         taskUI.GetFromReference(UISubPanel_Task_DAndW.KImg_Dui).SetActive(true);
@@ -1048,7 +1048,7 @@ namespace XFramework
                     //     taskUI.GetFromReference(UISubPanel_Task_DAndW.KBg).GetXImage()
                     //         .SetSpriteAsync(picConnotClaim, false);
                     //     taskUI.GetFromReference(UISubPanel_Task_DAndW.KBg).GetXImage().SetAlpha(1);
-                    //     JiYuUIHelper.SetRewardIconAndCountText(task.reward[0], reUI);
+                    //     UnicornUIHelper.SetRewardIconAndCountText(task.reward[0], reUI);
                     //     SetTaskUIAlpha(taskUI);
                     //     taskUI.GetFromReference(UISubPanel_Task_DAndW.KBtn).SetActive(true);
                     //     taskUI.GetFromReference(UISubPanel_Task_DAndW.KImg_Dui).SetActive(false);
@@ -1058,14 +1058,14 @@ namespace XFramework
                 }
 
                 var btn = taskUI.GetFromReference(UISubPanel_Task_DAndW.KBtn);
-                JiYuTweenHelper.DoScaleTweenOnClickAndLongPress(btn, () =>
+                UnicornTweenHelper.DoScaleTweenOnClickAndLongPress(btn, () =>
                 {
-                    JiYuUIHelper.DestoryAllTips();
+                    UnicornUIHelper.DestoryAllTips();
                     switch (state)
                     {
                         case 0:
                             //可领取
-                            NetWorkManager.Instance.SendMessage(CMD.GETTASKSCORE, new IntValue
+                            NetWorkManager.Instance.SendMessage(CMDOld.GETTASKSCORE, new IntValue
                             {
                                 Value = gameTask.TaskId
                             });
@@ -1075,7 +1075,7 @@ namespace XFramework
                             Log.Debug($"前往");
                             var taskType = tbtask_type.Get(tbtask.Get(gameTask.TaskId).type);
 
-                            JiYuUIHelper.GoToSomePanel(taskType.goto0);
+                            UnicornUIHelper.GoToSomePanel(taskType.goto0);
                             Close();
                             break;
                         case 2:
@@ -1103,10 +1103,10 @@ namespace XFramework
             foreach (var task in contentList.Children)
             {
                 i++;
-                //JiYuTweenHelper.SetEaseAlphaAndPosB2U(task.GetFromReference(UISubPanel_Task_DAndW.KBg), 0, 40, 0.35f, true, false);
+                //UnicornTweenHelper.SetEaseAlphaAndPosB2U(task.GetFromReference(UISubPanel_Task_DAndW.KBg), 0, 40, 0.35f, true, false);
                 if (!isInit)
                 {
-                    JiYuTweenHelper.SetEaseAlphaAndPosB2U(task.GetFromReference(UISubPanel_Task_DAndW.KBg), 0, 50,
+                    UnicornTweenHelper.SetEaseAlphaAndPosB2U(task.GetFromReference(UISubPanel_Task_DAndW.KBg), 0, 50,
                         cancellationToken: cts.Token, 0.35f + 0.02f * i, true, true);
                 }
                 //await UniTask.Delay(2 * i);
@@ -1130,13 +1130,13 @@ namespace XFramework
             // });
 
             //SetContentH(taskList.Count);
-            //JiYuUIHelper.ForceRefreshLayout(GetFromReference(KContent));
+            //UnicornUIHelper.ForceRefreshLayout(GetFromReference(KContent));
         }
 
         private ActivityTask GetTaskByID(int input)
         {
             ActivityTask task = new ActivityTask();
-            foreach (var severTask in ResourcesSingleton.Instance.activity.activityMap.ActivityMap_[activityId]
+            foreach (var severTask in ResourcesSingletonOld.Instance.activity.activityMap.ActivityMap_[activityId]
                          .OpenServerActivity.TaskList)
             {
                 if (severTask.TaskId == input)
@@ -1313,7 +1313,7 @@ namespace XFramework
                 }
 
 
-                NetWorkManager.Instance.SendMessage(CMD.QUERTSINGLEACTIVITY, new IntValue()
+                NetWorkManager.Instance.SendMessage(CMDOld.QUERTSINGLEACTIVITY, new IntValue()
                 {
                     Value = activityId
                 });
@@ -1322,7 +1322,7 @@ namespace XFramework
 
         private void OnGetBoxResponse(object sender, WebMessageHandlerOld.Execute e)
         {
-            WebMessageHandlerOld.Instance.RemoveHandler(CMD.GETTASKBOX, OnGetBoxResponse);
+            WebMessageHandlerOld.Instance.RemoveHandler(CMDOld.GETTASKBOX, OnGetBoxResponse);
             StringValueList stringValueList = new StringValueList();
             stringValueList.MergeFrom(e.data);
             Log.Debug("OnGetBoxResponse", Color.red);
@@ -1340,8 +1340,8 @@ namespace XFramework
 
             UIHelper.Create(UIType.UICommon_Reward, reList);
 
-            //WebMessageHandlerOld.Instance.AddHandler(CMD.QUERTSINGLEACTIVITY, OnAllDataResponse);
-            NetWorkManager.Instance.SendMessage(CMD.QUERTSINGLEACTIVITY, new IntValue()
+            //WebMessageHandlerOld.Instance.AddHandler(CMDOld.QUERTSINGLEACTIVITY, OnAllDataResponse);
+            NetWorkManager.Instance.SendMessage(CMDOld.QUERTSINGLEACTIVITY, new IntValue()
             {
                 Value = activityId
             });
@@ -1350,7 +1350,7 @@ namespace XFramework
         private void OnActivityChallengeResponse(object sender, WebMessageHandlerOld.Execute e)
         {
             //var s=sender as GameActivity;
-            //WebMessageHandlerOld.Instance.RemoveHandler(CMD.QUERTSINGLEACTIVITY, OnInitResponse);
+            //WebMessageHandlerOld.Instance.RemoveHandler(CMDOld.QUERTSINGLEACTIVITY, OnInitResponse);
             GameActivity gameActivity = new GameActivity();
             gameActivity.MergeFrom(e.data);
             if (e.data.IsEmpty)
@@ -1360,13 +1360,13 @@ namespace XFramework
             }
             //gameActivity.OpenServerActivity.
 
-            if (ResourcesSingleton.Instance.activity.activityMap.ActivityMap_.ContainsKey(activityId))
+            if (ResourcesSingletonOld.Instance.activity.activityMap.ActivityMap_.ContainsKey(activityId))
             {
-                ResourcesSingleton.Instance.activity.activityMap.ActivityMap_[activityId] = gameActivity;
+                ResourcesSingletonOld.Instance.activity.activityMap.ActivityMap_[activityId] = gameActivity;
             }
             else
             {
-                ResourcesSingleton.Instance.activity.activityMap.ActivityMap_.Add(activityId,
+                ResourcesSingletonOld.Instance.activity.activityMap.ActivityMap_.Add(activityId,
                     gameActivity);
             }
 
@@ -1383,7 +1383,7 @@ namespace XFramework
 
         private void OnAllDataResponse(object sender, WebMessageHandlerOld.Execute e)
         {
-            //WebMessageHandlerOld.Instance.RemoveHandler(CMD.QUERTSINGLEACTIVITY, OnAllDataResponse);
+            //WebMessageHandlerOld.Instance.RemoveHandler(CMDOld.QUERTSINGLEACTIVITY, OnAllDataResponse);
             GameActivity gameActivity = new GameActivity();
             gameActivity.MergeFrom(e.data);
             if (e.data.IsEmpty)
@@ -1392,13 +1392,13 @@ namespace XFramework
                 return;
             }
 
-            if (ResourcesSingleton.Instance.activity.activityMap.ActivityMap_.ContainsKey(activityId))
+            if (ResourcesSingletonOld.Instance.activity.activityMap.ActivityMap_.ContainsKey(activityId))
             {
-                ResourcesSingleton.Instance.activity.activityMap.ActivityMap_[activityId] = gameActivity;
+                ResourcesSingletonOld.Instance.activity.activityMap.ActivityMap_[activityId] = gameActivity;
             }
             else
             {
-                ResourcesSingleton.Instance.activity.activityMap.ActivityMap_.Add(activityId,
+                ResourcesSingletonOld.Instance.activity.activityMap.ActivityMap_.Add(activityId,
                     gameActivity);
             }
 
@@ -1415,13 +1415,13 @@ namespace XFramework
         //         return;
         //     }
         //
-        //     if (ResourcesSingleton.Instance.activity.activityMap.ActivityMap_.ContainsKey(activityId))
+        //     if (ResourcesSingletonOld.Instance.activity.activityMap.ActivityMap_.ContainsKey(activityId))
         //     {
-        //         ResourcesSingleton.Instance.activity.activityMap.ActivityMap_[activityId] = gameActivity;
+        //         ResourcesSingletonOld.Instance.activity.activityMap.ActivityMap_[activityId] = gameActivity;
         //     }
         //     else
         //     {
-        //         ResourcesSingleton.Instance.activity.activityMap.ActivityMap_.Add(activityId, gameActivity);
+        //         ResourcesSingletonOld.Instance.activity.activityMap.ActivityMap_.Add(activityId, gameActivity);
         //     }
         //
         //     //OnlyUpdateUp();
@@ -1430,11 +1430,11 @@ namespace XFramework
         protected override void OnClose()
         {
             RemoveTimer();
-            JiYuUIHelper.DestoryAllTips();
+            UnicornUIHelper.DestoryAllTips();
             cts.Cancel();
             cts.Dispose();
-            WebMessageHandlerOld.Instance.RemoveHandler(CMD.QUERTSINGLEACTIVITY, OnActivityChallengeResponse);
-            WebMessageHandlerOld.Instance.RemoveHandler(CMD.GETTASKSCORE, OnGetTaskResponse);
+            WebMessageHandlerOld.Instance.RemoveHandler(CMDOld.QUERTSINGLEACTIVITY, OnActivityChallengeResponse);
+            WebMessageHandlerOld.Instance.RemoveHandler(CMDOld.GETTASKSCORE, OnGetTaskResponse);
             RedDotManager.Instance.ClearChildrenListeners(m_RedDotName);
             base.OnClose();
         }
@@ -1443,9 +1443,9 @@ namespace XFramework
         {
             m_RedDotName = NodeNames.GetTagFuncRedDotName(tagFunc);
             //bool hasRedDot = false;
-            var scorList = ResourcesSingleton.Instance.activity.activityMap.ActivityMap_[activityId]
+            var scorList = ResourcesSingletonOld.Instance.activity.activityMap.ActivityMap_[activityId]
                 .OpenServerActivity.TaskScoreList;
-            var activityTasks = ResourcesSingleton.Instance.activity.activityMap.ActivityMap_[activityId]
+            var activityTasks = ResourcesSingletonOld.Instance.activity.activityMap.ActivityMap_[activityId]
                 .OpenServerActivity.TaskList;
             for (int i = 0; i < scorList.Count; i++)
             {

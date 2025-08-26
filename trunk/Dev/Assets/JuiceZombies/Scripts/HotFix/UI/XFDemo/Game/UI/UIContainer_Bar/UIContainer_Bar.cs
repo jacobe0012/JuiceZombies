@@ -1,5 +1,5 @@
 //---------------------------------------------------------------------
-// JiYuStudio
+// UnicornStudio
 // Author: xxx
 // Time: #CreateTime#
 //---------------------------------------------------------------------
@@ -43,7 +43,7 @@ namespace XFramework
 
         public void Initialize()
         {
-            int currentID = ResourcesSingleton.Instance.talentID.talentPropID;
+            int currentID = ResourcesSingletonOld.Instance.talentID.talentPropID;
         }
 
         public async void Initialize(int level)

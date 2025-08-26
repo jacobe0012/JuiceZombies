@@ -1,5 +1,5 @@
 //---------------------------------------------------------------------
-// JiYuStudio
+// UnicornStudio
 // Author: xxx
 // Time: #CreateTime#
 //---------------------------------------------------------------------
@@ -61,7 +61,7 @@ namespace XFramework
             var para1 = int.Parse(paras[0]);
             KImg_Avator.GetImage().SetSpriteAsync($"pic_introguide_frame_{para1}",false);
             var str =
-                $"guide.id{guideId} д╛хончнд╠╬д╛хончнд╠╬д╛хончнд╠╬д╛хончнд╠╬д╛хончнд╠╬";
+                $"guide.id{guideId} д╛О©╫О©╫О©╫О©╫О©╫д╠О©╫д╛О©╫О©╫О©╫О©╫О©╫д╠О©╫д╛О©╫О©╫О©╫О©╫О©╫д╠О©╫д╛О©╫О©╫О©╫О©╫О©╫д╠О©╫д╛О©╫О©╫О©╫О©╫О©╫д╠О©╫";
             if (paras.Count >= 2)
             {
                 str = tblanguage.Get($"{paras[1]}").current;
@@ -80,13 +80,13 @@ namespace XFramework
 
                 Close();
             });
-            await JiYuUIHelper.TypeWriteEffect(KText_dialog, str, cts.Token);
+            await UnicornUIHelper.TypeWriteEffect(KText_dialog, str, cts.Token);
             isClick = true;
         }
 
         protected override void OnClose()
         {
-            if (JiYuUIHelper.TryGetUI(UIType.UIPanel_RunTimeHUD, out UI ui))
+            if (UnicornUIHelper.TryGetUI(UIType.UIPanel_RunTimeHUD, out UI ui))
             {
                 var uis = ui as UIPanel_RunTimeHUD;
                 uis.OnGuideOrderFinished(guideId);

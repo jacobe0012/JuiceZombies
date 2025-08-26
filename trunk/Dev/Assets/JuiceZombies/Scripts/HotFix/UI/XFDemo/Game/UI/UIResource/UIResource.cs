@@ -1,5 +1,5 @@
 //---------------------------------------------------------------------
-// JiYuStudio
+// UnicornStudio
 // Author: xxx
 // Time: #CreateTime#
 //---------------------------------------------------------------------
@@ -83,8 +83,8 @@ namespace XFramework
         //     Vector3 bagPos = default;
         //     if (rewardx == 5 || rewardx == 11)
         //     {
-        //         bagPos = ResourcesSingleton.Instance.UIPosInfo.KBagPos;
-        //         if (JiYuUIHelper.TryGetUI(UIType.UIPanel_JiyuGame, out var ui))
+        //         bagPos = ResourcesSingletonOld.Instance.UIPosInfo.KBagPos;
+        //         if (UnicornUIHelper.TryGetUI(UIType.UIPanel_JiyuGame, out var ui))
         //         {
         //             var uis = ui as UIPanel_JiyuGame;
         //             var KOptions = uis.GetFromReference(UIPanel_JiyuGame.KOptions);
@@ -93,7 +93,7 @@ namespace XFramework
         //                 var childs = child as UISubPanel_ToggleItem;
         //                 if (childs.sort == 2)
         //                 {
-        //                     bagPos = JiYuUIHelper.GetUIPos(childs);
+        //                     bagPos = UnicornUIHelper.GetUIPos(childs);
         //
         //                     break;
         //                 }
@@ -112,10 +112,10 @@ namespace XFramework
         //
         //             count = Mathf.Min(rewardz, MaxCount);
         //
-        //             if (JiYuUIHelper.TryGetUI(UIType.UIPanel_Task_DailyAndWeekly, out UI TaskUI))
+        //             if (UnicornUIHelper.TryGetUI(UIType.UIPanel_Task_DailyAndWeekly, out UI TaskUI))
         //             {
         //                 var KImgScore = TaskUI.GetFromReference(UIPanel_Task_DailyAndWeekly.KImg_Score);
-        //                 defalutflyPos = JiYuUIHelper.GetUIPos(KImgScore);
+        //                 defalutflyPos = UnicornUIHelper.GetUIPos(KImgScore);
         //             }
         //             else
         //             {
@@ -132,24 +132,24 @@ namespace XFramework
         //
         //             //var KEnergyIcon = uiJiyuGame.GetFromReference(UIPanel_Main.KImg_EnergyIcon);
         //
-        //             //defalutflyPos = JiYuUIHelper.GetUIPos(KEnergyIcon);
+        //             //defalutflyPos = UnicornUIHelper.GetUIPos(KEnergyIcon);
         //             break;
         //         case 2:
         //             count = Mathf.Min(rewardz, MaxCount);
         //
-        //             defalutflyPos = ResourcesSingleton.Instance.UIPosInfo.KBtn_DiamondPos;
+        //             defalutflyPos = ResourcesSingletonOld.Instance.UIPosInfo.KBtn_DiamondPos;
         //             break;
         //         case 3:
         //             count = Mathf.Min(rewardz, MaxCount);
         //
-        //             defalutflyPos = ResourcesSingleton.Instance.UIPosInfo.KBtn_MoneyPos;
+        //             defalutflyPos = ResourcesSingletonOld.Instance.UIPosInfo.KBtn_MoneyPos;
         //             break;
         //         case 4:
         //             count = Mathf.Min(rewardz, MaxCount);
         //
         //             var KExperienceValueImage = uiJiyuGame.GetFromReference(UIPanel_Main.KImg_FilledImgExp);
         //
-        //             defalutflyPos = JiYuUIHelper.GetUIPos(KExperienceValueImage);
+        //             defalutflyPos = UnicornUIHelper.GetUIPos(KExperienceValueImage);
         //             break;
         //         case 5:
         //             count = Mathf.Min(rewardz, MaxCount);
@@ -277,8 +277,8 @@ namespace XFramework
             Vector3 bagPos = default;
             if (rewardx == 5 || rewardx == 11)
             {
-                bagPos = ResourcesSingleton.Instance.UIPosInfo.KBagPos;
-                if (JiYuUIHelper.TryGetUI(UIType.UIPanel_JiyuGame, out var ui))
+                bagPos = ResourcesSingletonOld.Instance.UIPosInfo.KBagPos;
+                if (UnicornUIHelper.TryGetUI(UIType.UIPanel_JiyuGame, out var ui))
                 {
                     var uis = ui as UIPanel_JiyuGame;
                     var KOptions = uis.GetFromReference(UIPanel_JiyuGame.KOptions);
@@ -287,7 +287,7 @@ namespace XFramework
                         var childs = child as UISubPanel_ToggleItem;
                         if (childs.sort == 2)
                         {
-                            bagPos = JiYuUIHelper.GetUIPos(childs);
+                            bagPos = UnicornUIHelper.GetUIPos(childs);
 
                             break;
                         }
@@ -306,10 +306,10 @@ namespace XFramework
 
                     count = Mathf.Min(rewardz, MaxCount);
 
-                    if (JiYuUIHelper.TryGetUI(UIType.UIPanel_Task_DailyAndWeekly, out UI TaskUI))
+                    if (UnicornUIHelper.TryGetUI(UIType.UIPanel_Task_DailyAndWeekly, out UI TaskUI))
                     {
                         var KImgScore = TaskUI.GetFromReference(UIPanel_Task_DailyAndWeekly.KImg_Score);
-                        defalutflyPos = JiYuUIHelper.GetUIPos(KImgScore);
+                        defalutflyPos = UnicornUIHelper.GetUIPos(KImgScore);
                     }
                     else
                     {
@@ -326,24 +326,24 @@ namespace XFramework
 
                     //var KEnergyIcon = uiJiyuGame.GetFromReference(UIPanel_Main.KImg_EnergyIcon);
 
-                    //defalutflyPos = JiYuUIHelper.GetUIPos(KEnergyIcon);
+                    //defalutflyPos = UnicornUIHelper.GetUIPos(KEnergyIcon);
                     break;
                 case 2:
                     count = Mathf.Min(rewardz, MaxCount);
 
-                    defalutflyPos = ResourcesSingleton.Instance.UIPosInfo.KBtn_DiamondPos;
+                    defalutflyPos = ResourcesSingletonOld.Instance.UIPosInfo.KBtn_DiamondPos;
                     break;
                 case 3:
                     count = Mathf.Min(rewardz, MaxCount);
 
-                    defalutflyPos = ResourcesSingleton.Instance.UIPosInfo.KBtn_MoneyPos;
+                    defalutflyPos = ResourcesSingletonOld.Instance.UIPosInfo.KBtn_MoneyPos;
                     break;
                 case 4:
                     count = Mathf.Min(rewardz, MaxCount);
 
                     var KExperienceValueImage = uiJiyuGame.GetFromReference(UIPanel_Main.KImg_FilledImgExp);
 
-                    defalutflyPos = JiYuUIHelper.GetUIPos(KExperienceValueImage);
+                    defalutflyPos = UnicornUIHelper.GetUIPos(KExperienceValueImage);
                     break;
                 case 5:
                     count = Mathf.Min(rewardz, MaxCount);

@@ -1,4 +1,4 @@
-﻿Shader "JiYuStudio/JiYuSpineBossTransparent" {
+﻿Shader "UnicornStudio/JiYuSpineBossTransparent" {
 	Properties {
 		_Cutoff ("Shadow alpha cutoff", Range(0,1)) = 0.1
 		[NoScaleOffset] _MainTex ("Main Texture", 2D) = "black" {}

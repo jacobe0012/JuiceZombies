@@ -1,5 +1,5 @@
 //---------------------------------------------------------------------
-// JiYuStudio
+// UnicornStudio
 // Author: �ƽ��
 // Time: #CreateTime#
 //---------------------------------------------------------------------
@@ -66,8 +66,8 @@ namespace XFramework
         public async void Initialize(GameRole _gameRole)
         {
             itemPos = this.GetFromReference(KItemPos).GameObject.transform;
-            // JiYuTweenHelper.OpenPanelScale(this.GetFromReference(KBack));
-            // JiYuTweenHelper.OpenPanelScale(this.GetFromReference(KItemPos));
+            // UnicornTweenHelper.OpenPanelScale(this.GetFromReference(KBack));
+            // UnicornTweenHelper.OpenPanelScale(this.GetFromReference(KItemPos));
             role = _gameRole;
             WebMessageHandlerOld.Instance.AddHandler(1, 2, OnChangeAvaterResponse);
 
@@ -165,23 +165,23 @@ namespace XFramework
             var UseBtn = this.GetFromReference(KUseBtn);
 
             //�ر������Ϣ����
-            JiYuTweenHelper.DoScaleTweenOnClickAndLongPress(CloseBack, () =>
+            UnicornTweenHelper.DoScaleTweenOnClickAndLongPress(CloseBack, () =>
             {
                 CloseLastItemView(UIItemDic);
                 Close();
             });
 
-            JiYuTweenHelper.DoScaleTweenOnClickAndLongPress(CloseBtn, () =>
+            UnicornTweenHelper.DoScaleTweenOnClickAndLongPress(CloseBtn, () =>
             {
                 CloseLastItemView(UIItemDic);
                 Close();
             });
 
             //�򿪸�������
-            JiYuTweenHelper.DoScaleTweenOnClickAndLongPress(NameChange, async () =>
+            UnicornTweenHelper.DoScaleTweenOnClickAndLongPress(NameChange, async () =>
             {
-                WebMessageHandlerOld.Instance.AddHandler(CMD.CHANGESTATUS, OnChangeNameStatusResponse);
-                NetWorkManager.Instance.SendMessage(CMD.CHANGESTATUS);
+                WebMessageHandlerOld.Instance.AddHandler(CMDOld.CHANGESTATUS, OnChangeNameStatusResponse);
+                NetWorkManager.Instance.SendMessage(CMDOld.CHANGESTATUS);
             });
 
             //��ͷ��ѡ�����
@@ -247,7 +247,7 @@ namespace XFramework
                 this.GetFromReference(KStateTxt).SetActive(true);
             });
 
-            JiYuTweenHelper.DoScaleTweenOnClickAndLongPress(UseBtn, async () =>
+            UnicornTweenHelper.DoScaleTweenOnClickAndLongPress(UseBtn, async () =>
             {
                 //����ͷ��
                 if (isLeft)
@@ -291,7 +291,7 @@ namespace XFramework
         public void SetName(string name)
         {
             this.GetFromReference(KNameTxt).GetTextMeshPro().SetTMPText(name);
-            if (JiYuUIHelper.TryGetUI(UIType.UIPanel_Main, out UI ui))
+            if (UnicornUIHelper.TryGetUI(UIType.UIPanel_Main, out UI ui))
             {
                 var uis = ui as UIPanel_Main;
                 uis?.SetPlayerName(name);
@@ -447,7 +447,7 @@ namespace XFramework
             // ui.SetParent(this, true);
             // //var ui = await UIHelper.CreateAsync(UIType.UICommon_TopTab);
             // //UIHelper.Create(UIType.UIRedPointT);
-            // WebMessageHandlerOld.Instance.RemoveHandler(CMD.CHANGESTATUS, OnChangeNameStatusResponse);
+            // WebMessageHandlerOld.Instance.RemoveHandler(CMDOld.CHANGESTATUS, OnChangeNameStatusResponse);
         }
 
         protected override void OnClose()

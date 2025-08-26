@@ -27,12 +27,12 @@ namespace HotFix_UI
             string errorStr = tblanguage.Get(errcode.name).current;
 
             //var str = $"{tblanguage.Get("piggy_bank_pay_limit_tips").current}";
-            JiYuUIHelper.ClearCommonResource();
+            UnicornUIHelper.ClearCommonResource();
             UIHelper.CreateAsync(UIType.UICommon_Resource, errorStr);
             if (MsgCode == 170002)
             {
-                NetWorkManager.Instance.SendMessage(CMD.SWITCHACCOUNT);
-                // NetWorkManager.Instance.SendMessage(CMD.SWITCHACCOUNT, new StringValue
+                NetWorkManager.Instance.SendMessage(CMDOld.SWITCHACCOUNT);
+                // NetWorkManager.Instance.SendMessage(CMDOld.SWITCHACCOUNT, new StringValue
                 // {
                 //     Value = JsonManager.Instance.userData.privateKey
                 // });
@@ -116,18 +116,18 @@ namespace HotFix_UI
                     break;
                 case 110004:
                     Log.Error("体力不足");
-                    // WebMessageHandlerOld.Instance.AddHandler(CMD.INITPLAYER, OnCheckResourceEnoughResponse1);
-                    // NetWorkManager.Instance.SendMessage(CMD.INITPLAYER);
+                    // WebMessageHandlerOld.Instance.AddHandler(CMDOld.INITPLAYER, OnCheckResourceEnoughResponse1);
+                    // NetWorkManager.Instance.SendMessage(CMDOld.INITPLAYER);
                     break;
                 case 110005:
                     Log.Error("金币不足");
-                    // WebMessageHandlerOld.Instance.AddHandler(CMD.INITPLAYER, OnCheckResourceEnoughResponse3);
-                    // NetWorkManager.Instance.SendMessage(CMD.INITPLAYER);
+                    // WebMessageHandlerOld.Instance.AddHandler(CMDOld.INITPLAYER, OnCheckResourceEnoughResponse3);
+                    // NetWorkManager.Instance.SendMessage(CMDOld.INITPLAYER);
                     break;
                 case 110006:
                     Log.Error("宝石不足");
-                    // WebMessageHandlerOld.Instance.AddHandler(CMD.INITPLAYER, OnCheckResourceEnoughResponse2);
-                    // NetWorkManager.Instance.SendMessage(CMD.INITPLAYER);
+                    // WebMessageHandlerOld.Instance.AddHandler(CMDOld.INITPLAYER, OnCheckResourceEnoughResponse2);
+                    // NetWorkManager.Instance.SendMessage(CMDOld.INITPLAYER);
                     break;
                 case 110003:
                     Log.Error("角色操作失败");
@@ -297,21 +297,21 @@ namespace HotFix_UI
             //     }
             //
             //     var tbuserLevel = ConfigManager.Instance.Tables.Tbuser_level;
-            //     ResourcesSingleton.Instance.UserInfo.RoleAssets.Energy = gameRole.RoleAssets.Energy;
-            //     ResourcesSingleton.Instance.UserInfo.RoleAssets.Bitcoin = gameRole.RoleAssets.Bitcoin;
-            //     ResourcesSingleton.Instance.UserInfo.RoleAssets.UsBill = gameRole.RoleAssets.UsBill;
+            //     ResourcesSingletonOld.Instance.UserInfo.RoleAssets.Energy = gameRole.RoleAssets.Energy;
+            //     ResourcesSingletonOld.Instance.UserInfo.RoleAssets.Bitcoin = gameRole.RoleAssets.Bitcoin;
+            //     ResourcesSingletonOld.Instance.UserInfo.RoleAssets.UsBill = gameRole.RoleAssets.UsBill;
             //     var totalExp = gameRole.RoleAssets.Level > 1
             //         ? tbuserLevel.Get(gameRole.RoleAssets.Level - 1).exp + gameRole.RoleAssets.Exp
             //         : gameRole.RoleAssets.Exp;
-            //     ResourcesSingleton.Instance.UserInfo.RoleAssets.Exp = totalExp;
+            //     ResourcesSingletonOld.Instance.UserInfo.RoleAssets.Exp = totalExp;
             //
-            //     ResourcesSingleton.Instance.UpdateResourceUI();
+            //     ResourcesSingletonOld.Instance.UpdateResourceUI();
             //
             //
             //     UIHelper.CreateAsync(UIType.UILack, 1);
             //
             //
-            //     WebMessageHandlerOld.Instance.RemoveHandler(CMD.INITPLAYER, OnCheckResourceEnoughResponse1);
+            //     WebMessageHandlerOld.Instance.RemoveHandler(CMDOld.INITPLAYER, OnCheckResourceEnoughResponse1);
             // }
             //
             // void OnCheckResourceEnoughResponse2(object sender, WebMessageHandlerOld.Execute e)
@@ -325,21 +325,21 @@ namespace HotFix_UI
             //     }
             //
             //     var tbuserLevel = ConfigManager.Instance.Tables.Tbuser_level;
-            //     ResourcesSingleton.Instance.UserInfo.RoleAssets.Energy = gameRole.RoleAssets.Energy;
-            //     ResourcesSingleton.Instance.UserInfo.RoleAssets.Bitcoin = gameRole.RoleAssets.Bitcoin;
-            //     ResourcesSingleton.Instance.UserInfo.RoleAssets.UsBill = gameRole.RoleAssets.UsBill;
+            //     ResourcesSingletonOld.Instance.UserInfo.RoleAssets.Energy = gameRole.RoleAssets.Energy;
+            //     ResourcesSingletonOld.Instance.UserInfo.RoleAssets.Bitcoin = gameRole.RoleAssets.Bitcoin;
+            //     ResourcesSingletonOld.Instance.UserInfo.RoleAssets.UsBill = gameRole.RoleAssets.UsBill;
             //     var totalExp = gameRole.RoleAssets.Level > 1
             //         ? tbuserLevel.Get(gameRole.RoleAssets.Level - 1).exp + gameRole.RoleAssets.Exp
             //         : gameRole.RoleAssets.Exp;
-            //     ResourcesSingleton.Instance.UserInfo.RoleAssets.Exp = totalExp;
+            //     ResourcesSingletonOld.Instance.UserInfo.RoleAssets.Exp = totalExp;
             //
-            //     ResourcesSingleton.Instance.UpdateResourceUI();
+            //     ResourcesSingletonOld.Instance.UpdateResourceUI();
             //
             //
             //     UIHelper.CreateAsync(UIType.UILack, 2);
             //
             //
-            //     WebMessageHandlerOld.Instance.RemoveHandler(CMD.INITPLAYER, OnCheckResourceEnoughResponse2);
+            //     WebMessageHandlerOld.Instance.RemoveHandler(CMDOld.INITPLAYER, OnCheckResourceEnoughResponse2);
             // }
             //
             // void OnCheckResourceEnoughResponse3(object sender, WebMessageHandlerOld.Execute e)
@@ -353,21 +353,21 @@ namespace HotFix_UI
             //     }
             //
             //     var tbuserLevel = ConfigManager.Instance.Tables.Tbuser_level;
-            //     ResourcesSingleton.Instance.UserInfo.RoleAssets.Energy = gameRole.RoleAssets.Energy;
-            //     ResourcesSingleton.Instance.UserInfo.RoleAssets.Bitcoin = gameRole.RoleAssets.Bitcoin;
-            //     ResourcesSingleton.Instance.UserInfo.RoleAssets.UsBill = gameRole.RoleAssets.UsBill;
+            //     ResourcesSingletonOld.Instance.UserInfo.RoleAssets.Energy = gameRole.RoleAssets.Energy;
+            //     ResourcesSingletonOld.Instance.UserInfo.RoleAssets.Bitcoin = gameRole.RoleAssets.Bitcoin;
+            //     ResourcesSingletonOld.Instance.UserInfo.RoleAssets.UsBill = gameRole.RoleAssets.UsBill;
             //     var totalExp = gameRole.RoleAssets.Level > 1
             //         ? tbuserLevel.Get(gameRole.RoleAssets.Level - 1).exp + gameRole.RoleAssets.Exp
             //         : gameRole.RoleAssets.Exp;
-            //     ResourcesSingleton.Instance.UserInfo.RoleAssets.Exp = totalExp;
+            //     ResourcesSingletonOld.Instance.UserInfo.RoleAssets.Exp = totalExp;
             //
-            //     ResourcesSingleton.Instance.UpdateResourceUI();
+            //     ResourcesSingletonOld.Instance.UpdateResourceUI();
             //
             //
             //     UIHelper.CreateAsync(UIType.UILack, 3);
             //
             //
-            //     WebMessageHandlerOld.Instance.RemoveHandler(CMD.INITPLAYER, OnCheckResourceEnoughResponse3);
+            //     WebMessageHandlerOld.Instance.RemoveHandler(CMDOld.INITPLAYER, OnCheckResourceEnoughResponse3);
             // }
             //
         }

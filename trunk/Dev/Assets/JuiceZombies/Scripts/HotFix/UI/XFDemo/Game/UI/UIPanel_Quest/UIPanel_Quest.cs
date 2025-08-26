@@ -1,5 +1,5 @@
 //---------------------------------------------------------------------
-// JiYuStudio
+// UnicornStudio
 // Author: xxx
 // Time: #CreateTime#
 //---------------------------------------------------------------------
@@ -40,7 +40,7 @@ namespace XFramework
 
         public async void Initialize()
 		{
-			await JiYuUIHelper.InitBlur(this);
+			await UnicornUIHelper.InitBlur(this);
 			 InitNode();
 		     InitText();
 			 InitBtn();
@@ -48,9 +48,9 @@ namespace XFramework
 
         private void InitBtn()
         {
-			JiYuTweenHelper.DoScaleTweenOnClickAndLongPress(GetFromReference(KBtnClose), Close);
+			UnicornTweenHelper.DoScaleTweenOnClickAndLongPress(GetFromReference(KBtnClose), Close);
 			this.GetButton(KCloseMask)?.OnClick.Add(Close);
-            JiYuTweenHelper.DoScaleTweenOnClickAndLongPress(GetFromReference(KBtn_Submit), OnSubmitBtnClick);
+            UnicornTweenHelper.DoScaleTweenOnClickAndLongPress(GetFromReference(KBtn_Submit), OnSubmitBtnClick);
 
         }
 
@@ -59,17 +59,17 @@ namespace XFramework
             var KTextInput = GetFromReference(UIPanel_Quest.KTextInput);
             var str = KTextInput.GetComponent<TMP_InputField>().text;
             Log.Debug(str);
-            NetWorkManager.Instance.SendMessage(CMD.SUBMITQUEST, new StringValue {
+            NetWorkManager.Instance.SendMessage(CMDOld.SUBMITQUEST, new StringValue {
                 Value =str,
             });
-            WebMessageHandlerOld.Instance.AddHandler(CMD.SUBMITQUEST, OnResponceQuest);
+            WebMessageHandlerOld.Instance.AddHandler(CMDOld.SUBMITQUEST, OnResponceQuest);
 
 
         }
 
         private void OnResponceQuest(object sender, WebMessageHandlerOld.Execute e)
         {
-            WebMessageHandlerOld.Instance.RemoveHandler(CMD.SUBMITQUEST, OnResponceQuest);
+            WebMessageHandlerOld.Instance.RemoveHandler(CMDOld.SUBMITQUEST, OnResponceQuest);
 
             var submitInfo = new BoolValue();
             submitInfo.MergeFrom(e.data);
@@ -80,7 +80,7 @@ namespace XFramework
                 return;
             }
             string errorStr = tbLanguage.Get("text_submit_success").current;
-            JiYuUIHelper.ClearCommonResource();
+            UnicornUIHelper.ClearCommonResource();
             UIHelper.CreateAsync(UIType.UICommon_Resource, errorStr);
             Close();
 

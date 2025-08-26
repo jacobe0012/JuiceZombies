@@ -1,5 +1,5 @@
 //---------------------------------------------------------------------
-// JiYuStudio
+// UnicornStudio
 // Author: xxx
 // Time: #CreateTime#
 //---------------------------------------------------------------------
@@ -48,7 +48,7 @@ namespace XFramework
 
         public async void Initialize(int args)
         {
-            await JiYuUIHelper.InitBlur(this);
+            await UnicornUIHelper.InitBlur(this);
             activityId = args;
             InitJson();
             InitNode();
@@ -79,7 +79,7 @@ namespace XFramework
             var KBtn_Mask = GetFromReference(UIPanel_BuyDice.KBtn_Mask);
             var KText_Buy = GetFromReference(UIPanel_BuyDice.KText_Buy);
             var KText_Price = GetFromReference(UIPanel_BuyDice.KText_Price);
-            if (!ResourcesSingleton.Instance.activity.activityMap.ActivityMap_.TryGetValue(activityId,
+            if (!ResourcesSingletonOld.Instance.activity.activityMap.ActivityMap_.TryGetValue(activityId,
                     out var gameActivity))
             {
                 Close();
@@ -93,7 +93,7 @@ namespace XFramework
             KText_Name.GetTextMeshPro().SetTMPText(tblanguage.Get(diceItem.name).current);
             KText_Buy.GetTextMeshPro().SetTMPText(tblanguage.Get("common_state_buy").current);
 
-            KText_Price.GetTextMeshPro().SetTMPText($"{JiYuUIHelper.GetRewardTextIconName(dimonad)}{diceItem.value}");
+            KText_Price.GetTextMeshPro().SetTMPText($"{UnicornUIHelper.GetRewardTextIconName(dimonad)}{diceItem.value}");
 
             //
 
@@ -103,12 +103,12 @@ namespace XFramework
             KText_BuyCount.GetTextMeshPro().SetTMPText(buyCountStr);
 
             var nowCountStr =
-                $"{tblanguage.Get("text_quantity_on_hand").current}{JiYuUIHelper.GetRewardCount(initDiceItem)}";
+                $"{tblanguage.Get("text_quantity_on_hand").current}{UnicornUIHelper.GetRewardCount(initDiceItem)}";
             KText_NowCount.GetTextMeshPro().SetTMPText(nowCountStr);
 
             var slider = KSlider.GetSlider();
             slider.Get().minValue = 1;
-            canBuyCount = (int)(JiYuUIHelper.GetRewardCount(new Vector3(2, 0, 1)) / diceItem.value);
+            canBuyCount = (int)(UnicornUIHelper.GetRewardCount(new Vector3(2, 0, 1)) / diceItem.value);
 
             int maxNum = Mathf.Min(100, canBuyCount);
 
@@ -125,7 +125,7 @@ namespace XFramework
 
         async void InitNode()
         {
-            WebMessageHandlerOld.Instance.AddHandler(CMD.BUYDICE, OnBuyDiceResponse);
+            WebMessageHandlerOld.Instance.AddHandler(CMDOld.BUYDICE, OnBuyDiceResponse);
             var KText_Name = GetFromReference(UIPanel_BuyDice.KText_Name);
             var KReward_Pos = GetFromReference(UIPanel_BuyDice.KReward_Pos);
             var KBtn_Left = GetFromReference(UIPanel_BuyDice.KBtn_Left);
@@ -139,7 +139,7 @@ namespace XFramework
             var KText_Price = GetFromReference(UIPanel_BuyDice.KText_Price);
 
 
-            if (!ResourcesSingleton.Instance.activity.activityMap.ActivityMap_.TryGetValue(activityId,
+            if (!ResourcesSingletonOld.Instance.activity.activityMap.ActivityMap_.TryGetValue(activityId,
                     out var gameActivity))
             {
                 Close();
@@ -153,7 +153,7 @@ namespace XFramework
             KText_Name.GetTextMeshPro().SetTMPText(tblanguage.Get(diceItem.name).current);
             KText_Buy.GetTextMeshPro().SetTMPText(tblanguage.Get("common_state_buy").current);
 
-            KText_Price.GetTextMeshPro().SetTMPText($"{JiYuUIHelper.GetRewardTextIconName(dimonad)}{diceItem.value}");
+            KText_Price.GetTextMeshPro().SetTMPText($"{UnicornUIHelper.GetRewardTextIconName(dimonad)}{diceItem.value}");
 
             //
 
@@ -163,12 +163,12 @@ namespace XFramework
             KText_BuyCount.GetTextMeshPro().SetTMPText(buyCountStr);
 
             var nowCountStr =
-                $"{tblanguage.Get("text_quantity_on_hand").current}{JiYuUIHelper.GetRewardCount(initDiceItem)}";
+                $"{tblanguage.Get("text_quantity_on_hand").current}{UnicornUIHelper.GetRewardCount(initDiceItem)}";
             KText_NowCount.GetTextMeshPro().SetTMPText(nowCountStr);
 
             var slider = KSlider.GetSlider();
             slider.Get().minValue = 1;
-            canBuyCount = (int)(JiYuUIHelper.GetRewardCount(new Vector3(2, 0, 1)) / diceItem.value);
+            canBuyCount = (int)(UnicornUIHelper.GetRewardCount(new Vector3(2, 0, 1)) / diceItem.value);
 
             int maxNum = Mathf.Min(100, canBuyCount);
 
@@ -200,7 +200,7 @@ namespace XFramework
                     $"{tblanguage.Get("text_buy_num").current}{intValue}";
                 KText_BuyCount.GetTextMeshPro().SetTMPText(buyCountStr);
                 KText_Price.GetTextMeshPro()
-                    .SetTMPText($"{JiYuUIHelper.GetRewardTextIconName(dimonad)}{diceItem.value * intValue}");
+                    .SetTMPText($"{UnicornUIHelper.GetRewardTextIconName(dimonad)}{diceItem.value * intValue}");
             });
             var btnRight = KBtn_Right.GetXButton();
             btnRight.OnClick.Add(() =>
@@ -251,7 +251,7 @@ namespace XFramework
             btnLeft.SetMaxLongPressCount(-1);
 
 
-            JiYuTweenHelper.DoScaleTweenOnClickAndLongPress(KBtn_Buy, async () =>
+            UnicornTweenHelper.DoScaleTweenOnClickAndLongPress(KBtn_Buy, async () =>
             {
                 var cost = new Vector3(2, 0, (int)slider.Value * diceItem.value);
                 var ui = await UIHelper.CreateAsync(UIType.UICommon_Sec_Confirm, cost, initDiceItem);
@@ -262,16 +262,16 @@ namespace XFramework
                 var KBtn_Buy = ui.GetFromReference(UICommon_Sec_Confirm.KBtn_Buy);
 
 
-                JiYuTweenHelper.JiYuOnClickNoAnim(KBtn_Buy, () =>
+                UnicornTweenHelper.JiYuOnClickNoAnim(KBtn_Buy, () =>
                 {
                     //Log.Error($"TryReduceReward1 {cost}");
                     //var cost = new Vector3(2, 0, (int)(slider.Value * diceItem.value));
-                    if (!JiYuUIHelper.TryReduceReward(cost))
+                    if (!UnicornUIHelper.TryReduceReward(cost))
                     {
                         // Vector3 v3 = tbshop_Daily[sign].cost[0];
                         // v3.z = v3.z - playerHave;
                         // var uiTip = UIHelper.Create<Vector3>(UIType.UICommon_ResourceNotEnough, v3);
-                        // JiYuUIHelper.SetResourceNotEnoughTip(uiTip, KBtn_Buy);
+                        // UnicornUIHelper.SetResourceNotEnoughTip(uiTip, KBtn_Buy);
                         //
                         //
                         // UIHelper.CreateAsync(UIType.UILack, 2);
@@ -279,7 +279,7 @@ namespace XFramework
                         return;
                     }
 
-                    NetWorkManager.Instance.SendMessage(CMD.BUYDICE, new IntValue
+                    NetWorkManager.Instance.SendMessage(CMDOld.BUYDICE, new IntValue
                     {
                         Value = (int)slider.Value
                     });
@@ -287,14 +287,14 @@ namespace XFramework
                     ui.Dispose();
                     // var get = initDiceItem;
                     // get.z = (int)slider.Value;
-                    // JiYuUIHelper.AddReward(get);
+                    // UnicornUIHelper.AddReward(get);
                 });
             });
 
 
             KBtn_Mask.GetButton().OnClick.Add(() =>
             {
-                if (JiYuUIHelper.TryGetUI(UIType.UIPanel_Activity_Monopoly, out var ui))
+                if (UnicornUIHelper.TryGetUI(UIType.UIPanel_Activity_Monopoly, out var ui))
                 {
                     var uis = ui as UIPanel_Activity_Monopoly;
                     uis.Refresh();
@@ -315,7 +315,7 @@ namespace XFramework
                 return;
             }
 
-            var reward = JiYuUIHelper.TurnStrReward2List(buyDice.Value);
+            var reward = UnicornUIHelper.TurnStrReward2List(buyDice.Value);
 
             var ui = await UIHelper.CreateAsync(UIType.UICommon_Reward, reward);
             var KBtn_Close = ui.GetFromReference(UICommon_Reward.KBtn_Close);
@@ -330,7 +330,7 @@ namespace XFramework
 
         protected override void OnClose()
         {
-            WebMessageHandlerOld.Instance.RemoveHandler(CMD.BUYDICE, OnBuyDiceResponse);
+            WebMessageHandlerOld.Instance.RemoveHandler(CMDOld.BUYDICE, OnBuyDiceResponse);
             base.OnClose();
         }
     }

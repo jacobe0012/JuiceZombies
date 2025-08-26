@@ -1,5 +1,5 @@
 //---------------------------------------------------------------------
-// JiYuStudio
+// UnicornStudio
 // Author: xxx
 // Time: #CreateTime#
 //---------------------------------------------------------------------
@@ -56,7 +56,7 @@ namespace XFramework
             //
             // skeletonGraphic.Initialize(true);
             // skeletonGraphic.Skeleton.SetSkin(tbmonster_attr.Get(monster.monsterAttrId).model);
-            // skeletonGraphic.Skeleton.SetSlotsToSetupPose(); // ÖØÖÃ²å²Û×ËÊÆ
+            // skeletonGraphic.Skeleton.SetSlotsToSetupPose(); // ï¿½ï¿½ï¿½Ã²ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
             // skeletonGraphic.Skeleton.SetAttachment("weapon", monster.monsterWeaponId.ToString());
             // this.SetActive(true);
             // while (true)
@@ -69,7 +69,7 @@ namespace XFramework
             //     skeletonGraphic.AnimationState.SetAnimation(0, randomAnimationName, false);
             //
             //     //var skeletonData = skeletonGraphic.skeletonDataAsset.GetSkeletonData(false);
-            //     // »ñÈ¡¶¯»­ÐÅÏ¢
+            //     // ï¿½ï¿½È¡ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ï¢
             //     //var animation = skeletonData.FindAnimation(randomAnimationName);
             //     //var time = skeletonGraphic.AnimationState.GetCurrent(0).AnimationTime;
             //

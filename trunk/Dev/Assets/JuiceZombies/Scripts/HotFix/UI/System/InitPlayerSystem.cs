@@ -1,6 +1,6 @@
 ﻿//---------------------------------------------------------------------
-// JiYuStudio
-// Author: 格伦
+// UnicornStudio
+// Author: jaco0012
 // Time: 2023-09-27 12:06:32
 //---------------------------------------------------------------------
 
@@ -114,7 +114,7 @@ namespace HotFix_UI
             Log.Debug($"{mybattleProperty.Properties}", Color.green);
             //前端处理数据：
 
-            JiYuUIHelper.InitPlayerProperty(ref playerData, ref chaStats, mybattleProperty);
+            UnicornUIHelper.InitPlayerProperty(ref playerData, ref chaStats, mybattleProperty);
 
             Log.Debug($"后端传入数据Skills", Color.cyan);
             //武器技能 1 00000开头
@@ -185,24 +185,24 @@ namespace HotFix_UI
             mass.InverseMass = 1f / (float)chaStats.chaProperty.mass;
             //mass.InverseMass = 1000f;
             //新手引导数据
-            bool hasCollideTipsGuide = ResourcesSingleton.Instance.settingData.GuideList.Contains(2);
+            bool hasCollideTipsGuide = ResourcesSingletonOld.Instance.settingData.GuideList.Contains(2);
             if (hasCollideTipsGuide)
             {
                 playerData.playerOtherData.guideList.Add(323);
             }
 
-            bool hasCollideTipsGuide1 = ResourcesSingleton.Instance.settingData.GuideList.Contains(7);
+            bool hasCollideTipsGuide1 = ResourcesSingletonOld.Instance.settingData.GuideList.Contains(7);
             if (hasCollideTipsGuide1)
             {
                 playerData.playerOtherData.guideList.Add(313);
             }
-            // foreach (var guide in ResourcesSingleton.Instance.settingData.GuideList)
+            // foreach (var guide in ResourcesSingletonOld.Instance.settingData.GuideList)
             // {
             //     playerData.playerOtherData.guideList.Add(guide);
             // }
 
 
-            ResourcesSingleton.Instance.playerProperty.playerData = playerData;
+            ResourcesSingletonOld.Instance.playerProperty.playerData = playerData;
 
 
             var tran = EntityManager.GetComponentData<LocalTransform>(player);
@@ -318,14 +318,14 @@ namespace HotFix_UI
 
         async UniTaskVoid LoadingAnim()
         {
-            await JiYuTweenHelper.EnableLoading(true, UIManager.LoadingType.TranstionFXExit);
-            JiYuUIHelper.EnableISystem<SpawnEnemySystem>(true);
+            await UnicornTweenHelper.EnableLoading(true, UIManager.LoadingType.TranstionFXExit);
+            UnicornUIHelper.EnableISystem<SpawnEnemySystem>(true);
             Log.Debug($"EnableISystem<SpawnEnemySystem>");
         }
 
         void OnClickPlayBtnFinishResponse(object sender, WebMessageHandlerOld.Execute e)
         {
-            WebMessageHandlerOld.Instance.RemoveHandler(CMD.QUERYPROPERTY, OnClickPlayBtnFinishResponse);
+            WebMessageHandlerOld.Instance.RemoveHandler(CMDOld.QUERYPROPERTY, OnClickPlayBtnFinishResponse);
 
             var battleProperty = new BattleProperty();
             battleProperty.MergeFrom(e.data);
@@ -346,11 +346,11 @@ namespace HotFix_UI
             var global = XFramework.Common.Instance.Get<Global>();
             if (!global.isIntroGuide)
             {
-                WebMessageHandlerOld.Instance.AddHandler(CMD.QUERYPROPERTY, OnClickPlayBtnFinishResponse);
-                NetWorkManager.Instance.SendMessage(CMD.QUERYPROPERTY, new StringValue()
+                WebMessageHandlerOld.Instance.AddHandler(CMDOld.QUERYPROPERTY, OnClickPlayBtnFinishResponse);
+                NetWorkManager.Instance.SendMessage(CMDOld.QUERYPROPERTY, new StringValue()
                 {
                     Value =
-                        $"{ResourcesSingleton.Instance.battleData.battleId};{ResourcesSingleton.Instance.levelInfo.levelId}"
+                        $"{ResourcesSingletonOld.Instance.battleData.battleId};{ResourcesSingletonOld.Instance.levelInfo.levelId}"
                 });
             }
         }

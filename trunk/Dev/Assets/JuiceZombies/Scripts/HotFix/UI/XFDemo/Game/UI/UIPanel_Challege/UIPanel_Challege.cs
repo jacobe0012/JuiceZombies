@@ -1,5 +1,5 @@
 ﻿//---------------------------------------------------------------------
-// JiYuStudio
+// UnicornStudio
 // Author: xxx
 // Time: #CreateTime#
 //---------------------------------------------------------------------
@@ -76,7 +76,7 @@ namespace XFramework
         public void Initialize()
         {
             tipParentUI = default;
-            var maxChapterID = ResourcesSingleton.Instance.levelInfo.maxPassChapterID;
+            var maxChapterID = ResourcesSingletonOld.Instance.levelInfo.maxPassChapterID;
             if (maxChapterID < 2)
             {
                 Log.Error($"没通关前两张{maxChapterID}");
@@ -102,11 +102,11 @@ namespace XFramework
 
 
             RefreshMaxLockID();
-            JiYuTweenHelper.DoScaleTweenOnClickAndLongPress(this.GetFromReference(KBtn_MainTread), OnMainTreadClick);
-            JiYuTweenHelper.DoScaleTweenOnClickAndLongPress(this.GetFromReference(KBtn_AreaThread), OnAreaTreadClick);
-            JiYuTweenHelper.DoScaleTweenOnClickAndLongPress(this.GetFromReference(KBtn_Description), OnTipTagClick);
+            UnicornTweenHelper.DoScaleTweenOnClickAndLongPress(this.GetFromReference(KBtn_MainTread), OnMainTreadClick);
+            UnicornTweenHelper.DoScaleTweenOnClickAndLongPress(this.GetFromReference(KBtn_AreaThread), OnAreaTreadClick);
+            UnicornTweenHelper.DoScaleTweenOnClickAndLongPress(this.GetFromReference(KBtn_Description), OnTipTagClick);
 
-            JiYuTweenHelper.DoScaleTweenOnClickAndLongPress(this.GetFromReference(KBtn_Display_Root),
+            UnicornTweenHelper.DoScaleTweenOnClickAndLongPress(this.GetFromReference(KBtn_Display_Root),
                 () => OnChallengeButtonClick(currentSelectID, 1));
             this.GetFromReference(KBtn_Close).GetButton()?.OnClick.Add(OnTipClose);
 
@@ -156,7 +156,7 @@ namespace XFramework
             //var scrollRect = GetFromReference(KScroller_AreaInfo)?.GetComponent<JiYuScrollRect>();
             float leftBorder = -Screen.width / 2f;
             float rightBorder = Screen.width / 2f;
-            var currentX = JiYuUIHelper.GetUIPos(currentPlygon).x;
+            var currentX = UnicornUIHelper.GetUIPos(currentPlygon).x;
             GetFromReference(KInfoTip)?.SetActive(false);
             if (currentX < leftBorder || currentX > rightBorder)
             {
@@ -220,12 +220,12 @@ namespace XFramework
 
         private static void RefreshMaxLockID()
         {
-            //var dic = ResourcesSingleton.Instance.challengeInfo.challengeStateMap;
+            //var dic = ResourcesSingletonOld.Instance.challengeInfo.challengeStateMap;
             //if (dic.Count <= 0) return;
             //int maxMainChallengID = dic.Where(x => x.Value != 1 && x.Key.ToString().StartsWith("2")).Max(x => x.Key);
             //int maxAreaChallengID = dic.Where(x => x.Value != 1 && x.Key.ToString().StartsWith("3")).Max(x => x.Key);
-            //ResourcesSingleton.Instance.challengeInfo.maxMainChallengeID = maxMainChallengID;
-            //ResourcesSingleton.Instance.challengeInfo.maxAreaChallengeID = maxAreaChallengID;
+            //ResourcesSingletonOld.Instance.challengeInfo.maxMainChallengeID = maxMainChallengID;
+            //ResourcesSingletonOld.Instance.challengeInfo.maxAreaChallengeID = maxAreaChallengID;
         }
 
         private void OnTipClose()
@@ -235,7 +235,7 @@ namespace XFramework
             //this.GetFromReference(KBtn_Close)?.SetActive(false);
             this.GetFromReference(KCommon_ItemTips)?.SetActive(false);
             //this.GetFromReference(Ktip_Txt_Bg)?.SetActive(false);
-            JiYuUIHelper.DestoryAllTips();
+            UnicornUIHelper.DestoryAllTips();
 
 
             this.GetFromReference(KImgArrow)?.SetActive(false);
@@ -243,21 +243,21 @@ namespace XFramework
 
         private int GetCurrentAreaThreadID()
         {
-            int id = ResourcesSingleton.Instance.challengeInfo.maxAreaChallengeID;
+            int id = ResourcesSingletonOld.Instance.challengeInfo.maxAreaChallengeID;
             return id;
         }
 
         private int GetCurrentMainThreadID()
         {
-            int id = ResourcesSingleton.Instance.challengeInfo.maxMainChallengeID;
+            int id = ResourcesSingletonOld.Instance.challengeInfo.maxMainChallengeID;
             return id;
         }
 
         private async void CreateAreaTreadAreaInfo(int currentAreaID)
         {
-            int maxChallengeID = ResourcesSingleton.Instance.challengeInfo.maxAreaChallengeID;
+            int maxChallengeID = ResourcesSingletonOld.Instance.challengeInfo.maxAreaChallengeID;
             var scrollRect = this.GetFromReference(KContainer_Info_Area).GetXScrollRect();
-            scrollRect.OnBeginDrag.Add(JiYuUIHelper.DestoryAllTips);
+            scrollRect.OnBeginDrag.Add(UnicornUIHelper.DestoryAllTips);
             var areaInfoList = scrollRect.Content.GetList();
 
             var challengeTable = tbChallenge.DataList;
@@ -295,13 +295,13 @@ namespace XFramework
 
                     if (challengeTable[i].id <= maxChallengeID)
                     {
-                        if (ResourcesSingleton.Instance.challengeInfo.challengeStateMap[challengeID] > 2)
+                        if (ResourcesSingletonOld.Instance.challengeInfo.challengeStateMap[challengeID] > 2)
                         {
                             ui.GetFromReference(UISubPanel_Challenge_Container_AreaDetails.KContainerFinish)
                                 ?.SetActive(true);
                         }
 
-                        if (ResourcesSingleton.Instance.challengeInfo.challengeStateMap[challengeID] == 3)
+                        if (ResourcesSingletonOld.Instance.challengeInfo.challengeStateMap[challengeID] == 3)
                         {
                             ui.GetFromReference(UISubPanel_Challenge_Container_AreaDetails.KImg_RedDot)
                                 ?.SetActive(true);
@@ -309,7 +309,7 @@ namespace XFramework
                         }
                     }
 
-                    JiYuTweenHelper.DoScaleTweenOnClickAndLongPress(
+                    UnicornTweenHelper.DoScaleTweenOnClickAndLongPress(
                         ui.GetFromReference(UISubPanel_Challenge_Container_AreaDetails.KBtn_Display_Root),
                         () => OnChallengeButtonClick(challengeID, 2), 4001);
                     SetFromCurrentAreaID(ui, challengeTable[i].id).Forget();
@@ -327,7 +327,7 @@ namespace XFramework
                     }
 
 
-                    // JiYuTweenHelper.DoScaleTweenOnClickAndLongPress(ui.GetFromReference(UIPanel_Challege_AreaInfo.KBtn_AreaInfo), () => OnMainChallengeAreaClick(ui, challengeTable[i].id));
+                    // UnicornTweenHelper.DoScaleTweenOnClickAndLongPress(ui.GetFromReference(UIPanel_Challege_AreaInfo.KBtn_AreaInfo), () => OnMainChallengeAreaClick(ui, challengeTable[i].id));
                 }
             }
 
@@ -339,7 +339,7 @@ namespace XFramework
             });
 
             SetAndoteHeight();
-            //JiYuUIHelper.ForceRefreshLayout(this.GetFromReference(KContainer_Info_Area).GetScrollRect().Content);
+            //UnicornUIHelper.ForceRefreshLayout(this.GetFromReference(KContainer_Info_Area).GetScrollRect().Content);
         }
 
         private void SetAndoteHeight()
@@ -390,7 +390,7 @@ namespace XFramework
 
             var rewards = await CreateReward(currentID, 1, this);
 
-            int awardState = ResourcesSingleton.Instance.challengeInfo.challengeStateMap[currentID];
+            int awardState = ResourcesSingletonOld.Instance.challengeInfo.challengeStateMap[currentID];
 
             //awardState = 1;
             DisplayRewardGetInfoForMain(awardState, rewards);
@@ -402,7 +402,7 @@ namespace XFramework
         {
             var rewards = await CreateReward(currentID, 2, ui);
 
-            int awardState = ResourcesSingleton.Instance.challengeInfo.challengeStateMap[currentID];
+            int awardState = ResourcesSingletonOld.Instance.challengeInfo.challengeStateMap[currentID];
 
             DisplayRewardGetInfoForArea(ui, awardState, rewards, currentID);
         }
@@ -469,8 +469,8 @@ namespace XFramework
 
         private async void OnChallengeButtonClick(int challengeID, int type)
         {
-            ResourcesSingleton.Instance.levelInfo.levelId = tbChallenge.Get(challengeID).levelId;
-            var state = ResourcesSingleton.Instance.challengeInfo.challengeStateMap[challengeID];
+            ResourcesSingletonOld.Instance.levelInfo.levelId = tbChallenge.Get(challengeID).levelId;
+            var state = ResourcesSingletonOld.Instance.challengeInfo.challengeStateMap[challengeID];
             switch (state)
             {
                 case 2:
@@ -484,12 +484,12 @@ namespace XFramework
                     //     SceneResManager.WaitForCompleted(sceneObj).ToCoroutine();
                     // }
 
-                    WebMessageHandlerOld.Instance.AddHandler(CMD.QUERYCANSTART, OnClickPlayBtnResponse);
+                    WebMessageHandlerOld.Instance.AddHandler(CMDOld.QUERYCANSTART, OnClickPlayBtnResponse);
                     var battleGain = new BattleGain
                     {
-                        LevelId = ResourcesSingleton.Instance.levelInfo.levelId
+                        LevelId = ResourcesSingletonOld.Instance.levelInfo.levelId
                     };
-                    NetWorkManager.Instance.SendMessage(CMD.QUERYCANSTART, battleGain);
+                    NetWorkManager.Instance.SendMessage(CMDOld.QUERYCANSTART, battleGain);
 
 
                     // WebMessageHandlerOld.Instance.AddHandler(2, 3, OnClickPlayBtnBeforeResponse0);
@@ -499,9 +499,9 @@ namespace XFramework
                     break;
                 case 3:
 
-                    ResourcesSingleton.Instance.challengeInfo.challengeStateMap[currentSelectID] = 4;
-                    NetWorkManager.Instance.SendMessage(CMD.CHALLENGECLAIM,
-                        new IntValue { Value = ResourcesSingleton.Instance.levelInfo.levelId });
+                    ResourcesSingletonOld.Instance.challengeInfo.challengeStateMap[currentSelectID] = 4;
+                    NetWorkManager.Instance.SendMessage(CMDOld.CHALLENGECLAIM,
+                        new IntValue { Value = ResourcesSingletonOld.Instance.levelInfo.levelId });
                     var rewards = tbChallenge.Get(currentSelectID).reward;
 
                     #region test
@@ -523,15 +523,15 @@ namespace XFramework
                     #endregion
 
                     //UIHelper.CreateAsync(UIType.UICommon_Reward, rewards).Forget();
-                    JiYuUIHelper.MergeRewardList(rewards);
-                    JiYuUIHelper.SortRewards(rewards);
-                    JiYuUIHelper.AddReward(rewards, true);
+                    UnicornUIHelper.MergeRewardList(rewards);
+                    UnicornUIHelper.SortRewards(rewards);
+                    UnicornUIHelper.AddReward(rewards, true);
                     if (type == 1)
                     {
                         UpdateFromCurrentMainID(currentSelectID);
 
 
-                        if (JiYuUIHelper.TryGetUI(UIType.UIPanel_Talent, out UI ui))
+                        if (UnicornUIHelper.TryGetUI(UIType.UIPanel_Talent, out UI ui))
                         {
                             Log.Debug("TryGetUI(UIType.UIPanel_Talent,out UI ui)", Color.cyan);
                             var talent = ui as UIPanel_Talent;
@@ -552,7 +552,7 @@ namespace XFramework
 
         void OnClickPlayBtnResponse(object sender, WebMessageHandlerOld.Execute e)
         {
-            WebMessageHandlerOld.Instance.RemoveHandler(CMD.QUERYCANSTART, OnClickPlayBtnResponse);
+            WebMessageHandlerOld.Instance.RemoveHandler(CMDOld.QUERYCANSTART, OnClickPlayBtnResponse);
             var longValue = new LongValue();
             longValue.MergeFrom(e.data);
             if (e.data.IsEmpty)
@@ -564,7 +564,7 @@ namespace XFramework
             Log.Debug($"验证对局是否可以开始:{longValue.Value}", Color.green);
             if (longValue.Value != null && longValue.Value > 0)
             {
-                ResourcesSingleton.Instance.battleData.battleId = longValue.Value;
+                ResourcesSingletonOld.Instance.battleData.battleId = longValue.Value;
                 //this.GetParent<UIPanel_JiyuGame>().DestoryAllToggle();
                 // entityManager = World.DefaultGameObjectInjectionWorld.EntityManager;
                 // switchSceneQuery = entityManager.CreateEntityQuery(typeof(SwitchSceneData));
@@ -607,7 +607,7 @@ namespace XFramework
         //     var battleGain = new BattleGain
         //     {
         //         BattleId = longValue.Value,
-        //         LevelId = ResourcesSingleton.Instance.levelInfo.levelId,
+        //         LevelId = ResourcesSingletonOld.Instance.levelInfo.levelId,
         //         Type = 0,
         //         RoleId = 0,
         //         PassStatus = "",
@@ -678,7 +678,7 @@ namespace XFramework
 
         private async UniTaskVoid CreateMainTreadAreaInfo()
         {
-            var maxChallengeID = ResourcesSingleton.Instance.challengeInfo.maxMainChallengeID;
+            var maxChallengeID = ResourcesSingletonOld.Instance.challengeInfo.maxMainChallengeID;
 
             var areaInfoParent = this.GetFromReference(KContainer_AreaInfo);
 
@@ -724,7 +724,7 @@ namespace XFramework
                         ui.GetFromReference(UIPanel_Challege_AreaInfo.KImg_Mask)?.SetActive(false);
                     }
 
-                    int finishState = ResourcesSingleton.Instance.challengeInfo.challengeStateMap[challengeTable[i].id];
+                    int finishState = ResourcesSingletonOld.Instance.challengeInfo.challengeStateMap[challengeTable[i].id];
                     if (finishState >= 3)
                     {
                         ui.GetFromReference(UIPanel_Challege_AreaInfo.KImg_Finish).SetActive(true);
@@ -737,7 +737,7 @@ namespace XFramework
                         }
                     }
 
-                    JiYuTweenHelper.DoScaleTweenOnClickAndLongPress(
+                    UnicornTweenHelper.DoScaleTweenOnClickAndLongPress(
                         ui.GetFromReference(UIPanel_Challege_AreaInfo.KBtn_AreaInfo),
                         () => { OnMainChallengeAreaClick(ui, challengeTable[index].id); });
                     if (index == 0)
@@ -754,12 +754,12 @@ namespace XFramework
                 return uia.index.CompareTo(uib.index);
             });
             OnMainChallengeAreaClick(uiInit, challengeTable[0].id);
-            JiYuUIHelper.ForceRefreshLayout(areaInfoParent);
+            UnicornUIHelper.ForceRefreshLayout(areaInfoParent);
         }
 
         private async void OnMainChallengeAreaClick(UIPanel_Challege_AreaInfo ui, int id)
         {
-            JiYuUIHelper.DestoryAllTips();
+            UnicornUIHelper.DestoryAllTips();
             var state = await UpdateFromCurrentMainID(id);
             if (currentPlygon != default)
             {
@@ -819,7 +819,7 @@ namespace XFramework
         //    //var scrollRect = GetFromReference(KScroller_AreaInfo)?.GetComponent<JiYuScrollRect>();
         //    float leftBorder = -Screen.width / 2f;
         //    float rightBorder = Screen.width / 2f;
-        //    var currentX = JiYuUIHelper.GetUIPos(currentPlygon).x;
+        //    var currentX = UnicornUIHelper.GetUIPos(currentPlygon).x;
         //    GetFromReference(KInfoTip)?.SetActive(false);
         //    //GetFromReference(Ktip_Award_Bg)?.SetActive(false);
         //    if (currentX < leftBorder || currentX > rightBorder)
@@ -954,7 +954,7 @@ namespace XFramework
                 var uib = b as UIPanel_Common_Events;
                 return uib.sortIndex.CompareTo(uia.sortIndex);
             });
-            JiYuUIHelper.ForceRefreshLayout(descriptionParent);
+            UnicornUIHelper.ForceRefreshLayout(descriptionParent);
         }
 
         private async UniTask<List<UICommon_RewardItem>> CreateReward(int currentID, int type, UI uiParent)
@@ -977,7 +977,7 @@ namespace XFramework
             rewardList.Clear();
 
             var rewardArray = tbChallenge.Get(currentID).reward;
-            JiYuUIHelper.MergeRewardList(rewardArray);
+            UnicornUIHelper.MergeRewardList(rewardArray);
 
             var rewardItems = new List<UICommon_RewardItem>(rewardArray.Count);
             foreach (var reward in rewardArray)
@@ -987,11 +987,11 @@ namespace XFramework
                 rewardItems.Add(ui);
                 ui.GetRectTransform().SetScale(new Vector2(itemSize / 156f, itemSize / 156f));
 
-                JiYuUIHelper.SetRewardOnClick(reward, ui);
+                UnicornUIHelper.SetRewardOnClick(reward, ui);
             }
 
-            rewardList.Sort(JiYuUIHelper.RewardUIComparer);
-            JiYuUIHelper.ForceRefreshLayout(rewardParent);
+            rewardList.Sort(UnicornUIHelper.RewardUIComparer);
+            UnicornUIHelper.ForceRefreshLayout(rewardParent);
             return rewardItems;
         }
 

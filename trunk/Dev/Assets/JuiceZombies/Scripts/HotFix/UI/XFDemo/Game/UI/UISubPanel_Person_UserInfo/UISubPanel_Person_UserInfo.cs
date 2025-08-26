@@ -1,5 +1,5 @@
 //---------------------------------------------------------------------
-// JiYuStudio
+// UnicornStudio
 // Author: xxx
 // Time: #CreateTime#
 //---------------------------------------------------------------------
@@ -81,7 +81,7 @@ namespace XFramework
                 }
             }
 
-            foreach (var state in ResourcesSingleton.Instance.UserInfo.AvatarMap.AvatarList)
+            foreach (var state in ResourcesSingletonOld.Instance.UserInfo.AvatarMap.AvatarList)
             {
                 if (state.Type == 1)
                 {
@@ -94,8 +94,8 @@ namespace XFramework
                 }
             }
 
-            HeadHelp = ResourcesSingleton.Instance.UserInfo.RoleAvatar;
-            FrameHelp = ResourcesSingleton.Instance.UserInfo.RoleAvatarFrame;
+            HeadHelp = ResourcesSingletonOld.Instance.UserInfo.RoleAvatar;
+            FrameHelp = ResourcesSingletonOld.Instance.UserInfo.RoleAvatarFrame;
 
             #region ������
 
@@ -112,15 +112,15 @@ namespace XFramework
         private void BtnNameAndIDInit()
         {
             var nameBtn = this.GetFromReference(KBtn_Name);
-            JiYuTweenHelper.DoScaleTweenOnClickAndLongPress(nameBtn, () =>
+            UnicornTweenHelper.DoScaleTweenOnClickAndLongPress(nameBtn, () =>
             {
-                //NetWorkManager.Instance.SendMessage(CMD.CHANGESTATUS);
+                //NetWorkManager.Instance.SendMessage(CMDOld.CHANGESTATUS);
                 OpenChangeName();
             });
 
             var copyBtn = this.GetFromReference(KBtn_ID);
-            JiYuTweenHelper.DoScaleTweenOnClickAndLongPress(copyBtn,
-                () => { GUIUtility.systemCopyBuffer = ResourcesSingleton.Instance.UserInfo.UserId.ToString(); });
+            UnicornTweenHelper.DoScaleTweenOnClickAndLongPress(copyBtn,
+                () => { GUIUtility.systemCopyBuffer = ResourcesSingletonOld.Instance.UserInfo.UserId.ToString(); });
         }
 
         private void NetInit()
@@ -199,7 +199,7 @@ namespace XFramework
 
 
                 HeadImageSet(ui, hd);
-                if (hd.Key == ResourcesSingleton.Instance.UserInfo.RoleAvatar)
+                if (hd.Key == ResourcesSingletonOld.Instance.UserInfo.RoleAvatar)
                 {
                     LastUI = ui;
                     ui.GetFromReference(UISubPanel_Person_Head.KBg_NotSelect).SetActive(false);
@@ -218,7 +218,7 @@ namespace XFramework
                     ui.GetFromReference(UISubPanel_Person_Head.KIcon_Lock).SetActive(false);
                     ui.GetFromReference(UISubPanel_Person_Head.KImg_Lock).SetActive(false);
                     ui.GetFromReference(UISubPanel_Person_Head.KText_Desc).SetActive(false);
-                    if (hd.Key != ResourcesSingleton.Instance.UserInfo.RoleAvatar)
+                    if (hd.Key != ResourcesSingletonOld.Instance.UserInfo.RoleAvatar)
                     {
                         ui.GetFromReference(UISubPanel_Person_Head.KBtn_Use).SetActive(true);
                     }
@@ -244,14 +244,14 @@ namespace XFramework
                 });
 
                 var ChangeBtn = ui.GetFromReference(UISubPanel_Person_Head.KBtn_Use);
-                JiYuTweenHelper.DoScaleTweenOnClickAndLongPress(ChangeBtn, () =>
+                UnicornTweenHelper.DoScaleTweenOnClickAndLongPress(ChangeBtn, () =>
                 {
                     if (LastUI != ui && hd.Value == 1)
                     {
                         isHead = true;
                         isFrame = false;
 
-                        GameRole gameRole = ResourcesSingleton.Instance.UserInfo;
+                        GameRole gameRole = ResourcesSingletonOld.Instance.UserInfo;
                         gameRole.RoleAvatar = hd.Key;
                         NetWorkManager.Instance.SendMessage(1, 2, gameRole);
                     }
@@ -291,7 +291,7 @@ namespace XFramework
 
                 FrameImageSet(ui, hd);
 
-                if (hd.Key == ResourcesSingleton.Instance.UserInfo.RoleAvatarFrame)
+                if (hd.Key == ResourcesSingletonOld.Instance.UserInfo.RoleAvatarFrame)
                 {
                     LastUI = ui;
                     ui.GetFromReference(UISubPanel_Person_Frame.KBg_Select).SetActive(true);
@@ -344,14 +344,14 @@ namespace XFramework
                 });
 
                 var changeBtn = ui.GetFromReference(UISubPanel_Person_Frame.KBtn_Use);
-                JiYuTweenHelper.DoScaleTweenOnClickAndLongPress(changeBtn, () =>
+                UnicornTweenHelper.DoScaleTweenOnClickAndLongPress(changeBtn, () =>
                 {
                     if (LastUI != ui && hd.Value == 1)
                     {
                         isHead = false;
                         isFrame = true;
 
-                        GameRole gameRole = ResourcesSingleton.Instance.UserInfo;
+                        GameRole gameRole = ResourcesSingletonOld.Instance.UserInfo;
                         gameRole.RoleAvatarFrame = hd.Key;
                         NetWorkManager.Instance.SendMessage(1, 2, gameRole);
                     }
@@ -438,7 +438,7 @@ namespace XFramework
             //BottomUI.GetImage().SetAlpha(0);
             var scrollView = BottomUI.GetFromReference(UICommon_Bottom.KScrollView_Item0);
             var horizontalUi = scrollView.GetScrollRect().Content;
-            JiYuTweenHelper.DoScaleTweenOnClickAndLongPress(backUi, () => { Close(); });
+            UnicornTweenHelper.DoScaleTweenOnClickAndLongPress(backUi, () => { Close(); });
 
             for (int i = 0; i < 2; i++)
             {
@@ -452,7 +452,7 @@ namespace XFramework
                     itemUI.GetRectTransform().SetScale(new Vector2(1.1f, 1.1f));
                 }
 
-                JiYuTweenHelper.DoScaleTweenOnClickAndLongPress(itemUI, () =>
+                UnicornTweenHelper.DoScaleTweenOnClickAndLongPress(itemUI, () =>
                 {
                     if (LastBottom != itemUI)
                     {
@@ -490,9 +490,9 @@ namespace XFramework
         private async void HeadImgInit()
         {
             await this.GetFromReference(KImg_Head).GetImage()
-                .SetSpriteAsync(tbuser_Avatar[ResourcesSingleton.Instance.UserInfo.RoleAvatar].icon, false);
+                .SetSpriteAsync(tbuser_Avatar[ResourcesSingletonOld.Instance.UserInfo.RoleAvatar].icon, false);
             //await this.GetFromReference(KBg_Head).GetImage()
-            //    .SetSpriteAsync(tbuser_Avatar[ResourcesSingleton.Instance.UserInfo.RoleAvatarFrame].icon, false);
+            //    .SetSpriteAsync(tbuser_Avatar[ResourcesSingletonOld.Instance.UserInfo.RoleAvatarFrame].icon, false);
         }
 
         private async void HeadSet(int headID)
@@ -508,9 +508,9 @@ namespace XFramework
         private void TextInit()
         {
             this.GetFromReference(KText_Name).GetTextMeshPro()
-                .SetTMPText(ResourcesSingleton.Instance.UserInfo.Nickname);
+                .SetTMPText(ResourcesSingletonOld.Instance.UserInfo.Nickname);
             this.GetFromReference(KText_ID).GetTextMeshPro()
-                .SetTMPText("ID:" + ResourcesSingleton.Instance.UserInfo.UserId.ToString());
+                .SetTMPText("ID:" + ResourcesSingletonOld.Instance.UserInfo.UserId.ToString());
         }
 
         private void DestroyList()
@@ -545,8 +545,8 @@ namespace XFramework
             if (e.data.IsEmpty)
             {
                 Log.Debug("e.data.IsEmpty", Color.red);
-                ResourcesSingleton.Instance.UserInfo.RoleAvatar = HeadHelp;
-                ResourcesSingleton.Instance.UserInfo.RoleAvatarFrame = FrameHelp;
+                ResourcesSingletonOld.Instance.UserInfo.RoleAvatar = HeadHelp;
+                ResourcesSingletonOld.Instance.UserInfo.RoleAvatarFrame = FrameHelp;
                 DestroyList();
                 if (isHead)
                 {
@@ -562,8 +562,8 @@ namespace XFramework
                 return;
             }
 
-            ResourcesSingleton.Instance.UserInfo.RoleAvatar = gameRole.RoleAvatar;
-            ResourcesSingleton.Instance.UserInfo.RoleAvatarFrame = gameRole.RoleAvatarFrame;
+            ResourcesSingletonOld.Instance.UserInfo.RoleAvatar = gameRole.RoleAvatar;
+            ResourcesSingletonOld.Instance.UserInfo.RoleAvatarFrame = gameRole.RoleAvatarFrame;
 
             DestroyList();
             if (isHead)
@@ -587,7 +587,7 @@ namespace XFramework
 
         private async void OnChangeNameStatusResponse(object sender, WebMessageHandlerOld.Execute e)
         {
-            WebMessageHandlerOld.Instance.RemoveHandler(CMD.CHANGESTATUS, OnChangeNameStatusResponse);
+            WebMessageHandlerOld.Instance.RemoveHandler(CMDOld.CHANGESTATUS, OnChangeNameStatusResponse);
             var checkResult = new CheckResult();
             checkResult.MergeFrom(e.data);
             Debug.Log(checkResult);
@@ -617,8 +617,8 @@ namespace XFramework
 
         public void OpenChangeName()
         {
-            WebMessageHandlerOld.Instance.AddHandler(CMD.CHANGESTATUS, OnChangeNameStatusResponse);
-            NetWorkManager.Instance.SendMessage(CMD.CHANGESTATUS);
+            WebMessageHandlerOld.Instance.AddHandler(CMDOld.CHANGESTATUS, OnChangeNameStatusResponse);
+            NetWorkManager.Instance.SendMessage(CMDOld.CHANGESTATUS);
         }
 
         protected override void OnClose()

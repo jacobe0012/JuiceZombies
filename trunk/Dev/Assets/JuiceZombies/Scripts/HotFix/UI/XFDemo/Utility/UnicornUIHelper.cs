@@ -1,6 +1,6 @@
 ﻿//---------------------------------------------------------------------
-// JiYuStudio
-// Author: 格伦
+// UnicornStudio
+// Author: jaco0012
 // Time: 2023-11-03 11:25:25
 //---------------------------------------------------------------------
 
@@ -45,14 +45,14 @@ namespace HotFix_UI
     /// <summary>
     /// 存放一些通用UI的函数
     /// </summary>
-    public static class JiYuUIHelper
+    public static class UnicornUIHelper
     {
         /// <summary>
         /// 打开一个commonresource前清除掉前者的
         /// </summary>
         public static void ClearCommonResource()
         {
-            if (JiYuUIHelper.TryGetUI(UIType.UICommon_Resource, out UI ui))
+            if (UnicornUIHelper.TryGetUI(UIType.UICommon_Resource, out UI ui))
             {
                 var uis = ui as UICommon_Resource;
                 var root = uis.GetFromReference(UICommon_Resource.KContainer).GetRectTransform();
@@ -145,7 +145,7 @@ namespace HotFix_UI
 
             Material material = new Material(shader);
             //var global = XFramework.Common.Instance.Get<Global>();
-            var texture2D = await JiYuUIHelper.CaptureScreenshot();
+            var texture2D = await UnicornUIHelper.CaptureScreenshot();
             material.SetTexture("_MainTex", texture2D);
             image.material = material;
             //image.texture = texture2D;
@@ -219,19 +219,15 @@ namespace HotFix_UI
 
         public static void LoginRequest(int type, string privateKey, string userName = "")
         {
-            var gameUser = new LogicRequestPb
+            var loginRequest = new C2S_LoginRequest()
             {
                 Name = userName,
-                UdId = SystemInfo.deviceUniqueIdentifier,
-                PrivateKey = privateKey,
-                //1:测试输入名字  2:快速
+                Udid = SystemInfo.deviceUniqueIdentifier,
                 Type = type,
-//#if !UNITY_EDITOR
-                PhoneType = JiYuUIHelper.GetPhoneTypeStr()
-//#endif
+                PhoneType = UnicornUIHelper.GetPhoneTypeStr(),
             };
 
-            NetWorkManager.Instance.SendMessage(CMD.LOGIN, gameUser);
+            NetWorkManager.Instance.SendMsg(loginRequest);
         }
 
         public async static void ReConnect()
@@ -351,7 +347,7 @@ namespace HotFix_UI
         {
             UnityHelper.EnableTime(isEnable);
 
-            if (JiYuUIHelper.TryGetUI(UIType.UIPanel_RunTimeHUD, out var ui))
+            if (UnicornUIHelper.TryGetUI(UIType.UIPanel_RunTimeHUD, out var ui))
             {
                 var uiRuntime = ui as UIPanel_RunTimeHUD;
                 uiRuntime.EnableInputBar(isEnable);
@@ -458,13 +454,13 @@ namespace HotFix_UI
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public async static UniTask EnableGuide(bool enable)
         {
-            //JiYuUIHelper.EnableISystem<WeaponAnimSystem>(!enable);
-            JiYuUIHelper.EnableISystem<TriggerSystem, SpawnEnemySystem, SkillCastSystem>(enable);
-            // JiYuUIHelper.EnableISystem<SpawnEnemySystem>(!enable);
-            // JiYuUIHelper.EnableISystem<SkillCastSystem>(!enable);
-            // await JiYuTweenHelper.EnableLoading(true,
+            //UnicornUIHelper.EnableISystem<WeaponAnimSystem>(!enable);
+            UnicornUIHelper.EnableISystem<TriggerSystem, SpawnEnemySystem, SkillCastSystem>(enable);
+            // UnicornUIHelper.EnableISystem<SpawnEnemySystem>(!enable);
+            // UnicornUIHelper.EnableISystem<SkillCastSystem>(!enable);
+            // await UnicornTweenHelper.EnableLoading(true,
             //     enable ? UIManager.LoadingType.TranstionShattersEnter : UIManager.LoadingType.TranstionShattersExit);
-            if (JiYuUIHelper.TryGetUI(UIType.UIPanel_RunTimeHUD, out var ui))
+            if (UnicornUIHelper.TryGetUI(UIType.UIPanel_RunTimeHUD, out var ui))
             {
                 var uiRuntime = ui as UIPanel_RunTimeHUD;
                 uiRuntime.EnableInputBar(enable);
@@ -687,11 +683,11 @@ namespace HotFix_UI
 
             battleGain.BookIdlist.AddRange(bookMonsterId);
             battleGain.WeaponIdlist.AddRange(bookWeaponId);
-            battleGain.LevelId = ResourcesSingleton.Instance.levelInfo.levelId;
+            battleGain.LevelId = ResourcesSingletonOld.Instance.levelInfo.levelId;
             battleGain.PassStatus = isWin ? "true" : "false";
             battleGain.LiveTime = (long)liveTime;
             Log.Debug($"battleGain.LiveTime{battleGain.LiveTime}");
-            battleGain.BattleId = ResourcesSingleton.Instance.battleData.battleId;
+            battleGain.BattleId = ResourcesSingletonOld.Instance.battleData.battleId;
             return battleGain;
         }
 
@@ -735,15 +731,16 @@ namespace HotFix_UI
                 expRatios = 1;
                 levelTextUI.GetTextMeshPro().SetTMPText(level.ToString());
                 slideUI.GetImage().DoFillAmount((float)expRatios, 0.3f);
-                
-                levelUpNeedExp = tbbattlepass_exp.DataList[tbbattlepass_exp.DataList.Count - 1].exp - tbbattlepass_exp.DataList[tbbattlepass_exp.DataList.Count - 2].exp;
+
+                levelUpNeedExp = tbbattlepass_exp.DataList[tbbattlepass_exp.DataList.Count - 1].exp -
+                                 tbbattlepass_exp.DataList[tbbattlepass_exp.DataList.Count - 2].exp;
                 passLevelTextUI.GetTextMeshPro().SetTMPText($"{levelUpNeedExp}/{levelUpNeedExp}");
                 return;
             }
 
             if (tbbattlepass_exp.DataList[result] != null)
             {
-                levelUpNeedExp = tbbattlepass_exp.DataList[result].exp - tbbattlepass_exp.DataList[result-1].exp;
+                levelUpNeedExp = tbbattlepass_exp.DataList[result].exp - tbbattlepass_exp.DataList[result - 1].exp;
                 curExp = exp - tbbattlepass_exp.DataList[result - 1].exp;
             }
 
@@ -767,7 +764,7 @@ namespace HotFix_UI
             var global = XFramework.Common.Instance.Get<Global>();
             var entityManager = World.DefaultGameObjectInjectionWorld.EntityManager;
             var monsterTemplateConfig = ConfigManager.Instance.Tables.Tbmonster_template;
-            //int levelId = ResourcesSingleton.Instance.levelInfo.levelId;
+            //int levelId = ResourcesSingletonOld.Instance.levelInfo.levelId;
             //int sceneId = ConfigManager.Instance.Tables.Tblevel.Get(levelId).sceneId;
             int monsterRefreshId = ConfigManager.Instance.Tables.Tbscene.Get(sceneId)
                 .monsterTemplateId;
@@ -902,7 +899,7 @@ namespace HotFix_UI
             {
                 allAudioClips = AudioManager.Instance.InitRunTimeAudio(),
                 //animations = anims,
-                levelId = ResourcesSingleton.Instance.levelInfo.levelId,
+                levelId = ResourcesSingletonOld.Instance.levelInfo.levelId,
                 sceneId = sceneId,
                 monsterRefreshId = monsterRefreshId,
                 pickupDuration = 1000,
@@ -1003,7 +1000,7 @@ namespace HotFix_UI
                 .GetOrCreateSystemManaged<PrefabMapSystem>();
             PrefabMapSystem.Enabled = true;
 
-            
+
             var fixedStepSimulationSystemGroup =
                 World.DefaultGameObjectInjectionWorld.GetOrCreateSystemManaged<FixedStepSimulationSystemGroup>();
             // var updatePlayerGOSystem = World.DefaultGameObjectInjectionWorld
@@ -1027,11 +1024,11 @@ namespace HotFix_UI
             var tbchapter = ConfigManager.Instance.Tables.Tbchapter;
             var tblevel = ConfigManager.Instance.Tables.Tblevel;
             var levelId = tbchapter.Get(id).levelId;
-            ResourcesSingleton.Instance.levelInfo.levelId = tbchapter.Get(id).levelId;
+            ResourcesSingletonOld.Instance.levelInfo.levelId = tbchapter.Get(id).levelId;
             int adNum = (int)tblevel.Get(levelId).reviveNum[0].x;
             int reviveNum = (int)tblevel.Get(levelId).reviveNum[0].y;
-            ResourcesSingleton.Instance.levelInfo.rebirthNum = reviveNum;
-            ResourcesSingleton.Instance.levelInfo.adRebirthNum = adNum;
+            ResourcesSingletonOld.Instance.levelInfo.rebirthNum = reviveNum;
+            ResourcesSingletonOld.Instance.levelInfo.adRebirthNum = adNum;
 
 
             // InitShader();
@@ -1087,9 +1084,9 @@ namespace HotFix_UI
 
         public static async UniTaskVoid ExitRunTimeScene()
         {
-            JiYuTweenHelper.EnableLoading(true, UIManager.LoadingType.TranstionFXEnter);
+            UnicornTweenHelper.EnableLoading(true, UIManager.LoadingType.TranstionFXEnter);
             await UniTask.Delay(500, true);
-            if (JiYuUIHelper.TryGetUI(UIType.UIPanel_RunTimeHUD, out var ui))
+            if (UnicornUIHelper.TryGetUI(UIType.UIPanel_RunTimeHUD, out var ui))
             {
                 ui.Dispose();
             }
@@ -1152,7 +1149,7 @@ namespace HotFix_UI
 
         private async static void GoToPanel(int type, int panelId)
         {
-            if (!JiYuUIHelper.TryGetUI(UIType.UIPanel_JiyuGame, out var ui))
+            if (!UnicornUIHelper.TryGetUI(UIType.UIPanel_JiyuGame, out var ui))
                 return;
             var uis = ui as UIPanel_JiyuGame;
 
@@ -1177,7 +1174,7 @@ namespace HotFix_UI
             int last2num = panelId % 100;
             if (tagId == 1)
             {
-                if (!JiYuUIHelper.TryGetUI(UIType.UIPanel_Shop, out var ui0))
+                if (!UnicornUIHelper.TryGetUI(UIType.UIPanel_Shop, out var ui0))
                     return;
 
                 var ui0s = ui0 as UIPanel_Shop;
@@ -1206,7 +1203,7 @@ namespace HotFix_UI
             }
             else if (tagId == 2)
             {
-                if (!JiYuUIHelper.TryGetUI(UIType.UISubPanel_Equipment, out var ui0))
+                if (!UnicornUIHelper.TryGetUI(UIType.UISubPanel_Equipment, out var ui0))
                     return;
                 var ui0s = ui0 as UISubPanel_Equipment;
 
@@ -1216,7 +1213,7 @@ namespace HotFix_UI
                     case 11:
                         ui0s.OnBtnClickEvent(1);
                         await UniTask.Delay(200);
-                        if (!JiYuUIHelper.TryGetUI(UIType.UIPanel_Equipment, out var ui1))
+                        if (!UnicornUIHelper.TryGetUI(UIType.UIPanel_Equipment, out var ui1))
                             return;
                         var ui1s = ui1 as UIPanel_Equipment;
                         ui1s.GoToSubPanel(2101);
@@ -1224,7 +1221,7 @@ namespace HotFix_UI
                     case 12:
                         ui0s.OnBtnClickEvent(1);
                         await UniTask.Delay(200);
-                        if (!JiYuUIHelper.TryGetUI(UIType.UIPanel_Equipment, out var ui2))
+                        if (!UnicornUIHelper.TryGetUI(UIType.UIPanel_Equipment, out var ui2))
                             return;
                         var ui2s = ui2 as UIPanel_Equipment;
                         ui2s.GoToSubPanel(2102);
@@ -1242,7 +1239,7 @@ namespace HotFix_UI
                     case 22:
                         ui0s.OnBtnClickEvent(2);
                         await UniTask.Delay(200);
-                        if (!JiYuUIHelper.TryGetUI(UIType.UIPanel_Talent, out var ui3))
+                        if (!UnicornUIHelper.TryGetUI(UIType.UIPanel_Talent, out var ui3))
                             return;
                         var ui3s = ui3 as UIPanel_Talent;
                         ui3s.OpenPropPanel(1);
@@ -1252,7 +1249,7 @@ namespace HotFix_UI
 
                         ui0s.OnBtnClickEvent(2);
                         await UniTask.Delay(200);
-                        if (!JiYuUIHelper.TryGetUI(UIType.UIPanel_Talent, out var ui4))
+                        if (!UnicornUIHelper.TryGetUI(UIType.UIPanel_Talent, out var ui4))
                             return;
                         var ui4s = ui4 as UIPanel_Talent;
                         ui4s.OpenPropPanel(2);
@@ -1270,7 +1267,7 @@ namespace HotFix_UI
             }
             else if (tagId == 4)
             {
-                if (!JiYuUIHelper.TryGetUI(UIType.UIPanel_Challege, out var ui0))
+                if (!UnicornUIHelper.TryGetUI(UIType.UIPanel_Challege, out var ui0))
                     return;
                 var ui0s = ui0 as UIPanel_Challege;
                 switch (last2num)
@@ -1332,7 +1329,7 @@ namespace HotFix_UI
 
         public static void EnableJiYuMask(bool enable)
         {
-            if (JiYuUIHelper.TryGetUI(UIType.UIPanel_JiyuGame, out var jiyuUI))
+            if (UnicornUIHelper.TryGetUI(UIType.UIPanel_JiyuGame, out var jiyuUI))
             {
                 var KBg_JiYuMask = jiyuUI.GetFromReference(UIPanel_JiyuGame.KBg_JiYuMask);
                 KBg_JiYuMask.SetActive(enable);
@@ -1366,11 +1363,11 @@ namespace HotFix_UI
             isFinished = true;
             var settingData = new SettingDate();
             settingData.GuideList.Add(guide.group);
-            NetWorkManager.Instance.SendMessage(CMD.CHANGESETTINGS, settingData);
+            NetWorkManager.Instance.SendMessage(CMDOld.CHANGESETTINGS, settingData);
             Log.Debug($"完成引导组id:{guide.group} guide.id:{guide.id}是组中最后一个");
-            if (ResourcesSingleton.Instance.settingData.GuideList.Contains(guide.group))
+            if (ResourcesSingletonOld.Instance.settingData.GuideList.Contains(guide.group))
             {
-                ResourcesSingleton.Instance.settingData.GuideList.Remove(guide.group);
+                ResourcesSingletonOld.Instance.settingData.GuideList.Remove(guide.group);
             }
 
             return isFinished;
@@ -1391,11 +1388,11 @@ namespace HotFix_UI
             // Log.Debug($"guide.group:{groupId} 完成");
             // var settingData = new SettingDate();
             // settingData.GuideList.Add(groupId);
-            // NetWorkManager.Instance.SendMessage(CMD.CHANGESETTINGS, settingData);
+            // NetWorkManager.Instance.SendMessage(CMDOld.CHANGESETTINGS, settingData);
 
-            // if (ResourcesSingleton.Instance.settingData.GuideList.Contains(id))
+            // if (ResourcesSingletonOld.Instance.settingData.GuideList.Contains(id))
             // {
-            //     ResourcesSingleton.Instance.settingData.GuideList.Remove(id);
+            //     ResourcesSingletonOld.Instance.settingData.GuideList.Remove(id);
             //    
             // }
             //guide.templateId
@@ -1415,16 +1412,16 @@ namespace HotFix_UI
             // 全屏矩形的定义
             var startRect = itemUI.GetRectTransform();
 
-            guidRect = new Rect(JiYuUIHelper.GetUIPos(itemUI).x,
-                JiYuUIHelper.GetUIPos(itemUI).y,
+            guidRect = new Rect(UnicornUIHelper.GetUIPos(itemUI).x,
+                UnicornUIHelper.GetUIPos(itemUI).y,
                 startRect.Width(), startRect.Height());
 
             //guidRect = KBtn_Start.GetRectTransform().Get().rect;
             Log.Debug($"hollowUI {guidRect}");
             hollowUI.GetXImage().Get().hollowArea = guidRect;
             //Log.Debug($"hollowArea { KBg_TestGuid.GetXImage().Get().hollowArea }");
-            Vector4 renderData = new Vector4(JiYuUIHelper.GetUIPos(itemUI).x,
-                JiYuUIHelper.GetUIPos(itemUI).y,
+            Vector4 renderData = new Vector4(UnicornUIHelper.GetUIPos(itemUI).x,
+                UnicornUIHelper.GetUIPos(itemUI).y,
                 startRect.Width(), startRect.Height());
             hollowUI.GetXImage().Get().material.SetVector("_Rect", renderData);
             //hollowUI.SetActive(true);
@@ -1438,7 +1435,7 @@ namespace HotFix_UI
             var tbmonopoly = ConfigManager.Instance.Tables.Tbmonopoly;
             link = 0;
             activityId = 0;
-            var list = ResourcesSingleton.Instance.activity.activityMap.ActivityMap_.Where((a) =>
+            var list = ResourcesSingletonOld.Instance.activity.activityMap.ActivityMap_.Where((a) =>
             {
                 return tbactivity.Get(a.Key).type == activityType;
             }).ToList();
@@ -1527,7 +1524,7 @@ namespace HotFix_UI
         public static bool IsMailRedDot()
         {
             bool isRedDot = false;
-            foreach (var mail in ResourcesSingleton.Instance.mails)
+            foreach (var mail in ResourcesSingletonOld.Instance.mails)
             {
                 if (mail.Status != 1)
                 {
@@ -1544,7 +1541,7 @@ namespace HotFix_UI
         {
             for (int i = 0; i < 5; i++)
             {
-                JiYuUIHelper.InitEnableSettings(i);
+                UnicornUIHelper.InitEnableSettings(i);
             }
         }
 
@@ -1557,11 +1554,11 @@ namespace HotFix_UI
                 case 0:
                     if (toSetEnable)
                     {
-                        ResourcesSingleton.Instance.settingData.EnableBgm =
-                            !ResourcesSingleton.Instance.settingData.EnableBgm;
+                        ResourcesSingletonOld.Instance.settingData.EnableBgm =
+                            !ResourcesSingletonOld.Instance.settingData.EnableBgm;
                     }
 
-                    if (ResourcesSingleton.Instance.settingData.EnableBgm)
+                    if (ResourcesSingletonOld.Instance.settingData.EnableBgm)
                     {
                         enable = true;
                         AudioManager.Instance.SetFModBgmMute(false);
@@ -1578,11 +1575,11 @@ namespace HotFix_UI
                 case 1:
                     if (toSetEnable)
                     {
-                        ResourcesSingleton.Instance.settingData.EnableFx =
-                            !ResourcesSingleton.Instance.settingData.EnableFx;
+                        ResourcesSingletonOld.Instance.settingData.EnableFx =
+                            !ResourcesSingletonOld.Instance.settingData.EnableFx;
                     }
 
-                    if (ResourcesSingleton.Instance.settingData.EnableFx)
+                    if (ResourcesSingletonOld.Instance.settingData.EnableFx)
                     {
                         enable = true;
                         AudioManager.Instance.SetFModBgmMute(false);
@@ -1597,11 +1594,11 @@ namespace HotFix_UI
                 case 2:
                     if (toSetEnable)
                     {
-                        ResourcesSingleton.Instance.settingData.EnableShock =
-                            !ResourcesSingleton.Instance.settingData.EnableShock;
+                        ResourcesSingletonOld.Instance.settingData.EnableShock =
+                            !ResourcesSingletonOld.Instance.settingData.EnableShock;
                     }
 
-                    if (ResourcesSingleton.Instance.settingData.EnableShock)
+                    if (ResourcesSingletonOld.Instance.settingData.EnableShock)
                     {
                         enable = true;
                     }
@@ -1611,11 +1608,11 @@ namespace HotFix_UI
                 case 3:
                     if (toSetEnable)
                     {
-                        ResourcesSingleton.Instance.settingData.EnableWeakEffect =
-                            !ResourcesSingleton.Instance.settingData.EnableWeakEffect;
+                        ResourcesSingletonOld.Instance.settingData.EnableWeakEffect =
+                            !ResourcesSingletonOld.Instance.settingData.EnableWeakEffect;
                     }
 
-                    if (ResourcesSingleton.Instance.settingData.EnableWeakEffect)
+                    if (ResourcesSingletonOld.Instance.settingData.EnableWeakEffect)
                     {
                         enable = true;
                     }
@@ -1625,11 +1622,11 @@ namespace HotFix_UI
                 case 4:
                     if (toSetEnable)
                     {
-                        ResourcesSingleton.Instance.settingData.EnableShowStick =
-                            !ResourcesSingleton.Instance.settingData.EnableShowStick;
+                        ResourcesSingletonOld.Instance.settingData.EnableShowStick =
+                            !ResourcesSingletonOld.Instance.settingData.EnableShowStick;
                     }
 
-                    if (ResourcesSingleton.Instance.settingData.EnableShowStick)
+                    if (ResourcesSingletonOld.Instance.settingData.EnableShowStick)
                     {
                         enable = true;
                     }
@@ -1704,7 +1701,7 @@ namespace HotFix_UI
 
             defaultAttr = isWearEquip ? defaultAttr : -defaultAttr;
             //Dictionary<int, int> attrIdValues = new Dictionary<int, int>();
-            var attrIdValues = ResourcesSingleton.Instance.mainProperty;
+            var attrIdValues = ResourcesSingletonOld.Instance.mainProperty;
 
             if (attrIdValues.ContainsKey(equip_data.mainEntryId))
             {
@@ -1753,7 +1750,7 @@ namespace HotFix_UI
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static void RefreshPlayerPropertyEquipPanelUI()
         {
-            if (JiYuUIHelper.TryGetUI(UIType.UIPanel_Equipment, out var ui))
+            if (UnicornUIHelper.TryGetUI(UIType.UIPanel_Equipment, out var ui))
             {
                 var uiequip = ui as UIPanel_Equipment;
                 uiequip.RefreshPlayerProperty();
@@ -1804,9 +1801,9 @@ namespace HotFix_UI
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static void SetMaterialDic()
         {
-            // ResourcesSingleton.Instance.equipmentData.isMaterials.Clear();
+            // ResourcesSingletonOld.Instance.equipmentData.isMaterials.Clear();
             // var materialDic = new Dictionary<Vector3, int>();
-            // foreach (var item in ResourcesSingleton.Instance.equipmentData.equipments)
+            // foreach (var item in ResourcesSingletonOld.Instance.equipmentData.equipments)
             // {
             //     if (item.Value.equip.EquipId % 100 == 0)
             //     {
@@ -1823,7 +1820,7 @@ namespace HotFix_UI
             //     }
             // }
 
-            //ResourcesSingleton.Instance.equipmentData.isMaterials = materialDic;
+            //ResourcesSingletonOld.Instance.equipmentData.isMaterials = materialDic;
         }
 
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
@@ -1844,7 +1841,7 @@ namespace HotFix_UI
                 int rewardY = (int)vector3.y;
                 int rewardZ = (int)vector3.z;
 
-                if (rewardX == 11 && !JiYuUIHelper.IsCompositeEquipReward(vector3))
+                if (rewardX == 11 && !UnicornUIHelper.IsCompositeEquipReward(vector3))
                     continue;
                 if (rewardX == 11)
                 {
@@ -1890,7 +1887,7 @@ namespace HotFix_UI
 
             foreach (var keyValue in vector3CountDict)
             {
-                if (JiYuUIHelper.IsCompositeEquipReward(keyValue.Key))
+                if (UnicornUIHelper.IsCompositeEquipReward(keyValue.Key))
                 {
                     var mergeZ = CmdHelper.GetMergeCmd((int)keyValue.Key.z, keyValue.Value);
 
@@ -1917,7 +1914,7 @@ namespace HotFix_UI
             //var btnui = common_EquipItem as UICommon_EquipItem;
             var btn = common_EquipItem.GetFromReference(UICommon_EquipItem.KBtn_Item);
 
-            JiYuTweenHelper.DoScaleTweenOnClickAndLongPress(btn, async () =>
+            UnicornTweenHelper.DoScaleTweenOnClickAndLongPress(btn, async () =>
             {
                 Log.Debug($"SetEquipOnClick uid {uid}", Color.green);
                 // if (TryGetUI(UIType.UIPanel_Equipment, out var ui))
@@ -1936,17 +1933,17 @@ namespace HotFix_UI
                 // }
 
                 DestoryAllTips();
-                if (JiYuUIHelper.TryGetUI(UIType.UIPanel_Equipment, out var ui))
+                if (UnicornUIHelper.TryGetUI(UIType.UIPanel_Equipment, out var ui))
                 {
                     var uiequip = ui as UIPanel_Equipment;
                     uiequip.DestorySelected();
                     //uiequip.lastClickTipItem = btnui;
                 }
 
-                if (!ResourcesSingleton.Instance.equipmentData.equipments.TryGetValue(uid,
+                if (!ResourcesSingletonOld.Instance.equipmentData.equipments.TryGetValue(uid,
                         out var equip))
                 {
-                    Log.Debug($"!ResourcesSingleton");
+                    Log.Debug($"!ResourcesSingletonOld");
                     return;
                 }
 
@@ -1959,7 +1956,7 @@ namespace HotFix_UI
             // btn.GetXButton().OnClick.Add(UniTask.UnityAction(async () =>
             // {
             //     DestoryAllTips();
-            //     if (!ResourcesSingleton.Instance.equipmentData.equipments.TryGetValue(uid,
+            //     if (!ResourcesSingletonOld.Instance.equipmentData.equipments.TryGetValue(uid,
             //             out var equip))
             //     {
             //         return;
@@ -1978,7 +1975,7 @@ namespace HotFix_UI
             var uis = common_EquipItem as UICommon_EquipItem;
             var btn = common_EquipItem.GetFromReference(UICommon_EquipItem.KBtn_Item);
 
-            JiYuTweenHelper.DoScaleTweenOnClickAndLongPress(btn, async () =>
+            UnicornTweenHelper.DoScaleTweenOnClickAndLongPress(btn, async () =>
             {
                 //Log.Debug($"SetEquipOnClick uid {uid}", Color.green);
                 // if (TryGetUI(UIType.UIPanel_Equipment, out var ui))
@@ -1997,17 +1994,17 @@ namespace HotFix_UI
                 // }
 
                 DestoryAllTips();
-                if (JiYuUIHelper.TryGetUI(UIType.UIPanel_Equipment, out var ui))
+                if (UnicornUIHelper.TryGetUI(UIType.UIPanel_Equipment, out var ui))
                 {
                     var uiequip = ui as UIPanel_Equipment;
                     uiequip.DestorySelected();
                     //uiequip.lastClickTipItem = btnui;
                 }
 
-                if (!ResourcesSingleton.Instance.equipmentData.equipments.TryGetValue(uis.uid,
+                if (!ResourcesSingletonOld.Instance.equipmentData.equipments.TryGetValue(uis.uid,
                         out var equip))
                 {
-                    Log.Debug($"!ResourcesSingleton");
+                    Log.Debug($"!ResourcesSingletonOld");
                     return;
                 }
 
@@ -2020,7 +2017,7 @@ namespace HotFix_UI
             // btn.GetXButton().OnClick.Add(UniTask.UnityAction(async () =>
             // {
             //     DestoryAllTips();
-            //     if (!ResourcesSingleton.Instance.equipmentData.equipments.TryGetValue(uid,
+            //     if (!ResourcesSingletonOld.Instance.equipmentData.equipments.TryGetValue(uid,
             //             out var equip))
             //     {
             //         return;
@@ -2042,7 +2039,7 @@ namespace HotFix_UI
         // {
         //     var btn = ui.GetFromReference(UICommon_EquipItem.KBtn_Item);
         //
-        //     JiYuTweenHelper.DoScaleTweenOnClickAndLongPress(btn, UniTask.UnityAction(async () =>
+        //     UnicornTweenHelper.DoScaleTweenOnClickAndLongPress(btn, UniTask.UnityAction(async () =>
         //     {
         //         if (!wearEquipsDic.TryGetValue(posId, out var ui))
         //         {
@@ -2050,7 +2047,7 @@ namespace HotFix_UI
         //         }
         //
         //         DestoryAllTips();
-        //         if (!ResourcesSingleton.Instance.equipmentData.equipments.TryGetValue(ui.uid,
+        //         if (!ResourcesSingletonOld.Instance.equipmentData.equipments.TryGetValue(ui.uid,
         //                 out var equip))
         //         {
         //             return;
@@ -2064,7 +2061,7 @@ namespace HotFix_UI
         //     // btn.GetXButton().OnClick.Add(UniTask.UnityAction(async () =>
         //     // {
         //     //     DestoryAllTips();
-        //     //     if (!ResourcesSingleton.Instance.equipmentData.equipments.TryGetValue(uid,
+        //     //     if (!ResourcesSingletonOld.Instance.equipmentData.equipments.TryGetValue(uid,
         //     //             out var equip))
         //     //     {
         //     //         return;
@@ -2104,8 +2101,8 @@ namespace HotFix_UI
         {
             var obj111 = obj11 as UICommon_EquipItem;
             var obj211 = obj21 as UICommon_EquipItem;
-            ResourcesSingleton.Instance.equipmentData.equipments.TryGetValue(obj111.uid, out var obj100);
-            ResourcesSingleton.Instance.equipmentData.equipments.TryGetValue(obj211.uid, out var obj200);
+            ResourcesSingletonOld.Instance.equipmentData.equipments.TryGetValue(obj111.uid, out var obj100);
+            ResourcesSingletonOld.Instance.equipmentData.equipments.TryGetValue(obj211.uid, out var obj200);
             var obj1 = obj100.equip;
             var obj2 = obj200.equip;
             var equipData = ConfigManager.Instance.Tables.Tbequip_data;
@@ -2114,8 +2111,8 @@ namespace HotFix_UI
             var equipobj1 = equipData.Get(equipId1);
             var equipobj2 = equipData.Get(equipId2);
 
-            //ResourcesSingleton.Instance.equipmentData.isCompoundSort = isCompoundSort;
-            if (ResourcesSingleton.Instance.equipmentData.isCompoundSort)
+            //ResourcesSingletonOld.Instance.equipmentData.isCompoundSort = isCompoundSort;
+            if (ResourcesSingletonOld.Instance.equipmentData.isCompoundSort)
             {
                 // 
                 if (obj100.isWearing && !obj200.isWearing)
@@ -2375,7 +2372,7 @@ namespace HotFix_UI
                 var equipobj1 = equipData.Get(obj1EquipId);
                 var equipobj2 = equipData.Get(obj2EquipId);
 
-                if (ResourcesSingleton.Instance.equipmentData.isCompoundSort)
+                if (ResourcesSingletonOld.Instance.equipmentData.isCompoundSort)
                 {
                     // 
                     if (obj1.isWearing && !obj2.isWearing)
@@ -2452,16 +2449,16 @@ namespace HotFix_UI
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static void SortEquipments(bool isCompoundSort = false)
         {
-            ResourcesSingleton.Instance.equipmentData.isCompoundSort = isCompoundSort;
+            ResourcesSingletonOld.Instance.equipmentData.isCompoundSort = isCompoundSort;
 
             List<KeyValuePair<long, MyGameEquip>> equipList =
-                ResourcesSingleton.Instance.equipmentData.equipments.ToList();
+                ResourcesSingletonOld.Instance.equipmentData.equipments.ToList();
 
-            ResourcesSingleton.Instance.equipmentData.equipments.Clear();
+            ResourcesSingletonOld.Instance.equipmentData.equipments.Clear();
             equipList.Sort(new EquipComparer00());
             foreach (var VARIABLE in equipList)
             {
-                if (!ResourcesSingleton.Instance.equipmentData.equipments.TryAdd(VARIABLE.Value.equip.PartId,
+                if (!ResourcesSingletonOld.Instance.equipmentData.equipments.TryAdd(VARIABLE.Value.equip.PartId,
                         VARIABLE.Value))
                 {
                     Log.Debug($"{VARIABLE.Value.equip.PartId}is not exist", Color.cyan);
@@ -2480,10 +2477,10 @@ namespace HotFix_UI
         public static void SetCanCompound()
         {
             //var tempDic = new List<long>();
-            foreach (var kv in ResourcesSingleton.Instance.equipmentData.equipments)
+            foreach (var kv in ResourcesSingletonOld.Instance.equipmentData.equipments)
             {
                 var myGameEquip = kv.Value;
-                //var myGameEquip = ResourcesSingleton.Instance.equipmentData.equipments;
+                //var myGameEquip = ResourcesSingletonOld.Instance.equipmentData.equipments;
                 var equip = myGameEquip.equip;
 
                 long equipUid = equip.PartId;
@@ -2520,7 +2517,7 @@ namespace HotFix_UI
                 if (equip_quality.mergeSelf == 1)
                 {
                     var count =
-                        ResourcesSingleton.Instance.equipmentData.equipments.Count(kv =>
+                        ResourcesSingletonOld.Instance.equipmentData.equipments.Count(kv =>
                             kv.Value.equip.EquipId == equipId &&
                             kv.Value.equip.Quality == needQua &&
                             equip_dataConfig.Get(kv.Value.equip.EquipId * 100 + kv.Value.equip.Quality).posId ==
@@ -2539,7 +2536,7 @@ namespace HotFix_UI
                 else
                 {
                     var count =
-                        ResourcesSingleton.Instance.equipmentData.equipments.Count(kv =>
+                        ResourcesSingletonOld.Instance.equipmentData.equipments.Count(kv =>
                             kv.Value.equip.Quality == needQua &&
                             equip_dataConfig.Get(kv.Value.equip.EquipId * 100 + kv.Value.equip.Quality).posId ==
                             equip_data.posId && kv.Value.equip.PartId != equipUid &&
@@ -2556,7 +2553,7 @@ namespace HotFix_UI
                     }
                 }
 
-                //ResourcesSingleton.Instance.equipmentData.equipments[equipUid] = myGameEquip;
+                //ResourcesSingletonOld.Instance.equipmentData.equipments[equipUid] = myGameEquip;
             }
         }
 
@@ -2695,7 +2692,7 @@ namespace HotFix_UI
             //common_state_equipping装备中
 
             bool curWearPos =
-                ResourcesSingleton.Instance.equipmentData.isWearingEquipments.ContainsKey(equip_data.posId);
+                ResourcesSingletonOld.Instance.equipmentData.isWearingEquipments.ContainsKey(equip_data.posId);
 
 
             switch (panelType)
@@ -2816,25 +2813,29 @@ namespace HotFix_UI
 
                     //var quality5 = user_varibles.Get();
 
-                    KBg_Item.GetImage().SetSpriteAsync(quality.Get(JiYuUIHelper.GetRewardQuality(reward)).frame, false)
+                    KBg_Item.GetImage()
+                        .SetSpriteAsync(quality.Get(UnicornUIHelper.GetRewardQuality(reward)).frame, false)
                         .Forget();
                     break;
                 case 2:
                     KImg_ItemIcon.GetImage().SetSpriteAsync(user_varibles.Get(rewardx).icon, false).Forget();
                     SetCountText(KTxt_ItemCount, count);
-                    KBg_Item.GetImage().SetSpriteAsync(quality.Get(JiYuUIHelper.GetRewardQuality(reward)).frame, false)
+                    KBg_Item.GetImage()
+                        .SetSpriteAsync(quality.Get(UnicornUIHelper.GetRewardQuality(reward)).frame, false)
                         .Forget();
                     break;
                 case 3:
                     KImg_ItemIcon.GetImage().SetSpriteAsync(user_varibles.Get(rewardx).icon, false).Forget();
                     SetCountText(KTxt_ItemCount, count);
-                    KBg_Item.GetImage().SetSpriteAsync(quality.Get(JiYuUIHelper.GetRewardQuality(reward)).frame, false)
+                    KBg_Item.GetImage()
+                        .SetSpriteAsync(quality.Get(UnicornUIHelper.GetRewardQuality(reward)).frame, false)
                         .Forget();
                     break;
                 case 4:
                     KImg_ItemIcon.GetImage().SetSpriteAsync(user_varibles.Get(rewardx).icon, false).Forget();
                     SetCountText(KTxt_ItemCount, count);
-                    KBg_Item.GetImage().SetSpriteAsync(quality.Get(JiYuUIHelper.GetRewardQuality(reward)).frame, false)
+                    KBg_Item.GetImage()
+                        .SetSpriteAsync(quality.Get(UnicornUIHelper.GetRewardQuality(reward)).frame, false)
                         .Forget();
                     break;
                 case 5:
@@ -2850,13 +2851,15 @@ namespace HotFix_UI
                 case 6:
                     KImg_ItemIcon.GetImage().SetSpriteAsync("icon_patrol_money", false).Forget();
                     SetCountText(KTxt_ItemCount, count);
-                    KBg_Item.GetImage().SetSpriteAsync(quality.Get(JiYuUIHelper.GetRewardQuality(reward)).frame, false)
+                    KBg_Item.GetImage()
+                        .SetSpriteAsync(quality.Get(UnicornUIHelper.GetRewardQuality(reward)).frame, false)
                         .Forget();
                     break;
                 case 7:
                     KImg_ItemIcon.GetImage().SetSpriteAsync("icon_patrol_exp", false).Forget();
                     SetCountText(KTxt_ItemCount, count);
-                    KBg_Item.GetImage().SetSpriteAsync(quality.Get(JiYuUIHelper.GetRewardQuality(reward)).frame, false)
+                    KBg_Item.GetImage()
+                        .SetSpriteAsync(quality.Get(UnicornUIHelper.GetRewardQuality(reward)).frame, false)
                         .Forget();
                     break;
                 case 8:
@@ -3035,7 +3038,7 @@ namespace HotFix_UI
         public static string GetBulletTypeStr(string input)
         {
             var closeStr =
-                $"{JiYuUIHelper.GetRewardTextIconName("common_bullet_logo_left")}{input}{JiYuUIHelper.GetRewardTextIconName("common_bullet_logo_right")}";
+                $"{UnicornUIHelper.GetRewardTextIconName("common_bullet_logo_left")}{input}{UnicornUIHelper.GetRewardTextIconName("common_bullet_logo_right")}";
             return input;
         }
 
@@ -3264,7 +3267,7 @@ namespace HotFix_UI
                     break;
                 case 6:
                     int tenMinMoney =
-                        (int)(6 * rewardz * (1.0f + ResourcesSingleton.Instance.UserInfo.PatrolGainName / 10000.0f));
+                        (int)(6 * rewardz * (1.0f + ResourcesSingletonOld.Instance.UserInfo.PatrolGainName / 10000.0f));
 
                     name = string.Format(language.Get($"patrol_money_desc").current, FormatNumber(tenMinMoney));
 
@@ -3274,7 +3277,7 @@ namespace HotFix_UI
                     break;
                 case 7:
                     int tenMinExp =
-                        (int)(6 * rewardz * (1.0f + ResourcesSingleton.Instance.UserInfo.PatrolGainName / 10000.0f));
+                        (int)(6 * rewardz * (1.0f + ResourcesSingletonOld.Instance.UserInfo.PatrolGainName / 10000.0f));
                     name = string.Format(language.Get($"patrol_exp_desc").current, FormatNumber(tenMinExp));
 
                     return name;
@@ -3460,26 +3463,24 @@ namespace HotFix_UI
         public static void DestoryAllTips()
         {
             //bool isRewardTip = false;
-            if (JiYuUIHelper.TryGetUI(UIType.UICommon_Reward_Tip, out var ui1))
+            if (UnicornUIHelper.TryGetUI(UIType.UICommon_Reward_Tip, out var ui1))
             {
                 //isRewardTip=true;
                 UIHelper.Remove(UIType.UICommon_Reward_Tip);
             }
-             if(JiYuUIHelper.TryGetUI(UIType.UICommon_Reward_TipWithTitle, out var ui2))
+
+            if (UnicornUIHelper.TryGetUI(UIType.UICommon_Reward_TipWithTitle, out var ui2))
             {
                 //isRewardTip = true;
                 UIHelper.Remove(UIType.UICommon_Reward_TipWithTitle);
             }
-            if (JiYuUIHelper.TryGetUI(UIType.UICommon_ItemTips, out var ui))
+
+            if (UnicornUIHelper.TryGetUI(UIType.UICommon_ItemTips, out var ui))
             {
                 UIHelper.Remove(UIType.UICommon_ItemTips);
             }
-          
+
             UIHelper.Remove(UIType.UICommon_EquipTips);
-         
-
-    
-
         }
 
 
@@ -3489,14 +3490,14 @@ namespace HotFix_UI
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static void DestoryItemTips()
         {
-
-            if (JiYuUIHelper.TryGetUI(UIType.UICommon_ItemTips, out var ui))
+            if (UnicornUIHelper.TryGetUI(UIType.UICommon_ItemTips, out var ui))
             {
                 UIHelper.Remove(UIType.UICommon_ItemTips);
             }
 
             UIHelper.Remove(UIType.UICommon_EquipTips);
         }
+
         /// <summary>
         /// 设置基于reward串的common_RewardItem类预制件的点击弹板
         /// </summary>
@@ -3687,7 +3688,7 @@ namespace HotFix_UI
                         tipUI.GetFromReference(UICommon_EquipTips.KBottom).SetActive(false);
                         tipUI.GetFromReference(UICommon_EquipTips.KBtn_Decrease).SetActive(false);
 
-                        var itemPos = JiYuUIHelper.GetUIPos(common_RewardItem);
+                        var itemPos = UnicornUIHelper.GetUIPos(common_RewardItem);
 
                         float tipMidH = tipUI.GetFromReference(UICommon_EquipTips.KMid).GetRectTransform().Height();
                         float tipTopH = tipUI.GetFromReference(UICommon_EquipTips.KImg_TopArraw).GetRectTransform()
@@ -3745,15 +3746,13 @@ namespace HotFix_UI
         }
 
 
-     
-
         /// <summary>
         /// 设置基于reward串的common_RewardItem类预制件的点击弹板
         /// </summary>
         /// <param name="reward">reward串</param>
         /// <param name="common_RewardItem">创建的common_RewardItem的UI</param>
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static void SetRewardOnClick(Vector3 reward, UI common_RewardItem,UI mask=default)
+        public static void SetRewardOnClick(Vector3 reward, UI common_RewardItem, UI mask = default)
         {
             if (mask != null)
             {
@@ -3778,14 +3777,13 @@ namespace HotFix_UI
                 case 1:
                     btn.GetXButton().OnClick.Add(UniTask.UnityAction(async () =>
                     {
-                        JiYuUIHelper.DestoryItemTips();
+                        UnicornUIHelper.DestoryItemTips();
                         var tipUI = await UIHelper.CreateAsync(UIType.UICommon_ItemTips,
                             new UICommon_ItemTips.TipsData()
                             {
                                 itemUI = common_RewardItem,
                                 reward = reward
                             }
-
                         );
                         if (mask != null)
                         {
@@ -3797,7 +3795,7 @@ namespace HotFix_UI
                 case 2:
                     btn.GetXButton().OnClick.Add(UniTask.UnityAction(async () =>
                     {
-                        JiYuUIHelper.DestoryItemTips();
+                        UnicornUIHelper.DestoryItemTips();
                         var tipUI = await UIHelper.CreateAsync(UIType.UICommon_ItemTips,
                             new UICommon_ItemTips.TipsData()
                             {
@@ -3814,7 +3812,7 @@ namespace HotFix_UI
                 case 3:
                     btn.GetXButton().OnClick.Add(UniTask.UnityAction(async () =>
                     {
-                        JiYuUIHelper.DestoryItemTips();
+                        UnicornUIHelper.DestoryItemTips();
                         var tipUI = await UIHelper.CreateAsync(UIType.UICommon_ItemTips,
                             new UICommon_ItemTips.TipsData()
                             {
@@ -3831,7 +3829,7 @@ namespace HotFix_UI
                 case 4:
                     btn.GetXButton().OnClick.Add(UniTask.UnityAction(async () =>
                     {
-                        JiYuUIHelper.DestoryItemTips();
+                        UnicornUIHelper.DestoryItemTips();
                         var tipUI = await UIHelper.CreateAsync(UIType.UICommon_ItemTips,
                             new UICommon_ItemTips.TipsData()
                             {
@@ -3851,7 +3849,7 @@ namespace HotFix_UI
                     {
                         btn.GetXButton().OnClick.Add(UniTask.UnityAction(async () =>
                         {
-                            JiYuUIHelper.DestoryItemTips();
+                            UnicornUIHelper.DestoryItemTips();
                             var tipUI = await UIHelper.CreateAsync(UIType.UICommon_ItemTips,
                                 new UICommon_ItemTips.TipsData()
                                 {
@@ -3870,7 +3868,7 @@ namespace HotFix_UI
                         //TODO:
                         btn.GetXButton().OnClick.Add(UniTask.UnityAction(async () =>
                         {
-                            JiYuUIHelper.DestoryItemTips();
+                            UnicornUIHelper.DestoryItemTips();
                             var tipUI = await UIHelper.CreateAsync(UIType.UIPanel_SelectBoxNomal, reward) as
                                 UIPanel_SelectBoxNomal;
                             if (mask != null)
@@ -3885,7 +3883,7 @@ namespace HotFix_UI
                         //TODO:
                         btn.GetXButton().OnClick.Add(UniTask.UnityAction(async () =>
                         {
-                            JiYuUIHelper.DestoryItemTips();
+                            UnicornUIHelper.DestoryItemTips();
                             Log.Debug($"{reward} 当前reward串弹板类型未生效", Color.green);
                             //action?.Invoke();
                         }));
@@ -3893,9 +3891,9 @@ namespace HotFix_UI
 
                     break;
                 case 6:
-                    JiYuTweenHelper.DoScaleTweenOnClickAndLongPress(btn, UniTask.UnityAction(async () =>
+                    UnicornTweenHelper.DoScaleTweenOnClickAndLongPress(btn, UniTask.UnityAction(async () =>
                     {
-                        JiYuUIHelper.DestoryItemTips();
+                        UnicornUIHelper.DestoryItemTips();
                         var tipUI = await UIHelper.CreateAsync(UIType.UICommon_ItemTips,
                             new UICommon_ItemTips.TipsData()
                             {
@@ -3910,9 +3908,9 @@ namespace HotFix_UI
                     }));
                     break;
                 case 7:
-                    JiYuTweenHelper.DoScaleTweenOnClickAndLongPress(btn, UniTask.UnityAction(async () =>
+                    UnicornTweenHelper.DoScaleTweenOnClickAndLongPress(btn, UniTask.UnityAction(async () =>
                     {
-                        JiYuUIHelper.DestoryItemTips();
+                        UnicornUIHelper.DestoryItemTips();
                         var tipUI = await UIHelper.CreateAsync(UIType.UICommon_ItemTips,
                             new UICommon_ItemTips.TipsData()
                             {
@@ -3939,7 +3937,7 @@ namespace HotFix_UI
                     {
                         btn.GetXButton().OnClick.Add(UniTask.UnityAction(async () =>
                         {
-                            JiYuUIHelper.DestoryItemTips();
+                            UnicornUIHelper.DestoryItemTips();
                             var tipUI = await UIHelper.CreateAsync(UIType.UICommon_ItemTips,
                                 new UICommon_ItemTips.TipsData()
                                 {
@@ -3967,14 +3965,14 @@ namespace HotFix_UI
                         };
                         btn.GetXButton().OnClick.Add(UniTask.UnityAction(async () =>
                         {
-                            JiYuUIHelper.DestoryItemTips();
+                            UnicornUIHelper.DestoryItemTips();
                             var tipUI = await UIHelper.CreateAsync<MyGameEquip>(UIType.UICommon_EquipTips, gameEquip) as
                                 UICommon_EquipTips;
                             tipUI.GetFromReference(UICommon_EquipTips.KImg_TopTitle).SetActive(false);
                             tipUI.GetFromReference(UICommon_EquipTips.KBottom).SetActive(false);
                             tipUI.GetFromReference(UICommon_EquipTips.KBtn_Decrease).SetActive(false);
 
-                            var itemPos = JiYuUIHelper.GetUIPos(common_RewardItem);
+                            var itemPos = UnicornUIHelper.GetUIPos(common_RewardItem);
 
                             float tipMidH = tipUI.GetFromReference(UICommon_EquipTips.KMid).GetRectTransform().Height();
                             float tipTopH = tipUI.GetFromReference(UICommon_EquipTips.KImg_TopArraw).GetRectTransform()
@@ -4010,6 +4008,7 @@ namespace HotFix_UI
                                 tipUI.GetFromReference(UICommon_EquipTips.KImg_BottomArraw).GetRectTransform()
                                     .SetAnchoredPositionX(itemPos.x);
                             }
+
                             if (mask != null)
                             {
                                 mask.SetActive(true);
@@ -4035,8 +4034,6 @@ namespace HotFix_UI
                     break;
             }
             //Log.Debug("dfasdfdfd", Color.cyan);
-
-
         }
 
         ///// <summary>
@@ -4062,9 +4059,9 @@ namespace HotFix_UI
         //    switch (rewardx)
         //    {
         //        case 1:
-        //            JiYuTweenHelper.DoScaleTweenOnClickAndLongPress(btn, UniTask.UnityAction(async () =>
+        //            UnicornTweenHelper.DoScaleTweenOnClickAndLongPress(btn, UniTask.UnityAction(async () =>
         //            {
-        //                JiYuUIHelper.DestoryItemTips();
+        //                UnicornUIHelper.DestoryItemTips();
         //                var tipUI = await UIHelper.CreateAsync(UIType.UICommon_ItemTips,
         //                    new UICommon_ItemTips.TipsData()
         //                    {
@@ -4075,9 +4072,9 @@ namespace HotFix_UI
 
         //            break;
         //        case 2:
-        //            JiYuTweenHelper.DoScaleTweenOnClickAndLongPress(btn, UniTask.UnityAction(async () =>
+        //            UnicornTweenHelper.DoScaleTweenOnClickAndLongPress(btn, UniTask.UnityAction(async () =>
         //            {
-        //                JiYuUIHelper.DestoryItemTips();
+        //                UnicornUIHelper.DestoryItemTips();
         //                var tipUI = await UIHelper.CreateAsync(UIType.UICommon_ItemTips,
         //                    new UICommon_ItemTips.TipsData()
         //                    {
@@ -4087,9 +4084,9 @@ namespace HotFix_UI
         //            }));
         //            break;
         //        case 3:
-        //            JiYuTweenHelper.DoScaleTweenOnClickAndLongPress(btn, UniTask.UnityAction(async () =>
+        //            UnicornTweenHelper.DoScaleTweenOnClickAndLongPress(btn, UniTask.UnityAction(async () =>
         //            {
-        //                JiYuUIHelper.DestoryItemTips();
+        //                UnicornUIHelper.DestoryItemTips();
         //                var tipUI = await UIHelper.CreateAsync(UIType.UICommon_ItemTips,
         //                    new UICommon_ItemTips.TipsData()
         //                    {
@@ -4099,7 +4096,7 @@ namespace HotFix_UI
         //            }));
         //            break;
         //        case 4:
-        //            JiYuTweenHelper.DoScaleTweenOnClickAndLongPress(btn, UniTask.UnityAction(async () =>
+        //            UnicornTweenHelper.DoScaleTweenOnClickAndLongPress(btn, UniTask.UnityAction(async () =>
         //            {
         //                DestoryItemTips();
         //                var tipUI = await UIHelper.CreateAsync(UIType.UICommon_ItemTips,
@@ -4111,7 +4108,7 @@ namespace HotFix_UI
         //            }));
         //            break;
         //        case 5:
-        //            JiYuTweenHelper.DoScaleTweenOnClickAndLongPress(btn, UniTask.UnityAction(async () =>
+        //            UnicornTweenHelper.DoScaleTweenOnClickAndLongPress(btn, UniTask.UnityAction(async () =>
         //            {
         //                DestoryItemTips();
         //                var tipUI = await UIHelper.CreateAsync(UIType.UICommon_ItemTips,
@@ -4124,7 +4121,7 @@ namespace HotFix_UI
 
         //            break;
         //        case 6:
-        //            JiYuTweenHelper.DoScaleTweenOnClickAndLongPress(btn, UniTask.UnityAction(async () =>
+        //            UnicornTweenHelper.DoScaleTweenOnClickAndLongPress(btn, UniTask.UnityAction(async () =>
         //            {
         //                DestoryItemTips();
         //                var tipUI = await UIHelper.CreateAsync(UIType.UICommon_ItemTips,
@@ -4136,7 +4133,7 @@ namespace HotFix_UI
         //            }));
         //            break;
         //        case 7:
-        //            JiYuTweenHelper.DoScaleTweenOnClickAndLongPress(btn, UniTask.UnityAction(async () =>
+        //            UnicornTweenHelper.DoScaleTweenOnClickAndLongPress(btn, UniTask.UnityAction(async () =>
         //            {
         //                DestoryItemTips();
         //                var tipUI = await UIHelper.CreateAsync(UIType.UICommon_ItemTips,
@@ -4156,7 +4153,7 @@ namespace HotFix_UI
         //        case 11:
         //            if (IsCompositeEquipReward(reward))
         //            {
-        //                JiYuTweenHelper.DoScaleTweenOnClickAndLongPress(btn, UniTask.UnityAction(async () =>
+        //                UnicornTweenHelper.DoScaleTweenOnClickAndLongPress(btn, UniTask.UnityAction(async () =>
         //                {
         //                    DestoryItemTips();
         //                    var tipUI = await UIHelper.CreateAsync(UIType.UICommon_ItemTips,
@@ -4174,11 +4171,11 @@ namespace HotFix_UI
         //                    reward = reward
         //                };
 
-        //                JiYuTweenHelper.DoScaleTweenOnClickAndLongPress(btn, UniTask.UnityAction(async () =>
+        //                UnicornTweenHelper.DoScaleTweenOnClickAndLongPress(btn, UniTask.UnityAction(async () =>
         //                {
         //                    DestoryItemTips();
         //                    var tipUI = await UIHelper.CreateAsync(UIType.UICommon_EquipTips, gameEquip);
-                            
+
         //                    //TODO:设置位置
         //                    // var title = tipUI.GetFromReference(UICommon_ItemTips.KTxt_Title);
         //                    // var des = tipUI.GetFromReference(UICommon_ItemTips.KTxt_Des);
@@ -4189,7 +4186,7 @@ namespace HotFix_UI
         //                    tipUI.GetFromReference(UICommon_EquipTips.KBottom).SetActive(false);
         //                    tipUI.GetFromReference(UICommon_EquipTips.KBtn_Decrease).SetActive(false);
 
-        //                    var itemPos = JiYuUIHelper.GetUIPos(common_RewardItem);
+        //                    var itemPos = UnicornUIHelper.GetUIPos(common_RewardItem);
 
         //                    float tipMidH = tipUI.GetFromReference(UICommon_EquipTips.KMid).GetRectTransform().Height();
         //                    float tipTopH = tipUI.GetFromReference(UICommon_EquipTips.KImg_TopArraw).GetRectTransform()
@@ -4267,53 +4264,53 @@ namespace HotFix_UI
             switch (rewardx)
             {
                 case 1:
-                    ResourcesSingleton.Instance.UserInfo.RoleAssets.Energy += rewardz;
-                    if (ResourcesSingleton.Instance.UserInfo.RoleAssets.Energy < 0)
+                    ResourcesSingletonOld.Instance.UserInfo.RoleAssets.Energy += rewardz;
+                    if (ResourcesSingletonOld.Instance.UserInfo.RoleAssets.Energy < 0)
                     {
-                        Log.Debug($"energy:{ResourcesSingleton.Instance.UserInfo.RoleAssets.Energy} 为负值,结果异常");
+                        Log.Debug($"energy:{ResourcesSingletonOld.Instance.UserInfo.RoleAssets.Energy} 为负值,结果异常");
                     }
 
                     break;
                 case 2:
 
-                    ResourcesSingleton.Instance.UserInfo.RoleAssets.Bitcoin += rewardz;
-                    if (ResourcesSingleton.Instance.UserInfo.RoleAssets.Bitcoin < 0)
+                    ResourcesSingletonOld.Instance.UserInfo.RoleAssets.Bitcoin += rewardz;
+                    if (ResourcesSingletonOld.Instance.UserInfo.RoleAssets.Bitcoin < 0)
                     {
-                        Log.Debug($"gems:{ResourcesSingleton.Instance.UserInfo.RoleAssets.Bitcoin} 为负值,结果异常");
+                        Log.Debug($"gems:{ResourcesSingletonOld.Instance.UserInfo.RoleAssets.Bitcoin} 为负值,结果异常");
                     }
 
                     break;
                 case 3:
 
-                    ResourcesSingleton.Instance.UserInfo.RoleAssets.UsBill += rewardz;
-                    if (ResourcesSingleton.Instance.UserInfo.RoleAssets.UsBill < 0)
+                    ResourcesSingletonOld.Instance.UserInfo.RoleAssets.UsBill += rewardz;
+                    if (ResourcesSingletonOld.Instance.UserInfo.RoleAssets.UsBill < 0)
                     {
-                        Log.Debug($"gold:{ResourcesSingleton.Instance.UserInfo.RoleAssets.UsBill} 为负值,结果异常");
+                        Log.Debug($"gold:{ResourcesSingletonOld.Instance.UserInfo.RoleAssets.UsBill} 为负值,结果异常");
                     }
 
                     break;
                 case 4:
 
-                    ResourcesSingleton.Instance.UserInfo.RoleAssets.Exp += rewardz;
-                    if (ResourcesSingleton.Instance.UserInfo.RoleAssets.Exp < 0)
+                    ResourcesSingletonOld.Instance.UserInfo.RoleAssets.Exp += rewardz;
+                    if (ResourcesSingletonOld.Instance.UserInfo.RoleAssets.Exp < 0)
                     {
                         Log.Debug(
-                            $"playerTotalExp:{ResourcesSingleton.Instance.UserInfo.RoleAssets.Exp} 为负值,结果异常");
+                            $"playerTotalExp:{ResourcesSingletonOld.Instance.UserInfo.RoleAssets.Exp} 为负值,结果异常");
                     }
 
                     break;
                 case 5:
-                    if (ResourcesSingleton.Instance.items.ContainsKey(rewardy))
+                    if (ResourcesSingletonOld.Instance.items.ContainsKey(rewardy))
                     {
-                        ResourcesSingleton.Instance.items[rewardy] += rewardz;
-                        if (ResourcesSingleton.Instance.items[rewardy] < 0)
+                        ResourcesSingletonOld.Instance.items[rewardy] += rewardz;
+                        if (ResourcesSingletonOld.Instance.items[rewardy] < 0)
                         {
-                            Log.Debug($"{rewardy}item:{ResourcesSingleton.Instance.items[rewardy]} 为负值,结果异常");
+                            Log.Debug($"{rewardy}item:{ResourcesSingletonOld.Instance.items[rewardy]} 为负值,结果异常");
                         }
                     }
                     else
                     {
-                        ResourcesSingleton.Instance.items.Add(rewardy, rewardz);
+                        ResourcesSingletonOld.Instance.items.Add(rewardy, rewardz);
                     }
 
                     break;
@@ -4328,10 +4325,10 @@ namespace HotFix_UI
                 case 10:
                     break;
                 case 11:
-                    NetWorkManager.Instance.SendMessage(CMD.QUERYEQUIP);
-                    if (!ResourcesSingleton.Instance.settingData.UnlockMap.ContainsKey(2))
+                    NetWorkManager.Instance.SendMessage(CMDOld.QUERYEQUIP);
+                    if (!ResourcesSingletonOld.Instance.settingData.UnlockMap.ContainsKey(2))
                     {
-                        ResourcesSingleton.Instance.settingData.UnlockMap.Add(2, 1);
+                        ResourcesSingletonOld.Instance.settingData.UnlockMap.Add(2, 1);
                         if (TryGetUI(UIType.UIPanel_JiyuGame, out var ui))
                         {
                             var uis = ui as UIPanel_JiyuGame;
@@ -4363,7 +4360,7 @@ namespace HotFix_UI
                 await UniTask.Delay((int)(delay * 1000));
             }
 
-            ResourcesSingleton.Instance.UpdateResourceUI();
+            ResourcesSingletonOld.Instance.UpdateResourceUI();
         }
 
 
@@ -4385,50 +4382,50 @@ namespace HotFix_UI
             switch (rewardx)
             {
                 case 1:
-                    ResourcesSingleton.Instance.UserInfo.RoleAssets.Energy += rewardz;
-                    if (ResourcesSingleton.Instance.UserInfo.RoleAssets.Energy < 0)
+                    ResourcesSingletonOld.Instance.UserInfo.RoleAssets.Energy += rewardz;
+                    if (ResourcesSingletonOld.Instance.UserInfo.RoleAssets.Energy < 0)
                     {
-                        Log.Debug($"energy:{ResourcesSingleton.Instance.UserInfo.RoleAssets.Energy} 为负值,结果异常");
+                        Log.Debug($"energy:{ResourcesSingletonOld.Instance.UserInfo.RoleAssets.Energy} 为负值,结果异常");
                     }
 
                     break;
                 case 2:
-                    ResourcesSingleton.Instance.UserInfo.RoleAssets.Bitcoin += rewardz;
-                    if (ResourcesSingleton.Instance.UserInfo.RoleAssets.Bitcoin < 0)
+                    ResourcesSingletonOld.Instance.UserInfo.RoleAssets.Bitcoin += rewardz;
+                    if (ResourcesSingletonOld.Instance.UserInfo.RoleAssets.Bitcoin < 0)
                     {
-                        Log.Debug($"gems:{ResourcesSingleton.Instance.UserInfo.RoleAssets.Bitcoin} 为负值,结果异常");
+                        Log.Debug($"gems:{ResourcesSingletonOld.Instance.UserInfo.RoleAssets.Bitcoin} 为负值,结果异常");
                     }
 
                     break;
                 case 3:
-                    ResourcesSingleton.Instance.UserInfo.RoleAssets.UsBill += rewardz;
-                    if (ResourcesSingleton.Instance.UserInfo.RoleAssets.UsBill < 0)
+                    ResourcesSingletonOld.Instance.UserInfo.RoleAssets.UsBill += rewardz;
+                    if (ResourcesSingletonOld.Instance.UserInfo.RoleAssets.UsBill < 0)
                     {
-                        Log.Debug($"gold:{ResourcesSingleton.Instance.UserInfo.RoleAssets.UsBill} 为负值,结果异常");
+                        Log.Debug($"gold:{ResourcesSingletonOld.Instance.UserInfo.RoleAssets.UsBill} 为负值,结果异常");
                     }
 
                     break;
                 case 4:
-                    ResourcesSingleton.Instance.UserInfo.RoleAssets.Exp += rewardz;
-                    if (ResourcesSingleton.Instance.UserInfo.RoleAssets.Exp < 0)
+                    ResourcesSingletonOld.Instance.UserInfo.RoleAssets.Exp += rewardz;
+                    if (ResourcesSingletonOld.Instance.UserInfo.RoleAssets.Exp < 0)
                     {
                         Log.Debug(
-                            $"playerTotalExp:{ResourcesSingleton.Instance.UserInfo.RoleAssets.Exp} 为负值,结果异常");
+                            $"playerTotalExp:{ResourcesSingletonOld.Instance.UserInfo.RoleAssets.Exp} 为负值,结果异常");
                     }
 
                     break;
                 case 5:
-                    if (ResourcesSingleton.Instance.items.ContainsKey(rewardy))
+                    if (ResourcesSingletonOld.Instance.items.ContainsKey(rewardy))
                     {
-                        ResourcesSingleton.Instance.items[rewardy] += rewardz;
-                        if (ResourcesSingleton.Instance.items[rewardy] < 0)
+                        ResourcesSingletonOld.Instance.items[rewardy] += rewardz;
+                        if (ResourcesSingletonOld.Instance.items[rewardy] < 0)
                         {
-                            Log.Debug($"{rewardy}item:{ResourcesSingleton.Instance.items[rewardy]} 为负值,结果异常");
+                            Log.Debug($"{rewardy}item:{ResourcesSingletonOld.Instance.items[rewardy]} 为负值,结果异常");
                         }
                     }
                     else
                     {
-                        ResourcesSingleton.Instance.items.Add(rewardy, rewardz);
+                        ResourcesSingletonOld.Instance.items.Add(rewardy, rewardz);
                     }
 
                     break;
@@ -4443,10 +4440,10 @@ namespace HotFix_UI
                 case 10:
                     break;
                 case 11:
-                    //NetWorkManager.Instance.SendMessage(CMD.QUERYEQUIP);
-                    if (!ResourcesSingleton.Instance.settingData.UnlockMap.ContainsKey(2))
+                    //NetWorkManager.Instance.SendMessage(CMDOld.QUERYEQUIP);
+                    if (!ResourcesSingletonOld.Instance.settingData.UnlockMap.ContainsKey(2))
                     {
-                        ResourcesSingleton.Instance.settingData.UnlockMap.Add(2, 1);
+                        ResourcesSingletonOld.Instance.settingData.UnlockMap.Add(2, 1);
                         if (TryGetUI(UIType.UIPanel_JiyuGame, out var ui))
                         {
                             var uis = ui as UIPanel_JiyuGame;
@@ -4478,7 +4475,7 @@ namespace HotFix_UI
                 await UniTask.Delay((int)(delay * 1000));
             }
 
-            ResourcesSingleton.Instance.UpdateResourceUI();
+            ResourcesSingletonOld.Instance.UpdateResourceUI();
         }
 
         /// <summary>
@@ -4499,50 +4496,50 @@ namespace HotFix_UI
             switch (rewardx)
             {
                 case 1:
-                    ResourcesSingleton.Instance.UserInfo.RoleAssets.Energy += rewardz;
-                    if (ResourcesSingleton.Instance.UserInfo.RoleAssets.Energy < 0)
+                    ResourcesSingletonOld.Instance.UserInfo.RoleAssets.Energy += rewardz;
+                    if (ResourcesSingletonOld.Instance.UserInfo.RoleAssets.Energy < 0)
                     {
-                        Log.Debug($"energy:{ResourcesSingleton.Instance.UserInfo.RoleAssets.Energy} 为负值,结果异常");
+                        Log.Debug($"energy:{ResourcesSingletonOld.Instance.UserInfo.RoleAssets.Energy} 为负值,结果异常");
                     }
 
                     break;
                 case 2:
-                    ResourcesSingleton.Instance.UserInfo.RoleAssets.Bitcoin += rewardz;
-                    if (ResourcesSingleton.Instance.UserInfo.RoleAssets.Bitcoin < 0)
+                    ResourcesSingletonOld.Instance.UserInfo.RoleAssets.Bitcoin += rewardz;
+                    if (ResourcesSingletonOld.Instance.UserInfo.RoleAssets.Bitcoin < 0)
                     {
-                        Log.Debug($"gems:{ResourcesSingleton.Instance.UserInfo.RoleAssets.Bitcoin} 为负值,结果异常");
+                        Log.Debug($"gems:{ResourcesSingletonOld.Instance.UserInfo.RoleAssets.Bitcoin} 为负值,结果异常");
                     }
 
                     break;
                 case 3:
-                    ResourcesSingleton.Instance.UserInfo.RoleAssets.UsBill += rewardz;
-                    if (ResourcesSingleton.Instance.UserInfo.RoleAssets.UsBill < 0)
+                    ResourcesSingletonOld.Instance.UserInfo.RoleAssets.UsBill += rewardz;
+                    if (ResourcesSingletonOld.Instance.UserInfo.RoleAssets.UsBill < 0)
                     {
-                        Log.Debug($"gold:{ResourcesSingleton.Instance.UserInfo.RoleAssets.UsBill} 为负值,结果异常");
+                        Log.Debug($"gold:{ResourcesSingletonOld.Instance.UserInfo.RoleAssets.UsBill} 为负值,结果异常");
                     }
 
                     break;
                 case 4:
-                    ResourcesSingleton.Instance.UserInfo.RoleAssets.Exp += rewardz;
-                    if (ResourcesSingleton.Instance.UserInfo.RoleAssets.Exp < 0)
+                    ResourcesSingletonOld.Instance.UserInfo.RoleAssets.Exp += rewardz;
+                    if (ResourcesSingletonOld.Instance.UserInfo.RoleAssets.Exp < 0)
                     {
                         Log.Debug(
-                            $"playerTotalExp:{ResourcesSingleton.Instance.UserInfo.RoleAssets.Exp} 为负值,结果异常");
+                            $"playerTotalExp:{ResourcesSingletonOld.Instance.UserInfo.RoleAssets.Exp} 为负值,结果异常");
                     }
 
                     break;
                 case 5:
-                    if (ResourcesSingleton.Instance.items.ContainsKey(rewardy))
+                    if (ResourcesSingletonOld.Instance.items.ContainsKey(rewardy))
                     {
-                        ResourcesSingleton.Instance.items[rewardy] += rewardz;
-                        if (ResourcesSingleton.Instance.items[rewardy] < 0)
+                        ResourcesSingletonOld.Instance.items[rewardy] += rewardz;
+                        if (ResourcesSingletonOld.Instance.items[rewardy] < 0)
                         {
-                            Log.Debug($"{rewardy}item:{ResourcesSingleton.Instance.items[rewardy]} 为负值,结果异常");
+                            Log.Debug($"{rewardy}item:{ResourcesSingletonOld.Instance.items[rewardy]} 为负值,结果异常");
                         }
                     }
                     else
                     {
-                        ResourcesSingleton.Instance.items.Add(rewardy, rewardz);
+                        ResourcesSingletonOld.Instance.items.Add(rewardy, rewardz);
                     }
 
                     break;
@@ -4557,10 +4554,10 @@ namespace HotFix_UI
                 case 10:
                     break;
                 case 11:
-                    //NetWorkManager.Instance.SendMessage(CMD.QUERYEQUIP);
-                    if (!ResourcesSingleton.Instance.settingData.UnlockMap.ContainsKey(2))
+                    //NetWorkManager.Instance.SendMessage(CMDOld.QUERYEQUIP);
+                    if (!ResourcesSingletonOld.Instance.settingData.UnlockMap.ContainsKey(2))
                     {
-                        ResourcesSingleton.Instance.settingData.UnlockMap.Add(2, 1);
+                        ResourcesSingletonOld.Instance.settingData.UnlockMap.Add(2, 1);
                         if (TryGetUI(UIType.UIPanel_JiyuGame, out var ui))
                         {
                             var uis = ui as UIPanel_JiyuGame;
@@ -4586,7 +4583,7 @@ namespace HotFix_UI
                     break;
             }
 
-            ResourcesSingleton.Instance.UpdateResourceUI();
+            ResourcesSingletonOld.Instance.UpdateResourceUI();
         }
 
         // [MethodImpl(MethodImplOptions.AggressiveInlining)]
@@ -4629,7 +4626,7 @@ namespace HotFix_UI
             if (hasEquip && updateEquip)
             {
                 //Log.Error($"hasEquip{hasEquip}");
-                NetWorkManager.Instance.SendMessage(CMD.QUERYEQUIP);
+                NetWorkManager.Instance.SendMessage(CMDOld.QUERYEQUIP);
             }
 
             if (playerAni)
@@ -4665,32 +4662,32 @@ namespace HotFix_UI
             switch (rewardx)
             {
                 case 1:
-                    ResourcesSingleton.Instance.UserInfo.RoleAssets.Energy += rewardz;
+                    ResourcesSingletonOld.Instance.UserInfo.RoleAssets.Energy += rewardz;
 
 
                     break;
                 case 2:
-                    ResourcesSingleton.Instance.UserInfo.RoleAssets.Bitcoin += rewardz;
+                    ResourcesSingletonOld.Instance.UserInfo.RoleAssets.Bitcoin += rewardz;
 
 
                     break;
                 case 3:
-                    ResourcesSingleton.Instance.UserInfo.RoleAssets.UsBill += rewardz;
+                    ResourcesSingletonOld.Instance.UserInfo.RoleAssets.UsBill += rewardz;
 
 
                     break;
                 case 4:
-                    ResourcesSingleton.Instance.UserInfo.RoleAssets.Exp += rewardz;
+                    ResourcesSingletonOld.Instance.UserInfo.RoleAssets.Exp += rewardz;
 
 
                     break;
                 case 5:
-                    if (ResourcesSingleton.Instance.items.ContainsKey(rewardy))
+                    if (ResourcesSingletonOld.Instance.items.ContainsKey(rewardy))
                     {
-                        ResourcesSingleton.Instance.items[rewardy] += rewardz;
-                        if (ResourcesSingleton.Instance.items[rewardy] == 0)
+                        ResourcesSingletonOld.Instance.items[rewardy] += rewardz;
+                        if (ResourcesSingletonOld.Instance.items[rewardy] == 0)
                         {
-                            ResourcesSingleton.Instance.items.Remove(rewardy);
+                            ResourcesSingletonOld.Instance.items.Remove(rewardy);
                         }
                     }
                     else
@@ -4727,7 +4724,7 @@ namespace HotFix_UI
                     break;
             }
 
-            ResourcesSingleton.Instance.UpdateResourceUI();
+            ResourcesSingletonOld.Instance.UpdateResourceUI();
 
             return true;
         }
@@ -4753,32 +4750,32 @@ namespace HotFix_UI
                 switch (rewardx)
                 {
                     case 1:
-                        ResourcesSingleton.Instance.UserInfo.RoleAssets.Energy += rewardz;
+                        ResourcesSingletonOld.Instance.UserInfo.RoleAssets.Energy += rewardz;
 
 
                         break;
                     case 2:
-                        ResourcesSingleton.Instance.UserInfo.RoleAssets.Bitcoin += rewardz;
+                        ResourcesSingletonOld.Instance.UserInfo.RoleAssets.Bitcoin += rewardz;
 
 
                         break;
                     case 3:
-                        ResourcesSingleton.Instance.UserInfo.RoleAssets.UsBill += rewardz;
+                        ResourcesSingletonOld.Instance.UserInfo.RoleAssets.UsBill += rewardz;
 
 
                         break;
                     case 4:
-                        ResourcesSingleton.Instance.UserInfo.RoleAssets.Exp += rewardz;
+                        ResourcesSingletonOld.Instance.UserInfo.RoleAssets.Exp += rewardz;
 
 
                         break;
                     case 5:
-                        if (ResourcesSingleton.Instance.items.ContainsKey(rewardy))
+                        if (ResourcesSingletonOld.Instance.items.ContainsKey(rewardy))
                         {
-                            ResourcesSingleton.Instance.items[rewardy] += rewardz;
-                            if (ResourcesSingleton.Instance.items[rewardy] == 0)
+                            ResourcesSingletonOld.Instance.items[rewardy] += rewardz;
+                            if (ResourcesSingletonOld.Instance.items[rewardy] == 0)
                             {
-                                ResourcesSingleton.Instance.items.Remove(rewardy);
+                                ResourcesSingletonOld.Instance.items.Remove(rewardy);
                             }
                         }
                         else
@@ -4815,7 +4812,7 @@ namespace HotFix_UI
                 }
             }
 
-            ResourcesSingleton.Instance.UpdateResourceUI();
+            ResourcesSingletonOld.Instance.UpdateResourceUI();
 
             return true;
         }
@@ -4838,7 +4835,7 @@ namespace HotFix_UI
             {
                 case 1:
 
-                    if (ResourcesSingleton.Instance.UserInfo.RoleAssets.Energy < rewardz)
+                    if (ResourcesSingletonOld.Instance.UserInfo.RoleAssets.Energy < rewardz)
                     {
                         isEnough = false;
                     }
@@ -4846,7 +4843,7 @@ namespace HotFix_UI
                     break;
                 case 2:
 
-                    if (ResourcesSingleton.Instance.UserInfo.RoleAssets.Bitcoin < rewardz)
+                    if (ResourcesSingletonOld.Instance.UserInfo.RoleAssets.Bitcoin < rewardz)
                     {
                         isEnough = false;
                     }
@@ -4854,7 +4851,7 @@ namespace HotFix_UI
                     break;
                 case 3:
 
-                    if (ResourcesSingleton.Instance.UserInfo.RoleAssets.UsBill < rewardz)
+                    if (ResourcesSingletonOld.Instance.UserInfo.RoleAssets.UsBill < rewardz)
                     {
                         isEnough = false;
                     }
@@ -4862,14 +4859,14 @@ namespace HotFix_UI
                     break;
                 case 4:
 
-                    if (ResourcesSingleton.Instance.UserInfo.RoleAssets.Exp < rewardz)
+                    if (ResourcesSingletonOld.Instance.UserInfo.RoleAssets.Exp < rewardz)
                     {
                         isEnough = false;
                     }
 
                     break;
                 case 5:
-                    if (ResourcesSingleton.Instance.items.TryGetValue(rewardy, out var count))
+                    if (ResourcesSingletonOld.Instance.items.TryGetValue(rewardy, out var count))
                     {
                         if (count < rewardz)
                         {
@@ -4950,27 +4947,27 @@ namespace HotFix_UI
             switch (rewardx)
             {
                 case 1:
-                    count = ResourcesSingleton.Instance.UserInfo.RoleAssets.Energy;
+                    count = ResourcesSingletonOld.Instance.UserInfo.RoleAssets.Energy;
 
                     break;
                 case 2:
-                    count = ResourcesSingleton.Instance.UserInfo.RoleAssets.Bitcoin;
+                    count = ResourcesSingletonOld.Instance.UserInfo.RoleAssets.Bitcoin;
 
                     break;
                 case 3:
 
-                    count = ResourcesSingleton.Instance.UserInfo.RoleAssets.UsBill;
+                    count = ResourcesSingletonOld.Instance.UserInfo.RoleAssets.UsBill;
 
                     break;
                 case 4:
-                    count = ResourcesSingleton.Instance.UserInfo.RoleAssets.Exp;
+                    count = ResourcesSingletonOld.Instance.UserInfo.RoleAssets.Exp;
 
                     break;
                 case 5:
 
-                    if (ResourcesSingleton.Instance.items.ContainsKey(rewardy))
+                    if (ResourcesSingletonOld.Instance.items.ContainsKey(rewardy))
                     {
-                        count = ResourcesSingleton.Instance.items[rewardy];
+                        count = ResourcesSingletonOld.Instance.items[rewardy];
                     }
                     else
                     {
@@ -5025,7 +5022,7 @@ namespace HotFix_UI
                 KBtn_MoneyPos = default,
                 KBagPos = default
             };
-            if (JiYuUIHelper.TryGetUI(UIType.UIPanel_JiyuGame, out var ui))
+            if (UnicornUIHelper.TryGetUI(UIType.UIPanel_JiyuGame, out var ui))
             {
                 var uis = ui as UIPanel_JiyuGame;
                 var KOptions = uis.GetFromReference(UIPanel_JiyuGame.KOptions);
@@ -5034,26 +5031,26 @@ namespace HotFix_UI
                     var childs = child as UISubPanel_ToggleItem;
                     if (childs.sort == 2)
                     {
-                        uiPosInfo.KBagPos = JiYuUIHelper.GetUIPos(childs);
+                        uiPosInfo.KBagPos = UnicornUIHelper.GetUIPos(childs);
 
                         break;
                     }
                 }
             }
 
-            if (JiYuUIHelper.TryGetUI(UIType.UIPanel_Main, out var uimain))
+            if (UnicornUIHelper.TryGetUI(UIType.UIPanel_Main, out var uimain))
             {
                 var uis = uimain as UIPanel_Main;
                 var KBtn_Diamond = uis.GetFromReference(UIPanel_Main.KBtn_Diamond);
                 var KBtn_Money = uis.GetFromReference(UIPanel_Main.KBtn_Money);
-                uiPosInfo.KBtn_DiamondPos = JiYuUIHelper.GetUIPos(KBtn_Diamond);
-                uiPosInfo.KBtn_MoneyPos = JiYuUIHelper.GetUIPos(KBtn_Money);
+                uiPosInfo.KBtn_DiamondPos = UnicornUIHelper.GetUIPos(KBtn_Diamond);
+                uiPosInfo.KBtn_MoneyPos = UnicornUIHelper.GetUIPos(KBtn_Money);
 
                 uiPosInfo.KBtn_DiamondPos.x -= 100f;
                 uiPosInfo.KBtn_MoneyPos.x -= 100f;
             }
 
-            ResourcesSingleton.Instance.UIPosInfo = uiPosInfo;
+            ResourcesSingletonOld.Instance.UIPosInfo = uiPosInfo;
         }
 
         /// <summary>
@@ -5240,18 +5237,18 @@ namespace HotFix_UI
             timeStr = "";
             if (endTime < nowTime)
             {
-                timeStr = JiYuUIHelper.GeneralTimeFormat(new Unity.Mathematics.int4(2, 3, 2, 1), 0);
+                timeStr = UnicornUIHelper.GeneralTimeFormat(new Unity.Mathematics.int4(2, 3, 2, 1), 0);
                 return false;
             }
             else if (endTime - 24 * 3600 < nowTime)
             {
                 timeStr = timeStr +
-                          JiYuUIHelper.GeneralTimeFormat(new Unity.Mathematics.int4(2, 3, 2, 1), endTime - nowTime);
+                          UnicornUIHelper.GeneralTimeFormat(new Unity.Mathematics.int4(2, 3, 2, 1), endTime - nowTime);
             }
             else
             {
                 timeStr = timeStr +
-                          JiYuUIHelper.GeneralTimeFormat(new Unity.Mathematics.int4(3, 4, 2, 1), endTime - nowTime);
+                          UnicornUIHelper.GeneralTimeFormat(new Unity.Mathematics.int4(3, 4, 2, 1), endTime - nowTime);
             }
 
             return true;
@@ -5462,7 +5459,7 @@ namespace HotFix_UI
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static long GetServerTimeStamp(bool inSeconds = false)
         {
-            var serverMil = TimeHelper.ClientNow() - ResourcesSingleton.Instance.serverDeltaTime;
+            var serverMil = TimeHelper.ClientNow() - ResourcesSingletonOld.Instance.serverDeltaTime;
             serverMil = inSeconds ? (serverMil / 1000) : serverMil;
             return serverMil;
         }
@@ -6147,10 +6144,10 @@ namespace HotFix_UI
         /// <param name="localPath">存储地址</param>
         public static async UniTask DownloadShare()
         {
-            var namepic = $"share_pic{ResourcesSingleton.Instance.gameShare.Id}.png";
-            var nameicon = $"share_icon{ResourcesSingleton.Instance.gameShare.Id}.png";
-            // var urlpic = $"{JsonManager.shareUrl}/share_icon{ResourcesSingleton.Instance.gameShare.Id}.png";
-            // var urlicon = $"{JsonManager.shareUrl}/share_pic{ResourcesSingleton.Instance.gameShare.Id}.png";
+            var namepic = $"share_pic{ResourcesSingletonOld.Instance.gameShare.Id}.png";
+            var nameicon = $"share_icon{ResourcesSingletonOld.Instance.gameShare.Id}.png";
+            // var urlpic = $"{JsonManager.shareUrl}/share_icon{ResourcesSingletonOld.Instance.gameShare.Id}.png";
+            // var urlicon = $"{JsonManager.shareUrl}/share_pic{ResourcesSingletonOld.Instance.gameShare.Id}.png";
             // var url = JsonManager.noticeUrl + "/Share.json";
             // if (url == null)
             // {
@@ -6431,7 +6428,7 @@ namespace HotFix_UI
 
         public static void SetResourceNotEnoughTip(UI notEnoughTipUI, UI btnUI, float contentGap = 30f)
         {
-            var itemPos = JiYuUIHelper.GetUIPos(btnUI);
+            var itemPos = UnicornUIHelper.GetUIPos(btnUI);
             float btnH = btnUI.GetRectTransform().Height();
             float tipMidH = notEnoughTipUI.GetFromReference(UICommon_ResourceNotEnough.KImg_Back).GetRectTransform()
                 .Height();
@@ -6774,9 +6771,9 @@ namespace HotFix_UI
         /// <param name="id"></param>
         public static void SendBuyMessage(int tagFuncId, int id)
         {
-            var shopStr = JiYuUIHelper.GetShopStr(tagFuncId, id);
+            var shopStr = UnicornUIHelper.GetShopStr(tagFuncId, id);
 
-            NetWorkManager.Instance.SendMessage(CMD.PREPAY, new StringValue
+            NetWorkManager.Instance.SendMessage(CMDOld.PREPAY, new StringValue
             {
                 Value = shopStr
             });
@@ -6790,9 +6787,9 @@ namespace HotFix_UI
         /// <param name="id"></param>
         public static void SendBuyMessage(string shopNum, int id)
         {
-            var shopStr = JiYuUIHelper.GetShopStr(shopNum, id);
+            var shopStr = UnicornUIHelper.GetShopStr(shopNum, id);
 
-            NetWorkManager.Instance.SendMessage(CMD.PREPAY, new StringValue
+            NetWorkManager.Instance.SendMessage(CMDOld.PREPAY, new StringValue
             {
                 Value = shopStr
             });
@@ -6887,16 +6884,16 @@ namespace HotFix_UI
             //比特币
             if (resourceType == 1)
             {
-                num = ResourcesSingleton.Instance.UserInfo.RoleAssets.Bitcoin;
+                num = ResourcesSingletonOld.Instance.UserInfo.RoleAssets.Bitcoin;
             }
             //金币
             else if (resourceType == 2)
             {
-                num = ResourcesSingleton.Instance.UserInfo.RoleAssets.UsBill;
+                num = ResourcesSingletonOld.Instance.UserInfo.RoleAssets.UsBill;
             }
             else if (resourceType == 3)
             {
-                num = ResourcesSingleton.Instance.UserInfo.RoleAssets.Energy;
+                num = ResourcesSingletonOld.Instance.UserInfo.RoleAssets.Energy;
             }
 
             if (num / 1000 == 0)
@@ -6989,28 +6986,28 @@ namespace HotFix_UI
 
         public async static UniTask RefreshAllPanelL10N(int L10N)
         {
-            if (L10N == ResourcesSingleton.Instance.settingData.CurrentL10N)
+            if (L10N == ResourcesSingletonOld.Instance.settingData.CurrentL10N)
             {
                 return;
             }
 
-            JiYuTweenHelper.EnableLoading(true);
+            UnicornTweenHelper.EnableLoading(true);
 
-            ResourcesSingleton.Instance.settingData.CurrentL10N = L10N;
-            ConfigManager.Instance.SwitchLanguages(ResourcesSingleton.Instance.settingData.CurrentL10N);
+            ResourcesSingletonOld.Instance.settingData.CurrentL10N = L10N;
+            ConfigManager.Instance.SwitchLanguages(ResourcesSingletonOld.Instance.settingData.CurrentL10N);
 
 
             JiYuEventManager.Instance.TriggerEvent("OnSwitchL10NResponse", L10N.ToString());
             //UIHelper.Remove(UIType.UIPanel_JiyuGame);
-            //var ui = await UIHelper.CreateAsync(UIType.UIPanel_JiyuGame, ResourcesSingleton.Instance.UserInfo);
+            //var ui = await UIHelper.CreateAsync(UIType.UIPanel_JiyuGame, ResourcesSingletonOld.Instance.UserInfo);
 
-            // if (!JiYuUIHelper.TryGetUI(UIType.UIPanel_JiyuGame, out var ui1))
+            // if (!UnicornUIHelper.TryGetUI(UIType.UIPanel_JiyuGame, out var ui1))
             // {
             //     
             // }
 
 
-            if (JiYuUIHelper.TryGetUI(UIType.UIPanel_JiyuGame, out var ui0))
+            if (UnicornUIHelper.TryGetUI(UIType.UIPanel_JiyuGame, out var ui0))
             {
                 var uis = ui0 as UIPanel_JiyuGame;
                 uis.RefreshToggleLanguage();
@@ -7019,20 +7016,20 @@ namespace HotFix_UI
 
 
             //
-            // if (JiYuUIHelper.TryGetUI(UIType.UIPanel_Main, out var ui3))
+            // if (UnicornUIHelper.TryGetUI(UIType.UIPanel_Main, out var ui3))
             // {
             //     var uis = ui3 as UIPanel_Main;
             //     uis.RefreshText();
             // }
             //
             //
-            // if (JiYuUIHelper.TryGetUI(UIType.UIPanel_Person, out var ui5))
+            // if (UnicornUIHelper.TryGetUI(UIType.UIPanel_Person, out var ui5))
             // {
             //     var uis = ui5 as UIPanel_Person;
             //     uis.Initialize();
             // }
 
-            JiYuTweenHelper.EnableLoading(false);
+            UnicornTweenHelper.EnableLoading(false);
         }
 
         /// <summary>
@@ -7073,14 +7070,14 @@ namespace HotFix_UI
             playerData.playerOtherData.rebirthCount++;
             entityManager.SetComponentData(player, chaStats);
             entityManager.SetComponentData(player, playerData);
-            if (JiYuUIHelper.TryGetUI(UIType.UIPanel_RunTimeHUD, out var ui))
+            if (UnicornUIHelper.TryGetUI(UIType.UIPanel_RunTimeHUD, out var ui))
             {
                 var uiRuntime = ui as UIPanel_RunTimeHUD;
                 uiRuntime.livefailTime = 0;
                 uiRuntime.reBirthCount++;
             }
 
-            JiYuUIHelper.StartStopTime(true);
+            UnicornUIHelper.StartStopTime(true);
         }
 
         #endregion
@@ -7093,7 +7090,7 @@ namespace HotFix_UI
             // 将字节转换为 GB
             double gigabytes1 = bytes1 / (1024.0 * 1024.0 * 1024.0);
             double gigabytes2 = bytes2 / (1024.0 * 1024.0 * 1024.0);
-            //await JiYuTweenHelper.EnableLoading(true, UIManager.LoadingType.TranstionShattersEnter);
+            //await UnicornTweenHelper.EnableLoading(true, UIManager.LoadingType.TranstionShattersEnter);
             Log.Debug($"GetTotalAllocatedMemoryLong {gigabytes1} GetTotalReservedMemoryLong{gigabytes2}");
         }
 
@@ -7142,7 +7139,7 @@ namespace HotFix_UI
                 }
             }
 
-            if (!JiYuUIHelper.TryGetUI(UIType.UIPanel_JiyuGame, out var jiyu))
+            if (!UnicornUIHelper.TryGetUI(UIType.UIPanel_JiyuGame, out var jiyu))
             {
                 return;
             }

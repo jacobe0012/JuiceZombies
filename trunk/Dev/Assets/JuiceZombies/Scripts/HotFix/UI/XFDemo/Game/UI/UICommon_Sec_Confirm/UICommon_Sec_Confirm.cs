@@ -1,5 +1,5 @@
 //---------------------------------------------------------------------
-// JiYuStudio
+// UnicornStudio
 // Author: xxx
 // Time: #CreateTime#
 //---------------------------------------------------------------------
@@ -41,12 +41,12 @@ namespace XFramework
 
         public async void Initialize()
         {
-            await JiYuUIHelper.InitBlur(this);
+            await UnicornUIHelper.InitBlur(this);
         }
 
         public async void Initialize(Vector3 arg1, string arg2)
         {
-            await JiYuUIHelper.InitBlur(this);
+            await UnicornUIHelper.InitBlur(this);
 
             cost = arg1;
             tblanguage = ConfigManager.Instance.Tables.Tblanguage;
@@ -64,7 +64,7 @@ namespace XFramework
 
             string originStr = tblanguage.Get("text_purchase_confirm").current;
             string costStr =
-                $"{JiYuUIHelper.GetRewardTextIconName(cost)}{(int)cost.z}";
+                $"{UnicornUIHelper.GetRewardTextIconName(cost)}{(int)cost.z}";
             string getStr = arg2;
             originStr = string.Format(originStr, costStr, getStr);
 
@@ -72,44 +72,44 @@ namespace XFramework
 
             KBg_Blur.GetButton().OnClick.Add(async () =>
             {
-                JiYuTweenHelper.SetScaleWithBounceClose(GetFromReference(UICommon_Sec_Confirm.KBg));
+                UnicornTweenHelper.SetScaleWithBounceClose(GetFromReference(UICommon_Sec_Confirm.KBg));
                 await UniTask.Delay(200);
                 Close();
                 return;
             });
 
-            JiYuTweenHelper.DoScaleTweenOnClickAndLongPress(KBtn_Return, async () =>
+            UnicornTweenHelper.DoScaleTweenOnClickAndLongPress(KBtn_Return, async () =>
             {
-                JiYuTweenHelper.SetScaleWithBounceClose(GetFromReference(UICommon_Sec_Confirm.KBg));
+                UnicornTweenHelper.SetScaleWithBounceClose(GetFromReference(UICommon_Sec_Confirm.KBg));
                 await UniTask.Delay(200);
                 Close();
                 return;
             });
 
-            JiYuTweenHelper.DoScaleTweenOnClickAndLongPress(KBtn_Buy, async () =>
+            UnicornTweenHelper.DoScaleTweenOnClickAndLongPress(KBtn_Buy, async () =>
             {
                 this.RemoveChild(UIType.UISubPanel_ResourceNotEnough);
                 //Log.Error($"TryReduceReward1 {cost}");
-                if (!JiYuUIHelper.IsRewardsEnough(cost))
+                if (!UnicornUIHelper.IsRewardsEnough(cost))
                 {
                     //Log.Error($"TryReduceReward2");
                     Vector3 v3 = cost;
-                    v3.z = v3.z - JiYuUIHelper.GetRewardCount(cost);
+                    v3.z = v3.z - UnicornUIHelper.GetRewardCount(cost);
                     var uiTip = await UIHelper.CreateAsync(this, UIType.UISubPanel_ResourceNotEnough, v3,
                         KBtn_Buy.GameObject.transform);
                     uiTip.SetParent(this, true);
-                    JiYuUIHelper.SetResourceNotEnoughTip(uiTip, KBtn_Buy);
+                    UnicornUIHelper.SetResourceNotEnoughTip(uiTip, KBtn_Buy);
 
                     return;
                 }
             });
 
-            JiYuTweenHelper.SetScaleWithBounce(GetFromReference(UICommon_Sec_Confirm.KBg));
+            UnicornTweenHelper.SetScaleWithBounce(GetFromReference(UICommon_Sec_Confirm.KBg));
         }
 
         public async void Initialize(Vector3 arg1, Vector3 arg2)
         {
-            await JiYuUIHelper.InitBlur(this);
+            await UnicornUIHelper.InitBlur(this);
             cost = arg1;
             get = arg2;
 
@@ -128,47 +128,47 @@ namespace XFramework
 
             string originStr = tblanguage.Get("text_purchase_confirm").current;
             string costStr =
-                $"{JiYuUIHelper.GetRewardTextIconName(cost)}{(int)cost.z}";
-            string getStr = JiYuUIHelper.GetRewardName(get);
+                $"{UnicornUIHelper.GetRewardTextIconName(cost)}{(int)cost.z}";
+            string getStr = UnicornUIHelper.GetRewardName(get);
             originStr = string.Format(originStr, costStr, getStr);
 
             KText.GetTextMeshPro().SetTMPText(originStr);
 
             KBg_Blur.GetButton().OnClick.Add(async () =>
             {
-                JiYuTweenHelper.SetScaleWithBounceClose(GetFromReference(UICommon_Sec_Confirm.KBg));
+                UnicornTweenHelper.SetScaleWithBounceClose(GetFromReference(UICommon_Sec_Confirm.KBg));
                 await UniTask.Delay(200);
                 Close();
                 return;
             });
 
-            JiYuTweenHelper.DoScaleTweenOnClickAndLongPress(KBtn_Return, async () =>
+            UnicornTweenHelper.DoScaleTweenOnClickAndLongPress(KBtn_Return, async () =>
             {
-                JiYuTweenHelper.SetScaleWithBounceClose(GetFromReference(UICommon_Sec_Confirm.KBg));
+                UnicornTweenHelper.SetScaleWithBounceClose(GetFromReference(UICommon_Sec_Confirm.KBg));
                 await UniTask.Delay(200);
                 Close();
                 return;
             });
 
-            JiYuTweenHelper.DoScaleTweenOnClickAndLongPress(KBtn_Buy, async () =>
+            UnicornTweenHelper.DoScaleTweenOnClickAndLongPress(KBtn_Buy, async () =>
             {
                 this.RemoveChild(UIType.UISubPanel_ResourceNotEnough);
                 //Log.Error($"TryReduceReward1 {cost}");
-                if (!JiYuUIHelper.IsRewardsEnough(cost))
+                if (!UnicornUIHelper.IsRewardsEnough(cost))
                 {
                     //Log.Error($"TryReduceReward2");
                     Vector3 v3 = cost;
-                    v3.z = v3.z - JiYuUIHelper.GetRewardCount(cost);
+                    v3.z = v3.z - UnicornUIHelper.GetRewardCount(cost);
                     var uiTip = await UIHelper.CreateAsync(this, UIType.UISubPanel_ResourceNotEnough, v3,
                         KBtn_Buy.GameObject.transform);
                     uiTip.SetParent(this, true);
-                    JiYuUIHelper.SetResourceNotEnoughTip(uiTip, KBtn_Buy);
+                    UnicornUIHelper.SetResourceNotEnoughTip(uiTip, KBtn_Buy);
 
                     return;
                 }
             });
 
-            JiYuTweenHelper.SetScaleWithBounce(GetFromReference(UICommon_Sec_Confirm.KBg));
+            UnicornTweenHelper.SetScaleWithBounce(GetFromReference(UICommon_Sec_Confirm.KBg));
         }
 
 

@@ -1,5 +1,5 @@
 //---------------------------------------------------------------------
-// JiYuStudio
+// UnicornStudio
 // Author: xxx
 // Time: #CreateTime#
 //---------------------------------------------------------------------
@@ -40,7 +40,7 @@ namespace XFramework
 		{
 			uid = myGameEquip.equip.PartId;
 			equip = myGameEquip;
-			JiYuUIHelper.SetEquipIcon(myGameEquip, this, panelType);
+			UnicornUIHelper.SetEquipIcon(myGameEquip, this, panelType);
 		}
 
 		protected override void OnClose()

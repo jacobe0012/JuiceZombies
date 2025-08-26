@@ -11,18 +11,27 @@ using UnityEngine;
 
 namespace JuiceZombies.Server.Handlers;
 
-public class LoginCommandHandler : HandleBase, ICommandHandler
+public class LoginCommandHandler : HandleBase, ICommandHandler<C2S_LoginRequest>, ICommandHandler
 {
-    public LoginCommandHandler(MyPostgresDbContext context, IConnectionMultiplexer redis,
-        ConcurrentDictionary<WebSocket, string> connections) : base(context, redis, connections)
+    public LoginCommandHandler(MyPostgresDbContext context, IConnectionMultiplexer redis) : base(context, redis)
     {
     }
 
+    public Task<Context> HandleAsync(C2S_LoginRequest command)
+    {
+        Console.WriteLine($"LoginCommandHandler");
+        return default;
+    }
+    public Task<Context> HandleAsync(object command)
+    {
+        Console.WriteLine($"LoginCommandHandler1");
+        return HandleAsync((C2S_LoginRequest)command);
+    }
     public async Task<Context> HandleAsync(MyMessage message, WebSocket webSocket)
     {
-        GameUser gameUser;
+        S2C_UserResData gameUser;
 
-        gameUser = MessagePackSerializer.Deserialize<GameUser>(message.Content, options);
+        gameUser = MessagePackSerializer.Deserialize<S2C_UserResData>(message.Content, options);
         var inputContentStr = JsonConvert.SerializeObject(gameUser);
         var outputContentStr = JsonConvert.SerializeObject(gameUser);
 
@@ -39,10 +48,10 @@ public class LoginCommandHandler : HandleBase, ICommandHandler
     // {
     //     Console.WriteLine($"message {message.ToString()}");
     //     var db = _redis.GetDatabase();
-    //     var playerData = MessagePackSerializer.Deserialize<GameUser>(message.Content, options);
+    //     var playerData = MessagePackSerializer.Deserialize<S2C_UserResData>(message.Content, options);
     //     var inputContentStr = JsonConvert.SerializeObject(playerData);
     //
-    //     //Console.WriteLine($"GameUser:{JsonConvert.SerializeObject(playerData)}");
+    //     //Console.WriteLine($"S2C_UserResData:{JsonConvert.SerializeObject(playerData)}");
     //     //long timestamp = DateTimeOffset.UtcNow.ToUnixTimeMilliseconds();
     //     //var playerdata = await db.StringGetAsync(player.Id.ToString());
     //     var wxCode2Session = await GetSessionJson(playerData.OtherData.Code);
@@ -190,4 +199,6 @@ public class LoginCommandHandler : HandleBase, ICommandHandler
         //Console.WriteLine($"responseBody:{wxCode2Session.ToString()}");
         return wxCode2Session;
     }
+
+
 }

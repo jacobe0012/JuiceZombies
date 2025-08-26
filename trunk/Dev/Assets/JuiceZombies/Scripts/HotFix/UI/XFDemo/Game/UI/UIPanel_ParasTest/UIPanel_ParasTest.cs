@@ -1,5 +1,5 @@
 //---------------------------------------------------------------------
-// JiYuStudio
+// UnicornStudio
 // Author: xxx
 // Time: #CreateTime#
 //---------------------------------------------------------------------
@@ -52,7 +52,7 @@ namespace XFramework
 
         public async void Initialize()
         {
-            await JiYuUIHelper.InitBlur(this);
+            await UnicornUIHelper.InitBlur(this);
             attr_varibles = ConfigManager.Instance.Tables.Tbattr_variable;
             language = ConfigManager.Instance.Tables.Tblanguage;
             entityManager = World.DefaultGameObjectInjectionWorld.EntityManager;
@@ -82,41 +82,41 @@ namespace XFramework
             btn_2.GetRectTransform().SetScale(Vector2.one);
             btn_3.GetRectTransform().SetScale(Vector2.one);
             btn_4.GetRectTransform().SetScale(Vector2.one);
-            JiYuTweenHelper.DoScaleTweenOnClickAndLongPress(btn_0, () =>
+            UnicornTweenHelper.DoScaleTweenOnClickAndLongPress(btn_0, () =>
             {
                 InitItem(0);
                 InitParasData(btnIndex);
                 SetBtnAlpha(btnIndex);
             });
-            JiYuTweenHelper.DoScaleTweenOnClickAndLongPress(btn_1, () =>
+            UnicornTweenHelper.DoScaleTweenOnClickAndLongPress(btn_1, () =>
             {
                 InitItem(1);
                 InitParasData(btnIndex);
                 SetBtnAlpha(btnIndex);
             });
-            JiYuTweenHelper.DoScaleTweenOnClickAndLongPress(btn_2, () =>
+            UnicornTweenHelper.DoScaleTweenOnClickAndLongPress(btn_2, () =>
             {
                 InitItem(2);
                 InitParasData(btnIndex);
                 SetBtnAlpha(btnIndex);
             });
-            JiYuTweenHelper.DoScaleTweenOnClickAndLongPress(btn_3, () =>
+            UnicornTweenHelper.DoScaleTweenOnClickAndLongPress(btn_3, () =>
             {
                 InitItem(3);
                 InitParasData(btnIndex);
                 SetBtnAlpha(btnIndex);
             });
-            JiYuTweenHelper.DoScaleTweenOnClickAndLongPress(btn_4, () =>
+            UnicornTweenHelper.DoScaleTweenOnClickAndLongPress(btn_4, () =>
             {
                 InitItem(4);
                 InitParasData(btnIndex);
                 SetBtnAlpha(btnIndex);
             });
 
-            JiYuTweenHelper.DoScaleTweenOnClickAndLongPress(closeBtn, Close);
-            JiYuTweenHelper.DoScaleTweenOnClickAndLongPress(closeMaskBtn, Close);
+            UnicornTweenHelper.DoScaleTweenOnClickAndLongPress(closeBtn, Close);
+            UnicornTweenHelper.DoScaleTweenOnClickAndLongPress(closeMaskBtn, Close);
 
-            JiYuTweenHelper.DoScaleTweenOnClickAndLongPress(btn_Confirm, async () =>
+            UnicornTweenHelper.DoScaleTweenOnClickAndLongPress(btn_Confirm, async () =>
             {
                 SetPlayerProperty(0);
                 UnityHelper.BeginTime();
@@ -126,13 +126,13 @@ namespace XFramework
                 Close();
             });
 
-            JiYuTweenHelper.DoScaleTweenOnClickAndLongPress(btn_Restore0, () =>
+            UnicornTweenHelper.DoScaleTweenOnClickAndLongPress(btn_Restore0, () =>
             {
                 SetPlayerProperty(1);
                 //InitParasData(btnIndex);
                 Close();
             });
-            JiYuTweenHelper.DoScaleTweenOnClickAndLongPress(btn_Restore1, () =>
+            UnicornTweenHelper.DoScaleTweenOnClickAndLongPress(btn_Restore1, () =>
             {
                 SetPlayerProperty(2);
                 //InitParasData(btnIndex);
@@ -671,7 +671,7 @@ namespace XFramework
                             var isSucceed = FloatTryPrase(parasItemsList1[1]);
                             if (isSucceed > 0)
                             {
-                                JiYuUIHelper.QuickSucceed();
+                                UnicornUIHelper.QuickSucceed();
                             }
 
                             var envWeather = FloatTryPrase(parasItemsList1[2]);
@@ -845,9 +845,9 @@ namespace XFramework
                     {
                         case 0:
                             //TODO:
-                            //chaProperty = ResourcesSingleton.Instance.playerProperty.chaProperty;
-                            playerData = ResourcesSingleton.Instance.playerProperty.playerData;
-                            chaStats.chaProperty = ResourcesSingleton.Instance.playerProperty.chaProperty;
+                            //chaProperty = ResourcesSingletonOld.Instance.playerProperty.chaProperty;
+                            playerData = ResourcesSingletonOld.Instance.playerProperty.playerData;
+                            chaStats.chaProperty = ResourcesSingletonOld.Instance.playerProperty.chaProperty;
                             entityManager.SetComponentData(player, chaStats);
                             entityManager.SetComponentData(player, playerData);
                             break;

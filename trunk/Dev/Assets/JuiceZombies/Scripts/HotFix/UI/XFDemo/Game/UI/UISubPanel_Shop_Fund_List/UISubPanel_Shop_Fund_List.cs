@@ -1,5 +1,5 @@
 //---------------------------------------------------------------------
-// JiYuStudio
+// UnicornStudio
 // Author: xxx
 // Time: #CreateTime#
 //---------------------------------------------------------------------
@@ -39,9 +39,9 @@ namespace XFramework
         private async UniTask InitEffect()
         {
             await UniTask.Delay(600, cancellationToken: cts.Token);
-            JiYuTweenHelper.PlayUIImageSweepFX(this.GetFromReference(KImg_Btn_Mid), cancellationToken: cts.Token);
+            UnicornTweenHelper.PlayUIImageSweepFX(this.GetFromReference(KImg_Btn_Mid), cancellationToken: cts.Token);
             await UniTask.Delay(100, cancellationToken: cts.Token);
-            JiYuTweenHelper.PlayUIImageSweepFX(this.GetFromReference(KImg_Btn_Right), cancellationToken: cts.Token);
+            UnicornTweenHelper.PlayUIImageSweepFX(this.GetFromReference(KImg_Btn_Right), cancellationToken: cts.Token);
         }
 
         protected override void OnClose()

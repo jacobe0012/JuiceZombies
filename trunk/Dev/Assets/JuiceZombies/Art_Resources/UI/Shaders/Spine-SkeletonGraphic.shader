@@ -1,6 +1,6 @@
 // This is a premultiply-alpha adaptation of the built-in Unity shader "UI/Default" in Unity 5.6.2 to allow Unity UI stencil masking.
 
-Shader "JiYuStudio/Spine-SkeletonGraphic"
+Shader "UnicornStudio/Spine-SkeletonGraphic"
 {
 	Properties
 	{

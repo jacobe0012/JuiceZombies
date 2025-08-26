@@ -1,5 +1,5 @@
 ﻿//---------------------------------------------------------------------
-// JiYuStudio
+// UnicornStudio
 // Author: huangjinguo
 // Time: #CreateTime#
 //---------------------------------------------------------------------
@@ -119,10 +119,10 @@ namespace XFramework
                 ui.GetFromReference(UISubPanel_CommonBtn.KText_Mid).SetActive(true);
                 Log.Debug($"icon:{TopTabList[iHelp].icon},name:{TopTabList[iHelp].name}",Color.cyan);
                 ui.GetFromReference(UISubPanel_CommonBtn.KText_Mid).GetTextMeshPro()
-                    .SetTMPText(JiYuUIHelper.GetRewardTextIconName(TopTabList[iHelp].icon) + TopTabList[iHelp].name);
+                    .SetTMPText(UnicornUIHelper.GetRewardTextIconName(TopTabList[iHelp].icon) + TopTabList[iHelp].name);
              
                 //添加滑动居中的点击事件
-                JiYuTweenHelper.DoScaleTweenOnClickAndLongPress(ui.GetFromReference(UISubPanel_CommonBtn.KBtn_Common),
+                UnicornTweenHelper.DoScaleTweenOnClickAndLongPress(ui.GetFromReference(UISubPanel_CommonBtn.KBtn_Common),
                     () => BtnOnClick(iHelp));
                 //ui.GetFromReference(UISubPanel_CommonBtn.KBtn_Common).GetButton().OnClick.Add(() =>
                 //{
@@ -150,7 +150,7 @@ namespace XFramework
                 var uib = b as UISubPanel_CommonBtn;
                 return uia.index.CompareTo(uib.index);
             });
-            JiYuUIHelper.ForceRefreshLayout(content);
+            UnicornUIHelper.ForceRefreshLayout(content);
             //把初始位置设置到0
             this.GetFromReference(KScrollView).GetScrollRect().Content.GetRectTransform().SetAnchoredPositionX(0);
         }
@@ -203,7 +203,7 @@ namespace XFramework
                 .SetSprite(topTabList[i].selectBg, false);
 
             var selectIcon = topTabList[i].icon + "_select";
-            TabList[i].GetFromReference(UISubPanel_CommonBtn.KText_Mid).GetTextMeshPro().SetTMPText(JiYuUIHelper.GetRewardTextIconName(selectIcon) + topTabList[i].name);
+            TabList[i].GetFromReference(UISubPanel_CommonBtn.KText_Mid).GetTextMeshPro().SetTMPText(UnicornUIHelper.GetRewardTextIconName(selectIcon) + topTabList[i].name);
             //TabList[i].GetFromReference(UICommon_TopTabBtn.KImg_2).SetActive(true);
             if (TabList[i] != lastTabUI)
             {
@@ -211,7 +211,7 @@ namespace XFramework
                     .SetSprite(topTabList[i].bg, false);
 
                 // Log.Debug($"iconName：{lastTabUI.GetFromReference(UISubPanel_CommonBtn.KImg_Left).GetXImage().}", Color.cyan);
-                lastTabUI.GetFromReference(UISubPanel_CommonBtn.KText_Mid).GetTextMeshPro().SetTMPText(JiYuUIHelper.GetRewardTextIconName(lastTabUI.icon) + lastTabUI.text);
+                lastTabUI.GetFromReference(UISubPanel_CommonBtn.KText_Mid).GetTextMeshPro().SetTMPText(UnicornUIHelper.GetRewardTextIconName(lastTabUI.icon) + lastTabUI.text);
                 //lastTabUI.GetFromReference(UICommon_TopTabBtn.KImg_2).SetActive(false);
                 lastTabUI.GetRectTransform().DoScale(new Vector3(1.0f, 1.0f, 1.0f), TabDoScaleTime);
             }

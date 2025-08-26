@@ -99,7 +99,7 @@ namespace XFramework
         private async UniTask InitPanel()
         {
             // var input = "type=3;para=[101,85,86]";
-            // JiYuUIHelper.ExtractUnlockOrGoToStr(input, out int type, out List<int> paras);
+            // UnicornUIHelper.ExtractUnlockOrGoToStr(input, out int type, out List<int> paras);
 
             var timerMgr = TimerManager.Instance;
 
@@ -124,8 +124,8 @@ namespace XFramework
                 //Log.Debug($" {m_ScrollRect.Get().horizontalNormalizedPosition}");
                 m_IsEndMove = false;
                 m_IsDrag = true;
-                JiYuUIHelper.DestoryAllTips();
-                if (JiYuUIHelper.TryGetUI(UIType.UIPanel_Main, out var ui2))
+                UnicornUIHelper.DestoryAllTips();
+                if (UnicornUIHelper.TryGetUI(UIType.UIPanel_Main, out var ui2))
                 {
                     var uiMain = ui2 as UIPanel_Main;
                     uiMain.BtnTreasure();
@@ -148,7 +148,7 @@ namespace XFramework
             {
                 int index = i;
                 var tag = tbtag.DataList[index];
-                if (ResourcesSingleton.Instance.settingData.UnlockMap.ContainsKey(tag.id))
+                if (ResourcesSingletonOld.Instance.settingData.UnlockMap.ContainsKey(tag.id))
                 {
                     unlockTags.Add(tag.id);
                 }
@@ -214,14 +214,14 @@ namespace XFramework
 
                 uiBtn.SetPointerActive(true);
 
-                uiBtn.SetLongPressInterval(JiYuTweenHelper.LongPressInterval);
+                uiBtn.SetLongPressInterval(UnicornTweenHelper.LongPressInterval);
 
-                uiBtn.SetMaxLongPressCount(JiYuTweenHelper.MaxLongPressCount);
+                uiBtn.SetMaxLongPressCount(UnicornTweenHelper.MaxLongPressCount);
 
 
                 uiBtn.OnClick.Add(() =>
                 {
-                    if (ResourcesSingleton.Instance.settingData.UnlockMap.ContainsKey(tag.id))
+                    if (ResourcesSingletonOld.Instance.settingData.UnlockMap.ContainsKey(tag.id))
                     {
                         OnBtnClickEvent(tag.sort);
                         SetToPageIndex(tag.id);
@@ -229,14 +229,14 @@ namespace XFramework
                     else
                     {
                         var str = $"{tblanguage.Get($"text_goto_failed_{tag.id}").current}";
-                        JiYuUIHelper.ClearCommonResource();
+                        UnicornUIHelper.ClearCommonResource();
                         UIHelper.CreateAsync(UIType.UICommon_Resource, str);
                     }
                 });
 
                 uiBtn.OnLongPressEnd.Add((f) =>
                 {
-                    if (ResourcesSingleton.Instance.settingData.UnlockMap.ContainsKey(tag.id))
+                    if (ResourcesSingletonOld.Instance.settingData.UnlockMap.ContainsKey(tag.id))
                     {
                         OnBtnClickEvent(tag.sort);
                         SetToPageIndex(tag.id);
@@ -244,7 +244,7 @@ namespace XFramework
                     else
                     {
                         var str = $"{tblanguage.Get($"text_goto_failed_{tag.id}").current}";
-                        JiYuUIHelper.ClearCommonResource();
+                        UnicornUIHelper.ClearCommonResource();
                         UIHelper.CreateAsync(UIType.UICommon_Resource, str);
                     }
                 });
@@ -362,15 +362,15 @@ namespace XFramework
             //     var childs = child as UISubPanel_ToggleItem;
             //     if (childs.tagId == 2)
             //     {
-            //         JiYuUIHelper.SetForceGuideRectUI(childs, KBg_TestGuid);
+            //         UnicornUIHelper.SetForceGuideRectUI(childs, KBg_TestGuid);
             //         break;
             //     }
             // }
 
-            // if (JiYuUIHelper.TryGetUI(UIType.UIPanel_Main, out var uimain))
+            // if (UnicornUIHelper.TryGetUI(UIType.UIPanel_Main, out var uimain))
             // {
             //     var KBtn_Start = uimain.GetFromReference(UIPanel_Main.KBtn_Start);
-            //     JiYuUIHelper.SetForceGuideRectUI(KBtn_Start, KBg_TestGuid);
+            //     UnicornUIHelper.SetForceGuideRectUI(KBtn_Start, KBg_TestGuid);
             //     // var KBtn_Start = uimain.GetFromReference(UIPanel_Main.KBtn_Start);
             //     // KBg_TestGuid
             // }
@@ -379,24 +379,24 @@ namespace XFramework
         public void ForceRefreshToggles()
         {
             var KOptions = this.GetFromReference(UIPanel_JiyuGame.KOptions);
-            JiYuUIHelper.ForceRefreshLayout(KOptions);
+            UnicornUIHelper.ForceRefreshLayout(KOptions);
         }
 
         public async UniTaskVoid Guide(int panelId)
         {
-            if (ResourcesSingleton.Instance.settingData.GuideList.Contains(1))
+            if (ResourcesSingletonOld.Instance.settingData.GuideList.Contains(1))
             {
                 return;
             }
 
             //Log.Error($"JiYuPanelId{panelId}");
-            JiYuUIHelper.EnableJiYuMask(true);
+            UnicornUIHelper.EnableJiYuMask(true);
             var KOptions = this.GetFromReference(UIPanel_JiyuGame.KOptions);
             switch (panelId)
             {
                 case 1:
                     var guide1 = tbguide.DataList.Where(a => a.guideType == 317).FirstOrDefault();
-                    if (ResourcesSingleton.Instance.settingData.GuideList.Contains(guide1.group))
+                    if (ResourcesSingletonOld.Instance.settingData.GuideList.Contains(guide1.group))
                     {
                         UIHelper.Remove(UIType.UISubPanel_Guid);
                         await UniTask.Delay(1000);
@@ -407,7 +407,7 @@ namespace XFramework
                     break;
                 case 2:
                     var guide2 = tbguide.DataList.Where(a => a.guideType == 316).FirstOrDefault();
-                    if (ResourcesSingleton.Instance.settingData.GuideList.Contains(guide2.group))
+                    if (ResourcesSingletonOld.Instance.settingData.GuideList.Contains(guide2.group))
                     {
                         UIHelper.Remove(UIType.UISubPanel_Guid);
                         await UniTask.Delay(1000);
@@ -419,7 +419,7 @@ namespace XFramework
                     break;
             }
 
-            JiYuUIHelper.EnableJiYuMask(false);
+            UnicornUIHelper.EnableJiYuMask(false);
         }
 
         public async UniTask UnLockTag(int tagId)
@@ -497,7 +497,7 @@ namespace XFramework
 
             var tag = tbtag.Get(tagId);
             var sort = tag.sort;
-            if (ResourcesSingleton.Instance.settingData.UnlockMap.ContainsKey(tagId))
+            if (ResourcesSingletonOld.Instance.settingData.UnlockMap.ContainsKey(tagId))
             {
                 OnBtnClickEvent(sort);
                 SetToPageIndex(tagId);
@@ -505,7 +505,7 @@ namespace XFramework
             else
             {
                 var str = $"{tblanguage.Get($"text_goto_failed_{tag.id}").current}";
-                JiYuUIHelper.ClearCommonResource();
+                UnicornUIHelper.ClearCommonResource();
                 UIHelper.CreateAsync(UIType.UICommon_Resource, str);
                 return -1;
             }
@@ -547,7 +547,7 @@ namespace XFramework
             for (int i = 1; i < 6; i++)
             {
                 var tagId = i;
-                if (!ResourcesSingleton.Instance.settingData.UnlockMap.ContainsKey(tagId))
+                if (!ResourcesSingletonOld.Instance.settingData.UnlockMap.ContainsKey(tagId))
                 {
                     continue;
                 }
@@ -558,7 +558,7 @@ namespace XFramework
 
         async UniTask CreateTagPanel(int id)
         {
-            if (!ResourcesSingleton.Instance.settingData.UnlockMap.ContainsKey(id))
+            if (!ResourcesSingletonOld.Instance.settingData.UnlockMap.ContainsKey(id))
             {
                 return;
             }
@@ -584,11 +584,11 @@ namespace XFramework
                     break;
                 case 3:
                     ui = await UIHelper.CreateAsyncNew(this, UIType.UIPanel_Main, tran);
-                    var list=ui.GetFromReference(UIPanel_Main.Ktest).GetList();
+                    var list = ui.GetFromReference(UIPanel_Main.Ktest).GetList();
                     list.CreateWithUIType<int>(UIType.UIItemMonCard, 1, false);
                     break;
                 case 4:
-                    var maxChapterID = ResourcesSingleton.Instance.levelInfo.maxPassChapterID;
+                    var maxChapterID = ResourcesSingletonOld.Instance.levelInfo.maxPassChapterID;
                     if (maxChapterID >= 2)
                     {
                         ui = await UIHelper.CreateAsyncNew(this, UIType.UIPanel_Challege, tran);
@@ -619,18 +619,18 @@ namespace XFramework
 
         private void RefereshMailRedDot()
         {
-            if (JiYuUIHelper.TryGetUI(UIType.UIPanel_Battle, out var ui))
+            if (UnicornUIHelper.TryGetUI(UIType.UIPanel_Battle, out var ui))
             {
                 var img = ui?.GetFromReference(UIPanel_Battle.KImg_ExtendRedDot);
 
-                img?.SetActive(JiYuUIHelper.IsMailRedDot());
+                img?.SetActive(UnicornUIHelper.IsMailRedDot());
             }
 
-            if (JiYuUIHelper.TryGetUI(UIType.UIPanel_Battle, out var ui0))
+            if (UnicornUIHelper.TryGetUI(UIType.UIPanel_Battle, out var ui0))
             {
                 var emailRedDot = ui0?.GetFromReference(UIPanel_Battle.KemailButton_BG)?.GetRectTransform()
                     .GetChild(0).gameObject;
-                emailRedDot?.SetActive(JiYuUIHelper.IsMailRedDot());
+                emailRedDot?.SetActive(UnicornUIHelper.IsMailRedDot());
             }
         }
 
@@ -639,7 +639,7 @@ namespace XFramework
             //UI temp = GetToggle(2);
             //if (temp == default) return;
             //var talent = temp as UISubPanel_ToggleItem;
-            //if (JiYuUIHelper.TryGetUI(UIType.UIPanel_Battle, out UI uiTemp))
+            //if (UnicornUIHelper.TryGetUI(UIType.UIPanel_Battle, out UI uiTemp))
             //{
             //    var battleView = uiTemp as UIPanel_Battle;
             //    if (battleView.isDisplayRedDot())
@@ -677,7 +677,7 @@ namespace XFramework
             //    if (db.tagFunc == 1102)
             //    {
             //        long ItemNum;
-            //        if (ResourcesSingleton.Instance.items.TryGetValue(tbdraw_Box[db.id].item, out long value))
+            //        if (ResourcesSingletonOld.Instance.items.TryGetValue(tbdraw_Box[db.id].item, out long value))
             //        {
             //            ItemNum = value;
             //        }
@@ -708,10 +708,10 @@ namespace XFramework
             //    if (db.tagFunc == 1103 && db.drawType == 5)
             //    {
             //        bool a = false;
-            //        if (ResourcesSingleton.Instance.shopInit.shopHelpDic.TryGetValue(db.tagFunc,
+            //        if (ResourcesSingletonOld.Instance.shopInit.shopHelpDic.TryGetValue(db.tagFunc,
             //                out Dictionary<int, List<long>> value))
             //        {
-            //            if (ResourcesSingleton.Instance.shopInit.shopHelpDic[db.tagFunc][db.id][2] == 1)
+            //            if (ResourcesSingletonOld.Instance.shopInit.shopHelpDic[db.tagFunc][db.id][2] == 1)
             //            {
             //                a = true;
             //            }
@@ -732,11 +732,11 @@ namespace XFramework
             //    if (recharge.tagFunc == 1402)
             //    {
             //        bool b = false;
-            //        if (ResourcesSingleton.Instance.shopInit.shopHelpDic.TryGetValue(1402,
+            //        if (ResourcesSingletonOld.Instance.shopInit.shopHelpDic.TryGetValue(1402,
             //                out Dictionary<int, List<long>> value))
             //        {
-            //            if (ResourcesSingleton.Instance.shopInit.shopHelpDic[1402][recharge.id][1] > 0
-            //                || ResourcesSingleton.Instance.shopInit.shopHelpDic[1402][recharge.id][2] > 0)
+            //            if (ResourcesSingletonOld.Instance.shopInit.shopHelpDic[1402][recharge.id][1] > 0
+            //                || ResourcesSingletonOld.Instance.shopInit.shopHelpDic[1402][recharge.id][2] > 0)
             //            {
             //                b = true;
             //            }
@@ -755,11 +755,11 @@ namespace XFramework
             //bool c = false;
             //for (int i = 1; i < dailyShopNumber + 1; i++)
             //{
-            //    if (ResourcesSingleton.Instance.shopInit.shopHelpDic.ContainsKey(1201))
+            //    if (ResourcesSingletonOld.Instance.shopInit.shopHelpDic.ContainsKey(1201))
             //    {
-            //        int sign = (int)ResourcesSingleton.Instance.shopInit.shopHelpDic[1201][i][0];
-            //        int times = (int)ResourcesSingleton.Instance.shopInit.shopHelpDic[1201][i][1];
-            //        long upTime = ResourcesSingleton.Instance.shopInit.shopHelpDic[1201][i][2];
+            //        int sign = (int)ResourcesSingletonOld.Instance.shopInit.shopHelpDic[1201][i][0];
+            //        int times = (int)ResourcesSingletonOld.Instance.shopInit.shopHelpDic[1201][i][1];
+            //        long upTime = ResourcesSingletonOld.Instance.shopInit.shopHelpDic[1201][i][2];
             //        if (ConfigManager.Instance.Tables.Tbshop_daily[sign].pos == 1)
             //        {
             //            if (times < ConfigManager.Instance.Tables.Tbshop_daily[sign].times)
@@ -788,9 +788,9 @@ namespace XFramework
 
             #region 1101
 
-            if (ResourcesSingleton.Instance.shopMap.IndexModuleMap.ContainsKey(1101))
+            if (ResourcesSingletonOld.Instance.shopMap.IndexModuleMap.ContainsKey(1101))
             {
-                var boxList = ResourcesSingleton.Instance.shopMap.IndexModuleMap[1101].BoxInfoList;
+                var boxList = ResourcesSingletonOld.Instance.shopMap.IndexModuleMap[1101].BoxInfoList;
                 if (boxList.Count > 0)
                 {
                     foreach (var box in boxList)
@@ -833,15 +833,15 @@ namespace XFramework
 
             #region 1102
 
-            if (ResourcesSingleton.Instance.shopMap.IndexModuleMap.ContainsKey(1102))
+            if (ResourcesSingletonOld.Instance.shopMap.IndexModuleMap.ContainsKey(1102))
             {
-                var boxList = ResourcesSingleton.Instance.shopMap.IndexModuleMap[1102].BoxInfoList;
+                var boxList = ResourcesSingletonOld.Instance.shopMap.IndexModuleMap[1102].BoxInfoList;
                 if (boxList.Count > 0)
                 {
                     foreach (var box in boxList)
                     {
                         long ItemNum;
-                        if (ResourcesSingleton.Instance.items.TryGetValue(tbdraw_Box.Get(box.Id).item, out long value))
+                        if (ResourcesSingletonOld.Instance.items.TryGetValue(tbdraw_Box.Get(box.Id).item, out long value))
                         {
                             ItemNum = value;
                         }
@@ -862,13 +862,13 @@ namespace XFramework
 
             #region 1103
 
-            if (ResourcesSingleton.Instance.shopMap.IndexModuleMap.ContainsKey(1103))
+            if (ResourcesSingletonOld.Instance.shopMap.IndexModuleMap.ContainsKey(1103))
             {
                 foreach (var db in tbdraw_Box.DataList)
                 {
                     if (db.tagFunc == 1103 && db.drawType == 5)
                     {
-                        var boxList = ResourcesSingleton.Instance.shopMap.IndexModuleMap[1103].BoxInfoList;
+                        var boxList = ResourcesSingletonOld.Instance.shopMap.IndexModuleMap[1103].BoxInfoList;
                         BoxInfo boxInfo = new BoxInfo();
                         foreach (var box in boxList)
                         {
@@ -891,9 +891,9 @@ namespace XFramework
 
             #region 1201
 
-            if (ResourcesSingleton.Instance.shopMap.IndexModuleMap.ContainsKey(1201))
+            if (ResourcesSingletonOld.Instance.shopMap.IndexModuleMap.ContainsKey(1201))
             {
-                var dbList = ResourcesSingleton.Instance.shopMap.IndexModuleMap[1201].DailyBuyList;
+                var dbList = ResourcesSingletonOld.Instance.shopMap.IndexModuleMap[1201].DailyBuyList;
                 DailyBuy dailyBuy = new DailyBuy();
                 foreach (var b in dbList)
                 {
@@ -929,13 +929,13 @@ namespace XFramework
 
             #region 1202
 
-            if (ResourcesSingleton.Instance.shopMap.IndexModuleMap.ContainsKey(1202))
+            if (ResourcesSingletonOld.Instance.shopMap.IndexModuleMap.ContainsKey(1202))
             {
                 foreach (var sp in ConfigManager.Instance.Tables.Tbspecials.DataList)
                 {
                     if (sp.freeRule.Count != 0)
                     {
-                        var gsList = ResourcesSingleton.Instance.shopMap.IndexModuleMap[1202].GameSpecialsList;
+                        var gsList = ResourcesSingletonOld.Instance.shopMap.IndexModuleMap[1202].GameSpecialsList;
                         GameSpecials gameSpecials = new GameSpecials();
                         foreach (var gs in gsList)
                         {
@@ -958,9 +958,9 @@ namespace XFramework
 
             #region 1302
 
-            if (ResourcesSingleton.Instance.shopMap.IndexModuleMap.ContainsKey(1302))
+            if (ResourcesSingletonOld.Instance.shopMap.IndexModuleMap.ContainsKey(1302))
             {
-                var giftList = ResourcesSingleton.Instance.shopMap.IndexModuleMap[1302].GiftInfoList;
+                var giftList = ResourcesSingletonOld.Instance.shopMap.IndexModuleMap[1302].GiftInfoList;
 
                 List<long> endTimeList = new List<long>();
 
@@ -989,7 +989,7 @@ namespace XFramework
 
             #region 1402
 
-            if (ResourcesSingleton.Instance.shopMap.IndexModuleMap.ContainsKey(1402))
+            if (ResourcesSingletonOld.Instance.shopMap.IndexModuleMap.ContainsKey(1402))
             {
                 foreach (var rc in tbrecharge.DataList)
                 {
@@ -997,7 +997,7 @@ namespace XFramework
                     {
                         if (rc.freeRule.Count > 0)
                         {
-                            var clist = ResourcesSingleton.Instance.shopMap.IndexModuleMap[1402].ChargeInfoList;
+                            var clist = ResourcesSingletonOld.Instance.shopMap.IndexModuleMap[1402].ChargeInfoList;
                             ChargeInfo chargeInfo = new ChargeInfo();
                             foreach (var charge in clist)
                             {
@@ -1025,9 +1025,9 @@ namespace XFramework
 
             #region 1403
 
-            if (ResourcesSingleton.Instance.shopMap.IndexModuleMap.ContainsKey(1403))
+            if (ResourcesSingletonOld.Instance.shopMap.IndexModuleMap.ContainsKey(1403))
             {
-                var level = ResourcesSingleton.Instance.UserInfo.RoleAssets.Level;
+                var level = ResourcesSingletonOld.Instance.UserInfo.RoleAssets.Level;
 
                 int fundNum = 0;
                 foreach (var tbf in ConfigManager.Instance.Tables.Tbfund.DataList)
@@ -1060,7 +1060,7 @@ namespace XFramework
                     {
                         //Determine if there are red dots
                         bool haveRedDotOrNot = false;
-                        foreach (var gf in ResourcesSingleton.Instance.shopMap.IndexModuleMap[1403].GameFoundationList)
+                        foreach (var gf in ResourcesSingletonOld.Instance.shopMap.IndexModuleMap[1403].GameFoundationList)
                         {
                             if (gf.FoundId == fundReverseSortList[ihelp].id)
                             {
@@ -1105,7 +1105,7 @@ namespace XFramework
 
                 bool downRedPoint = false;
 
-                foreach (var thisFundByID in ResourcesSingleton.Instance.shopMap.IndexModuleMap[1403]
+                foreach (var thisFundByID in ResourcesSingletonOld.Instance.shopMap.IndexModuleMap[1403]
                              .GameFoundationList)
                 {
                     var thisFundRewardList = new List<fund_reward>();
@@ -1136,7 +1136,7 @@ namespace XFramework
                         rightGetDic.Add(tbfr.level, 0);
                     }
 
-                    var shopMap = ResourcesSingleton.Instance.shopMap.IndexModuleMap[1403].GameFoundationList;
+                    var shopMap = ResourcesSingletonOld.Instance.shopMap.IndexModuleMap[1403].GameFoundationList;
                     foreach (var f in shopMap)
                     {
                         if (f.FoundId == thisFundRewardList[0].id)
@@ -1244,11 +1244,11 @@ namespace XFramework
 
             #region 1404
 
-            if (ResourcesSingleton.Instance.shopMap.IndexModuleMap.ContainsKey(1404))
+            if (ResourcesSingletonOld.Instance.shopMap.IndexModuleMap.ContainsKey(1404))
             {
                 foreach (var tbm in ConfigManager.Instance.Tables.Tbmonthly.DataList)
                 {
-                    var cardMap = ResourcesSingleton.Instance.shopMap.IndexModuleMap[1404].SpecialCard.Unclaimed;
+                    var cardMap = ResourcesSingletonOld.Instance.shopMap.IndexModuleMap[1404].SpecialCard.Unclaimed;
                     UnReward cardData = new UnReward();
                     foreach (var cm in cardMap)
                     {
@@ -1366,16 +1366,16 @@ namespace XFramework
 
         //public async void RefreshShopRedPointHelp(draw_box db)
         //{
-        //    if (TimeHelper.ClientNowSeconds() - ResourcesSingleton.Instance.shopInit.shopHelpDic[db.tagFunc][db.id][4] >
+        //    if (TimeHelper.ClientNowSeconds() - ResourcesSingletonOld.Instance.shopInit.shopHelpDic[db.tagFunc][db.id][4] >
         //        db.adCd)
         //    {
         //    }
         //    else
         //    {
         //        await UniTask.Delay(1000 * (db.adCd - (int)(TimeHelper.ClientNowSeconds() -
-        //                                                    ResourcesSingleton.Instance.shopInit.shopHelpDic[db.tagFunc]
+        //                                                    ResourcesSingletonOld.Instance.shopInit.shopHelpDic[db.tagFunc]
         //                                                        [db.id][4])));
-        //        ResourcesSingleton.Instance.shopInit.shopHelpDic[db.tagFunc][db.id][2] = 1;
+        //        ResourcesSingletonOld.Instance.shopInit.shopHelpDic[db.tagFunc][db.id][2] = 1;
         //        RefreshShopRedPoint();
         //    }
         //}
@@ -1383,7 +1383,7 @@ namespace XFramework
         public bool ShopModule1101HaveRedPointOrNot(BoxInfo box)
         {
             long ItemNum;
-            if (ResourcesSingleton.Instance.items.TryGetValue(tbdraw_Box.Get(box.Id).item, out long value))
+            if (ResourcesSingletonOld.Instance.items.TryGetValue(tbdraw_Box.Get(box.Id).item, out long value))
             {
                 ItemNum = value;
             }
@@ -1455,22 +1455,22 @@ namespace XFramework
 
         public void SetResourceUI()
         {
-            if (JiYuUIHelper.TryGetUI(UIType.UIPanel_Main, out UI ui))
+            if (UnicornUIHelper.TryGetUI(UIType.UIPanel_Main, out UI ui))
             {
                 var uis = ui as UIPanel_Main;
                 uis?.RefreshResourceUI();
             }
 
-            if (JiYuUIHelper.TryGetUI(UIType.UIPanel_Shop, out UI uiShop))
+            if (UnicornUIHelper.TryGetUI(UIType.UIPanel_Shop, out UI uiShop))
             {
                 var uiShops = uiShop as UIPanel_Shop;
-                uiShops.InitResource();
+                uiShops?.InitResource();
             }
 
-            if (JiYuUIHelper.TryGetUI(UIType.UIPanel_Person, out UI uiPerson))
+            if (UnicornUIHelper.TryGetUI(UIType.UIPanel_Person, out UI uiPerson))
             {
                 var uiPersons = uiPerson as UIPanel_Person;
-                uiPersons.RefreshResourceUI();
+                uiPersons?.RefreshResourceUI();
             }
 
             // RefereshMailRedDot();
@@ -1642,24 +1642,20 @@ namespace XFramework
             //
             // if (Input.GetKeyDown(KeyCode.L))
             // {
-            //     if (JiYuUIHelper.TryGetUI(UIType.UIPanel_Main, out var ui))
+            //     if (UnicornUIHelper.TryGetUI(UIType.UIPanel_Main, out var ui))
             //     {
             //         var uis = ui as UIPanel_Main;
             //         var KBtn_Diamond = uis.GetFromReference(UIPanel_Main.KBtn_Diamond);
             //         var KBtn_Money = uis.GetFromReference(UIPanel_Main.KBtn_Money);
             //
             //         Log.Debug(
-            //             $"KBtn_Diamond{JiYuUIHelper.GetUIPos(KBtn_Diamond)}  {JiYuUIHelper.GetUIPos(KBtn_Money)}",
+            //             $"KBtn_Diamond{UnicornUIHelper.GetUIPos(KBtn_Diamond)}  {UnicornUIHelper.GetUIPos(KBtn_Money)}",
             //             Color.green);
             //     }
-            //     //JiYuUIHelper.PrintMemery();
+            //     //UnicornUIHelper.PrintMemery();
             // }
             //
-            if (Input.GetKeyDown(KeyCode.M))
-            {
-                NetWorkManager.Instance.SendMsg(JuiceZombieCMD.LOGIN);
-                Log.Debug("SendMsg", Color.cyan);
-            }
+
 
             // if (Input.GetKeyDown(KeyCode.P))
             // {
@@ -1671,13 +1667,13 @@ namespace XFramework
             //
             // if (Input.GetKeyDown(KeyCode.K))
             // {
-            //     JiYuUIHelper.GoToSomePanel($"type=1;para=[142]");
+            //     UnicornUIHelper.GoToSomePanel($"type=1;para=[142]");
             // }
             //
             // if (Input.GetKeyDown(KeyCode.Q))
             // {
             //     //UIHelper.Remove(UIType.UIPanel_AnimTools);
-            //     if (JiYuUIHelper.TryGetUI(UIType.UIPanel_AnimTools, out var ui))
+            //     if (UnicornUIHelper.TryGetUI(UIType.UIPanel_AnimTools, out var ui))
             //     {
             //         var uis = ui as UIPanel_AnimTools;
             //         uis.Refresh();
@@ -1690,7 +1686,7 @@ namespace XFramework
             //
             // if (Input.GetKeyDown(KeyCode.W))
             // {
-            //     if (JiYuUIHelper.TryGetUI(UIType.UIPanel_AnimTools, out var ui))
+            //     if (UnicornUIHelper.TryGetUI(UIType.UIPanel_AnimTools, out var ui))
             //     {
             //         var uis = ui as UIPanel_AnimTools;
             //         uis.stop = true;
@@ -1701,11 +1697,11 @@ namespace XFramework
 
             // if (Input.GetKeyDown(KeyCode.O))
             // {
-            //     NetWorkManager.Instance.SendMessage(CMD.GETMAINPROPERTY);
+            //     NetWorkManager.Instance.SendMessage(CMDOld.GETMAINPROPERTY);
             // }
             // if (Input.GetKeyDown(KeyCode.E))
             // {
-            //     if (JiYuUIHelper.TryGetUI(UIType.UIPanel_AnimTools, out var ui))
+            //     if (UnicornUIHelper.TryGetUI(UIType.UIPanel_AnimTools, out var ui))
             //     {
             //         var uis = ui as UIPanel_AnimTools;
             //         uis.stop = true;
@@ -1716,7 +1712,7 @@ namespace XFramework
 
             // if (Input.GetKeyDown(KeyCode.F9))
             // {
-            //     Log.Debug($"{JiYuUIHelper.GeneralTimeFormat(new int4(1, 3, 2, 1), 4225)}",
+            //     Log.Debug($"{UnicornUIHelper.GeneralTimeFormat(new int4(1, 3, 2, 1), 4225)}",
             //         Color.cyan);
             // }
             //
@@ -1753,7 +1749,7 @@ namespace XFramework
             //     UnityEngine.GameObject.Destroy(ui.GameObject);
             // }
 
-            //ResourcesSingleton.Instance.DisposeJiYuGamePanel();
+            //ResourcesSingletonOld.Instance.DisposeJiYuGamePanel();
             // toggleUIList.Clear();
             // this.Close();
         }
@@ -1827,7 +1823,7 @@ namespace XFramework
             // {
             //     case 0:
             //
-            //         if (JiYuUIHelper.TryGetUI(UIType.UIPanel_Shop, out var ui0))
+            //         if (UnicornUIHelper.TryGetUI(UIType.UIPanel_Shop, out var ui0))
             //         {
             //             var uis = ui0 as UIPanel_Shop;
             //             uis.scrollRect.SetEnabled(true);
@@ -1835,7 +1831,7 @@ namespace XFramework
             //
             //         break;
             //     case 1:
-            //         if (JiYuUIHelper.TryGetUI(UIType.UIPanel_Equipment, out var ui1))
+            //         if (UnicornUIHelper.TryGetUI(UIType.UIPanel_Equipment, out var ui1))
             //         {
             //             var uis = ui1 as UIPanel_Equipment;
             //             uis.scrollRect.SetEnabled(true);
@@ -1846,7 +1842,7 @@ namespace XFramework
             //         break;
             //     case 2:
             //
-            //         if (JiYuUIHelper.TryGetUI(UIType.UIPanel_Main, out var ui2))
+            //         if (UnicornUIHelper.TryGetUI(UIType.UIPanel_Main, out var ui2))
             //         {
             //             var uis = ui2 as UIPanel_Main;
             //             uis.scrollRect.SetEnabled(true);
@@ -1888,7 +1884,7 @@ namespace XFramework
                     case 1:
                         //TODO:
 
-                        if (JiYuUIHelper.TryGetUI(UIType.UIPanel_Shop, out UI ui1))
+                        if (UnicornUIHelper.TryGetUI(UIType.UIPanel_Shop, out UI ui1))
                         {
                             var uis1 = ui1 as UIPanel_Shop;
                             uis1.RotateShop();
@@ -1896,7 +1892,7 @@ namespace XFramework
 
                         break;
                     case 2:
-                        if (JiYuUIHelper.TryGetUI(UIType.UISubPanel_Equipment, out UI ui2))
+                        if (UnicornUIHelper.TryGetUI(UIType.UISubPanel_Equipment, out UI ui2))
                         {
                             var uis2 = ui2 as UISubPanel_Equipment;
                             uis2.OnLoopClick();
@@ -1906,7 +1902,7 @@ namespace XFramework
                     case 3:
                         break;
                     case 4:
-                        if (JiYuUIHelper.TryGetUI(UIType.UIPanel_Challege, out UI ui4))
+                        if (UnicornUIHelper.TryGetUI(UIType.UIPanel_Challege, out UI ui4))
                         {
                             var uis4 = ui4 as UIPanel_Challege;
                             uis4.OnLoopClick();
@@ -1924,17 +1920,17 @@ namespace XFramework
             {
                 OnStartOnePanel();
                 lastSortId = sort;
-                JiYuUIHelper.CreateTagPools(sort);
-                JiYuTweenHelper.SetEffectUIState(sort);
+                UnicornUIHelper.CreateTagPools(sort);
+                UnicornTweenHelper.SetEffectUIState(sort);
                 switch (sort)
                 {
                     case 1:
-                        if (ResourcesSingleton.Instance.isUIInit)
+                        if (ResourcesSingletonOld.Instance.isUIInit)
                         {
                             AudioManager.Instance.PlayFModAudio(1210);
                         }
 
-                        if (JiYuUIHelper.TryGetUI(UIType.UIPanel_Shop, out UI ui1))
+                        if (UnicornUIHelper.TryGetUI(UIType.UIPanel_Shop, out UI ui1))
                         {
                             Log.Debug("uipanel_shop", Color.cyan);
                             var uis1 = ui1 as UIPanel_Shop;
@@ -1948,18 +1944,18 @@ namespace XFramework
                     case 2:
 
 
-                        if (JiYuUIHelper.TryGetUI(UIType.UISubPanel_Equipment, out var ui2))
+                        if (UnicornUIHelper.TryGetUI(UIType.UISubPanel_Equipment, out var ui2))
                         {
                             Log.Debug("UISubPanel_Equipment", Color.cyan);
                             var uis = ui2 as UISubPanel_Equipment;
                             uis.Refresh();
-                            JiYuTweenHelper.SetEaseAlphaAndPosUtoB(uis.GetFromReference(UISubPanel_Equipment.KTops), 20,
+                            UnicornTweenHelper.SetEaseAlphaAndPosUtoB(uis.GetFromReference(UISubPanel_Equipment.KTops), 20,
                                 50f);
                         }
 
                         break;
                     case 3:
-                        if (JiYuUIHelper.TryGetUI(UIType.UIPanel_Main, out var ui3))
+                        if (UnicornUIHelper.TryGetUI(UIType.UIPanel_Main, out var ui3))
                         {
                             Log.Debug("UIPanel_Main", Color.cyan);
                             var uis = ui3 as UIPanel_Main;
@@ -1968,25 +1964,25 @@ namespace XFramework
 
                         break;
                     case 4:
-                        if (JiYuUIHelper.TryGetUI(UIType.UIPanel_Challege, out UI ui4))
+                        if (UnicornUIHelper.TryGetUI(UIType.UIPanel_Challege, out UI ui4))
                         {
                             Log.Debug("UIPanel_Challege", Color.cyan);
                             var uis4 = ui4 as UIPanel_Challege;
                             uis4.OnBtnClickEvent(1);
                             var endValue = uis4.GetFromReference(UIPanel_Challege.KScroller_AreaInfo).GetRectTransform()
                                 .AnchoredPosition().y;
-                            JiYuTweenHelper.SetEaseAlphaAndPosB2U(
+                            UnicornTweenHelper.SetEaseAlphaAndPosB2U(
                                 uis4.GetFromReference(UIPanel_Challege.KScroller_AreaInfo), endValue);
                         }
 
                         break;
                     case 5:
-                        if (ResourcesSingleton.Instance.isUIInit)
+                        if (ResourcesSingletonOld.Instance.isUIInit)
                         {
                             //AudioManager.Instance.PlayFModAudio(1241);
                         }
 
-                        if (JiYuUIHelper.TryGetUI(UIType.UIPanel_Person, out UI ui5))
+                        if (UnicornUIHelper.TryGetUI(UIType.UIPanel_Person, out UI ui5))
                         {
                             Log.Debug("UIPanel_Person", Color.cyan);
                             var uis5 = ui5 as UIPanel_Person;
@@ -2069,20 +2065,20 @@ namespace XFramework
             await UniTask.Delay(200, cancellationToken: cts.Token);
 
 
-            JiYuTweenHelper.SetEaseAlphaAndPosLtoR(
+            UnicornTweenHelper.SetEaseAlphaAndPosLtoR(
                 uis5.GetFromReference(UIPanel_Person.KMidMonster), 0, 80, cts.Token, 0.2f, false, false);
-            JiYuTweenHelper.SetEaseAlphaAndPosRtoL(
+            UnicornTweenHelper.SetEaseAlphaAndPosRtoL(
                 uis5.GetFromReference(UIPanel_Person.KMidAchievement), 0, 80, cts.Token, 0.2f, false, false);
-            JiYuTweenHelper.SetEaseAlphaAndPosUtoB(
+            UnicornTweenHelper.SetEaseAlphaAndPosUtoB(
                 uis5.GetFromReference(UIPanel_Person.KMidFriend), 0, 80, cts.Token, 0.2f, false, false);
-            JiYuTweenHelper.SetEaseAlphaAndPosUtoB(
+            UnicornTweenHelper.SetEaseAlphaAndPosUtoB(
                 uis5.GetFromReference(UIPanel_Person.KMidGonghui), 0, 80, cts.Token, 0.2f, false, false);
         }
 
         public async UniTask OnButtonClickAnim(int index)
         {
-            JiYuUIHelper.DestoryAllTips();
-            if (JiYuUIHelper.TryGetUI(UIType.UIPanel_Main, out var ui2))
+            UnicornUIHelper.DestoryAllTips();
+            if (UnicornUIHelper.TryGetUI(UIType.UIPanel_Main, out var ui2))
             {
                 var uiMain = ui2 as UIPanel_Main;
                 uiMain.BtnTreasure();

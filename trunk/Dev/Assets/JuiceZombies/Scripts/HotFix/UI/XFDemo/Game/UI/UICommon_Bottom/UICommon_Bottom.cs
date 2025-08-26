@@ -1,5 +1,5 @@
 //---------------------------------------------------------------------
-// JiYuStudio
+// UnicornStudio
 // Author: xxx
 // Time: #CreateTime#
 //---------------------------------------------------------------------
@@ -36,7 +36,7 @@ namespace XFramework
         public void Initialize()
         {
             InitNode();
-            JiYuTweenHelper.SetEaseAlphaAndPosUtoB(this.GetFromReference(UICommon_Bottom.KScrollView_Item0), 0, 50f,cts.Token);
+            UnicornTweenHelper.SetEaseAlphaAndPosUtoB(this.GetFromReference(UICommon_Bottom.KScrollView_Item0), 0, 50f,cts.Token);
         }
 
         void InitNode()

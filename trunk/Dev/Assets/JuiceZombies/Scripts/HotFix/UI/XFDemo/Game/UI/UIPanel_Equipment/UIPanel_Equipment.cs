@@ -1,5 +1,5 @@
 //---------------------------------------------------------------------
-// JiYuStudio
+// UnicornStudio
 // Author: xxx
 // Time: #CreateTime#
 //---------------------------------------------------------------------
@@ -68,7 +68,7 @@ namespace XFramework
         public void Initialize(List<ModuleInfoStruct> args)
         {
             Log.Debug($"UIPanel_Equipment Initialize");
-            JiYuUIHelper.SortEquipments();
+            UnicornUIHelper.SortEquipments();
 
             InitPanel().Forget();
             tempStructList.AddRange(args);
@@ -96,7 +96,7 @@ namespace XFramework
         async UniTaskVoid Anim()
         {
             //Log.Error($"{ModuleS.Count}");
-            JiYuTweenHelper.SetEaseAlphaAndPosB2U(
+            UnicornTweenHelper.SetEaseAlphaAndPosB2U(
                 this.GetFromReference(UIPanel_Equipment.KTop_AnimationPos), 0, 250f, cts.Token, 0.4f,
                 false, false);
             var bottom = this.GetFromReference(UIPanel_Equipment.KBottom);
@@ -111,7 +111,7 @@ namespace XFramework
                     var item = items[j];
                     if (j < 40)
                     {
-                        await JiYuTweenHelper.SetEaseAlphaAndPosB2U(
+                        await UnicornTweenHelper.SetEaseAlphaAndPosB2U(
                             item.GetFromReference(UICommon_RewardItem.KBtn_Item), 0, 22, cts.Token, 0.2f, true,
                             false);
                         await UniTask.Delay(10);
@@ -126,7 +126,7 @@ namespace XFramework
             bool preferVertical = Mathf.Abs(delta.y) >= Mathf.Abs(delta.x); // 判断水平滑动
             if (preferHorizontal)
             {
-                if (JiYuUIHelper.TryGetUI(UIType.UIPanel_JiyuGame, out var ui))
+                if (UnicornUIHelper.TryGetUI(UIType.UIPanel_JiyuGame, out var ui))
                 {
                     var uis = ui as UIPanel_JiyuGame;
                     uis.m_IsEndMove = false;
@@ -181,27 +181,27 @@ namespace XFramework
 
         private void RefreshWearEquip(int equipPosId)
         {
-            if (ResourcesSingleton.Instance.equipmentData.isWearingEquipments.ContainsKey(equipPosId))
+            if (ResourcesSingletonOld.Instance.equipmentData.isWearingEquipments.ContainsKey(equipPosId))
             {
                 // Log.Error($"equipPosId{equipPosId}");
-                // foreach (var kv in  ResourcesSingleton.Instance.equipmentData.isWearingEquipments)
+                // foreach (var kv in  ResourcesSingletonOld.Instance.equipmentData.isWearingEquipments)
                 // {
                 //     Log.Error($"isWearingEquipments{kv.Key} {kv.Value.equip.PartId} {kv.Value.equip.EquipId} {kv.Value.equip.Quality}");
                 // }
-                // foreach (var kv in  ResourcesSingleton.Instance.equipmentData.equipments)
+                // foreach (var kv in  ResourcesSingletonOld.Instance.equipmentData.equipments)
                 // {
                 //     Log.Error($"equipments{kv.Key} ");
                 // }
                 //
-                var partId = ResourcesSingleton.Instance.equipmentData.isWearingEquipments[equipPosId].equip.PartId;
-                if (!ResourcesSingleton.Instance.equipmentData.equipments.TryGetValue(partId, out var equip))
+                var partId = ResourcesSingletonOld.Instance.equipmentData.isWearingEquipments[equipPosId].equip.PartId;
+                if (!ResourcesSingletonOld.Instance.equipmentData.equipments.TryGetValue(partId, out var equip))
                 {
                     Log.Error($"当前装备在总装备列表里找不到,数据有误! partId:{partId}");
                     return;
                 }
 
-                // var equip = ResourcesSingleton.Instance.equipmentData.equipments[
-                //     ResourcesSingleton.Instance.equipmentData.isWearingEquipments[equipPosId].equip.PartId];
+                // var equip = ResourcesSingletonOld.Instance.equipmentData.equipments[
+                //     ResourcesSingletonOld.Instance.equipmentData.isWearingEquipments[equipPosId].equip.PartId];
                 //TODO:更换有问题
                 wearEquipsDic[equipPosId].SetActive(true);
                 if (equipPosId == 1)
@@ -225,7 +225,7 @@ namespace XFramework
         {
             await UniTask.Yield();
             var KContent_Equip = GetFromReference(UIPanel_Equipment.KContent_Equip);
-            JiYuUIHelper.ForceRefreshLayout(KContent_Equip);
+            UnicornUIHelper.ForceRefreshLayout(KContent_Equip);
         }
 
         public void RefreshMainRedDot(int equipPosId, WearEquipType type, long uid, long lastUid)
@@ -344,7 +344,7 @@ namespace XFramework
             //palyerAnimaition.AnimationState.SetAnimation(0, "equip_101_spine", false);
             palyerAnimaition.AnimationState.ClearTracks();
             palyerAnimaition.AnimationState.SetAnimation(0, "idle", false);
-            var duration = JiYuUIHelper.GetAnimaionDuration(palyerAnimaition, "idle");
+            var duration = UnicornUIHelper.GetAnimaionDuration(palyerAnimaition, "idle");
             await UniTask.Delay(duration, cancellationToken: cts.Token);
 
             palyerAnimaition.AnimationState.SetAnimation(0, "idle", true);
@@ -369,7 +369,7 @@ namespace XFramework
 
         public void OnDestoryAllTips()
         {
-            JiYuUIHelper.DestoryAllTips();
+            UnicornUIHelper.DestoryAllTips();
         }
 
         public void SetWearedEquipOnClick(Dictionary<int, UICommon_EquipItem> wearEquipsDic, int posId,
@@ -388,9 +388,9 @@ namespace XFramework
             // await UniTask.Yield();
             //OnDestoryAllTips();
 
-            JiYuUIHelper.SetEquipOnClick(ui0);
+            UnicornUIHelper.SetEquipOnClick(ui0);
 
-            // JiYuTweenHelper.DoScaleTweenOnClickAndLongPress(btn, UniTask.UnityAction(async () =>
+            // UnicornTweenHelper.DoScaleTweenOnClickAndLongPress(btn, UniTask.UnityAction(async () =>
             // {
             //     if (!wearEquipsDic.TryGetValue(posId, out var ui))
             //     {
@@ -403,7 +403,7 @@ namespace XFramework
             //     // await UniTask.Yield();
             //     OnDestoryAllTips();
             //
-            //     if (!ResourcesSingleton.Instance.equipmentData.equipments.TryGetValue(ui.uid,
+            //     if (!ResourcesSingletonOld.Instance.equipmentData.equipments.TryGetValue(ui.uid,
             //             out var equip))
             //     {
             //         return;
@@ -413,7 +413,7 @@ namespace XFramework
             //     isSelected.SetActive(true);
             //     //lastClickTipItem = ui;
             //     //lastClickTipItem?.GetFromReference()
-            //     // JiYuUIHelper.TryGetUI(UIType.UIPanel_JiyuGame, out var uijiyu);
+            //     // UnicornUIHelper.TryGetUI(UIType.UIPanel_JiyuGame, out var uijiyu);
             //     // var bottom = uijiyu.GetFromReference(UIPanel_JiyuGame.KButtomPos);
             //
             //
@@ -421,7 +421,7 @@ namespace XFramework
             //             this.GameObject.transform) as
             //         UICommon_EquipTips;
             //     //TODO：穿戴中装备tips 位置固定
-            //     //JiYuTweenHelper.SetEaseAlphaAndPosB2U(tipUI, -690f);
+            //     //UnicornTweenHelper.SetEaseAlphaAndPosB2U(tipUI, -690f);
             //
             //
             //     // var btn = tipUI.GetFromReference(UICommon_EquipTips.is);
@@ -434,18 +434,18 @@ namespace XFramework
             var KText_RightAtkNum = GetFromReference(UIPanel_Equipment.KText_RightAtkNum);
             var KText_RightHpNum = GetFromReference(UIPanel_Equipment.KText_RightHpNum);
 
-            // Log.Error($"atk{ResourcesSingleton.Instance.playerProperty.playerData.defaultProperty.atk}");
-            // Log.Error($"maxHp{ResourcesSingleton.Instance.playerProperty.playerData.defaultProperty.maxHp}");
+            // Log.Error($"atk{ResourcesSingletonOld.Instance.playerProperty.playerData.defaultProperty.atk}");
+            // Log.Error($"maxHp{ResourcesSingletonOld.Instance.playerProperty.playerData.defaultProperty.maxHp}");
             // KText_RightAtkNum.GetTextMeshPro()
-            //     .SetTMPText(ResourcesSingleton.Instance.playerProperty.chaProperty.atk.ToString());
+            //     .SetTMPText(ResourcesSingletonOld.Instance.playerProperty.chaProperty.atk.ToString());
             // KText_RightHpNum.GetTextMeshPro()
-            //     .SetTMPText(ResourcesSingleton.Instance.playerProperty.chaProperty.maxHp.ToString());
-            ResourcesSingleton.Instance.mainProperty.TryGetValue(102010, out int defaultHp);
-            ResourcesSingleton.Instance.mainProperty.TryGetValue(102020, out int hpRatios);
-            ResourcesSingleton.Instance.mainProperty.TryGetValue(102030, out int hpAdd);
-            ResourcesSingleton.Instance.mainProperty.TryGetValue(103010, out int defaultAtk);
-            ResourcesSingleton.Instance.mainProperty.TryGetValue(103020, out int atkRatios);
-            ResourcesSingleton.Instance.mainProperty.TryGetValue(103030, out int atkAdd);
+            //     .SetTMPText(ResourcesSingletonOld.Instance.playerProperty.chaProperty.maxHp.ToString());
+            ResourcesSingletonOld.Instance.mainProperty.TryGetValue(102010, out int defaultHp);
+            ResourcesSingletonOld.Instance.mainProperty.TryGetValue(102020, out int hpRatios);
+            ResourcesSingletonOld.Instance.mainProperty.TryGetValue(102030, out int hpAdd);
+            ResourcesSingletonOld.Instance.mainProperty.TryGetValue(103010, out int defaultAtk);
+            ResourcesSingletonOld.Instance.mainProperty.TryGetValue(103020, out int atkRatios);
+            ResourcesSingletonOld.Instance.mainProperty.TryGetValue(103030, out int atkAdd);
 
             int hp = (int)(defaultHp * (1 + hpRatios / 10000f) + hpAdd);
             int atk = (int)(defaultAtk * (1 + atkRatios / 10000f) + atkAdd);
@@ -454,7 +454,7 @@ namespace XFramework
             KText_RightHpNum.GetTextMeshPro()
                 .SetTMPText(hp.ToString());
 
-            foreach (var kv in ResourcesSingleton.Instance.mainProperty)
+            foreach (var kv in ResourcesSingletonOld.Instance.mainProperty)
             {
                 Log.Debug($"mainProperty:{kv.Key} : {kv.Value}");
             }
@@ -487,20 +487,20 @@ namespace XFramework
             var KText_MidHp = GetFromReference(UIPanel_Equipment.KText_MidHp);
 
             this.GetRectTransform().SetOffset(0, 0, 0, 0);
-            if (JiYuUIHelper.TryGetUI(UIType.UIPanel_Main, out var uiMain))
+            if (UnicornUIHelper.TryGetUI(UIType.UIPanel_Main, out var uiMain))
             {
                 var uis = uiMain as UIPanel_Main;
-                uis.ShowLevelExp(ResourcesSingleton.Instance.UserInfo, KImg_Exp,
+                uis.ShowLevelExp(ResourcesSingletonOld.Instance.UserInfo, KImg_Exp,
                     KText_PlayerLevel);
             }
 
             KMid.GetRectTransform().SetWidth(Screen.width);
-            KText_PlayerName.GetTextMeshPro().SetTMPText(ResourcesSingleton.Instance.UserInfo.Nickname);
+            KText_PlayerName.GetTextMeshPro().SetTMPText(ResourcesSingletonOld.Instance.UserInfo.Nickname);
             //KImg_LeftAtk.GetImage().SetSpriteAsync("icon_equip_tips_atk", false).Forget();
             //KImg_LeftHp.GetImage().SetSpriteAsync("icon_equip_tips_heart", false).Forget();
-            var str = JiYuUIHelper.GetRewardTextIconName("icon_atk");
+            var str = UnicornUIHelper.GetRewardTextIconName("icon_atk");
             KText_MidAtk.GetTextMeshPro().SetTMPText(str + tblanguage.Get("attr_atk").current);
-            str = JiYuUIHelper.GetRewardTextIconName("icon_hp");
+            str = UnicornUIHelper.GetRewardTextIconName("icon_hp");
             KText_MidHp.GetTextMeshPro().SetTMPText(str + tblanguage.Get("attr_hp").current);
             KText_Compound.GetTextMeshPro()
                 .SetTMPText(tblanguage.Get("equip_merge_title").current);
@@ -598,7 +598,7 @@ namespace XFramework
             {
                 curWidth = 0;
                 scrollRect.Get().vertical = true;
-                if (JiYuUIHelper.TryGetUI(UIType.UIPanel_JiyuGame, out var ui))
+                if (UnicornUIHelper.TryGetUI(UIType.UIPanel_JiyuGame, out var ui))
                 {
                     var uis = ui as UIPanel_JiyuGame;
                     uis.OnEndDrag();
@@ -606,7 +606,7 @@ namespace XFramework
 
                 //OnDestoryAllTips();
             });
-            JiYuTweenHelper.DoScaleTweenOnClickAndLongPress(KBtn_SortBy, () =>
+            UnicornTweenHelper.DoScaleTweenOnClickAndLongPress(KBtn_SortBy, () =>
             {
                 Log.Debug($"KBtn_SortBy", Color.green);
                 isAllEquip = !isAllEquip;
@@ -614,12 +614,12 @@ namespace XFramework
                 OnClickActionEvent(2101, true);
             });
 
-            JiYuTweenHelper.DoScaleTweenOnClickAndLongPress(KBtn_Compound, () =>
+            UnicornTweenHelper.DoScaleTweenOnClickAndLongPress(KBtn_Compound, () =>
             {
                 Log.Debug($"KBtn_Compound", Color.green);
                 UIHelper.CreateAsync(UIType.UIPanel_Compound);
             });
-            JiYuTweenHelper.DoScaleTweenOnClickAndLongPress(KBtn_PlayerInfo, () => { });
+            UnicornTweenHelper.DoScaleTweenOnClickAndLongPress(KBtn_PlayerInfo, () => { });
         }
 
         void Update()
@@ -799,7 +799,7 @@ namespace XFramework
                     OnClickActionEvent(item.moduleId);
                 }
 
-                JiYuTweenHelper.DoScaleTweenOnClickAndLongPress(KBtn,
+                UnicornTweenHelper.DoScaleTweenOnClickAndLongPress(KBtn,
                     async () =>
                     {
                         foreach (var item in list.Children)
@@ -857,7 +857,7 @@ namespace XFramework
                 case CommonLabelType.Prop:
 
 
-                    foreach (var item in ResourcesSingleton.Instance.items)
+                    foreach (var item in ResourcesSingletonOld.Instance.items)
                     {
                         var myitem = itemConfig.Get(item.Key);
                         if (myitem.page == 1 && !isPaper(item.Key) && myitem.displayYn == 0)
@@ -868,7 +868,7 @@ namespace XFramework
 
                     break;
                 case CommonLabelType.Consume:
-                    foreach (var item in ResourcesSingleton.Instance.items)
+                    foreach (var item in ResourcesSingletonOld.Instance.items)
                     {
                         var myitem = itemConfig.Get(item.Key);
                         if (myitem.page == 2 && !isPaper(item.Key) && myitem.displayYn == 0)
@@ -879,7 +879,7 @@ namespace XFramework
 
                     break;
                 case CommonLabelType.Paper:
-                    foreach (var item in ResourcesSingleton.Instance.items)
+                    foreach (var item in ResourcesSingletonOld.Instance.items)
                     {
                         var myitem = itemConfig.Get(item.Key);
                         if (isPaper(item.Key) && myitem.displayYn == 0)
@@ -891,14 +891,14 @@ namespace XFramework
                     break;
                 case CommonLabelType.GeneralMaterial:
 
-                    if (ResourcesSingleton.Instance.equipmentData.isMaterials.Count > 0)
+                    if (ResourcesSingletonOld.Instance.equipmentData.isMaterials.Count > 0)
                     {
                         return true;
                     }
 
                     break;
                 case CommonLabelType.Weapon: //武器
-                    foreach (var item in ResourcesSingleton.Instance.equipmentData.equipments)
+                    foreach (var item in ResourcesSingletonOld.Instance.equipmentData.equipments)
                     {
                         int equipId = item.Value.equip.EquipId * 100 + item.Value.equip.Quality;
                         var equip = equip_data.Get(equipId);
@@ -911,7 +911,7 @@ namespace XFramework
 
                     break;
                 case CommonLabelType.Clothing: //衣服
-                    foreach (var item in ResourcesSingleton.Instance.equipmentData.equipments)
+                    foreach (var item in ResourcesSingletonOld.Instance.equipmentData.equipments)
                     {
                         int equipId = item.Value.equip.EquipId * 100 + item.Value.equip.Quality;
                         var equip = equip_data.Get(equipId);
@@ -924,7 +924,7 @@ namespace XFramework
 
                     break;
                 case CommonLabelType.Glove: //手套
-                    foreach (var item in ResourcesSingleton.Instance.equipmentData.equipments)
+                    foreach (var item in ResourcesSingletonOld.Instance.equipmentData.equipments)
                     {
                         int equipId = item.Value.equip.EquipId * 100 + item.Value.equip.Quality;
                         var equip = equip_data.Get(equipId);
@@ -937,7 +937,7 @@ namespace XFramework
 
                     break;
                 case CommonLabelType.Pants: //裤子
-                    foreach (var item in ResourcesSingleton.Instance.equipmentData.equipments)
+                    foreach (var item in ResourcesSingletonOld.Instance.equipmentData.equipments)
                     {
                         int equipId = item.Value.equip.EquipId * 100 + item.Value.equip.Quality;
                         var equip = equip_data.Get(equipId);
@@ -950,7 +950,7 @@ namespace XFramework
 
                     break;
                 case CommonLabelType.Belt: //腰带
-                    foreach (var item in ResourcesSingleton.Instance.equipmentData.equipments)
+                    foreach (var item in ResourcesSingletonOld.Instance.equipmentData.equipments)
                     {
                         int equipId = item.Value.equip.EquipId * 100 + item.Value.equip.Quality;
                         var equip = equip_data.Get(equipId);
@@ -963,7 +963,7 @@ namespace XFramework
 
                     break;
                 case CommonLabelType.Shoes: //鞋子
-                    foreach (var item in ResourcesSingleton.Instance.equipmentData.equipments)
+                    foreach (var item in ResourcesSingletonOld.Instance.equipmentData.equipments)
                     {
                         int equipId = item.Value.equip.EquipId * 100 + item.Value.equip.Quality;
                         var equip = equip_data.Get(equipId);
@@ -978,12 +978,12 @@ namespace XFramework
                 case CommonLabelType.AllEquip: //按品质排序
                     int matCount = 0;
 
-                    foreach (var VARIABLE in ResourcesSingleton.Instance.equipmentData.isMaterials)
+                    foreach (var VARIABLE in ResourcesSingletonOld.Instance.equipmentData.isMaterials)
                     {
                         matCount += VARIABLE.Value;
                     }
 
-                    if (ResourcesSingleton.Instance.equipmentData.equipments.Count > matCount)
+                    if (ResourcesSingletonOld.Instance.equipmentData.equipments.Count > matCount)
                     {
                         return true;
                     }
@@ -999,14 +999,14 @@ namespace XFramework
             bool hasPaper = false;
             for (int i = 1020001; i <= 1020006; i++)
             {
-                if (ResourcesSingleton.Instance.items.ContainsKey(i))
+                if (ResourcesSingletonOld.Instance.items.ContainsKey(i))
                 {
                     hasPaper = true;
                     break;
                 }
             }
 
-            if (ResourcesSingleton.Instance.equipmentData.equipments.Count < 1 &&
+            if (ResourcesSingletonOld.Instance.equipmentData.equipments.Count < 1 &&
                 !hasPaper)
             {
                 return true;
@@ -1021,13 +1021,13 @@ namespace XFramework
 
             for (int i = 1020001; i <= 1020006; i++)
             {
-                if (ResourcesSingleton.Instance.items.ContainsKey(i))
+                if (ResourcesSingletonOld.Instance.items.ContainsKey(i))
                 {
                     countPaper++;
                 }
             }
 
-            if (ResourcesSingleton.Instance.items.Count - countPaper > 0)
+            if (ResourcesSingletonOld.Instance.items.Count - countPaper > 0)
             {
                 return false;
             }
@@ -1048,7 +1048,7 @@ namespace XFramework
             var list = KBottom.GetList();
             list.Clear();
             List<UniTask> tasks = new List<UniTask>();
-            ResourcesSingleton.Instance.equipmentData.isCompoundSort = false;
+            ResourcesSingletonOld.Instance.equipmentData.isCompoundSort = false;
             //按照品质排序
             if (isAllEquip)
             {
@@ -1172,7 +1172,7 @@ namespace XFramework
                 uilabel.ForceRefreshLayout();
             }
 
-            JiYuUIHelper.ForceRefreshLayout(KBottom);
+            UnicornUIHelper.ForceRefreshLayout(KBottom);
         }
 
         private void SortLabels()
@@ -1216,7 +1216,7 @@ namespace XFramework
             // {
             //     return;
             // }
-            //JiYuUIHelper.SortEquipments();
+            //UnicornUIHelper.SortEquipments();
 
             lastModuleId = moduleId;
             isDone = false;
@@ -1292,7 +1292,7 @@ namespace XFramework
 
             //lastClickTipItem = null;
             //OnDestoryAllTips();
-            JiYuUIHelper.DestoryAllTips();
+            UnicornUIHelper.DestoryAllTips();
             wearEquipsDic.Clear();
             tempStructList.Clear();
             UICommon_Labels.Clear();

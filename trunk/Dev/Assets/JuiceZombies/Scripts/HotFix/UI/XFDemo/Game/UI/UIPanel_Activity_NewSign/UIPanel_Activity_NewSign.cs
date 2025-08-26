@@ -1,5 +1,5 @@
 ﻿//---------------------------------------------------------------------
-// JiYuStudio
+// UnicornStudio
 // Author: xxx
 // Time: #CreateTime#
 //---------------------------------------------------------------------
@@ -73,9 +73,9 @@ namespace XFramework
         {
 
           
-            await JiYuUIHelper.InitBlur(this);
+            await UnicornUIHelper.InitBlur(this);
             GetFromReference(KBtn_Bg).GetXButton().OnClick?.Add(() => { CloseThisPanel(); });
-            if (!ResourcesSingleton.Instance.isConnectSuccess)
+            if (!ResourcesSingletonOld.Instance.isConnectSuccess)
             {
                 GetFromReference(KConnectSuc).SetActive(false);
                 GetFromReference(KConnectFail).SetActive(true);
@@ -88,14 +88,14 @@ namespace XFramework
 
             InitJson();
             activityId = acID;
-            WebMessageHandlerOld.Instance.AddHandler(CMD.QUERTSINGLEACTIVITY, OnInitNewSignResponse);
+            WebMessageHandlerOld.Instance.AddHandler(CMDOld.QUERTSINGLEACTIVITY, OnInitNewSignResponse);
             var activity = tbactivity.Get(activityId);
             var daysSign = tbdays_sign.Get(activity.link);
             tagFunc = daysSign.tagFunc;
 
             //m_RedDotName = NodeNames.GetTagFuncRedDotName(tagFunc);
 
-            NetWorkManager.Instance.SendMessage(CMD.QUERTSINGLEACTIVITY, new IntValue
+            NetWorkManager.Instance.SendMessage(CMDOld.QUERTSINGLEACTIVITY, new IntValue
             {
                 Value = activityId
             });
@@ -121,21 +121,21 @@ namespace XFramework
             //InitRedPoint();
             SetCloseTip(GetFromReference(KImg_Mask));
     
-            //JiYuTweenHelper.PlayUIImageTranstionFX(this.GetFromReference(KImg_Tittle));
-            JiYuTweenHelper.PlayUIImageTranstionFX(this.GetFromReference(KImg), cancellationToken: cts.Token);
+            //UnicornTweenHelper.PlayUIImageTranstionFX(this.GetFromReference(KImg_Tittle));
+            UnicornTweenHelper.PlayUIImageTranstionFX(this.GetFromReference(KImg), cancellationToken: cts.Token);
             await UniTask.Delay(200, cancellationToken: cts.Token);
-            await JiYuTweenHelper.SetEaseAlphaAndPosLtoR(this.GetFromReference(KImg_TitleBg),0,cancellationToken:cts.Token);
+            await UnicornTweenHelper.SetEaseAlphaAndPosLtoR(this.GetFromReference(KImg_TitleBg),0,cancellationToken:cts.Token);
             
-            JiYuTweenHelper.PlayUIImageSweepFX(this.GetFromReference(KImg_Tittle), cts.Token, "FFFFFF",
-                JiYuTweenHelper.UIDir.Right, 2f);
+            UnicornTweenHelper.PlayUIImageSweepFX(this.GetFromReference(KImg_Tittle), cts.Token, "FFFFFF",
+                UnicornTweenHelper.UIDir.Right, 2f);
         }
         public  void SetCloseTip(UI ui)
         {
-            ui.GetButton().OnClick?.Add(()=> { JiYuUIHelper.DestoryAllTips();ui.SetActive(false); });
+            ui.GetButton().OnClick?.Add(()=> { UnicornUIHelper.DestoryAllTips();ui.SetActive(false); });
         }
         private async void OnInitNewSignResponse(object sender, WebMessageHandlerOld.Execute e)
         {
-            //WebMessageHandlerOld.Instance.RemoveHandler(CMD.QUERTSINGLEACTIVITY, OnInitNewSignResponse);
+            //WebMessageHandlerOld.Instance.RemoveHandler(CMDOld.QUERTSINGLEACTIVITY, OnInitNewSignResponse);
             GameActivity gameActivity = new GameActivity();
             gameActivity.MergeFrom(e.data);
             if (e.data.IsEmpty)
@@ -145,13 +145,13 @@ namespace XFramework
             }
 
 
-            if (ResourcesSingleton.Instance.activity.activityMap.ActivityMap_.ContainsKey(activityId))
+            if (ResourcesSingletonOld.Instance.activity.activityMap.ActivityMap_.ContainsKey(activityId))
             {
-                ResourcesSingleton.Instance.activity.activityMap.ActivityMap_[activityId] = gameActivity;
+                ResourcesSingletonOld.Instance.activity.activityMap.ActivityMap_[activityId] = gameActivity;
             }
             else
             {
-                ResourcesSingleton.Instance.activity.activityMap.ActivityMap_.Add(activityId,
+                ResourcesSingletonOld.Instance.activity.activityMap.ActivityMap_.Add(activityId,
                     gameActivity);
             }
 
@@ -189,7 +189,7 @@ namespace XFramework
 
 
             ActivitySign activitySign =
-                ResourcesSingleton.Instance.activity.activityMap.ActivityMap_[activityId].ActivitySign;
+                ResourcesSingletonOld.Instance.activity.activityMap.ActivityMap_[activityId].ActivitySign;
 
 
             //var todayActivityTask = activitySign.TaskList.FirstOrDefault((a) => a.Status == 0 && a.Score == 0);
@@ -209,7 +209,7 @@ namespace XFramework
             Log.Debug($"firstLockedDay {today} activitySign.TaskList{activitySign.TaskList.ToString()}",
                 Color.green);
 
-            endTime = ResourcesSingleton.Instance.activity.activityMap.ActivityMap_[activityId].ActivitySign
+            endTime = ResourcesSingletonOld.Instance.activity.activityMap.ActivityMap_[activityId].ActivitySign
                 .EndTime;
         }
 
@@ -254,7 +254,7 @@ namespace XFramework
         {
             // ActivityTask task = new ActivityTask();
             //
-            // foreach (var aT in ResourcesSingleton.Instance.activity.activityMap.ActivityMap_[activityId].ActivitySign
+            // foreach (var aT in ResourcesSingletonOld.Instance.activity.activityMap.ActivityMap_[activityId].ActivitySign
             //              .TaskList)
             // {
             //     if (input == aT.Day)
@@ -263,7 +263,7 @@ namespace XFramework
             //         break;
             //     }
             // }
-            var singTask = ResourcesSingleton.Instance.activity.activityMap.ActivityMap_[activityId].ActivitySign
+            var singTask = ResourcesSingletonOld.Instance.activity.activityMap.ActivityMap_[activityId].ActivitySign
                 .TaskList;
             if (day > singTask.Count)
             {
@@ -279,7 +279,7 @@ namespace XFramework
             var daysSign = tbdays_sign.Get(tbactivity.Get(activityId).link);
             // GetFromReference(KText_Name).GetTextMeshPro()
             //     .SetTMPText(tblanguage.Get(daysSign.name).current);
-            var picName = JiYuUIHelper.GetL10NPicName("days_sign_title");
+            var picName = UnicornUIHelper.GetL10NPicName("days_sign_title");
             //Log.Error($"picName {picName}");
             var KText_Name = GetFromReference(UIPanel_Activity_NewSign.KImg_Tittle);
             KText_Name.GetImage().SetSprite(picName, true);
@@ -293,7 +293,7 @@ namespace XFramework
 
         private void OnGetTaskResponse(object sender, WebMessageHandlerOld.Execute e)
         {
-            WebMessageHandlerOld.Instance.RemoveHandler(CMD.GETTASKSCORE, OnGetTaskResponse);
+            WebMessageHandlerOld.Instance.RemoveHandler(CMDOld.GETTASKSCORE, OnGetTaskResponse);
             TaskResult taskResult = new TaskResult();
             taskResult.MergeFrom(e.data);
             if (e.data.IsEmpty)
@@ -316,7 +316,7 @@ namespace XFramework
                 }
 
 
-                NetWorkManager.Instance.SendMessage(CMD.QUERTSINGLEACTIVITY, new IntValue()
+                NetWorkManager.Instance.SendMessage(CMDOld.QUERTSINGLEACTIVITY, new IntValue()
                 {
                     Value = activityId
                 });
@@ -399,11 +399,11 @@ namespace XFramework
 
                         RedDotManager.Instance.SetRedPointCnt(itemStr, 1);
 
-                        JiYuTweenHelper.DoScaleTweenOnClickAndLongPress(KBtn_Get, () =>
+                        UnicornTweenHelper.DoScaleTweenOnClickAndLongPress(KBtn_Get, () =>
                         {
-                            JiYuUIHelper.DestoryAllTips();
-                            WebMessageHandlerOld.Instance.AddHandler(CMD.GETTASKSCORE, OnGetTaskResponse);
-                            NetWorkManager.Instance.SendMessage(CMD.GETTASKSCORE, new IntValue
+                            UnicornUIHelper.DestoryAllTips();
+                            WebMessageHandlerOld.Instance.AddHandler(CMDOld.GETTASKSCORE, OnGetTaskResponse);
+                            NetWorkManager.Instance.SendMessage(CMDOld.GETTASKSCORE, new IntValue
                             {
                                 Value = aT.TaskId
                             });
@@ -448,44 +448,44 @@ namespace XFramework
                         KCommon_Reward2.SetActive(false);
                         KCommon_Reward3.SetActive(false);
                         KCommon_Reward4.SetActive(false);
-                        JiYuUIHelper.SetRewardIconAndCountText(rewardList[0], KCommon_Reward1);
-                        JiYuUIHelper.SetRewardOnClick(rewardList[0], KCommon_Reward1, GetFromReference(KImg_Mask));
+                        UnicornUIHelper.SetRewardIconAndCountText(rewardList[0], KCommon_Reward1);
+                        UnicornUIHelper.SetRewardOnClick(rewardList[0], KCommon_Reward1, GetFromReference(KImg_Mask));
                         break;
                     case 2:
                         KCommon_Reward1.SetActive(true);
                         KCommon_Reward2.SetActive(true);
                         KCommon_Reward3.SetActive(false);
                         KCommon_Reward4.SetActive(false);
-                        JiYuUIHelper.SetRewardIconAndCountText(rewardList[0], KCommon_Reward1);
-                        JiYuUIHelper.SetRewardIconAndCountText(rewardList[1], KCommon_Reward2);
-                        JiYuUIHelper.SetRewardOnClick(rewardList[0], KCommon_Reward1, GetFromReference(KImg_Mask));
-                        JiYuUIHelper.SetRewardOnClick(rewardList[1], KCommon_Reward2, GetFromReference(KImg_Mask));
+                        UnicornUIHelper.SetRewardIconAndCountText(rewardList[0], KCommon_Reward1);
+                        UnicornUIHelper.SetRewardIconAndCountText(rewardList[1], KCommon_Reward2);
+                        UnicornUIHelper.SetRewardOnClick(rewardList[0], KCommon_Reward1, GetFromReference(KImg_Mask));
+                        UnicornUIHelper.SetRewardOnClick(rewardList[1], KCommon_Reward2, GetFromReference(KImg_Mask));
                         break;
                     case 3:
                         KCommon_Reward1.SetActive(true);
                         KCommon_Reward2.SetActive(true);
                         KCommon_Reward3.SetActive(true);
                         KCommon_Reward4.SetActive(false);
-                        JiYuUIHelper.SetRewardIconAndCountText(rewardList[0], KCommon_Reward1);
-                        JiYuUIHelper.SetRewardIconAndCountText(rewardList[1], KCommon_Reward2);
-                        JiYuUIHelper.SetRewardIconAndCountText(rewardList[2], KCommon_Reward3);
-                        JiYuUIHelper.SetRewardOnClick(rewardList[0], KCommon_Reward1, GetFromReference(KImg_Mask));
-                        JiYuUIHelper.SetRewardOnClick(rewardList[1], KCommon_Reward2, GetFromReference(KImg_Mask));
-                        JiYuUIHelper.SetRewardOnClick(rewardList[2], KCommon_Reward3, GetFromReference(KImg_Mask));
+                        UnicornUIHelper.SetRewardIconAndCountText(rewardList[0], KCommon_Reward1);
+                        UnicornUIHelper.SetRewardIconAndCountText(rewardList[1], KCommon_Reward2);
+                        UnicornUIHelper.SetRewardIconAndCountText(rewardList[2], KCommon_Reward3);
+                        UnicornUIHelper.SetRewardOnClick(rewardList[0], KCommon_Reward1, GetFromReference(KImg_Mask));
+                        UnicornUIHelper.SetRewardOnClick(rewardList[1], KCommon_Reward2, GetFromReference(KImg_Mask));
+                        UnicornUIHelper.SetRewardOnClick(rewardList[2], KCommon_Reward3, GetFromReference(KImg_Mask));
                         break;
                     case 4:
                         KCommon_Reward1.SetActive(true);
                         KCommon_Reward2.SetActive(true);
                         KCommon_Reward3.SetActive(true);
                         KCommon_Reward4.SetActive(true);
-                        JiYuUIHelper.SetRewardIconAndCountText(rewardList[0], KCommon_Reward1);
-                        JiYuUIHelper.SetRewardIconAndCountText(rewardList[1], KCommon_Reward2);
-                        JiYuUIHelper.SetRewardIconAndCountText(rewardList[2], KCommon_Reward3);
-                        JiYuUIHelper.SetRewardIconAndCountText(rewardList[3], KCommon_Reward4);
-                        JiYuUIHelper.SetRewardOnClick(rewardList[0], KCommon_Reward1, GetFromReference(KImg_Mask));
-                        JiYuUIHelper.SetRewardOnClick(rewardList[1], KCommon_Reward2, GetFromReference(KImg_Mask));
-                        JiYuUIHelper.SetRewardOnClick(rewardList[2], KCommon_Reward3, GetFromReference(KImg_Mask));
-                        JiYuUIHelper.SetRewardOnClick(rewardList[3], KCommon_Reward4, GetFromReference(KImg_Mask));
+                        UnicornUIHelper.SetRewardIconAndCountText(rewardList[0], KCommon_Reward1);
+                        UnicornUIHelper.SetRewardIconAndCountText(rewardList[1], KCommon_Reward2);
+                        UnicornUIHelper.SetRewardIconAndCountText(rewardList[2], KCommon_Reward3);
+                        UnicornUIHelper.SetRewardIconAndCountText(rewardList[3], KCommon_Reward4);
+                        UnicornUIHelper.SetRewardOnClick(rewardList[0], KCommon_Reward1, GetFromReference(KImg_Mask));
+                        UnicornUIHelper.SetRewardOnClick(rewardList[1], KCommon_Reward2, GetFromReference(KImg_Mask));
+                        UnicornUIHelper.SetRewardOnClick(rewardList[2], KCommon_Reward3, GetFromReference(KImg_Mask));
+                        UnicornUIHelper.SetRewardOnClick(rewardList[3], KCommon_Reward4, GetFromReference(KImg_Mask));
                         break;
                     default:
                         KCommon_Reward1.SetActive(false);
@@ -495,7 +495,7 @@ namespace XFramework
                         break;
                 }
 
-                JiYuTweenHelper.SetEaseAlphaAndPosB2U(ui.GetFromReference(UISubPanel_Activity_OneDaySign.KImg_ItemBg), 0,
+                UnicornTweenHelper.SetEaseAlphaAndPosB2U(ui.GetFromReference(UISubPanel_Activity_OneDaySign.KImg_ItemBg), 0,
                     60, cts.Token, 0.3F, true, true);
                 await UniTask.Delay(2 * i, cancellationToken: cts.Token);
             }
@@ -549,7 +549,7 @@ namespace XFramework
 
         private void CloseThisPanel()
         {
-            JiYuUIHelper.DestoryAllTips();
+            UnicornUIHelper.DestoryAllTips();
             RemoveTimer();
             Close();
         }
@@ -580,8 +580,8 @@ namespace XFramework
         {
             var KText_Time = GetFromReference(UIPanel_Activity_NewSign.KText_Time);
             string cdStr = tblanguage.Get("active_countdown_text").current;
-            long clientT = JiYuUIHelper.GetServerTimeStamp(true);
-            if (!JiYuUIHelper.TryGetRemainingTime(clientT, endTime, out var timeStr))
+            long clientT = UnicornUIHelper.GetServerTimeStamp(true);
+            if (!UnicornUIHelper.TryGetRemainingTime(clientT, endTime, out var timeStr))
             {
                 Close();
             }
@@ -594,7 +594,7 @@ namespace XFramework
 
         protected override void OnClose()
         {
-            WebMessageHandlerOld.Instance.RemoveHandler(CMD.QUERTSINGLEACTIVITY, OnInitNewSignResponse);
+            WebMessageHandlerOld.Instance.RemoveHandler(CMDOld.QUERTSINGLEACTIVITY, OnInitNewSignResponse);
             RedDotManager.Instance.ClearChildrenListeners(m_RedDotName);
             cts.Cancel();
             cts.Dispose();

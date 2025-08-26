@@ -1,5 +1,5 @@
 ﻿//---------------------------------------------------------------------
-// JiYuStudio
+// UnicornStudio
 // Author: huangjiguo
 // Time: #CreateTime#
 //---------------------------------------------------------------------
@@ -33,9 +33,9 @@ namespace XFramework
             var itemlist = this.GetFromReference(KPos_Item).GetList();
             itemlist.Clear();
             var itemUI = itemlist.CreateWithUIType<Vector3>(UIType.UICommon_RewardItem, reward, false);
-            JiYuUIHelper.SetRewardOnClick(reward, itemUI);
+            UnicornUIHelper.SetRewardOnClick(reward, itemUI);
             itemUI.GetRectTransform().SetScale2(0.7f);
-            //this.GetFromReference(KText_Item).GetTextMeshPro().SetTMPText(JiYuUIHelper.GetRewardName(reward));
+            //this.GetFromReference(KText_Item).GetTextMeshPro().SetTMPText(UnicornUIHelper.GetRewardName(reward));
         }
 
         protected override void OnClose()

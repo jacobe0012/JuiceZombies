@@ -1,5 +1,5 @@
 //---------------------------------------------------------------------
-// JiYuStudio
+// UnicornStudio
 // Author: xxx
 // Time: #CreateTime#
 //---------------------------------------------------------------------
@@ -46,7 +46,7 @@ namespace XFramework
 
             this.GetFromReference(KBg).GetRectTransform().SetWidth(width + 40);
             this.GetRectTransform().SetWidth(width + 40);
-            JiYuUIHelper.ForceRefreshLayout(this.GetFromReference(Kcontent));
+            UnicornUIHelper.ForceRefreshLayout(this.GetFromReference(Kcontent));
         }
 		 void InitNode()
 		{

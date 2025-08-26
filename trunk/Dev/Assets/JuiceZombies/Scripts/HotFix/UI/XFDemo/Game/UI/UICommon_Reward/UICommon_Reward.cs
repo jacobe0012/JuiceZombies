@@ -1,5 +1,5 @@
 //---------------------------------------------------------------------
-// JiYuStudio
+// UnicornStudio
 // Author: xxx
 // Time: #CreateTime#
 //---------------------------------------------------------------------
@@ -40,9 +40,9 @@ namespace XFramework
 
         public async void Initialize(List<Vector3> args)
         {
-            await JiYuUIHelper.InitBlur(this);
-            JiYuUIHelper.MergeRewardList(args);
-            //JiYuTweenHelper.EnableLoading(true);
+            await UnicornUIHelper.InitBlur(this);
+            UnicornUIHelper.MergeRewardList(args);
+            //UnicornTweenHelper.EnableLoading(true);
             Tblanguage tblanguage = ConfigManager.Instance.Tables.Tblanguage;
 
             var list = new List<Vector3>(args.Count);
@@ -59,13 +59,13 @@ namespace XFramework
             GetFromReference(KText_Tips).GetTextMeshPro().SetTMPText(tblanguage.Get("text_gain_reward").current);
             GetFromReference(KText_Close).GetTextMeshPro().SetTMPText(tblanguage.Get("text_window_close").current);
 
-            KBg_MidImg.GetButton().OnClick.Add(JiYuUIHelper.DestoryAllTips);
+            KBg_MidImg.GetButton().OnClick.Add(UnicornUIHelper.DestoryAllTips);
             var KScrollView = this.GetFromReference(UICommon_Reward.KScrollView);
-            KScrollView.GetXScrollRect().OnBeginDrag.Add(() => { JiYuUIHelper.DestoryAllTips(); });
+            KScrollView.GetXScrollRect().OnBeginDrag.Add(() => { UnicornUIHelper.DestoryAllTips(); });
 
             KBtn_Close.GetButton()?.OnClick.AddListener(async () =>
             {
-                JiYuTweenHelper.SetScaleWithBounceClose(GetFromReference(UICommon_Reward.KBg_MidImg),
+                UnicornTweenHelper.SetScaleWithBounceClose(GetFromReference(UICommon_Reward.KBg_MidImg),
                     cancellationToken: cts.Token);
                 await UniTask.Delay(200, true, cancellationToken: cts.Token);
                 OnClickReward(list);
@@ -75,7 +75,7 @@ namespace XFramework
 
             KBg_Img.GetButton()?.OnClick.AddListener(async () =>
             {
-                JiYuTweenHelper.SetScaleWithBounceClose(GetFromReference(UICommon_Reward.KBg_MidImg),
+                UnicornTweenHelper.SetScaleWithBounceClose(GetFromReference(UICommon_Reward.KBg_MidImg),
                     cancellationToken: cts.Token);
                 await UniTask.Delay(200, true, cancellationToken: cts.Token);
 
@@ -87,7 +87,7 @@ namespace XFramework
             //实际奖励初始化
             InitRewardItems(list, cts.Token).Forget();
             //args2 = args;
-            JiYuTweenHelper.SetScaleWithBounce(GetFromReference(UICommon_Reward.KBg_MidImg),
+            UnicornTweenHelper.SetScaleWithBounce(GetFromReference(UICommon_Reward.KBg_MidImg),
                 cancellationToken: cts.Token);
         }
 
@@ -156,7 +156,7 @@ namespace XFramework
                 AudioManager.Instance.PlayFModAudio(1303);
             }
 
-            JiYuUIHelper.AddReward(args, true);
+            UnicornUIHelper.AddReward(args, true);
             //await UniTask.Delay(200);
         }
 
@@ -178,11 +178,11 @@ namespace XFramework
             foreach (var item in args)
             {
                 var ui = await list.CreateWithUITypeAsync(UIType.UICommon_RewardItem, item, false, cct);
-                JiYuUIHelper.SetRewardOnClick(item, ui);
+                UnicornUIHelper.SetRewardOnClick(item, ui);
                 //ui.GetComponent<RectTransform>().SetScale3(0.75f);
             }
 
-            list.Sort(JiYuUIHelper.RewardUIComparer);
+            list.Sort(UnicornUIHelper.RewardUIComparer);
             //KMid_Pos.SetActive(true);
             this.SetActive(true);
             var bg = GetFromReference(KBg_MidImg);
@@ -222,7 +222,7 @@ namespace XFramework
             //     var obj2rewardy = (int)obj2.y;
             //     var obj2rewardz = (int)obj2.z;
             //
-            //     if (JiYuUIHelper.IsResourceReward(obj1) && JiYuUIHelper.IsResourceReward(obj2))
+            //     if (UnicornUIHelper.IsResourceReward(obj1) && UnicornUIHelper.IsResourceReward(obj2))
             //     {
             //         if (obj1rewardx < obj2rewardx)
             //             return -1;
@@ -230,9 +230,9 @@ namespace XFramework
             //             return 1;
             //     }
             //
-            //     if (JiYuUIHelper.IsResourceReward(obj1) && !JiYuUIHelper.IsResourceReward(obj2))
+            //     if (UnicornUIHelper.IsResourceReward(obj1) && !UnicornUIHelper.IsResourceReward(obj2))
             //         return -1;
-            //     else if (!JiYuUIHelper.IsResourceReward(obj1) && JiYuUIHelper.IsResourceReward(obj2))
+            //     else if (!UnicornUIHelper.IsResourceReward(obj1) && UnicornUIHelper.IsResourceReward(obj2))
             //         return 1;
             //     // if (obj1rewardx != 5 && obj2rewardx == 5)
             //     //     return -1;
@@ -259,11 +259,11 @@ namespace XFramework
             //
             //     if (obj1rewardx == 11 && obj2rewardx == 11)
             //     {
-            //         if (!JiYuUIHelper.IsCompositeEquipReward(obj1) &&
-            //             JiYuUIHelper.IsCompositeEquipReward(obj2))
+            //         if (!UnicornUIHelper.IsCompositeEquipReward(obj1) &&
+            //             UnicornUIHelper.IsCompositeEquipReward(obj2))
             //             return -1;
-            //         else if (JiYuUIHelper.IsCompositeEquipReward(obj1) &&
-            //                  !JiYuUIHelper.IsCompositeEquipReward(obj2))
+            //         else if (UnicornUIHelper.IsCompositeEquipReward(obj1) &&
+            //                  !UnicornUIHelper.IsCompositeEquipReward(obj2))
             //             return 1;
             //
             //         if (equip_data.Get(obj1rewardy).quality >
@@ -297,8 +297,8 @@ namespace XFramework
             //
             //     return 0;
             // });
-            //JiYuTweenHelper.EnableLoading(false);
-            //JiYuUIHelper.ForceRefreshLayout(KMid_Pos);
+            //UnicornTweenHelper.EnableLoading(false);
+            //UnicornUIHelper.ForceRefreshLayout(KMid_Pos);
         }
     }
 }

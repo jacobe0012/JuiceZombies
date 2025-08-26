@@ -11,7 +11,7 @@ public class ChangeWsUrlTool : EditorWindow
 
     private string wsUrl;
 
-    [MenuItem("JiYuStudio Tools/更改连入服务器IP工具")]
+    [MenuItem("UnicornStudio Tools/更改连入服务器IP工具")]
     private static void ShowWindow()
     {
         GetWindow<ChangeWsUrlTool>("更改连入服务器IP工具");

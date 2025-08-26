@@ -1,5 +1,5 @@
 //---------------------------------------------------------------------
-// JiYuStudio
+// UnicornStudio
 // Author: xxx
 // Time: #CreateTime#
 //---------------------------------------------------------------------
@@ -88,7 +88,7 @@ namespace XFramework
 
         public async void Initialize(int args)
         {
-            await JiYuUIHelper.InitBlur(this);
+            await UnicornUIHelper.InitBlur(this);
             this.SetActive(false);
             Log.Debug($"商店id {args}", Color.green);
             shopId = args;
@@ -113,12 +113,12 @@ namespace XFramework
             OnSkillTriggerForOpen(player, ref skillBuffer);
 
             await UniTask.Delay(200);
-            JiYuUIHelper.StartStopTime(false);
+            UnicornUIHelper.StartStopTime(false);
 
             //
             //UnityHelper.StopTime();
 
-            if (JiYuUIHelper.TryGetUI(UIType.UIPanel_RunTimeHUD, out var parent))
+            if (UnicornUIHelper.TryGetUI(UIType.UIPanel_RunTimeHUD, out var parent))
             {
                 panelRunTimeHUD = parent;
             }
@@ -132,7 +132,7 @@ namespace XFramework
             // foreach (var guide in tbguide.DataList)
             // {
             //     if (guide.targetId == panelId &&
-            //         ResourcesSingleton.Instance.settingData.GuideList.Contains(guide.group))
+            //         ResourcesSingletonOld.Instance.settingData.GuideList.Contains(guide.group))
             //     {
             //         UIHelper.CreateAsync(this, UIType.UISubPanel_Guid, guide.id,
             //             this.GameObject.transform);
@@ -149,7 +149,7 @@ namespace XFramework
             Log.Error($"isGuide{isGuide}");
             if (isGuide)
             {
-                if (JiYuUIHelper.TryGetUI(UIType.UISubPanel_Guid, out var ui))
+                if (UnicornUIHelper.TryGetUI(UIType.UISubPanel_Guid, out var ui))
                 {
                     ui.Dispose();
                 }
@@ -161,13 +161,13 @@ namespace XFramework
             //await UniTask.Delay(1000,true);
             var KContainer_Skill = this.GetFromReference(UIPanel_BattleShop.KContainer_Skill);
             var guide = tbguide.DataList.Where(a => a.guideType == 314).FirstOrDefault();
-            if (ResourcesSingleton.Instance.settingData.GuideList.Contains(guide.group))
+            if (ResourcesSingletonOld.Instance.settingData.GuideList.Contains(guide.group))
             {
                 isGuide = true;
                 var guideUI = await UIHelper.CreateAsync(UIType.UISubPanel_Guid, guide.id);
 
                 var KImg_Bg = guideUI.GetFromReference(UISubPanel_Guid.KImg_Bg);
-                JiYuUIHelper.SetForceGuideRectUI(KContainer_Skill, KImg_Bg);
+                UnicornUIHelper.SetForceGuideRectUI(KContainer_Skill, KImg_Bg);
             }
         }
 
@@ -248,11 +248,11 @@ namespace XFramework
             //var playerData = entityManager.GetComponentData<PlayerData>(player);
 
             DisplayFreeRefresh();
-            JiYuTweenHelper.DoScaleTweenOnClickAndLongPress(KBtn_ShopDes, async () =>
+            UnicornTweenHelper.DoScaleTweenOnClickAndLongPress(KBtn_ShopDes, async () =>
             {
-                if (JiYuUIHelper.TryGetUI(UIType.UICommon_ItemTips, out var ui))
+                if (UnicornUIHelper.TryGetUI(UIType.UICommon_ItemTips, out var ui))
                 {
-                    JiYuUIHelper.DestoryAllTips();
+                    UnicornUIHelper.DestoryAllTips();
                     ;
                     return;
                 }
@@ -267,16 +267,16 @@ namespace XFramework
 
             });
 
-            JiYuTweenHelper.DoScaleTweenOnClickAndLongPress(KBtn_Continue, () =>
+            UnicornTweenHelper.DoScaleTweenOnClickAndLongPress(KBtn_Continue, () =>
             {
-                JiYuUIHelper.DestoryAllTips();
+                UnicornUIHelper.DestoryAllTips();
                 ;
-                JiYuUIHelper.StartStopTime(true);
+                UnicornUIHelper.StartStopTime(true);
                 Close();
             });
-            JiYuTweenHelper.DoScaleTweenOnClickAndLongPress(KBtn_Lock, () =>
+            UnicornTweenHelper.DoScaleTweenOnClickAndLongPress(KBtn_Lock, () =>
             {
-                JiYuUIHelper.DestoryAllTips();
+                UnicornUIHelper.DestoryAllTips();
                 ;
                 if (!IsAllBought())
                 {
@@ -287,11 +287,11 @@ namespace XFramework
                     KBtn_Lock.GetImage().SetSprite(str, false);
                 }
             });
-            JiYuTweenHelper.DoScaleTweenOnClickAndLongPress(KContiner_Btn_Refresh,
+            UnicornTweenHelper.DoScaleTweenOnClickAndLongPress(KContiner_Btn_Refresh,
                 () =>
                 {
                     KContainer_Selcted.SetActive(false);
-                    JiYuUIHelper.DestoryAllTips();
+                    UnicornUIHelper.DestoryAllTips();
                     ;
                     var parentUI = panelRunTimeHUD as UIPanel_RunTimeHUD;
                     //if (parentUI.isLocked && !IsAnyBought()) return;
@@ -326,7 +326,7 @@ namespace XFramework
                         refreshPrice = math.max(refreshPrice, 0);
                         if (curMoney < refreshPrice)
                         {
-                            JiYuUIHelper.ClearCommonResource();
+                            UnicornUIHelper.ClearCommonResource();
                             UIHelper.CreateAsync(UIType.UICommon_Resource,
                                 language.Get("text_monry_lack").current).Forget();
                             return;
@@ -355,7 +355,7 @@ namespace XFramework
             {
                 //this.GetFromReference(UIPanel_BattleInfo.KContainer_Skill)?.SetActive(true);
                 this.GetFromReference(UIPanel_BattleInfo.KBottom)?.SetActive(true);
-                JiYuUIHelper.DestoryAllTips();
+                UnicornUIHelper.DestoryAllTips();
                 ;
 
                 if (KContainer_Selcted.GameObject.activeSelf)
@@ -544,7 +544,7 @@ namespace XFramework
                 var playerSkillb = player_skill.Get(uib.skillId);
                 return playerSkillb.skillQualityId.CompareTo(playerSkilla.skillQualityId);
             });
-            //JiYuUIHelper.ForceRefreshLayout(scrollRect.Content);
+            //UnicornUIHelper.ForceRefreshLayout(scrollRect.Content);
         }
 
         void RefreshMoneyUI()
@@ -817,7 +817,7 @@ namespace XFramework
 
                     SetStars(itemList, playerSkillQuality.levelUpperlimit, currentLevel, playerSkillQuality.id);
                     Debug.Log($"skillid:{skillId},currentLevel:{currentLevel}");
-                    JiYuTweenHelper.DoScaleTweenOnClickAndLongPress(ui, async () =>
+                    UnicornTweenHelper.DoScaleTweenOnClickAndLongPress(ui, async () =>
                     {
                         GuideOnClick();
                         //OnClickItem(skillId);
@@ -826,7 +826,7 @@ namespace XFramework
                         parentUI.isLocked = false;
                         GetFromReference(KBtn_Lock)?.GetImage().SetSprite("icon_equip_skill_lock_1", false);
                         LockSkillsItem(parentUI.isLocked);
-                        //  JiYuUIHelper.DestoryAllTips();;
+                        //  UnicornUIHelper.DestoryAllTips();;
                         int skillPrice =
                             (int)Mathf.Ceil(playerSkillQuality.price *
                                             (GetPlayerData().playerData.buySkillRatios / 10000f));
@@ -843,7 +843,7 @@ namespace XFramework
                         if (parentUI.bindingsDic.ContainsKey(bindingId))
                         {
                             int lastexp = parentUI.bindingsDic[bindingId];
-                            lastBindingLevel = JiYuUIHelper.GetBindingLevel(lastexp);
+                            lastBindingLevel = UnicornUIHelper.GetBindingLevel(lastexp);
                         }
 
                         //var isStandAlone = XFramework.Common.Instance.Get<Global>().isStandAlone;)
@@ -851,7 +851,7 @@ namespace XFramework
                                            GetPlayerData().playerOtherData.skillTempFreeBuyCount;
                         if (curMoney < skillPrice && freebuyCount <= 0)
                         {
-                            JiYuUIHelper.ClearCommonResource();
+                            UnicornUIHelper.ClearCommonResource();
                             UIHelper.CreateAsync(UIType.UICommon_Resource,
                                 language.Get("text_monry_lack").current).Forget();
                             //UIHelper.CreateOverLayTipsAsync().Forget();
@@ -883,14 +883,14 @@ namespace XFramework
                             }
 
                             //int curexp = parentUI.bindingsDic[bindingId];
-                            //curLevel = JiYuUIHelper.GetBindingLevel(curexp);
+                            //curLevel = UnicornUIHelper.GetBindingLevel(curexp);
                             //isLevelUp = curLevel - lastLevel >= 1 ? true : false;
                         }
 
                         if (parentUI.bindingsDic.ContainsKey(bindingId))
                         {
                             int lastexp = parentUI.bindingsDic[bindingId];
-                            currentBindingLevel = JiYuUIHelper.GetBindingLevel(lastexp);
+                            currentBindingLevel = UnicornUIHelper.GetBindingLevel(lastexp);
                         }
 
                         SetPlayerMoney(curMoney - skillPrice);
@@ -972,7 +972,7 @@ namespace XFramework
 
                         KImg_Mask.SetActive(true);
 
-                        JiYuTweenHelper.SetEaseAlphaAndScale(ui.GetFromReference(UIPanel_SkillItem.KImgSold), 0.25f, true,
+                        UnicornTweenHelper.SetEaseAlphaAndScale(ui.GetFromReference(UIPanel_SkillItem.KImgSold), 0.25f, true,
                             3, 1);
                         ui.GetXButton().SetEnabled(false);
                         CreateBindingItem().Forget();
@@ -1066,21 +1066,21 @@ namespace XFramework
             var children = skillList.Children;
             foreach (var item in children)
             {
-                JiYuTweenHelper.PlayUIImageTranstionFX(item.GetFromReference(UIPanel_SkillItem.KImg_bg_quality), cts.Token,
-                    "A1DD01", JiYuTweenHelper.UIDir.Right, 0f, 0.5f);
+                UnicornTweenHelper.PlayUIImageTranstionFX(item.GetFromReference(UIPanel_SkillItem.KImg_bg_quality), cts.Token,
+                    "A1DD01", UnicornTweenHelper.UIDir.Right, 0f, 0.5f);
                 //item.GetComponent<CanvasGroup>().alpha = 0;
                 //item.GetComponent<CanvasGroup>().DOFade(1, 0.6f).SetEase(Ease.InQuad).SetUpdate(true);
             }
 
 
-            //JiYuUIHelper.ForceRefreshLayout(KContainer_Skill);
+            //UnicornUIHelper.ForceRefreshLayout(KContainer_Skill);
         }
 
         private void OnClickItem(int skillId)
         {
             //var playerSkillQuality = player_skill_quality.Get(skillId.skillQualityId);
             //var parentUI = panelRunTimeHUD as UIPanel_RunTimeHUD;
-            //  JiYuUIHelper.DestoryAllTips();;
+            //  UnicornUIHelper.DestoryAllTips();;
             //int skillPrice =
             //    (int)Mathf.Ceil(playerSkillQuality.price *
             //                    (GetPlayerData().playerData.buySkillRatios / 10000f));
@@ -1541,7 +1541,7 @@ namespace XFramework
             if (parentUI.bindingsDic.ContainsKey(bindingId))
             {
                 int lastexp = parentUI.bindingsDic[bindingId];
-                lastBindingLevel = JiYuUIHelper.GetBindingLevel(lastexp);
+                lastBindingLevel = UnicornUIHelper.GetBindingLevel(lastexp);
             }
 
 
@@ -1563,7 +1563,7 @@ namespace XFramework
                     }
 
                     //int curexp = parentUI.bindingsDic[bindingId];
-                    //curLevel = JiYuUIHelper.GetBindingLevel(curexp);
+                    //curLevel = UnicornUIHelper.GetBindingLevel(curexp);
                     //isLevelUp = curLevel - lastLevel >= 1 ? true : false;
                 }
             }
@@ -1571,7 +1571,7 @@ namespace XFramework
             if (parentUI.bindingsDic.ContainsKey(bindingId))
             {
                 int lastexp = parentUI.bindingsDic[bindingId];
-                currentBindingLevel = JiYuUIHelper.GetBindingLevel(lastexp);
+                currentBindingLevel = UnicornUIHelper.GetBindingLevel(lastexp);
             }
 
             //1.替换or增加羁绊技能
@@ -1804,7 +1804,7 @@ namespace XFramework
                 var itemList = KContainer_Stags.GetList();
                 KBg_IsSelected.SetActive(false);
                 SetStagsColor(exp, itemList);
-                var bindingLevel = JiYuUIHelper.GetBindingLevel(exp);
+                var bindingLevel = UnicornUIHelper.GetBindingLevel(exp);
                 int nextLevelexp = 0;
                 if (bindingLevel == player_skill_binding_rank.DataList[player_skill_binding_rank.DataList.Count - 1].id)
                 {
@@ -1829,9 +1829,9 @@ namespace XFramework
                 KImg_BindingIcon.GetImage().SetSpriteAsync(strImg, false).Forget();
                 //uiItem3.GetImage()
                 //itemList.GetChildAt(3).SetActive(true);
-                JiYuTweenHelper.DoScaleTweenOnClickAndLongPress(ui, () =>
+                UnicornTweenHelper.DoScaleTweenOnClickAndLongPress(ui, () =>
                 {
-                    JiYuUIHelper.DestoryAllTips();
+                    UnicornUIHelper.DestoryAllTips();
                     ;
                     if (KBg_IsSelected.GameObject.activeSelf)
                     {
@@ -1848,7 +1848,7 @@ namespace XFramework
                     OnClickBindings(bindingID).Forget();
 
                     KContainer_Selcted.SetActive(true);
-                    JiYuUIHelper.ForceRefreshLayout(GetFromReference(KMid));
+                    UnicornUIHelper.ForceRefreshLayout(GetFromReference(KMid));
                     //TODO:
                 });
             }
@@ -1859,7 +1859,7 @@ namespace XFramework
                 var bui = b as UIPanel_BindingItem;
                 return aui.id.CompareTo(bui.id);
             });
-            //JiYuUIHelper.ForceRefreshLayout(KContainer_Binding);
+            //UnicornUIHelper.ForceRefreshLayout(KContainer_Binding);
         }
 
         struct BattleShopDrop
@@ -1954,7 +1954,7 @@ namespace XFramework
                     // if (skill.type == 2 && skill.level == 1 &&
                     //     parentUI.bindingsDic.TryGetValue(skill.skillBindingId[0], out var exp))
                     // {
-                    //     int bindingId = JiYuUIHelper.GetBindingLevel(exp);
+                    //     int bindingId = UnicornUIHelper.GetBindingLevel(exp);
                     //
                     //     int maxQualityId = 1;
                     //     for (int i = player_skill_quality.DataList.Count - 1; i >= 0; i--)
@@ -2004,7 +2004,7 @@ namespace XFramework
                     if (skill.type == 2 && skill.level == 1 &&
                         parentUI.bindingsDic.TryGetValue(skill.skillBindingId[0], out var exp))
                     {
-                        int bindingId = JiYuUIHelper.GetBindingLevel(exp);
+                        int bindingId = UnicornUIHelper.GetBindingLevel(exp);
 
                         int maxQualityId = 1;
                         for (int i = player_skill_quality.DataList.Count - 1; i >= 0; i--)
@@ -2140,7 +2140,7 @@ namespace XFramework
             uiItem2.SetColor("5E6B68");
             uiItem3.SetColor("5E6B68");
 
-            var index = JiYuUIHelper.GetBindingLevel(exp);
+            var index = UnicornUIHelper.GetBindingLevel(exp);
 
             switch (index)
             {

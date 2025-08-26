@@ -1,5 +1,5 @@
 //---------------------------------------------------------------------
-// JiYuStudio
+// UnicornStudio
 // Author: xxx
 // Time: #CreateTime#
 //---------------------------------------------------------------------
@@ -117,9 +117,9 @@ namespace XFramework
                 }
 
                 InitRewardItems(resultsEquip, cts.Token).Forget();
-                NetWorkManager.Instance.SendMessage(CMD.QUERYEQUIP);
+                NetWorkManager.Instance.SendMessage(CMDOld.QUERYEQUIP);
                 await UniTask.Delay(1000, cancellationToken: cts.Token);
-                if (JiYuUIHelper.TryGetUI(UIType.UIPanel_Compound, out UI ui))
+                if (UnicornUIHelper.TryGetUI(UIType.UIPanel_Compound, out UI ui))
                 {
                     var uis = ui as UIPanel_Compound;
                     uis.RefreshCompoundPanel();
@@ -134,7 +134,7 @@ namespace XFramework
             GetFromReference(KNoSucess).SetActive(true);
             tbEquip_data = ConfigManager.Instance.Tables.Tbequip_data;
             tbLanguage = ConfigManager.Instance.Tables.Tblanguage;
-            NetWorkManager.Instance.SendMessage(CMD.EQUIPALLCOMPOUND);
+            NetWorkManager.Instance.SendMessage(CMDOld.EQUIPALLCOMPOUND);
             //tbEquip_data = ConfigManager.Instance.Tables.tb;
         }
 
@@ -159,7 +159,7 @@ namespace XFramework
                         var equip = equips[i];
                         var child = GetFromReference(KEquipPosThree).GetRectTransform().GetChild(i);
                         UI item = list3.Create(child.gameObject, true);
-                        JiYuUIHelper.SetEquipIcon(equip, item, EquipPanelType.Compose);
+                        UnicornUIHelper.SetEquipIcon(equip, item, EquipPanelType.Compose);
                         StartShake(item, item.GetRectTransform().AnchoredPosition3D(),
                             item.GetRectTransform().Rotation());
                     }
@@ -173,7 +173,7 @@ namespace XFramework
                         var equip = equips[i];
                         var child = GetFromReference(KEquipPosFive).GetRectTransform().GetChild(i);
                         UI item = list5.Create(child.gameObject, true);
-                        JiYuUIHelper.SetEquipIcon(equip, item, EquipPanelType.Compose);
+                        UnicornUIHelper.SetEquipIcon(equip, item, EquipPanelType.Compose);
                         StartShake(item, item.GetRectTransform().AnchoredPosition3D(),
                             item.GetRectTransform().Rotation());
                     }
@@ -187,7 +187,7 @@ namespace XFramework
                         var equip = equips[i];
                         var child = GetFromReference(KEquipPosSix).GetRectTransform().GetChild(i);
                         UI item = list6.Create(child.gameObject, true);
-                        JiYuUIHelper.SetEquipIcon(equip, item, EquipPanelType.Compose);
+                        UnicornUIHelper.SetEquipIcon(equip, item, EquipPanelType.Compose);
                         StartShake(item, item.GetRectTransform().AnchoredPosition3D(),
                             item.GetRectTransform().Rotation());
                     }
@@ -214,7 +214,7 @@ namespace XFramework
                 {
                     var equip = newlist[i - 1];
                     var key = "item" + i.ToString();
-                    JiYuUIHelper.SetEquipIcon(equip, GetFromReference(key), EquipPanelType.Compose);
+                    UnicornUIHelper.SetEquipIcon(equip, GetFromReference(key), EquipPanelType.Compose);
                 }
 
                 for (int i = 1; i <= 6; i++)
@@ -286,7 +286,7 @@ namespace XFramework
 
         void InitNode()
         {
-            WebMessageHandlerOld.Instance.AddHandler(CMD.EQUIPALLCOMPOUND, OnEquipAllCompoundResponse);
+            WebMessageHandlerOld.Instance.AddHandler(CMDOld.EQUIPALLCOMPOUND, OnEquipAllCompoundResponse);
         }
 
 
@@ -304,7 +304,7 @@ namespace XFramework
                 ui.GetFromReference(UICommon_RewardItem.KBtn_Item).GetComponent<CanvasGroup>().alpha = 0;
             }
 
-            list.Sort(JiYuUIHelper.RewardUIComparer);
+            list.Sort(UnicornUIHelper.RewardUIComparer);
             //KMid_Pos.SetActive(true);
             var bg = GetFromReference(UIPanel_CompoundDongHua.KBg_MidImg);
             float addition = Mathf.Ceil(args.Count / 5f) - 1;
@@ -342,7 +342,7 @@ namespace XFramework
                 //ui.GetFromReference(UICommon_RewardItem.KBtn_Item).GetComponent<CanvasGroup>().alpha = 0;
             }
 
-            list.Sort(JiYuUIHelper.RewardUIComparer);
+            list.Sort(UnicornUIHelper.RewardUIComparer);
             //KMid_Pos.SetActive(true);
             var bg = GetFromReference(UIPanel_CompoundDongHua.KBg_MidImg);
             float addition = Mathf.Ceil(args.Count / 5f) - 1;
@@ -358,8 +358,8 @@ namespace XFramework
             {
                 bg.GetRectTransform().SetHeight(maxHeight);
             }
-            NetWorkManager.Instance.SendMessage(CMD.QUERYEQUIP);
-            if (JiYuUIHelper.TryGetUI(UIType.UIPanel_Compound, out UI ui1))
+            NetWorkManager.Instance.SendMessage(CMDOld.QUERYEQUIP);
+            if (UnicornUIHelper.TryGetUI(UIType.UIPanel_Compound, out UI ui1))
             {
                 var uis = ui1 as UIPanel_Compound;
                 uis.RefreshCompoundPanel();
@@ -371,7 +371,7 @@ namespace XFramework
             var bg = GetFromReference(UIPanel_CompoundDongHua.KBg_MidImg);
             var KMid_Pos = this.GetFromReference(UIPanel_CompoundDongHua.KMid_Pos);
             var list = KMid_Pos.GetList();
-            JiYuTweenHelper.SetEaseAlphaAndPosUtoB(bg, 0, 1200, cts.Token, 0.35f, false, false).Forget();
+            UnicornTweenHelper.SetEaseAlphaAndPosUtoB(bg, 0, 1200, cts.Token, 0.35f, false, false).Forget();
 
             foreach (var item in list.Children)
             {
@@ -414,7 +414,7 @@ namespace XFramework
 
         private async void OnEquipAllCompoundResponse(object sender, WebMessageHandlerOld.Execute e)
         {
-            WebMessageHandlerOld.Instance.RemoveHandler(CMD.EQUIPALLCOMPOUND, OnEquipAllCompoundResponse);
+            WebMessageHandlerOld.Instance.RemoveHandler(CMDOld.EQUIPALLCOMPOUND, OnEquipAllCompoundResponse);
             EquipResDto resultCraft = new EquipResDto();
             resultCraft.MergeFrom(e.data);
             //RepeatedField<string> repeatedField = new RepeatedField<string>();
@@ -426,7 +426,7 @@ namespace XFramework
             }
 
             Log.Debug($"resultCraft {resultCraft}", Color.green);
-            //JiYuUIHelper.TurnStrReward2List()
+            //UnicornUIHelper.TurnStrReward2List()
             results = resultCraft.EquipDtoList;
         }
 

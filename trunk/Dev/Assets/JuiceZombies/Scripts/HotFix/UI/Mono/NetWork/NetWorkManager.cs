@@ -1,6 +1,6 @@
 ﻿//---------------------------------------------------------------------
-// JiYuStudio
-// Author: 格伦
+// UnicornStudio
+// Author: jaco0012
 // Time: 2023-08-31 10:47:42
 //---------------------------------------------------------------------
 
@@ -219,7 +219,7 @@ namespace HotFix_UI
             Log.Debug($"OnOpen", debugColor);
             curReconnectAttempts = 0;
             StartTimer();
-            ResourcesSingleton.Instance.isConnectSuccess = true;
+            ResourcesSingletonOld.Instance.isConnectSuccess = true;
         }
 
         public void OnClose(object o, CloseEventArgs args)
@@ -227,13 +227,13 @@ namespace HotFix_UI
             Log.Debug($"OnClose", debugColor);
             RemoveTimer();
             //AttemptReconnect(true);
-            ResourcesSingleton.Instance.isConnectSuccess = false;
+            ResourcesSingletonOld.Instance.isConnectSuccess = false;
         }
 
         public void OnError(object o, ErrorEventArgs args)
         {
             Log.Debug($"OnError: ", debugColor);
-            ResourcesSingleton.Instance.isConnectSuccess = false;
+            ResourcesSingletonOld.Instance.isConnectSuccess = false;
             // AttemptReconnect();
             // RemoveTimer();
         }
@@ -272,22 +272,6 @@ namespace HotFix_UI
         /// <param name="args"></param>
         public void OnMessage(object o, MessageEventArgs args)
         {
-            //将字节数组转换为
-            //IMessage message = new MyExternalMessage();
-
-            //var mySelf = (MyExternalMessage)message.Descriptor.Parser.ParseFrom(args.RawData);
-            // if (mySelf.ResponseStatus != 0)
-            // {
-            //     ErrorMsg.LogErrorMsg(mySelf.ResponseStatus);
-            // }
-
-            //Log.Debug($"ResponseStatus:{mySelf.ResponseStatus}", debugColor);
-
-            // byte[] byteArray = mySelf.DataContent.ToByteArray();
-            // string content = System.Text.Encoding.Default.GetString(byteArray);
-
-            //Log.Debug($"OnMessage:{mySelf}", debugColor);
-
             if (args.RawData == null)
             {
                 Log.Debug($"empty message", debugColor);
@@ -313,19 +297,19 @@ namespace HotFix_UI
         /// <param name="subCmd">业务子路由</param>
         /// <param name="protoMessage">发送的proto消息类</param>
         /// <typeparam name="T"></typeparam>
-        public void SendMsg(int cmd, string args = "")
-        {
-            var myExternalMessage = new MyMessage
-            {
-                Cmd = cmd,
-                Content = new byte[]
-                {
-                },
-                ErrorCode = 0,
-                Args = args
-            };
-            socket.SendAsync(MessagePackSerializer.Serialize(myExternalMessage, options));
-        }
+        // public void SendMsg(string args = "")
+        // {
+        //     var myExternalMessage = new MyMessage
+        //     {
+        //         Cmd = cmd,
+        //         Content = new byte[]
+        //         {
+        //         },
+        //         ErrorCode = 0,
+        //         Args = args
+        //     };
+        //     socket.SendAsync(MessagePackSerializer.Serialize(myExternalMessage, options));
+        // }
 
         /// <summary>
         /// 向服务器发送proto消息
@@ -334,11 +318,12 @@ namespace HotFix_UI
         /// <param name="subCmd">业务子路由</param>
         /// <param name="protoMessage">发送的proto消息类</param>
         /// <typeparam name="T"></typeparam>
-        public void SendMsg<T>(int cmd, T protoMessage, string args = "") where T : IMessagePack
+        public void SendMsg<T>(T protoMessage, string args = "") where T : IMessagePack
         {
+            var msgTypeName = typeof(T).Name;
             var myExternalMessage = new MyMessage
             {
-                Cmd = cmd,
+                Cmd = msgTypeName,
                 Content = MessagePackSerializer.Serialize(protoMessage,
                     options),
                 ErrorCode = 0,
@@ -348,17 +333,16 @@ namespace HotFix_UI
             socket.SendAsync(MessagePackSerializer.Serialize(myExternalMessage, options));
         }
 
-
-        public T UnPackMsg<T>(WebMsgHandler.Execute e) where T : IMessagePack
-        {
-            var a = MessagePackSerializer.Deserialize<T>(e.data, options);
-#if UNITY_EDITOR
-            var b = MessagePackSerializer.SerializeToJson<T>(a);
-            Log.Debug($"ReceiveMsg:{typeof(T).ToString()} Content:{b.ToString()}", debugColor);
-#endif
-           
-            return a;
-        }
+//         public T UnPackMsg<T>(WebMsgHandler.Execute e) where T : IMessagePack
+//         {
+//             var a = MessagePackSerializer.Deserialize<T>(e.data, options);
+// #if UNITY_EDITOR
+//             var b = MessagePackSerializer.SerializeToJson<T>(a);
+//             Log.Debug($"ReceiveMsg:{typeof(T).ToString()} Content:{b.ToString()}", debugColor);
+// #endif
+//
+//             return a;
+//         }
 
         /// <summary>
         /// 向服务器发送proto消息

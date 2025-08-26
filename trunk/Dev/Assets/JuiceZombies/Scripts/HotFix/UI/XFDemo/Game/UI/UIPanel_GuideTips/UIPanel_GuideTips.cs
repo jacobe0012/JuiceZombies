@@ -1,5 +1,5 @@
 //---------------------------------------------------------------------
-// JiYuStudio
+// UnicornStudio
 // Author: xxx
 // Time: #CreateTime#
 //---------------------------------------------------------------------
@@ -113,7 +113,7 @@ namespace XFramework
         protected override void OnClose()
         {
             closed = true;
-            JiYuUIHelper.TryFinishGuide(guideId);
+            UnicornUIHelper.TryFinishGuide(guideId);
             base.OnClose();
         }
     }

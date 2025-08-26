@@ -1,5 +1,5 @@
 //---------------------------------------------------------------------
-// JiYuStudio
+// UnicornStudio
 // Author: xxx
 // Time: #CreateTime#
 //---------------------------------------------------------------------
@@ -57,8 +57,8 @@ namespace XFramework
 
         public async void Initialize(int args)
         {
-            await JiYuUIHelper.InitBlur(this);
-            JiYuUIHelper.StartStopTime(false);
+            await UnicornUIHelper.InitBlur(this);
+            UnicornUIHelper.StartStopTime(false);
 
             currentStag = args;
             InitTables();
@@ -66,7 +66,7 @@ namespace XFramework
 
             var money = entityManager.GetComponentData<PlayerData>(player).playerData.exp;
             availableTechDic = new Dictionary<int, int>();
-            if (JiYuUIHelper.TryGetUI(UIType.UIPanel_RunTimeHUD, out var ui))
+            if (UnicornUIHelper.TryGetUI(UIType.UIPanel_RunTimeHUD, out var ui))
             {
                 var currentUI = ui as UIPanel_RunTimeHUD;
                 displaySelectedTechs = new List<int>(currentUI.displaySelectedTechs);
@@ -75,7 +75,7 @@ namespace XFramework
 
             Debug.Log($"displaySelectedTechs{displaySelectedTechs.Count}");
 
-            #region ²âÊÔ
+            #region ï¿½ï¿½ï¿½ï¿½
 
             for (int i = 0; i < displaySelectedTechs.Count; i++)
             {
@@ -99,7 +99,7 @@ namespace XFramework
             this.GetTextMeshPro(KTxt_TecnologyName)?.SetTMPText(tbLanguage.Get("battletech_name").current);
             this.GetTextMeshPro(KTxt_Name_Selected)?.SetTMPText(tbLanguage.Get("battletech_learnt").current);
             this.GetTextMeshPro(KTxt_Name_Selected1)?.SetTMPText(tbLanguage.Get("battletech_learnt").current);
-            JiYuTweenHelper.DoScaleTweenOnClickAndLongPress(this.GetFromReference(KBtn_CloseTip), () =>
+            UnicornTweenHelper.DoScaleTweenOnClickAndLongPress(this.GetFromReference(KBtn_CloseTip), () =>
             {
                 if (GetFromReference(KContainer_Selcted_details).GameObject.activeSelf)
                 {
@@ -107,14 +107,14 @@ namespace XFramework
                     GetFromReference(KContainer_Selcted).SetActive(true);
                 }
 
-                if (JiYuUIHelper.TryGetUI(UIType.UICommon_ItemTips, out var ui1))
+                if (UnicornUIHelper.TryGetUI(UIType.UICommon_ItemTips, out var ui1))
                 {
-                      JiYuUIHelper.DestoryAllTips();;
+                      UnicornUIHelper.DestoryAllTips();;
                 }
             });
-            JiYuTweenHelper.DoScaleTweenOnClickAndLongPress(this.GetFromReference(KBtn_TecnologyDes), async () =>
+            UnicornTweenHelper.DoScaleTweenOnClickAndLongPress(this.GetFromReference(KBtn_TecnologyDes), async () =>
             {
-                JiYuUIHelper.DestoryAllTips();
+                UnicornUIHelper.DestoryAllTips();
                 var KText_Des = GetFromReference(UIPanel_Pass.KText_Des);
                 var desc = tbLanguage.Get("battletech_tips").current;
                 GetFromReference(KCommon_ItemTips).SetActive(!GetFromReference(KCommon_ItemTips).GameObject.activeSelf);
@@ -138,7 +138,7 @@ namespace XFramework
             Log.Debug($"isGuide{isGuide}");
             if (isGuide)
             {
-                if (JiYuUIHelper.TryGetUI(UIType.UISubPanel_Guid,out var ui))
+                if (UnicornUIHelper.TryGetUI(UIType.UISubPanel_Guid,out var ui))
                 {
                     ui.Dispose();
                 }
@@ -148,13 +148,13 @@ namespace XFramework
         {
             var KContainer_Tecnology = this.GetFromReference(UIPanel_BattleTecnology.KContainer_Tecnology);
             var guide = tbguide.DataList.Where(a => a.guideType == 312).FirstOrDefault();
-            if (ResourcesSingleton.Instance.settingData.GuideList.Contains(guide.group))
+            if (ResourcesSingletonOld.Instance.settingData.GuideList.Contains(guide.group))
             {
                 isGuide = true;
                 var guideUI = await UIHelper.CreateAsync(UIType.UISubPanel_Guid, guide.id);
                
                 var KImg_Bg = guideUI.GetFromReference(UISubPanel_Guid.KImg_Bg);
-                JiYuUIHelper.SetForceGuideRectUI(KContainer_Tecnology, KImg_Bg);
+                UnicornUIHelper.SetForceGuideRectUI(KContainer_Tecnology, KImg_Bg);
             }
         }
 
@@ -172,8 +172,8 @@ namespace XFramework
 
         protected override void OnClose()
         {
-            JiYuUIHelper.DestoryAllTips();
-            JiYuUIHelper.StartStopTime(true);
+            UnicornUIHelper.DestoryAllTips();
+            UnicornUIHelper.StartStopTime(true);
 
             base.OnClose();
         }
@@ -181,13 +181,13 @@ namespace XFramework
 
         // public void CloseThisPanel()
         // {
-        //     if (JiYuUIHelper.TryGetUI(UIType.UICommon_ItemTips, out var ui1))
+        //     if (UnicornUIHelper.TryGetUI(UIType.UICommon_ItemTips, out var ui1))
         //     {
-        //           JiYuUIHelper.DestoryAllTips();;
+        //           UnicornUIHelper.DestoryAllTips();;
         //     }
         //
-        //     JiYuUIHelper.StartStopTime(true);
-        //     if (JiYuUIHelper.TryGetUI(UIType.UIPanel_RunTimeHUD, out var ui))
+        //     UnicornUIHelper.StartStopTime(true);
+        //     if (UnicornUIHelper.TryGetUI(UIType.UIPanel_RunTimeHUD, out var ui))
         //     {
         //         var uiRuntime = ui as UIPanel_RunTimeHUD;
         //         uiRuntime.EnableInputBar();
@@ -281,7 +281,7 @@ namespace XFramework
         private int UpdateCurrentStag()
         {
             int bigState = 1, smallState = 1;
-            if (JiYuUIHelper.TryGetUI(UIType.UIPanel_RunTimeHUD, out var ui))
+            if (UnicornUIHelper.TryGetUI(UIType.UIPanel_RunTimeHUD, out var ui))
             {
                 var uiRuntime = ui as UIPanel_RunTimeHUD;
                 bigState = uiRuntime.bossState;
@@ -297,7 +297,7 @@ namespace XFramework
         {
             var tbConstant = ConfigManager.Instance.Tables.Tbbattle_constant;
 
-            //Ñ¡ÔñµÄ¼¼ÄÜid-index
+            //Ñ¡ï¿½ï¿½Ä¼ï¿½ï¿½ï¿½id-index
             Dictionary<int, int> selectedIndex =
                 new Dictionary<int, int>(tbConstant.Get("battletech_refresh_num").constantValue);
             int weights = UpdateTechAvailable(currentStag);
@@ -310,10 +310,10 @@ namespace XFramework
 
             while (count < needCount)
             {
-                //Ñ¡Ôñ³É¹¦
+                //Ñ¡ï¿½ï¿½É¹ï¿½
                 if (SelectOneNormalSkill(availableTechs[index % availableTechDic.Count], weights))
                 {
-                    //idÊÇ·ñÖØ¸´
+                    //idï¿½Ç·ï¿½ï¿½Ø¸ï¿½
                     if (selectedIndex.ContainsKey(availableTechs[index % availableTechDic.Count]))
                     {
                         index++;
@@ -400,7 +400,7 @@ namespace XFramework
                 }
             }
 
-            // Èç¹ûÉú³ÉµÄËæ»úÊýÐ¡ÓÚµÈÓÚ¸ø¶¨µÄ¸ÅÂÊ£¬Ôò±»Ñ¡ÖÐ
+            // ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Éµï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ð¡ï¿½Úµï¿½ï¿½Ú¸ï¿½ï¿½ï¿½ï¿½Ä¸ï¿½ï¿½Ê£ï¿½ï¿½ï¿½Ñ¡ï¿½ï¿½
             if (randomValue <= currentPower)
             {
                 return true;
@@ -414,7 +414,7 @@ namespace XFramework
         {
             GetFromReference(KContainer_Selcted)?.SetActive(true);
             GetFromReference(KContainer_Selcted_details)?.SetActive(false);
-            JiYuTweenHelper.DoScaleTweenOnClickAndLongPress(GetFromReference(KContainer_Selcted), OnClickContainer);
+            UnicornTweenHelper.DoScaleTweenOnClickAndLongPress(GetFromReference(KContainer_Selcted), OnClickContainer);
 
 
             for (int i = 0; i < displaySelectedTechs.Count; i++)
@@ -583,8 +583,8 @@ namespace XFramework
             var childs = tecnologyList.Children;
             foreach ( var child in childs)
             {
-                //JiYuTweenHelper.SetEaseAlphaAndPosB2U(child.GetFromReference(UIPanel_TechnologyItem.KBtn_Refresh),0);
-                JiYuTweenHelper.SetBookmarkSwing(child.GetFromReference(UIPanel_TechnologyItem.KBtn_Item).GetComponent<RectTransform>(),1,5,0.8f);
+                //UnicornTweenHelper.SetEaseAlphaAndPosB2U(child.GetFromReference(UIPanel_TechnologyItem.KBtn_Refresh),0);
+                UnicornTweenHelper.SetBookmarkSwing(child.GetFromReference(UIPanel_TechnologyItem.KBtn_Item).GetComponent<RectTransform>(),1,5,0.8f);
                 child.GetFromReference(UIPanel_TechnologyItem.KBtn_Item).GetComponent<CanvasGroup>().alpha = 0;
                 child.GetFromReference(UIPanel_TechnologyItem.KBtn_Item).GetComponent<CanvasGroup>().DOFade(1f, 0.5f).SetEase(Ease.InQuad).SetUpdate(true);
                 await UniTask.Delay(50,true);
@@ -592,7 +592,7 @@ namespace XFramework
             await UniTask.Delay(100, true);
             foreach (var child in childs)
             {
-                JiYuTweenHelper.SetEaseAlphaAndPosB2U(child.GetFromReference(UIPanel_TechnologyItem.KBtn_Refresh), 0);
+                UnicornTweenHelper.SetEaseAlphaAndPosB2U(child.GetFromReference(UIPanel_TechnologyItem.KBtn_Refresh), 0);
             }
 
             }

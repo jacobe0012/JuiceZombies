@@ -1,5 +1,5 @@
 //---------------------------------------------------------------------
-// JiYuStudio
+// UnicornStudio
 // Author: xxx
 // Time: #CreateTime#
 //---------------------------------------------------------------------
@@ -79,12 +79,12 @@ namespace XFramework
 
         public async void Initialize(int args, float pos)
         {
-            await JiYuUIHelper.InitBlur(this);
+            await UnicornUIHelper.InitBlur(this);
             activityId = args;
             this.pos = pos;
             InitJson();
             InitNode();
-            JiYuTweenHelper.PlayUIImageTranstionFX(this.GetFromReference(KImg_Title), cts.Token);
+            UnicornTweenHelper.PlayUIImageTranstionFX(this.GetFromReference(KImg_Title), cts.Token);
         }
 
         void InitJson()
@@ -120,7 +120,7 @@ namespace XFramework
 
         async UniTaskVoid InitNode()
         {
-            WebMessageHandlerOld.Instance.AddHandler(CMD.GETTASKSCORE, OnGetTaskResponse);
+            WebMessageHandlerOld.Instance.AddHandler(CMDOld.GETTASKSCORE, OnGetTaskResponse);
 
             var KScrollView = GetFromReference(UIPanel_MonopolyShop.KScrollView);
             var KBtn_Desc = GetFromReference(UIPanel_MonopolyShop.KBtn_Desc);
@@ -131,7 +131,7 @@ namespace XFramework
             var KImg_Title = GetFromReference(UIPanel_MonopolyShop.KImg_Title);
             //var KCommon_ItemTips = GetFromReference(UIPanel_MonopolyShop.KCommon_ItemTips);
             //var KText_Des = GetFromReference(UIPanel_MonopolyShop.KText_Des);
-            if (!ResourcesSingleton.Instance.activity.activityMap.ActivityMap_.TryGetValue(activityId,
+            if (!ResourcesSingletonOld.Instance.activity.activityMap.ActivityMap_.TryGetValue(activityId,
                     out var gameActivity))
             {
                 Close();
@@ -143,10 +143,10 @@ namespace XFramework
 
             m_RedDotName = NodeNames.GetTagFuncRedDotName(monopoly.tagFunc);
             diceItemReward = new Vector3(5, monopoly.diceItem, 1);
-            //string diceStr = $"x{JiYuUIHelper.GetRewardCount(diceReward)}";
+            //string diceStr = $"x{UnicornUIHelper.GetRewardCount(diceReward)}";
 
             string shopItemStr =
-                $"{JiYuUIHelper.GetRewardTextIconName(diceItemReward)}x{JiYuUIHelper.GetRewardCount(diceItemReward)}";
+                $"{UnicornUIHelper.GetRewardTextIconName(diceItemReward)}x{UnicornUIHelper.GetRewardCount(diceItemReward)}";
 
             KText_Title.GetTextMeshPro().SetTMPText(shopItemStr);
             KImg_Title.GetImage().SetSpriteAsync(monopoly.taskPic, true).Forget();
@@ -155,9 +155,9 @@ namespace XFramework
             //KCommon_ItemTips.SetActive(false);
             var descStr = tblanguage.Get("monopoly_task_desc").current;
 
-            descStr = string.Format(descStr, JiYuUIHelper.GetRewardName(diceItemReward));
+            descStr = string.Format(descStr, UnicornUIHelper.GetRewardName(diceItemReward));
             KText_Time.GetTextMeshPro().SetTMPText(descStr);
-            if (!ResourcesSingleton.Instance.activity.activityTaskDic.TryGetValue(activityId, out var taskList))
+            if (!ResourcesSingletonOld.Instance.activity.activityTaskDic.TryGetValue(activityId, out var taskList))
             {
                 return;
             }
@@ -212,7 +212,7 @@ namespace XFramework
             //     var desc = string.Format(tblanguage.Get(task_type.desc[0]).current, task.para[0]);
             //     KText_Name.GetTextMeshPro().SetTMPText(desc);
             //     KText_Cost.GetTextMeshPro()
-            //         .SetTMPText($"{JiYuUIHelper.GetRewardTextIconName(diceItemReward)}x{(int)task.reward[0].z}");
+            //         .SetTMPText($"{UnicornUIHelper.GetRewardTextIconName(diceItemReward)}x{(int)task.reward[0].z}");
             //     KText_Fill.GetTextMeshPro().SetTMPText(serverPara.ToString() + "/" + task.para[0]);
             //     float fillRatio =
             //         (float)serverPara / (float)task.para[0];
@@ -235,12 +235,12 @@ namespace XFramework
             //
             //     KText_Buy.GetTextMeshPro().SetTMPText(receiveStr);
             //
-            //     JiYuTweenHelper.DoScaleTweenOnClickAndLongPress(KBtn_Buy, () =>
+            //     UnicornTweenHelper.DoScaleTweenOnClickAndLongPress(KBtn_Buy, () =>
             //     {
             //         //TODO:ǰ����
             //         if (canReceive)
             //         {
-            //             NetWorkManager.Instance.SendMessage(CMD.GETTASKSCORE, new IntValue
+            //             NetWorkManager.Instance.SendMessage(CMDOld.GETTASKSCORE, new IntValue
             //             {
             //                 Value = gameTask.Id
             //             });
@@ -261,7 +261,7 @@ namespace XFramework
             loopRect.SetVerticalNormalizedPosition(pos);
             KBtn_Close.GetButton().OnClick.Add(() =>
             {
-                if (JiYuUIHelper.TryGetUI(UIType.UIPanel_Activity_Monopoly, out var ui))
+                if (UnicornUIHelper.TryGetUI(UIType.UIPanel_Activity_Monopoly, out var ui))
                 {
                     var uis = ui as UIPanel_Activity_Monopoly;
                     uis.Refresh();
@@ -291,7 +291,7 @@ namespace XFramework
                 return;
             }
 
-            var reward = JiYuUIHelper.TurnStrReward2List(taskResult.Reward);
+            var reward = UnicornUIHelper.TurnStrReward2List(taskResult.Reward);
             var ui = await UIHelper.CreateAsync(UIType.UICommon_Reward, reward);
             var KBtn_Close = ui.GetFromReference(UICommon_Reward.KBtn_Close);
             var KBg_Img = ui.GetFromReference(UICommon_Reward.KBg_Img);
@@ -301,7 +301,7 @@ namespace XFramework
 
         private async UniTaskVoid Refresh()
         {
-            NetWorkManager.Instance.SendMessage(CMD.QUERYACTIVITYTASK, new IntValue
+            NetWorkManager.Instance.SendMessage(CMDOld.QUERYACTIVITYTASK, new IntValue
             {
                 Value = activityId
             });
@@ -310,7 +310,7 @@ namespace XFramework
         public void ProvideData(UISubPanel_MonopolyTaskShopItem ui, int index)
         {
             //Log.Debug($"index {index}");
-            if (!ResourcesSingleton.Instance.activity.activityTaskDic.TryGetValue(activityId, out var taskList))
+            if (!ResourcesSingletonOld.Instance.activity.activityTaskDic.TryGetValue(activityId, out var taskList))
             {
                 return;
             }
@@ -345,7 +345,7 @@ namespace XFramework
             var desc = string.Format(tblanguage.Get(task_type.desc[0]).current, task.para[0]);
             KText_Name.GetTextMeshPro().SetTMPText(desc);
             KText_Cost.GetTextMeshPro()
-                .SetTMPText($"{JiYuUIHelper.GetRewardTextIconName(diceItemReward)}x{(int)task.reward[0].z}");
+                .SetTMPText($"{UnicornUIHelper.GetRewardTextIconName(diceItemReward)}x{(int)task.reward[0].z}");
             KText_Fill.GetTextMeshPro().SetTMPText(serverPara.ToString() + "/" + task.para[0]);
             float fillRatio =
                 (float)serverPara / (float)task.para[0];
@@ -376,12 +376,12 @@ namespace XFramework
 
             KText_Btn.GetTextMeshPro().SetTMPText(receiveStr);
 
-            JiYuTweenHelper.DoScaleTweenOnClickAndLongPress(KCommon_Btn, () =>
+            UnicornTweenHelper.DoScaleTweenOnClickAndLongPress(KCommon_Btn, () =>
             {
                 //TODO:ǰ����
                 if (canReceive)
                 {
-                    NetWorkManager.Instance.SendMessage(CMD.GETTASKSCORE, new IntValue
+                    NetWorkManager.Instance.SendMessage(CMDOld.GETTASKSCORE, new IntValue
                     {
                         Value = gameTask.Id
                     });
@@ -391,12 +391,12 @@ namespace XFramework
                     Log.Debug($"ǰ��");
                     var taskType = tbtask_type.Get(tbtask.Get(gameTask.Id).type);
 
-                    JiYuUIHelper.GoToSomePanel(taskType.goto0);
+                    UnicornUIHelper.GoToSomePanel(taskType.goto0);
                 }
             });
             if (index <5)
             {
-                JiYuTweenHelper.SetEaseAlphaAndPosB2U(ui.GetFromReference(UISubPanel_MonopolyTaskShopItem.KMid), 0, 50,
+                UnicornTweenHelper.SetEaseAlphaAndPosB2U(ui.GetFromReference(UISubPanel_MonopolyTaskShopItem.KMid), 0, 50,
          cancellationToken: cts.Token,
          0.35f + 0.02f * index, true, true);
             }
@@ -408,7 +408,7 @@ namespace XFramework
         {
             cts.Cancel();
             cts.Dispose();
-            WebMessageHandlerOld.Instance.RemoveHandler(CMD.GETTASKSCORE, OnGetTaskResponse);
+            WebMessageHandlerOld.Instance.RemoveHandler(CMDOld.GETTASKSCORE, OnGetTaskResponse);
             base.OnClose();
         }
     }

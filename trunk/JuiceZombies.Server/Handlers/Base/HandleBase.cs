@@ -13,18 +13,16 @@ public abstract class HandleBase
     const int Hour = 6;
     protected readonly MyPostgresDbContext _context;
     protected readonly IConnectionMultiplexer _redis;
-
-    protected readonly ConcurrentDictionary<WebSocket, string> _connections;
+    
 
     protected static MessagePackSerializerOptions options =
         MessagePackSerializerOptions.Standard.WithCompression(MessagePackCompression.Lz4Block);
 
-    public HandleBase(MyPostgresDbContext context, IConnectionMultiplexer redis,
-        ConcurrentDictionary<WebSocket, string> connections)
+    public HandleBase(MyPostgresDbContext context, IConnectionMultiplexer redis)
     {
         _context = context;
         _redis = redis;
-        _connections = connections;
+
     }
 
 
@@ -127,8 +125,16 @@ public struct Context
     public string inputContentStr;
     public string outputContentStr;
 }
-
+// 通用处理程序接口
+public interface ICommandHandler<T>
+{
+    Task<Context> HandleAsync(T command);
+}
 public interface ICommandHandler
 {
-    Task<Context> HandleAsync(MyMessage message, WebSocket webSocket);
+    Task<Context> HandleAsync(object command);
 }
+// public interface ICommandHandler
+// {
+//     Task<Context> HandleAsync(MyMessage message, WebSocket webSocket);
+// }

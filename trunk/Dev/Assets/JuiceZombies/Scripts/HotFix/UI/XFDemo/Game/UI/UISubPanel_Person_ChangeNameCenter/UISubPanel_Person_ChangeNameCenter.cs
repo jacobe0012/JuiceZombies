@@ -1,5 +1,5 @@
 //---------------------------------------------------------------------
-// JiYuStudio
+// UnicornStudio
 // Author: xxx
 // Time: #CreateTime#
 //---------------------------------------------------------------------
@@ -58,7 +58,7 @@ namespace XFramework
 
         public async void Initialize(CheckResult checkResult, int guideId = 0)
         {
-            await JiYuUIHelper.InitBlur(this);
+            await UnicornUIHelper.InitBlur(this);
             isFree = int.Parse(checkResult.Status);
             _guideId = guideId;
             if (isFree == 0)
@@ -74,7 +74,7 @@ namespace XFramework
             SelectStatus();
 
             this.GetFromReference(KInputField).GetComponent<TMP_InputField>().ActivateInputField();
-            JiYuTweenHelper.SetEaseAlphaAndPosB2U(this.GetFromReference(UISubPanel_Person_ChangeNameCenter.KBg), 0);
+            UnicornTweenHelper.SetEaseAlphaAndPosB2U(this.GetFromReference(UISubPanel_Person_ChangeNameCenter.KBg), 0);
         }
 
         private void DataInit()
@@ -102,7 +102,7 @@ namespace XFramework
             this.GetFromReference(KText_Desc).GetTextMeshPro()
                 .SetTMPText(tblanguage.Get("user_info_name_change_desc").current);
             this.GetFromReference(KPlaceholder).GetTextMeshPro()
-                .SetTMPText(ResourcesSingleton.Instance.UserInfo.Nickname);
+                .SetTMPText(ResourcesSingletonOld.Instance.UserInfo.Nickname);
             this.GetFromReference(KText_Input).GetTextMeshPro().SetTMPText("");
             this.GetFromReference(KInputField).GetComponent<TMP_InputField>().text = "";
             this.GetFromReference(KText_Free).GetTextMeshPro().SetTMPText(
@@ -115,14 +115,14 @@ namespace XFramework
         {
             this.GetFromReference(KBtn_BgClose).GetXButton().OnClick.Add(Close);
             var ClearBtn = this.GetFromReference(KBtn_Clear);
-            JiYuTweenHelper.DoScaleTweenOnClickAndLongPress(ClearBtn, () =>
+            UnicornTweenHelper.DoScaleTweenOnClickAndLongPress(ClearBtn, () =>
             {
                 this.GetFromReference(KInputField).GetComponent<TMP_InputField>().text = "";
                 this.GetFromReference(KText_Input).GetTextMeshPro().SetTMPText("");
             });
 
             var changeBtn = this.GetFromReference(KBtn_ChangeName);
-            JiYuTweenHelper.DoScaleTweenOnClickAndLongPress(changeBtn, () =>
+            UnicornTweenHelper.DoScaleTweenOnClickAndLongPress(changeBtn, () =>
             {
                 string nameStr = this.GetFromReference(KText_Input).GetTextMeshPro().Content;
                 nameStr = CleanStr(nameStr);
@@ -132,13 +132,13 @@ namespace XFramework
                 if (state)
                 {
                     //�򿪸������ƵĶ���ȷ�ϣ���ʱ�Ȳ��Ӷ���ȷ��
-                    ResourcesSingleton.Instance.UserInfo.Nickname = nameStr;
+                    ResourcesSingletonOld.Instance.UserInfo.Nickname = nameStr;
                     var str = new StringValue();
                     str.Value = nameStr;
                     Debug.Log(nameStr);
                     NetWorkManager.Instance.SendMessage(1, 6, str);
 
-                    if (JiYuUIHelper.TryGetUI(UIType.UIPanel_Main, out UI ui))
+                    if (UnicornUIHelper.TryGetUI(UIType.UIPanel_Main, out UI ui))
                     {
                         var uis = ui as UIPanel_Main;
                         uis.ChangePlayerInfo();
@@ -164,7 +164,7 @@ namespace XFramework
                     inCD = true;
                     this.GetFromReference(KText_InCD).GetTextMeshPro().SetTMPText(
                         tblanguage.Get("user_info_name_change_cd").current
-                        + JiYuUIHelper.GeneralTimeFormat(new int4(2, 3, 1, 1), CDS));
+                        + UnicornUIHelper.GeneralTimeFormat(new int4(2, 3, 1, 1), CDS));
                     this.GetFromReference(KBtn_ChangeName).SetActive(false);
                     this.GetFromReference(KText_InCD).SetActive(true);
                     this.GetFromReference(KImg_CardOrDiamond).SetActive(false);
@@ -263,7 +263,7 @@ namespace XFramework
 
         private async void CreatePrompt(string str)
         {
-            JiYuUIHelper.ClearCommonResource();
+            UnicornUIHelper.ClearCommonResource();
             await UIHelper.CreateAsync(UIType.UICommon_Resource, str);
         }
 
@@ -285,9 +285,9 @@ namespace XFramework
             {
                 if (isFree == 2)
                 {
-                    if (ResourcesSingleton.Instance.items.TryGetValue(1010001, out long value))
+                    if (ResourcesSingletonOld.Instance.items.TryGetValue(1010001, out long value))
                     {
-                        ResourcesSingleton.Instance.items[1010001] -= 1;
+                        ResourcesSingletonOld.Instance.items[1010001] -= 1;
                     }
                     else
                     {
@@ -296,16 +296,16 @@ namespace XFramework
                 }
                 else if (isFree == 3)
                 {
-                    ResourcesSingleton.Instance.UserInfo.RoleAssets.Bitcoin -=
+                    ResourcesSingletonOld.Instance.UserInfo.RoleAssets.Bitcoin -=
                         tbconstant.Get("change_name_cost").constantValue;
                 }
 
                 CreatePrompt(tblanguage.Get("user_info_name_change_success").current);
                 string namestr = this.GetFromReference(KText_Input).GetTextMeshPro().Content;
-                ResourcesSingleton.Instance.UserInfo.Nickname = namestr;
+                ResourcesSingletonOld.Instance.UserInfo.Nickname = namestr;
                 var parent = this.GetParent<UIPanel_Person>();
                 parent.UpdatePerson();
-                ResourcesSingleton.Instance.UpdateResourceUI();
+                ResourcesSingletonOld.Instance.UpdateResourceUI();
                 Close();
             }
         }
@@ -367,7 +367,7 @@ namespace XFramework
             WebMessageHandlerOld.Instance.RemoveHandler(1, 5, OnChangeStatusResponse);
             WebMessageHandlerOld.Instance.RemoveHandler(1, 6, OnChangeNameResponse);
 
-            if (_guideId > 0 && JiYuUIHelper.TryGetUI(UIType.UIPanel_Main, out UI ui))
+            if (_guideId > 0 && UnicornUIHelper.TryGetUI(UIType.UIPanel_Main, out UI ui))
             {
                 var uis = ui as UIPanel_Main;
                 uis.OnGuideIdFinished(_guideId);

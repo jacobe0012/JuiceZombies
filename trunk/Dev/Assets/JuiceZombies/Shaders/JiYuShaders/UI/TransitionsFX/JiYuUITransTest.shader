@@ -1,6 +1,6 @@
 // Made with Amplify Shader Editor v1.9.3.2
 // Available at the Unity Asset Store - http://u3d.as/y3X 
-Shader "JiYuStudio/JiYuUITransTest"
+Shader "UnicornStudio/JiYuUITransTest"
 {
 	Properties
 	{

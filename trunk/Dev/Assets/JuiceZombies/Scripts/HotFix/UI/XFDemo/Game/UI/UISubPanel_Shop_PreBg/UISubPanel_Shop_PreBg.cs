@@ -1,5 +1,5 @@
 //---------------------------------------------------------------------
-// JiYuStudio
+// UnicornStudio
 // Author: huangjinguo
 // Time: #CreateTime#
 //---------------------------------------------------------------------
@@ -112,7 +112,7 @@ namespace XFramework
             //    int ihelp = i;
             //    var uiRe = UIHelper.Create(UIType.UICommon_RewardItem, reList[ihelp],
             //            this.GetFromReference(KBg).GameObject.transform);
-            //    JiYuUIHelper.SetDefaultRect(uiRe);
+            //    UnicornUIHelper.SetDefaultRect(uiRe);
 
             //    uiList.Add(uiRe);
             //}

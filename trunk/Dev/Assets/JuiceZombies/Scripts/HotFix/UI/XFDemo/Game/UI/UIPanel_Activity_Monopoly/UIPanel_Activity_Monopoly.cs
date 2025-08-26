@@ -1,5 +1,5 @@
 //---------------------------------------------------------------------
-// JiYuStudio
+// UnicornStudio
 // Author: xxx
 // Time: #CreateTime#
 //---------------------------------------------------------------------
@@ -106,26 +106,26 @@ namespace XFramework
         public async void Initialize(int args)
         {
             GetFromReference(KImg_TitleBg).GetComponent<CanvasGroup>().alpha = 0;
-            await JiYuUIHelper.InitBlur(this);
+            await UnicornUIHelper.InitBlur(this);
 
             activityId = args;
             InitJson();
             var KImg_Title = GetFromReference(UIPanel_Activity_Monopoly.KImg_Title);
             //KImg_Title.SetActive(false);
-            WebMessageHandlerOld.Instance.AddHandler(CMD.QUERTSINGLEACTIVITY, OnMonopolyResponse);
+            WebMessageHandlerOld.Instance.AddHandler(CMDOld.QUERTSINGLEACTIVITY, OnMonopolyResponse);
 
-            NetWorkManager.Instance.SendMessage(CMD.QUERTSINGLEACTIVITY, new IntValue()
+            NetWorkManager.Instance.SendMessage(CMDOld.QUERTSINGLEACTIVITY, new IntValue()
             {
                 Value = activityId
             });
             SetCloseTip(GetFromReference(KBtn_Mask));
 
-            //long clientT = (long)(TimeHelper.ClientNowSeconds() - ResourcesSingleton.Instance.ServerDeltaTime / 1000f);
+            //long clientT = (long)(TimeHelper.ClientNowSeconds() - ResourcesSingletonOld.Instance.ServerDeltaTime / 1000f);
         }
 
         private void OnMonopolyResponse(object sender, WebMessageHandlerOld.Execute e)
         {
-            WebMessageHandlerOld.Instance.RemoveHandler(CMD.QUERTSINGLEACTIVITY, OnMonopolyResponse);
+            WebMessageHandlerOld.Instance.RemoveHandler(CMDOld.QUERTSINGLEACTIVITY, OnMonopolyResponse);
             GameActivity gameActivity = new GameActivity();
             gameActivity.MergeFrom(e.data);
             if (e.data.IsEmpty)
@@ -134,25 +134,25 @@ namespace XFramework
                 //return;
             }
 
-            if (ResourcesSingleton.Instance.activity.activityMap.ActivityMap_.ContainsKey(activityId))
+            if (ResourcesSingletonOld.Instance.activity.activityMap.ActivityMap_.ContainsKey(activityId))
             {
-                ResourcesSingleton.Instance.activity.activityMap.ActivityMap_[activityId] = gameActivity;
+                ResourcesSingletonOld.Instance.activity.activityMap.ActivityMap_[activityId] = gameActivity;
             }
             else
             {
-                ResourcesSingleton.Instance.activity.activityMap.ActivityMap_.Add(activityId,
+                ResourcesSingletonOld.Instance.activity.activityMap.ActivityMap_.Add(activityId,
                     gameActivity);
             }
 
-            NetWorkManager.Instance.SendMessage(CMD.QUERYACTIVITYTASK, new IntValue
+            NetWorkManager.Instance.SendMessage(CMDOld.QUERYACTIVITYTASK, new IntValue
             {
                 Value = activityId
             });
             var height1 = this.GetFromReference(KMid).GetRectTransform().AnchoredPosition().y;
-            JiYuTweenHelper.SetEaseAlphaAndPosB2U(this.GetFromReference(KMid), height1, 100, cts.Token, 0.3f, true,
+            UnicornTweenHelper.SetEaseAlphaAndPosB2U(this.GetFromReference(KMid), height1, 100, cts.Token, 0.3f, true,
                 true);
             //var height1 = this.GetFromReference(KContainerMid).GetRectTransform().AnchoredPosition().y;
-            //JiYuTweenHelper.SetEaseAlphaAndPosB2U(this.GetFromReference(KContainerMid), height1, 100, 0.3f, true, true);
+            //UnicornTweenHelper.SetEaseAlphaAndPosB2U(this.GetFromReference(KContainerMid), height1, 100, 0.3f, true, true);
 
             InitNode();
         }
@@ -191,8 +191,8 @@ namespace XFramework
 
         async void InitNode()
         {
-            WebMessageHandlerOld.Instance.AddHandler(CMD.MONOPOLYACTION, OnRollDiceResponse);
-            WebMessageHandlerOld.Instance.AddHandler(CMD.QUERYACTIVITYTASK, OnQueryMonopolyTaskResponse);
+            WebMessageHandlerOld.Instance.AddHandler(CMDOld.MONOPOLYACTION, OnRollDiceResponse);
+            WebMessageHandlerOld.Instance.AddHandler(CMDOld.QUERYACTIVITYTASK, OnQueryMonopolyTaskResponse);
             var KConTainer = GetFromReference(UIPanel_Activity_Monopoly.KConTainer);
             var KContaineTop = GetFromReference(UIPanel_Activity_Monopoly.KContaineTop);
             var KContainerMid = GetFromReference(UIPanel_Activity_Monopoly.KContainerMid);
@@ -224,7 +224,7 @@ namespace XFramework
             var KCommon_ItemTips = GetFromReference(UIPanel_Activity_Monopoly.KCommon_ItemTips);
             var KMonoPoly_Touzi = GetFromReference(UIPanel_Activity_Monopoly.KMonoPoly_Touzi);
             var KMidMask = GetFromReference(UIPanel_Activity_Monopoly.KMidMask);
-            KMidMask.GetButton().OnClick.Add(() => { JiYuUIHelper.DestoryAllTips(); });
+            KMidMask.GetButton().OnClick.Add(() => { UnicornUIHelper.DestoryAllTips(); });
 
             KMonoPoly_Touzi.SetActive(false);
             var RenderHeight = KContaineTop.GetRectTransform().Height() +
@@ -234,7 +234,7 @@ namespace XFramework
 
             KConTainer.GetRectTransform().SetAnchoredPositionY(-upOffset);
 
-            if (!ResourcesSingleton.Instance.activity.activityMap.ActivityMap_.TryGetValue(activityId,
+            if (!ResourcesSingletonOld.Instance.activity.activityMap.ActivityMap_.TryGetValue(activityId,
                     out var gameActivity))
             {
                 Close();
@@ -264,17 +264,17 @@ namespace XFramework
 
             
             string leftBtnStr =
-                $"{JiYuUIHelper.GetRewardTextIconName(shopItemReward)}{tblanguage.Get("monopoly_shop_button").current}";
+                $"{UnicornUIHelper.GetRewardTextIconName(shopItemReward)}{tblanguage.Get("monopoly_shop_button").current}";
             
             KText_ExchangeLeft.GetTextMeshPro().SetTMPText(leftBtnStr);
             KText_ExchangeRight.GetTextMeshPro().SetTMPText(tblanguage.Get("monopoly_task_button").current);
             string diceStr =
-                $"{JiYuUIHelper.GetRewardTextIconName(diceReward)}x{Mathf.Min(999, JiYuUIHelper.GetRewardCount(diceReward))}";
+                $"{UnicornUIHelper.GetRewardTextIconName(diceReward)}x{Mathf.Min(999, UnicornUIHelper.GetRewardCount(diceReward))}";
 
             string shopItemStr =
-                $"{JiYuUIHelper.GetRewardTextIconName(shopItemReward)}x{Mathf.Min(99999, JiYuUIHelper.GetRewardCount(shopItemReward))}";
+                $"{UnicornUIHelper.GetRewardTextIconName(shopItemReward)}x{Mathf.Min(99999, UnicornUIHelper.GetRewardCount(shopItemReward))}";
             string rewardStr =
-                $"{JiYuUIHelper.GetRewardTextIconName(shopItemReward)}x{gameActivity.MonopolyRecord.TokenWeight}";
+                $"{UnicornUIHelper.GetRewardTextIconName(shopItemReward)}x{gameActivity.MonopolyRecord.TokenWeight}";
             //string rewardStr = $"x{gameActivity.MonopolyRecord.TokenWeight}";
 
             KText_DiceNum.GetTextMeshPro().SetTMPText(diceStr);
@@ -283,7 +283,7 @@ namespace XFramework
 
             var itemStr = $"{m_RedDotName}|Pos0";
             KImg_RedDotMid.SetActive(RedDotManager.Instance.GetRedPointCnt(itemStr) > 0);
-            RedDotManager.Instance.SetRedPointCnt(itemStr, (int)JiYuUIHelper.GetRewardCount(diceReward));
+            RedDotManager.Instance.SetRedPointCnt(itemStr, (int)UnicornUIHelper.GetRewardCount(diceReward));
             var redGO = KImg_RedDotMid.GameObject;
             RedDotManager.Instance.AddListener(itemStr, (num) =>
             {
@@ -322,54 +322,54 @@ namespace XFramework
             SetPlayerPos(gameActivity.MonopolyRecord.MonopolyGridNum).Forget();
             //gameActivity.MonopolyRecord.
             StartTimer();
-            JiYuTweenHelper.DoScaleTweenOnClickAndLongPress(KBtn_Tip,
+            UnicornTweenHelper.DoScaleTweenOnClickAndLongPress(KBtn_Tip,
                 () => { KCommon_ItemTips.SetActive(!KCommon_ItemTips.GameObject.activeSelf); });
 
             KBtn_CloseMask.GetButton().OnClick.Add(() => { Close(); });
 
-            JiYuTweenHelper.JiYuOnClickNoAnim(KBtn_Dice, async () =>
+            UnicornTweenHelper.JiYuOnClickNoAnim(KBtn_Dice, async () =>
             {
                 Log.Debug($"OnDiceClick");
-                if (JiYuUIHelper.GetRewardCount(diceReward) <= 0)
+                if (UnicornUIHelper.GetRewardCount(diceReward) <= 0)
                 {
                     var ui = await UIHelper.CreateAsync(UIType.UIPanel_BuyDice, activityId);
-                    JiYuTweenHelper.SetScaleWithBounce(ui.GetFromReference(UIPanel_BuyDice.KBg),
+                    UnicornTweenHelper.SetScaleWithBounce(ui.GetFromReference(UIPanel_BuyDice.KBg),
                         cancellationToken: cts.Token);
                     return;
                 }
 
                 AudioManager.Instance.PlayFModAudio(1401);
                 //OnRollDiceResponse();
-                NetWorkManager.Instance.SendMessage(CMD.MONOPOLYACTION);
+                NetWorkManager.Instance.SendMessage(CMDOld.MONOPOLYACTION);
             }, 1f);
 
 
-            JiYuTweenHelper.DoScaleTweenOnClickAndLongPress(KBtn_Close, () => { Close(); });
-            JiYuTweenHelper.DoScaleTweenOnClickAndLongPress(KBtn_DiceAdd,
+            UnicornTweenHelper.DoScaleTweenOnClickAndLongPress(KBtn_Close, () => { Close(); });
+            UnicornTweenHelper.DoScaleTweenOnClickAndLongPress(KBtn_DiceAdd,
                 async () =>
                 {
                     var ui = await UIHelper.CreateAsync(UIType.UIPanel_BuyDice, activityId);
-                    JiYuTweenHelper.SetScaleWithBounce(ui.GetFromReference(UIPanel_BuyDice.KBg),
+                    UnicornTweenHelper.SetScaleWithBounce(ui.GetFromReference(UIPanel_BuyDice.KBg),
                         cancellationToken: cts.Token);
                 });
 
-            JiYuTweenHelper.DoScaleTweenOnClickAndLongPress(KBtn_ExchangeLeft,
-                () => { JiYuUIHelper.DestoryAllTips(); UIHelper.CreateAsync(UIType.UIPanel_MonopolyShop, activityId); });
+            UnicornTweenHelper.DoScaleTweenOnClickAndLongPress(KBtn_ExchangeLeft,
+                () => { UnicornUIHelper.DestoryAllTips(); UIHelper.CreateAsync(UIType.UIPanel_MonopolyShop, activityId); });
 
-            JiYuTweenHelper.DoScaleTweenOnClickAndLongPress(KBtn_ExchangeRight,
+            UnicornTweenHelper.DoScaleTweenOnClickAndLongPress(KBtn_ExchangeRight,
                 () =>
                 {
-                    JiYuUIHelper.DestoryAllTips();
-                    NetWorkManager.Instance.SendMessage(CMD.QUERYACTIVITYTASK, new IntValue
+                    UnicornUIHelper.DestoryAllTips();
+                    NetWorkManager.Instance.SendMessage(CMDOld.QUERYACTIVITYTASK, new IntValue
                     {
                         Value = activityId
                     });
                 });
-            JiYuTweenHelper.PlayUIImageTranstionFX(KImg_Title, cts.Token, "A1DD01", JiYuTweenHelper.UIDir.UpLeft);
+            UnicornTweenHelper.PlayUIImageTranstionFX(KImg_Title, cts.Token, "A1DD01", UnicornTweenHelper.UIDir.UpLeft);
             await UniTask.Delay(500, cancellationToken: cts.Token);
-            JiYuTweenHelper.PlayUIImageSweepFX(GetFromReference(UIPanel_Activity_Monopoly.KBtn_Dice), cts.Token,
+            UnicornTweenHelper.PlayUIImageSweepFX(GetFromReference(UIPanel_Activity_Monopoly.KBtn_Dice), cts.Token,
                 "FFFFFF");
-            JiYuTweenHelper.SetEaseAlphaAndPosRtoL(GetFromReference(KImg_TitleBg), 20, cancellationToken: cts.Token);
+            UnicornTweenHelper.SetEaseAlphaAndPosRtoL(GetFromReference(KImg_TitleBg), 20, cancellationToken: cts.Token);
         }
 
 
@@ -388,13 +388,13 @@ namespace XFramework
             var KText_DiceNum = GetFromReference(UIPanel_Activity_Monopoly.KText_DiceNum);
             var KText_Energy = GetFromReference(UIPanel_Activity_Monopoly.KText_Energy);
             string diceStr =
-                $"{JiYuUIHelper.GetRewardTextIconName(diceReward)}x{Mathf.Min(999, JiYuUIHelper.GetRewardCount(diceReward))}";
+                $"{UnicornUIHelper.GetRewardTextIconName(diceReward)}x{Mathf.Min(999, UnicornUIHelper.GetRewardCount(diceReward))}";
             string shopItemStr =
-                $"{JiYuUIHelper.GetRewardTextIconName(shopItemReward)}x{Mathf.Min(99999, JiYuUIHelper.GetRewardCount(shopItemReward))}";
+                $"{UnicornUIHelper.GetRewardTextIconName(shopItemReward)}x{Mathf.Min(99999, UnicornUIHelper.GetRewardCount(shopItemReward))}";
             KText_Energy.GetTextMeshPro().SetTMPText(shopItemStr);
             KText_DiceNum.GetTextMeshPro().SetTMPText(diceStr);
             var itemStr = $"{m_RedDotName}|Pos0";
-            RedDotManager.Instance.SetRedPointCnt(itemStr, (int)JiYuUIHelper.GetRewardCount(diceReward));
+            RedDotManager.Instance.SetRedPointCnt(itemStr, (int)UnicornUIHelper.GetRewardCount(diceReward));
         }
 
         async void InitGridList()
@@ -654,7 +654,7 @@ namespace XFramework
         }
         public void SetCloseTip(UI ui)
         {
-            ui.GetButton().OnClick?.Add(() => { JiYuUIHelper.DestoryAllTips(); ui.SetActive(false); });
+            ui.GetButton().OnClick?.Add(() => { UnicornUIHelper.DestoryAllTips(); ui.SetActive(false); });
         }
 
         public GameObject FindChildByName(Transform parent, string name)
@@ -807,11 +807,11 @@ namespace XFramework
                     await UniTask.Delay((int)(DustAnimDuration * 1000));
                 }
 
-                JiYuUIHelper.SetRewardOnClick(cell.reward[0], ui,GetFromReference(KBtn_Mask));
+                UnicornUIHelper.SetRewardOnClick(cell.reward[0], ui,GetFromReference(KBtn_Mask));
                 ui.SetActive(true);
                 var KBg_Item = ui.GetFromReference(UICommon_RewardItem.KBg_Item);
                 KBg_Item.SetActive(false);
-                JiYuTweenHelper.SetEaseAlphaAndScale(ui.GetFromReference(UICommon_RewardItem.KBtn_Item),
+                UnicornTweenHelper.SetEaseAlphaAndScale(ui.GetFromReference(UICommon_RewardItem.KBtn_Item),
                     cancellationToken: cts.Token);
                 ui.GetRectTransform().SetHeight(156);
                 ui.GetRectTransform().SetWidth(156);
@@ -821,7 +821,7 @@ namespace XFramework
                 var reward = cell.reward[0];
 
                 cellRect.gameObject.GetComponent<Image>().SetSprite(
-                    ResourcesManager.LoadAsset<Sprite>("monopoly_" + JiYuUIHelper.GetRewardQuality(reward).ToString()),
+                    ResourcesManager.LoadAsset<Sprite>("monopoly_" + UnicornUIHelper.GetRewardQuality(reward).ToString()),
                     false);
             }
 
@@ -830,7 +830,7 @@ namespace XFramework
                 EnableGridAnim(false, null, "Anim_Dust");
             }
 
-            JiYuUIHelper.ForceRefreshLayout(KCellList);
+            UnicornUIHelper.ForceRefreshLayout(KCellList);
         }
 
         /// <summary>
@@ -867,8 +867,8 @@ namespace XFramework
 
             var KText_Time = GetFromReference(UIPanel_Activity_Monopoly.KText_Time);
             string cdStr = tblanguage.Get("active_countdown_text").current;
-            long clientT = JiYuUIHelper.GetServerTimeStamp(true);
-            if (!JiYuUIHelper.TryGetRemainingTime(clientT, endTime, out var timeStr))
+            long clientT = UnicornUIHelper.GetServerTimeStamp(true);
+            if (!UnicornUIHelper.TryGetRemainingTime(clientT, endTime, out var timeStr))
             {
                 Close();
                 return;
@@ -896,12 +896,12 @@ namespace XFramework
                 }
 
                 //23:活动类型
-                // if (!JiYuUIHelper.TryGetActivityLink(23, out var activityId, out var link))
+                // if (!UnicornUIHelper.TryGetActivityLink(23, out var activityId, out var link))
                 // {
                 //     return;
                 // }
 
-                ResourcesSingleton.Instance.activity.activityTaskDic.TryRemove(activityId, out var list);
+                ResourcesSingletonOld.Instance.activity.activityTaskDic.TryRemove(activityId, out var list);
 
                 var tasks = new List<GameTaskInfo>();
                 Log.Debug($"gameTaskInfo", Color.green);
@@ -945,7 +945,7 @@ namespace XFramework
                 // var node = RedDotManager.Instance.GetNode(m_RedDotName);
                 // node.PrintTree();
 
-                ResourcesSingleton.Instance.activity.activityTaskDic.TryAdd(activityId, tasks);
+                ResourcesSingletonOld.Instance.activity.activityTaskDic.TryAdd(activityId, tasks);
             }
             else
             {
@@ -959,7 +959,7 @@ namespace XFramework
                 }
 
 
-                ResourcesSingleton.Instance.activity.activityTaskDic.TryRemove(activityId, out var list);
+                ResourcesSingletonOld.Instance.activity.activityTaskDic.TryRemove(activityId, out var list);
 
                 var tasks = new List<GameTaskInfo>();
                 foreach (var taskBytes in taskList.Values)
@@ -971,9 +971,9 @@ namespace XFramework
                     Log.Debug($"{gameTaskInfo.ToString()}", Color.green);
                 }
 
-                ResourcesSingleton.Instance.activity.activityTaskDic.TryAdd(activityId, tasks);
+                ResourcesSingletonOld.Instance.activity.activityTaskDic.TryAdd(activityId, tasks);
                 var pos = 0f;
-                if (JiYuUIHelper.TryGetUI(UIType.UIPanel_MonopolyTaskShop, out var ui))
+                if (UnicornUIHelper.TryGetUI(UIType.UIPanel_MonopolyTaskShop, out var ui))
                 {
                     var KScrollView = ui.GetFromReference(UIPanel_MonopolyTaskShop.KScrollView);
                     var loopRect = KScrollView.GetLoopScrollRect<UISubPanel_MonopolyTaskShopItem>();
@@ -1003,7 +1003,7 @@ namespace XFramework
             //     await UniTask.Delay(200);
             // }
 
-            if (!ResourcesSingleton.Instance.activity.activityMap.ActivityMap_.TryGetValue(activityId,
+            if (!ResourcesSingletonOld.Instance.activity.activityMap.ActivityMap_.TryGetValue(activityId,
                     out var gameActivity))
             {
                 Log.Error("没有大富翁的活动数据", Color.red);
@@ -1013,7 +1013,7 @@ namespace XFramework
             Log.Debug(
                 $"DiceNum{monopolyAction.DiceNum} GridIndex{monopolyAction.GridIndex} EventId{monopolyAction.EventId} TokenWeight{monopolyAction.TokenWeight} ",
                 Color.green);
-            if (!JiYuUIHelper.TryReduceReward(diceReward))
+            if (!UnicornUIHelper.TryReduceReward(diceReward))
             {
                 return;
             }
@@ -1028,7 +1028,7 @@ namespace XFramework
 
             Refresh();
             gameActivity.MonopolyRecord.MonopolyGridNum = monopolyAction.GridIndex;
-            var rewards = JiYuUIHelper.TurnStrReward2List(monopolyAction.ResourceList);
+            var rewards = UnicornUIHelper.TurnStrReward2List(monopolyAction.ResourceList);
             var KText_Lotto = GetFromReference(UIPanel_Activity_Monopoly.KText_Lotto);
             var KImg_Lotto = GetFromReference(UIPanel_Activity_Monopoly.KImg_Lotto);
             var KBtn_Mask = GetFromReference(UIPanel_Activity_Monopoly.KBtn_Mask);
@@ -1146,10 +1146,10 @@ namespace XFramework
 
         protected override void OnClose()
         {
-            JiYuUIHelper.DestoryAllTips();
-            WebMessageHandlerOld.Instance.RemoveHandler(CMD.QUERTSINGLEACTIVITY, OnMonopolyResponse);
-            WebMessageHandlerOld.Instance.RemoveHandler(CMD.MONOPOLYACTION, OnRollDiceResponse);
-            WebMessageHandlerOld.Instance.RemoveHandler(CMD.QUERYACTIVITYTASK, OnQueryMonopolyTaskResponse);
+            UnicornUIHelper.DestoryAllTips();
+            WebMessageHandlerOld.Instance.RemoveHandler(CMDOld.QUERTSINGLEACTIVITY, OnMonopolyResponse);
+            WebMessageHandlerOld.Instance.RemoveHandler(CMDOld.MONOPOLYACTION, OnRollDiceResponse);
+            WebMessageHandlerOld.Instance.RemoveHandler(CMDOld.QUERYACTIVITYTASK, OnQueryMonopolyTaskResponse);
             RedDotManager.Instance.ClearChildrenListeners(m_RedDotName);
             RemoveTimer();
             cts.Cancel();

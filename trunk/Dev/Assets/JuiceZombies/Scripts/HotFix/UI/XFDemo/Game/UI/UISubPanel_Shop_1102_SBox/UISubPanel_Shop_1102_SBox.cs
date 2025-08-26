@@ -1,5 +1,5 @@
 ﻿//---------------------------------------------------------------------
-// JiYuStudio
+// UnicornStudio
 // Author: huangjinguo
 // Time: #CreateTime#
 //---------------------------------------------------------------------
@@ -91,7 +91,7 @@ namespace XFramework
 
         public void Initialize(List<int> BoxInt)
         {
-            if (JiYuUIHelper.TryGetUI(UIType.UIPanel_Shop, out UI ui))
+            if (UnicornUIHelper.TryGetUI(UIType.UIPanel_Shop, out UI ui))
             {
                 parentUI = ui as UIPanel_Shop;
             }
@@ -124,7 +124,7 @@ namespace XFramework
             BtnOnClickInit();
             this.GetFromReference(KLimitedTimeBoxBg).GetImage().SetSpriteAsync(tbdraw_Box.Get(boxID).pic, false)
                 .Forget();
-            if (JiYuUIHelper.TryGetUI(UIType.UIPanel_Shop, out ui))
+            if (UnicornUIHelper.TryGetUI(UIType.UIPanel_Shop, out ui))
             {
                 var uis = ui as UIPanel_Shop;
                 if (uis.tagsTimes[0] >= 0)
@@ -183,20 +183,20 @@ namespace XFramework
 
             box.GetImage().SetAlpha(1);
 
-            JiYuTweenHelper.PlayUIImageTranstionFX(box, cts.Token, "8C50FF", JiYuTweenHelper.UIDir.Right);
-            JiYuTweenHelper.PlayUIImageSweepFX(tenBtn, cts.Token);
-            JiYuTweenHelper.PlayUIImageSweepFX(oneBtn, cts.Token);
-            JiYuTweenHelper.SetEaseAlphaAndPosUtoB(bg, 490, 800, cts.Token, 0.2f);
-            JiYuTweenHelper.SetEaseAlphaAndPosRtoL(tenBtn, 0, 200, cts.Token);
-            JiYuTweenHelper.SetEaseAlphaAndPosLtoR(oneBtn, 0, 200, cts.Token);
+            UnicornTweenHelper.PlayUIImageTranstionFX(box, cts.Token, "8C50FF", UnicornTweenHelper.UIDir.Right);
+            UnicornTweenHelper.PlayUIImageSweepFX(tenBtn, cts.Token);
+            UnicornTweenHelper.PlayUIImageSweepFX(oneBtn, cts.Token);
+            UnicornTweenHelper.SetEaseAlphaAndPosUtoB(bg, 490, 800, cts.Token, 0.2f);
+            UnicornTweenHelper.SetEaseAlphaAndPosRtoL(tenBtn, 0, 200, cts.Token);
+            UnicornTweenHelper.SetEaseAlphaAndPosLtoR(oneBtn, 0, 200, cts.Token);
             if (lessBtn.GameObject.activeSelf)
             {
-                JiYuTweenHelper.PlayUIImageSweepFX(lessBtn, cts.Token);
-                JiYuTweenHelper.SetEaseAlphaAndPosLtoR(lessBtn, 0, 150, cts.Token);
+                UnicornTweenHelper.PlayUIImageSweepFX(lessBtn, cts.Token);
+                UnicornTweenHelper.SetEaseAlphaAndPosLtoR(lessBtn, 0, 150, cts.Token);
             }
 
             await UniTask.Delay(300, cancellationToken: cts.Token);
-            JiYuTweenHelper.SetEaseAlphaAndScale(titleDes, 0.25f, true, 3, 1, cts.Token);
+            UnicornTweenHelper.SetEaseAlphaAndScale(titleDes, 0.25f, true, 3, 1, cts.Token);
         }
 
         public  void EnableEffectUIs(bool isEnable)
@@ -249,7 +249,7 @@ namespace XFramework
         {
             if (tbdraw_Box.Get(boxID).limitType == 2 || tbdraw_Box.Get(boxID).limitType == 4)
             {
-                foreach (var b in ResourcesSingleton.Instance.shopMap.IndexModuleMap[ModuleID].BoxInfoList)
+                foreach (var b in ResourcesSingletonOld.Instance.shopMap.IndexModuleMap[ModuleID].BoxInfoList)
                 {
                     if (b.Id == boxID)
                     {
@@ -288,7 +288,7 @@ namespace XFramework
         /// <param name="DrawInt"></param>
         public void DrawSetTxt(List<int> DrawInt)
         {
-            var boxList = ResourcesSingleton.Instance.shopMap.IndexModuleMap[ModuleID].BoxInfoList;
+            var boxList = ResourcesSingletonOld.Instance.shopMap.IndexModuleMap[ModuleID].BoxInfoList;
             int indexHelp = 0;
             for (int i = 0; i < boxList.Count; i++)
             {
@@ -301,26 +301,26 @@ namespace XFramework
 
             if (DrawInt.Count >= 2)
             {
-                //ResourcesSingleton.Instance.shopInit.shopHelpDic[boxInt[0]][boxInt[1]][0] = DrawInt[0];
-                //ResourcesSingleton.Instance.shopInit.shopHelpDic[boxInt[0]][boxInt[1]][1] = DrawInt[1];
-                //ResourcesSingleton.Instance.shopMap.IndexModuleMap[ModuleID].BoxInfoList[indexHelp].Numbers[0] = DrawInt[0];
-                //ResourcesSingleton.Instance.shopMap.IndexModuleMap[ModuleID].BoxInfoList[indexHelp].Numbers[1] = DrawInt[1];
+                //ResourcesSingletonOld.Instance.shopInit.shopHelpDic[boxInt[0]][boxInt[1]][0] = DrawInt[0];
+                //ResourcesSingletonOld.Instance.shopInit.shopHelpDic[boxInt[0]][boxInt[1]][1] = DrawInt[1];
+                //ResourcesSingletonOld.Instance.shopMap.IndexModuleMap[ModuleID].BoxInfoList[indexHelp].Numbers[0] = DrawInt[0];
+                //ResourcesSingletonOld.Instance.shopMap.IndexModuleMap[ModuleID].BoxInfoList[indexHelp].Numbers[1] = DrawInt[1];
                 if (tbdraw_Box.Get(boxID).tagFunc == 1102)
                 {
-                    ResourcesSingleton.Instance.shopMap.IndexModuleMap[ModuleID].BoxInfoList[indexHelp].Numbers[0] =
+                    ResourcesSingletonOld.Instance.shopMap.IndexModuleMap[ModuleID].BoxInfoList[indexHelp].Numbers[0] =
                         DrawInt[0];
-                    ResourcesSingleton.Instance.shopMap.IndexModuleMap[ModuleID].BoxInfoList[indexHelp].Numbers[1] =
+                    ResourcesSingletonOld.Instance.shopMap.IndexModuleMap[ModuleID].BoxInfoList[indexHelp].Numbers[1] =
                         DrawInt[1];
                 }
                 else if (tbdraw_Box.Get(boxID).tagFunc == 1101)
                 {
-                    string str0 = ResourcesSingleton.Instance.shopMap.IndexModuleMap[ModuleID].BoxInfoList[indexHelp]
+                    string str0 = ResourcesSingletonOld.Instance.shopMap.IndexModuleMap[ModuleID].BoxInfoList[indexHelp]
                         .DrawGuarantee[0];
-                    ResourcesSingleton.Instance.shopMap.IndexModuleMap[ModuleID].BoxInfoList[indexHelp]
+                    ResourcesSingletonOld.Instance.shopMap.IndexModuleMap[ModuleID].BoxInfoList[indexHelp]
                         .DrawGuarantee[0] = ReSetDrawGuarantee(str0, DrawInt[0]);
-                    string str1 = ResourcesSingleton.Instance.shopMap.IndexModuleMap[ModuleID].BoxInfoList[indexHelp]
+                    string str1 = ResourcesSingletonOld.Instance.shopMap.IndexModuleMap[ModuleID].BoxInfoList[indexHelp]
                         .DrawGuarantee[1];
-                    ResourcesSingleton.Instance.shopMap.IndexModuleMap[ModuleID].BoxInfoList[indexHelp]
+                    ResourcesSingletonOld.Instance.shopMap.IndexModuleMap[ModuleID].BoxInfoList[indexHelp]
                         .DrawGuarantee[1] = ReSetDrawGuarantee(str1, DrawInt[1]);
                 }
 
@@ -350,7 +350,7 @@ namespace XFramework
             //读取user_Variable表
             tbuser_Variable = ConfigManager.Instance.Tables.Tbuser_variable;
 
-            var boxList = ResourcesSingleton.Instance.shopMap.IndexModuleMap[ModuleID].BoxInfoList;
+            var boxList = ResourcesSingletonOld.Instance.shopMap.IndexModuleMap[ModuleID].BoxInfoList;
             int indexHelp = 0;
             for (int i = 0; i < boxList.Count; i++)
             {
@@ -368,22 +368,22 @@ namespace XFramework
             if (ModuleID == 1102)
             {
                 // Debug.Log("this module is 1102");
-                a1 = ResourcesSingleton.Instance.shopMap.IndexModuleMap[ModuleID].BoxInfoList[indexHelp].Numbers[0];
-                a2 = ResourcesSingleton.Instance.shopMap.IndexModuleMap[ModuleID].BoxInfoList[indexHelp].Numbers[1];
+                a1 = ResourcesSingletonOld.Instance.shopMap.IndexModuleMap[ModuleID].BoxInfoList[indexHelp].Numbers[0];
+                a2 = ResourcesSingletonOld.Instance.shopMap.IndexModuleMap[ModuleID].BoxInfoList[indexHelp].Numbers[1];
             }
             else if (ModuleID == 1101)
             {
-                //long a1 = ResourcesSingleton.Instance.shopMap.IndexModuleMap[ModuleID].BoxInfoList[indexHelp].Numbers[0];
-                //long a2 = ResourcesSingleton.Instance.shopMap.IndexModuleMap[ModuleID].BoxInfoList[indexHelp].Numbers[1];
+                //long a1 = ResourcesSingletonOld.Instance.shopMap.IndexModuleMap[ModuleID].BoxInfoList[indexHelp].Numbers[0];
+                //long a2 = ResourcesSingletonOld.Instance.shopMap.IndexModuleMap[ModuleID].BoxInfoList[indexHelp].Numbers[1];
 
-                a1 = GetDrawGuarantee(ResourcesSingleton.Instance.shopMap.IndexModuleMap[ModuleID]
+                a1 = GetDrawGuarantee(ResourcesSingletonOld.Instance.shopMap.IndexModuleMap[ModuleID]
                     .BoxInfoList[indexHelp].DrawGuarantee[0]);
-                a2 = GetDrawGuarantee(ResourcesSingleton.Instance.shopMap.IndexModuleMap[ModuleID]
+                a2 = GetDrawGuarantee(ResourcesSingletonOld.Instance.shopMap.IndexModuleMap[ModuleID]
                     .BoxInfoList[indexHelp].DrawGuarantee[1]);
             }
 
-            //long a1 = ResourcesSingleton.Instance.shopInit.shopHelpDic[boxInt[0]][boxInt[1]][0];
-            //long a2 = ResourcesSingleton.Instance.shopInit.shopHelpDic[boxInt[0]][boxInt[1]][1];
+            //long a1 = ResourcesSingletonOld.Instance.shopInit.shopHelpDic[boxInt[0]][boxInt[1]][0];
+            //long a2 = ResourcesSingletonOld.Instance.shopInit.shopHelpDic[boxInt[0]][boxInt[1]][1];
 
             string Sstr = language.Get(tbdraw_Box[BoxID].name).current;
             string SstrHelp = UnityHelper.RichTextSize(Sstr[0].ToString(), 85);
@@ -425,7 +425,7 @@ namespace XFramework
             var textRightUp = this.GetFromReference(KText_RightUp).GetTextMeshPro();
             GetFromReference(KImg_RightUp).SetActive(false);
             GetFromReference(KImg_RightBottom).SetActive(false);
-            var boxinformation = ResourcesSingleton.Instance.shopMap.IndexModuleMap[ModuleID].BoxInfoList[indexHelp];
+            var boxinformation = ResourcesSingletonOld.Instance.shopMap.IndexModuleMap[ModuleID].BoxInfoList[indexHelp];
             string str1 = language.Get("drawbox_type_1_text").current;
             string str2 = language.Get("drawbox_type_2_text").current;
             if (ModuleID == 1101)
@@ -437,7 +437,7 @@ namespace XFramework
                     long endTime = startTime + tbdraw_Box.Get(boxID).dateLimit;
                     long deltaTime = endTime - TimeHelper.ClientNowSeconds();
                     str1 = str1.Replace("{0}",
-                        UnityHelper.RichTextColor(JiYuUIHelper.GeneralTimeFormat(new int4(2, 4, 2, 1), deltaTime),
+                        UnityHelper.RichTextColor(UnicornUIHelper.GeneralTimeFormat(new int4(2, 4, 2, 1), deltaTime),
                             "30FC00"));
                     textRightBottom.SetTMPText(str1);
                 }
@@ -458,7 +458,7 @@ namespace XFramework
                     long endTime = startTime + tbdraw_Box.Get(boxID).dateLimit;
                     long deltaTime = endTime - TimeHelper.ClientNowSeconds();
                     str1 = str1.Replace("{0}",
-                        UnityHelper.RichTextColor(JiYuUIHelper.GeneralTimeFormat(new int4(2, 4, 2, 1), deltaTime),
+                        UnityHelper.RichTextColor(UnicornUIHelper.GeneralTimeFormat(new int4(2, 4, 2, 1), deltaTime),
                             "30FC00"));
 
                     str2 = str2.Replace("{0}",
@@ -517,7 +517,7 @@ namespace XFramework
         {
             long ItemNum;
             //读取钥匙数量
-            if (ResourcesSingleton.Instance.items.TryGetValue(tbdraw_Box[BoxID].item, out long value))
+            if (ResourcesSingletonOld.Instance.items.TryGetValue(tbdraw_Box[BoxID].item, out long value))
             {
                 ItemNum = value;
             }
@@ -544,12 +544,12 @@ namespace XFramework
                 this.GetFromReference(KPos_LessThanTen).SetActive(false);
                 if (ItemNum > 0 && ItemNum < 10)
                 {
-                    var str = JiYuUIHelper.GetRewardTextIconName(tbitem[tbdraw_Box[BoxID].item].icon);
+                    var str = UnicornUIHelper.GetRewardTextIconName(tbitem[tbdraw_Box[BoxID].item].icon);
                     //左边
 
                     this.GetFromReference(KOneText_Mid).GetTextMeshPro().SetTMPText(str + ItemNum.ToString() + "/1");
                     //右边
-                    str = JiYuUIHelper.GetRewardTextIconName(tbuser_Variable[2].icon);
+                    str = UnicornUIHelper.GetRewardTextIconName(tbuser_Variable[2].icon);
 
                     this.GetFromReference(KTenText_Mid).GetTextMeshPro()
                         .SetTMPText(str + tbdraw_Box[BoxID].ten.ToString());
@@ -563,7 +563,7 @@ namespace XFramework
                 }
                 else if (ItemNum >= 10)
                 {
-                    var str = JiYuUIHelper.GetRewardTextIconName(tbitem[tbdraw_Box[BoxID].item].icon);
+                    var str = UnicornUIHelper.GetRewardTextIconName(tbitem[tbdraw_Box[BoxID].item].icon);
                     //左边
                     this.GetFromReference(KOneText_Mid).GetTextMeshPro().SetTMPText(str + ItemNum.ToString() + "/1");
                     //右边
@@ -586,7 +586,7 @@ namespace XFramework
                     GetFromReference(KImg_OneRedPoint)?.SetActive(false);
                     GetFromReference(KImg_TenRedPoint)?.SetActive(false);
                     //没有钥匙
-                    var str = JiYuUIHelper.GetRewardTextIconName(tbuser_Variable[2].icon);
+                    var str = UnicornUIHelper.GetRewardTextIconName(tbuser_Variable[2].icon);
                     //左边
 
                     this.GetFromReference(KOneText_Mid).GetTextMeshPro()
@@ -610,7 +610,7 @@ namespace XFramework
                 if (tbdraw_Box.Get(BoxID).limitType == 3 || tbdraw_Box.Get(BoxID).limitType == 4)
                 {
                     int realdrawcount = 0;
-                    foreach (var bi in ResourcesSingleton.Instance.shopMap.IndexModuleMap[ModuleID].BoxInfoList)
+                    foreach (var bi in ResourcesSingletonOld.Instance.shopMap.IndexModuleMap[ModuleID].BoxInfoList)
                     {
                         if (bi.Id == BoxID)
                         {
@@ -667,13 +667,13 @@ namespace XFramework
                         //钥匙数量小于10
                         if (ItemNum > 0 && ItemNum < 10)
                         {
-                            var str = JiYuUIHelper.GetRewardTextIconName(tbitem[tbdraw_Box[BoxID].item].icon);
+                            var str = UnicornUIHelper.GetRewardTextIconName(tbitem[tbdraw_Box[BoxID].item].icon);
                             //左边
 
                             this.GetFromReference(KOneText_Mid).GetTextMeshPro()
                                 .SetTMPText(str + ItemNum.ToString() + "/1");
                             //右边
-                            str = JiYuUIHelper.GetRewardTextIconName(tbuser_Variable[2].icon);
+                            str = UnicornUIHelper.GetRewardTextIconName(tbuser_Variable[2].icon);
 
                             this.GetFromReference(KTenText_Mid).GetTextMeshPro()
                                 .SetTMPText(str + tbdraw_Box[BoxID].ten.ToString());
@@ -685,7 +685,7 @@ namespace XFramework
                         //钥匙数量大于10
                         else if (ItemNum >= 10)
                         {
-                            var str = JiYuUIHelper.GetRewardTextIconName(tbitem[tbdraw_Box[BoxID].item].icon);
+                            var str = UnicornUIHelper.GetRewardTextIconName(tbitem[tbdraw_Box[BoxID].item].icon);
                             //左边
                             this.GetFromReference(KOneText_Mid).GetTextMeshPro()
                                 .SetTMPText(str + ItemNum.ToString() + "/1");
@@ -700,7 +700,7 @@ namespace XFramework
                         }
                         else
                         {
-                            var str = JiYuUIHelper.GetRewardTextIconName(tbuser_Variable[2].icon);
+                            var str = UnicornUIHelper.GetRewardTextIconName(tbuser_Variable[2].icon);
                             //左边
 
                             this.GetFromReference(KOneText_Mid).GetTextMeshPro()
@@ -730,13 +730,13 @@ namespace XFramework
                     //钥匙不够十个
                     if (ItemNum > 0 && ItemNum < 10)
                     {
-                        var str = JiYuUIHelper.GetRewardTextIconName(tbitem[tbdraw_Box[BoxID].item].icon);
+                        var str = UnicornUIHelper.GetRewardTextIconName(tbitem[tbdraw_Box[BoxID].item].icon);
                         //左边
 
                         this.GetFromReference(KOneText_Mid).GetTextMeshPro()
                             .SetTMPText(str + ItemNum.ToString() + "/1");
                         //右边
-                        str = JiYuUIHelper.GetRewardTextIconName(tbuser_Variable[2].icon);
+                        str = UnicornUIHelper.GetRewardTextIconName(tbuser_Variable[2].icon);
 
                         this.GetFromReference(KTenText_Mid).GetTextMeshPro()
                             .SetTMPText(str + tbdraw_Box[BoxID].ten.ToString());
@@ -747,7 +747,7 @@ namespace XFramework
                     //钥匙大于10个
                     else if (ItemNum >= 10)
                     {
-                        var str = JiYuUIHelper.GetRewardTextIconName(tbitem[tbdraw_Box[BoxID].item].icon);
+                        var str = UnicornUIHelper.GetRewardTextIconName(tbitem[tbdraw_Box[BoxID].item].icon);
                         //左边
                         this.GetFromReference(KOneText_Mid).GetTextMeshPro()
                             .SetTMPText(str + ItemNum.ToString() + "/1");
@@ -762,7 +762,7 @@ namespace XFramework
                     }
                     else
                     {
-                        var str = JiYuUIHelper.GetRewardTextIconName(tbuser_Variable[2].icon);
+                        var str = UnicornUIHelper.GetRewardTextIconName(tbuser_Variable[2].icon);
                         //左边
 
                         this.GetFromReference(KOneText_Mid).GetTextMeshPro()
@@ -789,7 +789,7 @@ namespace XFramework
         /// <param name="leftBtn"></param>
         private void BtnOnClickLeft(UI leftBtn)
         {
-            JiYuUIHelper.DestoryAllTips();
+            UnicornUIHelper.DestoryAllTips();
             ///
             if (ModuleID == 1102)
             {
@@ -811,34 +811,34 @@ namespace XFramework
             //用钥匙购买
             if (keyNum > 0)
             {
-                ResourcesSingleton.Instance.items[tbdraw_Box[boxID].item] -= 1;
+                ResourcesSingletonOld.Instance.items[tbdraw_Box[boxID].item] -= 1;
             }
             else
             {
                 var needCostInt = tbdraw_Box[boxID].one;
-                var playerHave = ResourcesSingleton.Instance.UserInfo.RoleAssets.Bitcoin;
+                var playerHave = ResourcesSingletonOld.Instance.UserInfo.RoleAssets.Bitcoin;
                 if (needCostInt > playerHave)
                 {
-                    Vector3 v3 = new Vector3((int)JiYuUIHelper.Vector3Type.BITCOIN, 0, 0);
+                    Vector3 v3 = new Vector3((int)UnicornUIHelper.Vector3Type.BITCOIN, 0, 0);
                     v3.z = needCostInt - playerHave;
                     var uiTip = UIHelper.Create<Vector3>(UIType.UICommon_ResourceNotEnough, v3);
-                    JiYuUIHelper.SetResourceNotEnoughTip(uiTip, leftBtn);
+                    UnicornUIHelper.SetResourceNotEnoughTip(uiTip, leftBtn);
                 }
                 else
                 {
-                    ResourcesSingleton.Instance.UserInfo.RoleAssets.Bitcoin -= tbdraw_Box[boxID].one;
+                    ResourcesSingletonOld.Instance.UserInfo.RoleAssets.Bitcoin -= tbdraw_Box[boxID].one;
                 }
             }
 
             TxtInit(boxID);
 
-            if (!JiYuUIHelper.TryGetUI(UIType.UIPanel_Shop, out UI ui)) return;
+            if (!UnicornUIHelper.TryGetUI(UIType.UIPanel_Shop, out UI ui)) return;
 
             var uis = ui as UIPanel_Shop;
             var ui1102Sboxs = uis.GetAll1102SBox();
             Log.Debug($"dfadf dfd f:{ui1102Sboxs}");
             BtnRefresh(ui1102Sboxs);
-            ResourcesSingleton.Instance.UpdateResourceUI();
+            ResourcesSingletonOld.Instance.UpdateResourceUI();
         }
 
         private void BtnRefresh(List<UI> ui1102Sboxs)
@@ -854,7 +854,7 @@ namespace XFramework
                 long ItemNum;
                 int BoxID = ui1102.boxID;
                 //读取钥匙数量
-                if (ResourcesSingleton.Instance.items.TryGetValue(tbdraw_Box[BoxID].item, out long value))
+                if (ResourcesSingletonOld.Instance.items.TryGetValue(tbdraw_Box[BoxID].item, out long value))
                 {
                     ItemNum = value;
                 }
@@ -875,13 +875,13 @@ namespace XFramework
                     ui1102.GetFromReference(KPos_LessThanTen).SetActive(false);
                     if (ItemNum > 0 && ItemNum < 10)
                     {
-                        var str = JiYuUIHelper.GetRewardTextIconName(tbitem[tbdraw_Box[BoxID].item].icon);
+                        var str = UnicornUIHelper.GetRewardTextIconName(tbitem[tbdraw_Box[BoxID].item].icon);
                         //左边
 
                         ui1102.GetFromReference(KOneText_Mid).GetTextMeshPro()
                             .SetTMPText(str + ItemNum.ToString() + "/1");
                         //右边
-                        str = JiYuUIHelper.GetRewardTextIconName(tbuser_Variable[2].icon);
+                        str = UnicornUIHelper.GetRewardTextIconName(tbuser_Variable[2].icon);
 
                         ui1102.GetFromReference(KTenText_Mid).GetTextMeshPro()
                             .SetTMPText(str + tbdraw_Box[BoxID].ten.ToString());
@@ -895,7 +895,7 @@ namespace XFramework
                     }
                     else if (ItemNum >= 10)
                     {
-                        var str = JiYuUIHelper.GetRewardTextIconName(tbitem[tbdraw_Box[BoxID].item].icon);
+                        var str = UnicornUIHelper.GetRewardTextIconName(tbitem[tbdraw_Box[BoxID].item].icon);
                         //左边
                         ui1102.GetFromReference(KOneText_Mid).GetTextMeshPro()
                             .SetTMPText(str + ItemNum.ToString() + "/1");
@@ -920,7 +920,7 @@ namespace XFramework
                         ui1102.GetFromReference(KImg_OneRedPoint)?.SetActive(false);
                         ui1102.GetFromReference(KImg_TenRedPoint)?.SetActive(false);
                         //没有钥匙
-                        var str = JiYuUIHelper.GetRewardTextIconName(tbuser_Variable[2].icon);
+                        var str = UnicornUIHelper.GetRewardTextIconName(tbuser_Variable[2].icon);
                         //左边
 
                         ui1102.GetFromReference(KOneText_Mid).GetTextMeshPro()
@@ -944,7 +944,7 @@ namespace XFramework
                     if (tbdraw_Box.Get(BoxID).limitType == 3 || tbdraw_Box.Get(BoxID).limitType == 4)
                     {
                         int realdrawcount = 0;
-                        foreach (var bi in ResourcesSingleton.Instance.shopMap.IndexModuleMap[ui1102.ModuleID]
+                        foreach (var bi in ResourcesSingletonOld.Instance.shopMap.IndexModuleMap[ui1102.ModuleID]
                                      .BoxInfoList)
                         {
                             if (bi.Id == BoxID)
@@ -1003,13 +1003,13 @@ namespace XFramework
                             //钥匙数量小于10
                             if (ItemNum > 0 && ItemNum < 10)
                             {
-                                var str = JiYuUIHelper.GetRewardTextIconName(tbitem[tbdraw_Box[BoxID].item].icon);
+                                var str = UnicornUIHelper.GetRewardTextIconName(tbitem[tbdraw_Box[BoxID].item].icon);
                                 //左边
 
                                 ui1102.GetFromReference(KOneText_Mid).GetTextMeshPro()
                                     .SetTMPText(str + ItemNum.ToString() + "/1");
                                 //右边
-                                str = JiYuUIHelper.GetRewardTextIconName(tbuser_Variable[2].icon);
+                                str = UnicornUIHelper.GetRewardTextIconName(tbuser_Variable[2].icon);
 
                                 ui1102.GetFromReference(KTenText_Mid).GetTextMeshPro()
                                     .SetTMPText(str + tbdraw_Box[BoxID].ten.ToString());
@@ -1021,7 +1021,7 @@ namespace XFramework
                             //钥匙数量大于10
                             else if (ItemNum >= 10)
                             {
-                                var str = JiYuUIHelper.GetRewardTextIconName(tbitem[tbdraw_Box[BoxID].item].icon);
+                                var str = UnicornUIHelper.GetRewardTextIconName(tbitem[tbdraw_Box[BoxID].item].icon);
                                 //左边
                                 ui1102.GetFromReference(KOneText_Mid).GetTextMeshPro()
                                     .SetTMPText(str + ItemNum.ToString() + "/1");
@@ -1036,7 +1036,7 @@ namespace XFramework
                             }
                             else
                             {
-                                var str = JiYuUIHelper.GetRewardTextIconName(tbuser_Variable[2].icon);
+                                var str = UnicornUIHelper.GetRewardTextIconName(tbuser_Variable[2].icon);
                                 //左边
 
                                 ui1102.GetFromReference(KOneText_Mid).GetTextMeshPro()
@@ -1066,13 +1066,13 @@ namespace XFramework
                         //钥匙不够十个
                         if (ItemNum > 0 && ItemNum < 10)
                         {
-                            var str = JiYuUIHelper.GetRewardTextIconName(tbitem[tbdraw_Box[BoxID].item].icon);
+                            var str = UnicornUIHelper.GetRewardTextIconName(tbitem[tbdraw_Box[BoxID].item].icon);
                             //左边
 
                             ui1102.GetFromReference(KOneText_Mid).GetTextMeshPro()
                                 .SetTMPText(str + ItemNum.ToString() + "/1");
                             //右边
-                            str = JiYuUIHelper.GetRewardTextIconName(tbuser_Variable[2].icon);
+                            str = UnicornUIHelper.GetRewardTextIconName(tbuser_Variable[2].icon);
 
                             ui1102.GetFromReference(KTenText_Mid).GetTextMeshPro()
                                 .SetTMPText(str + tbdraw_Box[BoxID].ten.ToString());
@@ -1083,7 +1083,7 @@ namespace XFramework
                         //钥匙大于10个
                         else if (ItemNum >= 10)
                         {
-                            var str = JiYuUIHelper.GetRewardTextIconName(tbitem[tbdraw_Box[BoxID].item].icon);
+                            var str = UnicornUIHelper.GetRewardTextIconName(tbitem[tbdraw_Box[BoxID].item].icon);
                             //左边
                             ui1102.GetFromReference(KOneText_Mid).GetTextMeshPro()
                                 .SetTMPText(str + ItemNum.ToString() + "/1");
@@ -1098,7 +1098,7 @@ namespace XFramework
                         }
                         else
                         {
-                            var str = JiYuUIHelper.GetRewardTextIconName(tbuser_Variable[2].icon);
+                            var str = UnicornUIHelper.GetRewardTextIconName(tbuser_Variable[2].icon);
                             //左边
 
                             ui1102.GetFromReference(KOneText_Mid).GetTextMeshPro()
@@ -1127,7 +1127,7 @@ namespace XFramework
         /// <param name="rightBtn"></param>
         private void BtnOnClickRight(UI rightBtn)
         {
-            JiYuUIHelper.DestoryAllTips();
+            UnicornUIHelper.DestoryAllTips();
 
 
             if (ModuleID == 1102)
@@ -1150,38 +1150,38 @@ namespace XFramework
             //用钥匙购买
             if (keyNum > 0)
             {
-                ResourcesSingleton.Instance.items[tbdraw_Box[boxID].item] -= 10;
+                ResourcesSingletonOld.Instance.items[tbdraw_Box[boxID].item] -= 10;
             }
             else
             {
                 var needCostInt = tbdraw_Box[boxID].ten;
-                var playerHave = ResourcesSingleton.Instance.UserInfo.RoleAssets.Bitcoin;
+                var playerHave = ResourcesSingletonOld.Instance.UserInfo.RoleAssets.Bitcoin;
                 if (needCostInt > playerHave)
                 {
-                    Vector3 v3 = new Vector3((int)JiYuUIHelper.Vector3Type.BITCOIN, 0, 0);
+                    Vector3 v3 = new Vector3((int)UnicornUIHelper.Vector3Type.BITCOIN, 0, 0);
                     v3.z = needCostInt - playerHave;
                     var uiTip = UIHelper.Create<Vector3>(UIType.UICommon_ResourceNotEnough, v3);
-                    JiYuUIHelper.SetResourceNotEnoughTip(uiTip, rightBtn);
+                    UnicornUIHelper.SetResourceNotEnoughTip(uiTip, rightBtn);
                 }
                 else
                 {
-                    ResourcesSingleton.Instance.UserInfo.RoleAssets.Bitcoin -= tbdraw_Box[boxID].ten;
+                    ResourcesSingletonOld.Instance.UserInfo.RoleAssets.Bitcoin -= tbdraw_Box[boxID].ten;
                 }
             }
 
             TxtInit(boxID);
-            if (!JiYuUIHelper.TryGetUI(UIType.UIPanel_Shop, out UI ui)) return;
+            if (!UnicornUIHelper.TryGetUI(UIType.UIPanel_Shop, out UI ui)) return;
 
             var uis = ui as UIPanel_Shop;
             var ui1102Sboxs = uis.GetAll1102SBox();
             Log.Debug($"dfadf dfd f:{ui1102Sboxs}");
             BtnRefresh(ui1102Sboxs);
-            ResourcesSingleton.Instance.UpdateResourceUI();
+            ResourcesSingletonOld.Instance.UpdateResourceUI();
         }
 
         private void BtnOnClickMid(UI midBtn)
         {
-            JiYuUIHelper.DestoryAllTips();
+            UnicornUIHelper.DestoryAllTips();
 
             drawNum = 1;
             WebMessageHandlerOld.Instance.AddHandler(11, 14, OnClick1101BoxBtnResponse);
@@ -1192,33 +1192,33 @@ namespace XFramework
             //用钥匙购买
             if (keyNum > 0)
             {
-                ResourcesSingleton.Instance.items[tbdraw_Box[boxID].item] -= 1;
+                ResourcesSingletonOld.Instance.items[tbdraw_Box[boxID].item] -= 1;
             }
             else
             {
                 var needCostInt = tbdraw_Box[boxID].one;
-                var playerHave = ResourcesSingleton.Instance.UserInfo.RoleAssets.Bitcoin;
+                var playerHave = ResourcesSingletonOld.Instance.UserInfo.RoleAssets.Bitcoin;
                 if (needCostInt > playerHave)
                 {
-                    Vector3 v3 = new Vector3((int)JiYuUIHelper.Vector3Type.BITCOIN, 0, 0);
+                    Vector3 v3 = new Vector3((int)UnicornUIHelper.Vector3Type.BITCOIN, 0, 0);
                     v3.z = needCostInt - playerHave;
                     var uiTip = UIHelper.Create<Vector3>(UIType.UICommon_ResourceNotEnough, v3);
-                    JiYuUIHelper.SetResourceNotEnoughTip(uiTip, midBtn);
+                    UnicornUIHelper.SetResourceNotEnoughTip(uiTip, midBtn);
                 }
                 else
                 {
-                    ResourcesSingleton.Instance.UserInfo.RoleAssets.Bitcoin -= tbdraw_Box[boxID].one;
+                    ResourcesSingletonOld.Instance.UserInfo.RoleAssets.Bitcoin -= tbdraw_Box[boxID].one;
                 }
             }
 
             TxtInit(boxID);
-            if (!JiYuUIHelper.TryGetUI(UIType.UIPanel_Shop, out UI ui)) return;
+            if (!UnicornUIHelper.TryGetUI(UIType.UIPanel_Shop, out UI ui)) return;
 
             var uis = ui as UIPanel_Shop;
             var ui1102Sboxs = uis.GetAll1102SBox();
             Log.Debug($"dfadf dfd f:{ui1102Sboxs}");
             BtnRefresh(ui1102Sboxs);
-            ResourcesSingleton.Instance.UpdateResourceUI();
+            ResourcesSingletonOld.Instance.UpdateResourceUI();
         }
 
         private void BtnOnClickPre()
@@ -1249,8 +1249,8 @@ namespace XFramework
             //var ui = UIHelper.Create<List<Vector3>>(UIType.UISubPanel_Shop_Draw, RewardList);
             //ui.SetParent(this, false);
 
-            //ResourcesSingleton.Instance.shopInit.shopHelpDic[boxInt[0]][boxInt[1]][0] = drawInfo.Guarantee[0];
-            //ResourcesSingleton.Instance.shopInit.shopHelpDic[boxInt[0]][boxInt[1]][1] = drawInfo.Guarantee[1];
+            //ResourcesSingletonOld.Instance.shopInit.shopHelpDic[boxInt[0]][boxInt[1]][0] = drawInfo.Guarantee[0];
+            //ResourcesSingletonOld.Instance.shopInit.shopHelpDic[boxInt[0]][boxInt[1]][1] = drawInfo.Guarantee[1];
 
             //TxtInit(boxID);
             //BtnTxtInit(boxID);
@@ -1273,7 +1273,7 @@ namespace XFramework
             });
             ui.SetParent(this, false);
 
-            var boxList = ResourcesSingleton.Instance.shopMap.IndexModuleMap[ModuleID].BoxInfoList;
+            var boxList = ResourcesSingletonOld.Instance.shopMap.IndexModuleMap[ModuleID].BoxInfoList;
             int indexHelp = 0;
             for (int i = 0; i < boxList.Count; i++)
             {
@@ -1286,29 +1286,29 @@ namespace XFramework
 
             if (tbdraw_Box.Get(boxID).tagFunc == 1102)
             {
-                ResourcesSingleton.Instance.shopMap.IndexModuleMap[ModuleID].BoxInfoList[indexHelp].Numbers[0] =
+                ResourcesSingletonOld.Instance.shopMap.IndexModuleMap[ModuleID].BoxInfoList[indexHelp].Numbers[0] =
                     drawInfo.Guarantee[0];
-                ResourcesSingleton.Instance.shopMap.IndexModuleMap[ModuleID].BoxInfoList[indexHelp].Numbers[1] =
+                ResourcesSingletonOld.Instance.shopMap.IndexModuleMap[ModuleID].BoxInfoList[indexHelp].Numbers[1] =
                     drawInfo.Guarantee[1];
             }
             else if (tbdraw_Box.Get(boxID).tagFunc == 1101)
             {
-                string str0 = ResourcesSingleton.Instance.shopMap.IndexModuleMap[ModuleID].BoxInfoList[indexHelp]
+                string str0 = ResourcesSingletonOld.Instance.shopMap.IndexModuleMap[ModuleID].BoxInfoList[indexHelp]
                     .DrawGuarantee[0];
-                ResourcesSingleton.Instance.shopMap.IndexModuleMap[ModuleID].BoxInfoList[indexHelp].DrawGuarantee[0] =
+                ResourcesSingletonOld.Instance.shopMap.IndexModuleMap[ModuleID].BoxInfoList[indexHelp].DrawGuarantee[0] =
                     ReSetDrawGuarantee(str0, drawInfo.Guarantee[0]);
-                string str1 = ResourcesSingleton.Instance.shopMap.IndexModuleMap[ModuleID].BoxInfoList[indexHelp]
+                string str1 = ResourcesSingletonOld.Instance.shopMap.IndexModuleMap[ModuleID].BoxInfoList[indexHelp]
                     .DrawGuarantee[1];
-                ResourcesSingleton.Instance.shopMap.IndexModuleMap[ModuleID].BoxInfoList[indexHelp].DrawGuarantee[1] =
+                ResourcesSingletonOld.Instance.shopMap.IndexModuleMap[ModuleID].BoxInfoList[indexHelp].DrawGuarantee[1] =
                     ReSetDrawGuarantee(str1, drawInfo.Guarantee[1]);
             }
 
-            //ResourcesSingleton.Instance.shopInit.shopHelpDic[boxInt[0]][boxInt[1]][0] = drawInfo.Guarantee[0];
-            //ResourcesSingleton.Instance.shopInit.shopHelpDic[boxInt[0]][boxInt[1]][1] = drawInfo.Guarantee[1];
+            //ResourcesSingletonOld.Instance.shopInit.shopHelpDic[boxInt[0]][boxInt[1]][0] = drawInfo.Guarantee[0];
+            //ResourcesSingletonOld.Instance.shopInit.shopHelpDic[boxInt[0]][boxInt[1]][1] = drawInfo.Guarantee[1];
 
             TxtInit(boxID);
             BtnTxtInit(boxID);
-            ResourcesSingleton.Instance.UpdateResourceUI();
+            ResourcesSingletonOld.Instance.UpdateResourceUI();
         }
 
         private void OnClick1101BoxBtnResponse(object sender, WebMessageHandlerOld.Execute e)
@@ -1340,7 +1340,7 @@ namespace XFramework
             ui.SetParent(this, false);
 
 
-            var boxList = ResourcesSingleton.Instance.shopMap.IndexModuleMap[ModuleID].BoxInfoList;
+            var boxList = ResourcesSingletonOld.Instance.shopMap.IndexModuleMap[ModuleID].BoxInfoList;
             int indexHelp = 0;
             for (int i = 0; i < boxList.Count; i++)
             {
@@ -1353,28 +1353,28 @@ namespace XFramework
 
             if (tbdraw_Box.Get(boxID).tagFunc == 1102)
             {
-                ResourcesSingleton.Instance.shopMap.IndexModuleMap[ModuleID].BoxInfoList[indexHelp].Numbers[0] =
+                ResourcesSingletonOld.Instance.shopMap.IndexModuleMap[ModuleID].BoxInfoList[indexHelp].Numbers[0] =
                     drawInfo.Guarantee[0];
-                ResourcesSingleton.Instance.shopMap.IndexModuleMap[ModuleID].BoxInfoList[indexHelp].Numbers[1] =
+                ResourcesSingletonOld.Instance.shopMap.IndexModuleMap[ModuleID].BoxInfoList[indexHelp].Numbers[1] =
                     drawInfo.Guarantee[1];
             }
             else if (tbdraw_Box.Get(boxID).tagFunc == 1101)
             {
-                string str0 = ResourcesSingleton.Instance.shopMap.IndexModuleMap[ModuleID].BoxInfoList[indexHelp]
+                string str0 = ResourcesSingletonOld.Instance.shopMap.IndexModuleMap[ModuleID].BoxInfoList[indexHelp]
                     .DrawGuarantee[0];
-                ResourcesSingleton.Instance.shopMap.IndexModuleMap[ModuleID].BoxInfoList[indexHelp].DrawGuarantee[0] =
+                ResourcesSingletonOld.Instance.shopMap.IndexModuleMap[ModuleID].BoxInfoList[indexHelp].DrawGuarantee[0] =
                     ReSetDrawGuarantee(str0, drawInfo.Guarantee[0]);
-                string str1 = ResourcesSingleton.Instance.shopMap.IndexModuleMap[ModuleID].BoxInfoList[indexHelp]
+                string str1 = ResourcesSingletonOld.Instance.shopMap.IndexModuleMap[ModuleID].BoxInfoList[indexHelp]
                     .DrawGuarantee[1];
-                ResourcesSingleton.Instance.shopMap.IndexModuleMap[ModuleID].BoxInfoList[indexHelp].DrawGuarantee[1] =
+                ResourcesSingletonOld.Instance.shopMap.IndexModuleMap[ModuleID].BoxInfoList[indexHelp].DrawGuarantee[1] =
                     ReSetDrawGuarantee(str1, drawInfo.Guarantee[1]);
             }
 
             if (tbdraw_Box.Get(boxID).limitType == 3 || tbdraw_Box.Get(boxID).limitType == 4)
             {
-                ResourcesSingleton.Instance.shopMap.IndexModuleMap[ModuleID].BoxInfoList[indexHelp].DrawCount -=
+                ResourcesSingletonOld.Instance.shopMap.IndexModuleMap[ModuleID].BoxInfoList[indexHelp].DrawCount -=
                     RewardList.Count - 1;
-                if (ResourcesSingleton.Instance.shopMap.IndexModuleMap[ModuleID].BoxInfoList[indexHelp].DrawCount <= 0)
+                if (ResourcesSingletonOld.Instance.shopMap.IndexModuleMap[ModuleID].BoxInfoList[indexHelp].DrawCount <= 0)
                 {
                     ParentReSet();
                 }
@@ -1383,7 +1383,7 @@ namespace XFramework
 
             TxtInit(boxID);
             BtnTxtInit(boxID);
-            ResourcesSingleton.Instance.UpdateResourceUI();
+            ResourcesSingletonOld.Instance.UpdateResourceUI();
         }
 
         public void ParentReSet()
@@ -1395,13 +1395,13 @@ namespace XFramework
         private void BtnOnClickInit()
         {
             var leftBtn = this.GetFromReference(KOneTimeBtn);
-            JiYuTweenHelper.DoScaleTweenOnClickAndLongPress(leftBtn, () => BtnOnClickLeft(leftBtn));
+            UnicornTweenHelper.DoScaleTweenOnClickAndLongPress(leftBtn, () => BtnOnClickLeft(leftBtn));
             var RightBtn = this.GetFromReference(KTenTimesBtn);
-            JiYuTweenHelper.DoScaleTweenOnClickAndLongPress(RightBtn, () => BtnOnClickRight(RightBtn));
+            UnicornTweenHelper.DoScaleTweenOnClickAndLongPress(RightBtn, () => BtnOnClickRight(RightBtn));
             var PreviewBtn = this.GetFromReference(KPreviewBtn);
-            JiYuTweenHelper.DoScaleTweenOnClickAndLongPress(PreviewBtn, BtnOnClickPre);
+            UnicornTweenHelper.DoScaleTweenOnClickAndLongPress(PreviewBtn, BtnOnClickPre);
             var midBtn = this.GetFromReference(KBtn_LessThanTen);
-            JiYuTweenHelper.DoScaleTweenOnClickAndLongPress(midBtn, () => BtnOnClickMid(midBtn));
+            UnicornTweenHelper.DoScaleTweenOnClickAndLongPress(midBtn, () => BtnOnClickMid(midBtn));
         }
 
         protected override void OnClose()

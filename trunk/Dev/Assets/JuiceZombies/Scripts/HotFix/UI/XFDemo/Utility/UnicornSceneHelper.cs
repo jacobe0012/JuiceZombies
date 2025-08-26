@@ -1,6 +1,6 @@
 ﻿//---------------------------------------------------------------------
-// JiYuStudio
-// Author: 格伦
+// UnicornStudio
+// Author: jaco0012
 // Time: 2025-04-17 11:25:25
 //---------------------------------------------------------------------
 
@@ -38,7 +38,7 @@ namespace HotFix_UI
     /// <summary>
     /// 切换游戏内外/登录等的方法
     /// </summary>
-    public static class JiYuSceneHelper
+    public static class UnicornSceneHelper
     {
         public static void RestartApplication()
         {
@@ -89,7 +89,7 @@ namespace HotFix_UI
         {
             Log.Debug($"进入RunTime场景");
             InitShader();
-            ResourcesSingleton.Instance.FromRunTimeScene = true;
+            ResourcesSingletonOld.Instance.FromRunTimeScene = true;
             InitRunTimeScene().Forget();
         }
 
@@ -230,7 +230,7 @@ namespace HotFix_UI
 
             var levelConfig = ConfigManager.Instance.Tables.Tblevel;
             var monsterTemplateConfig = ConfigManager.Instance.Tables.Tbmonster_template;
-            int levelId = ResourcesSingleton.Instance.levelInfo.levelId;
+            int levelId = ResourcesSingletonOld.Instance.levelInfo.levelId;
             int sceneId = ConfigManager.Instance.Tables.Tblevel.Get(levelId).sceneId;
             int monsterRefreshId = ConfigManager.Instance.Tables.Tbscene.Get(sceneId)
                 .monsterTemplateId;
@@ -365,7 +365,7 @@ namespace HotFix_UI
             {
                 allAudioClips = AudioManager.Instance.InitRunTimeAudio(),
                 //animations = anims,
-                levelId = ResourcesSingleton.Instance.levelInfo.levelId,
+                levelId = ResourcesSingletonOld.Instance.levelInfo.levelId,
                 sceneId = sceneId,
                 monsterRefreshId = monsterRefreshId,
                 pickupDuration = 1000,

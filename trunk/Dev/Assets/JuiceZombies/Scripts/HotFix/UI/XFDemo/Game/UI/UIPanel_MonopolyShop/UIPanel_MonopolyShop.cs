@@ -1,5 +1,5 @@
 //---------------------------------------------------------------------
-// JiYuStudio
+// UnicornStudio
 // Author: xxx
 // Time: #CreateTime#
 //---------------------------------------------------------------------
@@ -74,14 +74,14 @@ namespace XFramework
 
         public async void Initialize(int args)
         {
-            await JiYuUIHelper.InitBlur(this);
+            await UnicornUIHelper.InitBlur(this);
             activityId = args;
             InitJson();
             InitNode();
-            JiYuTweenHelper.SetEaseAlphaAndScaleWithFour(GetFromReference(KTip), cancellationToken: cts.Token);
+            UnicornTweenHelper.SetEaseAlphaAndScaleWithFour(GetFromReference(KTip), cancellationToken: cts.Token);
             GetFromReference(KTip).GetComponent<CanvasGroup>().alpha = 0f;
             GetFromReference(KTip).GetComponent<CanvasGroup>().DOFade(1f, 1.5f).SetEase(Ease.InQuad).SetUpdate(true);
-            JiYuTweenHelper.PlayUIImageTranstionFX(this.GetFromReference(KImg_Title),cts.Token,"A1DD01",JiYuTweenHelper.UIDir.UpRight);
+            UnicornTweenHelper.PlayUIImageTranstionFX(this.GetFromReference(KImg_Title),cts.Token,"A1DD01",UnicornTweenHelper.UIDir.UpRight);
         }
 
         void InitJson()
@@ -113,7 +113,7 @@ namespace XFramework
 
         async UniTaskVoid InitNode()
         {
-            WebMessageHandlerOld.Instance.AddHandler(CMD.MONOEXCHANGE, OnExchangeResponse);
+            WebMessageHandlerOld.Instance.AddHandler(CMDOld.MONOEXCHANGE, OnExchangeResponse);
             var KScrollView = GetFromReference(UIPanel_MonopolyShop.KScrollView);
             var KBtn_Desc = GetFromReference(UIPanel_MonopolyShop.KBtn_Desc);
             var KText_Title = GetFromReference(UIPanel_MonopolyShop.KText_Title);
@@ -122,7 +122,7 @@ namespace XFramework
             var KImg_Title = GetFromReference(UIPanel_MonopolyShop.KImg_Title);
             var KCommon_ItemTips = GetFromReference(UIPanel_MonopolyShop.KCommon_ItemTips);
             var KText_Des = GetFromReference(UIPanel_MonopolyShop.KText_Des);
-            if (!ResourcesSingleton.Instance.activity.activityMap.ActivityMap_.TryGetValue(activityId,
+            if (!ResourcesSingletonOld.Instance.activity.activityMap.ActivityMap_.TryGetValue(activityId,
                     out var gameActivity))
             {
                 Close();
@@ -140,17 +140,17 @@ namespace XFramework
 
             shopItemReward = new Vector3(5, monopoly.shopItem, 1);
             var diceReward = new Vector3(5, monopoly.diceItem, 1);
-            //string diceStr = $"x{JiYuUIHelper.GetRewardCount(diceReward)}
+            //string diceStr = $"x{UnicornUIHelper.GetRewardCount(diceReward)}
 
             string shopItemStr =
-                $"{JiYuUIHelper.GetRewardTextIconName(shopItemReward)}x{JiYuUIHelper.GetRewardCount(shopItemReward)}";
+                $"{UnicornUIHelper.GetRewardTextIconName(shopItemReward)}x{UnicornUIHelper.GetRewardCount(shopItemReward)}";
 
 
             KText_Title.GetTextMeshPro().SetTMPText(shopItemStr);
             KImg_Title.GetImage().SetSpriteAsync(monopoly.shopPic, true).Forget();
 
             string shopDes = string.Format(tblanguage.Get("monopoly_shop_desc").current,
-                JiYuUIHelper.GetRewardName(shopItemReward, false));
+                UnicornUIHelper.GetRewardName(shopItemReward, false));
 
             KText_Des.GetTextMeshPro().SetTMPText(shopDes);
 
@@ -166,7 +166,7 @@ namespace XFramework
             // list.Clear();
             //scrollRect.OnValueChanged.AddListener((value) => { ScrollRectListener(value); });
             var loopRect = KScrollView.GetLoopScrollRect<UISubPanel_MonopolyShopItem>();
-            loopRect.OnBeginDrag.Add(JiYuUIHelper.DestoryAllTips);
+            loopRect.OnBeginDrag.Add(UnicornUIHelper.DestoryAllTips);
             loopRect.Content.GetRectTransform().SetWidth(Screen.width - 30f);
             //loopRect.Dispose();
             // loopRect.OnGetObject = (id) =>
@@ -222,15 +222,15 @@ namespace XFramework
             //     rewardui.SetParent(ui, true);
             //     rewardui.GetRectTransform().SetAnchoredPosition(Vector2.zero);
             //
-            //     var name = JiYuUIHelper.GetRewardName(reward);
+            //     var name = UnicornUIHelper.GetRewardName(reward);
             //     KText_Name.GetTextMeshPro().SetTMPText(name);
-            //     var costCount = JiYuUIHelper.GetRewardCount(shopItemReward);
+            //     var costCount = UnicornUIHelper.GetRewardCount(shopItemReward);
             //
             //     var costNumStr1 =
             //         UnityHelper.RichTextColor($"x{monopolyShop.costNum}",
             //             UnityHelper.Color2HexRGB(monopolyShop.costNum < costCount ? Color.white : Color.red));
             //
-            //     string costNumStr = $"{JiYuUIHelper.GetRewardTextIconName(shopItemReward)}{costNumStr1}";
+            //     string costNumStr = $"{UnicornUIHelper.GetRewardTextIconName(shopItemReward)}{costNumStr1}";
             //
             //     KText_Cost.GetTextMeshPro().SetTMPText(costNumStr);
             //     KBtn_Buy.SetActive(true);
@@ -244,14 +244,14 @@ namespace XFramework
             //     }
             //
             //
-            //     JiYuTweenHelper.DoScaleTweenOnClickAndLongPress(KBtn_Buy, () =>
+            //     UnicornTweenHelper.DoScaleTweenOnClickAndLongPress(KBtn_Buy, () =>
             //     {
             //         KCommon_ItemTips.SetActive(false);
             //
             //         var cost = shopItemReward;
             //         cost.z = monopolyShop.costNum;
             //
-            //         if (!JiYuUIHelper.TryReduceReward(cost))
+            //         if (!UnicornUIHelper.TryReduceReward(cost))
             //         {
             //             //UIHelper.CreateAsync(UIType.UILack, 2);
             //             return;
@@ -267,7 +267,7 @@ namespace XFramework
             //         }
             //
             //
-            //         NetWorkManager.Instance.SendMessage(CMD.MONOEXCHANGE, new IntValue
+            //         NetWorkManager.Instance.SendMessage(CMDOld.MONOEXCHANGE, new IntValue
             //         {
             //             Value = monopolyShop.sort
             //         });
@@ -284,7 +284,7 @@ namespace XFramework
             //loopRect.SetVerticalNormalizedPosition(0);
             KBtn_Close.GetButton().OnClick.Add(() =>
             {
-                if (JiYuUIHelper.TryGetUI(UIType.UIPanel_Activity_Monopoly, out var ui))
+                if (UnicornUIHelper.TryGetUI(UIType.UIPanel_Activity_Monopoly, out var ui))
                 {
                     var uis = ui as UIPanel_Activity_Monopoly;
                     uis.Refresh();
@@ -388,7 +388,7 @@ namespace XFramework
                 return;
             }
 
-            var reward = JiYuUIHelper.TurnStrReward2List(buyDice.Value);
+            var reward = UnicornUIHelper.TurnStrReward2List(buyDice.Value);
 
             var ui = await UIHelper.CreateAsync(UIType.UICommon_Reward, reward);
             var KBtn_Close = ui.GetFromReference(UICommon_Reward.KBtn_Close);
@@ -407,7 +407,7 @@ namespace XFramework
             var KText_Title = GetFromReference(UIPanel_MonopolyShop.KText_Title);
             var KScrollView = GetFromReference(UIPanel_MonopolyShop.KScrollView);
             string shopItemStr =
-                $"{JiYuUIHelper.GetRewardTextIconName(shopItemReward)}x{JiYuUIHelper.GetRewardCount(shopItemReward)}";
+                $"{UnicornUIHelper.GetRewardTextIconName(shopItemReward)}x{UnicornUIHelper.GetRewardCount(shopItemReward)}";
 
             KText_Title.GetTextMeshPro().SetTMPText(shopItemStr);
 
@@ -426,7 +426,7 @@ namespace XFramework
                 var monopolyShop = tbmonopoly_shop.DataList
                     .Where((a) => a.id == monopoly.monopolyShop && a.sort == ui.sort)
                     .ToList()[0];
-    //            JiYuTweenHelper.SetEaseAlphaAndPosB2U(ui.GetFromReference(UISubPanel_MonopolyShopItem.KMid), 0,
+    //            UnicornTweenHelper.SetEaseAlphaAndPosB2U(ui.GetFromReference(UISubPanel_MonopolyShopItem.KMid), 0,
     //60, cts.Token, 0.3F, true, true);
     //            await UniTask.Delay(2 * i, cancellationToken: cts.Token);
                 var KRewardPos = ui.GetFromReference(UISubPanel_MonopolyShopItem.KRewardPos);
@@ -446,7 +446,7 @@ namespace XFramework
                 var KText_BuyFinish = ui.GetFromReference(UISubPanel_MonopolyShopItem.KText_BuyFinish);
                 var KImg_TextName = ui.GetFromReference(UISubPanel_MonopolyShopItem.KImg_TextName);
 
-                if (!ResourcesSingleton.Instance.activity.activityMap.ActivityMap_.TryGetValue(activityId,
+                if (!ResourcesSingletonOld.Instance.activity.activityMap.ActivityMap_.TryGetValue(activityId,
                         out var gameActivity))
                 {
                     Close();
@@ -473,15 +473,15 @@ namespace XFramework
                 // rewardui.SetParent(ui, true);
                 // rewardui.GetRectTransform().SetAnchoredPosition(Vector2.zero);
 
-                //var name = JiYuUIHelper.GetRewardName(reward);
+                //var name = UnicornUIHelper.GetRewardName(reward);
                 //KText_Name.GetTextMeshPro().SetTMPText(name);
-                var costCount = JiYuUIHelper.GetRewardCount(shopItemReward);
+                var costCount = UnicornUIHelper.GetRewardCount(shopItemReward);
 
                 var costNumStr =
                     UnityHelper.RichTextColor($"x{monopolyShop.costNum}",
                         UnityHelper.Color2HexRGB(monopolyShop.costNum < costCount ? Color.white : Color.red));
                 // string costNumStr =
-                //     $"{JiYuUIHelper.GetRewardTextIconName(shopItemReward)}x{JiYuUIHelper.GetRewardCount(shopItemReward)}";
+                //     $"{UnicornUIHelper.GetRewardTextIconName(shopItemReward)}x{UnicornUIHelper.GetRewardCount(shopItemReward)}";
 
 
                 KText_Cost.GetTextMeshPro().SetTMPText(costNumStr);
@@ -523,8 +523,8 @@ namespace XFramework
         {
             var KText_Time = GetFromReference(UIPanel_MonopolyShop.KText_Time);
             string cdStr = tblanguage.Get("active_countdown_text").current;
-            long clientT = JiYuUIHelper.GetServerTimeStamp(true);
-            if (!JiYuUIHelper.TryGetRemainingTime(clientT, endTime, out var timeStr))
+            long clientT = UnicornUIHelper.GetServerTimeStamp(true);
+            if (!UnicornUIHelper.TryGetRemainingTime(clientT, endTime, out var timeStr))
             {
                 Close();
             }
@@ -536,7 +536,7 @@ namespace XFramework
 
         async public void ProvideData(UISubPanel_MonopolyShopItem ui, int index)
         {
-            if (!ResourcesSingleton.Instance.activity.activityMap.ActivityMap_.TryGetValue(activityId,
+            if (!ResourcesSingletonOld.Instance.activity.activityMap.ActivityMap_.TryGetValue(activityId,
                     out var gameActivity))
             {
                 Close();
@@ -586,24 +586,24 @@ namespace XFramework
                 KRewardPos.GetRectTransform().Get());
             var KImg_Pos = rewardui.GetFromReference(UICommon_RewardItem.KImg_Pos);
             KImg_Pos.SetActive(false);
-            JiYuUIHelper.SetRewardOnClick(reward, rewardui);
+            UnicornUIHelper.SetRewardOnClick(reward, rewardui);
             rewardui.SetParent(ui, true);
             rewardui.GetRectTransform().SetAnchoredPosition(Vector2.zero);
             var scale = 220f / 156f;
             rewardui.GetRectTransform().SetScale(new Vector2(scale, scale));
-            var name = JiYuUIHelper.GetRewardName(reward);
+            var name = UnicornUIHelper.GetRewardName(reward);
             KText_Name.GetTextMeshPro().SetTMPText(name);
             var width = KText_Name.GetTextMeshPro().Get().preferredWidth;
             KImg_TextName.GetRectTransform().SetWidth(width + 30f);
 
 
-            var costCount = JiYuUIHelper.GetRewardCount(shopItemReward);
+            var costCount = UnicornUIHelper.GetRewardCount(shopItemReward);
 
             var costNumStr1 =
                 UnityHelper.RichTextColor($"x{monopolyShop.costNum}",
                     UnityHelper.Color2HexRGB(monopolyShop.costNum < costCount ? Color.white : Color.red));
 
-            string costNumStr = $"{JiYuUIHelper.GetRewardTextIconName(shopItemReward)}{costNumStr1}";
+            string costNumStr = $"{UnicornUIHelper.GetRewardTextIconName(shopItemReward)}{costNumStr1}";
 
             KText_Cost.GetTextMeshPro().SetTMPText(costNumStr);
             KCommon_Btn.SetActive(true);
@@ -628,7 +628,7 @@ namespace XFramework
             }
 
 
-            JiYuTweenHelper.DoScaleTweenOnClickAndLongPress(KCommon_Btn, () =>
+            UnicornTweenHelper.DoScaleTweenOnClickAndLongPress(KCommon_Btn, () =>
             {
                 var KCommon_ItemTips = GetFromReference(UIPanel_MonopolyShop.KCommon_ItemTips);
                 KCommon_ItemTips.SetActive(false);
@@ -636,7 +636,7 @@ namespace XFramework
                 var cost = shopItemReward;
                 cost.z = monopolyShop.costNum;
 
-                if (!JiYuUIHelper.TryReduceReward(cost))
+                if (!UnicornUIHelper.TryReduceReward(cost))
                 {
                     //UIHelper.CreateAsync(UIType.UILack, 2);
                     return;
@@ -652,7 +652,7 @@ namespace XFramework
                 }
 
 
-                NetWorkManager.Instance.SendMessage(CMD.MONOEXCHANGE, new IntValue
+                NetWorkManager.Instance.SendMessage(CMDOld.MONOEXCHANGE, new IntValue
                 {
                     Value = monopolyShop.sort
                 });
@@ -661,7 +661,7 @@ namespace XFramework
 
             if (index < 4)
             {
-                JiYuTweenHelper.SetEaseAlphaAndPosB2U(ui.GetFromReference(UISubPanel_MonopolyTaskShopItem.KMid), 0, 50,
+                UnicornTweenHelper.SetEaseAlphaAndPosB2U(ui.GetFromReference(UISubPanel_MonopolyTaskShopItem.KMid), 0, 50,
          cancellationToken: cts.Token,
          0.35f + 0.02f * index, true, true);
             }
@@ -669,7 +669,7 @@ namespace XFramework
 
         protected override void OnClose()
         {
-            WebMessageHandlerOld.Instance.RemoveHandler(CMD.MONOEXCHANGE, OnExchangeResponse);
+            WebMessageHandlerOld.Instance.RemoveHandler(CMDOld.MONOEXCHANGE, OnExchangeResponse);
             RemoveTimer();
             cts.Cancel();
             cts.Dispose();

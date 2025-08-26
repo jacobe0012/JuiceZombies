@@ -1,5 +1,5 @@
 //---------------------------------------------------------------------
-// JiYuStudio
+// UnicornStudio
 // Author: xxx
 // Time: #CreateTime#
 //---------------------------------------------------------------------
@@ -13,8 +13,8 @@ namespace XFramework
     public enum RedPointType
     {
         None,
-        Enternal, //¸úËæ×Ó½Úµã
-        Once, //µã»÷Ò»´Î¾ÍÏûÊ§
+        Enternal, //ï¿½ï¿½ï¿½ï¿½ï¿½Ó½Úµï¿½
+        Once, //ï¿½ï¿½ï¿½Ò»ï¿½Î¾ï¿½ï¿½ï¿½Ê§
         //Many
     }
 
@@ -28,7 +28,7 @@ namespace XFramework
     public class RedPoint
     {
         /// <summary>
-        /// Ö÷¹Ø¼ü×Ö(ÊôÓÚÄÄÒ»¸ö¸ù½Úµã)
+        /// ï¿½ï¿½ï¿½Ø¼ï¿½ï¿½ï¿½(ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ò»ï¿½ï¿½ï¿½ï¿½ï¿½Úµï¿½)
         /// </summary>
         public string key
         {
@@ -36,7 +36,7 @@ namespace XFramework
         }
 
         /// <summary>
-        /// ×Ô¼ºµÄ¹Ø¼ü×Ö
+        /// ï¿½Ô¼ï¿½ï¿½Ä¹Ø¼ï¿½ï¿½ï¿½
         /// </summary>
         public string subKey
         {
@@ -44,7 +44,7 @@ namespace XFramework
         }
 
         /// <summary>
-        /// ÊÇ·ñÊÇ¸ù½Úµã
+        /// ï¿½Ç·ï¿½ï¿½Ç¸ï¿½ï¿½Úµï¿½
         /// </summary>
         public bool isRoot
         {
@@ -52,7 +52,7 @@ namespace XFramework
         }
 
         /// <summary>
-        /// ºìµãÀàÐÍ
+        /// ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
         /// </summary>
         public RedPointType type
         {
@@ -60,7 +60,7 @@ namespace XFramework
         }
 
         /// <summary>
-        /// µ±Ç°×´Ì¬
+        /// ï¿½ï¿½Ç°×´Ì¬
         /// </summary>
         public RedPointState state
         {
@@ -68,7 +68,7 @@ namespace XFramework
         }
 
         /// <summary>
-        /// Êý¾Ý
+        /// ï¿½ï¿½ï¿½ï¿½
         /// </summary>
         public int data
         {
@@ -76,7 +76,7 @@ namespace XFramework
         }
 
         /// <summary>
-        /// ¸¸½Úµã
+        /// ï¿½ï¿½ï¿½Úµï¿½
         /// </summary>
         public RedPoint parent
         {
@@ -84,7 +84,7 @@ namespace XFramework
         }
 
         /// <summary>
-        /// ×Ó½Úµã
+        /// ï¿½Ó½Úµï¿½
         /// </summary>
         public List<RedPoint> children
         {
@@ -186,7 +186,7 @@ namespace XFramework
         {
             RedPoint node = GetChild(subKey);
 
-            #region ²âÊÔ
+            #region ï¿½ï¿½ï¿½ï¿½
 
             //Debug.Log("set subkey " + subKey + " state to " + state.ToString());
 
@@ -273,7 +273,7 @@ namespace XFramework
             m_ShowEvent?.Invoke(m_State, m_Data);
         }
 
-        #region ²âÊÔ´òÓ¡Ê÷
+        #region ï¿½ï¿½ï¿½Ô´ï¿½Ó¡ï¿½ï¿½
 
         public void PrintTree(int level = 0)
         {
@@ -433,7 +433,7 @@ namespace XFramework
             root.SetState(subKey, state, data);
         }
 
-        #region ²âÊÔ´òÓ¡Ê÷
+        #region ï¿½ï¿½ï¿½Ô´ï¿½Ó¡ï¿½ï¿½
 
         public void PrintRedPointTree(string key, string subKey)
         {
@@ -479,7 +479,7 @@ namespace XFramework
             m_ListRedPointTrees.Clear();
         }
 
-        #region »Æ½ð¹ú²âÊÔ
+        #region ï¿½Æ½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
 
         //public void Set
 
@@ -515,7 +515,7 @@ namespace XFramework
 
         public void Initialize()
         {
-            //¹¹½¨ºìµãÊ÷
+            //ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
             RedPointMgr.instance.Add(KButton1, null, null, RedPointType.Enternal);
             RedPointMgr.instance.Add(KButton1, KButton2, KButton1, RedPointType.Enternal);
             RedPointMgr.instance.Add(KButton1, KButton3, KButton2, RedPointType.Enternal);
@@ -524,7 +524,7 @@ namespace XFramework
             RedPointMgr.instance.Add(KButton1, KButton6, KButton4, RedPointType.Once);
             RedPointMgr.instance.Add(KButton1, KButton7, KButton4, RedPointType.Once);
 
-            //³õÊ¼»¯
+            //ï¿½ï¿½Ê¼ï¿½ï¿½
             RedPointMgr.instance.Init(KButton1, KButton1, OnButton1Show);
             RedPointMgr.instance.Init(KButton1, KButton2, OnButton2Show);
             RedPointMgr.instance.Init(KButton1, KButton3, OnButton3Show);
@@ -533,7 +533,7 @@ namespace XFramework
             RedPointMgr.instance.Init(KButton1, KButton6, OnButton6Show, this.GetFromReference(KButton6).GetXButton());
             RedPointMgr.instance.Init(KButton1, KButton7, OnButton7Show, this.GetFromReference(KButton7).GetXButton());
 
-            //Ìí¼Óºìµã
+            //ï¿½ï¿½Óºï¿½ï¿½
             this.GetFromReference(KSetButton5).GetButton().OnClick.AddListener(OnSB5Click);
             this.GetFromReference(KSetButton6).GetButton().OnClick.AddListener(OnSB6Click);
             this.GetFromReference(KSetButton7).GetButton().OnClick.AddListener(OnSB7Click);

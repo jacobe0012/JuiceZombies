@@ -1,5 +1,5 @@
 //---------------------------------------------------------------------
-// JiYuStudio
+// UnicornStudio
 // Author: xxx
 // Time: 2025-08-23 18:46:52
 //---------------------------------------------------------------------
@@ -76,7 +76,7 @@ namespace XFramework
             var KTextGet = GetFromReference(UIItemMonCard.KTextGet);
             tbmonthCard = ConfigManager.Instance.Tables.TbmonthCard;
             tblanguage = ConfigManager.Instance.Tables.Tblanguage;
-            tbItems=ConfigManager.Instance.Tables.TbItems;
+            tbItems = ConfigManager.Instance.Tables.TbItems;
             switch (type)
             {
                 //type 1 月卡 2免广告卡
@@ -86,8 +86,8 @@ namespace XFramework
                     KBorder.GetImage().SetColor(monthColorBorder);
                     KText_Title.GetTextMeshPro().SetTMPText(tblanguage.Get("title_moncard").current);
                     SetContainerItem(type);
-                    WebMsgHandler.Instance.AddHandler(JuiceZombieCMD.QUERYMONCARD, OnRequreMonthTime);
-                    NetWorkManager.Instance.SendMsg(JuiceZombieCMD.QUERYMONCARD);
+                    //WebMsgHandler.Instance.AddHandler(CMD.Shop.C2S_QUERYSHOP, OnRequreMonthTime);
+                    NetWorkManager.Instance.SendMsg(new S2C_ShopData());
                     Log.Debug("SendMsg", Color.cyan);
                     break;
                 case 2:
@@ -115,7 +115,7 @@ namespace XFramework
                 KText_Description.GetTextMeshPro().SetTMPText(desc[i]);
                 int iconId = (int)tbmonthCard.Get(type).descpara[i].x;
                 Log.Debug("iconId:" + iconId);
-                var iconUI= iconList.Create(iconList.Get().GetChild(i).gameObject);
+                var iconUI = iconList.Create(iconList.Get().GetChild(i).gameObject);
                 iconUI.GetImage().SetSpriteAsync(tbItems.Get(iconId).icon, false);
             }
 
@@ -127,14 +127,14 @@ namespace XFramework
             });
         }
 
-        private void OnRequreMonthTime(object sender, WebMsgHandler.Execute e)
+        [MsgHandler(typeof(S2C_ShopData))]
+        private void OnRequreMonthTime(S2C_ShopData data)
         {
-            var gameShop = NetWorkManager.Instance.UnPackMsg<GameShop>(e);
-            ResourcesSingleton.Instance.monCardTime = gameShop.buyedMonthCardms;
+            ResourcesSingletonOld.Instance.monCardTime = data.buyedMonthCardms;
             //var receivedMessage = MessagePackSerializer.Deserialize<MyMessage>(e.data, options);
 
-            Log.Debug("OnRequreMonthTime:" + e.ToString());
-            var time = ResourcesSingleton.Instance.monCardTime;
+            Log.Debug($"OnRequreMonthTime:{data.buyedMonthCardms}");
+            var time = ResourcesSingletonOld.Instance.monCardTime;
             if (time <= 0)
             {
                 SetStateOfBuy(time, MonCardState.NotBuy);

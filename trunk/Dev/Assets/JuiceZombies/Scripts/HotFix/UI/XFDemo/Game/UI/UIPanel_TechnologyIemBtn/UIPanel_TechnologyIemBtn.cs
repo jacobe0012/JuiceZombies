@@ -1,5 +1,5 @@
 //---------------------------------------------------------------------
-// JiYuStudio
+// UnicornStudio
 // Author: xxx
 // Time: #CreateTime#
 //---------------------------------------------------------------------
@@ -57,15 +57,15 @@ namespace XFramework
                 ?.SetTMPText(tbLanguage.Get(tbBattletech.Get(technologyID).name).current);
             //this.GetTextMeshPro(KTxt_Descrip_Technology)?.SetTMPText(tbLanguage.Get(tbBattletech.Get(technologyID).desc).current);
             this.GetImage(KImg_icon_technology)?.SetSprite(tbBattletech.Get(technologyID).icon, false);
-            //JiYuTweenHelper.DoScaleTweenOnClickAndLongPress(this.GetFromReference(KBtn_Tip),
+            //UnicornTweenHelper.DoScaleTweenOnClickAndLongPress(this.GetFromReference(KBtn_Tip),
             //    async () => OnTipBtnClickAsync(technologyID));
         }
 
         private async UniTaskVoid OnTipBtnClickAsync(int technologyID)
         {
-            //if (JiYuUIHelper.TryGetUI(UIType.UICommon_ItemTips, out var ui))
+            //if (UnicornUIHelper.TryGetUI(UIType.UICommon_ItemTips, out var ui))
             //{
-            //      JiYuUIHelper.DestoryAllTips();;
+            //      UnicornUIHelper.DestoryAllTips();;
             //    return;
             //}
 

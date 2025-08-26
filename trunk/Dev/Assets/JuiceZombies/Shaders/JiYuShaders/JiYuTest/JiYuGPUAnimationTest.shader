@@ -1,4 +1,4 @@
-﻿Shader "JiYuStudio/JiYuGPUAnimationTest"
+﻿Shader "UnicornStudio/JiYuGPUAnimationTest"
 {
     Properties
     {

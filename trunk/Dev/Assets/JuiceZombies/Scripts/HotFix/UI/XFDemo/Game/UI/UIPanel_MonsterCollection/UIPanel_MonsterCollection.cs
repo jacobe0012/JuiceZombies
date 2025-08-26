@@ -1,5 +1,5 @@
 //---------------------------------------------------------------------
-// JiYuStudio
+// UnicornStudio
 // Author: xxx
 // Time: #CreateTime#
 //---------------------------------------------------------------------
@@ -97,23 +97,23 @@ namespace XFramework
             KRewardRoot.SetActive(false);
             KText_Diamond.GetTextMeshPro()
                 .SetTMPText(
-                    JiYuUIHelper.ReturnFormatResourceNum(ResourcesSingleton.Instance.UserInfo.RoleAssets.Bitcoin));
+                    UnicornUIHelper.ReturnFormatResourceNum(ResourcesSingletonOld.Instance.UserInfo.RoleAssets.Bitcoin));
 
 
-            JiYuTweenHelper.DoScaleTweenOnClickAndLongPress(KBtn_ReceiveAll, () =>
+            UnicornTweenHelper.DoScaleTweenOnClickAndLongPress(KBtn_ReceiveAll, () =>
             {
                 var str = new StringValue();
                 str.Value = $"{curPosId + 1};2";
-                NetWorkManager.Instance.SendMessage(CMD.RECEIVECOLLECTIONREWARD, str);
+                NetWorkManager.Instance.SendMessage(CMDOld.RECEIVECOLLECTIONREWARD, str);
 
                 List<int> temp = new List<int>();
                 List<Vector3> reList = new List<Vector3>();
                 if (curPosId == 0)
                 {
-                    foreach (var kv in ResourcesSingleton.Instance.resMonster.MonsterMap)
+                    foreach (var kv in ResourcesSingletonOld.Instance.resMonster.MonsterMap)
                     {
                         var monsterModel = tbmonster_model.GetOrDefault(kv.Key);
-                        if (monsterModel != null && ResourcesSingleton.Instance.resMonster.MonsterMap[kv.Key] != 1)
+                        if (monsterModel != null && ResourcesSingletonOld.Instance.resMonster.MonsterMap[kv.Key] != 1)
                         {
                             temp.Add(kv.Key);
                             reList.Add(new Vector3(2, 0, monsterModel.diamond));
@@ -122,18 +122,18 @@ namespace XFramework
 
                     foreach (var k in temp)
                     {
-                        ResourcesSingleton.Instance.resMonster.MonsterMap[k] = 1;
+                        ResourcesSingletonOld.Instance.resMonster.MonsterMap[k] = 1;
                         var itemStr = $"{m_RedDotName}|Pos{curPosId}|{k}";
                         RedDotManager.Instance.SetRedPointCnt(itemStr, 0);
                     }
                 }
                 else if (curPosId == 1)
                 {
-                    foreach (var kv in ResourcesSingleton.Instance.resMonster.WeaponMap)
+                    foreach (var kv in ResourcesSingletonOld.Instance.resMonster.WeaponMap)
                     {
                         var weapon = tbweapon.GetOrDefault(kv.Key);
 
-                        if (weapon != null && ResourcesSingleton.Instance.resMonster.WeaponMap[kv.Key] != 1)
+                        if (weapon != null && ResourcesSingletonOld.Instance.resMonster.WeaponMap[kv.Key] != 1)
                         {
                             temp.Add(kv.Key);
                             reList.Add(new Vector3(2, 0, weapon.diamond));
@@ -143,7 +143,7 @@ namespace XFramework
                     //TODO:
                     foreach (var k in temp)
                     {
-                        ResourcesSingleton.Instance.resMonster.WeaponMap[k] = 1;
+                        ResourcesSingletonOld.Instance.resMonster.WeaponMap[k] = 1;
                         var itemStr = $"{m_RedDotName}|Pos{curPosId}|{k}";
                         RedDotManager.Instance.SetRedPointCnt(itemStr, 0);
                     }
@@ -153,7 +153,7 @@ namespace XFramework
                 temp.Clear();
                 //RefreshRedDot(curPowerId);
                 //CreateMainItem(curPowerId).Forget();
-                JiYuUIHelper.MergeRewardList(reList);
+                UnicornUIHelper.MergeRewardList(reList);
                 UIHelper.Create(UIType.UICommon_Reward, reList);
                 KBtn_ReceiveAll.GetXButton().SetEnabled(false);
                 KBtn_ReceiveAll2.GetXButton().SetEnabled(true);
@@ -162,12 +162,12 @@ namespace XFramework
 
             KBtn_ReceiveAll2.GetButton().OnClick.Add(() =>
             {
-                JiYuUIHelper.ClearCommonResource();
+                UnicornUIHelper.ClearCommonResource();
                 Log.Debug($"KBtn_ReceiveAll2");
                 UIHelper.CreateAsync(UIType.UICommon_Resource, tblanguage.Get("book_click_fail_text").current);
             });
             CreateBottomBtnList().Forget();
-            JiYuTweenHelper.SetEaseAlphaAndPosUtoB(this.GetFromReference(UIPanel_MonsterCollection.KScrollView_Item0),
+            UnicornTweenHelper.SetEaseAlphaAndPosUtoB(this.GetFromReference(UIPanel_MonsterCollection.KScrollView_Item0),
                 0,
                 50f, cancellationToken: cts.Token);
         }
@@ -185,7 +185,7 @@ namespace XFramework
                 if (uis.id == powerId)
                 {
                     bool isRedDot =
-                        ResourcesSingleton.Instance.resMonster.MonsterMap.Any(pair =>
+                        ResourcesSingletonOld.Instance.resMonster.MonsterMap.Any(pair =>
                         {
                             var monster = tbmonster.GetOrDefault(pair.Key);
                             var monsterAttr = tbmonster_attr.Get(monster.monsterAttrId);
@@ -196,7 +196,7 @@ namespace XFramework
                     KImg_RedDot.SetActive(isRedDot);
                     break;
                 }
-                //ResourcesSingleton.Instance.resMonster.MonsterMap.
+                //ResourcesSingletonOld.Instance.resMonster.MonsterMap.
             }
         }
 
@@ -218,8 +218,8 @@ namespace XFramework
             KScrollView_Item0Rect.SetWidth(DefaultWidth - leftWidth - Internal);
             KScrollView_Item0Rect.SetOffsetWithBottom(0);
             KScrollView_Item0Rect.SetOffsetWithTop(0);
-            JiYuTweenHelper.DoScaleTweenOnClickAndLongPress(KBtn_Close, () => { Close(); });
-            JiYuUIHelper.DestoryAllTips();
+            UnicornTweenHelper.DoScaleTweenOnClickAndLongPress(KBtn_Close, () => { Close(); });
+            UnicornUIHelper.DestoryAllTips();
             // var KScrollView_Item = GetFromReference(UIPanel_MonsterCollection.KScrollView_Item);
             var KBtn_ReceiveAll = GetFromReference(UIPanel_MonsterCollection.KBtn_ReceiveAll);
             var KBtn_ReceiveAll2 = GetFromReference(UIPanel_MonsterCollection.KBtn_ReceiveAll2);
@@ -280,7 +280,7 @@ namespace XFramework
                     CreateMainItem(ui.id).Forget();
                 }
 
-                JiYuTweenHelper.DoScaleTweenOnClickAndLongPress(ui, () =>
+                UnicornTweenHelper.DoScaleTweenOnClickAndLongPress(ui, () =>
                 {
                     if (curPosId == ui.id)
                     {
@@ -372,7 +372,7 @@ namespace XFramework
             //         CreateMainItem(ui.id).Forget();
             //     }
             //
-            //     JiYuTweenHelper.DoScaleTweenOnClickAndLongPress(ui, () =>
+            //     UnicornTweenHelper.DoScaleTweenOnClickAndLongPress(ui, () =>
             //     {
             //         if (curPowerId == ui.id)
             //         {
@@ -440,30 +440,30 @@ namespace XFramework
 
             // powerMonList.Sort((a, b) =>
             // {
-            //     bool compareNew = ResourcesSingleton.Instance.resMonster.MonsterMap.ContainsKey(a.id) &&
-            //                       ResourcesSingleton.Instance.resMonster.MonsterMap.ContainsKey(b.id);
+            //     bool compareNew = ResourcesSingletonOld.Instance.resMonster.MonsterMap.ContainsKey(a.id) &&
+            //                       ResourcesSingletonOld.Instance.resMonster.MonsterMap.ContainsKey(b.id);
             //     if (compareNew)
             //     {
-            //         if (ResourcesSingleton.Instance.resMonster.MonsterMap[a.id] == 2 &&
-            //             ResourcesSingleton.Instance.resMonster.MonsterMap[b.id] == 1)
+            //         if (ResourcesSingletonOld.Instance.resMonster.MonsterMap[a.id] == 2 &&
+            //             ResourcesSingletonOld.Instance.resMonster.MonsterMap[b.id] == 1)
             //             return -1;
-            //         else if (ResourcesSingleton.Instance.resMonster.MonsterMap[a.id] == 1 &&
-            //                  ResourcesSingleton.Instance.resMonster.MonsterMap[b.id] == 2)
+            //         else if (ResourcesSingletonOld.Instance.resMonster.MonsterMap[a.id] == 1 &&
+            //                  ResourcesSingletonOld.Instance.resMonster.MonsterMap[b.id] == 2)
             //             return 1;
             //     }
             //
-            //     if (ResourcesSingleton.Instance.resMonster.MonsterMap.ContainsKey(a.id) &&
-            //         !ResourcesSingleton.Instance.resMonster.MonsterMap.ContainsKey(b.id))
+            //     if (ResourcesSingletonOld.Instance.resMonster.MonsterMap.ContainsKey(a.id) &&
+            //         !ResourcesSingletonOld.Instance.resMonster.MonsterMap.ContainsKey(b.id))
             //         return -1;
-            //     else if (!ResourcesSingleton.Instance.resMonster.MonsterMap.ContainsKey(a.id) &&
-            //              ResourcesSingleton.Instance.resMonster.MonsterMap.ContainsKey(b.id))
+            //     else if (!ResourcesSingletonOld.Instance.resMonster.MonsterMap.ContainsKey(a.id) &&
+            //              ResourcesSingletonOld.Instance.resMonster.MonsterMap.ContainsKey(b.id))
             //         return 1;
             //
             //     return a.id.CompareTo(b.id);
             // });
             //
             // int unLockList =
-            //     powerMonList.Count(item => ResourcesSingleton.Instance.resMonster.MonsterMap.ContainsKey(item.id));
+            //     powerMonList.Count(item => ResourcesSingletonOld.Instance.resMonster.MonsterMap.ContainsKey(item.id));
             //
 
 
@@ -475,12 +475,12 @@ namespace XFramework
             if (posId == 0)
             {
                 totalStr =
-                    $"{tblanguage.Get(str).current} {ResourcesSingleton.Instance.resMonster.MonsterMap.Count}/{allMonsterCount}";
+                    $"{tblanguage.Get(str).current} {ResourcesSingletonOld.Instance.resMonster.MonsterMap.Count}/{allMonsterCount}";
             }
             else if (posId == 1)
             {
                 totalStr =
-                    $"{tblanguage.Get(str).current} {ResourcesSingleton.Instance.resMonster.WeaponMap.Count}/{allWeaponCount}";
+                    $"{tblanguage.Get(str).current} {ResourcesSingletonOld.Instance.resMonster.WeaponMap.Count}/{allWeaponCount}";
             }
 
 
@@ -591,7 +591,7 @@ namespace XFramework
             //     }
             //
             //     KImgBg.SetActive(true);
-            //     if (ResourcesSingleton.Instance.resMonster.MonsterMap.ContainsKey(monster.id))
+            //     if (ResourcesSingletonOld.Instance.resMonster.MonsterMap.ContainsKey(monster.id))
             //     {
             //         KUnLock.SetActive(false);
             //         KTxtName.SetActive(true);
@@ -630,9 +630,9 @@ namespace XFramework
             //     }
             //
             //     //
-            //     JiYuTweenHelper.DoScaleTweenOnClickAndLongPress(ui, async () =>
+            //     UnicornTweenHelper.DoScaleTweenOnClickAndLongPress(ui, async () =>
             //     {
-            //         if (!ResourcesSingleton.Instance.resMonster.MonsterMap.ContainsKey(monster.id))
+            //         if (!ResourcesSingletonOld.Instance.resMonster.MonsterMap.ContainsKey(monster.id))
             //         {
             //             UIHelper.CreateAsync(UIType.UICommon_Resource, tblanguage.Get("book_lock_text").current);
             //             return;
@@ -665,7 +665,7 @@ namespace XFramework
             //         KTxtRacist.GetTextMeshPro()
             //             .SetTMPText(tblanguage.Get(tbracist.Get(monster.racistId).name).current);
             //         KTxtDse.GetTextMeshPro().SetTMPText(tblanguage.Get(monster.desc).current);
-            //         KRewardRoot.SetActive(ResourcesSingleton.Instance.resMonster.MonsterMap[monster.id] == 2);
+            //         KRewardRoot.SetActive(ResourcesSingletonOld.Instance.resMonster.MonsterMap[monster.id] == 2);
             //         uiUnlock.GetButton().OnClick.Add(async () =>
             //         {
             //             uiUnlock.SetActive(false);
@@ -675,8 +675,8 @@ namespace XFramework
             //             {
             //                 var str = new StringValue();
             //                 str.Value = $"1;{monster.id}";
-            //                 NetWorkManager.Instance.SendMessage(CMD.RECEIVECOLLECTIONREWARD, str);
-            //                 ResourcesSingleton.Instance.resMonster.MonsterMap[monster.id] = 1;
+            //                 NetWorkManager.Instance.SendMessage(CMDOld.RECEIVECOLLECTIONREWARD, str);
+            //                 ResourcesSingletonOld.Instance.resMonster.MonsterMap[monster.id] = 1;
             //                 var itemStr = $"{m_RedDotName}|Power{monster.powerId}|{monster.id}";
             //                 RedDotManager.Instance.SetRedPointCnt(itemStr, 0);
             //                 SortCollectionItems();
@@ -699,7 +699,7 @@ namespace XFramework
             //
             //
             //                 await UniTask.Delay(500);
-            //                 var finallyPos = JiYuUIHelper.GetUIPos(KPopUp);
+            //                 var finallyPos = UnicornUIHelper.GetUIPos(KPopUp);
             //                 finallyPos.x -= popRec.Width() / 2f;
             //                 finallyPos.y -= popRec.Height() / 2f;
             //                 MyKRewardRootRec.DoAnchoredPosition(Vector2.zero, finallyPos, 1f).AddOnCompleted(() =>
@@ -714,11 +714,11 @@ namespace XFramework
             //                 for (int j = 0; j < monster.diamond; j++)
             //                 {
             //                     var index = j + 1;
-            //                     textCom.SetTMPText($"{ResourcesSingleton.Instance.UserInfo.RoleAssets.Bitcoin + index}");
+            //                     textCom.SetTMPText($"{ResourcesSingletonOld.Instance.UserInfo.RoleAssets.Bitcoin + index}");
             //                     await UniTask.Delay(everyTime);
             //                 }
             //
-            //                 ResourcesSingleton.Instance.UserInfo.RoleAssets.Bitcoin += monster.diamond;
+            //                 ResourcesSingletonOld.Instance.UserInfo.RoleAssets.Bitcoin += monster.diamond;
             //
             //                 // m_Tweener = m_NumText.transform.DOScale(3f, 0.25f).SetEase(Ease.InBack).OnComplete(() =>
             //                 // {
@@ -810,28 +810,28 @@ namespace XFramework
                 var uia = a as UISubPanel_Collection_Item;
                 var uib = b as UISubPanel_Collection_Item;
 
-                bool compareNew = ResourcesSingleton.Instance.resMonster.MonsterMap.ContainsKey(uia.monsterId) &&
-                                  ResourcesSingleton.Instance.resMonster.MonsterMap.ContainsKey(uib.monsterId);
+                bool compareNew = ResourcesSingletonOld.Instance.resMonster.MonsterMap.ContainsKey(uia.monsterId) &&
+                                  ResourcesSingletonOld.Instance.resMonster.MonsterMap.ContainsKey(uib.monsterId);
                 if (compareNew)
                 {
-                    if (ResourcesSingleton.Instance.resMonster.MonsterMap[uia.monsterId] == 2 &&
-                        ResourcesSingleton.Instance.resMonster.MonsterMap[uib.monsterId] == 1)
+                    if (ResourcesSingletonOld.Instance.resMonster.MonsterMap[uia.monsterId] == 2 &&
+                        ResourcesSingletonOld.Instance.resMonster.MonsterMap[uib.monsterId] == 1)
                         return -1;
-                    else if (ResourcesSingleton.Instance.resMonster.MonsterMap[uia.monsterId] == 1 &&
-                             ResourcesSingleton.Instance.resMonster.MonsterMap[uib.monsterId] == 2)
+                    else if (ResourcesSingletonOld.Instance.resMonster.MonsterMap[uia.monsterId] == 1 &&
+                             ResourcesSingletonOld.Instance.resMonster.MonsterMap[uib.monsterId] == 2)
                         return 1;
                 }
 
-                if (ResourcesSingleton.Instance.resMonster.MonsterMap.ContainsKey(uia.monsterId) &&
-                    !ResourcesSingleton.Instance.resMonster.MonsterMap.ContainsKey(uib.monsterId))
+                if (ResourcesSingletonOld.Instance.resMonster.MonsterMap.ContainsKey(uia.monsterId) &&
+                    !ResourcesSingletonOld.Instance.resMonster.MonsterMap.ContainsKey(uib.monsterId))
                     return -1;
-                else if (!ResourcesSingleton.Instance.resMonster.MonsterMap.ContainsKey(uia.monsterId) &&
-                         ResourcesSingleton.Instance.resMonster.MonsterMap.ContainsKey(uib.monsterId))
+                else if (!ResourcesSingletonOld.Instance.resMonster.MonsterMap.ContainsKey(uia.monsterId) &&
+                         ResourcesSingletonOld.Instance.resMonster.MonsterMap.ContainsKey(uib.monsterId))
                     return 1;
 
                 return uia.monsterId.CompareTo(uib.monsterId);
             });
-            //JiYuUIHelper.ForceRefreshLayout(scrollRect.Content);
+            //UnicornUIHelper.ForceRefreshLayout(scrollRect.Content);
         }
 
         void SortCollectionItems()
@@ -852,23 +852,23 @@ namespace XFramework
                         var uib = b as UISubPanel_Collection_Item;
 
                         bool compareNew =
-                            ResourcesSingleton.Instance.resMonster.MonsterMap.ContainsKey(uia.monsterId) &&
-                            ResourcesSingleton.Instance.resMonster.MonsterMap.ContainsKey(uib.monsterId);
+                            ResourcesSingletonOld.Instance.resMonster.MonsterMap.ContainsKey(uia.monsterId) &&
+                            ResourcesSingletonOld.Instance.resMonster.MonsterMap.ContainsKey(uib.monsterId);
                         if (compareNew)
                         {
-                            if (ResourcesSingleton.Instance.resMonster.MonsterMap[uia.monsterId] == 2 &&
-                                ResourcesSingleton.Instance.resMonster.MonsterMap[uib.monsterId] == 1)
+                            if (ResourcesSingletonOld.Instance.resMonster.MonsterMap[uia.monsterId] == 2 &&
+                                ResourcesSingletonOld.Instance.resMonster.MonsterMap[uib.monsterId] == 1)
                                 return -1;
-                            else if (ResourcesSingleton.Instance.resMonster.MonsterMap[uia.monsterId] == 1 &&
-                                     ResourcesSingleton.Instance.resMonster.MonsterMap[uib.monsterId] == 2)
+                            else if (ResourcesSingletonOld.Instance.resMonster.MonsterMap[uia.monsterId] == 1 &&
+                                     ResourcesSingletonOld.Instance.resMonster.MonsterMap[uib.monsterId] == 2)
                                 return 1;
                         }
 
-                        if (ResourcesSingleton.Instance.resMonster.MonsterMap.ContainsKey(uia.monsterId) &&
-                            !ResourcesSingleton.Instance.resMonster.MonsterMap.ContainsKey(uib.monsterId))
+                        if (ResourcesSingletonOld.Instance.resMonster.MonsterMap.ContainsKey(uia.monsterId) &&
+                            !ResourcesSingletonOld.Instance.resMonster.MonsterMap.ContainsKey(uib.monsterId))
                             return -1;
-                        else if (!ResourcesSingleton.Instance.resMonster.MonsterMap.ContainsKey(uia.monsterId) &&
-                                 ResourcesSingleton.Instance.resMonster.MonsterMap.ContainsKey(uib.monsterId))
+                        else if (!ResourcesSingletonOld.Instance.resMonster.MonsterMap.ContainsKey(uia.monsterId) &&
+                                 ResourcesSingletonOld.Instance.resMonster.MonsterMap.ContainsKey(uib.monsterId))
                             return 1;
 
                         return uia.monsterId.CompareTo(uib.monsterId);
@@ -881,23 +881,23 @@ namespace XFramework
                         var uia = a as UISubPanel_Collection_Item;
                         var uib = b as UISubPanel_Collection_Item;
 
-                        bool compareNew = ResourcesSingleton.Instance.resMonster.WeaponMap.ContainsKey(uia.monsterId) &&
-                                          ResourcesSingleton.Instance.resMonster.WeaponMap.ContainsKey(uib.monsterId);
+                        bool compareNew = ResourcesSingletonOld.Instance.resMonster.WeaponMap.ContainsKey(uia.monsterId) &&
+                                          ResourcesSingletonOld.Instance.resMonster.WeaponMap.ContainsKey(uib.monsterId);
                         if (compareNew)
                         {
-                            if (ResourcesSingleton.Instance.resMonster.WeaponMap[uia.monsterId] == 2 &&
-                                ResourcesSingleton.Instance.resMonster.WeaponMap[uib.monsterId] == 1)
+                            if (ResourcesSingletonOld.Instance.resMonster.WeaponMap[uia.monsterId] == 2 &&
+                                ResourcesSingletonOld.Instance.resMonster.WeaponMap[uib.monsterId] == 1)
                                 return -1;
-                            else if (ResourcesSingleton.Instance.resMonster.WeaponMap[uia.monsterId] == 1 &&
-                                     ResourcesSingleton.Instance.resMonster.WeaponMap[uib.monsterId] == 2)
+                            else if (ResourcesSingletonOld.Instance.resMonster.WeaponMap[uia.monsterId] == 1 &&
+                                     ResourcesSingletonOld.Instance.resMonster.WeaponMap[uib.monsterId] == 2)
                                 return 1;
                         }
 
-                        if (ResourcesSingleton.Instance.resMonster.WeaponMap.ContainsKey(uia.monsterId) &&
-                            !ResourcesSingleton.Instance.resMonster.WeaponMap.ContainsKey(uib.monsterId))
+                        if (ResourcesSingletonOld.Instance.resMonster.WeaponMap.ContainsKey(uia.monsterId) &&
+                            !ResourcesSingletonOld.Instance.resMonster.WeaponMap.ContainsKey(uib.monsterId))
                             return -1;
-                        else if (!ResourcesSingleton.Instance.resMonster.WeaponMap.ContainsKey(uia.monsterId) &&
-                                 ResourcesSingleton.Instance.resMonster.WeaponMap.ContainsKey(uib.monsterId))
+                        else if (!ResourcesSingletonOld.Instance.resMonster.WeaponMap.ContainsKey(uia.monsterId) &&
+                                 ResourcesSingletonOld.Instance.resMonster.WeaponMap.ContainsKey(uib.monsterId))
                             return 1;
 
                         return uia.monsterId.CompareTo(uib.monsterId);
@@ -906,7 +906,7 @@ namespace XFramework
             }
 
 
-            //JiYuUIHelper.ForceRefreshLayout(scrollRect.Content);
+            //UnicornUIHelper.ForceRefreshLayout(scrollRect.Content);
         }
 
         void InitJson()
@@ -947,7 +947,7 @@ namespace XFramework
             popRec.DoAnchoredPosition(new Vector2(popRec.Width(), popRec.AnchoredPosition().y),
                 new Vector2(0, popRec.AnchoredPosition().y), 0.5f);
 
-            var str = JiYuUIHelper.GetRewardTextIconName("icon_diamond");
+            var str = UnicornUIHelper.GetRewardTextIconName("icon_diamond");
 
             MyKTxtRewardNum.GetTextMeshPro().SetTMPText(diamond.ToString());
             var MyKRewardRootRec = MyKRewardRoot.GetRectTransform();
@@ -956,7 +956,7 @@ namespace XFramework
 
 
             await UniTask.Delay(500);
-            var finallyPos = JiYuUIHelper.GetUIPos(KPopUp);
+            var finallyPos = UnicornUIHelper.GetUIPos(KPopUp);
             finallyPos.x -= popRec.Width() / 2f;
             finallyPos.y -= popRec.Height() / 2f;
             MyKRewardRootRec.DoAnchoredPosition(Vector2.zero, finallyPos, 1f).AddOnCompleted(() =>
@@ -971,13 +971,13 @@ namespace XFramework
             for (int j = 0; j < diamond; j++)
             {
                 var index = j + 1;
-                long count = ResourcesSingleton.Instance.UserInfo.RoleAssets.Bitcoin + index;
-                var countStr = JiYuUIHelper.FormatNumber(count);
+                long count = ResourcesSingletonOld.Instance.UserInfo.RoleAssets.Bitcoin + index;
+                var countStr = UnicornUIHelper.FormatNumber(count);
                 textCom.SetTMPText($"{countStr}");
                 await UniTask.Delay(everyTime);
             }
 
-            ResourcesSingleton.Instance.UserInfo.RoleAssets.Bitcoin += diamond;
+            ResourcesSingletonOld.Instance.UserInfo.RoleAssets.Bitcoin += diamond;
 
             // m_Tweener = m_NumText.transform.DOScale(3f, 0.25f).SetEase(Ease.InBack).OnComplete(() =>
             // {
@@ -1031,7 +1031,7 @@ namespace XFramework
                 var KContainer_Content = lableui.GetFromReference(UICommon_Label.KContainer_Content);
 
                 var powerAllList = tbmonster_model.DataList.Where(a => a.powerId == power.id).ToList();
-                var powerUnlockedList = ResourcesSingleton.Instance.resMonster.MonsterMap.Keys.ToList()
+                var powerUnlockedList = ResourcesSingletonOld.Instance.resMonster.MonsterMap.Keys.ToList()
                     .Where(a => tbmonster_model.Get(a).powerId == power.id);
 
                 KText_LabelR.SetActive(true);
@@ -1080,9 +1080,9 @@ namespace XFramework
                     KReward.SetActive(true);
                     //KTxtUnlock.GetTextMeshPro().SetTMPText(tblanguage.Get("common_state_locking").current);
                     KTxtNew.GetTextMeshPro().SetTMPText(tblanguage.Get("text_new_2").current);
-                    var str = JiYuUIHelper.GetRewardTextIconName("icon_diamond");
+                    var str = UnicornUIHelper.GetRewardTextIconName("icon_diamond");
                     KTxtRewardNum.GetTextMeshPro().SetTMPText(monsterAttr.diamond.ToString());
-                    JiYuUIHelper.ForceRefreshLayout(KReward);
+                    UnicornUIHelper.ForceRefreshLayout(KReward);
                     KTxtName.GetTextMeshPro().SetTMPText(tblanguage.Get(monsterAttr.name).current);
 
                     //bg_monster_icons_1
@@ -1100,7 +1100,7 @@ namespace XFramework
                     // {
                     //     //Log.Debug($"model spine {monsterAttr.model} {monsterAttr.spine}");
                     //
-                    //     JiYuUIHelper.SetSpine(sg, monsterAttr.spine, monsterAttr.model);
+                    //     UnicornUIHelper.SetSpine(sg, monsterAttr.spine, monsterAttr.model);
                     //
                     //     // var picStr = $"{monsterAttr.spine}_pic";
                     //     // var xImage = KImgEnemy.GetXImage();
@@ -1138,9 +1138,9 @@ namespace XFramework
                     KImgEnemy.SetActive(false);
                     KImg_Icon.SetActive(false);
 
-                    if (ResourcesSingleton.Instance.resMonster.MonsterMap.ContainsKey(bookId))
+                    if (ResourcesSingletonOld.Instance.resMonster.MonsterMap.ContainsKey(bookId))
                     {
-                        if (ResourcesSingleton.Instance.resMonster.MonsterMap[bookId] == 1)
+                        if (ResourcesSingletonOld.Instance.resMonster.MonsterMap[bookId] == 1)
                         {
                             KReward.SetActive(false);
                         }
@@ -1189,11 +1189,11 @@ namespace XFramework
                     }
 
                     //
-                    JiYuTweenHelper.DoScaleTweenOnClickAndLongPress(ui, async () =>
+                    UnicornTweenHelper.DoScaleTweenOnClickAndLongPress(ui, async () =>
                     {
-                        if (!ResourcesSingleton.Instance.resMonster.MonsterMap.ContainsKey(bookId))
+                        if (!ResourcesSingletonOld.Instance.resMonster.MonsterMap.ContainsKey(bookId))
                         {
-                            JiYuUIHelper.ClearCommonResource();
+                            UnicornUIHelper.ClearCommonResource();
                             UIHelper.CreateAsync(UIType.UICommon_Resource, tblanguage.Get("book_lock_text").current);
                             return;
                         }
@@ -1201,7 +1201,7 @@ namespace XFramework
                         bool isUnLock = true;
                         //var monsterConfig = tbmonster.Get(monster.id);
                         var uiUnlock = await UIHelper.CreateAsync(UIType.UIPanel_Collection_Unlock, bookId);
-                        await JiYuUIHelper.InitBlur(uiUnlock);
+                        await UnicornUIHelper.InitBlur(uiUnlock);
 
                         var KAnimalRoot = uiUnlock.GetFromReference(UIPanel_Collection_Unlock.KAnimalRoot);
                         var KTxtEnemyName = uiUnlock.GetFromReference(UIPanel_Collection_Unlock.KTxtEnemyName);
@@ -1223,7 +1223,7 @@ namespace XFramework
                         KTagRoot.SetActive(true);
                         KTxtDse.GetRectTransform().SetHeight(388f);
                         KTxtEnemyName.GetTextMeshPro().SetTMPText(tblanguage.Get(monsterAttr.name).current);
-                        var str = JiYuUIHelper.GetRewardTextIconName("icon_diamond");
+                        var str = UnicornUIHelper.GetRewardTextIconName("icon_diamond");
                         KTxtNew.GetTextMeshPro().SetTMPText(tblanguage.Get("text_new_2").current);
                         KTxtRewardNum.GetTextMeshPro().SetTMPText(str + monsterAttr.diamond.ToString());
                         KTxt1.GetTextMeshPro()
@@ -1244,7 +1244,7 @@ namespace XFramework
 
                             KTxt_Des.GetTextMeshPro().SetTMPText(tblanguage.Get(monsterFeature.desc).current);
                             KCommon_ItemTips.SetActive(false);
-                            JiYuTweenHelper.DoScaleTweenOnClickAndLongPress(KImg3,
+                            UnicornTweenHelper.DoScaleTweenOnClickAndLongPress(KImg3,
                                 () => { KCommon_ItemTips.SetActive(!KCommon_ItemTips.GameObject.activeSelf); });
                         }
 
@@ -1252,7 +1252,7 @@ namespace XFramework
 
 
                         KRewardRoot.SetActive(
-                            ResourcesSingleton.Instance.resMonster.MonsterMap[bookId] == 2);
+                            ResourcesSingletonOld.Instance.resMonster.MonsterMap[bookId] == 2);
                         uiUnlock.GetButton().OnClick.Add(async () =>
                         {
                             Log.Debug($"uiUnlock");
@@ -1263,8 +1263,8 @@ namespace XFramework
                             {
                                 var str = new StringValue();
                                 str.Value = $"{curPosId + 1};{1};{bookId}";
-                                NetWorkManager.Instance.SendMessage(CMD.RECEIVECOLLECTIONREWARD, str);
-                                ResourcesSingleton.Instance.resMonster.MonsterMap[bookId] = 1;
+                                NetWorkManager.Instance.SendMessage(CMDOld.RECEIVECOLLECTIONREWARD, str);
+                                ResourcesSingletonOld.Instance.resMonster.MonsterMap[bookId] = 1;
                                 var itemStr = $"{m_RedDotName}|Pos{curPosId}|{bookId}";
                                 RedDotManager.Instance.SetRedPointCnt(itemStr, 0);
                                 SortCollectionItems();
@@ -1285,7 +1285,7 @@ namespace XFramework
                         {
                             Log.Debug($"model spine {monsterAttr.model} {monsterAttr.spine}");
 
-                            JiYuUIHelper.SetSpine(skeletonGraphic, monsterAttr.spine, monsterAttr.model);
+                            UnicornUIHelper.SetSpine(skeletonGraphic, monsterAttr.spine, monsterAttr.model);
                         }
 
                         // skeletonGraphic.skeletonDataAsset =
@@ -1341,23 +1341,23 @@ namespace XFramework
                     var uia = a as UISubPanel_Collection_Item;
                     var uib = b as UISubPanel_Collection_Item;
 
-                    bool compareNew = ResourcesSingleton.Instance.resMonster.MonsterMap.ContainsKey(uia.monsterId) &&
-                                      ResourcesSingleton.Instance.resMonster.MonsterMap.ContainsKey(uib.monsterId);
+                    bool compareNew = ResourcesSingletonOld.Instance.resMonster.MonsterMap.ContainsKey(uia.monsterId) &&
+                                      ResourcesSingletonOld.Instance.resMonster.MonsterMap.ContainsKey(uib.monsterId);
                     if (compareNew)
                     {
-                        if (ResourcesSingleton.Instance.resMonster.MonsterMap[uia.monsterId] == 2 &&
-                            ResourcesSingleton.Instance.resMonster.MonsterMap[uib.monsterId] == 1)
+                        if (ResourcesSingletonOld.Instance.resMonster.MonsterMap[uia.monsterId] == 2 &&
+                            ResourcesSingletonOld.Instance.resMonster.MonsterMap[uib.monsterId] == 1)
                             return -1;
-                        else if (ResourcesSingleton.Instance.resMonster.MonsterMap[uia.monsterId] == 1 &&
-                                 ResourcesSingleton.Instance.resMonster.MonsterMap[uib.monsterId] == 2)
+                        else if (ResourcesSingletonOld.Instance.resMonster.MonsterMap[uia.monsterId] == 1 &&
+                                 ResourcesSingletonOld.Instance.resMonster.MonsterMap[uib.monsterId] == 2)
                             return 1;
                     }
 
-                    if (ResourcesSingleton.Instance.resMonster.MonsterMap.ContainsKey(uia.monsterId) &&
-                        !ResourcesSingleton.Instance.resMonster.MonsterMap.ContainsKey(uib.monsterId))
+                    if (ResourcesSingletonOld.Instance.resMonster.MonsterMap.ContainsKey(uia.monsterId) &&
+                        !ResourcesSingletonOld.Instance.resMonster.MonsterMap.ContainsKey(uib.monsterId))
                         return -1;
-                    else if (!ResourcesSingleton.Instance.resMonster.MonsterMap.ContainsKey(uia.monsterId) &&
-                             ResourcesSingleton.Instance.resMonster.MonsterMap.ContainsKey(uib.monsterId))
+                    else if (!ResourcesSingletonOld.Instance.resMonster.MonsterMap.ContainsKey(uia.monsterId) &&
+                             ResourcesSingletonOld.Instance.resMonster.MonsterMap.ContainsKey(uib.monsterId))
                         return 1;
 
                     return uia.monsterId.CompareTo(uib.monsterId);
@@ -1376,7 +1376,7 @@ namespace XFramework
                 var KContainer_Content = lableui.GetFromReference(UICommon_Label.KContainer_Content);
 
                 var powerAllList = tbweapon.DataList.Where(a => a.type == weapon.type).ToList();
-                var powerUnlockedList = ResourcesSingleton.Instance.resMonster.WeaponMap.Keys.ToList()
+                var powerUnlockedList = ResourcesSingletonOld.Instance.resMonster.WeaponMap.Keys.ToList()
                     .Where(a => tbweapon.Get(a).type == weapon.type);
                 KText_LabelR.SetActive(true);
                 var titleStr =
@@ -1425,9 +1425,9 @@ namespace XFramework
                     KTxtUnlock.SetActive(false);
                     //KTxtUnlock.GetTextMeshPro().SetTMPText(tblanguage.Get("common_state_locking").current);
                     KTxtNew.GetTextMeshPro().SetTMPText(tblanguage.Get("text_new_2").current);
-                    var str = JiYuUIHelper.GetRewardTextIconName("icon_diamond");
+                    var str = UnicornUIHelper.GetRewardTextIconName("icon_diamond");
                     KTxtRewardNum.GetTextMeshPro().SetTMPText(monsterAttr.diamond.ToString());
-                    JiYuUIHelper.ForceRefreshLayout(KReward);
+                    UnicornUIHelper.ForceRefreshLayout(KReward);
                     KTxtName.GetTextMeshPro().SetTMPText(tblanguage.Get(monsterAttr.name).current);
 
                     var bgStr = $"bg_weapon_pic_{monsterAttr.quality}";
@@ -1443,7 +1443,7 @@ namespace XFramework
                         //Log.Debug($"model spine {monsterAttr.model} {monsterAttr.spine}");
 
                         //TODO:
-                        //JiYuUIHelper.SetSpine(sg, monsterAttr.spine, monsterAttr.model);
+                        //UnicornUIHelper.SetSpine(sg, monsterAttr.spine, monsterAttr.model);
 
                         // var picStr = $"{monsterAttr.spine}_pic";
                         // var xImage = KImgEnemy.GetXImage();
@@ -1480,9 +1480,9 @@ namespace XFramework
                     KUnLock.SetActive(false);
                     KSpineEnemy.SetActive(false);
                     KImg_Icon.SetActive(true);
-                    if (ResourcesSingleton.Instance.resMonster.WeaponMap.ContainsKey(bookId))
+                    if (ResourcesSingletonOld.Instance.resMonster.WeaponMap.ContainsKey(bookId))
                     {
-                        if (ResourcesSingleton.Instance.resMonster.WeaponMap[bookId] == 1)
+                        if (ResourcesSingletonOld.Instance.resMonster.WeaponMap[bookId] == 1)
                         {
                             KReward.SetActive(false);
                         }
@@ -1529,11 +1529,11 @@ namespace XFramework
                     }
 
                     //
-                    JiYuTweenHelper.DoScaleTweenOnClickAndLongPress(ui, async () =>
+                    UnicornTweenHelper.DoScaleTweenOnClickAndLongPress(ui, async () =>
                     {
-                        if (!ResourcesSingleton.Instance.resMonster.WeaponMap.ContainsKey(bookId))
+                        if (!ResourcesSingletonOld.Instance.resMonster.WeaponMap.ContainsKey(bookId))
                         {
-                            JiYuUIHelper.ClearCommonResource();
+                            UnicornUIHelper.ClearCommonResource();
                             UIHelper.CreateAsync(UIType.UICommon_Resource, tblanguage.Get("book_lock_text").current);
                             return;
                         }
@@ -1543,7 +1543,7 @@ namespace XFramework
                         var uiUnlock =
                             await UIHelper.CreateAsync(UIType.UIPanel_Collection_Unlock, bookId) as
                                 UIPanel_Collection_Unlock;
-                        await JiYuUIHelper.InitBlur(uiUnlock);
+                        await UnicornUIHelper.InitBlur(uiUnlock);
                         uiUnlock.playAnim = true;
                         uiUnlock.PlayAnim();
                         var KAnimalRoot = uiUnlock.GetFromReference(UIPanel_Collection_Unlock.KAnimalRoot);
@@ -1568,7 +1568,7 @@ namespace XFramework
                         KTxtEnemyName.GetTextMeshPro().SetTMPText(tblanguage.Get(monsterAttr.name).current);
 
                         KTxtNew.GetTextMeshPro().SetTMPText(tblanguage.Get("text_new_2").current);
-                        var str = JiYuUIHelper.GetRewardTextIconName("icon_diamond");
+                        var str = UnicornUIHelper.GetRewardTextIconName("icon_diamond");
                         KTxtRewardNum.GetTextMeshPro().SetTMPText(str + monsterAttr.diamond.ToString());
                         // KTxt1.GetTextMeshPro()
                         //     .SetTMPText(tblanguage.Get(tbpower.Get(monsterAttr.powerId).name).current);
@@ -1582,7 +1582,7 @@ namespace XFramework
 
 
                         KRewardRoot.SetActive(
-                            ResourcesSingleton.Instance.resMonster.WeaponMap[bookId] == 2);
+                            ResourcesSingletonOld.Instance.resMonster.WeaponMap[bookId] == 2);
                         uiUnlock.GetButton().OnClick.Add(async () =>
                         {
                             Log.Debug($"uiUnlock");
@@ -1593,8 +1593,8 @@ namespace XFramework
                             {
                                 var str = new StringValue();
                                 str.Value = $"{curPosId + 1};{1};{bookId}";
-                                NetWorkManager.Instance.SendMessage(CMD.RECEIVECOLLECTIONREWARD, str);
-                                ResourcesSingleton.Instance.resMonster.WeaponMap[bookId] = 1;
+                                NetWorkManager.Instance.SendMessage(CMDOld.RECEIVECOLLECTIONREWARD, str);
+                                ResourcesSingletonOld.Instance.resMonster.WeaponMap[bookId] = 1;
                                 var itemStr = $"{m_RedDotName}|Pos{curPosId}|{bookId}";
                                 RedDotManager.Instance.SetRedPointCnt(itemStr, 0);
                                 SortCollectionItems();
@@ -1616,7 +1616,7 @@ namespace XFramework
                         // {
                         //     //Log.Debug($"model spine {monsterAttr.model} {monsterAttr.spine}");
                         //     //TODO
-                        //     //JiYuUIHelper.SetSpine(skeletonGraphic, monsterAttr.spine, monsterAttr.model);
+                        //     //UnicornUIHelper.SetSpine(skeletonGraphic, monsterAttr.spine, monsterAttr.model);
                         // }
 
                         // skeletonGraphic.skeletonDataAsset =
@@ -1672,23 +1672,23 @@ namespace XFramework
                     var uia = a as UISubPanel_Collection_Item;
                     var uib = b as UISubPanel_Collection_Item;
 
-                    bool compareNew = ResourcesSingleton.Instance.resMonster.WeaponMap.ContainsKey(uia.monsterId) &&
-                                      ResourcesSingleton.Instance.resMonster.WeaponMap.ContainsKey(uib.monsterId);
+                    bool compareNew = ResourcesSingletonOld.Instance.resMonster.WeaponMap.ContainsKey(uia.monsterId) &&
+                                      ResourcesSingletonOld.Instance.resMonster.WeaponMap.ContainsKey(uib.monsterId);
                     if (compareNew)
                     {
-                        if (ResourcesSingleton.Instance.resMonster.WeaponMap[uia.monsterId] == 2 &&
-                            ResourcesSingleton.Instance.resMonster.WeaponMap[uib.monsterId] == 1)
+                        if (ResourcesSingletonOld.Instance.resMonster.WeaponMap[uia.monsterId] == 2 &&
+                            ResourcesSingletonOld.Instance.resMonster.WeaponMap[uib.monsterId] == 1)
                             return -1;
-                        else if (ResourcesSingleton.Instance.resMonster.WeaponMap[uia.monsterId] == 1 &&
-                                 ResourcesSingleton.Instance.resMonster.WeaponMap[uib.monsterId] == 2)
+                        else if (ResourcesSingletonOld.Instance.resMonster.WeaponMap[uia.monsterId] == 1 &&
+                                 ResourcesSingletonOld.Instance.resMonster.WeaponMap[uib.monsterId] == 2)
                             return 1;
                     }
 
-                    if (ResourcesSingleton.Instance.resMonster.WeaponMap.ContainsKey(uia.monsterId) &&
-                        !ResourcesSingleton.Instance.resMonster.WeaponMap.ContainsKey(uib.monsterId))
+                    if (ResourcesSingletonOld.Instance.resMonster.WeaponMap.ContainsKey(uia.monsterId) &&
+                        !ResourcesSingletonOld.Instance.resMonster.WeaponMap.ContainsKey(uib.monsterId))
                         return -1;
-                    else if (!ResourcesSingleton.Instance.resMonster.WeaponMap.ContainsKey(uia.monsterId) &&
-                             ResourcesSingleton.Instance.resMonster.WeaponMap.ContainsKey(uib.monsterId))
+                    else if (!ResourcesSingletonOld.Instance.resMonster.WeaponMap.ContainsKey(uia.monsterId) &&
+                             ResourcesSingletonOld.Instance.resMonster.WeaponMap.ContainsKey(uib.monsterId))
                         return 1;
 
                     return uia.monsterId.CompareTo(uib.monsterId);
@@ -1742,7 +1742,7 @@ namespace XFramework
             // {
             //     //Log.Debug($"model spine {monsterAttr.model} {monsterAttr.spine}");
             //
-            //     JiYuUIHelper.SetSpine(sg, monsterAttr.spine, monsterAttr.model);
+            //     UnicornUIHelper.SetSpine(sg, monsterAttr.spine, monsterAttr.model);
             //
             //     // var picStr = $"{monsterAttr.spine}_pic";
             //     // var xImage = KImgEnemy.GetXImage();
@@ -1776,7 +1776,7 @@ namespace XFramework
             // KImgBg.SetActive(true);
             // KTxtName.SetActive(true);
             // KUnLock.SetActive(false);
-            // if (ResourcesSingleton.Instance.resMonster.MonsterMap.ContainsKey(monster.id))
+            // if (ResourcesSingletonOld.Instance.resMonster.MonsterMap.ContainsKey(monster.id))
             // {
             //     //1：已领取 2：未领取
             //
@@ -1817,9 +1817,9 @@ namespace XFramework
             // }
             //
             // //
-            // JiYuTweenHelper.DoScaleTweenOnClickAndLongPress(ui, async () =>
+            // UnicornTweenHelper.DoScaleTweenOnClickAndLongPress(ui, async () =>
             // {
-            //     if (!ResourcesSingleton.Instance.resMonster.MonsterMap.ContainsKey(monster.id))
+            //     if (!ResourcesSingletonOld.Instance.resMonster.MonsterMap.ContainsKey(monster.id))
             //     {
             //         UIHelper.CreateAsync(UIType.UICommon_Resource, tblanguage.Get("book_lock_text").current);
             //         return;
@@ -1854,7 +1854,7 @@ namespace XFramework
             //     KTxtDse.GetTextMeshPro().SetTMPText(tblanguage.Get(monsterAttr.desc).current);
             //
             //
-            //     KRewardRoot.SetActive(ResourcesSingleton.Instance.resMonster.MonsterMap[monster.id] == 2);
+            //     KRewardRoot.SetActive(ResourcesSingletonOld.Instance.resMonster.MonsterMap[monster.id] == 2);
             //     uiUnlock.GetButton().OnClick.Add(async () =>
             //     {
             //         Log.Debug($"uiUnlock");
@@ -1865,8 +1865,8 @@ namespace XFramework
             //         {
             //             var str = new StringValue();
             //             str.Value = $"1;{monster.id}";
-            //             NetWorkManager.Instance.SendMessage(CMD.RECEIVECOLLECTIONREWARD, str);
-            //             ResourcesSingleton.Instance.resMonster.MonsterMap[monster.id] = 1;
+            //             NetWorkManager.Instance.SendMessage(CMDOld.RECEIVECOLLECTIONREWARD, str);
+            //             ResourcesSingletonOld.Instance.resMonster.MonsterMap[monster.id] = 1;
             //             var itemStr = $"{m_RedDotName}|Power{monsterAttr.powerId}|{monster.id}";
             //             RedDotManager.Instance.SetRedPointCnt(itemStr, 0);
             //             SortCollectionItems();
@@ -1889,7 +1889,7 @@ namespace XFramework
             //
             //
             //             await UniTask.Delay(500);
-            //             var finallyPos = JiYuUIHelper.GetUIPos(KPopUp);
+            //             var finallyPos = UnicornUIHelper.GetUIPos(KPopUp);
             //             finallyPos.x -= popRec.Width() / 2f;
             //             finallyPos.y -= popRec.Height() / 2f;
             //             MyKRewardRootRec.DoAnchoredPosition(Vector2.zero, finallyPos, 1f).AddOnCompleted(() =>
@@ -1904,11 +1904,11 @@ namespace XFramework
             //             for (int j = 0; j < monsterAttr.diamond; j++)
             //             {
             //                 var index = j + 1;
-            //                 textCom.SetTMPText($"{ResourcesSingleton.Instance.UserInfo.RoleAssets.Bitcoin + index}");
+            //                 textCom.SetTMPText($"{ResourcesSingletonOld.Instance.UserInfo.RoleAssets.Bitcoin + index}");
             //                 await UniTask.Delay(everyTime);
             //             }
             //
-            //             ResourcesSingleton.Instance.UserInfo.RoleAssets.Bitcoin += monsterAttr.diamond;
+            //             ResourcesSingletonOld.Instance.UserInfo.RoleAssets.Bitcoin += monsterAttr.diamond;
             //
             //             // m_Tweener = m_NumText.transform.DOScale(3f, 0.25f).SetEase(Ease.InBack).OnComplete(() =>
             //             // {
@@ -1942,7 +1942,7 @@ namespace XFramework
             //     {
             //         Log.Debug($"model spine {monsterAttr.model} {monsterAttr.spine}");
             //
-            //         JiYuUIHelper.SetSpine(skeletonGraphic, monsterAttr.spine, monsterAttr.model);
+            //         UnicornUIHelper.SetSpine(skeletonGraphic, monsterAttr.spine, monsterAttr.model);
             //     }
             //
             //     // skeletonGraphic.skeletonDataAsset =

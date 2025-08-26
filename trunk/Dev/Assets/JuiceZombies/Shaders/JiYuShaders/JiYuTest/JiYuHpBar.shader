@@ -1,4 +1,4 @@
-﻿Shader "JiYuStudio/JiYuHpBar"
+﻿Shader "UnicornStudio/JiYuHpBar"
 {
     Properties
     {

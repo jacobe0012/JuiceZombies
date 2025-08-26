@@ -1,5 +1,5 @@
 //---------------------------------------------------------------------
-// JiYuStudio
+// UnicornStudio
 // Author: xxx
 // Time: #CreateTime#
 //---------------------------------------------------------------------
@@ -83,7 +83,7 @@ namespace XFramework
             var adaptWidth = await CreateReward(boxID) + this.GetComponent<RectTransform>().Width();
             this.GetComponent<RectTransform>().SetWidth(adaptWidth);
 
-            if (JiYuUIHelper.TryGetUI(UIType.UIPanel_Main, out UI ui))
+            if (UnicornUIHelper.TryGetUI(UIType.UIPanel_Main, out UI ui))
             {
                 var uis = ui as UIPanel_Main;
                 uis.SetAsMaxWidth(adaptWidth + 20);
@@ -99,8 +99,8 @@ namespace XFramework
         private void InitRewardInfo(int boxID)
         {
             isDisplay = false;
-            int minNotLockBoxID = ResourcesSingleton.Instance.levelInfo.levelBox.minNotLockBoxID;
-            if (!ResourcesSingleton.Instance.levelInfo.levelBox.boxStateDic.ContainsKey(boxID))
+            int minNotLockBoxID = ResourcesSingletonOld.Instance.levelInfo.levelBox.minNotLockBoxID;
+            if (!ResourcesSingletonOld.Instance.levelInfo.levelBox.boxStateDic.ContainsKey(boxID))
             {
                 kBtn_Display_Root.SetActive(false);
                 kTxt_Display_Root.SetActive(true);
@@ -108,7 +108,7 @@ namespace XFramework
             }
             else
             {
-                if (ResourcesSingleton.Instance.levelInfo.levelBox.boxStateDic[boxID])
+                if (ResourcesSingletonOld.Instance.levelInfo.levelBox.boxStateDic[boxID])
                 {
                     SetAsHaved();
                 }
@@ -118,7 +118,7 @@ namespace XFramework
                     kBtn_Display_Root.SetActive(true);
                     kTxt_Display_Root.SetActive(false);
                     kTxt_Btn_Display.GetTextMeshPro().SetTMPText(tblanguage.Get("common_state_gain").current);
-                    JiYuTweenHelper.DoScaleTweenOnClickAndLongPress(kBtn_Display_Root,
+                    UnicornTweenHelper.DoScaleTweenOnClickAndLongPress(kBtn_Display_Root,
                         () => { onGetButtonClicked(boxID); });
                 }
             }
@@ -130,7 +130,7 @@ namespace XFramework
             //}
             //else
             //{
-            //    if (ResourcesSingleton.Instance.levelInfo.levelBox.boxStateDic.ContainsKey(boxID))
+            //    if (ResourcesSingletonOld.Instance.levelInfo.levelBox.boxStateDic.ContainsKey(boxID))
             //    {
 
             //    }
@@ -139,7 +139,7 @@ namespace XFramework
             //        kBtn_Display_Root.SetActive(true);
             //        kTxt_Display_Root.SetActive(false);
             //        kTxt_Btn_Display.GetTextMeshPro().SetTMPText(tblanguage.Get("common_state_gain").current);
-            //        JiYuTweenHelper.DoScaleTweenOnClickAndLongPress(kBtn_Display_Root,
+            //        UnicornTweenHelper.DoScaleTweenOnClickAndLongPress(kBtn_Display_Root,
             //            () => { onGetButtonClicked(boxID); });
             //    }
             //    else
@@ -171,7 +171,7 @@ namespace XFramework
         private void onGetButtonClicked(int boxID)
         {
             boxClickedID = boxID;
-            //ResourcesSingleton.Instance.levelInfo.levelBox.boxStateDic[boxID] = true;
+            //ResourcesSingletonOld.Instance.levelInfo.levelBox.boxStateDic[boxID] = true;
             WebMessageHandlerOld.Instance.AddHandler(2, 8, OnBoxGetResponce);
             NetWorkManager.Instance.SendMessage(2, 8, new IntValue { Value = boxID });
         }
@@ -201,15 +201,15 @@ namespace XFramework
             UIHelper.Create(UIType.UICommon_Reward, reList);
             //获得资源
           
-            ResourcesSingleton.Instance.UpdateResourceUI();
+            ResourcesSingletonOld.Instance.UpdateResourceUI();
 
 
-            ResourcesSingleton.Instance.levelInfo.levelBox.boxStateDic[boxClickedID] = true;
-            var boxDic = ResourcesSingleton.Instance.levelInfo.levelBox.boxStateDic;
+            ResourcesSingletonOld.Instance.levelInfo.levelBox.boxStateDic[boxClickedID] = true;
+            var boxDic = ResourcesSingletonOld.Instance.levelInfo.levelBox.boxStateDic;
 
             var keys = boxDic.Keys.ToArray();
-            int minNotGetBoxID = ResourcesSingleton.Instance.levelInfo.levelBox.minNotLockBoxID,
-                oldMinNotGetBoxID = ResourcesSingleton.Instance.levelInfo.levelBox.minNotGetBoxID;
+            int minNotGetBoxID = ResourcesSingletonOld.Instance.levelInfo.levelBox.minNotLockBoxID,
+                oldMinNotGetBoxID = ResourcesSingletonOld.Instance.levelInfo.levelBox.minNotGetBoxID;
             for (int i = 0; i < keys.Length; i++)
             {
                 if (!boxDic[keys[i]] && minNotGetBoxID > keys[i])
@@ -220,7 +220,7 @@ namespace XFramework
 
             if (oldMinNotGetBoxID < minNotGetBoxID)
             {
-                ResourcesSingleton.Instance.levelInfo.levelBox.minNotGetBoxID = minNotGetBoxID;
+                ResourcesSingletonOld.Instance.levelInfo.levelBox.minNotGetBoxID = minNotGetBoxID;
             }
 
             SetAsHaved();
@@ -228,7 +228,7 @@ namespace XFramework
             if (tbchapter_box.Get(oldMinNotGetBoxID).chapterId != tbchapter_box.Get(minNotGetBoxID).chapterId)
             {
                 //更新红点和翻页
-                if (JiYuUIHelper.TryGetUI(UIType.UIPanel_Main, out UI ui))
+                if (UnicornUIHelper.TryGetUI(UIType.UIPanel_Main, out UI ui))
                 {
                     var uiMain = ui as UIPanel_Main;
                     await uiMain.PlayTreasureAnim();
@@ -238,7 +238,7 @@ namespace XFramework
             }
 
 
-            //ResourcesSingleton.Instance.levelInfo.levelBox.boxStateDic.Clear();
+            //ResourcesSingletonOld.Instance.levelInfo.levelBox.boxStateDic.Clear();
             ////拿到最小未解锁的boxID
             //int minNotLockBoxID = 2999;
             ////拿到最小未领取的boxID
@@ -283,8 +283,8 @@ namespace XFramework
             //Log.Debug(
             //    $"minNotLockBoxID：{minNotLockBoxID},minNotGetBoxID:{minNoGetBoxID}", Color.blue);
 
-            //ResourcesSingleton.Instance.levelInfo.levelBox.minNotLockBoxID = minNotLockBoxID;
-            //ResourcesSingleton.Instance.levelInfo.levelBox.minNotGetBoxID = minNoGetBoxID;
+            //ResourcesSingletonOld.Instance.levelInfo.levelBox.minNotLockBoxID = minNotLockBoxID;
+            //ResourcesSingletonOld.Instance.levelInfo.levelBox.minNotGetBoxID = minNoGetBoxID;
             //for (int i = 0; i < roleInfo.ChapterList.Count; i++)
             //{
             //    for (int j = 0; j < roleInfo.ChapterList[i].BoxStatusList.Count; j++)
@@ -305,7 +305,7 @@ namespace XFramework
             //        var boxArray = result.Split(':');
             //        if (int.Parse(boxArray[0]) < minNotLockBoxID)
             //        {
-            //            ResourcesSingleton.Instance.levelInfo.levelBox.boxStateDic.Add(int.Parse(boxArray[0]),
+            //            ResourcesSingletonOld.Instance.levelInfo.levelBox.boxStateDic.Add(int.Parse(boxArray[0]),
             //                boxArray[2] == "false" ? false : true);
             //        }
             //    }
@@ -319,7 +319,7 @@ namespace XFramework
             rewardList.Clear();
 
             var rewardArray = tbchapter_box.Get(boxID).reward;
-            JiYuUIHelper.MergeRewardList(rewardArray);
+            UnicornUIHelper.MergeRewardList(rewardArray);
             float width = 0;
             var rewardItems = new List<UICommon_RewardItem>(rewardArray.Count);
             foreach (var reward in rewardArray)
@@ -328,12 +328,12 @@ namespace XFramework
                     UICommon_RewardItem;
                 rewardItems.Add(ui);
 
-                JiYuUIHelper.SetRewardOnClick(reward, ui);
+                UnicornUIHelper.SetRewardOnClick(reward, ui);
                 ui.GetComponent<RectTransform>().SetScale(new float2(1.3f,1.3f));
                 width = ui.GetComponent<RectTransform>().Width() * ui.GetComponent<RectTransform>().Scale().x;
             }
 
-            rewardList.Sort(JiYuUIHelper.RewardUIComparer);
+            rewardList.Sort(UnicornUIHelper.RewardUIComparer);
             width += spacing;
             //int width=156*0.6f+20
             return width * (rewardArray.Count - 2);

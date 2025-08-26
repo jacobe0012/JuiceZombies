@@ -1,5 +1,5 @@
 //---------------------------------------------------------------------
-// JiYuStudio
+// UnicornStudio
 // Author: xxx
 // Time: #CreateTime#
 //---------------------------------------------------------------------
@@ -13,7 +13,7 @@ using HotFix_UI;
 using Main;
 using Unity.Mathematics;
 using UnityEngine;
-using static HotFix_UI.JiYuUIHelper;
+using static HotFix_UI.UnicornUIHelper;
 using UnityEngine.UIElements;
 using System.Threading;
 using System;
@@ -61,12 +61,12 @@ namespace XFramework
 
         public async void Initialize(UISubPanel_IconBtnItem ui)
         {
-            await JiYuUIHelper.InitBlur(this);
+            await UnicornUIHelper.InitBlur(this);
 
             uiParentBtn = ui;
             this.GetFromReference(KBg_Btn).GetXButton().OnClick?.Add(() =>
             {
-                if (JiYuUIHelper.TryGetUI(UIType.UIPanel_Battle, out UI ui))
+                if (UnicornUIHelper.TryGetUI(UIType.UIPanel_Battle, out UI ui))
                 {
                     var ui1 = ui as UIPanel_Battle;
                     //ui1.RedPointSetState();
@@ -85,10 +85,10 @@ namespace XFramework
             TxtInit();
             SetState();
             var height1 = this.GetFromReference(KImg_Bg).GetRectTransform().AnchoredPosition().y;
-            JiYuTweenHelper.SetEaseAlphaAndPosB2U(this.GetFromReference(KImg_Bg), height1, 100, cts.Token, 0.3f, true,
+            UnicornTweenHelper.SetEaseAlphaAndPosB2U(this.GetFromReference(KImg_Bg), height1, 100, cts.Token, 0.3f, true,
                 true);
 
-            JiYuTweenHelper.SetEaseAlphaAndScale(this.GetFromReference(KPos_Up), 0.25f, false);
+            UnicornTweenHelper.SetEaseAlphaAndScale(this.GetFromReference(KPos_Up), 0.25f, false);
         }
 
 
@@ -99,7 +99,7 @@ namespace XFramework
         {
             /*long timeHelp = TimeHelper.GetToTomorrowTime();
             await UniTask.Delay(1000 * (int)timeHelp);
-            if (JiYuUIHelper.TryGetUI(UIType.UIPanel_Sign, out UI uuii))
+            if (UnicornUIHelper.TryGetUI(UIType.UIPanel_Sign, out UI uuii))
             {
                 WebMessageHandlerOld.Instance.AddHandler(12, 1, OnQueryResponse);
                 NetWorkManager.Instance.SendMessage(12, 1);
@@ -143,10 +143,10 @@ namespace XFramework
         {
             #region
 
-            thisSignDayNum = ResourcesSingleton.Instance.signData.ServerDay;
-            CheckInDay = ResourcesSingleton.Instance.signData.CheckInDay;
-            DailyCanSignOrNot = ResourcesSingleton.Instance.signData.OnDayStatus;
-            BigCanSignOrNot = ResourcesSingleton.Instance.signData.BoxOnDayStatus;
+            thisSignDayNum = ResourcesSingletonOld.Instance.signData.ServerDay;
+            CheckInDay = ResourcesSingletonOld.Instance.signData.CheckInDay;
+            DailyCanSignOrNot = ResourcesSingletonOld.Instance.signData.OnDayStatus;
+            BigCanSignOrNot = ResourcesSingletonOld.Instance.signData.BoxOnDayStatus;
 
             #endregion
         }
@@ -213,7 +213,7 @@ namespace XFramework
             long timeS = 0;
             string timeStr = "";
             timeS = TimeHelper.GetToTomorrowTime();
-            timeStr = JiYuUIHelper.GeneralTimeFormat(new int4(2, 3, 2, 1), timeS);
+            timeStr = UnicornUIHelper.GeneralTimeFormat(new int4(2, 3, 2, 1), timeS);
             this.GetFromReference(KText_Countdown).GetTextMeshPro()
                 .SetTMPText(tblanguage.Get("sign_countdown_text").current + timeStr);
         }
@@ -234,10 +234,10 @@ namespace XFramework
         {
             var SignBtn = this.GetFromReference(KBtn);
             //每日签到按钮
-            JiYuTweenHelper.DoScaleTweenOnClickAndLongPress(SignBtn, () => { GetDailyBox(); });
+            UnicornTweenHelper.DoScaleTweenOnClickAndLongPress(SignBtn, () => { GetDailyBox(); });
             var BigBtn = this.GetFromReference(KBtn_BigBox);
             //累计签到
-            JiYuTweenHelper.DoScaleTweenOnClickAndLongPress(BigBtn, () => { GetBigBox(); });
+            UnicornTweenHelper.DoScaleTweenOnClickAndLongPress(BigBtn, () => { GetBigBox(); });
         }
 
         /// <summary>
@@ -261,12 +261,12 @@ namespace XFramework
                 foreach (var re in tbsign_Daily.Get(SignDayHelp).reward)
                 {
                     var ui = await itemList.CreateWithUITypeAsync<Vector3>(UIType.UICommon_RewardItem, re, false);
-                    JiYuUIHelper.SetRewardOnClick(re, ui);
+                    UnicornUIHelper.SetRewardOnClick(re, ui);
                 }
             }
 
             var nodeName = NodeNames.GetTagFuncRedDotName(3601);
-            JiYuUIHelper.ForceRefreshLayout(this.GetFromReference(KPos_Item));
+            UnicornUIHelper.ForceRefreshLayout(this.GetFromReference(KPos_Item));
             if (DailyCanSignOrNot == 0)
             {
                 this.GetFromReference(KBtn).SetActive(true);
@@ -325,18 +325,18 @@ namespace XFramework
                 {
                     var ui = await rewardList.CreateWithUITypeAsync<Vector3>(UIType.UICommon_RewardItem, re, false);
                     ui.GetRectTransform().SetScale(new Vector2(0.66f, 0.66f));
-                    JiYuUIHelper.SetRewardOnClick(re, ui);
+                    UnicornUIHelper.SetRewardOnClick(re, ui);
                 }
 
                 this.GetFromReference(KText_Dialog).GetTextMeshPro().SetTMPText(DialogStrHelp);
             }
 
 
-            JiYuTweenHelper.PlayUIImageTranstionFX(this.GetFromReference(KImg_BigBox));
+            UnicornTweenHelper.PlayUIImageTranstionFX(this.GetFromReference(KImg_BigBox));
             await UniTask.Delay(200);
             if (this.GetFromReference(KBtn).GameObject.activeSelf)
             {
-                JiYuTweenHelper.PlayUIImageSweepFX(this.GetFromReference(KBtn));
+                UnicornTweenHelper.PlayUIImageSweepFX(this.GetFromReference(KBtn));
             }
         }
 
@@ -386,7 +386,7 @@ namespace XFramework
             Debug.Log(stringValueList);
             if (e.data.IsEmpty)
             {
-                JiYuUIHelper.ClearCommonResource();
+                UnicornUIHelper.ClearCommonResource();
                 await UIHelper.CreateAsync(UIType.UICommon_Resource, tblanguage.Get("text_reward_expire").current);
                 Log.Debug("e.data.IsEmpty", Color.red);
                 return;
@@ -421,8 +421,8 @@ namespace XFramework
                 return;
             }
 
-            ResourcesSingleton.Instance.signData = gameCheckIn;
-            if (JiYuUIHelper.TryGetUI(UIType.UIPanel_Sign, out UI uuii))
+            ResourcesSingletonOld.Instance.signData = gameCheckIn;
+            if (UnicornUIHelper.TryGetUI(UIType.UIPanel_Sign, out UI uuii))
             {
                 SetData();
                 SetState();
@@ -495,7 +495,7 @@ namespace XFramework
             Debug.Log(stringValueList);
             if (e.data.IsEmpty)
             {
-                JiYuUIHelper.ClearCommonResource();
+                UnicornUIHelper.ClearCommonResource();
                 await UIHelper.CreateAsync(UIType.UICommon_Resource, tblanguage.Get("text_reward_expire").current);
                 Log.Debug("e.data.IsEmpty", Color.red);
                 return;

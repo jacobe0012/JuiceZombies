@@ -26,7 +26,7 @@ public class MapViewWindow : EditorWindow
     private bool isMapView = false;
     private Vector2 scrollPosition = Vector2.zero;
 
-    //[MenuItem("JiYuStudio Tools/地图预览")]
+    //[MenuItem("UnicornStudio Tools/地图预览")]
     public static void ShowWindow()
     {
         MapViewWindow window = GetWindow<MapViewWindow>("地图预览");
@@ -155,7 +155,7 @@ public class MapViewWindow : EditorWindow
     private void SwitchScene(UI ui)
     {
         //?л?????
-        ResourcesSingleton.Instance.levelInfo.levelId = int.Parse(inputText);
+        ResourcesSingletonOld.Instance.levelInfo.levelId = int.Parse(inputText);
 
         var sceneController = XFramework.Common.Instance.Get<SceneController>();
         var sceneObj = sceneController.LoadSceneAsync<RunTimeScene>(SceneName.RunTime);
@@ -244,7 +244,7 @@ public class MapViewWindow : EditorWindow
         playerViewTexture.LoadImage(bytes);
     }
 
-    //[MenuItem("JiYuStudio Tools/??????")]
+    //[MenuItem("UnicornStudio Tools/??????")]
     void LoadMap()
     {
         string[] mapFiles =

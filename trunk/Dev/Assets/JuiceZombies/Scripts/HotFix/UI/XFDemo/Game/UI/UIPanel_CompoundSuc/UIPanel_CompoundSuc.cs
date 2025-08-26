@@ -1,5 +1,5 @@
 //---------------------------------------------------------------------
-// JiYuStudio
+// UnicornStudio
 // Author: xxx
 // Time: #CreateTime#
 //---------------------------------------------------------------------
@@ -123,7 +123,7 @@ namespace XFramework
                 UICommon_EquipItem;
             KEquipPos.AddChild(newEquip);
 
-            var name = JiYuUIHelper.GetRewardName(new Vector3(11,
+            var name = UnicornUIHelper.GetRewardName(new Vector3(11,
                 upQuaEquip.equip.EquipId * 100 + upQuaEquip.equip.Quality, 1));
             KText_EquipName.GetTextMeshPro().SetTMPText(name);
 

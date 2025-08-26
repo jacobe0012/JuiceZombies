@@ -1,5 +1,5 @@
 //---------------------------------------------------------------------
-// JiYuStudio
+// UnicornStudio
 // Author: 迅捷蟹
 // Time: 2023-8-8 17:58:20
 //---------------------------------------------------------------------
@@ -22,14 +22,14 @@ using UnityEngine.UI;
 //插件也写了一些DoTween效果,但不清楚是否适合我们,所以自己写了一个
 namespace XFramework
 {
-    public static class JiYuTweenHelper
+    public static class UnicornTweenHelper
     {
         #region Trans
 
         public static void SetEffectUIState(int sort)
         {
             Log.Debug($"SetEffectUIState sort：{sort}");
-            if (JiYuUIHelper.TryGetUI(UIType.UIPanel_Shop, out UI ui))
+            if (UnicornUIHelper.TryGetUI(UIType.UIPanel_Shop, out UI ui))
             {
                 var uiShop = ui as UIPanel_Shop;
                 uiShop.GetAllMoudelUIs(sort == 1);
@@ -508,10 +508,10 @@ namespace XFramework
                     ui.GetComponent<CanvasGroup>().DOFade(1, duration * (1.5f)).SetEase(type).SetUpdate(true);
                 }
 
-                JiYuTweenHelper.SetEaseAlphaAndScale(ui, duration, false, startScale, biggerScale, cancellationToken,
+                UnicornTweenHelper.SetEaseAlphaAndScale(ui, duration, false, startScale, biggerScale, cancellationToken,
                     type);
                 await UniTask.Delay((int)(duration * 1000), cancellationToken: cancellationToken);
-                JiYuTweenHelper.SetEaseAlphaAndScale(ui, duration / 2f, false, biggerScale, endScale, cancellationToken,
+                UnicornTweenHelper.SetEaseAlphaAndScale(ui, duration / 2f, false, biggerScale, endScale, cancellationToken,
                     type);
                 return AsyncUnit.Default;
             }
@@ -537,7 +537,7 @@ namespace XFramework
             ui.GetComponent<CanvasGroup>().alpha = 1f;
             ui.GetComponent<CanvasGroup>().DOFade(0, duration * (1.5f)).SetEase(Ease.InQuad).SetUpdate(true);
 
-            return await JiYuTweenHelper.SetEaseAlphaAndScale(ui, duration, false, startScale, endScale,
+            return await UnicornTweenHelper.SetEaseAlphaAndScale(ui, duration, false, startScale, endScale,
                 cancellationToken);
         }
 

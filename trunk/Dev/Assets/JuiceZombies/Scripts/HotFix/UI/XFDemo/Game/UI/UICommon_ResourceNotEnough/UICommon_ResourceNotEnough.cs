@@ -1,5 +1,5 @@
 ﻿//---------------------------------------------------------------------
-// JiYuStudio
+// UnicornStudio
 // Author: xxx
 // Time: #CreateTime#
 //---------------------------------------------------------------------
@@ -59,7 +59,7 @@ namespace XFramework
             //}
             this.GetFromReference(KSubPanel_CommonBtn).GetFromReference(UISubPanel_CommonBtn.KText_Mid).SetActive(true);
             string str1 = tblanguage.Get("common_state_buy").current;
-            var str = JiYuUIHelper.GetRewardTextIconName(v3);
+            var str = UnicornUIHelper.GetRewardTextIconName(v3);
             if (v3.x == 2)
             {
                 string str2 = tblanguage.Get(tbuser_Variable.Get(2).name).current;
@@ -122,7 +122,7 @@ namespace XFramework
             if (v3.x == 2 || v3.x == 3)
             {
                 var btn = this.GetFromReference(KSubPanel_CommonBtn).GetFromReference(UISubPanel_CommonBtn.KBtn_Common);
-                JiYuTweenHelper.DoScaleTweenOnClickAndLongPress(btn, () => { GoToChongZhi(); });
+                UnicornTweenHelper.DoScaleTweenOnClickAndLongPress(btn, () => { GoToChongZhi(); });
             }
             else
             {
@@ -140,7 +140,7 @@ namespace XFramework
         private void GoToChongZhi()
         {
             var str = "type=1;para=[141]";
-            JiYuUIHelper.GoToSomePanel(str);
+            UnicornUIHelper.GoToSomePanel(str);
             Close();
         }
 

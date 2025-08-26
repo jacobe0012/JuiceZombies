@@ -1,5 +1,5 @@
 //---------------------------------------------------------------------
-// JiYuStudio
+// UnicornStudio
 // Author: xxx
 // Time: #CreateTime#
 //---------------------------------------------------------------------
@@ -114,17 +114,17 @@ namespace XFramework
 
         public void SortItems(bool isCompoundSort = false)
         {
-            ResourcesSingleton.Instance.equipmentData.isCompoundSort = isCompoundSort;
+            ResourcesSingletonOld.Instance.equipmentData.isCompoundSort = isCompoundSort;
             var KContainer_Content = GetFromReference(UICommon_Label.KContainer_Content);
             var list = KContainer_Content.GetList();
-            list.Sort(JiYuUIHelper.EquipUIComparer);
+            list.Sort(UnicornUIHelper.EquipUIComparer);
         }
 
         public void ForceRefreshLayout()
         {
             var KContainer_Content = GetFromReference(UICommon_Label.KContainer_Content);
 
-            JiYuUIHelper.ForceRefreshLayout(KContainer_Content);
+            UnicornUIHelper.ForceRefreshLayout(KContainer_Content);
         }
 
         public void RefreshRewardItems()
@@ -135,9 +135,9 @@ namespace XFramework
                 int rewardy = (int)item.trueReward.y;
                 if (rewardx == 5)
                 {
-                    if (ResourcesSingleton.Instance.items.ContainsKey(rewardy))
+                    if (ResourcesSingletonOld.Instance.items.ContainsKey(rewardy))
                     {
-                        item.Initialize(new Vector3(rewardx, rewardy, ResourcesSingleton.Instance.items[rewardy]));
+                        item.Initialize(new Vector3(rewardx, rewardy, ResourcesSingletonOld.Instance.items[rewardy]));
                     }
                     else
                     {
@@ -151,7 +151,7 @@ namespace XFramework
         {
             foreach (var item in equipItems)
             {
-                if (ResourcesSingleton.Instance.equipmentData.equipments.TryGetValue(item.uid, out var gameEquip))
+                if (ResourcesSingletonOld.Instance.equipmentData.equipments.TryGetValue(item.uid, out var gameEquip))
                 {
                     item.Initialize(gameEquip, UIPanel_Equipment.EquipPanelType.Main);
                 }
@@ -217,7 +217,7 @@ namespace XFramework
 
             if ((int)type >= 8 && (int)type <= 10)
             {
-                foreach (var item in ResourcesSingleton.Instance.items)
+                foreach (var item in ResourcesSingletonOld.Instance.items)
                 {
                     if (type == CommonLabelType.Prop && itemConfig.Get(item.Key).page == 1)
                     {
@@ -235,7 +235,7 @@ namespace XFramework
             }
             else
             {
-                foreach (var item in ResourcesSingleton.Instance.equipmentData.equipments)
+                foreach (var item in ResourcesSingletonOld.Instance.equipmentData.equipments)
                 {
                     var equip = item.Value.equip;
                     int equipId = equip.EquipId * 100 + equip.Quality;
@@ -340,7 +340,7 @@ namespace XFramework
             //var content = KContainer_Content?.GameObject?.transform;
             var list = KContainer_Content.GetList();
             list.Clear();
-            foreach (var kv in ResourcesSingleton.Instance.items)
+            foreach (var kv in ResourcesSingletonOld.Instance.items)
             {
                 var item = itemConfig.Get(kv.Key);
                 if (item.displayYn == 1)
@@ -371,16 +371,16 @@ namespace XFramework
                 //     reward, content, cct) as UICommon_RewardItem;
                 ui.SetActive(true);
                 rewardItems.Add(ui);
-                JiYuUIHelper.SetRewardOnClick(reward, ui);
+                UnicornUIHelper.SetRewardOnClick(reward, ui);
             }
 
-            list.Sort(JiYuUIHelper.RewardUIComparer);
+            list.Sort(UnicornUIHelper.RewardUIComparer);
         }
 
         // bool IsWearThisEquip(long uid)
         // {
         //     bool isWear = false;
-        //     foreach (var VARIABLE in ResourcesSingleton.Instance.equipmentData.isWearingEquipments)
+        //     foreach (var VARIABLE in ResourcesSingletonOld.Instance.equipmentData.isWearingEquipments)
         //     {
         //         if (VARIABLE.Value.PartId == uid)
         //         {
@@ -406,12 +406,12 @@ namespace XFramework
 
             list.Clear();
 
-            // for (int i = 0; i < ResourcesSingleton.Instance.equipmentData.equipments.Count; i++)
+            // for (int i = 0; i < ResourcesSingletonOld.Instance.equipmentData.equipments.Count; i++)
             // {
             //    
             // }
 
-            foreach (var kv in ResourcesSingleton.Instance.equipmentData.equipments)
+            foreach (var kv in ResourcesSingletonOld.Instance.equipmentData.equipments)
             {
                 var item = kv.Value;
                 var equipId = item.equip.EquipId * 100 + item.equip.Quality;
@@ -433,7 +433,7 @@ namespace XFramework
                     var KImg_Pos = ui.GetFromReference(UICommon_EquipItem.KImg_Pos);
                     KImg_Pos.SetActive(true);
 
-                    JiYuUIHelper.SetEquipOnClick(item.equip.PartId, ui);
+                    UnicornUIHelper.SetEquipOnClick(item.equip.PartId, ui);
                     equipItems.Add(ui);
                     if (item.isWearing)
                     {
@@ -455,7 +455,7 @@ namespace XFramework
                     var KImg_Pos = ui.GetFromReference(UICommon_EquipItem.KImg_Pos);
                     KImg_Pos.SetActive(true);
 
-                    JiYuUIHelper.SetEquipOnClick(item.equip.PartId, ui);
+                    UnicornUIHelper.SetEquipOnClick(item.equip.PartId, ui);
                     equipItems.Add(ui);
                     if (item.isWearing)
                     {
@@ -469,7 +469,7 @@ namespace XFramework
                 }
             }
 
-            list.Sort(JiYuUIHelper.EquipUIComparer);
+            list.Sort(UnicornUIHelper.EquipUIComparer);
         }
 
         public async UniTask InitEquipCompound(CommonLabelType type, CancellationToken cct)
@@ -483,7 +483,7 @@ namespace XFramework
             var list = KContainer_Content.GetList();
             list.Clear();
 
-            foreach (var kv in ResourcesSingleton.Instance.equipmentData.equipments)
+            foreach (var kv in ResourcesSingletonOld.Instance.equipmentData.equipments)
             {
                 var item = kv.Value;
                 int equipId = item.equip.EquipId * 100 + item.equip.Quality;
@@ -511,14 +511,14 @@ namespace XFramework
                 var KImg_Pos = ui.GetFromReference(UICommon_EquipItem.KImg_Pos);
                 KImg_Pos.SetActive(true);
                 var btn = ui.GetFromReference(UICommon_EquipItem.KBtn_Item);
-                JiYuTweenHelper.DoScaleTweenOnClickAndLongPress(btn, () =>
+                UnicornTweenHelper.DoScaleTweenOnClickAndLongPress(btn, () =>
                 {
-                    if (!JiYuUIHelper.TryGetUI(UIType.UIPanel_Compound, out var ui))
+                    if (!UnicornUIHelper.TryGetUI(UIType.UIPanel_Compound, out var ui))
                     {
                         return;
                     }
 
-                      JiYuUIHelper.DestoryAllTips();;
+                      UnicornUIHelper.DestoryAllTips();;
                   
                     var uiPanel = ui as UIPanel_Compound;
                     uiPanel.OnClickActionEvent(uiPanel.curSortBy, item.equip.PartId);
@@ -528,7 +528,7 @@ namespace XFramework
                 equipItems.Add(ui);
             }
 
-            list.Sort(JiYuUIHelper.EquipUIComparer);
+            list.Sort(UnicornUIHelper.EquipUIComparer);
         }
 
         private bool CompareCanCompound(MyGameEquip myGameEquip1, MyGameEquip myGameEquip2)
@@ -609,7 +609,7 @@ namespace XFramework
         {
             var KContainer_Content = GetFromReference(UICommon_Label.KContainer_Content);
             var list = KContainer_Content.GetList();
-            if (!JiYuUIHelper.TryGetUI(UIType.UIPanel_Compound, out var uiCompound))
+            if (!UnicornUIHelper.TryGetUI(UIType.UIPanel_Compound, out var uiCompound))
             {
                 return;
             }
@@ -644,7 +644,7 @@ namespace XFramework
 
         public async UniTask InitEquipCompoundSelected(CommonLabelType type, long uid, CancellationToken cct)
         {
-            if (!ResourcesSingleton.Instance.equipmentData.equipments.TryGetValue(uid, out var myGameEquip))
+            if (!ResourcesSingletonOld.Instance.equipmentData.equipments.TryGetValue(uid, out var myGameEquip))
             {
                 Log.Error($"uid:{uid} is not exist");
                 return;
@@ -660,7 +660,7 @@ namespace XFramework
             var list = KContainer_Content.GetList();
             list.Clear();
 
-            foreach (var kv in ResourcesSingleton.Instance.equipmentData.equipments)
+            foreach (var kv in ResourcesSingletonOld.Instance.equipmentData.equipments)
             {
                 var item = kv.Value;
                 var equipId0 = item.equip.EquipId * 100 + item.equip.Quality;
@@ -679,12 +679,12 @@ namespace XFramework
                         var KImg_MaskIcon = ui.GetFromReference(UICommon_EquipItem.KImg_MaskIcon);
                         KImg_MaskIcon.GetImage().SetSpriteAsync("pic_equip_greencheckmark", false).Forget();
                         KImg_Mask.SetActive(false);
-                        JiYuTweenHelper.DoScaleTweenOnClickAndLongPress(btn,
+                        UnicornTweenHelper.DoScaleTweenOnClickAndLongPress(btn,
                             () =>
                             {
                                 KImg_MaskIcon.GetImage().SetSpriteAsync("pic_equip_greencheckmark", false).Forget();
                                 KImg_Mask.SetActive(!KImg_Mask.GameObject.activeSelf);
-                                if (!JiYuUIHelper.TryGetUI(UIType.UIPanel_Compound, out var ui))
+                                if (!UnicornUIHelper.TryGetUI(UIType.UIPanel_Compound, out var ui))
                                 {
                                     return;
                                 }
@@ -726,9 +726,9 @@ namespace XFramework
                         KImg_MaskIcon.GetImage().SetSpriteAsync("pic_equip_greencheckmark", false).Forget();
                         KImg_Mask.SetActive(true);
 
-                        JiYuTweenHelper.DoScaleTweenOnClickAndLongPress(btn, () =>
+                        UnicornTweenHelper.DoScaleTweenOnClickAndLongPress(btn, () =>
                         {
-                            if (!JiYuUIHelper.TryGetUI(UIType.UIPanel_Compound, out var ui))
+                            if (!UnicornUIHelper.TryGetUI(UIType.UIPanel_Compound, out var ui))
                             {
                                 return;
                             }
@@ -747,8 +747,8 @@ namespace XFramework
             {
                 var obj111 = obj11 as UICommon_EquipItem;
                 var obj211 = obj21 as UICommon_EquipItem;
-                ResourcesSingleton.Instance.equipmentData.equipments.TryGetValue(obj111.uid, out var obj100);
-                ResourcesSingleton.Instance.equipmentData.equipments.TryGetValue(obj211.uid, out var obj200);
+                ResourcesSingletonOld.Instance.equipmentData.equipments.TryGetValue(obj111.uid, out var obj100);
+                ResourcesSingletonOld.Instance.equipmentData.equipments.TryGetValue(obj211.uid, out var obj200);
                 var obj1 = obj100.equip;
                 var obj2 = obj200.equip;
                 var equipData = ConfigManager.Instance.Tables.Tbequip_data;
@@ -824,7 +824,7 @@ namespace XFramework
             var list = KContainer_Content.GetList();
 
 
-            foreach (var item in ResourcesSingleton.Instance.equipmentData.isMaterials)
+            foreach (var item in ResourcesSingletonOld.Instance.equipmentData.isMaterials)
             {
                 // var rewardz = CmdHelper.GetMergeCmd((int)item.Key.z, item.Value);
                 // var rewardMerged = new Vector3(item.Key.x, item.Key.y, rewardz);
@@ -837,11 +837,11 @@ namespace XFramework
                 //     await UIHelper.CreateAsync(this, UIType.UICommon_RewardItem, rewardMerged, content, cct) as
                 //         UICommon_RewardItem;
                 ui.SetActive(true);
-                JiYuUIHelper.SetRewardOnClick(reward, ui);
+                UnicornUIHelper.SetRewardOnClick(reward, ui);
                 rewardItems.Add(ui);
             }
 
-            list.Sort(JiYuUIHelper.RewardUIComparer);
+            list.Sort(UnicornUIHelper.RewardUIComparer);
             //equipItems.Add(ui);
         }
     }

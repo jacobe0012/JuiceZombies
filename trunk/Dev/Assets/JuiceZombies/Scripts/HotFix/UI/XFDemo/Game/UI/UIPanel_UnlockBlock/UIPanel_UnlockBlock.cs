@@ -1,5 +1,5 @@
 //---------------------------------------------------------------------
-// JiYuStudio
+// UnicornStudio
 // Author: xxx
 // Time: #CreateTime#
 //---------------------------------------------------------------------
@@ -40,12 +40,12 @@ namespace XFramework
         private const int maxTitleH= 160;
         private const int maxTitleW = 244;
         /// <summary>
-        /// args.x = ÀàÐÍ 0½ÖÇø 1ÕÂ½Ú args.y = id
+        /// args.x = ï¿½ï¿½ï¿½ï¿½ 0ï¿½ï¿½ï¿½ï¿½ 1ï¿½Â½ï¿½ args.y = id
         /// </summary>
         /// <param name="args"></param>
         public async void Initialize(Vector2 args)
         {
-            await JiYuUIHelper.InitBlur(this);
+            await UnicornUIHelper.InitBlur(this);
             InitJson();
             Init(args);
             StartTimer();
@@ -61,7 +61,7 @@ namespace XFramework
             var KImg_Block = GetFromReference(UIPanel_UnlockBlock.KImg_Block);
             var KImg_Chapter = GetFromReference(UIPanel_UnlockBlock.KImg_Chapter);
             var KImg_BlockPic = GetFromReference(UIPanel_UnlockBlock.KKImg_BlockPic);
-            //''£¿£¿£¿£¿£¿£¿£¿£¿£¿£¿£¿£¿£¿£¿£¿£¿£¿£¿£¿£¿£¿var KImg_ChapterPic = GetFromReference(UIPanel_UnlockBlock.KImg_ChapterPic);
+            //''ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½var KImg_ChapterPic = GetFromReference(UIPanel_UnlockBlock.KImg_ChapterPic);
             var KImg_NameBg= GetFromReference(UIPanel_UnlockBlock.KImg_NameBg);
             KImg_Block.SetActive(false);
             KImg_Chapter.SetActive(false);
@@ -73,7 +73,7 @@ namespace XFramework
                 case 0:
                     KImg_Block.SetActive(true);
                     //KImg_Chapter.SetActive(false);
-                    GetFromReference(KImgTitle).GetXImage().SetSprite(JiYuUIHelper.GetL10NPicName("block_unlock"),true);
+                    GetFromReference(KImgTitle).GetXImage().SetSprite(UnicornUIHelper.GetL10NPicName("block_unlock"),true);
                     KText_Name.GetTextMeshPro().SetTMPText(tblanguage.Get(tbblock.Get(id).name).current);
                     KImg_BlockPic.GetImage().SetSpriteAsync(tbblock.Get(id).pic, false).Forget();
 
@@ -81,12 +81,12 @@ namespace XFramework
                 case 1:
                     //KImg_Block.SetActive(false);
                     KImg_Chapter.SetActive(true);
-                    GetFromReference(KImgTitle).GetXImage().SetSprite(JiYuUIHelper.GetL10NPicName("level_unlock"), true);
+                    GetFromReference(KImgTitle).GetXImage().SetSprite(UnicornUIHelper.GetL10NPicName("level_unlock"), true);
                     KText_Name.GetTextMeshPro().SetTMPText(tblanguage.Get(tbchapter.Get(id).name).current);
                     break;
             }
             
-            var closeStr = JiYuUIHelper.GetBulletTypeStr(tblanguage.Get("text_window_close").current);
+            var closeStr = UnicornUIHelper.GetBulletTypeStr(tblanguage.Get("text_window_close").current);
 
             KText_Click.GetTextMeshPro().SetTMPText(closeStr);
             var height=KText_Name.GetTextMeshPro().Get().preferredHeight;
@@ -111,17 +111,17 @@ namespace XFramework
         }
 
         /// <summary>
-        /// ¿ªÆô¶¨Ê±Æ÷
+        /// ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ê±ï¿½ï¿½
         /// </summary>
         public void StartTimer()
         {
-            //¿ªÆôÒ»¸öÃ¿Ö¡Ö´ÐÐµÄÈÎÎñ£¬Ïàµ±ÓÚUpdate
+            //ï¿½ï¿½ï¿½ï¿½Ò»ï¿½ï¿½Ã¿Ö¡Ö´ï¿½Ðµï¿½ï¿½ï¿½ï¿½ï¿½ï¿½àµ±ï¿½ï¿½Update
             var timerMgr = TimerManager.Instance;
             timerId = timerMgr.StartRepeatedTimer(2500, this.Update);
         }
 
         /// <summary>
-        /// ÒÆ³ý¶¨Ê±Æ÷
+        /// ï¿½Æ³ï¿½ï¿½ï¿½Ê±ï¿½ï¿½
         /// </summary>
         public void RemoveTimer()
         {

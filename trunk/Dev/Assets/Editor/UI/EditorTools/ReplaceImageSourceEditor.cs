@@ -12,7 +12,7 @@ public class ReplaceImageSourceEditor : EditorWindow
     private Object targetFolderPathObj;
     private Object sourceFolderPathObj;
 
-    [MenuItem("JiYuStudio Tools/更改所有预制件的图片引用并替换图片工具")]
+    [MenuItem("UnicornStudio Tools/更改所有预制件的图片引用并替换图片工具")]
     public static void ShowWindow()
     {
         GetWindow<ReplaceImageSourceEditor>("更改图片引用&替换工具");

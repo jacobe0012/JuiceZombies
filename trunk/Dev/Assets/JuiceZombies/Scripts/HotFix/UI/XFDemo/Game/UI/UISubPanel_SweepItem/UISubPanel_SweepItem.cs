@@ -1,5 +1,5 @@
 //---------------------------------------------------------------------
-// JiYuStudio
+// UnicornStudio
 // Author: xxx
 // Time: #CreateTime#
 //---------------------------------------------------------------------
@@ -35,7 +35,7 @@ namespace XFramework
 		public void Initialize()
 		{
 			 InitNode();
-			JiYuUIHelper.ForceRefreshLayout(GetFromReference(Kcontainer));
+			UnicornUIHelper.ForceRefreshLayout(GetFromReference(Kcontainer));
 		}
 		 void InitNode()
 		{

@@ -1,5 +1,5 @@
 ﻿//---------------------------------------------------------------------
-// JiYuStudio
+// UnicornStudio
 // Author: xxx
 // Time: #CreateTime#
 //---------------------------------------------------------------------
@@ -46,7 +46,7 @@ namespace XFramework
 
         public async void Initialize(List<GamePass> gamePassList)
         {
-            await JiYuUIHelper.InitBlur(this);
+            await UnicornUIHelper.InitBlur(this);
             this.GetFromReference(KBtn_Close).GetXButton().OnClick?.Add(() => { Close(); });
             DataInit(gamePassList);
             TextInit(gamePassList);
@@ -57,7 +57,7 @@ namespace XFramework
 
         private void CloseTip()
         {
-            JiYuUIHelper.DestoryAllTips();
+            UnicornUIHelper.DestoryAllTips();
             //UIHelper.Remove(UIType.UICommon_ItemTips);
         }
 
@@ -127,10 +127,10 @@ namespace XFramework
                 }
             }
 
-            JiYuUIHelper.MergeRewardList(reImmediately);
-            JiYuUIHelper.MergeRewardList(reList);
-            JiYuUIHelper.SortRewards(reImmediately);
-            JiYuUIHelper.SortRewards(reList);
+            UnicornUIHelper.MergeRewardList(reImmediately);
+            UnicornUIHelper.MergeRewardList(reList);
+            UnicornUIHelper.SortRewards(reImmediately);
+            UnicornUIHelper.SortRewards(reList);
             // int allNum = reImmediately.Count + reList.Count;
             // int rowNum = allNum / 5;
             // if (allNum % 5 == 0)
@@ -154,7 +154,7 @@ namespace XFramework
                     .CreateWithUITypeAsync<Vector3>(UIType.UICommon_RewardItem, r, false);
                 reItem.GetRectTransform().SetAnchoredPositionX(0);
                 reItem.GetRectTransform().SetAnchoredPositionY(0);
-                JiYuUIHelper.SetRewardOnClick(r, reItem);
+                UnicornUIHelper.SetRewardOnClick(r, reItem);
                 item.GetFromReference(UISubPanel_Pass_Token_Item.KImg_Can_Claim).SetActive(true);
             }
 
@@ -166,11 +166,11 @@ namespace XFramework
                     .CreateWithUITypeAsync<Vector3>(UIType.UICommon_RewardItem, r, false);
                 reItem.GetRectTransform().SetAnchoredPositionX(0);
                 reItem.GetRectTransform().SetAnchoredPositionY(0);
-                JiYuUIHelper.SetRewardOnClick(r, reItem);
+                UnicornUIHelper.SetRewardOnClick(r, reItem);
                 item.GetFromReference(UISubPanel_Pass_Token_Item.KImg_Can_Claim).SetActive(false);
             }
 
-            JiYuUIHelper.ForceRefreshLayout(this.GetFromReference(KContent));
+            UnicornUIHelper.ForceRefreshLayout(this.GetFromReference(KContent));
         }
 
         private int PassLevel(int exp)

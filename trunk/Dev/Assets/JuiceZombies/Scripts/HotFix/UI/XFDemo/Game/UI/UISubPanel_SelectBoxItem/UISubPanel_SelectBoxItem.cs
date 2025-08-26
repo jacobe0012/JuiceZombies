@@ -1,5 +1,5 @@
 //---------------------------------------------------------------------
-// JiYuStudio
+// UnicornStudio
 // Author: xxx
 // Time: #CreateTime#
 //---------------------------------------------------------------------
@@ -45,7 +45,7 @@ namespace XFramework
 			var KImg_Selected = GetFromReference(UISubPanel_SelectBoxItem.KImg_Selected);
 			KImg_UnSelected.SetActive(true);
 			KImg_Selected.SetActive(false);
-			JiYuUIHelper.SetRewardIconAndCountText(reward, KCommon_RewardItem);
+			UnicornUIHelper.SetRewardIconAndCountText(reward, KCommon_RewardItem);
 		}
 		protected override void OnClose()
 		{

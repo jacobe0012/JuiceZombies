@@ -1,5 +1,5 @@
 //---------------------------------------------------------------------
-// JiYuStudio
+// UnicornStudio
 // Author: xxx
 // Time: #CreateTime#
 //---------------------------------------------------------------------
@@ -38,7 +38,7 @@ namespace XFramework
                 return;
             }
 
-            #region »Æ½ð¹úÌí¼Ó
+            #region ï¿½Æ½ï¿½ï¿½ï¿½ï¿½ï¿½
 
             if (reward.x == -1)
             {
@@ -47,7 +47,7 @@ namespace XFramework
 
             #endregion
 
-            JiYuUIHelper.SetIconOnly(reward, icon);
+            UnicornUIHelper.SetIconOnly(reward, icon);
         }
 
         // public void OnDestroyUI()

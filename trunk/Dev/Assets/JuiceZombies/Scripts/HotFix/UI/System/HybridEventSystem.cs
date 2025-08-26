@@ -111,25 +111,25 @@ namespace HotFix_UI
                     }
                     else if (hybridEvnetData.type == 31)
                     {
-                        if (JiYuUIHelper.TryGetUI(UIType.UIPanel_RunTimeHUD, out var ui))
+                        if (UnicornUIHelper.TryGetUI(UIType.UIPanel_RunTimeHUD, out var ui))
                         {
-                            //JiYuUIHelper.StartStopTime(false);
+                            //UnicornUIHelper.StartStopTime(false);
                             Debug.Log($"uiRuntime {hybridEvnetData.args.x}");
                             UIHelper.CreateAsync(UIType.UIPanel_BattleShop, (int)hybridEvnetData.args.x).Forget();
                         }
                     }
                     else if (hybridEvnetData.type == 32)
                     {
-                        if (JiYuUIHelper.TryGetUI(UIType.UIPanel_RunTimeHUD, out var ui))
+                        if (UnicornUIHelper.TryGetUI(UIType.UIPanel_RunTimeHUD, out var ui))
                         {
-                            //JiYuUIHelper.StartStopTime(false);
+                            //UnicornUIHelper.StartStopTime(false);
                             Debug.Log($"UIPanel_BattleTecnology {hybridEvnetData.args.x}");
                             UIHelper.CreateAsync(UIType.UIPanel_BattleTecnology, (int)hybridEvnetData.args.x).Forget();
                         }
                     }
                     else if (hybridEvnetData.type == 6)
                     {
-                        if (JiYuUIHelper.TryGetUI(UIType.UIPanel_RunTimeHUD, out var ui))
+                        if (UnicornUIHelper.TryGetUI(UIType.UIPanel_RunTimeHUD, out var ui))
                         {
                             var uis = ui as UIPanel_RunTimeHUD;
                             uis.PlaySpineUIFX(hybridEvnetData.strArgs.Value, hybridEvnetData.args.x).Forget();
@@ -146,7 +146,7 @@ namespace HotFix_UI
                         var bossStag = (int)hybridEvnetData.args.x;
                         int skillID = (int)hybridEvnetData.args.y;
 
-                        if (JiYuUIHelper.TryGetUI(UIType.UIPanel_RunTimeHUD, out var ui))
+                        if (UnicornUIHelper.TryGetUI(UIType.UIPanel_RunTimeHUD, out var ui))
                         {
                             var uiRuntime = ui as UIPanel_RunTimeHUD;
                             if (uiRuntime.bossState == bossStag + 1 && !hybridEvnetData.disAble)
@@ -162,7 +162,7 @@ namespace HotFix_UI
                         int needType = (int)hybridEvnetData.args.x;
                         int needQuality = (int)hybridEvnetData.args.y;
 
-                        if (JiYuUIHelper.TryGetUI(UIType.UIPanel_RunTimeHUD, out var uia))
+                        if (UnicornUIHelper.TryGetUI(UIType.UIPanel_RunTimeHUD, out var uia))
                         {
                             var uis = uia as UIPanel_RunTimeHUD;
 
@@ -219,7 +219,7 @@ namespace HotFix_UI
                         var addtion = hybridEvnetData.args.x;
                         var bindingID = (int)hybridEvnetData.args.y;
                         var propID = (int)hybridEvnetData.args.z;
-                        if (JiYuUIHelper.TryGetUI(UIType.UIPanel_RunTimeHUD, out var ui))
+                        if (UnicornUIHelper.TryGetUI(UIType.UIPanel_RunTimeHUD, out var ui))
                         {
                             var uiRuntime = ui as UIPanel_RunTimeHUD;
                             int exp = 0;
@@ -255,7 +255,7 @@ namespace HotFix_UI
                         int bindingID = (int)hybridEvnetData.args.x;
                         int level = (int)hybridEvnetData.args.y;
                         int skillID = (int)hybridEvnetData.args.z;
-                        if (JiYuUIHelper.TryGetUI(UIType.UIPanel_RunTimeHUD, out var ui))
+                        if (UnicornUIHelper.TryGetUI(UIType.UIPanel_RunTimeHUD, out var ui))
                         {
                             var uiRuntime = ui as UIPanel_RunTimeHUD;
                             if (!uiRuntime.bindingsDic.TryGetValue(bindingID, out var exp))
@@ -291,7 +291,7 @@ namespace HotFix_UI
                                 break;
                         }
 
-                        JiYuUIHelper.ClearCommonResource();
+                        UnicornUIHelper.ClearCommonResource();
                         UIHelper.CreateAsync(UIType.UICommon_Resource, tblanguage.Get(key).current);
                     }
                     else if (hybridEvnetData.type == 45)
@@ -302,7 +302,7 @@ namespace HotFix_UI
                     }
                     else if (hybridEvnetData.type == 46)
                     {
-                        if (JiYuUIHelper.TryGetUI(UIType.UIPanel_RunTimeHUD, out var ui))
+                        if (UnicornUIHelper.TryGetUI(UIType.UIPanel_RunTimeHUD, out var ui))
                         {
                             var uis = ui as UIPanel_RunTimeHUD;
                             var dic = uis.skillsDic;
@@ -344,7 +344,7 @@ namespace HotFix_UI
                         {
                             if (vGuide.guideType == 323)
                             {
-                                if (JiYuUIHelper.TryGetUI(UIType.UIPanel_RunTimeHUD, out var ui))
+                                if (UnicornUIHelper.TryGetUI(UIType.UIPanel_RunTimeHUD, out var ui))
                                 {
                                     UIHelper.CreateAsync(UIType.UIPanel_GuideTips, vGuide.id);
                                 }
@@ -366,7 +366,7 @@ namespace HotFix_UI
                         {
                             if (vGuide.guideType == guideType)
                             {
-                                if (JiYuUIHelper.TryGetUI(UIType.UIPanel_RunTimeHUD, out var ui))
+                                if (UnicornUIHelper.TryGetUI(UIType.UIPanel_RunTimeHUD, out var ui))
                                 {
                                     OnGuide313(vGuide.id, hybridEvnetData.args.xyz);
                                 }
@@ -429,17 +429,17 @@ namespace HotFix_UI
             {
                 chaStats.chaProperty.rebirthCount1--;
                 entityManager.SetComponentData(player, chaStats);
-                JiYuUIHelper.RebirthPlayer();
+                UnicornUIHelper.RebirthPlayer();
             }
             else if (chaStats.chaProperty.rebirthCount > 0)
             {
                 chaStats.chaProperty.rebirthCount--;
                 entityManager.SetComponentData(player, chaStats);
-                JiYuUIHelper.RebirthPlayer();
+                UnicornUIHelper.RebirthPlayer();
             }
             else
             {
-                //JiYuUIHelper.StartStopTime(false);
+                //UnicornUIHelper.StartStopTime(false);
                 UIHelper.Create(UIType.UIPanel_Rebirth);
             }
         }
@@ -489,12 +489,12 @@ namespace HotFix_UI
             entityManager.SetComponentData(player, chaStats);
 
             //Log.Debug($"OnBossDieEvent{1}");
-            await JiYuTweenHelper.EnableLoading(true, UIManager.LoadingType.TranstionFXEnter);
+            await UnicornTweenHelper.EnableLoading(true, UIManager.LoadingType.TranstionFXEnter);
             //Log.Debug($"OnBossDieEvent{2}");
             //await UniTask.Delay(2000);
             //Log.Debug($"OnBossDieEvent{3}");
 
-            JiYuUIHelper.SetPlayerMass(true);
+            UnicornUIHelper.SetPlayerMass(true);
 
 
             playerData.playerOtherData.isBossFight = false;
@@ -514,7 +514,7 @@ namespace HotFix_UI
             //删除boss场景所有entity
 
 
-            await JiYuTweenHelper.EnableLoading(true, UIManager.LoadingType.TranstionFXExit);
+            await UnicornTweenHelper.EnableLoading(true, UIManager.LoadingType.TranstionFXExit);
             AudioManager.Instance.ClearFModBgmAudio();
             AudioManager.Instance.PlayFModAudio(2103);
         }
@@ -523,7 +523,7 @@ namespace HotFix_UI
         private async UniTaskVoid SwitchBossScene(HybridEventData hybridEvnetData)
         {
             Log.Debug($"bossEntity{hybridEvnetData.args} {hybridEvnetData.bossEntity}");
-            await JiYuTweenHelper.EnableLoading(true, UIManager.LoadingType.TranstionFXEnter);
+            await UnicornTweenHelper.EnableLoading(true, UIManager.LoadingType.TranstionFXEnter);
             //await UniTask.Delay(500, true);
 
             var tbscene_boss = ConfigManager.Instance.Tables.Tbscene_boss;
@@ -557,7 +557,7 @@ namespace HotFix_UI
             global.SetCameraBounds(
                 new Vector3(sceneBoss.areaSize[0] / 1000f, 10f, 1),
                 cameraPos);
-            if (JiYuUIHelper.TryGetUI(UIType.UIPanel_RunTimeHUD, out var ui))
+            if (UnicornUIHelper.TryGetUI(UIType.UIPanel_RunTimeHUD, out var ui))
             {
                 var uiRuntime = ui as UIPanel_RunTimeHUD;
                 uiRuntime.SetBossText(monster.id);
@@ -617,8 +617,8 @@ namespace HotFix_UI
             //
             //  
             // }
-            JiYuUIHelper.EnableGuide(false);
-            // JiYuUIHelper.EnableISystem<TriggerSystem>(false);
+            UnicornUIHelper.EnableGuide(false);
+            // UnicornUIHelper.EnableISystem<TriggerSystem>(false);
             // var playerQuery = EntityManager.CreateEntityQuery(typeof(PlayerData), typeof(ChaStats));
             // var player = playerQuery.ToEntityArray(Allocator.Temp)[0];
             // var chaStats = EntityManager.GetComponentData<ChaStats>(player);
@@ -639,9 +639,9 @@ namespace HotFix_UI
             EntityManager.SetComponentData(hybridEvnetData.bossEntity, stateMachine);
 
 
-            await JiYuTweenHelper.EnableLoading(true, UIManager.LoadingType.TranstionFXExit);
+            await UnicornTweenHelper.EnableLoading(true, UIManager.LoadingType.TranstionFXExit);
 
-            await JiYuTweenHelper.EnableLoading(true, UIManager.LoadingType.TranstionShattersEnter);
+            await UnicornTweenHelper.EnableLoading(true, UIManager.LoadingType.TranstionShattersEnter);
             //TODO:摄像头 boss待机动画
 
             AudioManager.Instance.ClearFModBgmAudio();
@@ -650,17 +650,17 @@ namespace HotFix_UI
             AudioManager.Instance.PlayFModAudio(audioId);
 
             await UniTask.Delay(3000);
-            await JiYuTweenHelper.EnableLoading(true, UIManager.LoadingType.TranstionShattersExit);
+            await UnicornTweenHelper.EnableLoading(true, UIManager.LoadingType.TranstionShattersExit);
             stateMachine.transitionToStateIndex = moveId;
             EntityManager.SetComponentData(hybridEvnetData.bossEntity, stateMachine);
 
-            JiYuUIHelper.SetPlayerMass(false);
+            UnicornUIHelper.SetPlayerMass(false);
             //var chaStats = EntityManager.GetComponentData<ChaStats>(player);
             // chaStats.chaControlState.cantMove = false;
             // chaStats.chaControlState.cantWeaponAttack = false;
             // EntityManager.SetComponentData(player, chaStats);
-            // JiYuUIHelper.EnableISystem<TriggerSystem>(true);
-            JiYuUIHelper.EnableGuide(true);
+            // UnicornUIHelper.EnableISystem<TriggerSystem>(true);
+            UnicornUIHelper.EnableGuide(true);
         }
 
         private async UniTaskVoid RecycleHybridSpine(HybridEventData hybridEvnetData)
@@ -748,14 +748,14 @@ namespace HotFix_UI
                 bindingID = skillBinding[randNum].id;
             }
 
-            if (JiYuUIHelper.TryGetUI(UIType.UIPanel_RunTimeHUD, out var ui))
+            if (UnicornUIHelper.TryGetUI(UIType.UIPanel_RunTimeHUD, out var ui))
             {
                 var uis = ui as UIPanel_RunTimeHUD;
                 if (uis.bindingsDic.TryGetValue(bindingID, out int exp))
                 {
-                    lastBindingLevel = JiYuUIHelper.GetBindingLevel(exp);
+                    lastBindingLevel = UnicornUIHelper.GetBindingLevel(exp);
                     uis.bindingsDic[bindingID] += expAddtion;
-                    curBindingLevel = JiYuUIHelper.GetBindingLevel(exp + expAddtion);
+                    curBindingLevel = UnicornUIHelper.GetBindingLevel(exp + expAddtion);
                 }
 
                 ChangeWeaponSkillID(bindingID, lastBindingLevel, curBindingLevel, ui);

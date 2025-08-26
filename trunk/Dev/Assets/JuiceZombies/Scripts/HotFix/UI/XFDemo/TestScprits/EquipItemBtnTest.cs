@@ -150,7 +150,7 @@ public class EquipItemBtnTest : UIBase
             {
                 lastClickTime = Time.time;
                 //动画效果
-                //JiYuTweenHelper.GradualChange(EquipItemBtn.gameObject, 1.2f, 0.12f, 0.12f);
+                //UnicornTweenHelper.GradualChange(EquipItemBtn.gameObject, 1.2f, 0.12f, 0.12f);
 
                 if (EquipmentPanel)
                 {
@@ -384,11 +384,11 @@ public class EquipItemBtnTest : UIBase
         GameObject NeedImageGo = obj.GetComponent<RectTransform>().GetChild(2).GetChild(5).gameObject;
 
         //动画曲线(Item和材料图片)
-        // JiYuTweenHelper.MoveEffect(newEquipItem, NeedImageGo, new Vector3(0, 0, 0), new Vector3(0, 35, 0), 0.4f, 0.1f,
+        // UnicornTweenHelper.MoveEffect(newEquipItem, NeedImageGo, new Vector3(0, 0, 0), new Vector3(0, 35, 0), 0.4f, 0.1f,
         //     true);
         //
         // //动画曲线(框移动)
-        // JiYuTweenHelper.MoveEffect(materialFrameGO, null,
+        // UnicornTweenHelper.MoveEffect(materialFrameGO, null,
         //     new Vector3(304, materialFrameGO.GetComponent<RectTransform>().anchoredPosition.y, 0), new Vector3(0, 0, 0),
         //     0.25f, 0.1f, false);
         

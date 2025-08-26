@@ -1,4 +1,4 @@
-﻿Shader "JiYuStudio/DamageBackShader"
+﻿Shader "UnicornStudio/DamageBackShader"
 {
     Properties
     {

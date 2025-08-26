@@ -1,5 +1,5 @@
 ﻿//---------------------------------------------------------------------
-// JiYuStudio
+// UnicornStudio
 // Author: huangjinguo
 // Time: #CreateTime#
 //---------------------------------------------------------------------
@@ -91,15 +91,15 @@ namespace XFramework
             cts = new CancellationTokenSource();
             GetFromReference(KMid).GetComponent<CanvasGroup>().alpha = 0f;
             this.GetFromReference(KText_FreeCountDown).SetActive(false);
-            //advertCD = TimeHelper.ClientNowSeconds() - ResourcesSingleton.Instance.shopInit.shopHelpDic[BoxInt[0]][BoxInt[1]][4];
-            //drawToNow = TimeHelper.ClientNowSeconds() - ResourcesSingleton.Instance.shopInit.shopHelpDic[BoxInt[0]][BoxInt[1]][4];
+            //advertCD = TimeHelper.ClientNowSeconds() - ResourcesSingletonOld.Instance.shopInit.shopHelpDic[BoxInt[0]][BoxInt[1]][4];
+            //drawToNow = TimeHelper.ClientNowSeconds() - ResourcesSingletonOld.Instance.shopInit.shopHelpDic[BoxInt[0]][BoxInt[1]][4];
             var timerMgr = TimerManager.Instance;
             timerId = timerMgr.StartRepeatedTimer(200, this.Update1103);
 
             boxID = BoxInt[1];
             boxInt = BoxInt;
 
-            var boxList = ResourcesSingleton.Instance.shopMap.IndexModuleMap[1103].BoxInfoList;
+            var boxList = ResourcesSingletonOld.Instance.shopMap.IndexModuleMap[1103].BoxInfoList;
 
             int i = 0;
             foreach (var b in boxList)
@@ -112,8 +112,8 @@ namespace XFramework
 
                 i++;
             }
-            //advertCD = TimeHelper.ClientNowSeconds() - ResourcesSingleton.Instance.shopMap.IndexModuleMap[1103].BoxInfoList[Index].DrawTime;
-            //drawToNow = TimeHelper.ClientNowSeconds() - ResourcesSingleton.Instance.shopMap.IndexModuleMap[1103].BoxInfoList[Index].DrawTime;
+            //advertCD = TimeHelper.ClientNowSeconds() - ResourcesSingletonOld.Instance.shopMap.IndexModuleMap[1103].BoxInfoList[Index].DrawTime;
+            //drawToNow = TimeHelper.ClientNowSeconds() - ResourcesSingletonOld.Instance.shopMap.IndexModuleMap[1103].BoxInfoList[Index].DrawTime;
 
             Init(boxID);
             InitRedNod(boxID);
@@ -121,7 +121,7 @@ namespace XFramework
             //RedPointMgr.instance.Init("ShopRoot", "module" + tbdraw_Box[boxID].tagFunc.ToString() + boxID.ToString(),
             //    (RedPointState state, int data) =>
             //    {
-            //        if (JiYuUIHelper.TryGetUI(UIType.UIPanel_Shop, out UI ui))
+            //        if (UnicornUIHelper.TryGetUI(UIType.UIPanel_Shop, out UI ui))
             //        {
             //            if (this != null)
             //            {
@@ -151,14 +151,14 @@ namespace XFramework
             await UniTask.Delay(500,cancellationToken:cts.Token);
             if (boxID % 2 == 0)
             {
-               JiYuTweenHelper.SetEaseAlphaAndPosLtoR(GetFromReference(KMid),0,200,cts.Token);
+               UnicornTweenHelper.SetEaseAlphaAndPosLtoR(GetFromReference(KMid),0,200,cts.Token);
             }
             else
             {
-                JiYuTweenHelper.SetEaseAlphaAndPosRtoL(GetFromReference(KMid), 0, 200, cts.Token);
+                UnicornTweenHelper.SetEaseAlphaAndPosRtoL(GetFromReference(KMid), 0, 200, cts.Token);
             }
             await UniTask.Delay(500, cancellationToken: cts.Token);
-            JiYuTweenHelper.PlayUIImageSweepFX(GetFromReference(KBoxImage));
+            UnicornTweenHelper.PlayUIImageSweepFX(GetFromReference(KBoxImage));
         }
 
         public void EnableEffectUIs(bool isEnable)
@@ -230,8 +230,8 @@ namespace XFramework
         private async void TxtInit(List<int> BoxInt)
         {
             //后端读取次数
-            //int a1 = (int)ResourcesSingleton.Instance.shopInit.shopHelpDic[BoxInt[0]][BoxInt[1]][0];
-            int a1 = (int)ResourcesSingleton.Instance.shopMap.IndexModuleMap[1103].BoxInfoList[Index].Numbers[0];
+            //int a1 = (int)ResourcesSingletonOld.Instance.shopInit.shopHelpDic[BoxInt[0]][BoxInt[1]][0];
+            int a1 = (int)ResourcesSingletonOld.Instance.shopMap.IndexModuleMap[1103].BoxInfoList[Index].Numbers[0];
             int BoxID = BoxInt[1];
 
             this.GetFromReference(KBoxTitleText).GetTextMeshPro()
@@ -281,8 +281,8 @@ namespace XFramework
         /// <param name="DrawInt"></param>
         public void DrawSetTxt(List<int> DrawInt)
         {
-            //ResourcesSingleton.Instance.shopInit.shopHelpDic[boxInt[0]][boxInt[1]][0] = DrawInt[0];
-            ResourcesSingleton.Instance.shopMap.IndexModuleMap[1103].BoxInfoList[Index].Numbers[0] = DrawInt[0];
+            //ResourcesSingletonOld.Instance.shopInit.shopHelpDic[boxInt[0]][boxInt[1]][0] = DrawInt[0];
+            ResourcesSingletonOld.Instance.shopMap.IndexModuleMap[1103].BoxInfoList[Index].Numbers[0] = DrawInt[0];
             TxtInit(boxInt);
             BtnInit(boxID);
         }
@@ -347,15 +347,15 @@ namespace XFramework
 
         public void GuideFinish()
         {
-            if (ResourcesSingleton.Instance.settingData.GuideList.Contains(1))
+            if (ResourcesSingletonOld.Instance.settingData.GuideList.Contains(1))
             {
                 return;
             }
             var tbguide = ConfigManager.Instance.Tables.Tbguide;
             var guide1 = tbguide.DataList.Where(a => a.guideType == 317).FirstOrDefault();
-            if (ResourcesSingleton.Instance.settingData.GuideList.Contains(guide1.group))
+            if (ResourcesSingletonOld.Instance.settingData.GuideList.Contains(guide1.group))
             {
-                if (JiYuUIHelper.TryGetUI(UIType.UIPanel_Main, out var ui))
+                if (UnicornUIHelper.TryGetUI(UIType.UIPanel_Main, out var ui))
                 {
                     var uis = ui as UIPanel_Main;
                     uis.OnGuideIdFinished(guide1.id);
@@ -402,12 +402,12 @@ namespace XFramework
                 //advertCD = CDint;
                 isAdvert = false;
                 //BtinInit(boxID);
-                //ResourcesSingleton.Instance.shopInit.shopHelpDic[boxInt[0]][boxInt[1]][2] = 0;
-                //ResourcesSingleton.Instance.shopInit.shopHelpDic[boxInt[0]][boxInt[1]][4] = TimeHelper.ClientNowSeconds();
-                ResourcesSingleton.Instance.shopMap.IndexModuleMap[1103].BoxInfoList[Index].AdCount = 0;
-                ResourcesSingleton.Instance.shopMap.IndexModuleMap[1103].BoxInfoList[Index].DrawTime =
+                //ResourcesSingletonOld.Instance.shopInit.shopHelpDic[boxInt[0]][boxInt[1]][2] = 0;
+                //ResourcesSingletonOld.Instance.shopInit.shopHelpDic[boxInt[0]][boxInt[1]][4] = TimeHelper.ClientNowSeconds();
+                ResourcesSingletonOld.Instance.shopMap.IndexModuleMap[1103].BoxInfoList[Index].AdCount = 0;
+                ResourcesSingletonOld.Instance.shopMap.IndexModuleMap[1103].BoxInfoList[Index].DrawTime =
                     TimeHelper.ClientNowSeconds();
-                //TimeHelper.ClientNowSeconds() - ResourcesSingleton.Instance.shopInit.shopHelpDic[BoxInt[0]][BoxInt[1]][4];
+                //TimeHelper.ClientNowSeconds() - ResourcesSingletonOld.Instance.shopInit.shopHelpDic[BoxInt[0]][BoxInt[1]][4];
                 isAdvertHelp = true;
             }
             else
@@ -415,10 +415,10 @@ namespace XFramework
                 if (isKey == true)
                 {
                     Debug.LogError($"drawcount:{DrawCount}");
-                    //Debug.LogError($"countbefore:{ResourcesSingleton.Instance.items[tbdraw_Box[boxID].item]}");
-                    if (JiYuUIHelper.TryReduceReward(new Vector3(5, tbdraw_Box[boxID].item, DrawCount)))
+                    //Debug.LogError($"countbefore:{ResourcesSingletonOld.Instance.items[tbdraw_Box[boxID].item]}");
+                    if (UnicornUIHelper.TryReduceReward(new Vector3(5, tbdraw_Box[boxID].item, DrawCount)))
                     {
-                        Debug.LogError($"count:{ResourcesSingleton.Instance.items[tbdraw_Box[boxID].item]}");
+                        Debug.LogError($"count:{ResourcesSingletonOld.Instance.items[tbdraw_Box[boxID].item]}");
                     }
                     else
                     {
@@ -430,14 +430,14 @@ namespace XFramework
                 }
                 else
                 {
-                    ResourcesSingleton.Instance.UserInfo.RoleAssets.Bitcoin -= diamondConsume;
+                    ResourcesSingletonOld.Instance.UserInfo.RoleAssets.Bitcoin -= diamondConsume;
                 }
             }
 
-            //ResourcesSingleton.Instance.shopInit.shopHelpDic[boxInt[0]][boxInt[1]][0] = drawInfo.Guarantee[0];
-            ResourcesSingleton.Instance.shopMap.IndexModuleMap[1103].BoxInfoList[Index].Numbers[0] =
+            //ResourcesSingletonOld.Instance.shopInit.shopHelpDic[boxInt[0]][boxInt[1]][0] = drawInfo.Guarantee[0];
+            ResourcesSingletonOld.Instance.shopMap.IndexModuleMap[1103].BoxInfoList[Index].Numbers[0] =
                 drawInfo.Guarantee[0];
-            ResourcesSingleton.Instance.UpdateResourceUI();
+            ResourcesSingletonOld.Instance.UpdateResourceUI();
             TxtInit(boxInt);
             BtnInit(boxID);
             var reStrs = drawInfo.Reward;
@@ -469,15 +469,15 @@ namespace XFramework
 
             var adBtn = this.GetFromReference(KAdvertBtn);
 
-            JiYuTweenHelper.DoScaleTweenOnClickAndLongPress(adBtn, BtnOnClickUp);
+            UnicornTweenHelper.DoScaleTweenOnClickAndLongPress(adBtn, BtnOnClickUp);
             var midBtn = this.GetFromReference(KMidBuyBtn);
-            JiYuTweenHelper.DoScaleTweenOnClickAndLongPress(midBtn, BtnOnClickMid);
+            UnicornTweenHelper.DoScaleTweenOnClickAndLongPress(midBtn, BtnOnClickMid);
             var buyBtn = this.GetFromReference(KBuyBtn);
-            JiYuTweenHelper.DoScaleTweenOnClickAndLongPress(buyBtn, BtnOnClickDown);
+            UnicornTweenHelper.DoScaleTweenOnClickAndLongPress(buyBtn, BtnOnClickDown);
             var previewBtn = this.GetFromReference(KPreviewBtn);
-            JiYuTweenHelper.DoScaleTweenOnClickAndLongPress(previewBtn, BtnOnClickPre);
+            UnicornTweenHelper.DoScaleTweenOnClickAndLongPress(previewBtn, BtnOnClickPre);
             var btn = this.GetFromReference(KBgBoxImage);
-            JiYuTweenHelper.DoScaleTweenOnClickAndLongPress(btn, BtnOnClickPre);
+            UnicornTweenHelper.DoScaleTweenOnClickAndLongPress(btn, BtnOnClickPre);
         }
 
         /// <summary>
@@ -499,7 +499,7 @@ namespace XFramework
 
             //读后端
             int advertNum;
-            //advertCD = ResourcesSingleton.Instance.shopInit.shopHelpDic[BoxInt[0]][BoxInt[1]][3];
+            //advertCD = ResourcesSingletonOld.Instance.shopInit.shopHelpDic[BoxInt[0]][BoxInt[1]][3];
             //if (advertCD > 0)
             //{
             //    advertNum = 0;
@@ -508,11 +508,11 @@ namespace XFramework
             //{
             //    advertNum = 1;
             //}
-            //advertNum = (int)ResourcesSingleton.Instance.shopInit.shopHelpDic[boxInt[0]][boxInt[1]][2];
-            advertNum = ResourcesSingleton.Instance.shopMap.IndexModuleMap[1103].BoxInfoList[Index].AdCount;
+            //advertNum = (int)ResourcesSingletonOld.Instance.shopInit.shopHelpDic[boxInt[0]][boxInt[1]][2];
+            advertNum = ResourcesSingletonOld.Instance.shopMap.IndexModuleMap[1103].BoxInfoList[Index].AdCount;
             if (advertNum == 0)
             {
-                if (TimeHelper.ClientNowSeconds() - ResourcesSingleton.Instance.shopMap.IndexModuleMap[1103]
+                if (TimeHelper.ClientNowSeconds() - ResourcesSingletonOld.Instance.shopMap.IndexModuleMap[1103]
                         .BoxInfoList[Index].DrawTime >= tbdraw_Box[BoxID].adCd)
                 {
                     advertNum = 1;
@@ -550,7 +550,7 @@ namespace XFramework
             }
 
             long keyNum;
-            if (ResourcesSingleton.Instance.items.TryGetValue(tbdraw_Box[BoxID].item, out long value))
+            if (ResourcesSingletonOld.Instance.items.TryGetValue(tbdraw_Box[BoxID].item, out long value))
             {
                 keyNum = value;
             }
@@ -593,38 +593,38 @@ namespace XFramework
             //Debug.Log(advertCD);
             //if (drawToNow <= tbdraw_Box[boxID].adCd)
             //{
-            //    drawToNow = TimeHelper.ClientNowSeconds() - ResourcesSingleton.Instance.shopInit.shopHelpDic[boxInt[0]][boxInt[1]][4];
+            //    drawToNow = TimeHelper.ClientNowSeconds() - ResourcesSingletonOld.Instance.shopInit.shopHelpDic[boxInt[0]][boxInt[1]][4];
             //    //Debug.Log("drawToNow" + drawToNow.ToString());
             //    //advertCD -= 1;
             //}
             //else
             //{
-            //    ResourcesSingleton.Instance.shopInit.shopHelpDic[boxInt[0]][boxInt[1]][2] = 1;
+            //    ResourcesSingletonOld.Instance.shopInit.shopHelpDic[boxInt[0]][boxInt[1]][2] = 1;
             //    BtinInit(boxID);
             //}
             //CDint = advertCD;
 
             if (tbdraw_Box.Get(boxID).drawType == 5)
             {
-                if (ResourcesSingleton.Instance.shopMap.IndexModuleMap[1103].BoxInfoList[Index].AdCount <= 0)
+                if (ResourcesSingletonOld.Instance.shopMap.IndexModuleMap[1103].BoxInfoList[Index].AdCount <= 0)
                 {
-                    if (tbdraw_Box.Get(boxID).adCd > TimeHelper.ClientNowSeconds() - ResourcesSingleton.Instance.shopMap
+                    if (tbdraw_Box.Get(boxID).adCd > TimeHelper.ClientNowSeconds() - ResourcesSingletonOld.Instance.shopMap
                             .IndexModuleMap[1103].BoxInfoList[Index].DrawTime)
                     {
                         long cdTime = tbdraw_Box.Get(boxID).adCd;
-                        cdTime -= TimeHelper.ClientNowSeconds() - ResourcesSingleton.Instance.shopMap
+                        cdTime -= TimeHelper.ClientNowSeconds() - ResourcesSingletonOld.Instance.shopMap
                             .IndexModuleMap[1103].BoxInfoList[Index].DrawTime;
                         string timeStr = "";
                         if (cdTime > 3600 * 24)
                         {
                             timeStr += UnityHelper.RichTextSize(UnityHelper.RichTextColor(
-                                JiYuUIHelper.GeneralTimeFormat(new Unity.Mathematics.int4(3, 4, 2, 1), cdTime),
+                                UnicornUIHelper.GeneralTimeFormat(new Unity.Mathematics.int4(3, 4, 2, 1), cdTime),
                                 "5DC642"), 39);
                         }
                         else
                         {
                             timeStr += UnityHelper.RichTextSize(UnityHelper.RichTextColor(
-                                JiYuUIHelper.GeneralTimeFormat(new Unity.Mathematics.int4(2, 3, 2, 1), cdTime),
+                                UnicornUIHelper.GeneralTimeFormat(new Unity.Mathematics.int4(2, 3, 2, 1), cdTime),
                                 "5DC642"), 39);
                         }
 
@@ -634,7 +634,7 @@ namespace XFramework
                     }
                     else
                     {
-                        ResourcesSingleton.Instance.shopMap.IndexModuleMap[1103].BoxInfoList[Index].AdCount = 1;
+                        ResourcesSingletonOld.Instance.shopMap.IndexModuleMap[1103].BoxInfoList[Index].AdCount = 1;
                         BtnInit(boxID);
                     }
                 }
@@ -697,7 +697,7 @@ namespace XFramework
                     //await ui.GetFromReference(KMidBuyImg_Left).GetImage().SetSpriteAsync(ui.tbuser_Variable[2].icon, false);
                     //ui.GetFromReference(KMidBuyText_Right).GetTextMeshPro().SetTMPText(diamondConsume.ToString());
                     ui.GetFromReference(KBuyText_Mid).GetTextMeshPro().SetTMPText(
-                        JiYuUIHelper.GetRewardTextIconName(ui.tbuser_Variable[2].icon) + diamondConsume.ToString());
+                        UnicornUIHelper.GetRewardTextIconName(ui.tbuser_Variable[2].icon) + diamondConsume.ToString());
 
                     //修改点击事件参数
                     ui.drawParamDown.DrawCount = 1;
@@ -745,14 +745,14 @@ namespace XFramework
                     if (keyNum >= 10)
                     {
                         ui.GetFromReference(KBuyText_Mid).GetTextMeshPro()
-                            .SetTMPText(JiYuUIHelper.GetRewardTextIconName(ui.tbitem[ui.tbdraw_Box[boxID].item].icon) +
+                            .SetTMPText(UnicornUIHelper.GetRewardTextIconName(ui.tbitem[ui.tbdraw_Box[boxID].item].icon) +
                                         keyNum.ToString() + "/" + (keyConsume * 10).ToString());
                         ui.drawParamMid.DrawCount = 10;
                     }
                     else
                     {
                         ui.GetFromReference(KBuyText_Mid).GetTextMeshPro()
-                            .SetTMPText(JiYuUIHelper.GetRewardTextIconName(ui.tbitem[ui.tbdraw_Box[boxID].item].icon) +
+                            .SetTMPText(UnicornUIHelper.GetRewardTextIconName(ui.tbitem[ui.tbdraw_Box[boxID].item].icon) +
                                         keyNum.ToString() + "/" + keyConsume.ToString());
                         ui.drawParamMid.DrawCount = 1;
                     }
@@ -785,9 +785,9 @@ namespace XFramework
                     ui.GetFromReference(KMidBuyBtn).SetActive(false);
 
                     ui.GetFromReference(KBuyText_Mid).GetTextMeshPro().SetTMPText(
-                        JiYuUIHelper.GetRewardTextIconName(ui.tbuser_Variable[2].icon) + diamondConsume.ToString());
+                        UnicornUIHelper.GetRewardTextIconName(ui.tbuser_Variable[2].icon) + diamondConsume.ToString());
                     ui.GetFromReference(KAdvertText_Mid).GetTextMeshPro()
-                        .SetTMPText(JiYuUIHelper.GetRewardTextIconName("icon_advertise") +
+                        .SetTMPText(UnicornUIHelper.GetRewardTextIconName("icon_advertise") +
                                     ui.language.Get("common_free_text").current);
 
                     //修改点击事件参数
@@ -824,19 +824,19 @@ namespace XFramework
                     ui.GetFromReference(KMidBuyBtn).SetActive(false);
 
                     ui.GetFromReference(KAdvertText_Mid).GetTextMeshPro()
-                        .SetTMPText(JiYuUIHelper.GetRewardTextIconName("icon_advertise") +
+                        .SetTMPText(UnicornUIHelper.GetRewardTextIconName("icon_advertise") +
                                     ui.language.Get("common_free_text").current);
                     if (keyNum >= 10)
                     {
                         ui.GetFromReference(KBuyText_Mid).GetTextMeshPro()
-                            .SetTMPText(JiYuUIHelper.GetRewardTextIconName(ui.tbitem[ui.tbdraw_Box[boxID].item].icon) +
+                            .SetTMPText(UnicornUIHelper.GetRewardTextIconName(ui.tbitem[ui.tbdraw_Box[boxID].item].icon) +
                                         keyNum.ToString() + "/" + (keyConsume * 10).ToString());
                         ui.drawParamDown.DrawCount = 10;
                     }
                     else
                     {
                         ui.GetFromReference(KBuyText_Mid).GetTextMeshPro()
-                            .SetTMPText(JiYuUIHelper.GetRewardTextIconName(ui.tbitem[ui.tbdraw_Box[boxID].item].icon) +
+                            .SetTMPText(UnicornUIHelper.GetRewardTextIconName(ui.tbitem[ui.tbdraw_Box[boxID].item].icon) +
                                         keyNum.ToString() + "/" + keyConsume.ToString());
                         ui.drawParamDown.DrawCount = 1;
                     }
@@ -873,13 +873,13 @@ namespace XFramework
                     if (keyNum >= 10)
                     {
                         ui.GetFromReference(KMidBuyText_Mid).GetTextMeshPro()
-                            .SetTMPText(JiYuUIHelper.GetRewardTextIconName(ui.tbitem[ui.tbdraw_Box[boxID].item].icon) +
+                            .SetTMPText(UnicornUIHelper.GetRewardTextIconName(ui.tbitem[ui.tbdraw_Box[boxID].item].icon) +
                                         keyNum.ToString() + "/" + (keyConsume * 10).ToString());
                     }
                     else
                     {
                         ui.GetFromReference(KMidBuyText_Mid).GetTextMeshPro()
-                            .SetTMPText(JiYuUIHelper.GetRewardTextIconName(ui.tbitem[ui.tbdraw_Box[boxID].item].icon) +
+                            .SetTMPText(UnicornUIHelper.GetRewardTextIconName(ui.tbitem[ui.tbdraw_Box[boxID].item].icon) +
                                         keyNum.ToString() + "/" + keyConsume.ToString());
                     }
 
@@ -903,7 +903,7 @@ namespace XFramework
                     ui.GetFromReference(KBuyBtn).SetActive(false);
                     ui.GetFromReference(KMidBuyBtn).SetActive(true);
                     ui.GetFromReference(KMidBuyText_Mid).GetTextMeshPro().SetTMPText(
-                        JiYuUIHelper.GetRewardTextIconName(ui.tbuser_Variable[2].icon) + diamondConsume.ToString());
+                        UnicornUIHelper.GetRewardTextIconName(ui.tbuser_Variable[2].icon) + diamondConsume.ToString());
                     ui.isKey = false;
                     ui.KeyHelp = false;
                 }
@@ -924,7 +924,7 @@ namespace XFramework
                     ui.GetFromReference(KBuyBtn).SetActive(false);
                     ui.GetFromReference(KMidBuyBtn).SetActive(true);
                     ui.GetFromReference(KMidBuyText_Mid).GetTextMeshPro()
-                        .SetTMPText(JiYuUIHelper.GetRewardTextIconName(ui.tbitem[ui.tbdraw_Box[boxID].item].icon) +
+                        .SetTMPText(UnicornUIHelper.GetRewardTextIconName(ui.tbitem[ui.tbdraw_Box[boxID].item].icon) +
                                     keyNum.ToString() + "/" + (keyConsume * 10).ToString());
                     ui.isKey = true;
                     ui.KeyHelp = false;
@@ -946,7 +946,7 @@ namespace XFramework
                     ui.GetFromReference(KBuyBtn).SetActive(false);
                     ui.GetFromReference(KMidBuyBtn).SetActive(true);
                     ui.GetFromReference(KMidBuyText_Mid).GetTextMeshPro().SetTMPText(
-                        JiYuUIHelper.GetRewardTextIconName(ui.tbuser_Variable[2].icon) + diamondConsume.ToString());
+                        UnicornUIHelper.GetRewardTextIconName(ui.tbuser_Variable[2].icon) + diamondConsume.ToString());
                     ui.isKey = false;
                     ui.KeyHelp = false;
                 }
@@ -967,9 +967,9 @@ namespace XFramework
                     ui.GetFromReference(KBuyBtn).SetActive(true);
                     ui.GetFromReference(KMidBuyBtn).SetActive(false);
                     ui.GetFromReference(KBuyText_Mid).GetTextMeshPro().SetTMPText(
-                        JiYuUIHelper.GetRewardTextIconName(ui.tbuser_Variable[2].icon) + diamondConsume.ToString());
+                        UnicornUIHelper.GetRewardTextIconName(ui.tbuser_Variable[2].icon) + diamondConsume.ToString());
                     ui.GetFromReference(KAdvertText_Mid).GetTextMeshPro()
-                        .SetTMPText(JiYuUIHelper.GetRewardTextIconName(ui.tbuser_Variable[2].icon) +
+                        .SetTMPText(UnicornUIHelper.GetRewardTextIconName(ui.tbuser_Variable[2].icon) +
                                     ui.tbdraw_Box[boxID].ten.ToString());
                     ui.isKey = false;
                     ui.KeyHelp = false;
@@ -992,10 +992,10 @@ namespace XFramework
                     ui.GetFromReference(KMidBuyBtn).SetActive(false);
 
                     ui.GetFromReference(KBuyText_Mid).GetTextMeshPro()
-                        .SetTMPText(JiYuUIHelper.GetRewardTextIconName(ui.tbitem[ui.tbdraw_Box[boxID].item].icon) +
+                        .SetTMPText(UnicornUIHelper.GetRewardTextIconName(ui.tbitem[ui.tbdraw_Box[boxID].item].icon) +
                                     keyNum.ToString() + "/" + keyConsume.ToString());
                     ui.GetFromReference(KAdvertText_Mid).GetTextMeshPro()
-                        .SetTMPText(JiYuUIHelper.GetRewardTextIconName(ui.tbitem[ui.tbdraw_Box[boxID].item].icon) +
+                        .SetTMPText(UnicornUIHelper.GetRewardTextIconName(ui.tbitem[ui.tbdraw_Box[boxID].item].icon) +
                                     keyNum.ToString() + "/" + (keyConsume * 10).ToString());
                     ui.isKey = true;
                     ui.KeyHelp = false;
@@ -1017,10 +1017,10 @@ namespace XFramework
                     ui.GetFromReference(KBuyBtn).SetActive(true);
                     ui.GetFromReference(KMidBuyBtn).SetActive(false);
                     ui.GetFromReference(KBuyText_Mid).GetTextMeshPro()
-                        .SetTMPText(JiYuUIHelper.GetRewardTextIconName(ui.tbitem[ui.tbdraw_Box[boxID].item].icon) +
+                        .SetTMPText(UnicornUIHelper.GetRewardTextIconName(ui.tbitem[ui.tbdraw_Box[boxID].item].icon) +
                                     keyNum.ToString() + "/" + keyConsume.ToString());
                     ui.GetFromReference(KAdvertText_Mid).GetTextMeshPro()
-                        .SetTMPText(JiYuUIHelper.GetRewardTextIconName(ui.tbuser_Variable[2].icon) +
+                        .SetTMPText(UnicornUIHelper.GetRewardTextIconName(ui.tbuser_Variable[2].icon) +
                                     ui.tbdraw_Box[boxID].ten.ToString());
                     ui.KeyHelp = true;
                 }
@@ -1041,10 +1041,10 @@ namespace XFramework
                     ui.GetFromReference(KBuyBtn).SetActive(true);
                     ui.GetFromReference(KMidBuyBtn).SetActive(false);
                     ui.GetFromReference(KBuyText_Mid).GetTextMeshPro()
-                        .SetTMPText(JiYuUIHelper.GetRewardTextIconName(ui.tbitem[ui.tbdraw_Box[boxID].item].icon) +
+                        .SetTMPText(UnicornUIHelper.GetRewardTextIconName(ui.tbitem[ui.tbdraw_Box[boxID].item].icon) +
                                     keyNum.ToString() + "/" + keyConsume.ToString());
                     ui.GetFromReference(KAdvertText_Mid).GetTextMeshPro()
-                        .SetTMPText(JiYuUIHelper.GetRewardTextIconName(ui.tbitem[ui.tbdraw_Box[boxID].item].icon) +
+                        .SetTMPText(UnicornUIHelper.GetRewardTextIconName(ui.tbitem[ui.tbdraw_Box[boxID].item].icon) +
                                     keyNum.ToString() + "/" + (keyConsume * 10).ToString());
                     ui.isKey = true;
                     ui.KeyHelp = false;

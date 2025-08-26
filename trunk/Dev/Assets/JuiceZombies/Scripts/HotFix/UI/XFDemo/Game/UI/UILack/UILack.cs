@@ -1,5 +1,5 @@
 //---------------------------------------------------------------------
-// JiYuStudio
+// UnicornStudio
 // Author: xxx
 // Time: #CreateTime#
 //---------------------------------------------------------------------
@@ -34,7 +34,7 @@ namespace XFramework
         {
             var maskBtn = GetFromReference(KMaskBtn);
             maskBtn.GetXButton().OnClick.Add(() => { this.Close(); });
-            //ÌåÁ¦1 ×êÊ¯2 ½ð±Ò3
+            //ï¿½ï¿½ï¿½ï¿½1 ï¿½ï¿½Ê¯2 ï¿½ï¿½ï¿½3
             var language = ConfigManager.Instance.Tables.Tblanguage;
             var user_varibles = ConfigManager.Instance.Tables.Tbuser_variable;
             var chapterConfig = ConfigManager.Instance.Tables.Tbchapter;
@@ -45,7 +45,7 @@ namespace XFramework
             chapter chapter = default;
             foreach (var chap in chapterConfig.DataList)
             {
-                if (chap.levelId == ResourcesSingleton.Instance.levelInfo.levelId)
+                if (chap.levelId == ResourcesSingletonOld.Instance.levelInfo.levelId)
                 {
                     chapter = chap;
                     break;
@@ -72,17 +72,17 @@ namespace XFramework
             string iconBG = default;
             switch (args)
             {
-                //TODO:³ýÌåÁ¦ÍâÏûºÄ
+                //TODO:ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
                 case 1:
-                    count = costNum - ResourcesSingleton.Instance.UserInfo.RoleAssets.Energy;
+                    count = costNum - ResourcesSingletonOld.Instance.UserInfo.RoleAssets.Energy;
                     iconBG = "pic_equip_quality_frame_3";
                     break;
                 case 2:
-                    //count = costNum - ResourcesSingleton.Instance.gems;
+                    //count = costNum - ResourcesSingletonOld.Instance.gems;
                     iconBG = "pic_equip_quality_frame_4";
                     break;
                 case 3:
-                    //count = costNum - ResourcesSingleton.Instance.gold;
+                    //count = costNum - ResourcesSingletonOld.Instance.gold;
                     iconBG = "pic_equip_quality_frame_3";
                     break;
             }
@@ -114,8 +114,8 @@ namespace XFramework
             closeBtn.GetRectTransform().SetScale(Vector2.one);
             gotoBtn.GetRectTransform().SetScale(Vector2.one);
 
-            JiYuTweenHelper.DoScaleTweenOnClickAndLongPress(gotoBtn, () => { });
-            JiYuTweenHelper.DoScaleTweenOnClickAndLongPress(closeBtn, () => { this.Close(); });
+            UnicornTweenHelper.DoScaleTweenOnClickAndLongPress(gotoBtn, () => { });
+            UnicornTweenHelper.DoScaleTweenOnClickAndLongPress(closeBtn, () => { this.Close(); });
         }
 
         protected override void OnClose()

@@ -36,7 +36,7 @@ namespace SuperScrollView
             //WebMessageHandlerOld.Instance.AddHandler(2, 4, LevelLockResponse);
             ////请求一次关卡数据
             //NetWorkManager.Instance.SendMessage(2, 4);
-            //maxLcokItemID = ResourcesSingleton.Instance.levelInfo.maxLockChapterID;
+            //maxLcokItemID = ResourcesSingletonOld.Instance.levelInfo.maxLockChapterID;
 
             Log.Debug($"maxLcokItemID:{maxLcokItemID}~~~~~~~~~~~~", Color.green);
 

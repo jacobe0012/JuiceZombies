@@ -1,5 +1,5 @@
 ﻿//---------------------------------------------------------------------
-// JiYuStudio
+// UnicornStudio
 // Author: huangjinguo
 // Time: #CreateTime#
 //---------------------------------------------------------------------
@@ -146,7 +146,7 @@ namespace XFramework
             {
                 curWidth = 0;
                 scrollRect.Get().vertical = true;
-                if (JiYuUIHelper.TryGetUI(UIType.UIPanel_JiyuGame, out var ui))
+                if (UnicornUIHelper.TryGetUI(UIType.UIPanel_JiyuGame, out var ui))
                 {
                     var uis = ui as UIPanel_JiyuGame;
                     uis.OnEndDrag();
@@ -199,11 +199,11 @@ namespace XFramework
             var KText_Money = GetFromReference(UIPanel_Shop.KText_Money);
 
 
-            var icon = JiYuUIHelper.GetRewardTextIconName("icon_diamond_add");
-            KText_Diamond.GetTextMeshPro().SetTMPText(icon + JiYuUIHelper.ReturnFormatResourceNum(1));
+            var icon = UnicornUIHelper.GetRewardTextIconName("icon_diamond_add");
+            KText_Diamond.GetTextMeshPro().SetTMPText(icon + UnicornUIHelper.ReturnFormatResourceNum(1));
 
-            icon = JiYuUIHelper.GetRewardTextIconName("icon_money_add");
-            KText_Money.GetTextMeshPro().SetTMPText(icon + JiYuUIHelper.ReturnFormatResourceNum(2));
+            icon = UnicornUIHelper.GetRewardTextIconName("icon_money_add");
+            KText_Money.GetTextMeshPro().SetTMPText(icon + UnicornUIHelper.ReturnFormatResourceNum(2));
         }
 
         public void SelectShopStateByTagPosType(int inputPosType, int secTabInitPosType = 1)
@@ -230,7 +230,7 @@ namespace XFramework
             TopTabUi.BtnOnClick(posTypeToIndexDic[inputPosType]);
             SingleTabOnClick(inputPosType, secTabInitPosType);
             //Log.Debug("wqewewqe", Color.cyan);
-            JiYuTweenHelper.SetEaseAlphaAndPosUtoB(TopTabUi.GetFromReference(UICommon_TopTab.KScrollView), 0, 50f);
+            UnicornTweenHelper.SetEaseAlphaAndPosUtoB(TopTabUi.GetFromReference(UICommon_TopTab.KScrollView), 0, 50f);
         }
 
         public void RotateShop()
@@ -288,7 +288,7 @@ namespace XFramework
                 return;
             }
 
-            ResourcesSingleton.Instance.shopMap = shopMap;
+            ResourcesSingletonOld.Instance.shopMap = shopMap;
 
             //helpppppppppp().Forget();
 
@@ -323,7 +323,7 @@ namespace XFramework
 
         private void BoxTimeTest()
         {
-            //var boxList = ResourcesSingleton.Instance.shopMap.IndexModuleMap[1101].BoxInfoList;
+            //var boxList = ResourcesSingletonOld.Instance.shopMap.IndexModuleMap[1101].BoxInfoList;
             //List<int> ints = new List<int>();
             //for (int i = 0; i < boxList.Count; i++)
             //{
@@ -336,7 +336,7 @@ namespace XFramework
 
             //foreach (var i in ints)
             //{
-            //    ResourcesSingleton.Instance.shopMap.IndexModuleMap[1101].BoxInfoList[i].SetStartTime = TimeHelper.ClientNowSeconds() - tbdraw_Box.Get(ResourcesSingleton.Instance.shopMap.IndexModuleMap[1101].BoxInfoList[i].Id).dateLimit + 90;
+            //    ResourcesSingletonOld.Instance.shopMap.IndexModuleMap[1101].BoxInfoList[i].SetStartTime = TimeHelper.ClientNowSeconds() - tbdraw_Box.Get(ResourcesSingletonOld.Instance.shopMap.IndexModuleMap[1101].BoxInfoList[i].Id).dateLimit + 90;
             //}
         }
 
@@ -376,7 +376,7 @@ namespace XFramework
         private void CloseAllTips()
         {
             Log.Debug($"CloseAllTips");
-            JiYuUIHelper.DestoryAllTips();
+            UnicornUIHelper.DestoryAllTips();
             CloseNotEnough();
         }
 
@@ -498,7 +498,7 @@ namespace XFramework
             ui.GetRectTransform().SetOffsetWithBottom(0);
 
             SetFirstLevelTabOnClick(ui);
-            //JiYuUIHelper.ForceRefreshLayout(this.GetFromReference(KPos_Tab));
+            //UnicornUIHelper.ForceRefreshLayout(this.GetFromReference(KPos_Tab));
 
 
             //初始化红点 为了外层红点
@@ -521,7 +521,7 @@ namespace XFramework
                 Log.Debug($"第:{i}个页签", Color.cyan);
                 int ihelp = i;
                 var KBtn_Common = tab.GetFromReference(UISubPanel_CommonBtn.KBtn_Common);
-                JiYuTweenHelper.DoScaleTweenOnClickAndLongPress(KBtn_Common, () =>
+                UnicornTweenHelper.DoScaleTweenOnClickAndLongPress(KBtn_Common, () =>
                 {
                     if (ihelp == NowPosType1)
                     {
@@ -754,9 +754,9 @@ namespace XFramework
 
         private void Module1302_InitRedPoint(string parentKey)
         {
-            if (ResourcesSingleton.Instance.shopMap.IndexModuleMap.ContainsKey(1302))
+            if (ResourcesSingletonOld.Instance.shopMap.IndexModuleMap.ContainsKey(1302))
             {
-                var giftList = ResourcesSingleton.Instance.shopMap.IndexModuleMap[1302].GiftInfoList;
+                var giftList = ResourcesSingletonOld.Instance.shopMap.IndexModuleMap[1302].GiftInfoList;
                 foreach (var gf in giftList)
                 {
                     if (gf.EndTime > TimeHelper.ClientNowSeconds() && tbgift.Get(gf.GiftId).freeRule.Count != 0)
@@ -858,9 +858,9 @@ namespace XFramework
 
         private async UniTaskVoid SetModule1201RedPointState()
         {
-            if (ResourcesSingleton.Instance.shopMap.IndexModuleMap.ContainsKey(1201))
+            if (ResourcesSingletonOld.Instance.shopMap.IndexModuleMap.ContainsKey(1201))
             {
-                var dbList = ResourcesSingleton.Instance.shopMap.IndexModuleMap[1201].DailyBuyList;
+                var dbList = ResourcesSingletonOld.Instance.shopMap.IndexModuleMap[1201].DailyBuyList;
                 DailyBuy dailyBuy = new DailyBuy();
                 foreach (var b in dbList)
                 {
@@ -911,7 +911,7 @@ namespace XFramework
             {
                 if (tbsl.freeRule.Count != 0)
                 {
-                    if (!ResourcesSingleton.Instance.shopMap.IndexModuleMap.TryGetValue(1202, out var indexModule))
+                    if (!ResourcesSingletonOld.Instance.shopMap.IndexModuleMap.TryGetValue(1202, out var indexModule))
                     {
                         continue;
                     }
@@ -952,9 +952,9 @@ namespace XFramework
 
         private void SetModule1302RedPointState()
         {
-            if (ResourcesSingleton.Instance.shopMap.IndexModuleMap.ContainsKey(1302))
+            if (ResourcesSingletonOld.Instance.shopMap.IndexModuleMap.ContainsKey(1302))
             {
-                var giftList = ResourcesSingleton.Instance.shopMap.IndexModuleMap[1302].GiftInfoList;
+                var giftList = ResourcesSingletonOld.Instance.shopMap.IndexModuleMap[1302].GiftInfoList;
                 foreach (var gf in giftList)
                 {
                     var redDotStr = NodeNames.GetTagFuncRedDotName(1302);
@@ -983,7 +983,7 @@ namespace XFramework
         private async UniTaskVoid SetModule1302RedPointStateHelp(GiftInfo gf)
         {
             await UniTask.Delay((int)(gf.EndTime - TimeHelper.ClientNowSeconds() + 1) * 1000);
-            if (JiYuUIHelper.TryGetUI(UIType.UIPanel_Shop, out UI uuii))
+            if (UnicornUIHelper.TryGetUI(UIType.UIPanel_Shop, out UI uuii))
             {
                 //RedPointMgr.instance.SetState(ShopRoot, "module1302" + gf.GiftId.ToString(), RedPointState.Hide, 0);
                 if (NowPosType1 == tbtag_Func.Get(1302).posType)
@@ -1010,7 +1010,7 @@ namespace XFramework
                 {
                     if (rc.freeRule.Count > 0)
                     {
-                        var clist = ResourcesSingleton.Instance.shopMap.IndexModuleMap[1402].ChargeInfoList;
+                        var clist = ResourcesSingletonOld.Instance.shopMap.IndexModuleMap[1402].ChargeInfoList;
                         ChargeInfo chargeInfo = new ChargeInfo();
                         foreach (var c in clist)
                         {
@@ -1055,7 +1055,7 @@ namespace XFramework
 
         public void SetModule1403RedPointState(UI secTabUI = default, int subpos = 0)
         {
-            var level = ResourcesSingleton.Instance.UserInfo.RoleAssets.Level;
+            var level = ResourcesSingletonOld.Instance.UserInfo.RoleAssets.Level;
 
             int fundNum = 0;
             foreach (var tbf in tbfund.DataList)
@@ -1089,7 +1089,7 @@ namespace XFramework
                 {
                     //Determine if there are red dots
                     bool haveRedDotOrNot = false;
-                    foreach (var gf in ResourcesSingleton.Instance.shopMap.IndexModuleMap[1403].GameFoundationList)
+                    foreach (var gf in ResourcesSingletonOld.Instance.shopMap.IndexModuleMap[1403].GameFoundationList)
                     {
                         if (gf.FoundId == fundReverseSortList[ihelp].id)
                         {
@@ -1135,7 +1135,7 @@ namespace XFramework
 
             bool downRedPoint = false;
 
-            foreach (var thisFundByID in ResourcesSingleton.Instance.shopMap.IndexModuleMap[1403].GameFoundationList)
+            foreach (var thisFundByID in ResourcesSingletonOld.Instance.shopMap.IndexModuleMap[1403].GameFoundationList)
             {
                 var thisFundRewardList = new List<fund_reward>();
                 foreach (var tbfr in tbfund_Reward.DataList)
@@ -1165,7 +1165,7 @@ namespace XFramework
                     rightGetDic.Add(tbfr.level, 0);
                 }
 
-                var shopMap = ResourcesSingleton.Instance.shopMap.IndexModuleMap[1403].GameFoundationList;
+                var shopMap = ResourcesSingletonOld.Instance.shopMap.IndexModuleMap[1403].GameFoundationList;
                 foreach (var f in shopMap)
                 {
                     if (f.FoundId == thisFundRewardList[0].id)
@@ -1305,7 +1305,7 @@ namespace XFramework
         {
             foreach (var tbm in tbmonthly.DataList)
             {
-                var cardMap = ResourcesSingleton.Instance.shopMap.IndexModuleMap[1404].SpecialCard.Unclaimed;
+                var cardMap = ResourcesSingletonOld.Instance.shopMap.IndexModuleMap[1404].SpecialCard.Unclaimed;
                 UnReward cardData = new UnReward();
                 foreach (var cm in cardMap)
                 {
@@ -1543,12 +1543,12 @@ namespace XFramework
                         ContentH -= ModuleDeltaY;
                     }
 
-                    JiYuTweenHelper.DoScaleTweenOnClickAndLongPress(tabBtn,
+                    UnicornTweenHelper.DoScaleTweenOnClickAndLongPress(tabBtn,
                         () => { OnSecTabBtnClick(scrollViewOffsetTop, ihelp, secTabUI, secTagList); });
                 }
 
 
-                JiYuUIHelper.ForceRefreshLayout(secTabPos.GetFromReference(UICommon_Select_Tab.KContent));
+                UnicornUIHelper.ForceRefreshLayout(secTabPos.GetFromReference(UICommon_Select_Tab.KContent));
                 //set sec tab onclick -> 
                 //foreach create module and add module h & deltay -> minus one deltay -> set contenth 
 
@@ -1556,7 +1556,7 @@ namespace XFramework
             }
 
             SetContentH(ContentH, scrollViewOffsetTop);
-            JiYuUIHelper.ForceRefreshLayout(this.GetFromReference(KContent));
+            UnicornUIHelper.ForceRefreshLayout(this.GetFromReference(KContent));
 
 
             //sort
@@ -1605,7 +1605,7 @@ namespace XFramework
 
             LastSecTabBtn = secTabUI;
             SetContentH(ContentH, scrollViewOffsetTop);
-            JiYuUIHelper.ForceRefreshLayout(this.GetFromReference(KContent));
+            UnicornUIHelper.ForceRefreshLayout(this.GetFromReference(KContent));
         }
 
         public void SetShopContentH(float input)
@@ -1671,7 +1671,7 @@ namespace XFramework
         private async void Module1101(bool isUpdate)
         {
             Module1101UIIDDic.Clear();
-            if (!ResourcesSingleton.Instance.shopMap.IndexModuleMap.ContainsKey(1101))
+            if (!ResourcesSingletonOld.Instance.shopMap.IndexModuleMap.ContainsKey(1101))
             {
                 Debug.Log("no 1101");
                 return;
@@ -1679,7 +1679,7 @@ namespace XFramework
             else
             {
                 //Debug.Log("111111111111111111111");
-                Debug.Log(ResourcesSingleton.Instance.shopMap.IndexModuleMap[1101].BoxInfoList);
+                Debug.Log(ResourcesSingletonOld.Instance.shopMap.IndexModuleMap[1101].BoxInfoList);
             }
 
             //return;
@@ -1724,7 +1724,7 @@ namespace XFramework
                 }
             }
 
-            JiYuUIHelper.ForceRefreshLayout(bgUI.GetFromReference(UISubPanel_Shop_Box_Bg.KBg));
+            UnicornUIHelper.ForceRefreshLayout(bgUI.GetFromReference(UISubPanel_Shop_Box_Bg.KBg));
             var children = boxUIList.Children;
             await UniTask.Delay(400, cancellationToken: cts.Token);
             if (tagsTimes[0] >= 0)
@@ -1736,7 +1736,7 @@ namespace XFramework
                     if (ui != null)
                     {
                         var height = ui.GetRectTransform().AnchoredPosition().y;
-                        JiYuTweenHelper.SetEaseAlphaAndPosUtoB(ui, height, 800, cts.Token, 0.2f);
+                        UnicornTweenHelper.SetEaseAlphaAndPosUtoB(ui, height, 800, cts.Token, 0.2f);
                     }
                 }
             }
@@ -1758,7 +1758,7 @@ namespace XFramework
             {
                 foreach (var a in Module1101UIIDDic)
                 {
-                    var bList = ResourcesSingleton.Instance.shopMap.IndexModuleMap[1101].BoxInfoList;
+                    var bList = ResourcesSingletonOld.Instance.shopMap.IndexModuleMap[1101].BoxInfoList;
                     BoxInfo boxInfo = new BoxInfo();
                     foreach (var box in bList)
                     {
@@ -1781,7 +1781,7 @@ namespace XFramework
                     else
                     {
                         string str1 = tblanguage.Get("drawbox_type_1_text").current;
-                        str1 = str1.Replace("{0}", JiYuUIHelper.GeneralTimeFormat(new int4(2, 4, 2, 1), deltaTime));
+                        str1 = str1.Replace("{0}", UnicornUIHelper.GeneralTimeFormat(new int4(2, 4, 2, 1), deltaTime));
                         if (tbdraw_Box.Get(a.Value).limitType == 2)
                         {
                             a.Key.GetTextMeshPro().SetTMPText(str1);
@@ -1794,7 +1794,7 @@ namespace XFramework
                             a.Key.GetTextMeshPro().SetTMPText(str1 + "\n" + str2);
                         }
                     }
-                    //ResourcesSingleton.Instance.UpdateResourceUI
+                    //ResourcesSingletonOld.Instance.UpdateResourceUI
                 }
             }
         }
@@ -1860,13 +1860,13 @@ namespace XFramework
 
         private void Module1102(bool isUpdate)
         {
-            if (!ResourcesSingleton.Instance.shopMap.IndexModuleMap.ContainsKey(1102))
+            if (!ResourcesSingletonOld.Instance.shopMap.IndexModuleMap.ContainsKey(1102))
             {
                 return;
             }
 
             //Debug.Log("222222222");
-            Debug.Log(ResourcesSingleton.Instance.shopMap.IndexModuleMap[1102].BoxInfoList);
+            Debug.Log(ResourcesSingletonOld.Instance.shopMap.IndexModuleMap[1102].BoxInfoList);
 
             int thisModuleID = 1102;
             var boxIDList = GetBoxIDByModuleID(thisModuleID);
@@ -1900,7 +1900,7 @@ namespace XFramework
                 ui.GetFromReference(UISubPanel_Shop_1102_SBox.KImg_RightUp).SetActive(false);
             }
 
-            JiYuUIHelper.ForceRefreshLayout(bgUI.GetFromReference(UISubPanel_Shop_Box_Bg.KBg));
+            UnicornUIHelper.ForceRefreshLayout(bgUI.GetFromReference(UISubPanel_Shop_Box_Bg.KBg));
 
             ContentH += thisModuleH;
         }
@@ -1912,7 +1912,7 @@ namespace XFramework
         private void Module1103(bool isUpdate)
         {
             //return;
-            if (!ResourcesSingleton.Instance.shopMap.IndexModuleMap.ContainsKey(1103))
+            if (!ResourcesSingletonOld.Instance.shopMap.IndexModuleMap.ContainsKey(1103))
             {
                 return;
             }
@@ -1949,14 +1949,14 @@ namespace XFramework
                 //Module1103_Help_TxtAndImgSet(boxUI, id);
             }
 
-            JiYuUIHelper.ForceRefreshLayout(bgUI.GetFromReference(UISubPanel_Shop_Box_Bg.KBg));
+            UnicornUIHelper.ForceRefreshLayout(bgUI.GetFromReference(UISubPanel_Shop_Box_Bg.KBg));
 
             ContentH += thisModuleH;
         }
 
         private void Module1103_Help_TxtAndImgSet(UI boxUI, int id)
         {
-            var boxList = ResourcesSingleton.Instance.shopMap.IndexModuleMap[1103].BoxInfoList;
+            var boxList = ResourcesSingletonOld.Instance.shopMap.IndexModuleMap[1103].BoxInfoList;
             BoxInfo boxInfo = new BoxInfo();
             foreach (var b in boxList)
             {
@@ -2037,11 +2037,11 @@ namespace XFramework
         /// </summary>
         private void Module1201(bool isUpdate)
         {
-            if (!ResourcesSingleton.Instance.shopMap.IndexModuleMap.ContainsKey(1201))
+            if (!ResourcesSingletonOld.Instance.shopMap.IndexModuleMap.ContainsKey(1201))
             {
                 return;
             }
-            //if (!ResourcesSingleton.Instance.unlockList.Contains(1201))
+            //if (!ResourcesSingletonOld.Instance.unlockList.Contains(1201))
             //{
             //    return;
             //}
@@ -2093,7 +2093,7 @@ namespace XFramework
                 ui.GetFromReference(UISubPanel_Shop_item.KItemTitleTopBg).SetActive(false);
                 ui.GetFromReference(UISubPanel_Shop_item.KGoldText).SetActive(false);
                 ui.GetImage(UISubPanel_Shop_item.KBg).SetAlpha(1);
-                var dbList = ResourcesSingleton.Instance.shopMap.IndexModuleMap[1201].DailyBuyList;
+                var dbList = ResourcesSingletonOld.Instance.shopMap.IndexModuleMap[1201].DailyBuyList;
                 DailyBuy dailyBuy = new DailyBuy();
                 foreach (var b in dbList)
                 {
@@ -2115,9 +2115,9 @@ namespace XFramework
                         tbshop_Daily.Get(sign).reward[0], false);
                     rewardItemUI.GetFromReference(UICommon_RewardItem.KImg_Outer).SetActive(false);
                     rewardItemUI.GetRectTransform().SetScale(new Vector2(1.27f, 1.27f));
-                    JiYuUIHelper.SetRewardOnClick(tbshop_Daily.Get(sign).reward[0], rewardItemUI);
+                    UnicornUIHelper.SetRewardOnClick(tbshop_Daily.Get(sign).reward[0], rewardItemUI);
                     ui.GetFromReference(UISubPanel_Shop_item.KRewardText).GetTextMeshPro()
-                        .SetTMPText(JiYuUIHelper.GetRewardName(tbshop_Daily.Get(sign).reward[0]));
+                        .SetTMPText(UnicornUIHelper.GetRewardName(tbshop_Daily.Get(sign).reward[0]));
 
                     ui.GetFromReference(UISubPanel_Shop_item.KRewardText).SetActive(true);
                     ui.GetFromReference(UISubPanel_Shop_item.KItemTitleBg).SetActive(false);
@@ -2205,7 +2205,7 @@ namespace XFramework
                                                   tbshop_Daily[sign].freeRule[0][1])) > 1)
                                     {
                                         ui.GetFromReference(UISubPanel_Shop_item.KText_Mid).GetTextMeshPro()
-                                            .SetTMPText(JiYuUIHelper.GetRewardTextIconName("icon_advertise") +tblanguage.Get("common_free_text").current + "(" +
+                                            .SetTMPText(UnicornUIHelper.GetRewardTextIconName("icon_advertise") +tblanguage.Get("common_free_text").current + "(" +
                                                         (tbshop_Daily[sign].freeRule[0][1]
                                                          - (times - (tbshop_Daily[sign].freeRule[0][0] -
                                                                      tbshop_Daily[sign].freeRule[0][1]))).ToString()
@@ -2214,7 +2214,7 @@ namespace XFramework
                                     else
                                     {
                                         ui.GetFromReference(UISubPanel_Shop_item.KText_Mid).GetTextMeshPro()
-                                            .SetTMPText(JiYuUIHelper.GetRewardTextIconName("icon_advertise") +
+                                            .SetTMPText(UnicornUIHelper.GetRewardTextIconName("icon_advertise") +
                                                         tblanguage.Get("common_free_text").current);
                                     }
                                 }
@@ -2241,7 +2241,7 @@ namespace XFramework
                                 ui.GetFromReference(UISubPanel_Shop_item.KBtn_Common).SetActive(false);
                                 ui.GetFromReference(UISubPanel_Shop_item.KStateText).SetActive(true);
                                 ui.GetFromReference(UISubPanel_Shop_item.KStateText).GetTextMeshPro()
-                                    .SetTMPText(JiYuUIHelper.GeneralTimeFormat(new int4(1, 2, 1, 1), cdTime) + "\n"
+                                    .SetTMPText(UnicornUIHelper.GeneralTimeFormat(new int4(1, 2, 1, 1), cdTime) + "\n"
                                         + tblanguage.Get("shop_daily_1_countdown_text").current);
                                 Module1201_InCD = true;
                             }
@@ -2254,7 +2254,7 @@ namespace XFramework
                             //ui.GetFromReference(UISubPanel_Shop_item.KText_Right).GetTextMeshPro().SetTMPText(tbshop_Daily[sign].cost[0][2].ToString());
                             if (tbshop_Daily[sign].cost[0][0] == 3)
                             {
-                                if (ResourcesSingleton.Instance.UserInfo.RoleAssets.UsBill <
+                                if (ResourcesSingletonOld.Instance.UserInfo.RoleAssets.UsBill <
                                     tbshop_Daily[sign].cost[0][2])
                                 {
                                     str = UnityHelper.RichTextColor(str, "FF0000");
@@ -2264,13 +2264,13 @@ namespace XFramework
                                 ui.GetFromReference(UISubPanel_Shop_item.KText_Mid).SetActive(true);
 
                                 ui.GetFromReference(UISubPanel_Shop_item.KText_Mid).GetTextMeshPro()
-                                    .SetTMPText(JiYuUIHelper.GetRewardTextIconName(tbuser_Variable[3].icon) + str);
+                                    .SetTMPText(UnicornUIHelper.GetRewardTextIconName(tbuser_Variable[3].icon) + str);
                                 //消耗游戏币
                             }
 
                             if (tbshop_Daily[sign].cost[0][0] == 2)
                             {
-                                if (ResourcesSingleton.Instance.UserInfo.RoleAssets.Bitcoin <
+                                if (ResourcesSingletonOld.Instance.UserInfo.RoleAssets.Bitcoin <
                                     tbshop_Daily[sign].cost[0][2])
                                 {
                                     str = UnityHelper.RichTextColor(str, "FF0000");
@@ -2280,7 +2280,7 @@ namespace XFramework
                                 ui.GetFromReference(UISubPanel_Shop_item.KText_Mid).SetActive(true);
 
                                 ui.GetFromReference(UISubPanel_Shop_item.KText_Mid).GetTextMeshPro()
-                                    .SetTMPText(JiYuUIHelper.GetRewardTextIconName(tbuser_Variable[2].icon) + str);
+                                    .SetTMPText(UnicornUIHelper.GetRewardTextIconName(tbuser_Variable[2].icon) + str);
                                 //消耗充值货币
                             }
 
@@ -2324,7 +2324,7 @@ namespace XFramework
                 var BuyBtn = ui.GetFromReference(UISubPanel_Shop_item.KBtn_Common);
 
 
-                //JiYuTweenHelper.SetScaleWithBounce(ui.GetFromReference(UISubPanel_Shop_item.KBg),0.2f,1.2f,0,1,Ease.OutQuad);
+                //UnicornTweenHelper.SetScaleWithBounce(ui.GetFromReference(UISubPanel_Shop_item.KBg),0.2f,1.2f,0,1,Ease.OutQuad);
             }
 
             bgList.Sort((a, b) =>
@@ -2333,10 +2333,10 @@ namespace XFramework
                 var uib = b as UISubPanel_Shop_item;
                 return uia.ID.CompareTo(uib.ID);
             });
-            JiYuUIHelper.ForceRefreshLayout(layoutUI);
+            UnicornUIHelper.ForceRefreshLayout(layoutUI);
 
             await UniTask.Delay(1000 * (int)TimeHelper.GetToTomorrowTime());
-            if (JiYuUIHelper.TryGetUI(UIType.UIPanel_Shop, out UI ui1))
+            if (UnicornUIHelper.TryGetUI(UIType.UIPanel_Shop, out UI ui1))
             {
                 //发送查询
                 //Debug.Log("发送1201查询");
@@ -2348,10 +2348,10 @@ namespace XFramework
 
         private void Module1201_Help_SetTextByTime()
         {
-            if (ResourcesSingleton.Instance.shopMap.IndexModuleMap.ContainsKey(1201))
+            if (ResourcesSingletonOld.Instance.shopMap.IndexModuleMap.ContainsKey(1201))
             {
                 string str = tblanguage.Get("shop_daily_countdown_text").current;
-                str = str + JiYuUIHelper.GeneralTimeFormat(new int4(2, 3, 2, 1), TimeHelper.GetToTomorrowTime());
+                str = str + UnicornUIHelper.GeneralTimeFormat(new int4(2, 3, 2, 1), TimeHelper.GetToTomorrowTime());
                 if (Module1201_TimeText != null)
                 {
                     Module1201_TimeText?.GetTextMeshPro()?.SetTMPText(str);
@@ -2359,7 +2359,7 @@ namespace XFramework
 
 
                 //item time
-                var dbList = ResourcesSingleton.Instance.shopMap.IndexModuleMap[1201].DailyBuyList;
+                var dbList = ResourcesSingletonOld.Instance.shopMap.IndexModuleMap[1201].DailyBuyList;
                 DailyBuy dailyBuy = new DailyBuy();
                 foreach (var db in dbList)
                 {
@@ -2383,7 +2383,7 @@ namespace XFramework
                             Module1201_Pos1UI.GetImage(UISubPanel_Shop_item.KImg_Btn)
                                 .SetSpriteAsync("icon_btn_yellow_1", false);
                             Module1201_Pos1UI.GetFromReference(UISubPanel_Shop_item.KStateText).GetTextMeshPro()
-                                .SetTMPText(JiYuUIHelper.GeneralTimeFormat(new int4(1, 2, 1, 1), cdTime)
+                                .SetTMPText(UnicornUIHelper.GeneralTimeFormat(new int4(1, 2, 1, 1), cdTime)
                                             + "\n" + tblanguage.Get("shop_daily_1_countdown_text").current);
                         }
                         else
@@ -2394,7 +2394,7 @@ namespace XFramework
                             if (times < tbshop_Daily[sign].times)
                             {
                                 //RedPointMgr.instance.SetState("ShopRoot", "12011", RedPointState.Show);
-                                ResourcesSingleton.Instance.UpdateResourceUI();
+                                ResourcesSingletonOld.Instance.UpdateResourceUI();
                                 Module1201_Pos1UI.GetFromReference(UISubPanel_Shop_item.KStateText).SetActive(false);
                                 if (times < tbshop_Daily[sign].freeRule[0][0] - tbshop_Daily[sign].freeRule[0][1])
                                 {
@@ -2426,7 +2426,7 @@ namespace XFramework
                                     {
                                         Module1201_Pos1UI.GetFromReference(UISubPanel_Shop_item.KText_Mid)
                                             .GetTextMeshPro()
-                                            .SetTMPText(JiYuUIHelper.GetRewardTextIconName("icon_advertise") +
+                                            .SetTMPText(UnicornUIHelper.GetRewardTextIconName("icon_advertise") +
                                                         tblanguage.Get("common_free_text").current + "(" +
                                                         (tbshop_Daily[sign].freeRule[0][1]
                                                          - (times - (tbshop_Daily[sign].freeRule[0][0] -
@@ -2437,7 +2437,7 @@ namespace XFramework
                                     {
                                         Module1201_Pos1UI.GetFromReference(UISubPanel_Shop_item.KText_Mid)
                                             .GetTextMeshPro()
-                                            .SetTMPText(JiYuUIHelper.GetRewardTextIconName("icon_advertise") +
+                                            .SetTMPText(UnicornUIHelper.GetRewardTextIconName("icon_advertise") +
                                                         tblanguage.Get("common_free_text").current);
                                     }
                                 }
@@ -2461,7 +2461,7 @@ namespace XFramework
                         if (times < tbshop_Daily[sign].times)
                         {
                             //RedPointMgr.instance.SetState("ShopRoot", "module1201", RedPointState.Show);
-                            //ResourcesSingleton.Instance.UpdateResourceUI();
+                            //ResourcesSingletonOld.Instance.UpdateResourceUI();
                             Module1201_Pos1UI.GetFromReference(UISubPanel_Shop_item.KStateText).SetActive(false);
                             if (times < tbshop_Daily[sign].freeRule[0][0] - tbshop_Daily[sign].freeRule[0][1])
                             {
@@ -2493,7 +2493,7 @@ namespace XFramework
                                 {
                                     Module1201_Pos1UI.GetFromReference(UISubPanel_Shop_item.KText_Mid)
                                         .GetTextMeshPro()
-                                        .SetTMPText(JiYuUIHelper.GetRewardTextIconName("icon_advertise") +
+                                        .SetTMPText(UnicornUIHelper.GetRewardTextIconName("icon_advertise") +
                                                     tblanguage.Get("common_free_text").current + "(" +
                                                     (tbshop_Daily[sign].freeRule[0][1]
                                                      - (times - (tbshop_Daily[sign].freeRule[0][0] -
@@ -2533,11 +2533,11 @@ namespace XFramework
         /// </summary>
         private void Module1202(bool isUpdate)
         {
-            if (!ResourcesSingleton.Instance.shopMap.IndexModuleMap.ContainsKey(1202))
+            if (!ResourcesSingletonOld.Instance.shopMap.IndexModuleMap.ContainsKey(1202))
             {
                 return;
             }
-            //if (!ResourcesSingleton.Instance.unlockList.Contains(1202))
+            //if (!ResourcesSingletonOld.Instance.unlockList.Contains(1202))
             //{
             //    return;
             //}
@@ -2627,7 +2627,7 @@ namespace XFramework
                 ui.GetFromReference(UISubPanel_Shop_ModelBG.KPos_Layout).GetComponent<GridLayoutGroup>().spacing =
                     new Vector2(70, 0);
                 Module1202_Help_CreateItem(bgList, ihelp, isUpdate);
-                JiYuUIHelper.ForceRefreshLayout(ui.GetFromReference(UISubPanel_Shop_ModelBG.KPos_Layout));
+                UnicornUIHelper.ForceRefreshLayout(ui.GetFromReference(UISubPanel_Shop_ModelBG.KPos_Layout));
             }
 
             Module1202_Help_SetTimeText();
@@ -2635,7 +2635,7 @@ namespace XFramework
             {
                 return Module1202_Help_SpUIToID[ui1].CompareTo(Module1202_Help_SpUIToID[ui2]);
             });
-            JiYuUIHelper.ForceRefreshLayout(bgUI.GetFromReference(UISubPanel_Shop_Special_Bg.KBg));
+            UnicornUIHelper.ForceRefreshLayout(bgUI.GetFromReference(UISubPanel_Shop_Special_Bg.KBg));
 
             ContentH += thisModuleH;
         }
@@ -2697,7 +2697,7 @@ namespace XFramework
 
                 List<Vector3> vector3s = new List<Vector3>();
                 vector3s = sp.reward;
-                JiYuUIHelper.SortRewards(vector3s);
+                UnicornUIHelper.SortRewards(vector3s);
 
                 if (sp.reward.Count == 1)
                 {
@@ -2717,9 +2717,9 @@ namespace XFramework
                     itemUI.GetFromReference(UISubPanel_Shop_item.KPos_Two_Re).SetActive(true);
                     itemUI.GetFromReference(UISubPanel_Shop_item.KPos_Three_Re).SetActive(false);
                     itemUI.GetFromReference(UISubPanel_Shop_item.KPos_Four_Re).SetActive(false);
-                    JiYuUIHelper.SetRewardIconAndCountText(vector3s[0],
+                    UnicornUIHelper.SetRewardIconAndCountText(vector3s[0],
                         itemUI.GetFromReference(UISubPanel_Shop_item.KReward_Two_Left));
-                    JiYuUIHelper.SetRewardIconAndCountText(vector3s[1],
+                    UnicornUIHelper.SetRewardIconAndCountText(vector3s[1],
                         itemUI.GetFromReference(UISubPanel_Shop_item.KReward_Two_Right));
                     SetRewardOnclickInShop(itemUI.GetFromReference(UISubPanel_Shop_item.KReward_Two_Left), vector3s[0]);
                     SetRewardOnclickInShop(itemUI.GetFromReference(UISubPanel_Shop_item.KReward_Two_Right),
@@ -2731,11 +2731,11 @@ namespace XFramework
                     itemUI.GetFromReference(UISubPanel_Shop_item.KPos_Two_Re).SetActive(false);
                     itemUI.GetFromReference(UISubPanel_Shop_item.KPos_Three_Re).SetActive(true);
                     itemUI.GetFromReference(UISubPanel_Shop_item.KPos_Four_Re).SetActive(false);
-                    JiYuUIHelper.SetRewardIconAndCountText(vector3s[0],
+                    UnicornUIHelper.SetRewardIconAndCountText(vector3s[0],
                         itemUI.GetFromReference(UISubPanel_Shop_item.KReward_Up));
-                    JiYuUIHelper.SetRewardIconAndCountText(vector3s[1],
+                    UnicornUIHelper.SetRewardIconAndCountText(vector3s[1],
                         itemUI.GetFromReference(UISubPanel_Shop_item.KReward_Left));
-                    JiYuUIHelper.SetRewardIconAndCountText(vector3s[2],
+                    UnicornUIHelper.SetRewardIconAndCountText(vector3s[2],
                         itemUI.GetFromReference(UISubPanel_Shop_item.KReward_Right));
                     SetRewardOnclickInShop(itemUI.GetFromReference(UISubPanel_Shop_item.KReward_Up), vector3s[0]);
                     SetRewardOnclickInShop(itemUI.GetFromReference(UISubPanel_Shop_item.KReward_Left), vector3s[1]);
@@ -2747,13 +2747,13 @@ namespace XFramework
                     itemUI.GetFromReference(UISubPanel_Shop_item.KPos_Two_Re).SetActive(false);
                     itemUI.GetFromReference(UISubPanel_Shop_item.KPos_Three_Re).SetActive(false);
                     itemUI.GetFromReference(UISubPanel_Shop_item.KPos_Four_Re).SetActive(true);
-                    JiYuUIHelper.SetRewardIconAndCountText(vector3s[0],
+                    UnicornUIHelper.SetRewardIconAndCountText(vector3s[0],
                         itemUI.GetFromReference(UISubPanel_Shop_item.KReward_Up_Left));
-                    JiYuUIHelper.SetRewardIconAndCountText(vector3s[1],
+                    UnicornUIHelper.SetRewardIconAndCountText(vector3s[1],
                         itemUI.GetFromReference(UISubPanel_Shop_item.KReward_Up_Right));
-                    JiYuUIHelper.SetRewardIconAndCountText(vector3s[2],
+                    UnicornUIHelper.SetRewardIconAndCountText(vector3s[2],
                         itemUI.GetFromReference(UISubPanel_Shop_item.KReward_Down_Left));
-                    JiYuUIHelper.SetRewardIconAndCountText(vector3s[3],
+                    UnicornUIHelper.SetRewardIconAndCountText(vector3s[3],
                         itemUI.GetFromReference(UISubPanel_Shop_item.KReward_Down_Right));
                     SetRewardOnclickInShop(itemUI.GetFromReference(UISubPanel_Shop_item.KReward_Up_Left), vector3s[0]);
                     SetRewardOnclickInShop(itemUI.GetFromReference(UISubPanel_Shop_item.KReward_Up_Right), vector3s[1]);
@@ -2763,7 +2763,7 @@ namespace XFramework
                         vector3s[3]);
                 }
 
-                var gsList = ResourcesSingleton.Instance.shopMap.IndexModuleMap[1202].GameSpecialsList;
+                var gsList = ResourcesSingletonOld.Instance.shopMap.IndexModuleMap[1202].GameSpecialsList;
                 GameSpecials gameSpecials = new GameSpecials();
                 foreach (var gs in gsList)
                 {
@@ -2821,7 +2821,7 @@ namespace XFramework
                         itemUI.GetFromReference(UISubPanel_Shop_item.KBtn_Common).SetActive(true);
                         itemUI.GetFromReference(UISubPanel_Shop_item.KText_Mid).SetActive(true);
                         itemUI.GetFromReference(UISubPanel_Shop_item.KText_Mid).GetTextMeshPro()
-                            .SetTMPText(JiYuUIHelper.GetRewardTextIconName("icon_advertise") +
+                            .SetTMPText(UnicornUIHelper.GetRewardTextIconName("icon_advertise") +
                                         tblanguage.Get("common_free_text").current);
                     }
                     else
@@ -2872,7 +2872,7 @@ namespace XFramework
             //        tipUI.GetFromReference(UICommon_EquipTips.KBottom).SetActive(false);
             //        tipUI.GetFromReference(UICommon_EquipTips.KBtn_Decrease).SetActive(false);
 
-            //        var itemPos = JiYuUIHelper.GetUIPos(rewardUI);
+            //        var itemPos = UnicornUIHelper.GetUIPos(rewardUI);
 
             //        float tipMidH = tipUI.GetFromReference(UICommon_EquipTips.KMid).GetRectTransform().Height();
             //        float tipTopH = tipUI.GetFromReference(UICommon_EquipTips.KImg_TopArraw).GetRectTransform().Height();
@@ -2902,10 +2902,10 @@ namespace XFramework
             //}
             //else
             //{
-            //    JiYuUIHelper.SetRewardOnClick(rewardV3, rewardUI);
+            //    UnicornUIHelper.SetRewardOnClick(rewardV3, rewardUI);
             //}
 
-            JiYuUIHelper.SetRewardOnClick(rewardV3, rewardUI);
+            UnicornUIHelper.SetRewardOnClick(rewardV3, rewardUI);
         }
 
         private void Module1202_Help_SetTimeText()
@@ -2913,7 +2913,7 @@ namespace XFramework
             foreach (var a in Module1202_Help_SpUIToID)
             {
                 long endTime = 0;
-                var gsList = ResourcesSingleton.Instance.shopMap.IndexModuleMap[1202].GameSpecialsList;
+                var gsList = ResourcesSingletonOld.Instance.shopMap.IndexModuleMap[1202].GameSpecialsList;
 
                 foreach (var sp in gsList)
                 {
@@ -2928,11 +2928,11 @@ namespace XFramework
                 string timeStr = "";
                 if (a.Value == 1)
                 {
-                    timeStr = JiYuUIHelper.GeneralTimeFormat(new int4(2, 3, 2, 1), deltaTime);
+                    timeStr = UnicornUIHelper.GeneralTimeFormat(new int4(2, 3, 2, 1), deltaTime);
                 }
                 else
                 {
-                    timeStr = JiYuUIHelper.GeneralTimeFormat(new int4(3, 4, 2, 1), deltaTime);
+                    timeStr = UnicornUIHelper.GeneralTimeFormat(new int4(3, 4, 2, 1), deltaTime);
                 }
 
                 a.Key.GetFromReference(UISubPanel_Shop_ModelBG.KDescText).GetTextMeshPro()
@@ -2946,12 +2946,12 @@ namespace XFramework
 
         private void Module1301(bool isUpdate)
         {
-            if (!ResourcesSingleton.Instance.shopMap.IndexModuleMap.ContainsKey(1301))
+            if (!ResourcesSingletonOld.Instance.shopMap.IndexModuleMap.ContainsKey(1301))
             {
                 return;
             }
 
-            var allGiftList = ResourcesSingleton.Instance.shopMap.IndexModuleMap[1301].GiftInfoList;
+            var allGiftList = ResourcesSingletonOld.Instance.shopMap.IndexModuleMap[1301].GiftInfoList;
             List<GiftInfo> thisModuleList = new List<GiftInfo>();
             foreach (var g in allGiftList)
             {
@@ -3035,7 +3035,7 @@ namespace XFramework
 
             float thisModuleH = 100;
 
-            if (!ResourcesSingleton.Instance.shopMap.IndexModuleMap.ContainsKey(1302))
+            if (!ResourcesSingletonOld.Instance.shopMap.IndexModuleMap.ContainsKey(1302))
             {
                 Debug.Log("no 1302");
                 thisModuleH += 800;
@@ -3048,7 +3048,7 @@ namespace XFramework
                 return;
             }
 
-            var gList = ResourcesSingleton.Instance.shopMap.IndexModuleMap[1302].GiftInfoList;
+            var gList = ResourcesSingletonOld.Instance.shopMap.IndexModuleMap[1302].GiftInfoList;
             int gcount = 0;
             foreach (var g in gList)
             {
@@ -3125,7 +3125,7 @@ namespace XFramework
                 realBg.GetFromReference(UISubPanel_Shop_Box_Bg.KBg).GetComponent<VerticalLayoutGroup>().padding.top =
                     65;
                 realBg.GetFromReference(UISubPanel_Shop_Box_Bg.KBg).GetComponent<VerticalLayoutGroup>().spacing = 50;
-                JiYuUIHelper.ForceRefreshLayout(realBg.GetFromReference(UISubPanel_Shop_Box_Bg.KBg));
+                UnicornUIHelper.ForceRefreshLayout(realBg.GetFromReference(UISubPanel_Shop_Box_Bg.KBg));
                 thisModuleH += allGH;
 
                 bgUI.GetRectTransform().SetHeight(thisModuleH);
@@ -3177,7 +3177,7 @@ namespace XFramework
 
                 List<Vector3> vector3s = new List<Vector3>();
                 vector3s = thisGift.reward;
-                JiYuUIHelper.SortRewards(vector3s);
+                UnicornUIHelper.SortRewards(vector3s);
 
 
                 if (thisGift.reward.Count == 1)
@@ -3189,7 +3189,7 @@ namespace XFramework
                     reList.Clear();
                     var reUI = reList.CreateWithUIType<Vector3>(UIType.UICommon_RewardItem, vector3s[0], false);
                     reUI.GetFromReference(UICommon_RewardItem.KImg_Outer).SetActive(false);
-                    JiYuUIHelper.SetRewardOnClick(vector3s[0], reUI);
+                    UnicornUIHelper.SetRewardOnClick(vector3s[0], reUI);
                 }
 
                 if (thisGift.reward.Count == 2)
@@ -3197,13 +3197,13 @@ namespace XFramework
                     itemUI.GetFromReference(UISubPanel_Shop_item.KPos_Two_Re).SetActive(true);
                     itemUI.GetFromReference(UISubPanel_Shop_item.KPos_Three_Re).SetActive(false);
                     itemUI.GetFromReference(UISubPanel_Shop_item.KPos_Four_Re).SetActive(false);
-                    JiYuUIHelper.SetRewardIconAndCountText(vector3s[0],
+                    UnicornUIHelper.SetRewardIconAndCountText(vector3s[0],
                         itemUI.GetFromReference(UISubPanel_Shop_item.KReward_Two_Left));
-                    JiYuUIHelper.SetRewardIconAndCountText(vector3s[1],
+                    UnicornUIHelper.SetRewardIconAndCountText(vector3s[1],
                         itemUI.GetFromReference(UISubPanel_Shop_item.KReward_Two_Right));
-                    JiYuUIHelper.SetRewardOnClick(vector3s[0],
+                    UnicornUIHelper.SetRewardOnClick(vector3s[0],
                         itemUI.GetFromReference(UISubPanel_Shop_item.KReward_Two_Left));
-                    JiYuUIHelper.SetRewardOnClick(vector3s[1],
+                    UnicornUIHelper.SetRewardOnClick(vector3s[1],
                         itemUI.GetFromReference(UISubPanel_Shop_item.KReward_Two_Right));
                 }
 
@@ -3212,17 +3212,17 @@ namespace XFramework
                     itemUI.GetFromReference(UISubPanel_Shop_item.KPos_Two_Re).SetActive(false);
                     itemUI.GetFromReference(UISubPanel_Shop_item.KPos_Three_Re).SetActive(true);
                     itemUI.GetFromReference(UISubPanel_Shop_item.KPos_Four_Re).SetActive(false);
-                    JiYuUIHelper.SetRewardIconAndCountText(vector3s[0],
+                    UnicornUIHelper.SetRewardIconAndCountText(vector3s[0],
                         itemUI.GetFromReference(UISubPanel_Shop_item.KReward_Up));
-                    JiYuUIHelper.SetRewardIconAndCountText(vector3s[1],
+                    UnicornUIHelper.SetRewardIconAndCountText(vector3s[1],
                         itemUI.GetFromReference(UISubPanel_Shop_item.KReward_Left));
-                    JiYuUIHelper.SetRewardIconAndCountText(vector3s[2],
+                    UnicornUIHelper.SetRewardIconAndCountText(vector3s[2],
                         itemUI.GetFromReference(UISubPanel_Shop_item.KReward_Right));
-                    JiYuUIHelper.SetRewardOnClick(vector3s[0],
+                    UnicornUIHelper.SetRewardOnClick(vector3s[0],
                         itemUI.GetFromReference(UISubPanel_Shop_item.KReward_Up));
-                    JiYuUIHelper.SetRewardOnClick(vector3s[1],
+                    UnicornUIHelper.SetRewardOnClick(vector3s[1],
                         itemUI.GetFromReference(UISubPanel_Shop_item.KReward_Left));
-                    JiYuUIHelper.SetRewardOnClick(vector3s[2],
+                    UnicornUIHelper.SetRewardOnClick(vector3s[2],
                         itemUI.GetFromReference(UISubPanel_Shop_item.KReward_Right));
                 }
 
@@ -3231,25 +3231,25 @@ namespace XFramework
                     itemUI.GetFromReference(UISubPanel_Shop_item.KPos_Two_Re).SetActive(false);
                     itemUI.GetFromReference(UISubPanel_Shop_item.KPos_Three_Re).SetActive(false);
                     itemUI.GetFromReference(UISubPanel_Shop_item.KPos_Four_Re).SetActive(true);
-                    JiYuUIHelper.SetRewardIconAndCountText(vector3s[0],
+                    UnicornUIHelper.SetRewardIconAndCountText(vector3s[0],
                         itemUI.GetFromReference(UISubPanel_Shop_item.KReward_Up_Left));
-                    JiYuUIHelper.SetRewardIconAndCountText(vector3s[1],
+                    UnicornUIHelper.SetRewardIconAndCountText(vector3s[1],
                         itemUI.GetFromReference(UISubPanel_Shop_item.KReward_Up_Right));
-                    JiYuUIHelper.SetRewardIconAndCountText(vector3s[2],
+                    UnicornUIHelper.SetRewardIconAndCountText(vector3s[2],
                         itemUI.GetFromReference(UISubPanel_Shop_item.KReward_Down_Left));
-                    JiYuUIHelper.SetRewardIconAndCountText(vector3s[3],
+                    UnicornUIHelper.SetRewardIconAndCountText(vector3s[3],
                         itemUI.GetFromReference(UISubPanel_Shop_item.KReward_Down_Right));
-                    JiYuUIHelper.SetRewardOnClick(vector3s[0],
+                    UnicornUIHelper.SetRewardOnClick(vector3s[0],
                         itemUI.GetFromReference(UISubPanel_Shop_item.KReward_Up_Left));
-                    JiYuUIHelper.SetRewardOnClick(vector3s[1],
+                    UnicornUIHelper.SetRewardOnClick(vector3s[1],
                         itemUI.GetFromReference(UISubPanel_Shop_item.KReward_Up_Right));
-                    JiYuUIHelper.SetRewardOnClick(vector3s[2],
+                    UnicornUIHelper.SetRewardOnClick(vector3s[2],
                         itemUI.GetFromReference(UISubPanel_Shop_item.KReward_Down_Left));
-                    JiYuUIHelper.SetRewardOnClick(vector3s[3],
+                    UnicornUIHelper.SetRewardOnClick(vector3s[3],
                         itemUI.GetFromReference(UISubPanel_Shop_item.KReward_Down_Right));
                 }
 
-                var giList = ResourcesSingleton.Instance.shopMap.IndexModuleMap[1302].GiftInfoList;
+                var giList = ResourcesSingletonOld.Instance.shopMap.IndexModuleMap[1302].GiftInfoList;
                 GiftInfo giftInfo = new GiftInfo();
 
                 foreach (var gi in giList)
@@ -3301,7 +3301,7 @@ namespace XFramework
                     //RedPointMgr.instance.Init(ShopRoot, "module1302" + thisGift.id.ToString(),
                     //    (RedPointState state, int data) =>
                     //    {
-                    //        if (JiYuUIHelper.TryGetUI(UIType.UIPanel_Shop, out UI ui))
+                    //        if (UnicornUIHelper.TryGetUI(UIType.UIPanel_Shop, out UI ui))
                     //        {
                     //            if (itemUI != null)
                     //            {
@@ -3348,7 +3348,7 @@ namespace XFramework
 
                             itemUI.GetFromReference(UISubPanel_Shop_item.KText_Mid).SetActive(true);
                             itemUI.GetFromReference(UISubPanel_Shop_item.KText_Mid).GetTextMeshPro()
-                                .SetTMPText(JiYuUIHelper.GetRewardTextIconName("icon_advertise") +
+                                .SetTMPText(UnicornUIHelper.GetRewardTextIconName("icon_advertise") +
                                             tblanguage.Get("common_free_text").current);
                         }
                     }
@@ -3367,7 +3367,7 @@ namespace XFramework
             }
 
             //Log.Debug("dddddddddddddddddddddddddd3333", Color.cyan);
-            JiYuUIHelper.ForceRefreshLayout(limitGiftui.GetFromReference(UISubPanel_Shop_1302_LimitGift.KPos_Item));
+            UnicornUIHelper.ForceRefreshLayout(limitGiftui.GetFromReference(UISubPanel_Shop_1302_LimitGift.KPos_Item));
         }
 
         private void Module1302_SetTextByTime()
@@ -3375,7 +3375,7 @@ namespace XFramework
             //Debug.LogError("设置时间");
             foreach (var giid in Module1302_GiftUI_ID_DIC)
             {
-                var giList = ResourcesSingleton.Instance.shopMap.IndexModuleMap[1302].GiftInfoList;
+                var giList = ResourcesSingletonOld.Instance.shopMap.IndexModuleMap[1302].GiftInfoList;
                 long endTime = 0;
                 foreach (var gi in giList)
                 {
@@ -3396,7 +3396,7 @@ namespace XFramework
 
                 string timeStr = "";
 
-                timeStr = JiYuUIHelper.GeneralTimeFormat(new int4(2, 3, 2, 1), deltaTime);
+                timeStr = UnicornUIHelper.GeneralTimeFormat(new int4(2, 3, 2, 1), deltaTime);
                 //Log.Debug("dddddddddddddddddddddddddd4444444", Color.cyan);
                 giid.Key.GetFromReference(UISubPanel_Shop_1302_LimitGift.KText_Countdown).GetTextMeshPro()
                     .SetTMPText(timeStr);
@@ -3409,7 +3409,7 @@ namespace XFramework
 
         private void Module1401(bool isUpdate)
         {
-            if (!ResourcesSingleton.Instance.shopMap.IndexModuleMap.ContainsKey(1401))
+            if (!ResourcesSingletonOld.Instance.shopMap.IndexModuleMap.ContainsKey(1401))
             {
                 return;
             }
@@ -3452,7 +3452,7 @@ namespace XFramework
                 Module1401_Help_CreateItem(uiList, rc, isUpdate);
             }
 
-            JiYuUIHelper.ForceRefreshLayout(bgUI.GetFromReference(UISubPanel_Shop_ModelBG.KPos_Layout));
+            UnicornUIHelper.ForceRefreshLayout(bgUI.GetFromReference(UISubPanel_Shop_ModelBG.KPos_Layout));
 
             ContentH += thisModuleH;
         }
@@ -3482,7 +3482,7 @@ namespace XFramework
             ui.GetFromReference(UISubPanel_Shop_item.KPos_Four_Re).SetActive(false);
             ui.GetFromReference(UISubPanel_Shop_item.KText_Mid).SetActive(false);
             ui.GetImage(UISubPanel_Shop_item.KImg_Btn).SetSpriteAsync("icon_btn_blue_1", false);
-            var clist = ResourcesSingleton.Instance.shopMap.IndexModuleMap[1401].ChargeInfoList;
+            var clist = ResourcesSingletonOld.Instance.shopMap.IndexModuleMap[1401].ChargeInfoList;
             ChargeInfo chargeInfo = new ChargeInfo();
             foreach (var c in clist)
             {
@@ -3515,9 +3515,9 @@ namespace XFramework
             var thisBuyBtn = ui.GetFromReference(UISubPanel_Shop_item.KBtn_Common);
             IntValue intValue = new IntValue();
             intValue.Value = rc.id;
-            //JiYuTweenHelper.DoScaleTweenOnClickAndLongPress(thisBuyBtn, () =>
+            //UnicornTweenHelper.DoScaleTweenOnClickAndLongPress(thisBuyBtn, () =>
             //{
-            //    //if (ResourcesSingleton.Instance.shopInit.shopHelpDic[1401][recharge.id][0] == 0)
+            //    //if (ResourcesSingletonOld.Instance.shopInit.shopHelpDic[1401][recharge.id][0] == 0)
             //    //{
             //    //    m1401IntHelp = recharge.value * 2;
             //    //}
@@ -3529,7 +3529,7 @@ namespace XFramework
             //    //WebMessageHandlerOld.Instance.AddHandler(11, 4, On1401BuyResponse);
             //    //NetWorkManager.Instance.SendMessage(11, 4, intValue);
             //});
-            JiYuTweenHelper.PlayUIImageSweepFX(ui.GetFromReference(UISubPanel_Shop_item.KImg_Btn),
+            UnicornTweenHelper.PlayUIImageSweepFX(ui.GetFromReference(UISubPanel_Shop_item.KImg_Btn),
                 cancellationToken: cts.Token);
         }
 
@@ -3539,7 +3539,7 @@ namespace XFramework
 
         private void Module1402(bool isUpdate)
         {
-            if (!ResourcesSingleton.Instance.shopMap.IndexModuleMap.ContainsKey(1402))
+            if (!ResourcesSingletonOld.Instance.shopMap.IndexModuleMap.ContainsKey(1402))
             {
                 return;
             }
@@ -3584,7 +3584,7 @@ namespace XFramework
                 Module1402_Help_CreateItem(uiList, rc, isUpdate);
             }
 
-            JiYuUIHelper.ForceRefreshLayout(bgUI.GetFromReference(UISubPanel_Shop_ModelBG.KPos_Layout));
+            UnicornUIHelper.ForceRefreshLayout(bgUI.GetFromReference(UISubPanel_Shop_ModelBG.KPos_Layout));
 
 
             ContentH += thisModuleH;
@@ -3597,7 +3597,7 @@ namespace XFramework
                 false);
             ui.GetImage(UISubPanel_Shop_item.KBg).SetSpriteAsync("shop_daily_item_container", false);
             ui.GetImage(UISubPanel_Shop_item.KBg).SetAlpha(255f);
-            var clist = ResourcesSingleton.Instance.shopMap.IndexModuleMap[1402].ChargeInfoList;
+            var clist = ResourcesSingletonOld.Instance.shopMap.IndexModuleMap[1402].ChargeInfoList;
             ChargeInfo chargeInfo = new ChargeInfo();
             foreach (var c in clist)
             {
@@ -3630,7 +3630,7 @@ namespace XFramework
             ui.GetFromReference(UISubPanel_Shop_item.KPos_Three_Re).SetActive(false);
             ui.GetFromReference(UISubPanel_Shop_item.KPos_Four_Re).SetActive(false);
 
-            int moneyHelp = ResourcesSingleton.Instance.levelInfo.maxPassChapterID;
+            int moneyHelp = ResourcesSingletonOld.Instance.levelInfo.maxPassChapterID;
             //Debug.Log(moneyHelp);
             if (moneyHelp == 0)
             {
@@ -3649,7 +3649,7 @@ namespace XFramework
             }
 
             moneyHelp = moneyHelp * 6 * rc.value;
-            moneyHelp = (moneyHelp * (ResourcesSingleton.Instance.UserInfo.PatrolGainName + 100)) / 100;
+            moneyHelp = (moneyHelp * (ResourcesSingletonOld.Instance.UserInfo.PatrolGainName + 100)) / 100;
             ui.GetFromReference(UISubPanel_Shop_item.KGoldNumTxt).GetTextMeshPro().SetTMPText(moneyHelp.ToString());
             ui.GetFromReference(UISubPanel_Shop_item.KGoldNumTxt).GetRectTransform().SetAnchoredPositionY(0f);
             ui.GetFromReference(UISubPanel_Shop_item.KGoldDescTxt).GetTextMeshPro()
@@ -3661,7 +3661,7 @@ namespace XFramework
             {
                 ui.GetFromReference(UISubPanel_Shop_item.KText_Mid).SetActive(true);
                 ui.GetFromReference(UISubPanel_Shop_item.KText_Mid).GetTextMeshPro().SetTMPText(
-                    JiYuUIHelper.GetRewardTextIconName(tbuser_Variable.Get(2).icon) + rc.price.ToString());
+                    UnicornUIHelper.GetRewardTextIconName(tbuser_Variable.Get(2).icon) + rc.price.ToString());
             }
 
             //if (rc.freeRule.Count > 0)
@@ -3698,7 +3698,7 @@ namespace XFramework
 
                 ui.GetFromReference(UISubPanel_Shop_item.KText_Mid).SetActive(true);
                 ui.GetFromReference(UISubPanel_Shop_item.KText_Mid).GetTextMeshPro().SetTMPText(
-                    JiYuUIHelper.GetRewardTextIconName("icon_advertise") +
+                    UnicornUIHelper.GetRewardTextIconName("icon_advertise") +
                     tblanguage.Get("common_free_text").current + "(" + chargeInfo.AdSum.ToString() + ")");
 
                 if (rc.freeRule.Count > 0)
@@ -3723,7 +3723,7 @@ namespace XFramework
             IntValue intValue = new IntValue();
             intValue.Value = rc.id;
 
-            //JiYuTweenHelper.DoScaleTweenOnClickAndLongPress(thisBuyBtn, () =>
+            //UnicornTweenHelper.DoScaleTweenOnClickAndLongPress(thisBuyBtn, () =>
             //{
             //    //m1402IntHelp = moneyHelp;
             //    //m1402Unit = recharge.unit;
@@ -3761,7 +3761,7 @@ namespace XFramework
 
         private void Module1403(bool isUpdate)
         {
-            if (!ResourcesSingleton.Instance.shopMap.IndexModuleMap.ContainsKey(1403))
+            if (!ResourcesSingletonOld.Instance.shopMap.IndexModuleMap.ContainsKey(1403))
             {
                 return;
             }
@@ -3809,7 +3809,7 @@ namespace XFramework
             //}
 
             //int fundNum = 0;
-            //int level = ResourcesSingleton.Instance.UserInfo.RoleAssets.Level;
+            //int level = ResourcesSingletonOld.Instance.UserInfo.RoleAssets.Level;
             //foreach (var tbf in tbfund.DataList)
             //{
             //    if (level >= tbf.unlockLevel)
@@ -3883,7 +3883,7 @@ namespace XFramework
 
             //            //Determine if there are red dots
             //            bool haveRedDotOrNot = false;
-            //            foreach (var gf in ResourcesSingleton.Instance.shopMap.IndexModuleMap[1403].GameFoundationList)
+            //            foreach (var gf in ResourcesSingletonOld.Instance.shopMap.IndexModuleMap[1403].GameFoundationList)
             //            {
             //                if (gf.FoundId == fundReverseSortList[ihelp].id)
             //                {
@@ -3954,7 +3954,7 @@ namespace XFramework
             //        }
             //    }
 
-            //    JiYuUIHelper.ForceRefreshLayout(fundUI.GetFromReference(UISubPanel_Shop_1403_Fund.KPoint_List));
+            //    UnicornUIHelper.ForceRefreshLayout(fundUI.GetFromReference(UISubPanel_Shop_1403_Fund.KPoint_List));
             //}
 
             //fundPointList.Reverse();
@@ -4003,7 +4003,7 @@ namespace XFramework
 
 
             //        bool haveRedDotOrNot = false;
-            //        foreach (var gf in ResourcesSingleton.Instance.shopMap.IndexModuleMap[1403].GameFoundationList)
+            //        foreach (var gf in ResourcesSingletonOld.Instance.shopMap.IndexModuleMap[1403].GameFoundationList)
             //        {
             //            if (gf.FoundId == fundForwardSortList[ihelp].id)
             //            {
@@ -4022,7 +4022,7 @@ namespace XFramework
             //                    haveRedDotOrNot = true;
 
             //                    Module1403_Help_RemoveNewByID(gf.FoundId);
-            //                    //ResourcesSingleton.Instance.shopMap.IndexModuleMap[1403].GameFoundationList[fundListIndex].IsLook = 1;
+            //                    //ResourcesSingletonOld.Instance.shopMap.IndexModuleMap[1403].GameFoundationList[fundListIndex].IsLook = 1;
             //                }
             //                else if (gf.IsLook == 1)
             //                {
@@ -4054,14 +4054,14 @@ namespace XFramework
             //    Module1403_TopTab_NewUI.Add(fundSelectUI.GetFromReference(UISubPanel_Shop_Fund_Select_Tab.KImg_Tip));
             //}
 
-            //JiYuUIHelper.ForceRefreshLayout(fundUI.GetFromReference(UISubPanel_Shop_1403_Fund.KContent));
+            //UnicornUIHelper.ForceRefreshLayout(fundUI.GetFromReference(UISubPanel_Shop_1403_Fund.KContent));
 
             //Module1403_Help_LeftAndRightBtnSetActive(fundNum, nowFundIndex, fundUI);
 
             //var leftBtn = fundUI.GetFromReference(UISubPanel_Shop_1403_Fund.KBtn_Left);
             //var RightBtn = fundUI.GetFromReference(UISubPanel_Shop_1403_Fund.KBtn_Right);
 
-            //JiYuTweenHelper.DoScaleTweenOnClickAndLongPress(leftBtn, () =>
+            //UnicornTweenHelper.DoScaleTweenOnClickAndLongPress(leftBtn, () =>
             //{
             //    //Module1403_Last_Time = TimeHelper.ClientNow();
             //    nowFundIndex -= 1;
@@ -4069,7 +4069,7 @@ namespace XFramework
             //    Module1403_Help_LeftAndRightBtnSetActive(fundNum, nowFundIndex, fundUI);
             //    Module1403_Help_ChangePointState(fundPointList);
             //});
-            //JiYuTweenHelper.DoScaleTweenOnClickAndLongPress(RightBtn, () =>
+            //UnicornTweenHelper.DoScaleTweenOnClickAndLongPress(RightBtn, () =>
             //{
             //    //Module1403_Last_Time = TimeHelper.ClientNow();
             //    nowFundIndex += 1;
@@ -4167,7 +4167,7 @@ namespace XFramework
         //     Debug.LogError($"Module1403_Help_CreateItem");
         //     Module1403GetUIList.Clear();
         //     GameFoundation thisFundByID = null;
-        //     var fundList = ResourcesSingleton.Instance.shopMap.IndexModuleMap[1403].GameFoundationList;
+        //     var fundList = ResourcesSingletonOld.Instance.shopMap.IndexModuleMap[1403].GameFoundationList;
         //     int fundListIndex = 0;
         //     foreach (var f in fundList)
         //     {
@@ -4193,7 +4193,7 @@ namespace XFramework
         //     //if (thisFundByID.IsLook == 0)
         //     //{
         //     //    Module1403_Help_RemoveNewByID(id);
-        //     //    ResourcesSingleton.Instance.shopMap.IndexModuleMap[1403].GameFoundationList[fundListIndex].IsLook = 1;
+        //     //    ResourcesSingletonOld.Instance.shopMap.IndexModuleMap[1403].GameFoundationList[fundListIndex].IsLook = 1;
         //     //}
         //
         //     #region set fund bg
@@ -4217,13 +4217,13 @@ namespace XFramework
         //         shopFundListUI.GetFromReference(UISubPanel_Shop_Fund_List.KBtn_Buy_Mid).SetActive(true);
         //         shopFundListUI.GetFromReference(UISubPanel_Shop_Fund_List.KText_Name_Mid).SetActive(false);
         //         var btnBuyMid = shopFundListUI.GetFromReference(UISubPanel_Shop_Fund_List.KBtn_Buy_Mid);
-        //         JiYuTweenHelper.DoScaleTweenOnClickAndLongPress(btnBuyMid, () =>
+        //         UnicornTweenHelper.DoScaleTweenOnClickAndLongPress(btnBuyMid, () =>
         //         {
         //             Debug.LogError($"Module1403_Help_CreateItemC03");
         //             const string Fund1 = "C03";
-        //             var shopStr = JiYuUIHelper.GetShopStr(Fund1, id);
+        //             var shopStr = UnicornUIHelper.GetShopStr(Fund1, id);
         //             
-        //             NetWorkManager.Instance.SendMessage(CMD.PREPAY, new StringValue
+        //             NetWorkManager.Instance.SendMessage(CMDOld.PREPAY, new StringValue
         //             {
         //                 Value = shopStr
         //             });
@@ -4255,12 +4255,12 @@ namespace XFramework
         //         shopFundListUI.GetFromReference(UISubPanel_Shop_Fund_List.KBtn_Buy_Right).SetActive(true);
         //         shopFundListUI.GetFromReference(UISubPanel_Shop_Fund_List.KText_Name_Right).SetActive(false);
         //         var btnBuyRight = shopFundListUI.GetFromReference(UISubPanel_Shop_Fund_List.KBtn_Buy_Right);
-        //         JiYuTweenHelper.DoScaleTweenOnClickAndLongPress(btnBuyRight, () =>
+        //         UnicornTweenHelper.DoScaleTweenOnClickAndLongPress(btnBuyRight, () =>
         //         {
         //             const string Fund1 = "C04";
-        //             var shopStr = JiYuUIHelper.GetShopStr(Fund1, id);
+        //             var shopStr = UnicornUIHelper.GetShopStr(Fund1, id);
         //             
-        //             NetWorkManager.Instance.SendMessage(CMD.PREPAY, new StringValue
+        //             NetWorkManager.Instance.SendMessage(CMDOld.PREPAY, new StringValue
         //             {
         //                 Value = shopStr
         //             });
@@ -4293,7 +4293,7 @@ namespace XFramework
         //     thisFundRewardList.Sort(delegate(fund_reward f1, fund_reward f2) { return f1.level.CompareTo(f2.level); });
         //
         //     int unLockCount = 0;
-        //     var level = ResourcesSingleton.Instance.UserInfo.RoleAssets.Level;
+        //     var level = ResourcesSingletonOld.Instance.UserInfo.RoleAssets.Level;
         //     foreach (var tbfr in thisFundRewardList)
         //     {
         //         if (tbfr.level <= level)
@@ -4367,7 +4367,7 @@ namespace XFramework
         //     var itemRowList = shopFundListUI.GetFromReference(UISubPanel_Shop_Fund_List.KPos_Item).GetList();
         //     itemRowList.Clear();
         //
-        //     int level = ResourcesSingleton.Instance.UserInfo.RoleAssets.Level;
+        //     int level = ResourcesSingletonOld.Instance.UserInfo.RoleAssets.Level;
         //
         //     Dictionary<int, int> leftGetDic = new Dictionary<int, int>();
         //     Dictionary<int, int> midGetDic = new Dictionary<int, int>();
@@ -4384,7 +4384,7 @@ namespace XFramework
         //     string color2Str = "FF69A5";
         //     string color3Str = "FFBF0F";
         //
-        //     var shopMap = ResourcesSingleton.Instance.shopMap.IndexModuleMap[1403].GameFoundationList;
+        //     var shopMap = ResourcesSingletonOld.Instance.shopMap.IndexModuleMap[1403].GameFoundationList;
         //     foreach (var f in shopMap)
         //     {
         //         if (f.FoundId == thisFundRewardList[0].id)
@@ -4474,11 +4474,11 @@ namespace XFramework
         //             .SetTMPText(tblanguage.Get("common_state_gained").current);
         //
         //         var leftReward = itemRow.GetFromReference(UISubPanel_Shop_Fund_Item.KReward_Left);
-        //         JiYuUIHelper.SetRewardIconAndCountText(tbfr.reward1[0], leftReward);
+        //         UnicornUIHelper.SetRewardIconAndCountText(tbfr.reward1[0], leftReward);
         //         var MidReward = itemRow.GetFromReference(UISubPanel_Shop_Fund_Item.KReward_Mid);
-        //         JiYuUIHelper.SetRewardIconAndCountText(tbfr.reward2[0], MidReward);
+        //         UnicornUIHelper.SetRewardIconAndCountText(tbfr.reward2[0], MidReward);
         //         var RightReward = itemRow.GetFromReference(UISubPanel_Shop_Fund_Item.KReward_Right);
-        //         JiYuUIHelper.SetRewardIconAndCountText(tbfr.reward3[0], RightReward);
+        //         UnicornUIHelper.SetRewardIconAndCountText(tbfr.reward3[0], RightReward);
         //
         //         var leftReBtn = leftReward.GetFromReference(UICommon_RewardItem.KBtn_Item);
         //         var midReBtn = MidReward.GetFromReference(UICommon_RewardItem.KBtn_Item);
@@ -4706,7 +4706,7 @@ namespace XFramework
         //         i++;
         //     }
         //
-        //     JiYuUIHelper.ForceRefreshLayout(shopFundListUI.GetFromReference(UISubPanel_Shop_Fund_List.KPos_Item));
+        //     UnicornUIHelper.ForceRefreshLayout(shopFundListUI.GetFromReference(UISubPanel_Shop_Fund_List.KPos_Item));
         // }
 
         // private void Module1403_Help_RemoveNewByID(int id)
@@ -4722,11 +4722,11 @@ namespace XFramework
         //     WebMessageHandlerOld.Instance.AddHandler(11, 15, On1403LookFundResponse);
         //     NetWorkManager.Instance.SendMessage(11, 15, intValue);
         //     Debug.Log("send 1403 11-15 web");
-        //     for (int i = 0; i < ResourcesSingleton.Instance.shopMap.IndexModuleMap[1403].GameFoundationList.Count; i++)
+        //     for (int i = 0; i < ResourcesSingletonOld.Instance.shopMap.IndexModuleMap[1403].GameFoundationList.Count; i++)
         //     {
-        //         if (ResourcesSingleton.Instance.shopMap.IndexModuleMap[1403].GameFoundationList[i].FoundId == id)
+        //         if (ResourcesSingletonOld.Instance.shopMap.IndexModuleMap[1403].GameFoundationList[i].FoundId == id)
         //         {
-        //             ResourcesSingleton.Instance.shopMap.IndexModuleMap[1403].GameFoundationList[i].IsLook = 1;
+        //             ResourcesSingletonOld.Instance.shopMap.IndexModuleMap[1403].GameFoundationList[i].IsLook = 1;
         //             break;
         //         }
         //     }
@@ -4735,14 +4735,14 @@ namespace XFramework
         {
             int2 fundIdAndLevel = new int2();
 
-            var GameFoundationList = ResourcesSingleton.Instance.shopMap.IndexModuleMap[1403].GameFoundationList;
+            var GameFoundationList = ResourcesSingletonOld.Instance.shopMap.IndexModuleMap[1403].GameFoundationList;
             List<GameFoundation> fundList = new List<GameFoundation>();
             foreach (var f in GameFoundationList)
             {
                 fundList.Add(f);
             }
 
-            int level = ResourcesSingleton.Instance.UserInfo.RoleAssets.Level;
+            int level = ResourcesSingletonOld.Instance.UserInfo.RoleAssets.Level;
 
             var fundForwardSortList = new List<fund>();
             foreach (var tbf in tbfund.DataList)
@@ -4940,7 +4940,7 @@ namespace XFramework
 
         private async void Module1404(bool isUpdate)
         {
-            if (!ResourcesSingleton.Instance.shopMap.IndexModuleMap.ContainsKey(1404))
+            if (!ResourcesSingletonOld.Instance.shopMap.IndexModuleMap.ContainsKey(1404))
             {
                 return;
             }
@@ -4979,26 +4979,26 @@ namespace XFramework
                 {
                     if (tbm.id == 1)
                     {
-                        JiYuTweenHelper.SetEaseAlphaAndPosRtoL(card.GetFromReference(UISubPanel_Shop_MonCard.KImg_Card),
+                        UnicornTweenHelper.SetEaseAlphaAndPosRtoL(card.GetFromReference(UISubPanel_Shop_MonCard.KImg_Card),
                             -544,
                             800, cts.Token,
                             0.35f, false, false);
                     }
                     else
                     {
-                        JiYuTweenHelper.SetEaseAlphaAndPosLtoR(card.GetFromReference(UISubPanel_Shop_MonCard.KImg_Card),
+                        UnicornTweenHelper.SetEaseAlphaAndPosLtoR(card.GetFromReference(UISubPanel_Shop_MonCard.KImg_Card),
                             -544,
                             800, cts.Token,
                             0.35f, false, false);
                     }
 
-                    JiYuTweenHelper.SetEaseAlphaAndPosUtoB(card.GetFromReference(UISubPanel_Shop_MonCard.KImg_Card), 382,
+                    UnicornTweenHelper.SetEaseAlphaAndPosUtoB(card.GetFromReference(UISubPanel_Shop_MonCard.KImg_Card), 382,
                         200, cts.Token,
                         0.35f, false, false);
                     card.GetFromReference(UISubPanel_Shop_MonCard.KImg_Card).GetComponent<CanvasGroup>().alpha = 0.2f;
                     card.GetFromReference(UISubPanel_Shop_MonCard.KImg_Card).GetComponent<CanvasGroup>().DOFade(1, 0.5f)
                         .SetEase(Ease.InQuad);
-                    JiYuTweenHelper.SetAngleRotate(card.GetFromReference(UISubPanel_Shop_MonCard.KImg_Card), 0, 45, 0.35f,
+                    UnicornTweenHelper.SetAngleRotate(card.GetFromReference(UISubPanel_Shop_MonCard.KImg_Card), 0, 45, 0.35f,
                         cts.Token);
                     card.GetFromReference(UISubPanel_Shop_MonCard.KTitleBg).GetImage().SetAlpha(0);
                 }
@@ -5009,7 +5009,7 @@ namespace XFramework
 
 
             Module1404_Help_SetEnergyMAX();
-            JiYuUIHelper.ForceRefreshLayout(cardUI.GetFromReference(UISubPanel_Shop_1404_MonthCard.KPos));
+            UnicornUIHelper.ForceRefreshLayout(cardUI.GetFromReference(UISubPanel_Shop_1404_MonthCard.KPos));
 
             ContentH += this1404H;
             if (!isUpdate)
@@ -5021,22 +5021,22 @@ namespace XFramework
                     var posY = cardList.Children[i].GetFromReference(UISubPanel_Shop_MonCard.KTitleBg)
                         .GetRectTransform()
                         .AnchoredPosition().y;
-                    JiYuTweenHelper.SetEaseAlphaAndPosUtoB(
+                    UnicornTweenHelper.SetEaseAlphaAndPosUtoB(
                         cardList.Children[i].GetFromReference(UISubPanel_Shop_MonCard.KTitleBg), posY, 60, cts.Token,
                         0.3f, true,
                         false);
                     cardList.Children[i].GetFromReference(UISubPanel_Shop_MonCard.KTitleBg).GetImage().SetAlpha(1);
 
-                    JiYuTweenHelper.PlayUIImageTranstionFX(
+                    UnicornTweenHelper.PlayUIImageTranstionFX(
                         cardList.Children[i].GetFromReference(UISubPanel_Shop_MonCard.KTitleBg), cts.Token, "A1DD01",
-                        JiYuTweenHelper.UIDir.Up, 0, 1f);
+                        UnicornTweenHelper.UIDir.Up, 0, 1f);
                 }
             }
         }
 
         private void Module1404_Help_SetEnergyMAX()
         {
-            var cardMap = ResourcesSingleton.Instance.shopMap.IndexModuleMap[1404].SpecialCard.Unclaimed;
+            var cardMap = ResourcesSingletonOld.Instance.shopMap.IndexModuleMap[1404].SpecialCard.Unclaimed;
             int addEnergy = 0;
             foreach (var cm in cardMap)
             {
@@ -5057,16 +5057,16 @@ namespace XFramework
                 }
             }
 
-            if (addEnergy + tbuser_Variable.Get(1).init != ResourcesSingleton.Instance.UserInfo.RoleAssets.EnergyMax)
+            if (addEnergy + tbuser_Variable.Get(1).init != ResourcesSingletonOld.Instance.UserInfo.RoleAssets.EnergyMax)
             {
-                ResourcesSingleton.Instance.UserInfo.RoleAssets.EnergyMax = addEnergy + tbuser_Variable.Get(1).init;
-                ResourcesSingleton.Instance.UpdateResourceUI();
+                ResourcesSingletonOld.Instance.UserInfo.RoleAssets.EnergyMax = addEnergy + tbuser_Variable.Get(1).init;
+                ResourcesSingletonOld.Instance.UpdateResourceUI();
             }
         }
 
         private void Module1404_Help_SetCard(UI card, monthly tbm)
         {
-            //if (JiYuUIHelper.TryGetUI(UIType.UISubPanel_Shop_1404_MonthCard, out UI uui))
+            //if (UnicornUIHelper.TryGetUI(UIType.UISubPanel_Shop_1404_MonthCard, out UI uui))
             //{
             //    Log.Debug("有滴答滴答滴答滴答滴滴答答哒哒哒哒哒哒哒哒哒哒哒哒哒哒哒哒哒哒",Color.cyan);
             //}
@@ -5214,7 +5214,7 @@ namespace XFramework
 
             #region Set State
 
-            var cardMap = ResourcesSingleton.Instance.shopMap.IndexModuleMap[1404].SpecialCard.Unclaimed;
+            var cardMap = ResourcesSingletonOld.Instance.shopMap.IndexModuleMap[1404].SpecialCard.Unclaimed;
             UnReward cardData = new UnReward();
             foreach (var cm in cardMap)
             {
@@ -5227,8 +5227,8 @@ namespace XFramework
 
             bool isBuy = false;
             bool isActiveAd = false;
-            ResourcesSingleton.Instance.monthBuy = false;
-            isActiveAd = ResourcesSingleton.Instance.UserInfo.AdFreeFlag == 0 ? false : true;
+            ResourcesSingletonOld.Instance.monthBuy = false;
+            isActiveAd = ResourcesSingletonOld.Instance.UserInfo.AdFreeFlag == 0 ? false : true;
             if (cardData.EndTime <= TimeHelper.ClientNowSeconds())
             {
                 isBuy = false;
@@ -5248,7 +5248,7 @@ namespace XFramework
 
                 card.GetFromReference(UISubPanel_Shop_MonCard.KText_TimeDown).SetActive(false);
 
-                //if (JiYuUIHelper.TryGetUI(UIType.UISubPanel_Shop_1404_MonthCard,out UI cardParent)){
+                //if (UnicornUIHelper.TryGetUI(UIType.UISubPanel_Shop_1404_MonthCard,out UI cardParent)){
                 //    var cardParentUI = cardParent as UISubPanel_Shop_1404_MonthCard;
                 //    cardParentUI.GetFromReference(UISubPanel_Shop_1404_MonthCard.KText_TimeDownUp).SetActive(false);
                 //    cardParentUI.GetFromReference(UISubPanel_Shop_1404_MonthCard.KText_TimeDownBottom).SetActive(false);
@@ -5259,30 +5259,30 @@ namespace XFramework
                 var KBtn_Buy = card.GetFromReference(UISubPanel_Shop_MonCard.KBtn_Buy);
 
                 var cardUI = card as UISubPanel_Shop_MonCard;
-                JiYuTweenHelper.DoScaleTweenOnClickAndLongPress(KBtn_Buy, () =>
+                UnicornTweenHelper.DoScaleTweenOnClickAndLongPress(KBtn_Buy, () =>
                 {
                     const string Fund1 = "C02";
-                    JiYuUIHelper.SendBuyMessage(Fund1, cardUI.id);
+                    UnicornUIHelper.SendBuyMessage(Fund1, cardUI.id);
                     JiYuEventManager.Instance.RegisterEvent("OnShopResponse", (a) =>
                     {
-                        var shopNum = JiYuUIHelper.GetShopNum(a);
+                        var shopNum = UnicornUIHelper.GetShopNum(a);
 
                         switch (shopNum)
                         {
                             case "C02":
 
-                                WebMessageHandlerOld.Instance.AddHandler(CMD.INITPLAYER, OnRefreshAddVaule);
-                                NetWorkManager.Instance.SendMessage(CMD.INITPLAYER);
+                                WebMessageHandlerOld.Instance.AddHandler(CMDOld.INITPLAYER, OnRefreshAddVaule);
+                                NetWorkManager.Instance.SendMessage(CMDOld.INITPLAYER);
                                 break;
                         }
                     });
                 });
 
-                JiYuTweenHelper.PlayUIImageSweepFX(KBtn_Buy, cancellationToken: cts.Token);
+                UnicornTweenHelper.PlayUIImageSweepFX(KBtn_Buy, cancellationToken: cts.Token);
             }
             else
             {
-                JiYuTweenHelper.PlayUIImageSweepFX(card.GetFromReference(UISubPanel_Shop_MonCard.KCard),
+                UnicornTweenHelper.PlayUIImageSweepFX(card.GetFromReference(UISubPanel_Shop_MonCard.KCard),
                     cancellationToken: cts.Token);
                 card.GetFromReference(UISubPanel_Shop_MonCard.KText_State).SetActive(false);
                 card.GetFromReference(UISubPanel_Shop_MonCard.KImg_Tip).SetActive(true);
@@ -5291,7 +5291,7 @@ namespace XFramework
                 //月卡逻辑
                 if (tbm.id == 2)
                 {
-                    ResourcesSingleton.Instance.monthBuy = true;
+                    ResourcesSingletonOld.Instance.monthBuy = true;
                     card.GetFromReference(UISubPanel_Shop_MonCard.KBtn_Buy).SetActive(true);
                     //day compare
                     long deltaSec = cardData.EndTime - TimeHelper.ClientNowSeconds();
@@ -5303,7 +5303,7 @@ namespace XFramework
                     if (deltaSec < oneDaySec)
                     {
                         string timeStr = tblanguage.Get("text_remain_time").current;
-                        timeStr = timeStr + JiYuUIHelper.GeneralTimeFormat(new int4(2, 3, 2, 1), deltaSec);
+                        timeStr = timeStr + UnicornUIHelper.GeneralTimeFormat(new int4(2, 3, 2, 1), deltaSec);
                         card.GetFromReference(UISubPanel_Shop_MonCard.KText_TimeDown).GetTextMeshPro()
                             .SetTMPText(timeStr);
                         //cardParentUI.GetFromReference(UISubPanel_Shop_1404_MonthCard.KText_TimeDownUp).GetTextMeshPro().SetTMPText(timeStr);
@@ -5312,7 +5312,7 @@ namespace XFramework
                     else
                     {
                         string timeStr = tblanguage.Get("text_remain_time").current;
-                        timeStr = timeStr + JiYuUIHelper.GeneralTimeFormat(new int4(4, 4, 2, 1), deltaSec);
+                        timeStr = timeStr + UnicornUIHelper.GeneralTimeFormat(new int4(4, 4, 2, 1), deltaSec);
                         card.GetFromReference(UISubPanel_Shop_MonCard.KText_TimeDown).GetTextMeshPro()
                             .SetTMPText(timeStr);
                         //cardParentUI.GetFromReference(UISubPanel_Shop_1404_MonthCard.KText_TimeDownUp).GetTextMeshPro().SetTMPText(timeStr);
@@ -5326,21 +5326,21 @@ namespace XFramework
                     card.GetFromReference(UISubPanel_Shop_MonCard.KText_TimeDown).SetActive(true);
                     var buyBtn = card.GetFromReference(UISubPanel_Shop_MonCard.KBtn_Buy);
                     var cardUI = card as UISubPanel_Shop_MonCard;
-                    JiYuTweenHelper.DoScaleTweenOnClickAndLongPress(buyBtn, () =>
+                    UnicornTweenHelper.DoScaleTweenOnClickAndLongPress(buyBtn, () =>
                     {
                         const string Fund1 = "C02";
-                        JiYuUIHelper.SendBuyMessage(Fund1, cardUI.id);
+                        UnicornUIHelper.SendBuyMessage(Fund1, cardUI.id);
                         JiYuEventManager.Instance.RegisterEvent("OnShopResponse", (a) =>
                         {
-                            var shopNum = JiYuUIHelper.GetShopNum(a);
+                            var shopNum = UnicornUIHelper.GetShopNum(a);
 
                             switch (shopNum)
                             {
                                 case "C02":
                                     WebMessageHandlerOld.Instance.AddHandler(16, 3, On1404QueryCardResponse);
                                     NetWorkManager.Instance.SendMessage(16, 3);
-                                    WebMessageHandlerOld.Instance.AddHandler(CMD.INITPLAYER, OnRefreshAddVaule);
-                                    NetWorkManager.Instance.SendMessage(CMD.INITPLAYER);
+                                    WebMessageHandlerOld.Instance.AddHandler(CMDOld.INITPLAYER, OnRefreshAddVaule);
+                                    NetWorkManager.Instance.SendMessage(CMDOld.INITPLAYER);
                                     break;
                             }
                         });
@@ -5383,7 +5383,7 @@ namespace XFramework
                 }
 
                 var getBtn = card.GetFromReference(UISubPanel_Shop_MonCard.KBtn_Get);
-                JiYuTweenHelper.DoScaleTweenOnClickAndLongPress(getBtn, () =>
+                UnicornTweenHelper.DoScaleTweenOnClickAndLongPress(getBtn, () =>
                 {
                     WebMessageHandlerOld.Instance.AddHandler(16, 2, On1404GetCardResponse);
                     IntValue intValue = new IntValue();
@@ -5399,7 +5399,7 @@ namespace XFramework
                 card.GetFromReference(UISubPanel_Shop_MonCard.KText_TimeDown).SetActive(false);
             }
 
-            JiYuUIHelper.ForceRefreshLayout(card.GetFromReference(UISubPanel_Shop_MonCard.KPos_Line_4));
+            UnicornUIHelper.ForceRefreshLayout(card.GetFromReference(UISubPanel_Shop_MonCard.KPos_Line_4));
         }
 
         private string Module1404_Help_Special(monthly tbm, int index)
@@ -5455,12 +5455,12 @@ namespace XFramework
 
         private void Module1404_Help_SetTextByTime()
         {
-            //if (!JiYuUIHelper.TryGetUI(UIType.UISubPanel_Shop_1404_MonthCard, out UI cardParent))
+            //if (!UnicornUIHelper.TryGetUI(UIType.UISubPanel_Shop_1404_MonthCard, out UI cardParent))
             //{
             //    return;
             //}
             //var cardParentUI = cardParent as UISubPanel_Shop_1404_MonthCard;
-            foreach (var cm in ResourcesSingleton.Instance.shopMap.IndexModuleMap[1404].SpecialCard.Unclaimed)
+            foreach (var cm in ResourcesSingletonOld.Instance.shopMap.IndexModuleMap[1404].SpecialCard.Unclaimed)
             {
                 UnReward cardData = new UnReward();
                 cardData = cm.Value;
@@ -5486,14 +5486,14 @@ namespace XFramework
                         if (deltaSec < oneDaySec)
                         {
                             string timeStr = tblanguage.Get("text_remain_time").current;
-                            timeStr = timeStr + JiYuUIHelper.GeneralTimeFormat(new int4(2, 3, 2, 1), deltaSec);
+                            timeStr = timeStr + UnicornUIHelper.GeneralTimeFormat(new int4(2, 3, 2, 1), deltaSec);
                             card.GetFromReference(UISubPanel_Shop_MonCard.KText_TimeDown).GetTextMeshPro()
                                 .SetTMPText(timeStr);
                         }
                         else
                         {
                             string timeStr = tblanguage.Get("text_remain_time").current;
-                            timeStr = timeStr + JiYuUIHelper.GeneralTimeFormat(new int4(4, 4, 2, 1), deltaSec);
+                            timeStr = timeStr + UnicornUIHelper.GeneralTimeFormat(new int4(4, 4, 2, 1), deltaSec);
                             card.GetFromReference(UISubPanel_Shop_MonCard.KText_TimeDown).GetTextMeshPro()
                                 .SetTMPText(timeStr);
                             //cardParentUI.GetFromReference(UISubPanel_Shop_1404_MonthCard.KText_TimeDownUp).GetTextMeshPro()
@@ -5625,7 +5625,7 @@ namespace XFramework
             {
                 if (tbdb.tagFunc == moduleID)
                 {
-                    var shopMap = ResourcesSingleton.Instance.shopMap.IndexModuleMap[moduleID].BoxInfoList;
+                    var shopMap = ResourcesSingletonOld.Instance.shopMap.IndexModuleMap[moduleID].BoxInfoList;
                     foreach (var s in shopMap)
                     {
                         if (s.Id == tbdb.id)
@@ -5748,7 +5748,7 @@ namespace XFramework
                 return;
             }
 
-            var dbList = ResourcesSingleton.Instance.shopMap.IndexModuleMap[1201].DailyBuyList;
+            var dbList = ResourcesSingletonOld.Instance.shopMap.IndexModuleMap[1201].DailyBuyList;
             foreach (var d in dailyBuys.Values)
             {
                 DailyBuy daily = new DailyBuy();
@@ -5758,7 +5758,7 @@ namespace XFramework
                 {
                     if (tbshop_Daily.Get(db.Sign).pos == tbshop_Daily.Get(daily.Sign).pos)
                     {
-                        ResourcesSingleton.Instance.shopMap.IndexModuleMap[1201].DailyBuyList[i] = daily;
+                        ResourcesSingletonOld.Instance.shopMap.IndexModuleMap[1201].DailyBuyList[i] = daily;
                         break;
                     }
 
@@ -5767,7 +5767,7 @@ namespace XFramework
             }
 
             UpDateNowInterface();
-            ResourcesSingleton.Instance.UpdateResourceUI();
+            ResourcesSingletonOld.Instance.UpdateResourceUI();
         }
 
         #endregion
@@ -5859,7 +5859,7 @@ namespace XFramework
                 gfList.Add(gameFoundation);
             }
 
-            var shopMap = ResourcesSingleton.Instance.shopMap;
+            var shopMap = ResourcesSingletonOld.Instance.shopMap;
 
             if (fundList.Values.Count != shopMap.IndexModuleMap[1403].GameFoundationList.Count)
             {
@@ -5876,7 +5876,7 @@ namespace XFramework
             }
 
             UpDateNowInterface();
-            ResourcesSingleton.Instance.UpdateResourceUI();
+            ResourcesSingletonOld.Instance.UpdateResourceUI();
         }
 
         private void On1403GetFundRewardResponse(object sender, WebMessageHandlerOld.Execute e)
@@ -5893,7 +5893,7 @@ namespace XFramework
 
             foreach (var itemstr in stringValueList.Values)
             {
-                JiYuUIHelper.AddReward(UnityHelper.StrToVector3(itemstr), true);
+                UnicornUIHelper.AddReward(UnityHelper.StrToVector3(itemstr), true);
             }
 
             WebMessageHandlerOld.Instance.AddHandler(11, 8, On1403QueryFundResponse);
@@ -5918,17 +5918,17 @@ namespace XFramework
 
             foreach (var itemstr in stringValueList.Values)
             {
-                JiYuUIHelper.AddReward(UnityHelper.StrToVector3(itemstr), true);
+                UnicornUIHelper.AddReward(UnityHelper.StrToVector3(itemstr), true);
             }
 
 
-            WebMessageHandlerOld.Instance.AddHandler(CMD.INITPLAYER, OnRefreshAddVaule);
-            NetWorkManager.Instance.SendMessage(CMD.INITPLAYER);
+            WebMessageHandlerOld.Instance.AddHandler(CMDOld.INITPLAYER, OnRefreshAddVaule);
+            NetWorkManager.Instance.SendMessage(CMDOld.INITPLAYER);
         }
 
         private void OnRefreshAddVaule(object sender, WebMessageHandlerOld.Execute e)
         {
-            WebMessageHandlerOld.Instance.RemoveHandler(CMD.INITPLAYER, OnRefreshAddVaule);
+            WebMessageHandlerOld.Instance.RemoveHandler(CMDOld.INITPLAYER, OnRefreshAddVaule);
             var gameRole = new GameRole();
             gameRole.MergeFrom(e.data);
             if (e.data.IsEmpty)
@@ -5937,8 +5937,8 @@ namespace XFramework
                 return;
             }
 
-            ResourcesSingleton.Instance.UserInfo.PatrolGainName = gameRole.PatrolGainName;
-            ResourcesSingleton.Instance.UserInfo.AdFreeFlag = gameRole.AdFreeFlag;
+            ResourcesSingletonOld.Instance.UserInfo.PatrolGainName = gameRole.PatrolGainName;
+            ResourcesSingletonOld.Instance.UserInfo.AdFreeFlag = gameRole.AdFreeFlag;
             Log.Debug($"gameRole.AdFreeFlag:{gameRole.AdFreeFlag}", Color.red);
             WebMessageHandlerOld.Instance.AddHandler(16, 3, On1404QueryCardResponse);
             NetWorkManager.Instance.SendMessage(16, 3);
@@ -5960,7 +5960,7 @@ namespace XFramework
 
             foreach (var itemstr in stringValueList.Values)
             {
-                JiYuUIHelper.AddReward(UnityHelper.StrToVector3(itemstr), true);
+                UnicornUIHelper.AddReward(UnityHelper.StrToVector3(itemstr), true);
             }
 
             WebMessageHandlerOld.Instance.AddHandler(16, 3, On1404QueryCardResponse);
@@ -5979,9 +5979,9 @@ namespace XFramework
                 return;
             }
 
-            ResourcesSingleton.Instance.shopMap.IndexModuleMap[1404].SpecialCard = specialInterest;
+            ResourcesSingletonOld.Instance.shopMap.IndexModuleMap[1404].SpecialCard = specialInterest;
 
-            ResourcesSingleton.Instance.UpdateResourceUI();
+            ResourcesSingletonOld.Instance.UpdateResourceUI();
             UpDateNowInterface();
         }
 
@@ -5993,7 +5993,7 @@ namespace XFramework
 
         public void UpDateNowInterface()
         {
-            if (JiYuUIHelper.TryGetUI(UIType.UIPanel_Shop, out UI uuii))
+            if (UnicornUIHelper.TryGetUI(UIType.UIPanel_Shop, out UI uuii))
             {
                 SingleTabOnClick(NowPosType1, NowPosType2, Now1403FundIndex, true);
             }
@@ -6012,7 +6012,7 @@ namespace XFramework
 
             if (preferHorizontal)
             {
-                if (JiYuUIHelper.TryGetUI(UIType.UIPanel_JiyuGame, out var ui))
+                if (UnicornUIHelper.TryGetUI(UIType.UIPanel_JiyuGame, out var ui))
                 {
                     var uis = ui as UIPanel_JiyuGame;
                     uis.m_IsEndMove = false;

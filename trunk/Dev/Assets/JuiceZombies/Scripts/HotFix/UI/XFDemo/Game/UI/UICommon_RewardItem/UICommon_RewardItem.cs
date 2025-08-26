@@ -1,5 +1,5 @@
 //---------------------------------------------------------------------
-// JiYuStudio
+// UnicornStudio
 // Author: xxx
 // Time: #CreateTime#
 //---------------------------------------------------------------------
@@ -35,11 +35,11 @@ namespace XFramework
             trueReward = reward;
 
             //装备堆叠显示
-            JiYuUIHelper.SetRewardIconAndCountText(reward, this);
-            //JiYuTweenHelper.SetEaseAlphaAndPosB2U(this.GetFromReference(UICommon_RewardItem.KBg_Item), 0, 50, 0.35f, false, false);
+            UnicornUIHelper.SetRewardIconAndCountText(reward, this);
+            //UnicornTweenHelper.SetEaseAlphaAndPosB2U(this.GetFromReference(UICommon_RewardItem.KBg_Item), 0, 50, 0.35f, false, false);
             GetFromReference(KEffect).SetActive(false);
 
-            //JiYuUIHelper.ChangePaddingLR(this, 50, 0.2f);
+            //UnicornUIHelper.ChangePaddingLR(this, 50, 0.2f);
             //
             //Time.timeScale
         }

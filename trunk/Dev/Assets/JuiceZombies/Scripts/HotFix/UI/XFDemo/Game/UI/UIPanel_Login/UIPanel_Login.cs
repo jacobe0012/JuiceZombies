@@ -1,5 +1,5 @@
 //---------------------------------------------------------------------
-// JiYuStudio
+// UnicornStudio
 // Author: xxx
 // Time: #CreateTime#
 //---------------------------------------------------------------------
@@ -14,8 +14,10 @@ using Cysharp.Threading.Tasks;
 using Google.Protobuf;
 using HotFix_UI;
 using Newtonsoft.Json;
+using Unity.Entities;
 using UnityEngine;
 using UnityEngine.Networking;
+
 
 namespace XFramework
 {
@@ -61,7 +63,7 @@ namespace XFramework
             var language = ConfigManager.Instance.Tables.Tblanguage;
 
 
-            WebMessageHandlerOld.Instance.AddHandler(CMD.LOGIN, OnLoginResponse);
+            WebMessageHandlerOld.Instance.AddHandler(CMDOld.LOGIN, OnLoginResponse);
 
             KBtnText.GetTextMeshPro().SetTMPText(language.Get("common_state_confirm").current);
 
@@ -75,9 +77,12 @@ namespace XFramework
             KIsStandAlone.SetActive(false);
             KLoginBtn.GetXButton().RemoveAllListeners();
             var sharedData = await JsonManager.Instance.LoadSharedData();
-
+            //TODO:
+            sharedData.lastLoginUserId = 0;
             if (sharedData.lastLoginUserId == 0)
             {
+                //TODO:
+                sharedData.quickLoginUserIds.Clear();
                 if (sharedData.quickLoginUserIds.Count > 0)
                 {
                     //TODO:选择账号弹窗：
@@ -88,15 +93,15 @@ namespace XFramework
                     KIsStandAlone.SetActive(true);
 
 
-                    JiYuTweenHelper.DoScaleTweenOnClickAndLongPress(KLoginBtn,
+                    UnicornTweenHelper.DoScaleTweenOnClickAndLongPress(KLoginBtn,
                         () =>
                         {
                             global.isStandAlone = KIsStandAlone.GetToggle().IsOn;
                             if (!global.isStandAlone)
                             {
-                                var userName = JiYuUIHelper.HandleStr(KInputText.GetTextMeshPro().Content);
+                                var userName = UnicornUIHelper.HandleStr(KInputText.GetTextMeshPro().Content);
                                 Log.Debug($"KInputText:{userName}");
-                                JiYuUIHelper.LoginRequest(1, "", userName);
+                                UnicornUIHelper.LoginRequest(1, "", userName);
                             }
                             else
                             {
@@ -111,7 +116,7 @@ namespace XFramework
                                     SourceTable = "",
                                     PrivateKey = ""
                                 };
-                                var userName = JiYuUIHelper.HandleStr(gameUser.UserName);
+                                var userName = UnicornUIHelper.HandleStr(gameUser.UserName);
                                 var data = JsonManager.Instance.LoadPlayerData(gameUser.Id, userName);
 
 
@@ -129,15 +134,15 @@ namespace XFramework
                     KIsStandAlone.SetActive(true);
 
 
-                    JiYuTweenHelper.DoScaleTweenOnClickAndLongPress(KLoginBtn,
+                    UnicornTweenHelper.DoScaleTweenOnClickAndLongPress(KLoginBtn,
                         () =>
                         {
                             global.isStandAlone = KIsStandAlone.GetToggle().IsOn;
                             if (!global.isStandAlone)
                             {
-                                var userName = JiYuUIHelper.HandleStr(KInputText.GetTextMeshPro().Content);
+                                var userName = UnicornUIHelper.HandleStr(KInputText.GetTextMeshPro().Content);
                                 Log.Debug($"KInputText:{userName}");
-                                JiYuUIHelper.LoginRequest(1, "", userName);
+                                UnicornUIHelper.LoginRequest(1, "", userName);
                             }
                             else
                             {
@@ -153,7 +158,7 @@ namespace XFramework
                                     PrivateKey = ""
                                 };
 
-                                var userName = JiYuUIHelper.HandleStr(gameUser.UserName);
+                                var userName = UnicornUIHelper.HandleStr(gameUser.UserName);
 
                                 var data = JsonManager.Instance.LoadPlayerData(gameUser.Id, userName);
 
@@ -179,7 +184,7 @@ namespace XFramework
                     PrivateKey = ""
                 };
 
-                var userName = JiYuUIHelper.HandleStr(gameUser.UserName);
+                var userName = UnicornUIHelper.HandleStr(gameUser.UserName);
                 var data = JsonManager.Instance.LoadPlayerData(gameUser.Id, userName);
 
                 var sceneController = Common.Instance.Get<SceneController>(); // 场景控制
@@ -191,7 +196,7 @@ namespace XFramework
                 //sharedData.quickLoginUserIds
                 var playerData = await JsonManager.Instance.LoadPlayerData(sharedData.lastLoginUserId);
                 Log.Debug($"privateKey:{playerData.privateKey}");
-                JiYuUIHelper.LoginRequest(2, playerData.privateKey, playerData.nickName);
+                UnicornUIHelper.LoginRequest(2, playerData.privateKey, playerData.nickName);
             }
 
             GetLocationInfoNew();
@@ -201,7 +206,7 @@ namespace XFramework
 
         async void OnQueryLoginSettingsResponse(object sender, WebMessageHandlerOld.Execute e)
         {
-            WebMessageHandlerOld.Instance.RemoveHandler(CMD.QUERYSETTINGS, OnQueryLoginSettingsResponse);
+            WebMessageHandlerOld.Instance.RemoveHandler(CMDOld.QUERYSETTINGS, OnQueryLoginSettingsResponse);
             SettingDate settingDate = new SettingDate();
             settingDate.MergeFrom(e.data);
             Log.Debug($"OnQueryLoginSettingsResponse{settingDate}", Color.green);
@@ -214,35 +219,46 @@ namespace XFramework
             }
 
 
-            ResourcesSingleton.Instance.settingData = settingDate;
+            ResourcesSingletonOld.Instance.settingData = settingDate;
 
             var sceneController = Common.Instance.Get<SceneController>(); // 场景控制
             var sceneObj = sceneController.LoadSceneAsync<IntroGuide>(SceneName.IntroGuide);
             SceneResManager.WaitForCompleted(sceneObj).ToCoroutine(); // 等待场景加载完毕
-            // JsonManager.Instance.sharedData.l10N = ResourcesSingleton.Instance.settingData.CurrentL10N;
+            // JsonManager.Instance.sharedData.l10N = ResourcesSingletonOld.Instance.settingData.CurrentL10N;
             // JsonManager.Instance.SaveSharedData(JsonManager.Instance.sharedData);
-            //ResourcesSingleton.Instance.settingData.GuideList.Clear();
+            //ResourcesSingletonOld.Instance.settingData.GuideList.Clear();
             // //TODO:改
-            // ResourcesSingleton.Instance.settingData.UnlockList.Clear();
+            // ResourcesSingletonOld.Instance.settingData.UnlockList.Clear();
             // var tbtag = ConfigManager.Instance.Tables.Tbtag;
             // var tbtag_func = ConfigManager.Instance.Tables.Tbtag_func;
             // foreach (var tag in tbtag.DataList)
             // {
-            //     ResourcesSingleton.Instance.settingData.UnlockList.Add(tag.id);
+            //     ResourcesSingletonOld.Instance.settingData.UnlockList.Add(tag.id);
             // }
             //
             // foreach (var tag in tbtag_func.DataList)
             // {
-            //     ResourcesSingleton.Instance.settingData.UnlockList.Add(tag.id);
+            //     ResourcesSingletonOld.Instance.settingData.UnlockList.Add(tag.id);
             // }
 
             //InitSettings();
+        }
+        
+
+        async void OnLoginResponse()
+        {
+            //var gameUserRes = NetWorkManager.Instance.UnPackMsg<GameUserRes>(e);
+
+            var sceneController = Common.Instance.Get<SceneController>(); // 场景控制
+            var sceneObj = sceneController.LoadSceneAsync<MenuScene>(SceneName.UIMenu);
+            SceneResManager.WaitForCompleted(sceneObj).ToCoroutine(); // 等待场景加载完毕
         }
 
         async void OnLoginResponse(object sender, WebMessageHandlerOld.Execute e)
         {
             var gameUser = new GameUserOld();
             gameUser.MergeFrom(e.data);
+
             Log.Debug($"接收到登录消息:{gameUser}", Color.green);
 
             var global = Common.Instance.Get<Global>();
@@ -261,7 +277,7 @@ namespace XFramework
                 KIsStandAlone.SetActive(true);
 
                 KLoginBtn.GetXButton().RemoveAllListeners();
-                JiYuTweenHelper.DoScaleTweenOnClickAndLongPress(KLoginBtn,
+                UnicornTweenHelper.DoScaleTweenOnClickAndLongPress(KLoginBtn,
                     async () =>
                     {
                         global.isStandAlone = KIsStandAlone.GetToggle().IsOn;
@@ -270,7 +286,7 @@ namespace XFramework
                             JsonManager.Instance.sharedData.lastLoginUserId = 0;
                             await JsonManager.Instance.SaveSharedData(JsonManager.Instance.sharedData);
 
-                            JiYuUIHelper.LoginRequest(1, "", KInputText.GetTextMeshPro().Content);
+                            UnicornUIHelper.LoginRequest(1, "", KInputText.GetTextMeshPro().Content);
                         }
                         else
                         {
@@ -285,7 +301,7 @@ namespace XFramework
                                 SourceTable = "",
                                 PrivateKey = ""
                             };
-                            var userName = JiYuUIHelper.HandleStr(gameUser.UserName);
+                            var userName = UnicornUIHelper.HandleStr(gameUser.UserName);
                             var data = JsonManager.Instance.LoadPlayerData(gameUser.Id, userName);
 
                             var sceneController = Common.Instance.Get<SceneController>(); // 场景控制
@@ -297,8 +313,8 @@ namespace XFramework
                 return;
             }
 
-            var userName = JiYuUIHelper.HandleStr(gameUser.UserName);
-            var privateKey = JiYuUIHelper.HandleStr(gameUser.PrivateKey);
+            var userName = UnicornUIHelper.HandleStr(gameUser.UserName);
+            var privateKey = UnicornUIHelper.HandleStr(gameUser.PrivateKey);
 
             var data = JsonManager.Instance.LoadPlayerData(gameUser.Id, privateKey, userName);
             // await data.AsUniTask();
@@ -321,8 +337,8 @@ namespace XFramework
                 if (global.isIntroGuide)
                 {
                     Log.Debug($"global.isIntroGuide{global.isIntroGuide}");
-                    WebMessageHandlerOld.Instance.AddHandler(CMD.QUERYSETTINGS, OnQueryLoginSettingsResponse);
-                    NetWorkManager.Instance.SendMessage(CMD.QUERYSETTINGS);
+                    WebMessageHandlerOld.Instance.AddHandler(CMDOld.QUERYSETTINGS, OnQueryLoginSettingsResponse);
+                    NetWorkManager.Instance.SendMessage(CMDOld.QUERYSETTINGS);
                 }
                 else
                 {
@@ -332,7 +348,7 @@ namespace XFramework
                     SceneResManager.WaitForCompleted(sceneObj).ToCoroutine(); // 等待场景加载完毕
                 }
 
-                // JiYuTweenHelper.EnableLoading(true, UIManager.LoadingType.TranstionFXEnter);
+                // UnicornTweenHelper.EnableLoading(true, UIManager.LoadingType.TranstionFXEnter);
                 // await UniTask.Delay(1000, true);
                 //global.isIntroGuide = true;
                 //global.isStandAlone = KIsStandAlone.GetToggle().IsOn;
@@ -403,7 +419,7 @@ namespace XFramework
 
         protected override void OnClose()
         {
-            WebMessageHandlerOld.Instance.RemoveHandler(CMD.LOGIN, OnLoginResponse);
+            WebMessageHandlerOld.Instance.RemoveHandler(CMDOld.LOGIN, OnLoginResponse);
 
             base.OnClose();
         }

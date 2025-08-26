@@ -132,7 +132,7 @@ namespace XFramework
         /// <returns></returns>
         public static long GetToRecentUpdateTime()
         {
-            long updateTime = ResourcesSingleton.Instance.updateTime;
+            long updateTime = ResourcesSingletonOld.Instance.updateTime;
             long toTodayZeroTime = GetNowToTodayTime();
             long timeResult = 0;
             if (toTodayZeroTime > updateTime)
@@ -144,7 +144,7 @@ namespace XFramework
                 timeResult = ClientNowSeconds() - toTodayZeroTime + updateTime;
             }
 
-            timeResult = timeResult - (ResourcesSingleton.Instance.serverDeltaTime / 1000) + 1;
+            timeResult = timeResult - (ResourcesSingletonOld.Instance.serverDeltaTime / 1000) + 1;
             return timeResult;
         }
 

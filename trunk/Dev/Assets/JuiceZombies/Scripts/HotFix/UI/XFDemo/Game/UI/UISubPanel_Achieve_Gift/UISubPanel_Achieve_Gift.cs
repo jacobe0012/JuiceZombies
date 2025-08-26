@@ -1,5 +1,5 @@
 ﻿//---------------------------------------------------------------------
-// JiYuStudio
+// UnicornStudio
 // Author: xxx
 // Time: #CreateTime#
 //---------------------------------------------------------------------
@@ -63,7 +63,7 @@ namespace XFramework
             // RedPointMgr.instance.Init(UIPanel_Battle.Battle_Red_Point_Root, "task_group" + tbtask.Get(thisTaskID).group,
             //     (state, data) =>
             //     {
-            //         if (JiYuUIHelper.TryGetUI(UIType.UIPanel_Achieve_List, out var uuii))
+            //         if (UnicornUIHelper.TryGetUI(UIType.UIPanel_Achieve_List, out var uuii))
             //             GetFromReference(KImg_RedPoint).SetActive(state == RedPointState.Show);
             //         //Debug.Log("task_group" + tbtask.Get(thisTaskID).group.ToString() + "state is " + state.ToString());
             //     });
@@ -86,7 +86,7 @@ namespace XFramework
             for (var i = 0; i < GroupsIDs.Count; i++)
             {
                 iHelp = i;
-                if (ResourcesSingleton.Instance.achieve.tasks[GroupsIDs[i]][0] == 1)
+                if (ResourcesSingletonOld.Instance.achieve.tasks[GroupsIDs[i]][0] == 1)
                 {
                     gameTaskInfo.Id = GroupsIDs[i];
                     if (i == GroupsIDs.Count - 1) isLast = true;
@@ -95,7 +95,7 @@ namespace XFramework
                 else
                 {
                     gameTaskInfo.Id = GroupsIDs[i];
-                    if (ResourcesSingleton.Instance.achieve.tasks[GroupsIDs[i]][1] >=
+                    if (ResourcesSingletonOld.Instance.achieve.tasks[GroupsIDs[i]][1] >=
                         tbtask.Get(gameTaskInfo.Id).para[0])
                         isCompleted = true;
                     break;
@@ -103,10 +103,10 @@ namespace XFramework
             }
 
             // if (iHelp == 0)
-            //     thisPara = (int)ResourcesSingleton.Instance.achieve.tasks[GroupsIDs[iHelp]][1] - 0;
+            //     thisPara = (int)ResourcesSingletonOld.Instance.achieve.tasks[GroupsIDs[iHelp]][1] - 0;
             // else
-            //     //thisPara = (int)ResourcesSingleton.Instance.achieve.tasks[GroupsIDs[iHelp]][1] - tbtask.Get(GroupsIDs[iHelp - 1]).para[0];
-            //     thisPara = (int)ResourcesSingleton.Instance.achieve.tasks[GroupsIDs[iHelp]][1];
+            //     //thisPara = (int)ResourcesSingletonOld.Instance.achieve.tasks[GroupsIDs[iHelp]][1] - tbtask.Get(GroupsIDs[iHelp - 1]).para[0];
+            //     thisPara = (int)ResourcesSingletonOld.Instance.achieve.tasks[GroupsIDs[iHelp]][1];
         }
 
         private void TextInit()
@@ -197,10 +197,10 @@ namespace XFramework
                 var ihelp = i;
                 var itemUI = itemsList.CreateWithUIType(UIType.UICommon_RewardItem,
                     tbtask.Get(gameTaskInfo.Id).reward[ihelp], false);
-                //JiYuUIHelper.SetDefaultRect(itemUI);
+                //UnicornUIHelper.SetDefaultRect(itemUI);
             }
 
-            JiYuUIHelper.ForceRefreshLayout(GetFromReference(KBg_Items));
+            UnicornUIHelper.ForceRefreshLayout(GetFromReference(KBg_Items));
         }
 
         private string NameString(int taskID)

@@ -1,5 +1,5 @@
 //---------------------------------------------------------------------
-// JiYuStudio
+// UnicornStudio
 // Author: xxx
 // Time: #CreateTime#
 //---------------------------------------------------------------------
@@ -63,21 +63,21 @@ namespace XFramework
                                                                .current);
             GetFromReference(KBtn_Refresh)?.SetActive(true);
             this.GetTextMeshPro(KTxt_Refresh)?.SetTMPText(tbLanguage.Get("common_free_refresh_text").current);
-            JiYuTweenHelper.DoScaleTweenOnClickAndLongPress(this.GetFromReference(KBtn_Refresh),
+            UnicornTweenHelper.DoScaleTweenOnClickAndLongPress(this.GetFromReference(KBtn_Refresh),
                 () => OnRefreshBtnClick(tecId, this));
-            JiYuTweenHelper.DoScaleTweenOnClickAndLongPress(this.GetFromReference(KBtn_Item),
+            UnicornTweenHelper.DoScaleTweenOnClickAndLongPress(this.GetFromReference(KBtn_Item),
                 () => OnSelectBtnClick(tecId));
         }
 
         private void OnRefreshBtnClick(int technologyID, UIPanel_TechnologyItem self)
         {
             //Debug.LogError($"technologyID:{tecId}");
-            if (JiYuUIHelper.TryGetUI(UIType.UICommon_ItemTips, out var ui1))
+            if (UnicornUIHelper.TryGetUI(UIType.UICommon_ItemTips, out var ui1))
             {
-                  JiYuUIHelper.DestoryAllTips();;
+                  UnicornUIHelper.DestoryAllTips();;
             }
 
-            if (JiYuUIHelper.TryGetUI(UIType.UIPanel_BattleTecnology, out UI ui))
+            if (UnicornUIHelper.TryGetUI(UIType.UIPanel_BattleTecnology, out UI ui))
             {
                 var uiBattleTechnology = ui as UIPanel_BattleTecnology;
                 uiBattleTechnology?.RefreshTechItem(technologyID, self);
@@ -100,19 +100,19 @@ namespace XFramework
                                                            tbLanguage.Get(tbBattletech.Get(technologyID).typeName)
                                                                .current);
             //this.GetFromReference(KBtn_Item).re
-            //JiYuTweenHelper.DoScaleTweenOnClickAndLongPress(this.GetFromReference(KBtn_Item),
+            //UnicornTweenHelper.DoScaleTweenOnClickAndLongPress(this.GetFromReference(KBtn_Item),
             // () => OnSelectBtnClick(technologyID));
         }
 
         private void OnSelectBtnClick(int technologyID)
         {
             Debug.Log($"technologyID:{technologyID}");
-            if (JiYuUIHelper.TryGetUI(UIType.UICommon_ItemTips, out var ui))
+            if (UnicornUIHelper.TryGetUI(UIType.UICommon_ItemTips, out var ui))
             {
-                  JiYuUIHelper.DestoryAllTips();;
+                  UnicornUIHelper.DestoryAllTips();;
             }
 
-            if (JiYuUIHelper.TryGetUI(UIType.UIPanel_RunTimeHUD, out var ui1))
+            if (UnicornUIHelper.TryGetUI(UIType.UIPanel_RunTimeHUD, out var ui1))
             {
                 var currentUI = ui1 as UIPanel_RunTimeHUD;
                 var temp = currentUI.displaySelectedTechs;
@@ -123,7 +123,7 @@ namespace XFramework
 
             AddTecSkillToPlayer(technologyID);
 
-            if (JiYuUIHelper.TryGetUI(UIType.UIPanel_BattleTecnology, out UI ui2))
+            if (UnicornUIHelper.TryGetUI(UIType.UIPanel_BattleTecnology, out UI ui2))
             {
                 var ui2s = ui2 as UIPanel_BattleTecnology;
                 ui2s.GuideOnClick();

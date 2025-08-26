@@ -1,5 +1,5 @@
 //---------------------------------------------------------------------
-// JiYuStudio
+// UnicornStudio
 // Author: xxx
 // Time: #CreateTime#
 //---------------------------------------------------------------------
@@ -51,10 +51,10 @@ namespace XFramework
 
         public async void Initialize()
         {
-            await JiYuUIHelper.InitBlur(this);
-            maxChapter = ResourcesSingleton.Instance.levelInfo.maxPassChapterID;
+            await UnicornUIHelper.InitBlur(this);
+            maxChapter = ResourcesSingletonOld.Instance.levelInfo.maxPassChapterID;
             maxChapter = 10;
-            //var cardMap = ResourcesSingleton.Instance.a
+            //var cardMap = ResourcesSingletonOld.Instance.a
 
             InitNode();
             InitBtn();
@@ -67,22 +67,22 @@ namespace XFramework
 
 
             //var top = GetFromReference(KTop);
-            JiYuTweenHelper.SetEaseAlphaAndPosLtoR(this.GetFromReference(UIPanel_Sweep.KTop), 0, 100, cts.Token, 0.15f,
+            UnicornTweenHelper.SetEaseAlphaAndPosLtoR(this.GetFromReference(UIPanel_Sweep.KTop), 0, 100, cts.Token, 0.15f,
                 false);
-            JiYuTweenHelper.PlayUIImageTranstionFX(this.GetFromReference(UIPanel_Sweep.KBg_TV),
+            UnicornTweenHelper.PlayUIImageTranstionFX(this.GetFromReference(UIPanel_Sweep.KBg_TV),
                 cancellationToken: cts.Token);
 
             var height1 = this.GetFromReference(UIPanel_Sweep.KMid).GetRectTransform().AnchoredPosition().y;
-            JiYuTweenHelper.SetEaseAlphaAndPosB2U(this.GetFromReference(UIPanel_Sweep.KMid), height1, 100, cts.Token,
+            UnicornTweenHelper.SetEaseAlphaAndPosB2U(this.GetFromReference(UIPanel_Sweep.KMid), height1, 100, cts.Token,
                 0.3f, false, true);
             var height2 = this.GetFromReference(UIPanel_Sweep.KBottom).GetRectTransform().AnchoredPosition().y;
-            JiYuTweenHelper.SetEaseAlphaAndPosB2U(this.GetFromReference(UIPanel_Sweep.KBottom), height2, 100, cts.Token,
+            UnicornTweenHelper.SetEaseAlphaAndPosB2U(this.GetFromReference(UIPanel_Sweep.KBottom), height2, 100, cts.Token,
                 0.3f, false, true);
             var height3 = this.GetFromReference(UIPanel_Sweep.KSelectBottom).GetRectTransform().AnchoredPosition().y;
-            JiYuTweenHelper.SetEaseAlphaAndPosB2U(this.GetFromReference(UIPanel_Sweep.KSelectBottom), height3, 20,
+            UnicornTweenHelper.SetEaseAlphaAndPosB2U(this.GetFromReference(UIPanel_Sweep.KSelectBottom), height3, 20,
                 cts.Token, 0.3f, false, true);
             var height4 = this.GetFromReference(UIPanel_Sweep.KBtnGet).GetRectTransform().AnchoredPosition().y;
-            JiYuTweenHelper.SetEaseAlphaAndPosB2U(this.GetFromReference(UIPanel_Sweep.KBtnGet), height4, 20, cts.Token,
+            UnicornTweenHelper.SetEaseAlphaAndPosB2U(this.GetFromReference(UIPanel_Sweep.KBtnGet), height4, 20, cts.Token,
                 0.3f, false, true);
             await UniTask.Delay(200, cancellationToken: cts.Token);
         }
@@ -115,9 +115,9 @@ namespace XFramework
                 ReturnBigGreenText(tblanguage.Get(tbuser_variable.Get(3).name).current),
                 ReturnBigGreenText(tblanguage.Get(tbuser_variable.Get(4).name).current));
             this.GetTextMeshPro(KTextTipUp).SetTMPText(str);
-            str = JiYuUIHelper.GetRewardTextIconName(tbuser_variable.Get(3).icon)
+            str = UnicornUIHelper.GetRewardTextIconName(tbuser_variable.Get(3).icon)
                   + ReturnBigGreenText(GetSweepReward(tbchapter.Get(maxChapter).sweepOnce, 3).ToString())
-                  + JiYuUIHelper.GetRewardTextIconName(tbuser_variable.Get(4).icon)
+                  + UnicornUIHelper.GetRewardTextIconName(tbuser_variable.Get(4).icon)
                   + ReturnBigGreenText(GetSweepReward(tbchapter.Get(maxChapter).sweepOnce, 4).ToString());
             this.GetTextMeshPro(KTextTip).SetTMPText(str);
 
@@ -132,9 +132,9 @@ namespace XFramework
             str = string.Format(tblanguage.Get("common_acc_text").current,
                 tblanguage.Get("sweep_title").current);
             str += "\n";
-            str += JiYuUIHelper.GetRewardTextIconName(JiYuUIHelper.GetVector3(JiYuUIHelper.Vector3Type.DOLLARS))
+            str += UnicornUIHelper.GetRewardTextIconName(UnicornUIHelper.GetVector3(UnicornUIHelper.Vector3Type.DOLLARS))
                    + ReturnBigGreenText(GetSweepReward(tbchapter.Get(maxChapter).sweepOnce, 3).ToString())
-                   + JiYuUIHelper.GetRewardTextIconName(JiYuUIHelper.GetVector3(JiYuUIHelper.Vector3Type.EXP))
+                   + UnicornUIHelper.GetRewardTextIconName(UnicornUIHelper.GetVector3(UnicornUIHelper.Vector3Type.EXP))
                    + ReturnBigGreenText(GetSweepReward(tbchapter.Get(maxChapter).sweepOnce, 4).ToString());
             this.GetTextMeshPro(KTxtAdditonAward).SetTMPText(str);
 
@@ -156,7 +156,7 @@ namespace XFramework
 
         private async void UpdateCardState()
         {
-            var cardMap = ResourcesSingleton.Instance.shopMap.IndexModuleMap[1404].SpecialCard.Unclaimed;
+            var cardMap = ResourcesSingletonOld.Instance.shopMap.IndexModuleMap[1404].SpecialCard.Unclaimed;
             UnReward cardData = new UnReward();
             foreach (var cm in cardMap)
             {
@@ -176,9 +176,9 @@ namespace XFramework
                 isBuy = true;
             }
 
-            ResourcesSingleton.Instance.monthBuy = isBuy;
+            ResourcesSingletonOld.Instance.monthBuy = isBuy;
 
-            if (ResourcesSingleton.Instance.monthBuy)
+            if (ResourcesSingletonOld.Instance.monthBuy)
             {
                 GetFromReference(KCardActive)?.SetActive(true);
                 GetFromReference(KImgCard).GetXImage().SetGrayed(false);
@@ -189,7 +189,7 @@ namespace XFramework
                 GetFromReference(KBG_Exp)?.GetImage().SetSprite("bg_sweep_yellow", false);
                 GetFromReference(KBG_Equip)?.GetImage().SetSprite("bg_sweep_yellow", false);
                 await UniTask.Delay(200, cancellationToken: cts.Token);
-                JiYuTweenHelper.PlayUIImageSweepFX(this.GetFromReference(UIPanel_Sweep.KImgCard),
+                UnicornTweenHelper.PlayUIImageSweepFX(this.GetFromReference(UIPanel_Sweep.KImgCard),
                     cancellationToken: cts.Token);
             }
             else
@@ -203,7 +203,7 @@ namespace XFramework
                 GetFromReference(KBG_Equip)?.GetImage().SetSprite("bg_sweep_gray", false);
                 //this.GetImage(KBtnLaunch)?.SetSprite("icon_button_gray", false);
                 await UniTask.Delay(200, cancellationToken: cts.Token);
-                JiYuTweenHelper.PlayUIImageSweepFX(this.GetFromReference(UIPanel_Sweep.KBtnLaunch),
+                UnicornTweenHelper.PlayUIImageSweepFX(this.GetFromReference(UIPanel_Sweep.KBtnLaunch),
                     cancellationToken: cts.Token);
             }
         }
@@ -228,9 +228,9 @@ namespace XFramework
         private void GotoMonth()
         {
             var str = "type=1;para=[143]";
-            JiYuUIHelper.GoToSomePanel(str);
+            UnicornUIHelper.GoToSomePanel(str);
             Close();
-            JiYuUIHelper.DestroyAllSubPanel();
+            UnicornUIHelper.DestroyAllSubPanel();
         }
 
         private void InitBtn()
@@ -239,10 +239,10 @@ namespace XFramework
             this.GetButton(KMid).OnClick.Add(() => { GetFromReference(KImgTip)?.SetActive(false); });
             this.GetButton(KBottom).OnClick.Add(() => { GetFromReference(KImgTip)?.SetActive(false); });
             this.GetXButton(KBg).OnClick.Add(async () => await ClosePanel());
-            JiYuTweenHelper.DoScaleTweenOnClickAndLongPress(GetFromReference(KBtnTipNot), () => { OpenTip(); });
-            JiYuTweenHelper.DoScaleTweenOnClickAndLongPress(GetFromReference(KBtnTipYes), () => { OpenTip(); });
-            JiYuTweenHelper.DoScaleTweenOnClickAndLongPress(GetFromReference(KBtnLaunch), () => { GotoMonth(); });
-            JiYuTweenHelper.DoScaleTweenOnClickAndLongPress(GetFromReference(KBtnGet), () => { OnBtnGetClick(); });
+            UnicornTweenHelper.DoScaleTweenOnClickAndLongPress(GetFromReference(KBtnTipNot), () => { OpenTip(); });
+            UnicornTweenHelper.DoScaleTweenOnClickAndLongPress(GetFromReference(KBtnTipYes), () => { OpenTip(); });
+            UnicornTweenHelper.DoScaleTweenOnClickAndLongPress(GetFromReference(KBtnLaunch), () => { GotoMonth(); });
+            UnicornTweenHelper.DoScaleTweenOnClickAndLongPress(GetFromReference(KBtnGet), () => { OnBtnGetClick(); });
             this.GetXButton(KContainer1).OnClick.Add(() => ChangeMagnification(1).Forget());
             this.GetXButton(KContainer2).OnClick.Add(() => ChangeMagnification(2).Forget());
             this.GetXButton(KContainer3).OnClick.Add(() => ChangeMagnification(3).Forget());
@@ -252,8 +252,8 @@ namespace XFramework
 
         private async UniTask ClosePanel()
         {
-            //JiYuTweenHelper.SetEaseAlphaAndPosUtoB(GetFromReference(UIPanel_Sweep.KContainer), 0 - 100, 100, 0.15f, false);
-            //JiYuTweenHelper.SetEaseAlphaAndPosRtoL(GetFromReference(UIPanel_Sweep.KContainer), 0 - 100, 100, 0.15f, false);
+            //UnicornTweenHelper.SetEaseAlphaAndPosUtoB(GetFromReference(UIPanel_Sweep.KContainer), 0 - 100, 100, 0.15f, false);
+            //UnicornTweenHelper.SetEaseAlphaAndPosRtoL(GetFromReference(UIPanel_Sweep.KContainer), 0 - 100, 100, 0.15f, false);
             //GetFromReference(UIPanel_Sweep.KContainer).GetComponent<CanvasGroup>().alpha = 1f;
             //GetFromReference(UIPanel_Sweep.KContainer).GetComponent<CanvasGroup>().DOFade(0, 0.3f).SetEase(Ease.InQuad);
             //await UniTask.Delay(150);
@@ -302,10 +302,10 @@ namespace XFramework
             this.GetTextMeshPro(KText_MoneyCount).SetTMPText(moneyCount.ToString("#,0"));
 
             int expCount = GetSweepReward(tbchapter.Get(maxChapter).sweepOnce, 4) * param;
-            this.GetTextMeshPro(KText_ExpCount).SetTMPText(JiYuUIHelper.FormatNumber(expCount));
+            this.GetTextMeshPro(KText_ExpCount).SetTMPText(UnicornUIHelper.FormatNumber(expCount));
 
             int equipCount = GetSweepReward(tbchapter.Get(maxChapter).sweepOnce, 5) * param;
-            this.GetTextMeshPro(KText_EquipCount).SetTMPText(JiYuUIHelper.FormatNumber(equipCount));
+            this.GetTextMeshPro(KText_EquipCount).SetTMPText(UnicornUIHelper.FormatNumber(equipCount));
 
             var list = GetFromReference(KEnemy).GetList();
             list.Clear();
@@ -322,7 +322,7 @@ namespace XFramework
                     UnityHelper.RichTextColor(tblanguage.Get(tbmonster_type.Get(ihelp + 1).name).current,
                         tbmonster_type.Get(ihelp + 1).color));
                 ui.GetTextMeshPro(UISubPanel_SweepItem.KText_EnemyCount)
-                    .SetTMPText(UnityHelper.RichTextColor(JiYuUIHelper.FormatNumber(temp).ToString(),
+                    .SetTMPText(UnityHelper.RichTextColor(UnicornUIHelper.FormatNumber(temp).ToString(),
                         tbmonster_type.Get(ihelp + 1).color));
             }
 
@@ -334,7 +334,7 @@ namespace XFramework
             });
             var content = tblanguage.Get("common_total").current + sumCount.ToString("#,0");
             this.GetTextMeshPro(KText_KillCount).SetTMPText(content);
-            JiYuUIHelper.ForceRefreshLayout(GetFromReference(KEnemy));
+            UnicornUIHelper.ForceRefreshLayout(GetFromReference(KEnemy));
             //this.GetXButton(KContainer1).OnClick.Invoke();
         }
 
@@ -347,7 +347,7 @@ namespace XFramework
         {
             var needEnergy = tbchapter.Get(maxChapter).cost[0].z * param;
             var str = needEnergy.ToString();
-            if (ResourcesSingleton.Instance.UserInfo.RoleAssets.Energy - needEnergy < 0)
+            if (ResourcesSingletonOld.Instance.UserInfo.RoleAssets.Energy - needEnergy < 0)
             {
                 str = UnityHelper.RichTextColor(str, "FF0000");
             }
@@ -356,7 +356,7 @@ namespace XFramework
                 str = UnityHelper.RichTextColor(str, "FFFFFF");
             }
 
-            this.GetTextMeshPro(KText_Consume).SetTMPText(JiYuUIHelper.GetRewardTextIconName("icon_energy") + str);
+            this.GetTextMeshPro(KText_Consume).SetTMPText(UnicornUIHelper.GetRewardTextIconName("icon_energy") + str);
         }
 
         private async void OnBtnGetClick()
@@ -364,17 +364,17 @@ namespace XFramework
             var cost = tbchapter.Get(maxChapter).cost[0];
             cost.z = cost.z * tbsweep_times.Get(curSelect).times;
 
-            if (JiYuUIHelper.TryReduceReward(cost))
+            if (UnicornUIHelper.TryReduceReward(cost))
             {
                 Log.Debug("OnBtnGetClick", Color.cyan);
-                WebMessageHandlerOld.Instance.AddHandler(CMD.GETSWEEPREWARD, OnSweepGet);
-                NetWorkManager.Instance.SendMessage(CMD.GETSWEEPREWARD,
+                WebMessageHandlerOld.Instance.AddHandler(CMDOld.GETSWEEPREWARD, OnSweepGet);
+                NetWorkManager.Instance.SendMessage(CMDOld.GETSWEEPREWARD,
                     new IntValue { Value = tbsweep_times.Get(curSelect).times });
-                //JiYuTweenHelper.EnableLoading(true);
+                //UnicornTweenHelper.EnableLoading(true);
             }
             else
             {
-                //JiYuUIHelper.ClearCommonResource();
+                //UnicornUIHelper.ClearCommonResource();
                 //var str = string.Format(tblanguage.Get("common_lack").current, tblanguage.Get(tbuser_variable.Get((int)cost.x).name).current);
                 //UIHelper.CreateAsync(UIType.UICommon_Resource, str);
                 UIHelper.CreateAsync(UIType.UIPanel_BuyEnergy);
@@ -383,7 +383,7 @@ namespace XFramework
 
         private void OnSweepGet(object sender, WebMessageHandlerOld.Execute e)
         {
-            WebMessageHandlerOld.Instance.RemoveHandler(CMD.GETSWEEPREWARD, OnSweepGet);
+            WebMessageHandlerOld.Instance.RemoveHandler(CMDOld.GETSWEEPREWARD, OnSweepGet);
             StringValueList stringValueList = new StringValueList();
             stringValueList.MergeFrom(e.data);
             Debug.Log(e);
@@ -395,7 +395,7 @@ namespace XFramework
                 return;
             }
 
-            //JiYuTweenHelper.EnableLoading(false);
+            //UnicornTweenHelper.EnableLoading(false);
 
             List<Vector3> reList = new List<Vector3>();
             foreach (var itemstr in stringValueList.Values)

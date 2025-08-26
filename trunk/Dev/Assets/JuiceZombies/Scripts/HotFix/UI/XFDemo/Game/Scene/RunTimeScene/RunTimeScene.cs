@@ -18,9 +18,9 @@ namespace XFramework
         protected override void OnCompleted()
         {
             Log.Debug($"进入RunTime场景");
-            JiYuSceneHelper.InitShader();
+            UnicornSceneHelper.InitShader();
             InitRunTimeScene().Forget();
-            ResourcesSingleton.Instance.FromRunTimeScene = true;
+            ResourcesSingletonOld.Instance.FromRunTimeScene = true;
         }
         
         async UniTaskVoid InitRunTimeScene()
@@ -28,10 +28,10 @@ namespace XFramework
             Debug.Log($"InitRunTimeScene");
             await InitInputPrefab();
             // 创建黑板实体
-            int levelId = ResourcesSingleton.Instance.levelInfo.levelId;
+            int levelId = ResourcesSingletonOld.Instance.levelInfo.levelId;
             int sceneId = ConfigManager.Instance.Tables.Tblevel.Get(levelId).sceneId;
-            JiYuUIHelper.CreateBlackBoardEntity(sceneId);
-            JiYuUIHelper.InitSystem();
+            UnicornUIHelper.CreateBlackBoardEntity(sceneId);
+            UnicornUIHelper.InitSystem();
 
             AudioManager.Instance.ClearFModBgmAudio();
             AudioManager.Instance.PlayFModAudio(2103);

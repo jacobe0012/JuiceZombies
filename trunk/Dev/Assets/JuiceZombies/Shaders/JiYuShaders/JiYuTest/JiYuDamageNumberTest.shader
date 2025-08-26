@@ -1,4 +1,4 @@
-﻿Shader "JiYuStudio/JiYuDamageNumberTest"
+﻿Shader "UnicornStudio/JiYuDamageNumberTest"
 {
     Properties
     {

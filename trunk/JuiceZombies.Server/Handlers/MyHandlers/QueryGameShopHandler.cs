@@ -8,17 +8,30 @@ using StackExchange.Redis;
 
 namespace JuiceZombies.Server.Handlers;
 
-public class QueryGameShopHandler : HandleBase, ICommandHandler
+public class QueryGameShopHandler : HandleBase, ICommandHandler<C2S_QueryShop>, ICommandHandler
 {
-    public QueryGameShopHandler(MyPostgresDbContext context, IConnectionMultiplexer redis, ConcurrentDictionary<WebSocket, string> connections) : base(context, redis, connections)
+    public QueryGameShopHandler(MyPostgresDbContext context, IConnectionMultiplexer redis
+    ) : base(context, redis)
     {
+    }
+
+    public Task<Context> HandleAsync(C2S_QueryShop command)
+    {
+        Console.WriteLine($"QueryGameShopHandler");
+        return default;
+    }
+
+    public Task<Context> HandleAsync(object command)
+    {
+        Console.WriteLine($"QueryGameShopHandler1");
+        return HandleAsync((C2S_QueryShop)command);
     }
 
     public async Task<Context> HandleAsync(MyMessage message, WebSocket webSocket)
     {
-        _context.GameShops.FindAsync(1);
-        Console.WriteLine($"message1 {message.ToString()}");
-        GameShop gameShop;
+        // _context.GameShops.FindAsync(1);
+        // Console.WriteLine($"message1 {message.ToString()}");
+        S2C_ShopData gameShop;
         // if (!_connections.TryGetValue(webSocket, out var openId))
         // {
         //     //Console.WriteLine($"webSocket:{webSocket.} not found");
@@ -29,14 +42,14 @@ public class QueryGameShopHandler : HandleBase, ICommandHandler
         // var db = _redis.GetDatabase();
         //var rv = await db.StringGetAsync(GetRedisDBStr(1, openId));
         //gameShop = JsonConvert.DeserializeObject<GameShop>(rv);
-        gameShop = new GameShop
+        gameShop = new S2C_ShopData
         {
             isBuyADCard = false,
             isBuyMonthCard = false,
             buyedMonthCardms = 21312123123123
         };
 
-    
+
         message.Content =
             MessagePackSerializer.Serialize(gameShop, options);
 
@@ -50,6 +63,4 @@ public class QueryGameShopHandler : HandleBase, ICommandHandler
         };
         return context;
     }
-
-    
 }

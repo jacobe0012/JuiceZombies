@@ -1,5 +1,5 @@
 //---------------------------------------------------------------------
-// JiYuStudio
+// UnicornStudio
 // Author: xxx
 // Time: #CreateTime#
 //---------------------------------------------------------------------
@@ -51,7 +51,7 @@ namespace XFramework
 
         public async void Initialize()
         {
-            await JiYuUIHelper.InitBlur(this);
+            await UnicornUIHelper.InitBlur(this);
             var KContainer = this.GetFromReference(UIPanel_BuyEnergy.KContainer);
             KContainer.GetRectTransform().SetAnchoredPositionY(-822.55f);
             this.GetRectTransform().SetAnchoredPositionY(0f);
@@ -68,15 +68,15 @@ namespace XFramework
         {
             var KContainer = this.GetFromReference(UIPanel_BuyEnergy.KContainer);
 
-            JiYuTweenHelper.SetEaseAlphaAndPosB2U(KContainer, 0, cancellationToken: cts.Token);
+            UnicornTweenHelper.SetEaseAlphaAndPosB2U(KContainer, 0, cancellationToken: cts.Token);
             await UniTask.Delay(100, cancellationToken: cts.Token);
 
             float incremental = 200f;
-            JiYuTweenHelper.SetEaseAlphaAndPosLtoR(this.GetFromReference(UIPanel_BuyEnergy.KContainerDiamondBuy), 0,
+            UnicornTweenHelper.SetEaseAlphaAndPosLtoR(this.GetFromReference(UIPanel_BuyEnergy.KContainerDiamondBuy), 0,
                 200,
                 cts.Token, 0.35f);
             //await UniTask.Delay(200);
-            JiYuTweenHelper.SetEaseAlphaAndPosLtoR(this.GetFromReference(UIPanel_BuyEnergy.KContainerAdvertiseBuy), 0,
+            UnicornTweenHelper.SetEaseAlphaAndPosLtoR(this.GetFromReference(UIPanel_BuyEnergy.KContainerAdvertiseBuy), 0,
                 400f,
                 cts.Token, 0.35f);
         }
@@ -101,8 +101,8 @@ namespace XFramework
 
             raminAdTimes = configTimes.AdEnergyTimes;
             raminDiamondTimes = configTimes.BuyEnergyTimes;
-            WebMessageHandlerOld.Instance.AddHandler(CMD.INITPLAYER, OnRequreTimeDownResponse);
-            NetWorkManager.Instance.SendMessage(CMD.INITPLAYER);
+            WebMessageHandlerOld.Instance.AddHandler(CMDOld.INITPLAYER, OnRequreTimeDownResponse);
+            NetWorkManager.Instance.SendMessage(CMDOld.INITPLAYER);
         }
 
         private void InitTable()
@@ -118,19 +118,19 @@ namespace XFramework
             GetFromReference(UIPanel_BuyEnergy.KTxtBtnAdvertiseNum).GetTextMeshPro()
                 .SetTMPText(tbLanguage.GetOrDefault("common_free_text").current);
             GetFromReference(UIPanel_BuyEnergy.KTxtEnergyNum).GetTextMeshPro().SetTMPText(
-                $"{ResourcesSingleton.Instance.UserInfo.RoleAssets.Energy}/{ResourcesSingleton.Instance.UserInfo.RoleAssets.EnergyMax}");
+                $"{ResourcesSingletonOld.Instance.UserInfo.RoleAssets.Energy}/{ResourcesSingletonOld.Instance.UserInfo.RoleAssets.EnergyMax}");
             GetFromReference(UIPanel_BuyEnergy.KFillImage_Energy).GetImage().SetFillAmount(
-                ResourcesSingleton.Instance.UserInfo.RoleAssets.Energy * 1f /
-                ResourcesSingleton.Instance.UserInfo.RoleAssets.EnergyMax);
+                ResourcesSingletonOld.Instance.UserInfo.RoleAssets.Energy * 1f /
+                ResourcesSingletonOld.Instance.UserInfo.RoleAssets.EnergyMax);
         }
 
         private void InitBtn()
         {
-            JiYuTweenHelper.DoScaleTweenOnClickAndLongPress(GetFromReference(KBtnClose), () => { ClosePanel(); });
-            JiYuTweenHelper.DoScaleTweenOnClickAndLongPress(GetFromReference(KCloseMask), () => { ClosePanel(); });
-            JiYuTweenHelper.DoScaleTweenOnClickAndLongPress(GetFromReference(KBtnDiamondBuy),
+            UnicornTweenHelper.DoScaleTweenOnClickAndLongPress(GetFromReference(KBtnClose), () => { ClosePanel(); });
+            UnicornTweenHelper.DoScaleTweenOnClickAndLongPress(GetFromReference(KCloseMask), () => { ClosePanel(); });
+            UnicornTweenHelper.DoScaleTweenOnClickAndLongPress(GetFromReference(KBtnDiamondBuy),
                 () => { OnClickBuyEnergy(0); });
-            JiYuTweenHelper.DoScaleTweenOnClickAndLongPress(GetFromReference(KBtnAdvertiseBuy),
+            UnicornTweenHelper.DoScaleTweenOnClickAndLongPress(GetFromReference(KBtnAdvertiseBuy),
                 () => { OnClickBuyEnergy(1); });
             StartTimer();
         }
@@ -165,7 +165,7 @@ namespace XFramework
             //}
 
             int adToEnergy = 5, diamondToEnergy = 15;
-            var strList = JiYuUIHelper.TurnStrReward2List(str.Value);
+            var strList = UnicornUIHelper.TurnStrReward2List(str.Value);
             foreach (var item in strList)
             {
                 if ((int)item.z == adToEnergy)
@@ -177,18 +177,18 @@ namespace XFramework
                     raminDiamondTimes--;
                 }
 
-                JiYuUIHelper.AddReward(item, true);
+                UnicornUIHelper.AddReward(item, true);
             }
 
-            WebMessageHandlerOld.Instance.AddHandler(CMD.INITPLAYER, OnRequreTimeDownResponse);
-            NetWorkManager.Instance.SendMessage(CMD.INITPLAYER);
-            if (JiYuUIHelper.TryGetUI(UIType.UIPanel_Patrol, out UI ui))
+            WebMessageHandlerOld.Instance.AddHandler(CMDOld.INITPLAYER, OnRequreTimeDownResponse);
+            NetWorkManager.Instance.SendMessage(CMDOld.INITPLAYER);
+            if (UnicornUIHelper.TryGetUI(UIType.UIPanel_Patrol, out UI ui))
             {
                 var ui1 = ui as UIPanel_Patrol;
                 ui1.Initialize();
             }
 
-            if (JiYuUIHelper.TryGetUI(UIType.UIPanel_Sweep, out UI uisweep))
+            if (UnicornUIHelper.TryGetUI(UIType.UIPanel_Sweep, out UI uisweep))
             {
                 var uisweep1 = uisweep as UIPanel_Sweep;
                 uisweep1.UpdateDisplay(uisweep1.GetCurretSelect());
@@ -197,7 +197,7 @@ namespace XFramework
 
         private void OnRequreTimeDownResponse(object sender, WebMessageHandlerOld.Execute e)
         {
-            WebMessageHandlerOld.Instance.RemoveHandler(CMD.INITPLAYER, OnRequreTimeDownResponse);
+            WebMessageHandlerOld.Instance.RemoveHandler(CMDOld.INITPLAYER, OnRequreTimeDownResponse);
             var gameRole = new GameRole();
             gameRole.MergeFrom(e.data);
             if (e.data.IsEmpty)
@@ -206,7 +206,7 @@ namespace XFramework
                 return;
             }
 
-            ResourcesSingleton.Instance.UserInfo = gameRole;
+            ResourcesSingletonOld.Instance.UserInfo = gameRole;
 
             UpdateEnergyBar();
         }
@@ -247,8 +247,8 @@ namespace XFramework
                 GetFromReference(KAderverMask)?.SetActive(true);
             }
 
-            var curEnergy = ResourcesSingleton.Instance.UserInfo.RoleAssets.Energy;
-            var maxEnergy = ResourcesSingleton.Instance.UserInfo.RoleAssets.EnergyMax;
+            var curEnergy = ResourcesSingletonOld.Instance.UserInfo.RoleAssets.Energy;
+            var maxEnergy = ResourcesSingletonOld.Instance.UserInfo.RoleAssets.EnergyMax;
 
             GetFromReference(UIPanel_BuyEnergy.KText_Recovery).SetActive(true);
             if (curEnergy >= maxEnergy)
@@ -272,10 +272,10 @@ namespace XFramework
 
         public void StartTimer()
         {
-            if (ResourcesSingleton.Instance.UserInfo.RoleAssets.Energy <
-                ResourcesSingleton.Instance.UserInfo.RoleAssets.EnergyMax)
+            if (ResourcesSingletonOld.Instance.UserInfo.RoleAssets.Energy <
+                ResourcesSingletonOld.Instance.UserInfo.RoleAssets.EnergyMax)
             {
-                currtime = ResourcesSingleton.Instance.UserInfo.RoleAssets.EnergyCountdown;
+                currtime = ResourcesSingletonOld.Instance.UserInfo.RoleAssets.EnergyCountdown;
             }
 
             var timerMgr = TimerManager.Instance;
@@ -286,19 +286,19 @@ namespace XFramework
         {
             GetFromReference(UIPanel_BuyEnergy.KTxtEnergyNum)?.GetTextMeshPro()
                 ?.SetTMPText(
-                    $"{ResourcesSingleton.Instance.UserInfo.RoleAssets.Energy}/{ResourcesSingleton.Instance.UserInfo.RoleAssets.EnergyMax}");
+                    $"{ResourcesSingletonOld.Instance.UserInfo.RoleAssets.Energy}/{ResourcesSingletonOld.Instance.UserInfo.RoleAssets.EnergyMax}");
             GetFromReference(UIPanel_BuyEnergy.KFillImage_Energy).GetImage().SetFillAmount(
-                ResourcesSingleton.Instance.UserInfo.RoleAssets.Energy * 1f /
-                ResourcesSingleton.Instance.UserInfo.RoleAssets.EnergyMax);
+                ResourcesSingletonOld.Instance.UserInfo.RoleAssets.Energy * 1f /
+                ResourcesSingletonOld.Instance.UserInfo.RoleAssets.EnergyMax);
             
             if (currtime < 0)
             {
-                //ResourcesSingleton.Instance.UserInfo.RoleAssets.Energy += 1;
+                //ResourcesSingletonOld.Instance.UserInfo.RoleAssets.Energy += 1;
                 Log.Debug(
                     $"GetFromReference(UIPanel_BuyEnergy.KTxtEnergyNum):{GetFromReference(UIPanel_BuyEnergy.KTxtEnergyNum)}",
                     Color.cyan);
-                if (ResourcesSingleton.Instance.UserInfo.RoleAssets.Energy <
-                    ResourcesSingleton.Instance.UserInfo.RoleAssets.EnergyMax)
+                if (ResourcesSingletonOld.Instance.UserInfo.RoleAssets.Energy <
+                    ResourcesSingletonOld.Instance.UserInfo.RoleAssets.EnergyMax)
                 {
                     currtime = tbconstant.Get("energy_restore").constantValue;
                 }
@@ -314,7 +314,7 @@ namespace XFramework
                 tbLanguage.Get("common_energy_refresh_text").current,
                 UnityHelper.RichTextColor(ToTimeFormat(currtime), "75FA53"),
                 UnityHelper.RichTextColor(1.ToString(), "75FA53")));
-            if (JiYuUIHelper.TryGetUI(UIType.UIPanel_Main, out UI ui))
+            if (UnicornUIHelper.TryGetUI(UIType.UIPanel_Main, out UI ui))
             {
                 var uis = ui as UIPanel_Main;
                 uis?.RefreshResourceUI();

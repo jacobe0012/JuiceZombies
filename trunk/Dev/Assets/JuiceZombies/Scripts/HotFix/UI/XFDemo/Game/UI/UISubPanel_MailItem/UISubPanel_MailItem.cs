@@ -1,5 +1,5 @@
 //---------------------------------------------------------------------
-// JiYuStudio
+// UnicornStudio
 // Author: xxx
 // Time: #CreateTime#
 //---------------------------------------------------------------------
@@ -114,7 +114,7 @@ namespace XFramework
         {
             var rewards = tbmail.Get(_mailInfo.MailModuleId).reward;
 
-            //var rewards = JiYuUIHelper.MergeRewardList(rewards);
+            //var rewards = UnicornUIHelper.MergeRewardList(rewards);
             if (_mailInfo.Status != 1)
             {
                 NetWorkManager.Instance.SendMessage(5, 2, new LongValue
@@ -125,7 +125,7 @@ namespace XFramework
                 SetReadOrNot(_mailInfo, mail);
                 foreach (var reward in rewards)
                 {
-                    JiYuUIHelper.AddReward(reward, true);
+                    UnicornUIHelper.AddReward(reward, true);
                     await Task.Delay(500);
                 }
             }
@@ -133,7 +133,7 @@ namespace XFramework
 
         public void OnClickMailList(MailInfo mailInfo)
         {
-            JiYuUIHelper.DestoryAllTips();
+            UnicornUIHelper.DestoryAllTips();
             //var type = tbmail.Get(mailInfo.MailModuleId).type;
 
             var KImg_Selected = GetFromReference(UISubPanel_MailItem.KImg_Selected);

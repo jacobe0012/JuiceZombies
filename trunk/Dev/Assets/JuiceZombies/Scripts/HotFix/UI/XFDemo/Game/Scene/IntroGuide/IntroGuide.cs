@@ -19,9 +19,9 @@ namespace XFramework
         protected override void OnCompleted()
         {
             Log.Debug($"进入RunTime场景");
-            JiYuSceneHelper.InitShader();
+            UnicornSceneHelper.InitShader();
             InitRunTimeScene().Forget();
-            ResourcesSingleton.Instance.FromRunTimeScene = true;
+            ResourcesSingletonOld.Instance.FromRunTimeScene = true;
         }
 
 
@@ -32,12 +32,12 @@ namespace XFramework
             // 创建黑板实体
             int sceneId = int.Parse(ConfigManager.Instance.Tables.Tbguide.DataList.Where(a => a.guideType == 900)
                 .FirstOrDefault().guidePara[0]);
-            JiYuUIHelper.CreateBlackBoardEntity(sceneId);
-            JiYuUIHelper.InitSystem();
+            UnicornUIHelper.CreateBlackBoardEntity(sceneId);
+            UnicornUIHelper.InitSystem();
 
             AudioManager.Instance.ClearFModBgmAudio();
             AudioManager.Instance.PlayFModAudio(2103);
-            int group = ResourcesSingleton.Instance.settingData.GuideList.OrderBy(a => a).ToList()[0];
+            int group = ResourcesSingletonOld.Instance.settingData.GuideList.OrderBy(a => a).ToList()[0];
             Debug.Log($"IntroGuideScene{group}");
             var hud = await UIHelper.CreateAsync(UIType.UIPanel_RunTimeHUD, group);
             hud.GetRectTransform().SetAnchoredPosition(Vector2.zero);
@@ -51,7 +51,7 @@ namespace XFramework
         //     await InitInputPrefab();
         //     //创建黑板实体
         //     CreateBlackBoardEntity();
-        //     JiYuUIHelper.InitSystem();
+        //     UnicornUIHelper.InitSystem();
         //     //InitMap();
         //     // AudioManager.Instance.
         //     //播放runtime BGM 
@@ -60,7 +60,7 @@ namespace XFramework
         //     //AudioManager.Instance.StopFModAudio(1101);
         //     AudioManager.Instance.PlayFModAudio(2103);
         //
-        //     int group = ResourcesSingleton.Instance.settingData.GuideList.OrderBy(a => a).ToList()[0];
+        //     int group = ResourcesSingletonOld.Instance.settingData.GuideList.OrderBy(a => a).ToList()[0];
         //     Debug.Log($"IntroGuideScene{group}");
         //     var hud = await UIHelper.CreateAsync(UIType.UIPanel_RunTimeHUD, group);
         //     hud.GetRectTransform().SetAnchoredPosition(Vector2.zero);
@@ -130,7 +130,7 @@ namespace XFramework
 
             var levelConfig = ConfigManager.Instance.Tables.Tblevel;
             var monsterTemplateConfig = ConfigManager.Instance.Tables.Tbmonster_template;
-            //int levelId = ResourcesSingleton.Instance.levelInfo.levelId;
+            //int levelId = ResourcesSingletonOld.Instance.levelInfo.levelId;
             int sceneId = int.Parse(ConfigManager.Instance.Tables.Tbguide.DataList.Where(a => a.guideType == 900)
                 .FirstOrDefault().guidePara[0]);
 
@@ -267,7 +267,7 @@ namespace XFramework
             {
                 allAudioClips = AudioManager.Instance.InitRunTimeAudio(),
                 //animations = anims,
-                levelId = ResourcesSingleton.Instance.levelInfo.levelId,
+                levelId = ResourcesSingletonOld.Instance.levelInfo.levelId,
                 sceneId = sceneId,
                 monsterRefreshId = monsterRefreshId,
                 pickupDuration = 1000,

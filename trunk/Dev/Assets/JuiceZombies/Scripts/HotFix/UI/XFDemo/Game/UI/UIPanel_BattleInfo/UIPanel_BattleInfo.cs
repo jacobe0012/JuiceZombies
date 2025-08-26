@@ -1,5 +1,5 @@
 //---------------------------------------------------------------------
-// JiYuStudio
+// UnicornStudio
 // Author: xxx
 // Time: #CreateTime#
 //---------------------------------------------------------------------
@@ -54,8 +54,8 @@ namespace XFramework
 
         public async void Initialize()
         {
-            await JiYuUIHelper.InitBlur(this);
-            if (JiYuUIHelper.TryGetUI(UIType.UIPanel_RunTimeHUD, out var parent))
+            await UnicornUIHelper.InitBlur(this);
+            if (UnicornUIHelper.TryGetUI(UIType.UIPanel_RunTimeHUD, out var parent))
             {
                 panelRunTimeHUD = parent;
             }
@@ -63,7 +63,7 @@ namespace XFramework
             entityManager = World.DefaultGameObjectInjectionWorld.EntityManager;
             playerQuery = entityManager.CreateEntityQuery(typeof(PlayerData), typeof(ChaStats));
 
-            JiYuUIHelper.StartStopTime(false);
+            UnicornUIHelper.StartStopTime(false);
             InitJson();
             InitNode();
         }
@@ -110,37 +110,37 @@ namespace XFramework
 
             //KContainer.GetRectTransform().SetAnchoredPositionY(-upOffset);
 
-            JiYuTweenHelper.DoScaleTweenOnClickAndLongPress(KBtn_Continue, () =>
+            UnicornTweenHelper.DoScaleTweenOnClickAndLongPress(KBtn_Continue, () =>
             {
-                JiYuUIHelper.StartStopTime(true);
+                UnicornUIHelper.StartStopTime(true);
                 this.Close();
             });
 
-            JiYuTweenHelper.DoScaleTweenOnClickAndLongPress(KBtn_Home,
+            UnicornTweenHelper.DoScaleTweenOnClickAndLongPress(KBtn_Home,
                 () => { UIHelper.CreateAsync(UIType.UIPanel_ReturnConfirm); });
 
-            var volumeImg = ResourcesSingleton.Instance.settingData.EnableBgm ? "icon_voice" : "pic_setting_1_2";
+            var volumeImg = ResourcesSingletonOld.Instance.settingData.EnableBgm ? "icon_voice" : "pic_setting_1_2";
             KBtn_VolumeIcon.GetImage().SetSpriteAsync(volumeImg, false);
-            JiYuTweenHelper.DoScaleTweenOnClickAndLongPress(KBtn_Volume, () =>
+            UnicornTweenHelper.DoScaleTweenOnClickAndLongPress(KBtn_Volume, () =>
             {
-                ResourcesSingleton.Instance.settingData.EnableBgm =
-                    !ResourcesSingleton.Instance.settingData.EnableBgm;
-                AudioManager.Instance.SetFModBgmMute(!ResourcesSingleton.Instance.settingData.EnableBgm);
-                AudioManager.Instance.SetFModSFXMute(!ResourcesSingleton.Instance.settingData.EnableBgm);
-                var volumeImg = ResourcesSingleton.Instance.settingData.EnableBgm
+                ResourcesSingletonOld.Instance.settingData.EnableBgm =
+                    !ResourcesSingletonOld.Instance.settingData.EnableBgm;
+                AudioManager.Instance.SetFModBgmMute(!ResourcesSingletonOld.Instance.settingData.EnableBgm);
+                AudioManager.Instance.SetFModSFXMute(!ResourcesSingletonOld.Instance.settingData.EnableBgm);
+                var volumeImg = ResourcesSingletonOld.Instance.settingData.EnableBgm
                     ? "icon_voice"
                     : "pic_setting_1_2";
                 KBtn_VolumeIcon.GetImage().SetSpriteAsync(volumeImg, false);
             });
 
-            JiYuTweenHelper.DoScaleTweenOnClickAndLongPress(KBtn_DamageInfo,
+            UnicornTweenHelper.DoScaleTweenOnClickAndLongPress(KBtn_DamageInfo,
                 () => { UIHelper.CreateAsync(UIType.UIPanel_BattleDamageInfo); });
 
-            JiYuTweenHelper.DoScaleTweenOnClickAndLongPress(KBtn_TestArgs,
+            UnicornTweenHelper.DoScaleTweenOnClickAndLongPress(KBtn_TestArgs,
                 () => { UIHelper.CreateAsync(UIType.UIPanel_ParasTest); });
             KBtn_Mask.GetButton().OnClick.Add(() =>
             {
-                JiYuUIHelper.DestoryAllTips();
+                UnicornUIHelper.DestoryAllTips();
 
                 //if (KContainer_Selcted.GameObject.activeSelf)
                 //{
@@ -180,13 +180,13 @@ namespace XFramework
             KText_TecTittle.GetTextMeshPro().SetTMPText(tblanguage.Get("battletech_learnt").current);
             KText_TittleWeapon.GetTextMeshPro().SetTMPText(tblanguage.Get("battle_weapon_title").current);
 
-            KText_SumMoney.GetTextMeshPro().SetTMPText(JiYuUIHelper.GetRewardTextIconName("icon_battle_") +
+            KText_SumMoney.GetTextMeshPro().SetTMPText(UnicornUIHelper.GetRewardTextIconName("icon_battle_") +
                                                        playerData.playerData.exp.ToString());
-            KText_KillEnemy.GetTextMeshPro().SetTMPText(JiYuUIHelper.GetRewardTextIconName("icon_battle_kill_num") +
+            KText_KillEnemy.GetTextMeshPro().SetTMPText(UnicornUIHelper.GetRewardTextIconName("icon_battle_kill_num") +
                                                         playerData.playerData.killEnemy.ToString());
-            KText_Hp.GetTextMeshPro().SetTMPText(JiYuUIHelper.GetRewardTextIconName("icon_item_1010002") +
-                                                 JiYuUIHelper.GetRewardCount(new Vector3(5, 1010002, 0)).ToString());
-            JiYuUIHelper.ForceRefreshLayout(GetFromReference(KContainer_PropBar));
+            KText_Hp.GetTextMeshPro().SetTMPText(UnicornUIHelper.GetRewardTextIconName("icon_item_1010002") +
+                                                 UnicornUIHelper.GetRewardCount(new Vector3(5, 1010002, 0)).ToString());
+            UnicornUIHelper.ForceRefreshLayout(GetFromReference(KContainer_PropBar));
 
             CreateBindingItem().Forget();
 
@@ -299,7 +299,7 @@ namespace XFramework
         {
             if (denominator == 0)
             {
-                return 0; // ±ÜÃâ³ýÒÔÁã
+                return 0; // ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
             }
 
             int percentage = (int)Math.Round((numerator / denominator) * 100);
@@ -412,9 +412,9 @@ namespace XFramework
                     GetFromReference(KCircleMax).GetImage().SetFillAmount(maxValue / 100f);
                 }
 
-                JiYuUIHelper.ForceRefreshLayout(GetFromReference(KLeft1));
-                JiYuUIHelper.ForceRefreshLayout(GetFromReference(KLeft2));
-                JiYuUIHelper.ForceRefreshLayout(GetFromReference(KLeft3));
+                UnicornUIHelper.ForceRefreshLayout(GetFromReference(KLeft1));
+                UnicornUIHelper.ForceRefreshLayout(GetFromReference(KLeft2));
+                UnicornUIHelper.ForceRefreshLayout(GetFromReference(KLeft3));
             }
 
 
@@ -607,7 +607,7 @@ namespace XFramework
                 var playerSkillb = tbskill.Get(uib.skillId);
                 return playerSkillb.skillQualityId.CompareTo(playerSkilla.skillQualityId);
             });
-            JiYuUIHelper.ForceRefreshLayout(scrollRect.Content);
+            UnicornUIHelper.ForceRefreshLayout(scrollRect.Content);
         }
 
         void SetStars(UIListComponent itemList, int levelUpperlimit, int currentLevel)

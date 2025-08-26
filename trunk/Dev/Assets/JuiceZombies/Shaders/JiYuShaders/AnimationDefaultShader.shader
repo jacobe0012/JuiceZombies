@@ -1,4 +1,4 @@
-﻿Shader "JiYuStudio/AnimationDefaultShader"
+﻿Shader "UnicornStudio/AnimationDefaultShader"
 {
     Properties
     {

@@ -1,5 +1,5 @@
 //---------------------------------------------------------------------
-// JiYuStudio
+// UnicornStudio
 // Author: xxx
 // Time: #CreateTime#
 //---------------------------------------------------------------------
@@ -43,7 +43,7 @@ namespace XFramework
             }
 
            
-            //func_3604_name£¬item_page_2£¬item_page_1£¬item_page_0
+            //func_3604_nameï¿½ï¿½item_page_2ï¿½ï¿½item_page_1ï¿½ï¿½item_page_0
             var bagText = GetFromReference(KBagText);
             var consumeText = GetFromReference(KConsumeText);
             var propText = GetFromReference(KPropText);
@@ -59,7 +59,7 @@ namespace XFramework
             propText.GetTextMeshPro().SetTMPText($"{language.Get("item_page_1").current}");
             allText.GetTextMeshPro().SetTMPText($"{language.Get("item_page_0").current}");
 
-            JiYuTweenHelper.DoScaleTweenOnClickAndLongPress(closeBtn, () =>
+            UnicornTweenHelper.DoScaleTweenOnClickAndLongPress(closeBtn, () =>
             {
                 this.GetChild<UIBagThingList>(KItemView).DisableTipPanel();
 
@@ -72,13 +72,13 @@ namespace XFramework
                 this.Close();
             });
 
-            JiYuTweenHelper.DoScaleTweenOnClickAndLongPress(consumeBG,
+            UnicornTweenHelper.DoScaleTweenOnClickAndLongPress(consumeBG,
                 () => { this.GetChild<UIBagThingList>(KItemView).DisableTipPanel(); });
 
-            JiYuTweenHelper.DoScaleTweenOnClickAndLongPress(propBG,
+            UnicornTweenHelper.DoScaleTweenOnClickAndLongPress(propBG,
                 () => { this.GetChild<UIBagThingList>(KItemView).DisableTipPanel(); });
 
-            JiYuTweenHelper.DoScaleTweenOnClickAndLongPress(allBG,
+            UnicornTweenHelper.DoScaleTweenOnClickAndLongPress(allBG,
                 () => { this.GetChild<UIBagThingList>(KItemView).DisableTipPanel(); });
 
             var bGMask = GetFromReference(KBGMask);

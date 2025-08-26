@@ -1,5 +1,5 @@
 //---------------------------------------------------------------------
-// JiYuStudio
+// UnicornStudio
 // Author: xxx
 // Time: #CreateTime#
 //---------------------------------------------------------------------
@@ -91,9 +91,9 @@ namespace XFramework
             var KTxt_Num = GetFromReference(UICommon_ItemTips.KTxt_Num);
             if (isReward)
             {
-                var countStr = $"{tblanguage.Get("common_have").current}{JiYuUIHelper.GetRewardCountFormat(reward)}";
+                var countStr = $"{tblanguage.Get("common_have").current}{UnicornUIHelper.GetRewardCountFormat(reward)}";
                 KTxt_Num.GetTextMeshPro().SetTMPText(countStr);
-                JiYuUIHelper.SetRewardOnClickTipTitleDes(reward, KTxt_Title, KTxt_Des);
+                UnicornUIHelper.SetRewardOnClickTipTitleDes(reward, KTxt_Title, KTxt_Des);
             }
             else
             {
@@ -118,7 +118,7 @@ namespace XFramework
                 }
             }
 
-            //JiYuUIHelper.SetTipPosNew(args.itemUI, this, UICommon_ItemTips.KContent,
+            //UnicornUIHelper.SetTipPosNew(args.itemUI, this, UICommon_ItemTips.KContent,
             //    UICommon_ItemTips.KImg_ArrowDown, UICommon_ItemTips.KImg_ArrowUp);
             var itemRec = args.itemUI.GetRectTransform();
             var pivot = itemRec.Pivot();
@@ -127,7 +127,7 @@ namespace XFramework
             Vector2 pivotOffset = new Vector2(pivot.x * itemRec.Width() * itemRec.Scale().x,
                 pivot.y * itemRec.Height() * itemRec.Scale().y);
 
-            var itemPos = JiYuUIHelper.GetUIPos(args.itemUI);
+            var itemPos = UnicornUIHelper.GetUIPos(args.itemUI);
 
             var pos = new Vector2(itemPos.x - pivotOffset.x, itemPos.y - pivotOffset.y);
             Log.Debug($"itemPos{itemPos}");
@@ -236,7 +236,7 @@ namespace XFramework
         //     KContentRec.SetAnchoredPositionX(0);
         //     KImg_ArrowUp.GetRectTransform().SetAnchoredPositionX(0);
         //
-        //     JiYuUIHelper.SetTipPosNew(args.itemUI, this, UICommon_ItemTips.KContent,
+        //     UnicornUIHelper.SetTipPosNew(args.itemUI, this, UICommon_ItemTips.KContent,
         //         UICommon_ItemTips.KImg_ArrowDown, UICommon_ItemTips.KImg_ArrowUp, args.ArrowType);
         //     KContentRec.SetAnchoredPositionY(DefaultContentPosY);
         // }

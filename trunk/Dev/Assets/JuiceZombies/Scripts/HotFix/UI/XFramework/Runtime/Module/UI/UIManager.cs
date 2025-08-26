@@ -184,7 +184,7 @@ namespace XFramework
             while (t <= 1.0f)
             {
                 t += 0.02f / Duration;
-                var _step = JiYuTweenHelper.EaseFromTo(startValue, endValue, t, easeType);
+                var _step = UnicornTweenHelper.EaseFromTo(startValue, endValue, t, easeType);
                 img.material.SetFloat("_Step", _step);
                 await UniTask.Delay(1, true);
             }

@@ -1,5 +1,5 @@
 // //---------------------------------------------------------------------
-// // JiYuStudio
+// // UnicornStudio
 // // Author: xxx
 // // Time: #CreateTime#
 // //---------------------------------------------------------------------
@@ -54,12 +54,12 @@
 //         private Entity player;
 //
 //         /// <summary>
-//         /// ¿ÉÑ¡ÔñµÄ¼¼ÄÜ×é
+//         /// ï¿½ï¿½Ñ¡ï¿½ï¿½Ä¼ï¿½ï¿½ï¿½ï¿½ï¿½
 //         /// </summary>
 //         private List<int> availableSkills;
 //
 //         /// <summary>
-//         /// ÒÑÑ¡ÔñµÄ¼¼ÄÜ×é
+//         /// ï¿½ï¿½Ñ¡ï¿½ï¿½Ä¼ï¿½ï¿½ï¿½ï¿½ï¿½
 //         /// </summary>
 //         private List<int> selectedSkills;
 //
@@ -154,7 +154,7 @@
 //                 passiveSkillCount = 0;
 //
 //                 GetSkillsID();
-//                 //³õÊ¼»¯¼¼ÄÜ³Ø
+//                 //ï¿½ï¿½Ê¼ï¿½ï¿½ï¿½ï¿½ï¿½Ü³ï¿½
 //
 //                 PlayerPrefs.SetInt("weaponSkillID", weaponSkillID);
 //
@@ -228,7 +228,7 @@
 //
 //         private void SetSkillContainer(in List<int> availableSkills)
 //         {
-//             //Ñ¡ÔñµÄ¼¼ÄÜid-index
+//             //Ñ¡ï¿½ï¿½Ä¼ï¿½ï¿½ï¿½id-index
 //             Dictionary<int, int> selectedIndex = new Dictionary<int, int>(3);
 //             int weights = GetTotalWeight();
 //             int count = 0;
@@ -245,10 +245,10 @@
 //
 //             while (count < needCount)
 //             {
-//                 //Ñ¡Ôñ³É¹¦
+//                 //Ñ¡ï¿½ï¿½É¹ï¿½
 //                 if (SelectOneNormalSkill(availableSkills[index % availableSkills.Count], weights))
 //                 {
-//                     //idÊÇ·ñÖØ¸´
+//                     //idï¿½Ç·ï¿½ï¿½Ø¸ï¿½
 //                     if (selectedIndex.ContainsKey(availableSkills[index % availableSkills.Count]))
 //                     {
 //                         index++;
@@ -283,11 +283,11 @@
 //
 //         public void SelectButtonClicked(int id)
 //         {
-//             Log.Debug($"µãµ½ÁË{id}");
+//             Log.Debug($"ï¿½ãµ½ï¿½ï¿½{id}");
 //
 //             var userSkillTable = ConfigManager.Instance.Tables.Tbplayer_skill.DataMap;
 //
-//             //¸üÐÂÍ¼±ê
+//             //ï¿½ï¿½ï¿½ï¿½Í¼ï¿½ï¿½
 //             bool isUpdateIcon = true;
 //             if (PlayerPrefs.GetInt("passiveSkillCount") == 5 || PlayerPrefs.GetInt("activeSkillCount") == 5)
 //             {
@@ -312,7 +312,7 @@
 //                     Log.Debug($"activeSkillCount:{PlayerPrefs.GetInt("activeSkillCount")}");
 //                     int actIndex = PlayerPrefs.GetInt("activeSkillCount") + 1;
 //                     string actKey = "activeSkillImage" + actIndex.ToString();
-//                     //Ö÷¶¯¼¼ÄÜ
+//                     //ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
 //
 //                     GetFromReference(actKey).GetComponent<Image>().sprite =
 //                         ResourcesManager.Instance.Loader.LoadAsset<Sprite>(userSkillTable[id].pic);
@@ -325,7 +325,7 @@
 //                     Log.Debug($"passiveSkillCount:{PlayerPrefs.GetInt("passiveSkillCount")}");
 //                     int passiveIndex = PlayerPrefs.GetInt("passiveSkillCount") + 1;
 //                     string passiveKey = "passiveSkillImage" + passiveIndex.ToString();
-//                     //±»¶¯¼¼ÄÜ
+//                     //ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
 //                     GetFromReference(passiveKey).GetComponent<Image>().sprite =
 //                         ResourcesManager.Instance.Loader.LoadAsset<Sprite>(userSkillTable[id].pic);
 //                     GetFromReference(passiveKey).GetImage().SetAlpha(1);
@@ -345,7 +345,7 @@
 //                 }
 //             }
 //
-//             //Ìí¼Ó¼¼ÄÜ
+//             //ï¿½ï¿½Ó¼ï¿½ï¿½ï¿½
 //             selectedSkills.Add(id);
 //
 //             for (int i = 0; i < selectedSkills.Count; i++)
@@ -358,7 +358,7 @@
 //             UpdatePlayerSkill(id);
 //
 //
-//             //¸üÐÂÑ¡Ôñ¼¼ÄÜ
+//             //ï¿½ï¿½ï¿½ï¿½Ñ¡ï¿½ï¿½ï¿½ï¿½
 //             UpadateAvailbaleSkills(ref availableSkills, id);
 //
 //             int count = this.GetFromReference(KSkillContainer).GetRectTransform().ChildCount;
@@ -373,7 +373,7 @@
 //                 GameObject.Destroy(this.GetFromReference(KSkillContainer).GetRectTransform().GetChild(i).gameObject);
 //             }
 //
-//             if (JiYuUIHelper.TryGetUI(UIType.UIPanel_RunTimeHUD, out var ui))
+//             if (UnicornUIHelper.TryGetUI(UIType.UIPanel_RunTimeHUD, out var ui))
 //             {
 //                 var parent = ui as UIPanel_RunTimeHUD;
 //                 parent.EnableInputBar();
@@ -414,7 +414,7 @@
 //                     temp.Int32_13 = 0;
 //                     skills[i] = temp;
 //                     return;
-//                     //Ìæ»»
+//                     //ï¿½æ»»
 //                 }
 //             }
 //
@@ -437,7 +437,7 @@
 //                 //}.ToSkillOld());
 //             }
 //
-//             //Ìí¼ÓÒ»¸ö¼¼ÄÜ»òÕßbuff
+//             //ï¿½ï¿½ï¿½Ò»ï¿½ï¿½ï¿½ï¿½ï¿½Ü»ï¿½ï¿½ï¿½buff
 //             //else if (id == 220101)
 //             //{
 //             //    skills.Add(new SkillOld { CurrentTypeId = (SkillOld.TypeId)240201, Entity_5 = player });
@@ -619,7 +619,7 @@
 //             var entity = query.ToEntityArray(Allocator.Temp)[0];
 //             World.DefaultGameObjectInjectionWorld.EntityManager.SetComponentData<GameRandomData>(entity, rand);
 //
-//             // Èç¹ûÉú³ÉµÄËæ»úÊýÐ¡ÓÚµÈÓÚ¸ø¶¨µÄ¸ÅÂÊ£¬Ôò±»Ñ¡ÖÐ
+//             // ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Éµï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ð¡ï¿½Úµï¿½ï¿½Ú¸ï¿½ï¿½ï¿½ï¿½Ä¸ï¿½ï¿½Ê£ï¿½ï¿½ï¿½Ñ¡ï¿½ï¿½
 //             if (randomValue <= userSkillTable[id].power)
 //             {
 //                 return true;
@@ -634,7 +634,7 @@
 //             Log.Debug($"weaponSkillID{weaponSkillID}", Color.yellow);
 //             var skillsMap = ConfigManager.Instance.Tables.Tbplayer_skill.DataMap;
 //             // var equipMap = ConfigManager.Instance.Tables.Tbequip_data;
-//             //ÉèÖÃÎäÆ÷½ø¶ÈÌõ
+//             //ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
 //             var skillGroupTable = ConfigManager.Instance.Tables.Tbplayer_skill_group.DataMap;
 //             var fillImage = GetFromReference(KWeaponRoot).GetRectTransform().Find("WeaponBar").Find("FillImage")
 //                 .GetComponent<Image>();
@@ -657,7 +657,7 @@
 //
 //             var weapon = GetFromReference(KWeaponRoot).GetRectTransform().Find("Weapon").Find("WeaponImage")
 //                 .GetComponent<Image>();
-//             //ÉèÖÃÎäÆ÷Í¼Æ¬
+//             //ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Í¼Æ¬
 //             string weaponPicStr = skillsMap[weaponSkillID].pic;
 //             weapon.sprite = ResourcesManager.Instance.Loader.LoadAsset<UnityEngine.Sprite>(weaponPicStr);
 //         }
@@ -692,7 +692,7 @@
 //             var stageList = skillGruopMap[skillMap[weaponSkillID].group].unlockValue;
 //             int skillLevel = 1;
 //             //int times = stageList.Count;
-//             //1¼¶
+//             //1ï¿½ï¿½
 //             if (current < stageList[0])
 //                 return;
 //             if (current > stageList[0] && current < stageList[1])
@@ -723,7 +723,7 @@
 //                 Log.Debug($"weaponSkillID{weaponSkillID}");
 //             }
 //
-//             //s¼¶
+//             //sï¿½ï¿½
 //             if (current > stageList[4])
 //             {
 //                 skillLevel += 5;
@@ -751,7 +751,7 @@
 //                 Log.Debug($"weaponSkillID{weaponSkillID}", Color.red);
 //             }
 //
-//             //Éý¼¶ÎäÆ÷¼¼ÄÜ
+//             //ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
 //             for (int i = 0; i < skills.Length; i++)
 //             {
 //                 if (skills[i].Int32_0 == oldWeaponSkillID)

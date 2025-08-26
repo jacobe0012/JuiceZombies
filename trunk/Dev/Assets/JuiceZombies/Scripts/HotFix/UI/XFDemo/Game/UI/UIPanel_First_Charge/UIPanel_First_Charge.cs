@@ -1,5 +1,5 @@
 ﻿//---------------------------------------------------------------------
-// JiYuStudio
+// UnicornStudio
 // Author: xxx
 // Time: #CreateTime#
 //---------------------------------------------------------------------
@@ -12,7 +12,7 @@ using Cysharp.Threading.Tasks;
 using Google.Protobuf;
 using HotFix_UI;
 using UnityEngine;
-using static HotFix_UI.JiYuUIHelper;
+using static HotFix_UI.UnicornUIHelper;
 using static XFramework.UIManager;
 
 namespace XFramework
@@ -49,10 +49,10 @@ namespace XFramework
 
         public async void Initialize()
         {
-            await JiYuUIHelper.InitBlur(this);
+            await UnicornUIHelper.InitBlur(this);
             this.GetFromReference(KBtn_Close).GetXButton().OnClick?.Add(() =>
             {
-                JiYuUIHelper.DestoryAllTips();
+                UnicornUIHelper.DestoryAllTips();
                 Close();
             });
             DataInit();
@@ -61,19 +61,19 @@ namespace XFramework
             CreatTime().Forget();
             BtnInit();
             SetAllCloseTip();
-            JiYuTweenHelper.PlayUIImageTranstionFX(this.GetFromReference(UIPanel_First_Charge.KImg_Gift),
+            UnicornTweenHelper.PlayUIImageTranstionFX(this.GetFromReference(UIPanel_First_Charge.KImg_Gift),
                 cancellationToken: cts.Token);
-            JiYuTweenHelper.SetEaseAlphaAndPosLtoR(this.GetFromReference(UIPanel_First_Charge.KTitle), 0, 100,
+            UnicornTweenHelper.SetEaseAlphaAndPosLtoR(this.GetFromReference(UIPanel_First_Charge.KTitle), 0, 100,
                 cts.Token, 0.15f, false);
-            JiYuTweenHelper.PlayUIImageTranstionFX(this.GetFromReference(UIPanel_First_Charge.KTitle), cts.Token,
-                "FFF5C2", JiYuTweenHelper.UIDir.Right, 0.5f, 1f);
+            UnicornTweenHelper.PlayUIImageTranstionFX(this.GetFromReference(UIPanel_First_Charge.KTitle), cts.Token,
+                "FFF5C2", UnicornTweenHelper.UIDir.Right, 0.5f, 1f);
 
             var height1 = this.GetFromReference(UIPanel_First_Charge.KBg_Item).GetRectTransform().AnchoredPosition().y;
-            JiYuTweenHelper.SetEaseAlphaAndPosB2U(this.GetFromReference(UIPanel_First_Charge.KBg_Item), height1, 100,
+            UnicornTweenHelper.SetEaseAlphaAndPosB2U(this.GetFromReference(UIPanel_First_Charge.KBg_Item), height1, 100,
                 cts.Token, 0.3f, true, true);
             await UniTask.Delay(200, cancellationToken: cts.Token);
             var KCommon_Btn = this.GetFromReference(UIPanel_First_Charge.KCommon_Btn);
-            JiYuTweenHelper.PlayUIImageSweepFX(KCommon_Btn,
+            UnicornTweenHelper.PlayUIImageSweepFX(KCommon_Btn,
                 cancellationToken: cts.Token);
         }
 
@@ -89,11 +89,11 @@ namespace XFramework
             this.GetFromReference(KText_Notice).GetTextMeshPro().SetTMPText(tblanguage.Get(tbfr.Get(ID).desc).current);
             var KCommon_Btn = this.GetFromReference(UIPanel_First_Charge.KCommon_Btn);
             var KText_Btn = KCommon_Btn.GetFromReference(UICommon_Btn.KText_Btn);
-            // if (ResourcesSingleton.Instance.firstChargeInt == 0)
+            // if (ResourcesSingletonOld.Instance.firstChargeInt == 0)
             // {
             //     KText_Btn.GetTextMeshPro().SetTMPText("");
             // }
-            if (ResourcesSingleton.Instance.firstChargeInt == 2 || ResourcesSingleton.Instance.firstChargeInt == 3)
+            if (ResourcesSingletonOld.Instance.firstChargeInt == 2 || ResourcesSingletonOld.Instance.firstChargeInt == 3)
             {
                 KText_Btn.GetTextMeshPro()
                     .SetTMPText(tblanguage.Get("common_state_gain").current);
@@ -114,7 +114,7 @@ namespace XFramework
                 var itemUI = await itemList.CreateWithUITypeAsync<Vector3>(UIType.UICommon_RewardItem, v3, false);
                 if (v3.x != 11)
                 {
-                    JiYuUIHelper.SetRewardOnClick(v3, itemUI);
+                    UnicornUIHelper.SetRewardOnClick(v3, itemUI);
                 }
                 else
                 {
@@ -135,7 +135,7 @@ namespace XFramework
                         tipUI.GetFromReference(UICommon_EquipTips.KImg_TopArraw).SetActive(false);
                         tipUI.GetFromReference(UICommon_EquipTips.KImg_BottomArraw).SetActive(true);
 
-                        var itemPos = JiYuUIHelper.GetUIPos(btn);
+                        var itemPos = UnicornUIHelper.GetUIPos(btn);
                         tipUI.GetFromReference(UICommon_EquipTips.KImg_BottomArraw).GetRectTransform()
                             .SetAnchoredPositionX(itemPos.x);
 
@@ -158,13 +158,13 @@ namespace XFramework
             var KCommon_Btn = this.GetFromReference(UIPanel_First_Charge.KCommon_Btn);
 
 
-            JiYuTweenHelper.DoScaleTweenOnClickAndLongPress(KCommon_Btn, () =>
+            UnicornTweenHelper.DoScaleTweenOnClickAndLongPress(KCommon_Btn, () =>
             {
-                JiYuUIHelper.DestoryAllTips();
-                if (ResourcesSingleton.Instance.firstChargeInt == 2 || ResourcesSingleton.Instance.firstChargeInt == 3)
+                UnicornUIHelper.DestoryAllTips();
+                if (ResourcesSingletonOld.Instance.firstChargeInt == 2 || ResourcesSingletonOld.Instance.firstChargeInt == 3)
                 {
-                    WebMessageHandlerOld.Instance.AddHandler(CMD.GETCHARGE, OnGetFirstChargeResponse);
-                    NetWorkManager.Instance.SendMessage(CMD.GETCHARGE);
+                    WebMessageHandlerOld.Instance.AddHandler(CMDOld.GETCHARGE, OnGetFirstChargeResponse);
+                    NetWorkManager.Instance.SendMessage(CMDOld.GETCHARGE);
                 }
                 else
                 {
@@ -177,14 +177,14 @@ namespace XFramework
         private void GoToChongZhi()
         {
             var str = "type=1;para=[141]";
-            JiYuUIHelper.GoToSomePanel(str);
+            UnicornUIHelper.GoToSomePanel(str);
             Close();
-            JiYuUIHelper.DestroyAllSubPanel();
+            UnicornUIHelper.DestroyAllSubPanel();
         }
 
         private void OnGetFirstChargeResponse(object sender, WebMessageHandlerOld.Execute e)
         {
-            WebMessageHandlerOld.Instance.RemoveHandler(CMD.GETCHARGE, OnGetFirstChargeResponse);
+            WebMessageHandlerOld.Instance.RemoveHandler(CMDOld.GETCHARGE, OnGetFirstChargeResponse);
             Google.Protobuf.WellKnownTypes.BoolValue boolValue = new Google.Protobuf.WellKnownTypes.BoolValue();
             boolValue.MergeFrom(e.data);
 
@@ -196,7 +196,7 @@ namespace XFramework
 
             if (boolValue.Value == true)
             {
-                ResourcesSingleton.Instance.firstChargeInt = 4;
+                ResourcesSingletonOld.Instance.firstChargeInt = 4;
                 List<Vector3> vector3s = new List<Vector3>();
                 vector3s = tbfr.Get(ID).reward;
                 var ui = UIHelper.Create(UIType.UICommon_Reward, vector3s);
@@ -206,14 +206,14 @@ namespace XFramework
                 //{
                 //    var parent = this.GetParent<UICommonFunButton>();
                 //    parent.SetActive(false);
-                //    JiYuUIHelper.DestoryAllTips();
+                //    UnicornUIHelper.DestoryAllTips();
                 //    Close();
                 //});
                 //ui.GetFromReference(UICommon_Reward.KBtn_Close).GetXButton().OnClick?.Add(() =>
                 //{
                 //    var parent = this.GetParent<UICommonFunButton>();
                 //    parent.SetActive(false);
-                //    JiYuUIHelper.DestoryAllTips();
+                //    UnicornUIHelper.DestoryAllTips();
                 //    Close();
                 //});
             }
@@ -221,8 +221,8 @@ namespace XFramework
 
         private void SetAllCloseTip()
         {
-            this.GetFromReference(KBg_Item).GetXButton().OnClick?.Add(JiYuUIHelper.DestoryAllTips);
-            this.GetFromReference(KBtn_Img_Gift).GetXButton().OnClick?.Add(JiYuUIHelper.DestoryAllTips);
+            this.GetFromReference(KBg_Item).GetXButton().OnClick?.Add(UnicornUIHelper.DestoryAllTips);
+            this.GetFromReference(KBtn_Img_Gift).GetXButton().OnClick?.Add(UnicornUIHelper.DestoryAllTips);
         }
 
         protected override void OnClose()

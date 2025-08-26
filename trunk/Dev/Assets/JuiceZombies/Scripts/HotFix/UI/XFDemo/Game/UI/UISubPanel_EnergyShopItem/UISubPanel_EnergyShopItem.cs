@@ -1,5 +1,5 @@
 //---------------------------------------------------------------------
-// JiYuStudio
+// UnicornStudio
 // Author: xxx
 // Time: #CreateTime#
 //---------------------------------------------------------------------
@@ -85,7 +85,7 @@ namespace XFramework
             DisplayLock(true);
             DisplaySaled(false);
             SetReward();
-            JiYuTweenHelper.DoScaleTweenOnClickAndLongPress(btn_Buy,
+            UnicornTweenHelper.DoScaleTweenOnClickAndLongPress(btn_Buy,
                 () => OnBtnBuyOnClick());
             InitEffect();
         }
@@ -104,7 +104,7 @@ namespace XFramework
             var ui = await list.CreateWithUITypeAsync(UIType.UICommon_RewardItem, reward, false) as UICommon_RewardItem;
             ui.SetActive(true);
             SetRewardInfo(ui);
-            JiYuUIHelper.SetRewardOnClick(reward, ui);
+            UnicornUIHelper.SetRewardOnClick(reward, ui);
             ui.GetRectTransform().SetAnchoredPositionX(0f);
             ui.GetRectTransform().SetAnchoredPositionY(0f);
         }
@@ -136,7 +136,7 @@ namespace XFramework
 
         private async UniTaskVoid OnBtnBuyOnClick()
         {
-            if (JiYuUIHelper.TryGetUI(UIType.UIPanel_Activity_EnergyShop, out UI ui))
+            if (UnicornUIHelper.TryGetUI(UIType.UIPanel_Activity_EnergyShop, out UI ui))
             {
                 var uiEnergyShop = ui as UIPanel_Activity_EnergyShop;
                 bool isCanBuy = true;
@@ -147,22 +147,22 @@ namespace XFramework
                     var str = tblanguage.Get("energy_warning_text").current;
                     var itemId = (int)tbEnergy_shop_goods.GetOrDefault(uId).cost[0].y;
                     str = str.Replace("{0}", tblanguage.GetOrDefault(tbItem.GetOrDefault(itemId).name).current);
-                    JiYuUIHelper.ClearCommonResource();
+                    UnicornUIHelper.ClearCommonResource();
                     await UIHelper.CreateAsync(UIType.UICommon_Resource, str);
                 }
                 else
                 {
                     if (JudgeItemOrNot(tbEnergy_shop_goods.GetOrDefault(uId).cost, out int itemId))
                     {
-                        if (ResourcesSingleton.Instance.items.ContainsKey(itemId))
+                        if (ResourcesSingletonOld.Instance.items.ContainsKey(itemId))
                         {
-                            var playerHas = ResourcesSingleton.Instance.items[itemId];
+                            var playerHas = ResourcesSingletonOld.Instance.items[itemId];
                             var needCount = tbEnergy_shop_goods.GetOrDefault(uId).cost[0].z;
                             if (needCount > playerHas)
                             {
                                 Log.Debug("needCount > playerHas");
                                 //TODO:
-                                JiYuUIHelper.ClearCommonResource();
+                                UnicornUIHelper.ClearCommonResource();
                                 await UIHelper.CreateAsync(UIType.UICommon_Resource,
                                     tblanguage.Get("common_lack_6_title").current);
                             }
@@ -173,11 +173,11 @@ namespace XFramework
                                     tbEnergy_shop_goods.GetOrDefault(uId).reward[0]);
                                 //textHelp = textHelp.Replace("{1}", rewardHelp);
                                 var secBuyBtn = uis.GetFromReference(UICommon_Sec_Confirm.KBtn_Buy);
-                                JiYuTweenHelper.DoScaleTweenOnClickAndLongPress(secBuyBtn, () =>
+                                UnicornTweenHelper.DoScaleTweenOnClickAndLongPress(secBuyBtn, () =>
                                 {
                                     IntValue intValue = new IntValue();
                                     intValue.Value = uId;
-                                    //WebMessageHandlerOld.Instance.AddHandler(CMD.SHOP1201, On1201BuyResponse);
+                                    //WebMessageHandlerOld.Instance.AddHandler(CMDOld.SHOP1201, On1201BuyResponse);
                                     WebMessageHandlerOld.Instance.AddHandler(8, 6, OnBuyResponse);
                                     NetWorkManager.Instance.SendMessage(8, 6, intValue);
                                 });
@@ -187,7 +187,7 @@ namespace XFramework
                         {
                             Log.Debug("isCanBuy----else");
                             //TODO:
-                            JiYuUIHelper.ClearCommonResource();
+                            UnicornUIHelper.ClearCommonResource();
                             await UIHelper.CreateAsync(UIType.UICommon_Resource,
                                 tblanguage.Get("common_lack_6_title").current);
                         }
@@ -220,18 +220,18 @@ namespace XFramework
         {
             var rewards = tbEnergy_shop_goods.GetOrDefault(uId).reward;
             var cost = tbEnergy_shop_goods.GetOrDefault(uId).cost[0];
-            JiYuUIHelper.AddReward(rewards);
-            JiYuUIHelper.TryReduceReward(cost);
+            UnicornUIHelper.AddReward(rewards);
+            UnicornUIHelper.TryReduceReward(cost);
 
             await UIHelper.CreateAsync(UIType.UICommon_Reward, rewards);
 
-            if (JiYuUIHelper.TryGetUI(UIType.UIPanel_Activity_EnergyShop, out UI ui))
+            if (UnicornUIHelper.TryGetUI(UIType.UIPanel_Activity_EnergyShop, out UI ui))
             {
                 var uiEnergyShop = ui as UIPanel_Activity_EnergyShop;
                 uiEnergyShop.UpdateGoldNum();
             }
 
-            if (JiYuUIHelper.TryGetUI(UIType.UICommon_Sec_Confirm, out UI ui1))
+            if (UnicornUIHelper.TryGetUI(UIType.UICommon_Sec_Confirm, out UI ui1))
             {
                 var uiCommon_Sec_Confirm = ui1 as UICommon_Sec_Confirm;
                 uiCommon_Sec_Confirm.Dispose();
@@ -251,7 +251,7 @@ namespace XFramework
             {
                 icon = tbUser_variable.GetOrDefault(itemId).icon;
             }
-            GetFromReference(KText_Mid).GetTextMeshPro().SetTMPText(JiYuUIHelper.GetRewardTextIconName(icon) + count.ToString());
+            GetFromReference(KText_Mid).GetTextMeshPro().SetTMPText(UnicornUIHelper.GetRewardTextIconName(icon) + count.ToString());
         }
 
         private bool JudgeItemOrNot(List<Vector3> itemStr, out int itemId)

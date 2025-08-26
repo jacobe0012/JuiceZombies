@@ -1,5 +1,5 @@
 //---------------------------------------------------------------------
-// JiYuStudio
+// UnicornStudio
 // Author: xxx
 // Time: #CreateTime#
 //---------------------------------------------------------------------
@@ -97,16 +97,16 @@ namespace XFramework
         {
             var KText_Lock2 = GetFromReference(UISubPanel_Activity_OneDaySign.KText_Lock2);
 
-            long clientT = JiYuUIHelper.GetServerTimeStamp(true);
+            long clientT = UnicornUIHelper.GetServerTimeStamp(true);
 
-            if (!JiYuUIHelper.TryGetRemainingTime(TimeHelper.ClientNowSeconds(),
+            if (!UnicornUIHelper.TryGetRemainingTime(TimeHelper.ClientNowSeconds(),
                     TimeHelper.ClientNowSeconds() + TimeHelper.GetToTomorrowTime(),
                     out var timeStr))
             {
                 //Close();
             }
 
-            // if (!JiYuUIHelper.TryGetRemainingTime(clientT, endTime, out var timeStr))
+            // if (!UnicornUIHelper.TryGetRemainingTime(clientT, endTime, out var timeStr))
             // {
             //     Close();
             // }

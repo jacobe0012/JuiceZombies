@@ -1,5 +1,5 @@
 //---------------------------------------------------------------------
-// JiYuStudio
+// UnicornStudio
 // Author: xxx
 // Time: #CreateTime#
 //---------------------------------------------------------------------
@@ -40,10 +40,10 @@ namespace XFramework
 
         public async void Initialize()
         {
-            await JiYuUIHelper.InitBlur(this);
+            await UnicornUIHelper.InitBlur(this);
             InitJson();
             InitNode();
-            JiYuTweenHelper.SetScaleWithBounce(GetFromReference(UIPanel_ReturnConfirm.KMid));
+            UnicornTweenHelper.SetScaleWithBounce(GetFromReference(UIPanel_ReturnConfirm.KMid));
         }
 
         void InitJson()
@@ -64,22 +64,22 @@ namespace XFramework
             KText_Close.GetTextMeshPro().SetTMPText(tblanguage.Get("level_leave_button").current);
 
             KText_Continue.GetTextMeshPro().SetTMPText(tblanguage.Get("level_continue").current);
-            JiYuTweenHelper.DoScaleTweenOnClickAndLongPress(KBtn_Close, async() =>
+            UnicornTweenHelper.DoScaleTweenOnClickAndLongPress(KBtn_Close, async() =>
             {
 
-                JiYuTweenHelper.SetScaleWithBounceClose(GetFromReference(UIPanel_ReturnConfirm.KMid));
+                UnicornTweenHelper.SetScaleWithBounceClose(GetFromReference(UIPanel_ReturnConfirm.KMid));
                 await UniTask.Delay(200,true);
 
-                JiYuUIHelper.StartStopTime(false);
-                JiYuUIHelper.ExitRunTimeScene();
+                UnicornUIHelper.StartStopTime(false);
+                UnicornUIHelper.ExitRunTimeScene();
 
                 // var sceneController = Common.Instance.Get<SceneController>();
                 // var sceneObj = sceneController.LoadSceneAsync<MenuScene>(SceneName.UIMenu);
                 // SceneResManager.WaitForCompleted(sceneObj).ToCoroutine();
                 this.Close();
             });
-            JiYuTweenHelper.DoScaleTweenOnClickAndLongPress(KBtn_Cotinue, async() => {
-                JiYuTweenHelper.SetScaleWithBounceClose(GetFromReference(UIPanel_ReturnConfirm.KMid));
+            UnicornTweenHelper.DoScaleTweenOnClickAndLongPress(KBtn_Cotinue, async() => {
+                UnicornTweenHelper.SetScaleWithBounceClose(GetFromReference(UIPanel_ReturnConfirm.KMid));
                 await UniTask.Delay(200, true);
                 Close(); });
         }

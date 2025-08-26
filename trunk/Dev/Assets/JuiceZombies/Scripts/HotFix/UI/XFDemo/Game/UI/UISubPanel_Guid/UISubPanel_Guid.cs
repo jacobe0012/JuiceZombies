@@ -1,5 +1,5 @@
 //---------------------------------------------------------------------
-// JiYuStudio
+// UnicornStudio
 // Author: xxx
 // Time: #CreateTime#
 //---------------------------------------------------------------------
@@ -119,8 +119,8 @@ namespace XFramework
                     KImg_Tips_4.SetActive(true);
                     KImg_noForceBg.SetActive(true);
 
-                    JiYuUIHelper.StartStopTime(false);
-                    //JiYuUIHelper.EnableTriggerSystem(false);
+                    UnicornUIHelper.StartStopTime(false);
+                    //UnicornUIHelper.EnableTriggerSystem(false);
                     //UnityHelper.StopTime();
                     KText_Tips_4.GetTextMeshPro().SetTMPText(tblanguage.Get(guide.guidePara[0]).current);
 
@@ -135,11 +135,11 @@ namespace XFramework
 
                     uiBtn.SetLongPressInterval(0.5f);
 
-                    uiBtn.SetMaxLongPressCount(JiYuTweenHelper.MaxLongPressCount);
+                    uiBtn.SetMaxLongPressCount(UnicornTweenHelper.MaxLongPressCount);
 
                     uiBtn.OnLongPressEnd.Add((a) =>
                     {
-                        JiYuUIHelper.StartStopTime(true);
+                        UnicornUIHelper.StartStopTime(true);
                         Close();
                     });
 
@@ -178,7 +178,7 @@ namespace XFramework
                     UI itemUI = null;
                     if (subId == 1)
                     {
-                        if (JiYuUIHelper.TryGetUI(UIType.UIPanel_JiyuGame, out var ui))
+                        if (UnicornUIHelper.TryGetUI(UIType.UIPanel_JiyuGame, out var ui))
                         {
                             var KOptions = ui.GetFromReference(UIPanel_JiyuGame.KOptions);
                             var KOptionslist = KOptions.GetList();
@@ -195,7 +195,7 @@ namespace XFramework
                     }
                     else if (subId == 2)
                     {
-                        if (JiYuUIHelper.TryGetUI(UIType.UIPanel_Equipment, out var ui))
+                        if (UnicornUIHelper.TryGetUI(UIType.UIPanel_Equipment, out var ui))
                         {
                             var KBottom = ui.GetFromReference(UIPanel_Equipment.KBottom);
 
@@ -207,15 +207,15 @@ namespace XFramework
                     }
                     else if (subId == 3)
                     {
-                        if (JiYuUIHelper.TryGetUI(UIType.UIPanel_EquipTips, out var ui))
+                        if (UnicornUIHelper.TryGetUI(UIType.UIPanel_EquipTips, out var ui))
                         {
                             itemUI = ui.GetFromReference(UIPanel_EquipTips.KText_Equip);
                         }
                     }
 
-                    JiYuUIHelper.SetForceGuideRectUI(itemUI, KImg_Bg);
+                    UnicornUIHelper.SetForceGuideRectUI(itemUI, KImg_Bg);
 
-                    var pos = JiYuUIHelper.GetUIPos(itemUI);
+                    var pos = UnicornUIHelper.GetUIPos(itemUI);
                     //pos.y += childs.GetRectTransform().Height();
                     KImg_Tips_3.GetRectTransform().SetAnchoredPosition(pos);
                     KImg_GuideAnim_3.GetRectTransform()
@@ -236,7 +236,7 @@ namespace XFramework
                     if (subId == 1)
                     {
                         Log.Error($"111");
-                        if (JiYuUIHelper.TryGetUI(UIType.UIPanel_JiyuGame, out var ui))
+                        if (UnicornUIHelper.TryGetUI(UIType.UIPanel_JiyuGame, out var ui))
                         {
                             Log.Error($"222");
                             var KOptions = ui.GetFromReference(UIPanel_JiyuGame.KOptions);
@@ -255,7 +255,7 @@ namespace XFramework
                     }
                     else if (subId == 2)
                     {
-                        if (JiYuUIHelper.TryGetUI(UIType.UIPanel_Shop, out var ui))
+                        if (UnicornUIHelper.TryGetUI(UIType.UIPanel_Shop, out var ui))
                         {
                             var scrollRect = ui.GetFromReference(UIPanel_Shop.KScrollView).GetXScrollRect();
                             scrollRect.SetVerticalNormalizedPosition(0);
@@ -273,9 +273,9 @@ namespace XFramework
                     }
 
 
-                    JiYuUIHelper.SetForceGuideRectUI(itemUI317, KImg_Bg);
+                    UnicornUIHelper.SetForceGuideRectUI(itemUI317, KImg_Bg);
 
-                    var pos317 = JiYuUIHelper.GetUIPos(itemUI317);
+                    var pos317 = UnicornUIHelper.GetUIPos(itemUI317);
                     //pos.y += childs.GetRectTransform().Height();
                     KImg_Tips_3.GetRectTransform().SetAnchoredPosition(pos317);
                     KImg_GuideAnim_3.GetRectTransform()
@@ -293,13 +293,13 @@ namespace XFramework
             //
             //
             //
-            // if (ResourcesSingleton.Instance.settingData.GuideList.Contains(guide.group))
+            // if (ResourcesSingletonOld.Instance.settingData.GuideList.Contains(guide.group))
             // {
-            //     ResourcesSingleton.Instance.settingData.GuideList.Remove(guide.group);
+            //     ResourcesSingletonOld.Instance.settingData.GuideList.Remove(guide.group);
             // }
             //
             //
-            // Log.Debug($"¿ªÊ¼ÐÂÊÖÒýµ¼ID:{guide.id}");
+            // Log.Debug($"ï¿½ï¿½Ê¼ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ID:{guide.id}");
             // // switch (guide.templateId)
             // // {
             // //     case 1:
@@ -346,12 +346,12 @@ namespace XFramework
             // //
             // //         if (guide.buttonId == 31101)
             // //         {
-            // //             if (JiYuUIHelper.TryGetUI(UIType.UIPanel_Main, out var uimain))
+            // //             if (UnicornUIHelper.TryGetUI(UIType.UIPanel_Main, out var uimain))
             // //             {
             // //                 //var uimains = uimain as UIPanel_Main;
             // //                 var itemUI = uimain.GetFromReference(UIPanel_Main.KBtn_Start);
             // //                 //Log.Debug($"SetTipPosAndResize");
-            // //                 //JiYuUIHelper.SetTipPosAndResize(itemUI, ui);
+            // //                 //UnicornUIHelper.SetTipPosAndResize(itemUI, ui);
             // //                 //ui.GetRectTransform().SetAnchoredPositionY(-708f);
             // //                 var itemWidth2 = itemUI.GetRectTransform().Width();
             // //                 var itemHeight2 = itemUI.GetRectTransform().Height();
@@ -360,7 +360,7 @@ namespace XFramework
             // //
             // //                 var offsetX = rectx * itemWidth2 + guide.pos[2];
             // //                 var offsetY = recty * itemHeight2 + guide.pos[3];
-            // //                 var pos = JiYuUIHelper.GetUIPos(itemUI);
+            // //                 var pos = UnicornUIHelper.GetUIPos(itemUI);
             // //                 pos.x += offsetX;
             // //                 pos.y += offsetY;
             // //                 Log.Debug($"SetTipPosAndResize pos{pos} {itemHeight2}");
@@ -390,7 +390,7 @@ namespace XFramework
             // //                 await UniTask.Delay(3000);
             // //             }
             // //
-            // //             //JiYuUIHelper.FinishGuide(guide.id);
+            // //             //UnicornUIHelper.FinishGuide(guide.id);
             // //             Close();
             // //         }
             // //         else
@@ -400,38 +400,38 @@ namespace XFramework
             // //
             // //         // if (guide.id == 3)
             // //         // {
-            // //         //     //KTxt_Des.GetTextMeshPro().SetTMPText("Åö×²»áÊÜÉËnokey");
+            // //         //     //KTxt_Des.GetTextMeshPro().SetTMPText("ï¿½ï¿½×²ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½nokey");
             // //         //
             // //         //     await UniTask.Delay(3000);
-            // //         //     JiYuUIHelper.FinishGuide(guide.id);
+            // //         //     UnicornUIHelper.FinishGuide(guide.id);
             // //         //     Close();
             // //         // }
             // //         // else if (guide.id == 4)
             // //         // {
-            // //         //     //KTxt_Des.GetTextMeshPro().SetTMPText("½«¹ÖÎï»÷ÍËµ½Ä³Ð©ÕÏ°­ÎïÉÏ¿É²úÉúÅö×²£¬²úÉú¶à´ÎÉËº¦£¡nokey");
+            // //         //     //KTxt_Des.GetTextMeshPro().SetTMPText("ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ëµï¿½Ä³Ð©ï¿½Ï°ï¿½ï¿½ï¿½ï¿½Ï¿É²ï¿½ï¿½ï¿½ï¿½ï¿½×²ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ëºï¿½ï¿½ï¿½nokey");
             // //         //     await UniTask.Delay(3000);
-            // //         //     JiYuUIHelper.FinishGuide(guide.id);
+            // //         //     UnicornUIHelper.FinishGuide(guide.id);
             // //         //     Close();
             // //         // }
             // //         // // else if (guide.id == 5)
             // //         // // {
-            // //         // //     KTxt_Des.GetTextMeshPro().SetTMPText("½«¹ÖÎï»÷ÍËµ½Ä³Ð©ÕÏ°­ÎïÉÏ¿É²úÉúÅö×²£¬²úÉú¶à´ÎÉËº¦£¡nokey");
+            // //         // //     KTxt_Des.GetTextMeshPro().SetTMPText("ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ëµï¿½Ä³Ð©ï¿½Ï°ï¿½ï¿½ï¿½ï¿½Ï¿É²ï¿½ï¿½ï¿½ï¿½ï¿½×²ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ëºï¿½ï¿½ï¿½nokey");
             // //         // //     await UniTask.Delay(3000);
-            // //         // //     JiYuUIHelper.FinishGuide(guide.id);
+            // //         // //     UnicornUIHelper.FinishGuide(guide.id);
             // //         // //     Close();
             // //         // // }    
             // //         // else if (guide.id == 6)
             // //         // {
-            // //         //     //KTxt_Des.GetTextMeshPro().SetTMPText("ÕâÊÇÔö¼ÓÍæ¼Ò¾­ÑéµÄµÀ¾ßnokey");
+            // //         //     //KTxt_Des.GetTextMeshPro().SetTMPText("ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ò¾ï¿½ï¿½ï¿½Äµï¿½ï¿½ï¿½nokey");
             // //         //     await UniTask.Delay(3000);
-            // //         //     JiYuUIHelper.FinishGuide(guide.id);
+            // //         //     UnicornUIHelper.FinishGuide(guide.id);
             // //         //     Close();
             // //         // }
             // //         // else if (guide.id == 7)
             // //         // {
-            // //         //     //KTxt_Des.GetTextMeshPro().SetTMPText("ÆøÅÝ-µÀ¾ßb nokey");
+            // //         //     //KTxt_Des.GetTextMeshPro().SetTMPText("ï¿½ï¿½ï¿½ï¿½-ï¿½ï¿½ï¿½ï¿½b nokey");
             // //         //     await UniTask.Delay(3000);
-            // //         //     JiYuUIHelper.FinishGuide(guide.id);
+            // //         //     UnicornUIHelper.FinishGuide(guide.id);
             // //         //     Close();
             // //         // }
             // //         // else
@@ -466,7 +466,7 @@ namespace XFramework
             // //             if (guide.buttonId > 99900)
             // //             {
             // //                 var tagId = guide.buttonId - 99900;
-            // //                 if (JiYuUIHelper.TryGetUI(UIType.UIPanel_JiyuGame, out var uijiyu))
+            // //                 if (UnicornUIHelper.TryGetUI(UIType.UIPanel_JiyuGame, out var uijiyu))
             // //                 {
             // //                     var KOptions = uijiyu.GetFromReference(UIPanel_JiyuGame.KOptions);
             // //                     var KOptionslist = KOptions.GetList();
@@ -475,16 +475,16 @@ namespace XFramework
             // //                         var childs = child0 as UISubPanel_ToggleItem;
             // //                         if (childs.tagId == tagId)
             // //                         {
-            // //                             if (!ResourcesSingleton.Instance.settingData.UnlockMap.ContainsKey(tagId))
+            // //                             if (!ResourcesSingletonOld.Instance.settingData.UnlockMap.ContainsKey(tagId))
             // //                             {
-            // //                                 Log.Error($"Î´½âËøtagId:{tagId}");
+            // //                                 Log.Error($"Î´ï¿½ï¿½ï¿½ï¿½tagId:{tagId}");
             // //                                 guideId = 0;
             // //                                 Close();
             // //                                 return;
             // //                             }
             // //
-            // //                             JiYuUIHelper.SetForceGuideRectUI(childs, KImg_Bg);
-            // //                             var pos = JiYuUIHelper.GetUIPos(childs);
+            // //                             UnicornUIHelper.SetForceGuideRectUI(childs, KImg_Bg);
+            // //                             var pos = UnicornUIHelper.GetUIPos(childs);
             // //                             //pos.y += childs.GetRectTransform().Height();
             // //                             KImg_Tips_2.GetRectTransform().SetAnchoredPosition(pos);
             // //                             KImg_GuideAnim_2.GetRectTransform()
@@ -518,7 +518,7 @@ namespace XFramework
             // //         }
             // //         else
             // //         {
-            // //             Log.Error($"guide.id {guide.id} ¿Ø¼þ×Ö¶ÎÃ»ÓÐÅäÖÃ»òÎ´ÊµÏÖ");
+            // //             Log.Error($"guide.id {guide.id} ï¿½Ø¼ï¿½ï¿½Ö¶ï¿½Ã»ï¿½ï¿½ï¿½ï¿½ï¿½Ã»ï¿½Î´Êµï¿½ï¿½");
             // //             guideId = 0;
             // //             Close();
             // //         }
@@ -533,7 +533,7 @@ namespace XFramework
             // //             if (guide.buttonId > 99900)
             // //             {
             // //                 var tagId = guide.buttonId - 99900;
-            // //                 if (JiYuUIHelper.TryGetUI(UIType.UIPanel_JiyuGame, out var uijiyu))
+            // //                 if (UnicornUIHelper.TryGetUI(UIType.UIPanel_JiyuGame, out var uijiyu))
             // //                 {
             // //                     var KOptions = uijiyu.GetFromReference(UIPanel_JiyuGame.KOptions);
             // //                     var KOptionslist = KOptions.GetList();
@@ -542,16 +542,16 @@ namespace XFramework
             // //                         var childs = child0 as UISubPanel_ToggleItem;
             // //                         if (childs.tagId == tagId)
             // //                         {
-            // //                             if (!ResourcesSingleton.Instance.settingData.UnlockMap.ContainsKey(tagId))
+            // //                             if (!ResourcesSingletonOld.Instance.settingData.UnlockMap.ContainsKey(tagId))
             // //                             {
-            // //                                 Log.Error($"Î´½âËøtagId:{tagId}");
+            // //                                 Log.Error($"Î´ï¿½ï¿½ï¿½ï¿½tagId:{tagId}");
             // //                                 guideId = 0;
             // //                                 Close();
             // //                                 return;
             // //                             }
             // //
-            // //                             JiYuUIHelper.SetForceGuideRectUI(childs, KImg_Bg);
-            // //                             var pos = JiYuUIHelper.GetUIPos(childs);
+            // //                             UnicornUIHelper.SetForceGuideRectUI(childs, KImg_Bg);
+            // //                             var pos = UnicornUIHelper.GetUIPos(childs);
             // //                             //pos.y += childs.GetRectTransform().Height();
             // //                             KImg_Tips_3.GetRectTransform().SetAnchoredPosition(pos);
             // //                             KImg_GuideAnim_3.GetRectTransform()
@@ -585,7 +585,7 @@ namespace XFramework
             // //         }
             // //         else
             // //         {
-            // //             Log.Error($"guide.id {guide.id} ¿Ø¼þ×Ö¶ÎÃ»ÓÐÅäÖÃ»òÎ´ÊµÏÖ");
+            // //             Log.Error($"guide.id {guide.id} ï¿½Ø¼ï¿½ï¿½Ö¶ï¿½Ã»ï¿½ï¿½ï¿½ï¿½ï¿½Ã»ï¿½Î´Êµï¿½ï¿½");
             // //             guideId = 0;
             // //             Close();
             // //         }
@@ -598,8 +598,8 @@ namespace XFramework
             // //
             // //         if (guide.id == 2)
             // //         {
-            // //             JiYuUIHelper.StartStopTime(false);
-            // //             //JiYuUIHelper.EnableTriggerSystem(false);
+            // //             UnicornUIHelper.StartStopTime(false);
+            // //             //UnicornUIHelper.EnableTriggerSystem(false);
             // //             //UnityHelper.StopTime();
             // //             KText_Tips_4.GetTextMeshPro().SetTMPText(tblanguage.Get("battle_move_text").current);
             // //
@@ -614,12 +614,12 @@ namespace XFramework
             // //
             // //             uiBtn.SetLongPressInterval(0.5f);
             // //
-            // //             uiBtn.SetMaxLongPressCount(JiYuTweenHelper.MaxLongPressCount);
+            // //             uiBtn.SetMaxLongPressCount(UnicornTweenHelper.MaxLongPressCount);
             // //
             // //             uiBtn.OnLongPressEnd.Add((a) =>
             // //             {
-            // //                 JiYuUIHelper.StartStopTime(true);
-            // //                 //JiYuUIHelper.EnableTriggerSystem(true);
+            // //                 UnicornUIHelper.StartStopTime(true);
+            // //                 //UnicornUIHelper.EnableTriggerSystem(true);
             // //                 //UnityHelper.BeginTime();
             // //                 Close();
             // //             });
@@ -655,13 +655,13 @@ namespace XFramework
             // //             //     chaStats = entityManager.GetComponentData<ChaStats>(player);
             // //             // }
             // //             //
-            // //             // //JiYuUIHelper.FinishGuide(guide.id);
+            // //             // //UnicornUIHelper.FinishGuide(guide.id);
             // //             //
             // //             // Close();
             // //         }
             // //         else
             // //         {
-            // //             Log.Error($"guide.id {guide.id} ¿Ø¼þ×Ö¶ÎÃ»ÓÐÅäÖÃ»òÎ´ÊµÏÖ");
+            // //             Log.Error($"guide.id {guide.id} ï¿½Ø¼ï¿½ï¿½Ö¶ï¿½Ã»ï¿½ï¿½ï¿½ï¿½ï¿½Ã»ï¿½Î´Êµï¿½ï¿½");
             // //             guideId = 0;
             // //             Close();
             // //         }
@@ -678,7 +678,7 @@ namespace XFramework
             // //
             // //         KBtn_Bg.GetButton().OnClick.Add(() =>
             // //         {
-            // //             //JiYuUIHelper.FinishGuide(guide.id);
+            // //             //UnicornUIHelper.FinishGuide(guide.id);
             // //
             // //             Close();
             // //         });
@@ -694,35 +694,35 @@ namespace XFramework
             // //     switch (curTagId)
             // //     {
             // //         case 1:
-            // //             if (JiYuUIHelper.TryGetUI(UIType.UIPanel_Shop, out var ui1))
+            // //             if (UnicornUIHelper.TryGetUI(UIType.UIPanel_Shop, out var ui1))
             // //             {
             // //                 uiparent = ui1;
             // //             }
             // //
             // //             break;
             // //         case 2:
-            // //             if (JiYuUIHelper.TryGetUI(UIType.UISubPanel_Equipment, out var ui2))
+            // //             if (UnicornUIHelper.TryGetUI(UIType.UISubPanel_Equipment, out var ui2))
             // //             {
             // //                 uiparent = ui2;
             // //             }
             // //
             // //             break;
             // //         case 3:
-            // //             if (JiYuUIHelper.TryGetUI(UIType.UIPanel_Main, out var ui3))
+            // //             if (UnicornUIHelper.TryGetUI(UIType.UIPanel_Main, out var ui3))
             // //             {
             // //                 uiparent = ui3;
             // //             }
             // //
             // //             break;
             // //         case 4:
-            // //             if (JiYuUIHelper.TryGetUI(UIType.UIPanel_Challege, out var ui4))
+            // //             if (UnicornUIHelper.TryGetUI(UIType.UIPanel_Challege, out var ui4))
             // //             {
             // //                 uiparent = ui4;
             // //             }
             // //
             // //             break;
             // //         case 5:
-            // //             if (JiYuUIHelper.TryGetUI(UIType.UIPanel_Person, out var ui5))
+            // //             if (UnicornUIHelper.TryGetUI(UIType.UIPanel_Person, out var ui5))
             // //             {
             // //                 uiparent = ui5;
             // //             }
@@ -948,17 +948,17 @@ namespace XFramework
         protected override void OnClose()
         {
             stop = true;
-            // JiYuUIHelper.FinishGuide(guideId);
+            // UnicornUIHelper.FinishGuide(guideId);
             if (subId == 0)
             {
-                if (JiYuUIHelper.TryGetUI(UIType.UIPanel_RunTimeHUD, out UI ui))
+                if (UnicornUIHelper.TryGetUI(UIType.UIPanel_RunTimeHUD, out UI ui))
                 {
                     var uis = ui as UIPanel_RunTimeHUD;
                     uis.OnGuideOrderFinished(guideId);
                 }
             }
 
-            // else if (JiYuUIHelper.TryGetUI(UIType.UIPanel_Main, out UI ui1))
+            // else if (UnicornUIHelper.TryGetUI(UIType.UIPanel_Main, out UI ui1))
             // {
             //     var uis = ui1 as UIPanel_Main;
             //     uis.OnGuideIdFinished(guideId, subId);

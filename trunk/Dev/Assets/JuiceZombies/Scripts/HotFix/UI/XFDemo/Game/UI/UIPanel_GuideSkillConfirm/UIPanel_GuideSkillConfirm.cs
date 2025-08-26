@@ -1,5 +1,5 @@
 //---------------------------------------------------------------------
-// JiYuStudio
+// UnicornStudio
 // Author: xxx
 // Time: #CreateTime#
 //---------------------------------------------------------------------
@@ -70,7 +70,7 @@ namespace XFramework
             var KImg_RedDotRight = KCommon_Btn.GetFromReference(UICommon_Btn.KImg_RedDotRight);
             KText_Btn.GetTextMeshPro().SetTMPText(tblanguage.Get("common_state_confirm").current);
             KCommon_Btn.GetXButton().RemoveAllListeners();
-            JiYuTweenHelper.DoScaleTweenOnClickAndLongPress(KCommon_Btn, () =>
+            UnicornTweenHelper.DoScaleTweenOnClickAndLongPress(KCommon_Btn, () =>
             {
                 var em = World.DefaultGameObjectInjectionWorld.EntityManager;
                 var query = em.CreateEntityQuery(typeof(PlayerData), typeof(Skill));
@@ -92,12 +92,12 @@ namespace XFramework
                     });
                 }
 
-                if (JiYuUIHelper.TryGetUI(UIType.UIPanel_GuideSkillChoose, out var ui))
+                if (UnicornUIHelper.TryGetUI(UIType.UIPanel_GuideSkillChoose, out var ui))
                 {
                     ui.Dispose();
                 }
 
-                if (JiYuUIHelper.TryGetUI(UIType.UIPanel_RunTimeHUD, out var ui0))
+                if (UnicornUIHelper.TryGetUI(UIType.UIPanel_RunTimeHUD, out var ui0))
                 {
                     var ui0s = ui0 as UIPanel_RunTimeHUD;
                     var guide = tbguide.DataList.Where(a => a.guideType == 902).FirstOrDefault();

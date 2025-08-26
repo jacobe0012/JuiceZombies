@@ -1,5 +1,5 @@
 //---------------------------------------------------------------------
-// JiYuStudio
+// UnicornStudio
 // Author: huangjinguo
 // Time: #CreateTime#
 //---------------------------------------------------------------------
@@ -29,7 +29,7 @@ namespace XFramework
 
     public partial class UICommon_Resource : UI, IAwake<string>
     {
-        //ÌáÊ¾Óï³ÖÐøÊ±¼ä
+        //ï¿½ï¿½Ê¾ï¿½ï¿½ï¿½ï¿½ï¿½Ê±ï¿½ï¿½
         public float KeepTime = 4.0f;
 
         public void Initialize(string str)
@@ -39,12 +39,12 @@ namespace XFramework
 
         private async void CreateProperty(string str)
         {
-            //²éÕÒÈÝÆ÷
+            //ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
             var container = GetFromReference(KContainer);
-            //¸ù¾ÝÈÝÆ÷Î»ÖÃ´´½¨ÌáÊ¾Óï
+            //ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Î»ï¿½Ã´ï¿½ï¿½ï¿½ï¿½ï¿½Ê¾ï¿½ï¿½
             var ui = await UIHelper.CreateAsync(this, UIType.UICommon_Prompt, str, container.GameObject.transform);
-            //JiYuTweenHelper.SetEaseAlphaAndPosLtoR(container, 0, 500);
-            //Î¬³ÖÌáÊ¾Óï½áÊøºó¹Ø±ÕUICommom_Resource
+            //UnicornTweenHelper.SetEaseAlphaAndPosLtoR(container, 0, 500);
+            //Î¬ï¿½ï¿½ï¿½ï¿½Ê¾ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ø±ï¿½UICommom_Resource
             await UniTask.Delay((int)(1000 * KeepTime));
             Close();
         }

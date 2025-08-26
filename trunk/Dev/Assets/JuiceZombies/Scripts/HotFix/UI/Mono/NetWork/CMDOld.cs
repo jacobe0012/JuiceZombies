@@ -1,6 +1,6 @@
 ﻿namespace HotFix_UI
 {
-    public  static class CMD
+    public  static class CMDOld
     {
         //0,1   登录
         public const int LOGIN = (MainCmd.loginCmd << 16) + LoginCmd.loginVerify;

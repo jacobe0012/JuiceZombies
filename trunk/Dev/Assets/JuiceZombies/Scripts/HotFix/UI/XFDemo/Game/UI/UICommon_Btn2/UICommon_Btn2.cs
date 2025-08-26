@@ -1,5 +1,5 @@
 //---------------------------------------------------------------------
-// JiYuStudio
+// UnicornStudio
 // Author: xxx
 // Time: #CreateTime#
 //---------------------------------------------------------------------
@@ -31,7 +31,7 @@ namespace XFramework
         public int index;
         public void Initialize(int currentID)
         {
-            int currentLockSkillId = ResourcesSingleton.Instance.talentID.talentSkillID;
+            int currentLockSkillId = ResourcesSingletonOld.Instance.talentID.talentSkillID;
             GetFromReference(KImg_Mask).SetActive(true);
             if (currentLockSkillId >= currentID)
             {

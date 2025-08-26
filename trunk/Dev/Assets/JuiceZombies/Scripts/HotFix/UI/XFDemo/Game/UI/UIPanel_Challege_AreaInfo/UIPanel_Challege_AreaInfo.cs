@@ -1,5 +1,5 @@
 //---------------------------------------------------------------------
-// JiYuStudio
+// UnicornStudio
 // Author: xxx
 // Time: #CreateTime#
 //---------------------------------------------------------------------
@@ -31,14 +31,14 @@ namespace XFramework
 
         public void Initialize(int challengeID)
         {
-            // JiYuTweenHelper.DoScaleTweenOnClickAndLongPress(this.GetFromReference(KBtn_AreaInfo), () => OnInfoClick(challengeID));
+            // UnicornTweenHelper.DoScaleTweenOnClickAndLongPress(this.GetFromReference(KBtn_AreaInfo), () => OnInfoClick(challengeID));
         }
 
         private void OnInfoClick(int challengeID)
         {
             this.GetFromReference(KImg_Select)?.SetActive(true);
             //this.GetFromReference(KImg_Panel_Select)?.SetActive(true);
-            if (JiYuUIHelper.TryGetUI(UIType.UIPanel_Challege, out UI ui))
+            if (UnicornUIHelper.TryGetUI(UIType.UIPanel_Challege, out UI ui))
             {
                 var uIPanel_Challege = ui as UIPanel_Challege;
                 uIPanel_Challege?.UpdateFromCurrentMainID(challengeID);

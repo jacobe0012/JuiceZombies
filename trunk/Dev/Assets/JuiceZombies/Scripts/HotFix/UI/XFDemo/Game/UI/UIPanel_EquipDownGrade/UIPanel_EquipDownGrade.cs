@@ -1,5 +1,5 @@
 //---------------------------------------------------------------------
-// JiYuStudio
+// UnicornStudio
 // Author: xxx
 // Time: #CreateTime#
 //---------------------------------------------------------------------
@@ -39,13 +39,13 @@ namespace XFramework
 
         public async void Initialize(MyGameEquip myGameEquip)
         {
-            await JiYuUIHelper.InitBlur(this);
+            await UnicornUIHelper.InitBlur(this);
             InitPanel(myGameEquip);
         }
 
         public void OnEquipDownGradePanelResponse(object sender, WebMessageHandlerOld.Execute e)
         {
-            WebMessageHandlerOld.Instance.RemoveHandler(CMD.EQUIPDOWNGRADE, OnEquipDownGradePanelResponse);
+            WebMessageHandlerOld.Instance.RemoveHandler(CMDOld.EQUIPDOWNGRADE, OnEquipDownGradePanelResponse);
             GameEquip gameEquip = new GameEquip();
             gameEquip.MergeFrom(e.data);
 
@@ -55,20 +55,20 @@ namespace XFramework
                 return;
             }
 
-            if (!ResourcesSingleton.Instance.equipmentData.equipments.ContainsKey(gameEquip.PartId))
+            if (!ResourcesSingletonOld.Instance.equipmentData.equipments.ContainsKey(gameEquip.PartId))
             {
                 Log.Error($"װ�������󷵻ز����ڵ�װ��uid", Color.red);
                 return;
             }
 
-            // ResourcesSingleton.Instance.equipmentData.equipments[gameEquip.PartId] = gameEquip;
+            // ResourcesSingletonOld.Instance.equipmentData.equipments[gameEquip.PartId] = gameEquip;
             //
             //
-            // foreach (var VARIABLE in ResourcesSingleton.Instance.equipmentData.isWearingEquipments)
+            // foreach (var VARIABLE in ResourcesSingletonOld.Instance.equipmentData.isWearingEquipments)
             // {
             //     if (VARIABLE.Value.PartId == gameEquip.PartId)
             //     {
-            //         ResourcesSingleton.Instance.equipmentData.isWearingEquipments[VARIABLE.Key] = gameEquip;
+            //         ResourcesSingletonOld.Instance.equipmentData.isWearingEquipments[VARIABLE.Key] = gameEquip;
             //     }
             // }
 
@@ -78,7 +78,7 @@ namespace XFramework
         private void RefreshEquipPanel()
         {
             //TODO:����ˢ��ҳ��
-            if (JiYuUIHelper.TryGetUI(UIType.UIPanel_Equipment, out var ui))
+            if (UnicornUIHelper.TryGetUI(UIType.UIPanel_Equipment, out var ui))
             {
                 var uiscript = ui as UIPanel_Equipment;
                 var temp = uiscript.lastModuleId;
@@ -96,7 +96,7 @@ namespace XFramework
         {
             var equip = myGameEquip.equip;
 
-            WebMessageHandlerOld.Instance.AddHandler(CMD.EQUIPDOWNGRADE, OnEquipDownGradePanelResponse);
+            WebMessageHandlerOld.Instance.AddHandler(CMDOld.EQUIPDOWNGRADE, OnEquipDownGradePanelResponse);
 
             var attr_variableConfig = ConfigManager.Instance.Tables.Tbattr_variable;
             var equip_levelConfig = ConfigManager.Instance.Tables.Tbequip_level;
@@ -137,25 +137,25 @@ namespace XFramework
             var KText_DownQError = GetFromReference(UIPanel_EquipDownGrade.KText_DownQError);
 
 
-            JiYuTweenHelper.DoScaleTweenOnClickAndLongPress(KBtn_DownGrade,
+            UnicornTweenHelper.DoScaleTweenOnClickAndLongPress(KBtn_DownGrade,
                 () =>
                 {
-                    NetWorkManager.Instance.SendMessage(CMD.EQUIPDOWNGRADE, equip);
+                    NetWorkManager.Instance.SendMessage(CMDOld.EQUIPDOWNGRADE, equip);
 
-                    JiYuUIHelper.AddReward(downGradeRewards, true, true);
-                    if (!ResourcesSingleton.Instance.equipmentData.equipments.TryGetValue(equipUid,
+                    UnicornUIHelper.AddReward(downGradeRewards, true, true);
+                    if (!ResourcesSingletonOld.Instance.equipmentData.equipments.TryGetValue(equipUid,
                             out var gameEquip))
                     {
                         return;
                     }
 
-                    JiYuUIHelper.WearOrUnWearEquipProperty(equip, false);
+                    UnicornUIHelper.WearOrUnWearEquipProperty(equip, false);
                     gameEquip.equip.EquipLevel = 1;
-                    JiYuUIHelper.WearOrUnWearEquipProperty(equip, true);
+                    UnicornUIHelper.WearOrUnWearEquipProperty(equip, true);
                     topEquipUi?.Initialize(gameEquip, UIPanel_Equipment.EquipPanelType.Main);
                     RefreshLevelUp(equipUid).Forget();
                     RefreshEquipPanel();
-                    // if (JiYuUIHelper.TryGetUI(UIType.UIPanel_Equipment, out var ui))
+                    // if (UnicornUIHelper.TryGetUI(UIType.UIPanel_Equipment, out var ui))
                     // {
                     //     var uiscript = ui as UIPanel_Equipment;
                     //     uiscript.SortItems(equip_data.posId);
@@ -164,11 +164,11 @@ namespace XFramework
                     //         -1);
                     // }
                 });
-            JiYuTweenHelper.DoScaleTweenOnClickAndLongPress(KBtn_DownQuality,
+            UnicornTweenHelper.DoScaleTweenOnClickAndLongPress(KBtn_DownQuality,
                 async () =>
                 {
-                    JiYuUIHelper.AddReward(downQualityRewards, true, true);
-                    if (!ResourcesSingleton.Instance.equipmentData.equipments.TryGetValue(equipUid,
+                    UnicornUIHelper.AddReward(downQualityRewards, true, true);
+                    if (!ResourcesSingletonOld.Instance.equipmentData.equipments.TryGetValue(equipUid,
                             out var gameEquip))
                     {
                         return;
@@ -183,19 +183,19 @@ namespace XFramework
                     KText_Grade.SetActive(false);
                     KText_DownQError.SetActive(true);
                    
-                    JiYuUIHelper.SetGrayOrNot(KBtn_DownQuality, "common_button_gray1", "common_blue_button_6", true);
+                    UnicornUIHelper.SetGrayOrNot(KBtn_DownQuality, "common_button_gray1", "common_blue_button_6", true);
                     KMask.GetXButton().SetEnabled(false);
                     var downQList = KContent_DownQ.GetList();
                     downQList.Clear();
                     //await UniTask.Delay(1000);
 
-                    NetWorkManager.Instance.SendMessage(CMD.EQUIPDOWNQUALITY, equip);
-                    NetWorkManager.Instance.SendMessage(CMD.QUERYEQUIP, equip);
+                    NetWorkManager.Instance.SendMessage(CMDOld.EQUIPDOWNQUALITY, equip);
+                    NetWorkManager.Instance.SendMessage(CMDOld.QUERYEQUIP, equip);
 
                     await UniTask.Delay(1000);
                     RefreshEquipPanel();
 
-                    // if (ResourcesSingleton.Instance.equipmentData.equipments.TryGetValue(equipUid,
+                    // if (ResourcesSingletonOld.Instance.equipmentData.equipments.TryGetValue(equipUid,
                     //         out var gameEquip))
                     // {
                     //     gameEquip.equip.Level = 1;
@@ -203,7 +203,7 @@ namespace XFramework
                     //     topEquipUi?.Initialize(gameEquip, UIPanel_Equipment.EquipPanelType.Main);
                     //     RefreshLevelUp(equipUid).Forget();
                     //
-                    //     // if (JiYuUIHelper.TryGetUI(UIType.UIPanel_Equipment, out var ui))
+                    //     // if (UnicornUIHelper.TryGetUI(UIType.UIPanel_Equipment, out var ui))
                     //     // {
                     //     //     var uiscript = ui as UIPanel_Equipment;
                     //     //     uiscript.Initialize(uiscript.tempStructList);
@@ -247,7 +247,7 @@ namespace XFramework
 
         async UniTaskVoid RefreshLevelUp(long uid)
         {
-            if (!ResourcesSingleton.Instance.equipmentData.equipments.TryGetValue(uid, out var myGameEquip))
+            if (!ResourcesSingletonOld.Instance.equipmentData.equipments.TryGetValue(uid, out var myGameEquip))
             {
                 Log.Error($"{uid} is not exist in equipments");
                 return;
@@ -306,11 +306,11 @@ namespace XFramework
 
             var downGList = KContent_DownG.GetList();
             downGList.Clear();
-            //JiYuUIHelper.SetGrayOrNot(KBtn_DownGrade, "common_button_gray1", "common_blue_button_6", false);
+            //UnicornUIHelper.SetGrayOrNot(KBtn_DownGrade, "common_button_gray1", "common_blue_button_6", false);
          
             if (!isDownGError)
             {
-                JiYuUIHelper.SetGrayOrNot(KBtn_DownGrade, "common_button_gray1", "common_blue_button_6", false);
+                UnicornUIHelper.SetGrayOrNot(KBtn_DownGrade, "common_button_gray1", "common_blue_button_6", false);
                 KText_DownGError.SetActive(false);
                 Dictionary<Vector2, long> costs = new Dictionary<Vector2, long>();
                 int tempLevel = equipLevel;
@@ -373,7 +373,7 @@ namespace XFramework
                     downGradeRewards.Add(new Vector3(cost.Key.x, cost.Key.y, cost.Value));
                 }
 
-                JiYuUIHelper.SortRewards(downGradeRewards);
+                UnicornUIHelper.SortRewards(downGradeRewards);
                 foreach (var cost in downGradeRewards)
                 {
                     //Log.Error($"cost{cost}");
@@ -388,7 +388,7 @@ namespace XFramework
             else
             {
                 KText_DownGError.SetActive(true);
-                JiYuUIHelper.SetGrayOrNot(KBtn_DownGrade, "common_button_gray1", "common_blue_button_6", true);
+                UnicornUIHelper.SetGrayOrNot(KBtn_DownGrade, "common_button_gray1", "common_blue_button_6", true);
             }
 
 
@@ -396,7 +396,7 @@ namespace XFramework
             downQList.Clear();
             if (!isDownQError)
             {
-                JiYuUIHelper.SetGrayOrNot(KBtn_DownQuality, "common_button_gray1", "common_blue_button_6", false);
+                UnicornUIHelper.SetGrayOrNot(KBtn_DownQuality, "common_button_gray1", "common_blue_button_6", false);
                 KText_DownQError.SetActive(false);
                 Dictionary<Vector3, long> costs = new Dictionary<Vector3, long>();
                 int tempLevel = equipLevel;
@@ -511,7 +511,7 @@ namespace XFramework
                     downQualityRewards.Add(mergeedReward);
                 }
 
-                JiYuUIHelper.SortRewards(downQualityRewards);
+                UnicornUIHelper.SortRewards(downQualityRewards);
 
                 foreach (var cost in downQualityRewards)
                 {
@@ -527,7 +527,7 @@ namespace XFramework
             else
             {
                 KText_DownQError.SetActive(true);
-                JiYuUIHelper.SetGrayOrNot(KBtn_DownQuality, "common_button_gray1", "common_blue_button_6", true);
+                UnicornUIHelper.SetGrayOrNot(KBtn_DownQuality, "common_button_gray1", "common_blue_button_6", true);
             }
         }
 

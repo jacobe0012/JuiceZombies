@@ -1,5 +1,5 @@
 //---------------------------------------------------------------------
-// JiYuStudio
+// UnicornStudio
 // Author: xxx
 // Time: #CreateTime#
 //---------------------------------------------------------------------
@@ -52,16 +52,16 @@ namespace XFramework
 
         public async void Initialize()
         {
-            await JiYuUIHelper.InitBlur(this);
+            await UnicornUIHelper.InitBlur(this);
             this.SetActive(false);
            
             Log.Debug($"UIPanel_Rebirth Initialize");
             InitJson();
 
-            JiYuUIHelper.StartStopTime(false);
+            UnicornUIHelper.StartStopTime(false);
 
             InitNode();
-            JiYuTweenHelper.SetScaleWithBounce(GetFromReference(UIPanel_Rebirth.KImgBg));
+            UnicornTweenHelper.SetScaleWithBounce(GetFromReference(UIPanel_Rebirth.KImgBg));
         }
 
         void InitJson()
@@ -72,9 +72,9 @@ namespace XFramework
 
         async void InitNode()
         {
-            if (ResourcesSingleton.Instance.levelInfo.rebirthNum <= 0)
+            if (ResourcesSingletonOld.Instance.levelInfo.rebirthNum <= 0)
             {
-                JiYuTweenHelper.SetScaleWithBounceClose(GetFromReference(UIPanel_Rebirth.KImgBg));
+                UnicornTweenHelper.SetScaleWithBounceClose(GetFromReference(UIPanel_Rebirth.KImgBg));
                 await UniTask.Delay(200, true);
                 Close();
                 UIHelper.CreateAsync(UIType.UIPanel_Fail);
@@ -82,7 +82,7 @@ namespace XFramework
             }
 
             this.SetActive(true);
-            int reviveNum = (int)tblevel.Get(ResourcesSingleton.Instance.levelInfo.levelId).reviveNum[0].y;
+            int reviveNum = (int)tblevel.Get(ResourcesSingletonOld.Instance.levelInfo.levelId).reviveNum[0].y;
             var KText_Title = GetFromReference(UIPanel_Rebirth.KText_Title);
             var KBtn_Close = GetFromReference(UIPanel_Rebirth.KBtn_Close);
             var KText_Time = GetFromReference(UIPanel_Rebirth.KText_Time);
@@ -97,12 +97,12 @@ namespace XFramework
             KText_Confirm.GetTextMeshPro().SetTMPText(tblanguage.Get("common_state_confirm").current);
 
             // var remainStr =
-            //     $"{tblanguage.Get("level_revive_num").current}{ResourcesSingleton.Instance.levelInfo.rebirthNum}";
+            //     $"{tblanguage.Get("level_revive_num").current}{ResourcesSingletonOld.Instance.levelInfo.rebirthNum}";
             var remainStr = string.Format(tblanguage.Get("level_revive_num").current,
-                ResourcesSingleton.Instance.levelInfo.rebirthNum);
+                ResourcesSingletonOld.Instance.levelInfo.rebirthNum);
             KText_RemainNum.GetTextMeshPro().SetTMPText(remainStr);
 
-            var rewardCount = JiYuUIHelper.GetRewardCount(new Vector3(5, 1010002, 0));
+            var rewardCount = UnicornUIHelper.GetRewardCount(new Vector3(5, 1010002, 0));
             var textMeshPro = KText_RebirthCoinNum.GetTextMeshPro();
 
             textMeshPro.SetTMPText($"{rewardCount}/{1}");
@@ -118,22 +118,22 @@ namespace XFramework
 
 
             GetFromReference(UIPanel_Rebirth.KTimeFill)?.GetImage().DoFillAmount(1, 0, 10f);
-            KBtn_Advertise.GetXImage().SetGrayed(ResourcesSingleton.Instance.levelInfo.adRebirthNum <= 0);
+            KBtn_Advertise.GetXImage().SetGrayed(ResourcesSingletonOld.Instance.levelInfo.adRebirthNum <= 0);
 
-            KBtn_Advertise.GetXButton().SetEnabled(ResourcesSingleton.Instance.levelInfo.adRebirthNum > 0);
-            JiYuTweenHelper.DoScaleTweenOnClickAndLongPress(KBtn_Advertise, async () =>
+            KBtn_Advertise.GetXButton().SetEnabled(ResourcesSingletonOld.Instance.levelInfo.adRebirthNum > 0);
+            UnicornTweenHelper.DoScaleTweenOnClickAndLongPress(KBtn_Advertise, async () =>
             {
-                if (ResourcesSingleton.Instance.levelInfo.adRebirthNum > 0)
+                if (ResourcesSingletonOld.Instance.levelInfo.adRebirthNum > 0)
                 {
-                    ResourcesSingleton.Instance.levelInfo.adRebirthNum--;
-                    ResourcesSingleton.Instance.levelInfo.rebirthNum--;
+                    ResourcesSingletonOld.Instance.levelInfo.adRebirthNum--;
+                    ResourcesSingletonOld.Instance.levelInfo.rebirthNum--;
                     //TODO:���
 
-                    JiYuTweenHelper.SetScaleWithBounceClose(GetFromReference(UIPanel_Rebirth.KImgBg));
+                    UnicornTweenHelper.SetScaleWithBounceClose(GetFromReference(UIPanel_Rebirth.KImgBg));
                     await UniTask.Delay(200, true);
 
 
-                    JiYuUIHelper.RebirthPlayer();
+                    UnicornUIHelper.RebirthPlayer();
                     Close();
                 }
                 // else
@@ -142,37 +142,37 @@ namespace XFramework
                 // }
             });
 
-            JiYuTweenHelper.DoScaleTweenOnClickAndLongPress(KBtn_RebirthCoin,
+            UnicornTweenHelper.DoScaleTweenOnClickAndLongPress(KBtn_RebirthCoin,
                 async () =>
                 {
                     if (rewardCount <= 0)
                     {
-                        JiYuUIHelper.ClearCommonResource();
+                        UnicornUIHelper.ClearCommonResource();
                         UIHelper.CreateAsync( UIType.UICommon_Resource,
                             tblanguage.Get("common_lack_6_title").current).Forget();
                         return;
                     }
 
-                    ResourcesSingleton.Instance.levelInfo.rebirthNum--;
+                    ResourcesSingletonOld.Instance.levelInfo.rebirthNum--;
 
 
-                    WebMessageHandlerOld.Instance.AddHandler(CMD.CONSUMEREBIRTHCOIN, OnConsumeCoinResponse);
-                    NetWorkManager.Instance.SendMessage(CMD.CONSUMEREBIRTHCOIN, new StringValue
+                    WebMessageHandlerOld.Instance.AddHandler(CMDOld.CONSUMEREBIRTHCOIN, OnConsumeCoinResponse);
+                    NetWorkManager.Instance.SendMessage(CMDOld.CONSUMEREBIRTHCOIN, new StringValue
                     {
                         Value = $"{5};{1010002};{1}"
                     });
 
-                    JiYuUIHelper.TryReduceReward(new Vector3(5, 1010002, 1));
-                    JiYuTweenHelper.SetScaleWithBounceClose(GetFromReference(UIPanel_Rebirth.KImgBg));
+                    UnicornUIHelper.TryReduceReward(new Vector3(5, 1010002, 1));
+                    UnicornTweenHelper.SetScaleWithBounceClose(GetFromReference(UIPanel_Rebirth.KImgBg));
                     await UniTask.Delay(200, true);
-                    JiYuUIHelper.RebirthPlayer();
+                    UnicornUIHelper.RebirthPlayer();
                     Close();
                 });
             //UIHelper.CreateAsync()
-            JiYuTweenHelper.DoScaleTweenOnClickAndLongPress(KBtn_Close,
+            UnicornTweenHelper.DoScaleTweenOnClickAndLongPress(KBtn_Close,
                 async () =>
                 {
-                    JiYuTweenHelper.SetScaleWithBounceClose(GetFromReference(UIPanel_Rebirth.KImgBg));
+                    UnicornTweenHelper.SetScaleWithBounceClose(GetFromReference(UIPanel_Rebirth.KImgBg));
                     await UniTask.Delay(200, true);
                     UIHelper.CreateAsync(UIType.UIPanel_Fail);
                     Close();
@@ -219,7 +219,7 @@ namespace XFramework
 
         private void OnConsumeCoinResponse(object sender, WebMessageHandlerOld.Execute e)
         {
-            WebMessageHandlerOld.Instance.RemoveHandler(CMD.CONSUMEREBIRTHCOIN, OnConsumeCoinResponse);
+            WebMessageHandlerOld.Instance.RemoveHandler(CMDOld.CONSUMEREBIRTHCOIN, OnConsumeCoinResponse);
             var response = new StringValue();
             response.MergeFrom(e.data);
             if (e.data.IsEmpty)
@@ -232,7 +232,7 @@ namespace XFramework
 
             if (response.Value.Contains("true"))
             {
-                JiYuUIHelper.RebirthPlayer();
+                UnicornUIHelper.RebirthPlayer();
                 Close();
                 return;
             }

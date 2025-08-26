@@ -1,5 +1,5 @@
 //---------------------------------------------------------------------
-// JiYuStudio
+// UnicornStudio
 // Author: xxx
 // Time: #CreateTime#
 //---------------------------------------------------------------------
@@ -64,7 +64,7 @@ namespace XFramework
 
         private void CreateEffect(List<MyGameEquip> list)
         {
-            if (!JiYuUIHelper.TryGetUI(UIType.UIPanel_Compound, out UI ui1))
+            if (!UnicornUIHelper.TryGetUI(UIType.UIPanel_Compound, out UI ui1))
             {
                 return;
             }
@@ -85,7 +85,7 @@ namespace XFramework
                     }
                     var go = two.GetRectTransform().GetChild(i).gameObject;
                     var item = two.GetList().Create(go, true);
-                    JiYuUIHelper.SetEquipIcon(equipData, item, EquipPanelType.Compose);
+                    UnicornUIHelper.SetEquipIcon(equipData, item, EquipPanelType.Compose);
                 }
 
                
@@ -103,7 +103,7 @@ namespace XFramework
                     }
                     var go = three.GetRectTransform().GetChild(i).gameObject;
                     var item = three.GetList().Create(go, true);
-                    JiYuUIHelper.SetEquipIcon(equipData, item, EquipPanelType.Compose);
+                    UnicornUIHelper.SetEquipIcon(equipData, item, EquipPanelType.Compose);
                 }
             }
         }
@@ -230,31 +230,31 @@ namespace XFramework
           float randomness = 45f)
         {
             var uiElement = ui.GetComponent<RectTransform>();
-            // Í£Ö¹Ö®Ç°µÄ¶¯»­£¨±ÜÃâµþ¼Ó£©
-            // ´´½¨Ò»¸ö Sequence À´Í¬Ê±Ö´ÐÐÎ»ÖÃºÍÐý×ª¶¶¶¯
+            // Í£Ö¹Ö®Ç°ï¿½Ä¶ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ó£ï¿½
+            // ï¿½ï¿½ï¿½ï¿½Ò»ï¿½ï¿½ Sequence ï¿½ï¿½Í¬Ê±Ö´ï¿½ï¿½Î»ï¿½Ãºï¿½ï¿½ï¿½×ªï¿½ï¿½ï¿½ï¿½
             Sequence shakeSequence = DOTween.Sequence();
 
-            // Ìí¼ÓÎ»ÖÃ¶¶¶¯£¨×óÓÒ£©
+            // ï¿½ï¿½ï¿½Î»ï¿½Ã¶ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ò£ï¿½
             shakeSequence.Join(uiElement.DOShakePosition(
                 duration: shakeDuration,
-                strength: new Vector3(shakeStrength, 0, 0), // Ö»ÔÚ X Öá¶¶¶¯
+                strength: new Vector3(shakeStrength, 0, 0), // Ö»ï¿½ï¿½ X ï¿½á¶¶ï¿½ï¿½
                 vibrato: vibrato,
                 randomness: randomness,
                 snapping: false,
                 fadeOut: true
             ));
 
-            // Ìí¼ÓÐý×ª¶¶¶¯£¨Õý¸º m ¶È£¬Î§ÈÆ Z Öá£©
+            // ï¿½ï¿½ï¿½ï¿½ï¿½×ªï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ m ï¿½È£ï¿½Î§ï¿½ï¿½ Z ï¿½á£©
             shakeSequence.Join(uiElement.DOShakeRotation(
                 duration: shakeDuration,
-                strength: new Vector3(0, 0, rotationStrength), // Ö»Î§ÈÆ Z ÖáÐý×ª
+                strength: new Vector3(0, 0, rotationStrength), // Ö»Î§ï¿½ï¿½ Z ï¿½ï¿½ï¿½ï¿½×ª
                 vibrato: vibrato,
                 randomness: randomness,
                 fadeOut: true
             ));
 
 
-            // È·±£¶¯»­½áÊøÊ±»Ö¸´Ô­Ê¼Î»ÖÃºÍÐý×ª
+            // È·ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ê±ï¿½Ö¸ï¿½Ô­Ê¼Î»ï¿½Ãºï¿½ï¿½ï¿½×ª
             shakeSequence.OnComplete(() =>
             {
                 uiElement.anchoredPosition3D = originalPosition;
@@ -270,15 +270,15 @@ namespace XFramework
             {
                 valueList.Values.Add(item.equip.ToByteString());
             }
-            if (!JiYuUIHelper.TryGetUI(UIType.UIPanel_Compound, out UI ui1))
+            if (!UnicornUIHelper.TryGetUI(UIType.UIPanel_Compound, out UI ui1))
             {
                 return;
             }
             var uiCompound = ui1 as UIPanel_Compound;
             var myGameEquip0 = uiCompound.equipMain;
 
-            NetWorkManager.Instance.SendMessage(CMD.EQUIPCOMPOSE, valueList);
-            NetWorkManager.Instance.SendMessage(CMD.QUERYEQUIP);
+            NetWorkManager.Instance.SendMessage(CMDOld.EQUIPCOMPOSE, valueList);
+            NetWorkManager.Instance.SendMessage(CMDOld.QUERYEQUIP);
             var tween = ui.GetFromReference(UIPanel_CompoundNormalDongHua.KLightEffect).GetRectTransform()
                 .DoScale(new Vector3(3, 3, 3), 2f);
             tween.AddOnCompleted(async () =>

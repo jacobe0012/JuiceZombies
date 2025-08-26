@@ -1,5 +1,5 @@
 //---------------------------------------------------------------------
-// JiYuStudio
+// UnicornStudio
 // Author: xxx
 // Time: #CreateTime#
 //---------------------------------------------------------------------
@@ -46,13 +46,13 @@ namespace XFramework
         private void OnSelectButtonClicked(int chapterID)
         {
             var chapterMap = ConfigManager.Instance.Tables.Tbchapter;
-            Log.Debug($"µ±Ç°Ñ¡ÔñµÄÕÂ½ÚÎª:{chapterID}", Color.black);
+            Log.Debug($"ï¿½ï¿½Ç°Ñ¡ï¿½ï¿½ï¿½ï¿½Â½ï¿½Îª:{chapterID}", Color.black);
 
-            ResourcesSingleton.Instance.levelInfo.levelId = chapterMap.Get(chapterID).levelId;
+            ResourcesSingletonOld.Instance.levelInfo.levelId = chapterMap.Get(chapterID).levelId;
 
-            NetWorkManager.Instance.SendMessage(1, 7, new IntValue { Value = ResourcesSingleton.Instance.levelInfo.levelId });
-            Log.Debug("¹Ø±Õ", Color.black);
-            ChangeEvent(ResourcesSingleton.Instance.levelInfo.levelId);
+            NetWorkManager.Instance.SendMessage(1, 7, new IntValue { Value = ResourcesSingletonOld.Instance.levelInfo.levelId });
+            Log.Debug("ï¿½Ø±ï¿½", Color.black);
+            ChangeEvent(ResourcesSingletonOld.Instance.levelInfo.levelId);
             base.Close();
         }
 

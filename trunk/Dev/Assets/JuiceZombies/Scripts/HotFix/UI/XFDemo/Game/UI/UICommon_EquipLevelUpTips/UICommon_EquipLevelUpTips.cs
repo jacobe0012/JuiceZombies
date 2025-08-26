@@ -1,5 +1,5 @@
 //---------------------------------------------------------------------
-// JiYuStudio
+// UnicornStudio
 // Author: xxx
 // Time: #CreateTime#
 //---------------------------------------------------------------------
@@ -60,9 +60,9 @@ namespace XFramework
         private void RegisterWidgetAction(GameEquipStruct equipitem)
         {
             UI levelupUI = GetFromReference(KBtnLevelUp);
-            JiYuTweenHelper.DoScaleTweenOnClickAndLongPress(levelupUI, () => LevelupAction(equipitem));
+            UnicornTweenHelper.DoScaleTweenOnClickAndLongPress(levelupUI, () => LevelupAction(equipitem));
             UI btnRapidLevelup = GetFromReference(KBtnRapidLevelup);
-            JiYuTweenHelper.DoScaleTweenOnClickAndLongPress(btnRapidLevelup, () => RapidLevelupAction(equipitem));
+            UnicornTweenHelper.DoScaleTweenOnClickAndLongPress(btnRapidLevelup, () => RapidLevelupAction(equipitem));
             UI kBtnEquip = GetFromReference(KBtnEquip);
             var childText = kBtnEquip.GetRectTransform().GetChild(0).GetComponent<XTextMeshProUGUI>();
             switch (equipitem.Type)
@@ -71,14 +71,14 @@ namespace XFramework
                 {
                     childText.SetTMPText(tblanguage.Get("common_state_common").current);
                     childText.color = Color.white;
-                    JiYuTweenHelper.DoScaleTweenOnClickAndLongPress(kBtnEquip, () => LoadEquipItem(equipitem.equip));
+                    UnicornTweenHelper.DoScaleTweenOnClickAndLongPress(kBtnEquip, () => LoadEquipItem(equipitem.equip));
                     break;
                 }
                 case 5: //卸下
                 {
                     childText.SetTMPText(tblanguage.Get("common_state_remove").current);
                     childText.color = Color.red;
-                    JiYuTweenHelper.DoScaleTweenOnClickAndLongPress(kBtnEquip, () => UnLoadEquipItem(equipitem.equip));
+                    UnicornTweenHelper.DoScaleTweenOnClickAndLongPress(kBtnEquip, () => UnLoadEquipItem(equipitem.equip));
                     break;
                 }
             }
@@ -310,8 +310,8 @@ namespace XFramework
                 GetFromReference(KImg_Drawing).GetComponent<XImage>()
                     .SetSprite(ResourcesManager.LoadAsset<Sprite>(tb_item.Get(Drawid).icon), false);
                 long itemNum = 0;
-                if (ResourcesSingleton.Instance.items.ContainsKey(Drawid))
-                    itemNum = ResourcesSingleton.Instance.items[Drawid];
+                if (ResourcesSingletonOld.Instance.items.ContainsKey(Drawid))
+                    itemNum = ResourcesSingletonOld.Instance.items[Drawid];
                 //拥有的图纸和升级消耗的图纸
                 GetFromReference(KTxt_DrawConsume).GetTextMeshPro()
                     .SetTMPText(itemNum.ToString() + "/" + DrawNum.ToString());
@@ -319,10 +319,10 @@ namespace XFramework
 
                 //拥有的金币和升级消耗的金币
                 GetFromReference(KTxt_GoldConsume).GetTextMeshPro().SetTMPText(
-                    ResourcesSingleton.Instance.UserInfo.RoleAssets.UsBill.ToString() + "/"
+                    ResourcesSingletonOld.Instance.UserInfo.RoleAssets.UsBill.ToString() + "/"
                     + GoldNum.ToString());
                 //var KBtnLevelUpUI=GetFromReference(KBtnLevelUp);
-                //JiYuTweenHelper.DoScaleTweenOnClickAndLongPress(KBtnLevelUpUI,()=> LevelupAction(equip));
+                //UnicornTweenHelper.DoScaleTweenOnClickAndLongPress(KBtnLevelUpUI,()=> LevelupAction(equip));
             }
 
 
@@ -393,7 +393,7 @@ namespace XFramework
                 return;
             }
 
-            WebMessageHandlerOld.Instance.AddHandler(CMD.EQUIPALLUPGRADE, OnResponseEquipLevelup);
+            WebMessageHandlerOld.Instance.AddHandler(CMDOld.EQUIPALLUPGRADE, OnResponseEquipLevelup);
 
             NetWorkManager.Instance.SendMessage(9, 7, equipStruct.equip);
         }
@@ -415,7 +415,7 @@ namespace XFramework
         //计算金币是否足够
         public bool CalcuatingGold(GameEquip equip)
         {
-            long result = ResourcesSingleton.Instance.UserInfo.RoleAssets.UsBill -
+            long result = ResourcesSingletonOld.Instance.UserInfo.RoleAssets.UsBill -
                           (long)tbequip_level.Get(equip.Level + 1).cost1[0].z;
 
             return result >= 0 ? true : false;
@@ -424,8 +424,8 @@ namespace XFramework
         //计算图纸是否足够
         public bool CalculatingItem(GameEquip equip)
         {
-            if (!ResourcesSingleton.Instance.items.ContainsKey(1020000 + equip.PosId)) return false;
-            int result = (int)(ResourcesSingleton.Instance.items[1020000 + equip.PosId] -
+            if (!ResourcesSingletonOld.Instance.items.ContainsKey(1020000 + equip.PosId)) return false;
+            int result = (int)(ResourcesSingletonOld.Instance.items[1020000 + equip.PosId] -
                                (int)tbequip_level.Get(equip.Level + 1).cost1[1].z);
 
             return result >= 0 ? true : false;
@@ -433,7 +433,7 @@ namespace XFramework
 
         private void CreatePrompt(string current)
         {
-            JiYuUIHelper.ClearCommonResource();
+            UnicornUIHelper.ClearCommonResource();
             UIHelper.CreateAsync(UIType.UICommon_Resource, current);
         }
 
@@ -445,21 +445,21 @@ namespace XFramework
             this.tempitem.equip = new GameEquip();
             this.tempitem.equip.MergeFrom(e.data);
             //减少图纸和金币
-            ResourcesSingleton.Instance.UserInfo.RoleAssets.UsBill -=
+            ResourcesSingletonOld.Instance.UserInfo.RoleAssets.UsBill -=
                 (int)tbequip_level.Get(this.tempitem.equip.Level).cost1[0].z;
             //更新缓存中的金币
-            ResourcesSingleton.Instance.UpdateResourceUI();
+            ResourcesSingletonOld.Instance.UpdateResourceUI();
             //更新图纸数量
             List<BagItem> countItem = new List<BagItem>();
             BagItem bagItem = new BagItem();
-            bagItem.Count = (int)(ResourcesSingleton.Instance.items[1020000 + this.tempitem.equip.PosId] -
+            bagItem.Count = (int)(ResourcesSingletonOld.Instance.items[1020000 + this.tempitem.equip.PosId] -
                                   (int)tbequip_level.Get(this.tempitem.equip.Level).cost1[1].z);
             bagItem.ItemId = 1020000 + this.tempitem.equip.PosId;
             countItem.Add(bagItem);
-            //ResourcesSingleton.Instance.UpdateItems(countItem);
+            //ResourcesSingletonOld.Instance.UpdateItems(countItem);
             //更新缓存
-            // if (ResourcesSingleton.Instance.equipmentData.equipments.ContainsKey(this.tempitem.equip.PartId))
-            //     ResourcesSingleton.Instance.equipmentData.equipments[this.tempitem.equip.PartId] = this.tempitem.equip;
+            // if (ResourcesSingletonOld.Instance.equipmentData.equipments.ContainsKey(this.tempitem.equip.PartId))
+            //     ResourcesSingletonOld.Instance.equipmentData.equipments[this.tempitem.equip.PartId] = this.tempitem.equip;
             // else
             // {
             //     Log.Debug("缓存不存在该装备,可能是后端返回装备错误,也可能是初始查询错位", Color.red);

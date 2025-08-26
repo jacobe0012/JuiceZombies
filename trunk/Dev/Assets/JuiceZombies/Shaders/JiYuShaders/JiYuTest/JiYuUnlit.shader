@@ -1,4 +1,4 @@
-﻿Shader "JiYuStudio/JiYuUnlit"
+﻿Shader "UnicornStudio/JiYuUnlit"
 {
 	Properties
 	{

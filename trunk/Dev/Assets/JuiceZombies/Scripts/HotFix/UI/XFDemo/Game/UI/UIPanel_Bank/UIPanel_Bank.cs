@@ -1,5 +1,5 @@
 ﻿//---------------------------------------------------------------------
-// JiYuStudio
+// UnicornStudio
 // Author: huangjinguo
 // Time: #CreateTime#
 //---------------------------------------------------------------------
@@ -13,7 +13,7 @@ using Main;
 using System.Threading;
 using UnityEngine;
 using UnityEngine.UI;
-using static HotFix_UI.JiYuUIHelper;
+using static HotFix_UI.UnicornUIHelper;
 using static XFramework.UIManager;
 
 namespace XFramework
@@ -57,7 +57,7 @@ namespace XFramework
 
         public async void Initialize()
         {
-            await JiYuUIHelper.InitBlur(this);
+            await UnicornUIHelper.InitBlur(this);
 
             this.GetFromReference(KBtn_Close).GetXButton().OnClick?.Add(() => { Close(); });
             DataInit();
@@ -73,16 +73,16 @@ namespace XFramework
 
         async UniTaskVoid Anim()
         {
-            JiYuTweenHelper.PlayUIImageTranstionFX(this.GetFromReference(KImg_Bank), cancellationToken: cts.Token);
-            JiYuTweenHelper.SetEaseAlphaAndPosLtoR(this.GetFromReference(KProgressbar), -52, 100, cts.Token, 0.15f,
+            UnicornTweenHelper.PlayUIImageTranstionFX(this.GetFromReference(KImg_Bank), cancellationToken: cts.Token);
+            UnicornTweenHelper.SetEaseAlphaAndPosLtoR(this.GetFromReference(KProgressbar), -52, 100, cts.Token, 0.15f,
                 false);
-            JiYuTweenHelper.PlayUIImageTranstionFX(this.GetFromReference(KProgressbar), cts.Token, "FFF5C2", JiYuTweenHelper.UIDir.Right,
+            UnicornTweenHelper.PlayUIImageTranstionFX(this.GetFromReference(KProgressbar), cts.Token, "FFF5C2", UnicornTweenHelper.UIDir.Right,
                 0.5f, 1f);
 
 
-            JiYuTweenHelper.SetEaseAlphaAndPosB2U(this.GetFromReference(KBg), 0, 100, cts.Token, 0.3f, true, true);
+            UnicornTweenHelper.SetEaseAlphaAndPosB2U(this.GetFromReference(KBg), 0, 100, cts.Token, 0.3f, true, true);
             await UniTask.Delay(200, cancellationToken: cts.Token);
-            JiYuTweenHelper.PlayUIImageSweepFX(this.GetFromReference(KImg_Diamond), cts.Token);
+            UnicornTweenHelper.PlayUIImageSweepFX(this.GetFromReference(KImg_Diamond), cts.Token);
         }
 
         public void ReSet()
@@ -105,7 +105,7 @@ namespace XFramework
 
         private void OnBankResponse(object sender, WebMessageHandlerOld.Execute e)
         {
-            WebMessageHandlerOld.Instance.RemoveHandler(CMD.QUERYBANK, OnBankResponse);
+            WebMessageHandlerOld.Instance.RemoveHandler(CMDOld.QUERYBANK, OnBankResponse);
             var gameBank = new GoldPig();
             gameBank.MergeFrom(e.data);
             Debug.Log(gameBank);
@@ -118,7 +118,7 @@ namespace XFramework
 
             Debug.Log("panel bank game bank:" + gameBank);
             gameBank.PigLevel = gameBank.PigLevel % 100;
-            ResourcesSingleton.Instance.goldPig = gameBank;
+            ResourcesSingletonOld.Instance.goldPig = gameBank;
 
             Debug.Log("OnBankResponse gameBank.PigLevel" + gameBank.PigLevel);
             Debug.Log("OnBankResponse gameBank.Unlock" + gameBank.Unlock);
@@ -127,7 +127,7 @@ namespace XFramework
             {
                 //var parent = this.GetParent<UICommonFunButton>();
                 //this.SetActive(false);
-                if (JiYuUIHelper.TryGetUI(UIType.UIPanel_Main, out var ui))
+                if (UnicornUIHelper.TryGetUI(UIType.UIPanel_Main, out var ui))
                 {
                     var uis = ui as UIPanel_Main;
                     uis.SetIconBtnEnable(3405, false);
@@ -164,7 +164,7 @@ namespace XFramework
             tblanguage = ConfigManager.Instance.Tables.Tblanguage;
             tbpiggy_Bank = ConfigManager.Instance.Tables.Tbpiggy_bank;
             tbprice = ConfigManager.Instance.Tables.Tbprice;
-            var gameBank = ResourcesSingleton.Instance.goldPig;
+            var gameBank = ResourcesSingletonOld.Instance.goldPig;
             //Debug.Log(gameBank);
             DiamondNum = gameBank.GoldBank;
 
@@ -181,7 +181,7 @@ namespace XFramework
             {
                 CanBuy = true;
                 BankCountDownTime = gameBank.Countdown;
-                BankEndTime = gameBank.Countdown - ResourcesSingleton.Instance.serverDeltaTime / 1000 + 1;
+                BankEndTime = gameBank.Countdown - ResourcesSingletonOld.Instance.serverDeltaTime / 1000 + 1;
                 //Debug.Log("BankEndTime" + BankEndTime);
             }
             else
@@ -198,7 +198,7 @@ namespace XFramework
             this.GetFromReference(KText_Limite).GetTextMeshPro()
                 .SetTMPText(tblanguage.Get("piggy_bank_tips_type_2").current);
             this.GetFromReference(KText_Complete).GetTextMeshPro().SetTMPText(tblanguage.Get("text_success").current);
-            this.GetFromReference(KText_Num).GetTextMeshPro().SetTMPText(JiYuUIHelper.GetRewardTextIconName("icon_diamond")+ DiamondNum.ToString());
+            this.GetFromReference(KText_Num).GetTextMeshPro().SetTMPText(UnicornUIHelper.GetRewardTextIconName("icon_diamond")+ DiamondNum.ToString());
             this.GetFromReference(KText_Btn).GetTextMeshPro().SetTMPText(
                 tbprice.Get(tbpiggy_Bank.Get(BankID).price).rmb.ToString() +
                 tblanguage.Get("common_coin_unit").current);
@@ -256,12 +256,12 @@ namespace XFramework
                 this.GetFromReference(KImg_Grey).SetActive(true);
             }
 
-            JiYuTweenHelper.DoScaleTweenOnClickAndLongPress(KBtn_Buy, () =>
+            UnicornTweenHelper.DoScaleTweenOnClickAndLongPress(KBtn_Buy, () =>
             {
                 if (CanBuy)
                 {
                     const string Fund1 = "B03";
-                    JiYuUIHelper.SendBuyMessage(Fund1, BankID);
+                    UnicornUIHelper.SendBuyMessage(Fund1, BankID);
                     /*
                     WebMessageHandlerOld.Instance.AddHandler(15, 2, OnBuyBankResponse);
                     NetWorkManager.Instance.SendMessage(15, 2);*/
@@ -269,7 +269,7 @@ namespace XFramework
                 else
                 {
                     var str = $"{tblanguage.Get("piggy_bank_pay_limit_tips").current}";
-                    JiYuUIHelper.ClearCommonResource();
+                    UnicornUIHelper.ClearCommonResource();
                     UIHelper.CreateAsync(UIType.UICommon_Resource, str);
                 }
             });
@@ -287,17 +287,17 @@ namespace XFramework
                 return;
             }
 
-            ResourcesSingleton.Instance.haveBuyBank = true;
+            ResourcesSingletonOld.Instance.haveBuyBank = true;
 
             foreach (var itemstr in stringValueList.Values)
             {
-                JiYuUIHelper.AddReward(UnityHelper.StrToVector3(itemstr), true);
+                UnicornUIHelper.AddReward(UnityHelper.StrToVector3(itemstr), true);
             }
 
             Debug.Log("15, 2, OnBuyBankResponse");
 
-            WebMessageHandlerOld.Instance.AddHandler(CMD.QUERYBANK, OnBankResponse);
-            NetWorkManager.Instance.SendMessage(CMD.QUERYBANK);
+            WebMessageHandlerOld.Instance.AddHandler(CMDOld.QUERYBANK, OnBankResponse);
+            NetWorkManager.Instance.SendMessage(CMDOld.QUERYBANK);
         }
 
         private void SetState()
@@ -339,7 +339,7 @@ namespace XFramework
                     //have time
                     long deltaTime = BankEndTime - TimeHelper.ClientNowSeconds();
                     string str2 = UnityHelper.RichTextColor(
-                        JiYuUIHelper.GeneralTimeFormat(new Unity.Mathematics.int4(1, 4, 1, 1), deltaTime), "F8F709");
+                        UnicornUIHelper.GeneralTimeFormat(new Unity.Mathematics.int4(1, 4, 1, 1), deltaTime), "F8F709");
                     this.GetFromReference(KText_Time).GetTextMeshPro().SetTMPText(str1 + str2);
                 }
                 else
@@ -347,8 +347,8 @@ namespace XFramework
                     if (!HaveSendMessage)
                     {
                         HaveSendMessage = true;
-                        WebMessageHandlerOld.Instance.AddHandler(CMD.QUERYBANK, OnBankResponse);
-                        NetWorkManager.Instance.SendMessage(CMD.QUERYBANK);
+                        WebMessageHandlerOld.Instance.AddHandler(CMDOld.QUERYBANK, OnBankResponse);
+                        NetWorkManager.Instance.SendMessage(CMDOld.QUERYBANK);
                     }
                 }
             }

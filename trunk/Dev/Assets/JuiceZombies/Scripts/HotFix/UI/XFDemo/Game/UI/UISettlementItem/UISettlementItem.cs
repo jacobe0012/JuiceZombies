@@ -1,5 +1,5 @@
 //---------------------------------------------------------------------
-// JiYuStudio
+// UnicornStudio
 // Author: huangjinguo
 // Time: #CreateTime#
 //---------------------------------------------------------------------
@@ -36,9 +36,9 @@ namespace XFramework
     {
         public async void Initialize(SettlementStruct settlementStruct)
         {
-            //¶ÁÈ¡¶àÓïÑÔ±í
+            //ï¿½ï¿½È¡ï¿½ï¿½ï¿½ï¿½ï¿½Ô±ï¿½
             var languageConfig = ConfigManager.Instance.Tables.Tblanguage;
-            //ÉèÖÃÊÇ·ñÊÇÍ¨¹Ø½±Àø
+            //ï¿½ï¿½ï¿½ï¿½ï¿½Ç·ï¿½ï¿½ï¿½Í¨ï¿½Ø½ï¿½ï¿½ï¿½
             this.GetFromReference(KClearance_Txt).GetTextMeshPro()
                 .SetTMPText(languageConfig.Get("level_commn_reward").current);
             if (settlementStruct.Clearance)
@@ -46,17 +46,17 @@ namespace XFramework
                 this.GetFromReference(KClearance_Txt).SetActive(true);
             }
 
-            //ÉèÖÃÎïÆ·ÊýÁ¿
+            //ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Æ·ï¿½ï¿½ï¿½ï¿½
             this.GetFromReference(KItemCountText).GetTextMeshPro().SetTMPText("x " + settlementStruct.count.ToString());
-            //ÉèÖÃÍ¼Æ¬
+            //ï¿½ï¿½ï¿½ï¿½Í¼Æ¬
             switch (settlementStruct.id)
             {
                 case 3:
-                    //ÉèÖÃ½ð±ÒÍ¼Æ¬
+                    //ï¿½ï¿½ï¿½Ã½ï¿½ï¿½Í¼Æ¬
                     await this.GetFromReference(KItemIcon).GetImage().SetSpriteAsync("gold", false);
                     break;
                 case 4:
-                    //ÉèÖÃ¾­ÑéÍ¼Æ¬
+                    //ï¿½ï¿½ï¿½Ã¾ï¿½ï¿½ï¿½Í¼Æ¬
                     await this.GetFromReference(KItemIcon).GetImage().SetSpriteAsync("DanCurrency_Exp", false);
                     break;
             }

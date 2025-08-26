@@ -1,5 +1,5 @@
 ﻿//---------------------------------------------------------------------
-// JiYuStudio
+// UnicornStudio
 // Author: huangjinguo
 // Time: #CreateTime#
 //---------------------------------------------------------------------
@@ -135,7 +135,7 @@ namespace XFramework
             this.GetFromReference(KPos_Layout).GetList().Clear();
             this.GetFromReference(KBtn_CloseTip).GetXButton().OnClick.Add(() =>
             {
-                JiYuUIHelper.DestoryAllTips();
+                UnicornUIHelper.DestoryAllTips();
             });
 
             //ParaInit();
@@ -214,7 +214,7 @@ namespace XFramework
         //        ui.GetFromReference(UISubPanel_Shop_item.KRewardText).SetActive(false);
         //        ui.GetFromReference(UISubPanel_Shop_item.KStateText).SetActive(false);
 
-        //        if (ResourcesSingleton.Instance.shopInit.shopHelpDic[1401][recharge.id][0] == 0)
+        //        if (ResourcesSingletonOld.Instance.shopInit.shopHelpDic[1401][recharge.id][0] == 0)
         //        {
         //            //如果是第一次充值
         //            ui.GetFromReference(UISubPanel_Shop_item.KTitleText).GetTextMeshPro()
@@ -237,9 +237,9 @@ namespace XFramework
         //        var thisBuyBtn = ui.GetFromReference(UISubPanel_Shop_item.KBtn_Common);
         //        IntValue intValue = new IntValue();
         //        intValue.Value = recharge.id;
-        //        JiYuTweenHelper.DoScaleTweenOnClickAndLongPress(thisBuyBtn, () =>
+        //        UnicornTweenHelper.DoScaleTweenOnClickAndLongPress(thisBuyBtn, () =>
         //        {
-        //            if (ResourcesSingleton.Instance.shopInit.shopHelpDic[1401][recharge.id][0] == 0)
+        //            if (ResourcesSingletonOld.Instance.shopInit.shopHelpDic[1401][recharge.id][0] == 0)
         //            {
         //                m1401IntHelp = recharge.value * 2;
         //            }
@@ -279,10 +279,10 @@ namespace XFramework
         //    vector3.x = 2;
         //    vector3.y = 0;
         //    vector3.z = m1401IntHelp;
-        //    JiYuUIHelper.AddReward(vector3, true).Forget();
-        //    //ResourcesSingleton.Instance.UserInfo.RoleAssets.Bitcoin += m1401IntHelp;
-        //    //ResourcesSingleton.Instance.UpdateResourceUI();
-        //    ResourcesSingleton.Instance.shopInit.shopHelpDic[1401][m1401IdHelp][0] += 1;
+        //    UnicornUIHelper.AddReward(vector3, true).Forget();
+        //    //ResourcesSingletonOld.Instance.UserInfo.RoleAssets.Bitcoin += m1401IntHelp;
+        //    //ResourcesSingletonOld.Instance.UpdateResourceUI();
+        //    ResourcesSingletonOld.Instance.shopInit.shopHelpDic[1401][m1401IdHelp][0] += 1;
         //    m1401UI.GetFromReference(UISubPanel_Shop_item.KTitleText).GetTextMeshPro().SetTMPText(
         //        tblanguage.Get("recharge_extra_text").current.Replace("{0}", m1401Extra.ToString()));
         //}
@@ -322,7 +322,7 @@ namespace XFramework
         //        ui.GetFromReference(UISubPanel_Shop_item.KRewardText).SetActive(false);
         //        ui.GetFromReference(UISubPanel_Shop_item.KStateText).SetActive(false);
 
-        //        int moneyHelp = ResourcesSingleton.Instance.levelInfo.maxPassChapterID;
+        //        int moneyHelp = ResourcesSingletonOld.Instance.levelInfo.maxPassChapterID;
         //        //Debug.Log(moneyHelp);
         //        if (moneyHelp == 0)
         //        {
@@ -340,7 +340,7 @@ namespace XFramework
         //            }
         //        }
         //        moneyHelp = moneyHelp * 6 * recharge.value;
-        //        moneyHelp = (moneyHelp * (ResourcesSingleton.Instance.UserInfo.PatrolGainName + 100)) / 100;
+        //        moneyHelp = (moneyHelp * (ResourcesSingletonOld.Instance.UserInfo.PatrolGainName + 100)) / 100;
         //        ui.GetFromReference(UISubPanel_Shop_item.KGoldNumTxt).GetTextMeshPro().SetTMPText(moneyHelp.ToString());
         //        ui.GetFromReference(UISubPanel_Shop_item.KGoldDescTxt).GetTextMeshPro().SetTMPText(
         //            tblanguage.Get(recharge.name).current.Replace("{0}", recharge.value.ToString()));
@@ -358,11 +358,11 @@ namespace XFramework
         //        RedPointMgr.instance.Init("ShopRoot", recharge.tagFunc.ToString() + recharge.id.ToString(),
         //            async (RedPointState state, int data) =>
         //            {
-        //                if (JiYuUIHelper.TryGetUI(UIType.UISubPanel_Shop_Tag3, out UI uui))
+        //                if (UnicornUIHelper.TryGetUI(UIType.UISubPanel_Shop_Tag3, out UI uui))
         //                {
         //                    if (state == RedPointState.Show
-        //                        || ResourcesSingleton.Instance.shopInit.shopHelpDic[1402][recharge.id][1] > 0
-        //                        || ResourcesSingleton.Instance.shopInit.shopHelpDic[1402][recharge.id][2] > 0)
+        //                        || ResourcesSingletonOld.Instance.shopInit.shopHelpDic[1402][recharge.id][1] > 0
+        //                        || ResourcesSingletonOld.Instance.shopInit.shopHelpDic[1402][recharge.id][2] > 0)
         //                    {
         //                        await ui.GetImage().SetSpriteAsync("bg_ShopItemGreen", false);
         //                        //RedPointMgr.instance.SetState("ShopRoot", recharge.tagFunc.ToString() + recharge.id.ToString(), RedPointState.Show, 1);
@@ -376,32 +376,32 @@ namespace XFramework
         //            }, ui.GetFromReference(UISubPanel_Shop_item.KBtn_Common).GetXButton());
 
         //        //免费次数大于0
-        //        if (ResourcesSingleton.Instance.shopInit.shopHelpDic[1402][recharge.id][1] > 0)
+        //        if (ResourcesSingletonOld.Instance.shopInit.shopHelpDic[1402][recharge.id][1] > 0)
         //        {
         //            ui.GetFromReference(UISubPanel_Shop_item.KImg_Left).SetActive(false);
         //            ui.GetFromReference(UISubPanel_Shop_item.KText_Right).GetTextMeshPro().SetTMPText(
         //                tblanguage.Get("common_free_text").current + "("
-        //                                                           + ResourcesSingleton.Instance.shopInit.shopHelpDic[
+        //                                                           + ResourcesSingletonOld.Instance.shopInit.shopHelpDic[
         //                                                               1402][recharge.id][1].ToString()
         //                                                           + ")");
         //            RedPointMgr.instance.SetState("ShopRoot", recharge.tagFunc.ToString() + recharge.id.ToString(),
         //                RedPointState.Show,
-        //                (int)(ResourcesSingleton.Instance.shopInit.shopHelpDic[1402][recharge.id][1] +
-        //                      ResourcesSingleton.Instance.shopInit.shopHelpDic[1402][recharge.id][2]));
+        //                (int)(ResourcesSingletonOld.Instance.shopInit.shopHelpDic[1402][recharge.id][1] +
+        //                      ResourcesSingletonOld.Instance.shopInit.shopHelpDic[1402][recharge.id][2]));
         //        }
-        //        else if (ResourcesSingleton.Instance.shopInit.shopHelpDic[1402][recharge.id][2] > 0)
+        //        else if (ResourcesSingletonOld.Instance.shopInit.shopHelpDic[1402][recharge.id][2] > 0)
         //        {
         //            ui.GetFromReference(UISubPanel_Shop_item.KImg_Left).SetActive(true);
         //            ui.GetFromReference(UISubPanel_Shop_item.KImg_Left).GetImage().SetSprite("Advert", false);
         //            ui.GetFromReference(UISubPanel_Shop_item.KText_Right).GetTextMeshPro().SetTMPText(
         //                tblanguage.Get("common_free_text").current + "("
-        //                                                           + ResourcesSingleton.Instance.shopInit.shopHelpDic[
+        //                                                           + ResourcesSingletonOld.Instance.shopInit.shopHelpDic[
         //                                                               1402][recharge.id][2].ToString()
         //                                                           + ")");
         //            RedPointMgr.instance.SetState("ShopRoot", recharge.tagFunc.ToString() + recharge.id.ToString(),
         //                RedPointState.Show,
-        //                (int)(ResourcesSingleton.Instance.shopInit.shopHelpDic[1402][recharge.id][1] +
-        //                      ResourcesSingleton.Instance.shopInit.shopHelpDic[1402][recharge.id][2]));
+        //                (int)(ResourcesSingletonOld.Instance.shopInit.shopHelpDic[1402][recharge.id][1] +
+        //                      ResourcesSingletonOld.Instance.shopInit.shopHelpDic[1402][recharge.id][2]));
         //        }
         //        else
         //        {
@@ -412,7 +412,7 @@ namespace XFramework
         //        var thisBuyBtn = ui.GetFromReference(UISubPanel_Shop_item.KBtn_Common);
         //        IntValue intValue = new IntValue();
         //        intValue.Value = recharge.id;
-        //        JiYuTweenHelper.DoScaleTweenOnClickAndLongPress(thisBuyBtn, () =>
+        //        UnicornTweenHelper.DoScaleTweenOnClickAndLongPress(thisBuyBtn, () =>
         //        {
         //            m1402IntHelp = moneyHelp;
         //            m1402Unit = recharge.unit;
@@ -445,44 +445,44 @@ namespace XFramework
         //        //return;
         //    }
 
-        //    //ResourcesSingleton.Instance.UserInfo.RoleAssets.UsBill += m1402IntHelp;
+        //    //ResourcesSingletonOld.Instance.UserInfo.RoleAssets.UsBill += m1402IntHelp;
         //    Vector3 vector3 = new Vector3();
         //    vector3.x = 3;
         //    vector3.y = 0;
         //    vector3.z = m1402IntHelp;
-        //    JiYuUIHelper.AddReward(vector3, true).Forget();
+        //    UnicornUIHelper.AddReward(vector3, true).Forget();
 
-        //    if (ResourcesSingleton.Instance.shopInit.shopHelpDic[1402][m1402IdHelp][1] > 0)
+        //    if (ResourcesSingletonOld.Instance.shopInit.shopHelpDic[1402][m1402IdHelp][1] > 0)
         //    {
-        //        ResourcesSingleton.Instance.shopInit.shopHelpDic[1402][m1402IdHelp][1] -= 1;
+        //        ResourcesSingletonOld.Instance.shopInit.shopHelpDic[1402][m1402IdHelp][1] -= 1;
         //    }
-        //    else if (ResourcesSingleton.Instance.shopInit.shopHelpDic[1402][m1402IdHelp][2] > 0)
+        //    else if (ResourcesSingletonOld.Instance.shopInit.shopHelpDic[1402][m1402IdHelp][2] > 0)
         //    {
-        //        ResourcesSingleton.Instance.shopInit.shopHelpDic[1402][m1402IdHelp][2] -= 1;
+        //        ResourcesSingletonOld.Instance.shopInit.shopHelpDic[1402][m1402IdHelp][2] -= 1;
         //    }
         //    else if (m1402Unit == 2)
         //    {
-        //        ResourcesSingleton.Instance.UserInfo.RoleAssets.Bitcoin -= m1402PriceHelp;
+        //        ResourcesSingletonOld.Instance.UserInfo.RoleAssets.Bitcoin -= m1402PriceHelp;
         //    }
 
-        //    if (ResourcesSingleton.Instance.shopInit.shopHelpDic[1402][m1402IdHelp][1] > 0)
+        //    if (ResourcesSingletonOld.Instance.shopInit.shopHelpDic[1402][m1402IdHelp][1] > 0)
         //    {
         //        m1402UI.GetFromReference(UISubPanel_Shop_item.KImg_Left).SetActive(false);
         //        m1402UI.GetFromReference(UISubPanel_Shop_item.KText_Right).GetTextMeshPro().SetTMPText(
         //            tblanguage.Get("common_free_text").current + "("
-        //                                                       + ResourcesSingleton.Instance.shopInit.shopHelpDic[1402][
+        //                                                       + ResourcesSingletonOld.Instance.shopInit.shopHelpDic[1402][
         //                                                           m1402IdHelp][1].ToString()
         //                                                       + ")");
         //        RedPointMgr.instance.SetState("ShopRoot", Recharge.tagFunc.ToString() + Recharge.id.ToString(),
         //            RedPointState.Show, 1);
         //    }
-        //    else if (ResourcesSingleton.Instance.shopInit.shopHelpDic[1402][m1402IdHelp][2] > 0)
+        //    else if (ResourcesSingletonOld.Instance.shopInit.shopHelpDic[1402][m1402IdHelp][2] > 0)
         //    {
         //        m1402UI.GetFromReference(UISubPanel_Shop_item.KImg_Left).SetActive(true);
         //        m1402UI.GetFromReference(UISubPanel_Shop_item.KImg_Left).GetImage().SetSprite("Advert", false);
         //        m1402UI.GetFromReference(UISubPanel_Shop_item.KText_Right).GetTextMeshPro().SetTMPText(
         //            tblanguage.Get("common_free_text").current + "("
-        //                                                       + ResourcesSingleton.Instance.shopInit.shopHelpDic[1402][
+        //                                                       + ResourcesSingletonOld.Instance.shopInit.shopHelpDic[1402][
         //                                                           m1402IdHelp][2].ToString()
         //                                                       + ")");
         //        RedPointMgr.instance.SetState("ShopRoot", Recharge.tagFunc.ToString() + Recharge.id.ToString(),
@@ -499,7 +499,7 @@ namespace XFramework
         //            RedPointState.Hide, 0);
         //    }
 
-        //    ResourcesSingleton.Instance.UpdateResourceUI();
+        //    ResourcesSingletonOld.Instance.UpdateResourceUI();
         //}
 
         ///// <summary>
@@ -512,7 +512,7 @@ namespace XFramework
         //        .SetTMPText(tblanguage.Get(tbtag_func[tagID].name).current);
         //    this.GetFromReference(KDescText).SetActive(true);
         //    this.GetFromReference(KDescText).GetTextMeshPro().SetTMPText(tblanguage.Get("func_1301_desc").current);
-        //    int giftsHelp = ResourcesSingleton.Instance.levelInfo.maxLockChapterID;
+        //    int giftsHelp = ResourcesSingletonOld.Instance.levelInfo.maxLockChapterID;
         //    if (giftsHelp == 0)
         //    {
         //        giftsHelp = tbchapter[1].id;
@@ -526,13 +526,13 @@ namespace XFramework
         //    {
         //        //if (gift.tagFunc == 1301)
         //        //{
-        //        //    if (ResourcesSingleton.Instance.shopInit.shopHelpDic.TryGetValue(1301,
+        //        //    if (ResourcesSingletonOld.Instance.shopInit.shopHelpDic.TryGetValue(1301,
         //        //            out Dictionary<int, List<long>> v))
         //        //    {
-        //        //        if (ResourcesSingleton.Instance.shopInit.shopHelpDic[1301]
+        //        //        if (ResourcesSingletonOld.Instance.shopInit.shopHelpDic[1301]
         //        //            .TryGetValue(gift.id, out List<long> value))
         //        //        {
-        //        //            if (ResourcesSingleton.Instance.shopInit.shopHelpDic[1301][gift.id][2] > 0)
+        //        //            if (ResourcesSingletonOld.Instance.shopInit.shopHelpDic[1301][gift.id][2] > 0)
         //        //            {
         //        //                giftList.Add(gift);
         //        //                giftHelp++;
@@ -582,7 +582,7 @@ namespace XFramework
 
         //        float BgW = ui.GetFromReference(UISubPanel_Shop_ChapterGift.KGiftItemBg).GetRectTransform().Width();
         //        float reW = BgW / 6;
-        //        List<Vector3> removeEmptList = JiYuUIHelper.RewardRemoveEmptiness(gift.reward);
+        //        List<Vector3> removeEmptList = UnicornUIHelper.RewardRemoveEmptiness(gift.reward);
         //        int rewardCount = removeEmptList.Count;
         //        //var parent2 = this.GetParent<UIPanel_Shop>();
         //        for (int i = 0; i < rewardCount; i++)
@@ -597,14 +597,14 @@ namespace XFramework
         //            //Debug.Log("thisUiReW" + thisUiReW.ToString());
         //            uiRe.GetRectTransform()
         //                .SetScale(new Vector2((reW - rewardW) / thisUiReW, (reW - rewardW) / thisUiReW));
-        //            JiYuUIHelper.SetRewardOnClick(removeEmptList[ihelp], uiRe);
+        //            UnicornUIHelper.SetRewardOnClick(removeEmptList[ihelp], uiRe);
         //            //uiRe.GetFromReference(UICommon_RewardItem.KBtn_Item).GetXButton().OnClick.Add(() =>
         //            //{
         //            //    //parent2.DisableTipPanel();
         //            //    var tipUI = UIHelper.Create<Vector3>(UIType.UICommon_ItemTips, gift.reward[ihelp]) as
         //            //            UICommon_ItemTips;
 
-        //            //    JiYuUIHelper.SetTipPos(uiRe, tipUI, UICommon_ItemTips.KContent,
+        //            //    UnicornUIHelper.SetTipPos(uiRe, tipUI, UICommon_ItemTips.KContent,
         //            //        UICommon_ItemTips.KImg_Arrow);
 
         //            //    SetItemTipPanel(tipUI);
@@ -630,7 +630,7 @@ namespace XFramework
         //        j = 0;
 
         //        var buyBtn = ui.GetFromReference(UISubPanel_Shop_ChapterGift.KBtn_Common);
-        //        JiYuTweenHelper.DoScaleTweenOnClickAndLongPress(buyBtn, () =>
+        //        UnicornTweenHelper.DoScaleTweenOnClickAndLongPress(buyBtn, () =>
         //        {
         //            giftId = gift.id;
         //            WebMessageHandlerOld.Instance.AddHandler(11, 5, OnBuyGiftResponse);
@@ -673,11 +673,11 @@ namespace XFramework
         //    var parent = this.GetParent<UIPanel_Shop>();
         //    if (giftResult.ResidueNum <= 0)
         //    {
-        //        if (ResourcesSingleton.Instance.shopInit.shopHelpDic.ContainsKey(1301))
+        //        if (ResourcesSingletonOld.Instance.shopInit.shopHelpDic.ContainsKey(1301))
         //        {
-        //            if (ResourcesSingleton.Instance.shopInit.shopHelpDic[1301].ContainsKey(giftId))
+        //            if (ResourcesSingletonOld.Instance.shopInit.shopHelpDic[1301].ContainsKey(giftId))
         //            {
-        //                ResourcesSingleton.Instance.shopInit.shopHelpDic[1301].Remove(giftId);
+        //                ResourcesSingletonOld.Instance.shopInit.shopHelpDic[1301].Remove(giftId);
         //            }
         //        }
 
@@ -713,7 +713,7 @@ namespace XFramework
         //    this.GetFromReference(KDescText).SetActive(true);
         //    this.GetFromReference(KDescText).GetTextMeshPro().SetTMPText(
         //        tblanguage.Get("shop_daily_countdown_text").current
-        //        + JiYuUIHelper.GeneralTimeFormat(new int4(2, 3, 2, 1), TimeHelper.GetToTomorrowTime()));
+        //        + UnicornUIHelper.GeneralTimeFormat(new int4(2, 3, 2, 1), TimeHelper.GetToTomorrowTime()));
         //    Init1201Help(tagID);
         //}
 
@@ -727,14 +727,14 @@ namespace XFramework
         //        itemList.Add(ui);
         //        ui.GetFromReference(UISubPanel_Shop_item.KItemTitleBg).SetActive(false);
         //        int ihelp = i;
-        //        if (ResourcesSingleton.Instance.shopInit.shopHelpDic.ContainsKey(tagID))
+        //        if (ResourcesSingletonOld.Instance.shopInit.shopHelpDic.ContainsKey(tagID))
         //        {
         //            //Debug.Log("tagID" + tagID);
         //            //Debug.Log("i" + i);
-        //            int sign = (int)ResourcesSingleton.Instance.shopInit.shopHelpDic[tagID][i][0];
+        //            int sign = (int)ResourcesSingletonOld.Instance.shopInit.shopHelpDic[tagID][i][0];
         //            //Debug.Log("sign" + sign);
-        //            int times = (int)ResourcesSingleton.Instance.shopInit.shopHelpDic[tagID][i][1];
-        //            long upTime = ResourcesSingleton.Instance.shopInit.shopHelpDic[tagID][i][2];
+        //            int times = (int)ResourcesSingletonOld.Instance.shopInit.shopHelpDic[tagID][i][1];
+        //            long upTime = ResourcesSingletonOld.Instance.shopInit.shopHelpDic[tagID][i][2];
         //            if (tbshop_Daily.DataMap.ContainsKey(sign))
         //            {
         //                foreach (var r in tbshop_Daily[sign].reward)
@@ -742,7 +742,7 @@ namespace XFramework
         //                    var ReUi = UIHelper.Create(UIType.UICommon_RewardItem, r,
         //                        ui.GetFromReference(UISubPanel_Shop_item.KRewardItemPos).GameObject.transform);
         //                    ui.GetFromReference(UISubPanel_Shop_item.KRewardText).GetTextMeshPro()
-        //                        .SetTMPText(JiYuUIHelper.GetRewardName(r));
+        //                        .SetTMPText(UnicornUIHelper.GetRewardName(r));
         //                }
 
         //                ui.GetFromReference(UISubPanel_Shop_item.KRewardText).SetActive(true);
@@ -773,7 +773,7 @@ namespace XFramework
         //                        RedPointMgr.instance.Init("ShopRoot", "12011",
         //                            async (RedPointState state, int data) =>
         //                            {
-        //                                if (JiYuUIHelper.TryGetUI(UIType.UISubPanel_Shop_Tag1, out UI uui))
+        //                                if (UnicornUIHelper.TryGetUI(UIType.UISubPanel_Shop_Tag1, out UI uui))
         //                                {
         //                                    if (state == RedPointState.Show)
         //                                    {
@@ -852,7 +852,7 @@ namespace XFramework
         //                            ui.GetFromReference(UISubPanel_Shop_item.KBtn_Common).SetActive(false);
         //                            ui.GetFromReference(UISubPanel_Shop_item.KStateText).SetActive(true);
         //                            ui.GetFromReference(UISubPanel_Shop_item.KStateText).GetTextMeshPro()
-        //                                .SetTMPText(JiYuUIHelper.GeneralTimeFormat(new int4(1, 2, 1, 1), cdTime) + "\n"
+        //                                .SetTMPText(UnicornUIHelper.GeneralTimeFormat(new int4(1, 2, 1, 1), cdTime) + "\n"
         //                                    + tblanguage.Get("shop_daily_1_countdown_text").current);
         //                            inCD12011 = true;
         //                        }
@@ -906,7 +906,7 @@ namespace XFramework
         //            //int ihelp = i;
         //            if (ihelp != 1)
         //            {
-        //                JiYuTweenHelper.DoScaleTweenOnClickAndLongPress(BuyBtn, () =>
+        //                UnicornTweenHelper.DoScaleTweenOnClickAndLongPress(BuyBtn, () =>
         //                {
         //                    var uis = UIHelper.Create(UIType.UICommon_Sec_Confirm);
         //                    uis.GetFromReference(UICommon_Sec_Confirm.KText_Return).GetTextMeshPro()
@@ -917,7 +917,7 @@ namespace XFramework
         //                    string rewardHelp = "";
         //                    foreach (var r in tbshop_Daily[sign].reward)
         //                    {
-        //                        rewardHelp += JiYuUIHelper.GetRewardName(r);
+        //                        rewardHelp += UnicornUIHelper.GetRewardName(r);
         //                    }
 
         //                    if (tbshop_Daily[sign].cost[0][0] == 3)
@@ -937,27 +937,27 @@ namespace XFramework
         //                    textHelp = textHelp.Replace("{1}", rewardHelp);
         //                    uis.GetFromReference(UICommon_Sec_Confirm.KText).GetTextMeshPro().SetTMPText(textHelp);
         //                    var secBuyBtn = uis.GetFromReference(UICommon_Sec_Confirm.KBtn_Buy);
-        //                    JiYuTweenHelper.DoScaleTweenOnClickAndLongPress(secBuyBtn, () =>
+        //                    UnicornTweenHelper.DoScaleTweenOnClickAndLongPress(secBuyBtn, () =>
         //                    {
         //                        IntValue intValue = new IntValue();
         //                        intValue.Value = sign;
         //                        pos1201 = ihelp;
         //                        secUI = uis;
-        //                        WebMessageHandlerOld.Instance.AddHandler(CMD.SHOP1201, OnDailyBuyResponse);
-        //                        NetWorkManager.Instance.SendMessage(CMD.SHOP1201, intValue);
+        //                        WebMessageHandlerOld.Instance.AddHandler(CMDOld.SHOP1201, OnDailyBuyResponse);
+        //                        NetWorkManager.Instance.SendMessage(CMDOld.SHOP1201, intValue);
         //                    });
         //                });
         //            }
         //            else
         //            {
-        //                JiYuTweenHelper.DoScaleTweenOnClickAndLongPress(BuyBtn, () =>
+        //                UnicornTweenHelper.DoScaleTweenOnClickAndLongPress(BuyBtn, () =>
         //                {
         //                    IntValue intValue = new IntValue();
         //                    intValue.Value = sign;
         //                    pos1201 = ihelp;
         //                    secUI = null;
-        //                    WebMessageHandlerOld.Instance.AddHandler(CMD.SHOP1201, OnDailyBuyResponse);
-        //                    NetWorkManager.Instance.SendMessage(CMD.SHOP1201, intValue);
+        //                    WebMessageHandlerOld.Instance.AddHandler(CMDOld.SHOP1201, OnDailyBuyResponse);
+        //                    NetWorkManager.Instance.SendMessage(CMDOld.SHOP1201, intValue);
         //                });
         //            }
         //        }
@@ -965,7 +965,7 @@ namespace XFramework
 
         //    PosSort();
         //    await UniTask.Delay(1000 * (int)TimeHelper.GetToTomorrowTime());
-        //    if (JiYuUIHelper.TryGetUI(UIType.UISubPanel_Shop_Tag1, out UI ui1))
+        //    if (UnicornUIHelper.TryGetUI(UIType.UISubPanel_Shop_Tag1, out UI ui1))
         //    {
         //        //发送查询
         //        WebMessageHandlerOld.Instance.AddHandler(11, 6, OnDailyShopResponse);
@@ -976,13 +976,13 @@ namespace XFramework
         //private async void JiyuRedPointHelp1201()
         //{
         //    await UniTask.Delay(1000 * ((int)tbconstant.Get("shop_daily_ad_cd").constantValue + 1));
-        //    ResourcesSingleton.Instance.UpdateResourceUI();
+        //    ResourcesSingletonOld.Instance.UpdateResourceUI();
         //    Debug.Log("are you ready?");
         //}
 
         //private void OnDailyBuyResponse(object sender, WebMessageHandlerOld.Execute e)
         //{
-        //    WebMessageHandlerOld.Instance.RemoveHandler(CMD.SHOP1201, OnDailyBuyResponse);
+        //    WebMessageHandlerOld.Instance.RemoveHandler(CMDOld.SHOP1201, OnDailyBuyResponse);
         //    StringValue stringValue = new StringValue();
         //    stringValue.MergeFrom(e.data);
         //    Debug.Log(e);
@@ -1000,13 +1000,13 @@ namespace XFramework
         //            secUI.Dispose();
         //        }
 
-        //        int sign = (int)ResourcesSingleton.Instance.shopInit.shopHelpDic[1201][pos1201][0];
+        //        int sign = (int)ResourcesSingletonOld.Instance.shopInit.shopHelpDic[1201][pos1201][0];
         //        if (secUI != null)
         //        {
         //            List<Vector3> vector3s = new List<Vector3>();
         //            foreach (var r in tbshop_Daily[sign].reward)
         //            {
-        //                //JiYuUIHelper.AddReward(r, true);
+        //                //UnicornUIHelper.AddReward(r, true);
         //                vector3s.Add(r);
         //            }
 
@@ -1017,21 +1017,21 @@ namespace XFramework
         //        {
         //            foreach (var r in tbshop_Daily[sign].reward)
         //            {
-        //                JiYuUIHelper.AddReward(r, true);
+        //                UnicornUIHelper.AddReward(r, true);
         //            }
         //        }
 
         //        foreach (var c in tbshop_Daily[sign].cost)
         //        {
-        //            JiYuUIHelper.TryReduceReward(c);
+        //            UnicornUIHelper.TryReduceReward(c);
         //        }
 
-        //        ResourcesSingleton.Instance.shopInit.shopHelpDic[1201][pos1201][1] += 1;
-        //        ResourcesSingleton.Instance.shopInit.shopHelpDic[1201][pos1201][2] = TimeHelper.ClientNow() / 1000;
+        //        ResourcesSingletonOld.Instance.shopInit.shopHelpDic[1201][pos1201][1] += 1;
+        //        ResourcesSingletonOld.Instance.shopInit.shopHelpDic[1201][pos1201][2] = TimeHelper.ClientNow() / 1000;
         //        inCD12011 = false;
         //        DestroyItem();
         //        Init1201Help(1201);
-        //        ResourcesSingleton.Instance.UpdateResourceUI();
+        //        ResourcesSingletonOld.Instance.UpdateResourceUI();
         //        JiyuRedPointHelp1201();
         //    }
         //}
@@ -1051,30 +1051,30 @@ namespace XFramework
 
         //    foreach (var d in dailyBuys.Values)
         //    {
-        //        //ResourcesSingleton.Instance.shopInit.shopHelpDic[1201][];
+        //        //ResourcesSingletonOld.Instance.shopInit.shopHelpDic[1201][];
         //        DailyBuy daily = new DailyBuy();
         //        daily.MergeFrom(d);
         //        List<long> dailyHelp = new List<long>();
         //        dailyHelp.Add(daily.Sign);
         //        dailyHelp.Add(daily.BuyCount);
         //        dailyHelp.Add(daily.UpTime);
-        //        ResourcesSingleton.Instance.shopInit.shopHelpDic[1201][tbshop_Daily.Get(daily.Sign).pos] = dailyHelp;
+        //        ResourcesSingletonOld.Instance.shopInit.shopHelpDic[1201][tbshop_Daily.Get(daily.Sign).pos] = dailyHelp;
         //    }
 
-        //    if (JiYuUIHelper.TryGetUI(UIType.UISubPanel_Shop_Tag1, out UI uuii))
+        //    if (UnicornUIHelper.TryGetUI(UIType.UISubPanel_Shop_Tag1, out UI uuii))
         //    {
         //        inCD12011 = false;
         //        DestroyItem();
         //        Init1201Help(1201);
         //    }
 
-        //    ResourcesSingleton.Instance.UpdateResourceUI();
+        //    ResourcesSingletonOld.Instance.UpdateResourceUI();
         //}
 
         //private void Update1201()
         //{
         //    long timeS = TimeHelper.GetToTomorrowTime();
-        //    string timeStr = JiYuUIHelper.GeneralTimeFormat(new int4(2, 3, 2, 1), timeS);
+        //    string timeStr = UnicornUIHelper.GeneralTimeFormat(new int4(2, 3, 2, 1), timeS);
         //    this.GetFromReference(KDescText).GetTextMeshPro()
         //        .SetTMPText(tblanguage.Get("shop_daily_countdown_text").current + timeStr);
         //    if (inCD12011)
@@ -1084,19 +1084,19 @@ namespace XFramework
         //        if (cdTime > 0)
         //        {
         //            cd12011ui.GetFromReference(UISubPanel_Shop_item.KStateText).GetTextMeshPro()
-        //                .SetTMPText(JiYuUIHelper.GeneralTimeFormat(new int4(1, 2, 1, 1), cdTime)
+        //                .SetTMPText(UnicornUIHelper.GeneralTimeFormat(new int4(1, 2, 1, 1), cdTime)
         //                            + "\n" + tblanguage.Get("shop_daily_1_countdown_text").current);
         //        }
         //        else
         //        {
         //            inCD12011 = false;
-        //            int sign = (int)ResourcesSingleton.Instance.shopInit.shopHelpDic[tagID12011][i12011][0];
-        //            int times = (int)ResourcesSingleton.Instance.shopInit.shopHelpDic[tagID12011][i12011][1];
+        //            int sign = (int)ResourcesSingletonOld.Instance.shopInit.shopHelpDic[tagID12011][i12011][0];
+        //            int times = (int)ResourcesSingletonOld.Instance.shopInit.shopHelpDic[tagID12011][i12011][1];
         //            //判断一下
         //            if (times < tbshop_Daily[sign].times)
         //            {
         //                RedPointMgr.instance.SetState("ShopRoot", "12011", RedPointState.Show);
-        //                ResourcesSingleton.Instance.UpdateResourceUI();
+        //                ResourcesSingletonOld.Instance.UpdateResourceUI();
         //                cd12011ui.GetFromReference(UISubPanel_Shop_item.KStateText).SetActive(false);
         //                if (times < tbshop_Daily[sign].freeRule[0][0] - tbshop_Daily[sign].freeRule[0][1])
         //                {

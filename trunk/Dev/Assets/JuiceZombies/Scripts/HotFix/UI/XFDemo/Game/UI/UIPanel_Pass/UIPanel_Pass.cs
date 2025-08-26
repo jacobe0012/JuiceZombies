@@ -1,5 +1,5 @@
 ﻿//---------------------------------------------------------------------
-// JiYuStudio
+// UnicornStudio
 // Author: xxx
 // Time: #CreateTime#
 //---------------------------------------------------------------------
@@ -69,7 +69,7 @@ namespace XFramework
 
         public async void Initialize(int args)
         {
-            await JiYuUIHelper.InitBlur(this);
+            await UnicornUIHelper.InitBlur(this);
             activityId = args;
             InitJson();
             var pass = tbactivity.Get(activityId);
@@ -80,7 +80,7 @@ namespace XFramework
 
             WebInit();
 
-            NetWorkManager.Instance.SendMessage(CMD.QUERYPASS);
+            NetWorkManager.Instance.SendMessage(CMDOld.QUERYPASS);
 
             this.GetFromReference(KBtn_Close_Tip).SetActive(false);
             this.GetFromReference(KBtn_Close_Tip).GetXButton().OnClick?.Add(() =>
@@ -93,12 +93,12 @@ namespace XFramework
                 CloseAllTip();
                 Close();
             });
-            JiYuTweenHelper.PlayUIImageTranstionFX(this.GetFromReference(KImg_SeasonBg));
+            UnicornTweenHelper.PlayUIImageTranstionFX(this.GetFromReference(KImg_SeasonBg));
             await UniTask.Delay(200, cancellationToken: cts.Token);
-            //JiYuTweenHelper.PlayUIImageTranstionFX(this.GetFromReference(KImg_ActivationBg));
+            //UnicornTweenHelper.PlayUIImageTranstionFX(this.GetFromReference(KImg_ActivationBg));
 
-            JiYuTweenHelper.PlayUIImageSweepFX(this.GetFromReference(KImg_Activation), cts.Token, "A1DD01",
-                JiYuTweenHelper.UIDir.Left);
+            UnicornTweenHelper.PlayUIImageSweepFX(this.GetFromReference(KImg_Activation), cts.Token, "A1DD01",
+                UnicornTweenHelper.UIDir.Left);
         }
 
         void InitRedDot()
@@ -125,21 +125,21 @@ namespace XFramework
 
         private void WebInit()
         {
-            WebMessageHandlerOld.Instance.AddHandler(CMD.UNLOCKNEXTPASSLEVEL, OnUnLockNowResponse);
-            WebMessageHandlerOld.Instance.AddHandler(CMD.QUERYPASS, OnPassInfoResponse);
-            WebMessageHandlerOld.Instance.AddHandler(CMD.GETPASSREWARD, OnGetRewardResponse);
+            WebMessageHandlerOld.Instance.AddHandler(CMDOld.UNLOCKNEXTPASSLEVEL, OnUnLockNowResponse);
+            WebMessageHandlerOld.Instance.AddHandler(CMDOld.QUERYPASS, OnPassInfoResponse);
+            WebMessageHandlerOld.Instance.AddHandler(CMDOld.GETPASSREWARD, OnGetRewardResponse);
         }
 
         private void WebRemove()
         {
-            WebMessageHandlerOld.Instance.RemoveHandler(CMD.UNLOCKNEXTPASSLEVEL, OnUnLockNowResponse);
-            WebMessageHandlerOld.Instance.RemoveHandler(CMD.QUERYPASS, OnPassInfoResponse);
-            WebMessageHandlerOld.Instance.RemoveHandler(CMD.GETPASSREWARD, OnGetRewardResponse);
+            WebMessageHandlerOld.Instance.RemoveHandler(CMDOld.UNLOCKNEXTPASSLEVEL, OnUnLockNowResponse);
+            WebMessageHandlerOld.Instance.RemoveHandler(CMDOld.QUERYPASS, OnPassInfoResponse);
+            WebMessageHandlerOld.Instance.RemoveHandler(CMDOld.GETPASSREWARD, OnGetRewardResponse);
         }
 
         private void CloseTip1()
         {
-            JiYuUIHelper.DestoryItemTips();
+            UnicornUIHelper.DestoryItemTips();
             UIHelper.Remove(UIType.UICommon_PlainTextTip);
         }
 
@@ -156,7 +156,7 @@ namespace XFramework
 
         private void CloseAllTip()
         {
-            JiYuUIHelper.DestoryItemTips();
+            UnicornUIHelper.DestoryItemTips();
             GetFromReference(KCommon_ItemTips).SetActive(false);
             CloseTip1();
             CloseTip2();
@@ -190,7 +190,7 @@ namespace XFramework
             var activationBtn = this.GetFromReference(KBtn_Activation);
             promptBtn.GetXButton().RemoveAllListeners();
             activationBtn.GetXButton().RemoveAllListeners();
-            JiYuTweenHelper.DoScaleTweenOnClickAndLongPress(promptBtn, async () =>
+            UnicornTweenHelper.DoScaleTweenOnClickAndLongPress(promptBtn, async () =>
             {
                 var KText_Des = GetFromReference(UIPanel_Pass.KText_Des);
                 var desc = tblanguage.Get("battlepass_tips").current;
@@ -201,19 +201,19 @@ namespace XFramework
                 KText_Des.GetRectTransform().SetHeight(height);
                 GetFromReference(KContent).GetRectTransform().SetHeight(height + 76 * 2);
             });
-            JiYuTweenHelper.DoScaleTweenOnClickAndLongPress(activationBtn, async () =>
+            UnicornTweenHelper.DoScaleTweenOnClickAndLongPress(activationBtn, async () =>
             {
                 //CloseAllTip();
                 var tokenUI = await UIHelper.CreateAsync(UIType.UISubPanel_Pass_Token,
-                    ResourcesSingleton.Instance.gamePasses);
+                    ResourcesSingletonOld.Instance.gamePasses);
                 var tokenBuyBtn = tokenUI.GetFromReference(UISubPanel_Pass_Token.KBtn_Buy);
-                JiYuTweenHelper.DoScaleTweenOnClickAndLongPress(tokenBuyBtn,
+                UnicornTweenHelper.DoScaleTweenOnClickAndLongPress(tokenBuyBtn,
                     () =>
                     {
                         const string ShopNum = "C01";
-                        JiYuUIHelper.SendBuyMessage(ShopNum, battlePassId);
+                        UnicornUIHelper.SendBuyMessage(ShopNum, battlePassId);
 
-                        //NetWorkManager.Instance.SendMessage(CMD.GETPASSTOKEN);
+                        //NetWorkManager.Instance.SendMessage(CMDOld.GETPASSTOKEN);
                         OnBuyBtnClick();
                     });
             });
@@ -223,10 +223,10 @@ namespace XFramework
         {
             JiYuEventManager.Instance.RegisterEvent("OnShopResponse", (a) =>
             {
-                var shopNum = JiYuUIHelper.GetShopNum(a);
+                var shopNum = UnicornUIHelper.GetShopNum(a);
                 if (shopNum == "C01")
                 {
-                    NetWorkManager.Instance.SendMessage(CMD.QUERYPASS);
+                    NetWorkManager.Instance.SendMessage(CMDOld.QUERYPASS);
                     UIHelper.Remove(UIType.UISubPanel_Pass_Token);
                 }
             });
@@ -244,7 +244,7 @@ namespace XFramework
         //
         //     Debug.Log(stringValue);
         //     UIHelper.CreateAsync(UIType.UICommon_Resource, tblanguage.Get("text_activate_success").current);
-        //     NetWorkManager.Instance.SendMessage(CMD.QUERYPASS);
+        //     NetWorkManager.Instance.SendMessage(CMDOld.QUERYPASS);
         //     UIHelper.Remove(UIType.UISubPanel_Pass_Token);
         // }
 
@@ -287,8 +287,8 @@ namespace XFramework
         {
             var KText_Time = GetFromReference(UIPanel_Pass.KText_Time);
             string cdStr = tblanguage.Get("battlepass_season_time").current;
-            long clientT = JiYuUIHelper.GetServerTimeStamp(true);
-            if (!JiYuUIHelper.TryGetRemainingTime(clientT, endTime, out var timeStr))
+            long clientT = UnicornUIHelper.GetServerTimeStamp(true);
+            if (!UnicornUIHelper.TryGetRemainingTime(clientT, endTime, out var timeStr))
             {
                 Close();
             }
@@ -303,7 +303,7 @@ namespace XFramework
             //int level = PassLevel(battlePassExp);
             var KText_Actiivation = this.GetFromReference(UIPanel_Pass.KText_Actiivation);
             var KBtn_Activation = this.GetFromReference(UIPanel_Pass.KBtn_Activation);
-            if (ResourcesSingleton.Instance.gamePasses[0].Type == 0)
+            if (ResourcesSingletonOld.Instance.gamePasses[0].Type == 0)
             {
                 KText_Actiivation.GetTextMeshPro().SetTMPText(
                     tblanguage.Get("common_state_activate").current +
@@ -321,12 +321,12 @@ namespace XFramework
             var KText_Level = GetFromReference(UIPanel_Pass.KText_Level);
 
             var KText_Progress = GetFromReference(UIPanel_Pass.KText_Progress);
-            foreach(var pass in ResourcesSingleton.Instance.gamePasses)
+            foreach(var pass in ResourcesSingletonOld.Instance.gamePasses)
             {
                 Log.Debug($"gamePass:id{pass.Level},exp:{pass.Exp}",Color.cyan);
             }
            
-            JiYuUIHelper.ShowPassLevelExp(ResourcesSingleton.Instance.gamePasses[0].Exp, KImg_Progress, KText_Level,
+            UnicornUIHelper.ShowPassLevelExp(ResourcesSingletonOld.Instance.gamePasses[0].Exp, KImg_Progress, KText_Level,
                 KText_Progress);
             // string expStr;
             // if (level < tbbattlepass_exp.DataList.Count)
@@ -426,7 +426,7 @@ namespace XFramework
             });
 
             BoxSet();
-            //JiYuUIHelper.ForceRefreshLayout(this.GetFromReference(KPos_Item));
+            //UnicornUIHelper.ForceRefreshLayout(this.GetFromReference(KPos_Item));
         }
 
         private void AllItemAndBoxSet()
@@ -444,7 +444,7 @@ namespace XFramework
 
         private void ItemSet(UI itemui, int thisLevel, int level)
         {
-            JiYuUIHelper.SetRewardOnClick(rewardDic[thisLevel].reward1[0],
+            UnicornUIHelper.SetRewardOnClick(rewardDic[thisLevel].reward1[0],
                 itemui.GetFromReference(UISubPanel_Pass_Item.KReward_Left));
             // itemui.GetFromReference(UISubPanel_Pass_Item.KReward_Left), () =>
             // {
@@ -461,7 +461,7 @@ namespace XFramework
             //         }
             //     }
             // });
-            JiYuUIHelper.SetRewardOnClick(rewardDic[thisLevel].reward2[0],
+            UnicornUIHelper.SetRewardOnClick(rewardDic[thisLevel].reward2[0],
                 itemui.GetFromReference(UISubPanel_Pass_Item.KReward_Right));
             // {
             //     CloseTip2();
@@ -523,7 +523,7 @@ namespace XFramework
             if (level >= thisLevel)
             {
                 //itemui.GetFromReference(UISubPanel_Pass_Item.KImg_Level_Lock).SetActive(false);
-                if (ResourcesSingleton.Instance.gamePasses[thisLevel - 1].ItemStatus == 0)
+                if (ResourcesSingletonOld.Instance.gamePasses[thisLevel - 1].ItemStatus == 0)
                 {
                     itemui.GetFromReference(UISubPanel_Pass_Item.KImg_Received_Left).SetActive(false);
                     itemui.GetFromReference(UISubPanel_Pass_Item.KImg_Remind_Left).SetActive(true);
@@ -536,7 +536,7 @@ namespace XFramework
                 }
 
                 itemui.GetFromReference(UISubPanel_Pass_Item.KImg_Lock_Left).SetActive(false);
-                if (ResourcesSingleton.Instance.gamePasses[0].Type == 0)
+                if (ResourcesSingletonOld.Instance.gamePasses[0].Type == 0)
                 {
                     itemui.GetFromReference(UISubPanel_Pass_Item.KImg_Lock_Right).SetActive(true);
                     itemui.GetFromReference(UISubPanel_Pass_Item.KImg_Received_Right).SetActive(false);
@@ -545,7 +545,7 @@ namespace XFramework
                 else
                 {
                     itemui.GetFromReference(UISubPanel_Pass_Item.KImg_Lock_Right).SetActive(false);
-                    if (ResourcesSingleton.Instance.gamePasses[thisLevel - 1].VipStatus == 0)
+                    if (ResourcesSingletonOld.Instance.gamePasses[thisLevel - 1].VipStatus == 0)
                     {
                         itemui.GetFromReference(UISubPanel_Pass_Item.KImg_Received_Right).SetActive(false);
                         itemui.GetFromReference(UISubPanel_Pass_Item.KImg_Remind_Right).SetActive(true);
@@ -583,14 +583,14 @@ namespace XFramework
             int battlepass_exp_diamond_ratio = tbconstant.Get("battlepass_exp_diamond_ratio").constantValue;
             var cost = new Vector3(2, 0, battlepass_exp_diamond_ratio * 20);
             string costStr =
-                $"{JiYuUIHelper.GetRewardTextIconName(cost)}{(int)cost.z}";
+                $"{UnicornUIHelper.GetRewardTextIconName(cost)}{(int)cost.z}";
 
             itemui.GetFromReference(UISubPanel_Pass_Item.KText_UnlockNow).GetTextMeshPro()
                 .SetTMPText(costStr);
 
-            JiYuUIHelper.SetRewardIconAndCountText(rewardDic[thisLevel].reward1[0],
+            UnicornUIHelper.SetRewardIconAndCountText(rewardDic[thisLevel].reward1[0],
                 itemui.GetFromReference(UISubPanel_Pass_Item.KReward_Left));
-            JiYuUIHelper.SetRewardIconAndCountText(rewardDic[thisLevel].reward2[0],
+            UnicornUIHelper.SetRewardIconAndCountText(rewardDic[thisLevel].reward2[0],
                 itemui.GetFromReference(UISubPanel_Pass_Item.KReward_Right));
         }
 
@@ -605,10 +605,10 @@ namespace XFramework
                 return;
             }
 
-            var rewards = JiYuUIHelper.TurnStrReward2List(stringValueList.Values);
-            JiYuUIHelper.AddReward(rewards, true);
+            var rewards = UnicornUIHelper.TurnStrReward2List(stringValueList.Values);
+            UnicornUIHelper.AddReward(rewards, true);
 
-            NetWorkManager.Instance.SendMessage(CMD.QUERYPASS);
+            NetWorkManager.Instance.SendMessage(CMDOld.QUERYPASS);
         }
 
         private void BoxSet()
@@ -624,7 +624,7 @@ namespace XFramework
             int normalExpMax = tbbattlepass_exp.DataList[tbbattlepass_exp.DataList.Count - 1].exp;
             float progressHelp = 1.0f;
             int leftExpHelp = 0;
-            int receiveCount = ResourcesSingleton.Instance.gamePasses[ResourcesSingleton.Instance.gamePasses.Count - 1]
+            int receiveCount = ResourcesSingletonOld.Instance.gamePasses[ResourcesSingletonOld.Instance.gamePasses.Count - 1]
                 .ReceiveCount;
 
             int rightExpHelp = tbconstant.Get("battlepass_reward_more_once_exp").constantValue;
@@ -665,15 +665,15 @@ namespace XFramework
                 (1 - progressHelp));
 
             var boxBtn = boxUI.GetFromReference(UISubPanel_Pass_Box.KBtn_Box);
-            JiYuTweenHelper.DoScaleTweenOnClickAndLongPress(boxBtn, async () =>
+            UnicornTweenHelper.DoScaleTweenOnClickAndLongPress(boxBtn, async () =>
             {
                 if (!canGetBox)
                 {
                     CloseTip1();
                     var tipUI = await UIHelper.CreateAsync(UIType.UICommon_Reward_Tip2);
                     List<Vector3> vector3s = new List<Vector3>();
-                    var version = tbactivity.Get(ResourcesSingleton.Instance.gamePasses[0].Version).link;
-                    if (ResourcesSingleton.Instance.gamePasses[0].Type == 0)
+                    var version = tbactivity.Get(ResourcesSingletonOld.Instance.gamePasses[0].Version).link;
+                    if (ResourcesSingletonOld.Instance.gamePasses[0].Type == 0)
                     {
                         //free
                         vector3s = tbbattlepass.Get(version).rewardMore1;
@@ -686,7 +686,7 @@ namespace XFramework
 
                     int reCount = vector3s.Count;
                     tipUI.GetRectTransform().SetWidth(reCount * 156);
-                    JiYuUIHelper.SetTipPos(boxUI.GetFromReference(UISubPanel_Pass_Box.KPos_Btn)
+                    UnicornUIHelper.SetTipPos(boxUI.GetFromReference(UISubPanel_Pass_Box.KPos_Btn)
                         , tipUI, UICommon_Reward_Tip2.KBg, UICommon_Reward_Tip2.KImg_PolygonDown,
                         UICommon_Reward_Tip2.KImg_PolygonUp);
                     var bgList = tipUI.GetFromReference(UICommon_Reward_Tip2.KBg).GetList();
@@ -696,11 +696,11 @@ namespace XFramework
                         var reui = await bgList.CreateWithUITypeAsync<Vector3>(UIType.UICommon_RewardItem, vector3s[i],
                             false);
                         reui.GetRectTransform().SetScale2(0.85f);
-                        JiYuUIHelper.SetRewardOnClick(vector3s[i], reui);
+                        UnicornUIHelper.SetRewardOnClick(vector3s[i], reui);
                         //() => { this.GetFromReference(KBtn_Close_Tip).SetActive(true); });
                     }
 
-                    JiYuUIHelper.ForceRefreshLayout(tipUI.GetFromReference(UICommon_Reward_Tip2.KBg));
+                    UnicornUIHelper.ForceRefreshLayout(tipUI.GetFromReference(UICommon_Reward_Tip2.KBg));
                 }
                 else
                 {
@@ -712,7 +712,7 @@ namespace XFramework
                         moreLevel = timeMax;
                     }
 
-                    if (ResourcesSingleton.Instance.gamePasses[0].Type == 0)
+                    if (ResourcesSingletonOld.Instance.gamePasses[0].Type == 0)
                     {
                         //free
                         freeOrVip = 2;
@@ -727,7 +727,7 @@ namespace XFramework
                     intValueList.Values.Add(moreLevel +
                                             tbbattlepass_exp.DataList[tbbattlepass_exp.DataList.Count - 1].id);
                     intValueList.Values.Add(freeOrVip);
-                    NetWorkManager.Instance.SendMessage(CMD.GETPASSREWARD, intValueList);
+                    NetWorkManager.Instance.SendMessage(CMDOld.GETPASSREWARD, intValueList);
                 }
             });
         }
@@ -745,7 +745,7 @@ namespace XFramework
             int level = PassLevel(battlePassExp);
             if (level < tbbattlepass_exp.DataList.Count)
             {
-                JiYuTweenHelper.DoScaleTweenOnClickAndLongPress(unLockBtn, () =>
+                UnicornTweenHelper.DoScaleTweenOnClickAndLongPress(unLockBtn, () =>
                 {
                     CloseTip1();
                     var confirmUI = UIHelper.Create(UIType.UICommon_Sec_Confirm);
@@ -758,9 +758,9 @@ namespace XFramework
                         tokenExp.ToString() + tblanguage.Get(tbuser_variable.Get(14).name).current);
                     confirmUI.GetFromReference(UICommon_Sec_Confirm.KText).GetTextMeshPro().SetTMPText(str1);
                     var buyBtn = confirmUI.GetFromReference(UICommon_Sec_Confirm.KBtn_Buy);
-                    JiYuTweenHelper.DoScaleTweenOnClickAndLongPress(buyBtn, () =>
+                    UnicornTweenHelper.DoScaleTweenOnClickAndLongPress(buyBtn, () =>
                     {
-                        NetWorkManager.Instance.SendMessage(CMD.UNLOCKNEXTPASSLEVEL);
+                        NetWorkManager.Instance.SendMessage(CMDOld.UNLOCKNEXTPASSLEVEL);
                         confirmUI.Dispose();
                     });
                 });
@@ -781,10 +781,10 @@ namespace XFramework
             {
                 // int level = PassLevel(battlePassExp);
                 // int changeGems = (tbbattlepass_exp.Get(level + 1).exp - battlePassExp) * 2;
-                NetWorkManager.Instance.SendMessage(CMD.QUERYPASS);
-                NetWorkManager.Instance.SendMessage(CMD.PASSEXP);
-                //ResourcesSingleton.Instance.UserInfo.RoleAssets.Bitcoin -= changeGems;
-                //ResourcesSingleton.Instance.UpdateResourceUI();
+                NetWorkManager.Instance.SendMessage(CMDOld.QUERYPASS);
+                NetWorkManager.Instance.SendMessage(CMDOld.PASSEXP);
+                //ResourcesSingletonOld.Instance.UserInfo.RoleAssets.Bitcoin -= changeGems;
+                //ResourcesSingletonOld.Instance.UpdateResourceUI();
             }
             else
             {
@@ -802,19 +802,19 @@ namespace XFramework
                 return;
             }
 
-            ResourcesSingleton.Instance.gamePasses.Clear();
+            ResourcesSingletonOld.Instance.gamePasses.Clear();
             foreach (var pass in passList.Values)
             {
                 GamePass gamePass = new GamePass();
                 gamePass.MergeFrom(pass);
-                ResourcesSingleton.Instance.gamePasses.Add(gamePass);
+                ResourcesSingletonOld.Instance.gamePasses.Add(gamePass);
                 Log.Debug($"OnPass {gamePass}", Color.green);
             }
 
-            battlePassExp = ResourcesSingleton.Instance.gamePasses[ResourcesSingleton.Instance.gamePasses.Count - 1]
+            battlePassExp = ResourcesSingletonOld.Instance.gamePasses[ResourcesSingletonOld.Instance.gamePasses.Count - 1]
                 .Exp;
 
-            endTime = ResourcesSingleton.Instance.gamePasses[0].EndTime;
+            endTime = ResourcesSingletonOld.Instance.gamePasses[0].EndTime;
             if (!isInit)
             {
                 isInit = true;
@@ -827,7 +827,7 @@ namespace XFramework
             }
 
             //AllItemAndBoxSet();
-            // if (JiYuUIHelper.TryGetUI(UIType.UIPanel_Main, out UI ui))
+            // if (UnicornUIHelper.TryGetUI(UIType.UIPanel_Main, out UI ui))
             // {
             //     var uis = ui as UIPanel_Main;
             //     uis.PassUpdate();
@@ -852,7 +852,7 @@ namespace XFramework
             var rewardList = tbbattlepass_reward.DataList.Where(a => a.id == battlePassId).ToList();
             var upStr = $"{m_RedDotName}|Pos{0}";
             int redDotNum = 0;
-            int curMaxLevel = ResourcesSingleton.Instance.gamePasses.OrderByDescending(x => x.Level).First().Level;
+            int curMaxLevel = ResourcesSingletonOld.Instance.gamePasses.OrderByDescending(x => x.Level).First().Level;
 
             foreach (var battlepass in rewardList)
             {
@@ -892,7 +892,7 @@ namespace XFramework
                     .SetTMPText(tblanguage.Get("common_state_gained").current);
                 int battlepass_exp_diamond_ratio = tbconstant.Get("battlepass_exp_diamond_ratio").constantValue;
 
-                var exp = ResourcesSingleton.Instance.gamePassExp;
+                var exp = ResourcesSingletonOld.Instance.gamePassExp;
                 var explist = tbbattlepass_exp.DataList;
                 var curLevel = -1;
                 foreach (var item in explist)
@@ -911,25 +911,25 @@ namespace XFramework
 
                 var cost = new Vector3(2, 0, battlepass_exp_diamond_ratio * (tbbattlepass_exp.Get(curLevel).exp - exp));
                 string costStr =
-                    $"{JiYuUIHelper.GetRewardTextIconName(cost)}{(int)cost.z}";
+                    $"{UnicornUIHelper.GetRewardTextIconName(cost)}{(int)cost.z}";
 
                 KText_UnlockNow.GetTextMeshPro()
                     .SetTMPText(costStr);
                 var rewardL = battlepass.reward1[0];
                 var rewardR = battlepass.reward2[0];
-                JiYuUIHelper.SetRewardIconAndCountText(rewardL, KReward_Left);
-                JiYuUIHelper.SetRewardIconAndCountText(rewardR, KReward_Right);
-                var gamePass = ResourcesSingleton.Instance.gamePasses.Where(a => a.Level == battlepass.level)
+                UnicornUIHelper.SetRewardIconAndCountText(rewardL, KReward_Left);
+                UnicornUIHelper.SetRewardIconAndCountText(rewardR, KReward_Right);
+                var gamePass = ResourcesSingletonOld.Instance.gamePasses.Where(a => a.Level == battlepass.level)
                     .FirstOrDefault();
 
 
                 KBtn_UnlockNow.SetActive(false);
-                if (battlepass.level - 1 == ResourcesSingleton.Instance.gamePasses.Count)
+                if (battlepass.level - 1 == ResourcesSingletonOld.Instance.gamePasses.Count)
                 {
                     KBtn_UnlockNow.SetActive(true);
-                    JiYuTweenHelper.DoScaleTweenOnClickAndLongPress(KBtn_UnlockNow, async () =>
+                    UnicornTweenHelper.DoScaleTweenOnClickAndLongPress(KBtn_UnlockNow, async () =>
                     {
-                        JiYuUIHelper.DestoryItemTips();
+                        UnicornUIHelper.DestoryItemTips();
                         var langStr = tblanguage.Get($"battlepass_unlocknow_tips").current;
 
                         int battlepass_exp_diamond_ratio = tbconstant.Get("battlepass_exp_diamond_ratio").constantValue;
@@ -939,7 +939,7 @@ namespace XFramework
 
                         //var cost = new Vector3(2, 0, battlepass_exp_diamond_ratio * lackNum);
                         string costStr =
-                            $"{JiYuUIHelper.GetRewardTextIconName(cost)}{(int)cost.z}";
+                            $"{UnicornUIHelper.GetRewardTextIconName(cost)}{(int)cost.z}";
                         //costStr += $" {tblanguage.Get($"common_state_buy").current}";
 
 
@@ -957,16 +957,16 @@ namespace XFramework
                         KText_Buy.GetTextMeshPro().SetTMPText(costStr);
                         KText_Return.GetTextMeshPro().SetTMPText(tblanguage.Get($"common_state_cancel").current);
                         KText.GetTextMeshPro().SetTMPText(str);
-                        JiYuTweenHelper.JiYuOnClickNoAnim(KBtn_Return, () => { ui.Dispose(); });
-                        JiYuTweenHelper.JiYuOnClickNoAnim(KBtn_Buy,
+                        UnicornTweenHelper.JiYuOnClickNoAnim(KBtn_Return, () => { ui.Dispose(); });
+                        UnicornTweenHelper.JiYuOnClickNoAnim(KBtn_Buy,
                             () =>
                             {
-                                if (!JiYuUIHelper.TryReduceReward(cost))
+                                if (!UnicornUIHelper.TryReduceReward(cost))
                                 {
                                     return;
                                 }
 
-                                NetWorkManager.Instance.SendMessage(CMD.UNLOCKNEXTPASSLEVEL);
+                                NetWorkManager.Instance.SendMessage(CMDOld.UNLOCKNEXTPASSLEVEL);
                                 ui.Dispose();
                             });
                     });
@@ -983,38 +983,38 @@ namespace XFramework
                     if (gamePass.ItemStatus == 0)
                     {
                         redDotNum++;
-                        JiYuTweenHelper.DoScaleTweenOnClickAndLongPress(KBtn_ItemL, () =>
+                        UnicornTweenHelper.DoScaleTweenOnClickAndLongPress(KBtn_ItemL, () =>
                         {
                             IntValueList intValueList = new IntValueList();
                             intValueList.Values.Add(battlepass.level);
                             //1：vip 2：免费
                             intValueList.Values.Add(2);
 
-                            NetWorkManager.Instance.SendMessage(CMD.GETPASSREWARD, intValueList);
+                            NetWorkManager.Instance.SendMessage(CMDOld.GETPASSREWARD, intValueList);
                         });
                     }
                     else
                     {
-                        JiYuUIHelper.SetRewardOnClick(rewardL, KReward_Left);
+                        UnicornUIHelper.SetRewardOnClick(rewardL, KReward_Left);
                     }
 
                     var KBtn_ItemR = KReward_Right.GetFromReference(UICommon_RewardItem.KBtn_Item);
                     if (gamePass.Type == 1 && gamePass.VipStatus == 0)
                     {
                         redDotNum++;
-                        JiYuTweenHelper.DoScaleTweenOnClickAndLongPress(KBtn_ItemR, () =>
+                        UnicornTweenHelper.DoScaleTweenOnClickAndLongPress(KBtn_ItemR, () =>
                         {
                             IntValueList intValueList = new IntValueList();
                             intValueList.Values.Add(battlepass.level);
                             //1：vip 2：免费
                             intValueList.Values.Add(1);
 
-                            NetWorkManager.Instance.SendMessage(CMD.GETPASSREWARD, intValueList);
+                            NetWorkManager.Instance.SendMessage(CMDOld.GETPASSREWARD, intValueList);
                         });
                     }
                     else
                     {
-                        JiYuUIHelper.SetRewardOnClick(rewardR, KReward_Right);
+                        UnicornUIHelper.SetRewardOnClick(rewardR, KReward_Right);
                     }
 
 
@@ -1034,8 +1034,8 @@ namespace XFramework
                 }
                 else
                 {
-                    JiYuUIHelper.SetRewardOnClick(rewardL, KReward_Left);
-                    JiYuUIHelper.SetRewardOnClick(rewardR, KReward_Right);
+                    UnicornUIHelper.SetRewardOnClick(rewardL, KReward_Left);
+                    UnicornUIHelper.SetRewardOnClick(rewardR, KReward_Right);
                     KImg_Remind_Left.SetActive(false);
                     KImg_Remind_Right.SetActive(false);
                     KImg_Lock_Left.SetActive(true);
@@ -1090,13 +1090,13 @@ namespace XFramework
 
             // int totalOverExp = battlePassExp - tbbattlepass_exp.DataList[^1].exp;
             // totalOverExp = Mathf.Max(0, totalOverExp);
-            int receiveCount = ResourcesSingleton.Instance.gamePasses[0].ReceiveCount;
+            int receiveCount = ResourcesSingletonOld.Instance.gamePasses[0].ReceiveCount;
             int curOverExp = battlePassExp - tbbattlepass_exp.DataList[^1].exp -
                              receiveCount * battlepass_reward_more_once_exp;
             curOverExp = Mathf.Max(0, curOverExp);
             KText_Progress.GetTextMeshPro().SetTMPText($"{curOverExp}/{battlepass_reward_more_once_exp}");
             //constant表battlepass_reward_more_once_exp
-            JiYuUIHelper.ForceRefreshLayout(content);
+            UnicornUIHelper.ForceRefreshLayout(content);
         }
 
 

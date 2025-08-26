@@ -1,5 +1,5 @@
 //---------------------------------------------------------------------
-// JiYuStudio
+// UnicornStudio
 // Author: xxx
 // Time: #CreateTime#
 //---------------------------------------------------------------------
@@ -86,7 +86,7 @@ namespace XFramework
                 var equip_quality0 = equip_qualityConfig.Get(equip_data0.quality);
                 var quality0 = qualityConfig.Get(equip_quality0.type);
                 var equipLevel0 = 1;
-                var titleStr0 = JiYuUIHelper.GetRewardName(reward);
+                var titleStr0 = UnicornUIHelper.GetRewardName(reward);
                 KText_EquipName.GetTextMeshPro().SetTMPText(titleStr0);
                 KText_LevelNum.SetActive(true);
                 KText_LevelNum.GetTextMeshPro().SetTMPText(equipLevel0.ToString());
@@ -165,24 +165,24 @@ namespace XFramework
                     }
                 }
 
-                JiYuUIHelper.ForceRefreshLayout(KContentEquipTips);
+                UnicornUIHelper.ForceRefreshLayout(KContentEquipTips);
 
                 return;
             }
 
             //DestorySubPanel();
-            WebMessageHandlerOld.Instance.RemoveHandler(CMD.EQUIPWEARORUNWEAR, OnEquipWearResponse);
-            // WebMessageHandlerOld.Instance.RemoveHandler(CMD.EQUIPUNWEAR, OnEquipWearResponse);
-            // WebMessageHandlerOld.Instance.RemoveHandler(CMD.EQUIPWEAR, OnEquipWearResponse);
+            WebMessageHandlerOld.Instance.RemoveHandler(CMDOld.EQUIPWEARORUNWEAR, OnEquipWearResponse);
+            // WebMessageHandlerOld.Instance.RemoveHandler(CMDOld.EQUIPUNWEAR, OnEquipWearResponse);
+            // WebMessageHandlerOld.Instance.RemoveHandler(CMDOld.EQUIPWEAR, OnEquipWearResponse);
             var equip = myGameEquip.equip;
             Log.Debug($"{myGameEquip.equip.ToString()}", Color.green);
-            // WebMessageHandlerOld.Instance.AddHandler(CMD.EQUIPUNWEAR, OnEquipWearResponse);
-            // WebMessageHandlerOld.Instance.AddHandler(CMD.EQUIPWEAR, OnEquipWearResponse);
-            WebMessageHandlerOld.Instance.AddHandler(CMD.EQUIPDOWNGRADE, OnEquipUpGradeResponse);
-            WebMessageHandlerOld.Instance.AddHandler(CMD.EQUIPUPGRADE, OnEquipUpGradeResponse);
+            // WebMessageHandlerOld.Instance.AddHandler(CMDOld.EQUIPUNWEAR, OnEquipWearResponse);
+            // WebMessageHandlerOld.Instance.AddHandler(CMDOld.EQUIPWEAR, OnEquipWearResponse);
+            WebMessageHandlerOld.Instance.AddHandler(CMDOld.EQUIPDOWNGRADE, OnEquipUpGradeResponse);
+            WebMessageHandlerOld.Instance.AddHandler(CMDOld.EQUIPUPGRADE, OnEquipUpGradeResponse);
 
-            WebMessageHandlerOld.Instance.AddHandler(CMD.EQUIPALLUPGRADE, OnEquipAllUpGradeResponse);
-            //WebMessageHandlerOld.Instance.AddHandler(CMD.QUERYPROPERTY, OnQueryPropertyResponse);
+            WebMessageHandlerOld.Instance.AddHandler(CMDOld.EQUIPALLUPGRADE, OnEquipAllUpGradeResponse);
+            //WebMessageHandlerOld.Instance.AddHandler(CMDOld.QUERYPROPERTY, OnQueryPropertyResponse);
             //DestorySubPanel();
 
 
@@ -209,7 +209,7 @@ namespace XFramework
             var hex = quality.fontColor;
             var langkey = quality.name;
 
-            var titleStr = JiYuUIHelper.GetRewardName(new Vector3(11, equipId, equipQuality), true);
+            var titleStr = UnicornUIHelper.GetRewardName(new Vector3(11, equipId, equipQuality), true);
 
             //title?.GetTextMeshPro().SetTMPText(titleStr11);
             //Log.Debug($"equipLevel{equipLevel}", Color.green);
@@ -231,14 +231,14 @@ namespace XFramework
                 KText_LevelNum.GetTextMeshPro().SetTMPText(equipLevel.ToString());
             }
 
-            // JiYuTweenHelper.DoScaleTweenOnClickAndLongPress(KBtn_AllLevelUp,
-            //     () => { NetWorkManager.Instance.SendMessage(CMD.EQUIPDOWNGRADE, equip); });
+            // UnicornTweenHelper.DoScaleTweenOnClickAndLongPress(KBtn_AllLevelUp,
+            //     () => { NetWorkManager.Instance.SendMessage(CMDOld.EQUIPDOWNGRADE, equip); });
             bool isWearedPos = false;
-            isWearedPos = ResourcesSingleton.Instance.equipmentData.isWearingEquipments.ContainsKey(equip_data.posId);
+            isWearedPos = ResourcesSingletonOld.Instance.equipmentData.isWearingEquipments.ContainsKey(equip_data.posId);
             if (!isWearedPos)
             {
                 KText_Equip.GetTextMeshPro().SetTMPText(languageConfig.Get("common_state_common").current);
-                JiYuTweenHelper.DoScaleTweenOnClickAndLongPress(KBtn_Equip,
+                UnicornTweenHelper.DoScaleTweenOnClickAndLongPress(KBtn_Equip,
                     () =>
                     {
                         //Log.Debug($"PartId{equip.PartId}", Color.green);
@@ -249,14 +249,14 @@ namespace XFramework
                             EquipIds = { equip.PartId }
                         };
 
-                        NetWorkManager.Instance.SendMessage(CMD.EQUIPWEARORUNWEAR, wearReq);
-                        //NetWorkManager.Instance.SendMessage(CMD.QUERYPROPERTY);
-                        ResourcesSingleton.Instance.equipmentData.isWearingEquipments.TryAdd(equip_data.posId,
+                        NetWorkManager.Instance.SendMessage(CMDOld.EQUIPWEARORUNWEAR, wearReq);
+                        //NetWorkManager.Instance.SendMessage(CMDOld.QUERYPROPERTY);
+                        ResourcesSingletonOld.Instance.equipmentData.isWearingEquipments.TryAdd(equip_data.posId,
                             myGameEquip);
-                        ResourcesSingleton.Instance.equipmentData.equipments.TryGetValue(equipUid, out var isequip);
+                        ResourcesSingletonOld.Instance.equipmentData.equipments.TryGetValue(equipUid, out var isequip);
                         isequip.isWearing = true;
-                        JiYuUIHelper.WearOrUnWearEquipProperty(isequip.equip, true);
-                        if (JiYuUIHelper.TryGetUI(UIType.UIPanel_Equipment, out var ui))
+                        UnicornUIHelper.WearOrUnWearEquipProperty(isequip.equip, true);
+                        if (UnicornUIHelper.TryGetUI(UIType.UIPanel_Equipment, out var ui))
                         {
                             var uiscript = ui as UIPanel_Equipment;
                             uiscript.RefreshMainRedDot(equip_data.posId, UIPanel_Equipment.WearEquipType.Wear,
@@ -269,14 +269,14 @@ namespace XFramework
             }
             else
             {
-                bool isCurEquip = ResourcesSingleton.Instance.equipmentData.isWearingEquipments[equip_data.posId].equip
+                bool isCurEquip = ResourcesSingletonOld.Instance.equipmentData.isWearingEquipments[equip_data.posId].equip
                     .PartId == equipUid;
 
                 if (isCurEquip)
                 {
                     KText_Equip.GetTextMeshPro().SetTMPText(languageConfig.Get("common_state_remove").current);
 
-                    JiYuTweenHelper.DoScaleTweenOnClickAndLongPress(KBtn_Equip,
+                    UnicornTweenHelper.DoScaleTweenOnClickAndLongPress(KBtn_Equip,
                         () =>
                         {
                             //Log.Debug($"PartId{equip.PartId}", Color.green);
@@ -286,16 +286,16 @@ namespace XFramework
                                 EquipIds = { equip.PartId }
                             };
 
-                            NetWorkManager.Instance.SendMessage(CMD.EQUIPWEARORUNWEAR, wearReq);
-                            //NetWorkManager.Instance.SendMessage(CMD.EQUIPUNWEAR, uid);
-                            //NetWorkManager.Instance.SendMessage(CMD.QUERYPROPERTY);
-                            ResourcesSingleton.Instance.equipmentData.isWearingEquipments.TryRemove(equip_data.posId,
+                            NetWorkManager.Instance.SendMessage(CMDOld.EQUIPWEARORUNWEAR, wearReq);
+                            //NetWorkManager.Instance.SendMessage(CMDOld.EQUIPUNWEAR, uid);
+                            //NetWorkManager.Instance.SendMessage(CMDOld.QUERYPROPERTY);
+                            ResourcesSingletonOld.Instance.equipmentData.isWearingEquipments.TryRemove(equip_data.posId,
                                 out var f);
-                            ResourcesSingleton.Instance.equipmentData.equipments.TryGetValue(equipUid, out var isequip);
+                            ResourcesSingletonOld.Instance.equipmentData.equipments.TryGetValue(equipUid, out var isequip);
                             isequip.isWearing = false;
 
-                            JiYuUIHelper.WearOrUnWearEquipProperty(isequip.equip, false);
-                            if (JiYuUIHelper.TryGetUI(UIType.UIPanel_Equipment, out var ui))
+                            UnicornUIHelper.WearOrUnWearEquipProperty(isequip.equip, false);
+                            if (UnicornUIHelper.TryGetUI(UIType.UIPanel_Equipment, out var ui))
                             {
                                 var uiscript = ui as UIPanel_Equipment;
                                 uiscript.RefreshMainRedDot(equip_data.posId, UIPanel_Equipment.WearEquipType.UnWear,
@@ -310,11 +310,11 @@ namespace XFramework
                 else
                 {
                     KText_Equip.GetTextMeshPro().SetTMPText(languageConfig.Get("common_state_change").current);
-                    JiYuTweenHelper.DoScaleTweenOnClickAndLongPress(KBtn_Equip,
+                    UnicornTweenHelper.DoScaleTweenOnClickAndLongPress(KBtn_Equip,
                         () =>
                         {
                             Log.Debug($"PartId{equip.PartId}", Color.green);
-                            var lastuid = ResourcesSingleton.Instance.equipmentData
+                            var lastuid = ResourcesSingletonOld.Instance.equipmentData
                                 .isWearingEquipments[equip_data.posId]
                                 .equip.PartId;
                             // LongValue uid = new LongValue()
@@ -332,24 +332,24 @@ namespace XFramework
                                 EquipIds = { equip.PartId, lastuid }
                             };
 
-                            NetWorkManager.Instance.SendMessage(CMD.EQUIPWEARORUNWEAR, wearReq);
-                            // NetWorkManager.Instance.SendMessage(CMD.EQUIPUNWEAR, lastUID);
-                            // NetWorkManager.Instance.SendMessage(CMD.EQUIPWEAR, uid);
-                            //NetWorkManager.Instance.SendMessage(CMD.QUERYPROPERTY);
-                            ResourcesSingleton.Instance.equipmentData.isWearingEquipments[equip_data.posId] =
+                            NetWorkManager.Instance.SendMessage(CMDOld.EQUIPWEARORUNWEAR, wearReq);
+                            // NetWorkManager.Instance.SendMessage(CMDOld.EQUIPUNWEAR, lastUID);
+                            // NetWorkManager.Instance.SendMessage(CMDOld.EQUIPWEAR, uid);
+                            //NetWorkManager.Instance.SendMessage(CMDOld.QUERYPROPERTY);
+                            ResourcesSingletonOld.Instance.equipmentData.isWearingEquipments[equip_data.posId] =
                                 myGameEquip;
-                            ResourcesSingleton.Instance.equipmentData.equipments.TryGetValue(lastuid, out var isequip0);
+                            ResourcesSingletonOld.Instance.equipmentData.equipments.TryGetValue(lastuid, out var isequip0);
                             isequip0.isWearing = false;
-                            ResourcesSingleton.Instance.equipmentData.equipments.TryGetValue(equipUid, out var isequip);
+                            ResourcesSingletonOld.Instance.equipmentData.equipments.TryGetValue(equipUid, out var isequip);
                             isequip.isWearing = true;
                             int oldLevel = isequip0.equip.EquipLevel;
                             int newLevel = isequip.equip.EquipLevel;
 
                             isequip.equip.EquipLevel = oldLevel;
-                            JiYuUIHelper.ChangeEquipProperty(isequip0.equip, isequip.equip);
+                            UnicornUIHelper.ChangeEquipProperty(isequip0.equip, isequip.equip);
                             isequip0.equip.EquipLevel = newLevel;
 
-                            if (JiYuUIHelper.TryGetUI(UIType.UIPanel_Equipment, out var ui))
+                            if (UnicornUIHelper.TryGetUI(UIType.UIPanel_Equipment, out var ui))
                             {
                                 var uiscript = ui as UIPanel_Equipment;
                                 uiscript.RefreshMainRedDot(equip_data.posId, UIPanel_Equipment.WearEquipType.Change,
@@ -436,7 +436,7 @@ namespace XFramework
                 }
             }
 
-            JiYuUIHelper.ForceRefreshLayout(KContentEquipTips);
+            UnicornUIHelper.ForceRefreshLayout(KContentEquipTips);
 
             RefreshLevelUp(0, myGameEquip);
 
@@ -460,7 +460,7 @@ namespace XFramework
             //common_state_mergeclick一键合成
 
 
-            JiYuTweenHelper.DoScaleTweenOnClickAndLongPress(KBtn_LevelUp,
+            UnicornTweenHelper.DoScaleTweenOnClickAndLongPress(KBtn_LevelUp,
                 () =>
                 {
                     if (!TryGetLevelUpCosts(equipUid, out var costs))
@@ -468,18 +468,18 @@ namespace XFramework
                         return;
                     }
 
-                    if (JiYuUIHelper.TryReduceReward(costs))
+                    if (UnicornUIHelper.TryReduceReward(costs))
                     {
-                        NetWorkManager.Instance.SendMessage(CMD.EQUIPUPGRADE, equip);
-                        //NetWorkManager.Instance.SendMessage(CMD.QUERYPROPERTY);
-                        JiYuUIHelper.WearOrUnWearEquipProperty(equip, false);
-                        if (ResourcesSingleton.Instance.equipmentData.equipments.TryGetValue(equipUid,
+                        NetWorkManager.Instance.SendMessage(CMDOld.EQUIPUPGRADE, equip);
+                        //NetWorkManager.Instance.SendMessage(CMDOld.QUERYPROPERTY);
+                        UnicornUIHelper.WearOrUnWearEquipProperty(equip, false);
+                        if (ResourcesSingletonOld.Instance.equipmentData.equipments.TryGetValue(equipUid,
                                 out var gameEquip))
                         {
                             gameEquip.equip.EquipLevel++;
-                            JiYuUIHelper.WearOrUnWearEquipProperty(equip, true);
+                            UnicornUIHelper.WearOrUnWearEquipProperty(equip, true);
                             RefreshLevelUp(equipUid).Forget();
-                            if (JiYuUIHelper.TryGetUI(UIType.UIPanel_Equipment, out var ui))
+                            if (UnicornUIHelper.TryGetUI(UIType.UIPanel_Equipment, out var ui))
                             {
                                 var uiscript = ui as UIPanel_Equipment;
                                 uiscript.SortItems(equip_data.posId);
@@ -490,14 +490,14 @@ namespace XFramework
                     }
                     else
                     {
-                        JiYuUIHelper.ClearCommonResource();
+                        UnicornUIHelper.ClearCommonResource();
                         var str = languageConfig.Get("equip_levelup_error").current;
                         UIHelper.CreateAsync(UIType.UICommon_Resource, str);
                         Log.Debug("资源不足", Color.red);
                     }
                 });
 
-            JiYuTweenHelper.DoScaleTweenOnClickAndLongPress(KBtn_AllLevelUp,
+            UnicornTweenHelper.DoScaleTweenOnClickAndLongPress(KBtn_AllLevelUp,
                 () =>
                 {
                     if (!TryGetLevelUpCosts(equipUid, out var costs11))
@@ -505,20 +505,20 @@ namespace XFramework
                         return;
                     }
 
-                    NetWorkManager.Instance.SendMessage(CMD.EQUIPALLUPGRADE, equip);
-                    //NetWorkManager.Instance.SendMessage(CMD.QUERYPROPERTY);
-                    if (JiYuUIHelper.TryReduceReward(costs11))
+                    NetWorkManager.Instance.SendMessage(CMDOld.EQUIPALLUPGRADE, equip);
+                    //NetWorkManager.Instance.SendMessage(CMDOld.QUERYPROPERTY);
+                    if (UnicornUIHelper.TryReduceReward(costs11))
                     {
-                        if (ResourcesSingleton.Instance.equipmentData.equipments.TryGetValue(equipUid,
+                        if (ResourcesSingletonOld.Instance.equipmentData.equipments.TryGetValue(equipUid,
                                 out var gameEquip))
                         {
-                            JiYuUIHelper.WearOrUnWearEquipProperty(equip, false);
+                            UnicornUIHelper.WearOrUnWearEquipProperty(equip, false);
                             gameEquip.equip.EquipLevel++;
                         }
                     }
                     else
                     {
-                        JiYuUIHelper.ClearCommonResource();
+                        UnicornUIHelper.ClearCommonResource();
                         var str = languageConfig.Get("equip_levelup_error").current;
                         UIHelper.CreateAsync(UIType.UICommon_Resource, str);
                         Log.Debug("资源不足", Color.red);
@@ -532,9 +532,9 @@ namespace XFramework
                             break;
                         }
 
-                        if (JiYuUIHelper.TryReduceReward(costs))
+                        if (UnicornUIHelper.TryReduceReward(costs))
                         {
-                            if (ResourcesSingleton.Instance.equipmentData.equipments.TryGetValue(equipUid,
+                            if (ResourcesSingletonOld.Instance.equipmentData.equipments.TryGetValue(equipUid,
                                     out var gameEquip))
                             {
                                 gameEquip.equip.EquipLevel++;
@@ -546,10 +546,10 @@ namespace XFramework
                         }
                     }
 
-                    JiYuUIHelper.WearOrUnWearEquipProperty(equip, true);
+                    UnicornUIHelper.WearOrUnWearEquipProperty(equip, true);
                     //TODO:刷新tip界面
                     RefreshLevelUp(equipUid);
-                    if (JiYuUIHelper.TryGetUI(UIType.UIPanel_Equipment, out var ui))
+                    if (UnicornUIHelper.TryGetUI(UIType.UIPanel_Equipment, out var ui))
                     {
                         var uiscript = ui as UIPanel_Equipment;
                         uiscript.SortItems(equip_data.posId);
@@ -559,12 +559,12 @@ namespace XFramework
                     }
                 });
 
-            JiYuTweenHelper.DoScaleTweenOnClickAndLongPress(KBtn_Close, () => { Close(); });
+            UnicornTweenHelper.DoScaleTweenOnClickAndLongPress(KBtn_Close, () => { Close(); });
 
-            JiYuTweenHelper.DoScaleTweenOnClickAndLongPress(KBtn_Decrease,
+            UnicornTweenHelper.DoScaleTweenOnClickAndLongPress(KBtn_Decrease,
                 () =>
                 {
-                    if (ResourcesSingleton.Instance.equipmentData.equipments.TryGetValue(equipUid,
+                    if (ResourcesSingletonOld.Instance.equipmentData.equipments.TryGetValue(equipUid,
                             out var gameEquip))
                     {
                         UIHelper.CreateAsync(UIType.UIPanel_EquipDownGrade, gameEquip);
@@ -590,12 +590,12 @@ namespace XFramework
 
             var playerData = new PlayerData();
             var chaStats = new ChaStats();
-            JiYuUIHelper.InitPlayerProperty(ref playerData, ref chaStats, battleProperty);
+            UnicornUIHelper.InitPlayerProperty(ref playerData, ref chaStats, battleProperty);
 
-            ResourcesSingleton.Instance.playerProperty.playerData = playerData;
-            ResourcesSingleton.Instance.playerProperty.chaProperty = chaStats.chaProperty;
+            ResourcesSingletonOld.Instance.playerProperty.playerData = playerData;
+            ResourcesSingletonOld.Instance.playerProperty.chaProperty = chaStats.chaProperty;
 
-            Log.Debug($"{ResourcesSingleton.Instance.playerProperty.chaProperty}", Color.red);
+            Log.Debug($"{ResourcesSingletonOld.Instance.playerProperty.chaProperty}", Color.red);
         }
 
 
@@ -618,7 +618,7 @@ namespace XFramework
             }
             else
             {
-                if (ResourcesSingleton.Instance.equipmentData.equipments.TryGetValue(equipuid, out var myGameEquip))
+                if (ResourcesSingletonOld.Instance.equipmentData.equipments.TryGetValue(equipuid, out var myGameEquip))
                 {
                     myGame = myGameEquip;
                 }
@@ -701,12 +701,12 @@ namespace XFramework
                 //KItemPos.AddChild(ui);
                 //ui.SetParent(KItemPos, true);
                 var icon = ui.GetFromReference(UISubPanel_EquipLevelConsumeItem.KIcon_Consume);
-                JiYuUIHelper.SetIconOnly(cost, icon);
+                UnicornUIHelper.SetIconOnly(cost, icon);
                 var text = ui.GetFromReference(UISubPanel_EquipLevelConsumeItem.KText_Consume);
-                var count = JiYuUIHelper.GetRewardCount(cost);
+                var count = UnicornUIHelper.GetRewardCount(cost);
                 //TODO:count  k处
-                var countStr = JiYuUIHelper.ReturnFormatResourceNum(count);
-                var countCostStr = JiYuUIHelper.ReturnFormatResourceNum((long)cost.z);
+                var countStr = UnicornUIHelper.ReturnFormatResourceNum(count);
+                var countCostStr = UnicornUIHelper.ReturnFormatResourceNum((long)cost.z);
                 string textstr = count >= (long)cost.z
                     ? $"{countStr}/{countCostStr}"
                     : $"{UnityHelper.RichTextColor(countStr, "FF0000")}/{countCostStr}";
@@ -745,11 +745,11 @@ namespace XFramework
 
                 if (obj1rewardx == 11 && obj2rewardx == 11)
                 {
-                    if (!JiYuUIHelper.IsCompositeEquipReward(obj1) &&
-                        JiYuUIHelper.IsCompositeEquipReward(obj2))
+                    if (!UnicornUIHelper.IsCompositeEquipReward(obj1) &&
+                        UnicornUIHelper.IsCompositeEquipReward(obj2))
                         return -1;
-                    else if (JiYuUIHelper.IsCompositeEquipReward(obj1) &&
-                             !JiYuUIHelper.IsCompositeEquipReward(obj2))
+                    else if (UnicornUIHelper.IsCompositeEquipReward(obj1) &&
+                             !UnicornUIHelper.IsCompositeEquipReward(obj2))
                         return 1;
 
                     if (equip_data.Get(obj1rewardy).quality >
@@ -780,7 +780,7 @@ namespace XFramework
                         return 1;
                 }
 
-                if (JiYuUIHelper.IsResourceReward(obj1) && JiYuUIHelper.IsResourceReward(obj2))
+                if (UnicornUIHelper.IsResourceReward(obj1) && UnicornUIHelper.IsResourceReward(obj2))
                 {
                     if (obj1rewardx < obj2rewardx)
                         return -1;
@@ -803,7 +803,7 @@ namespace XFramework
                 return 0;
             });
             //uiList.Sort();
-            JiYuUIHelper.ForceRefreshLayout(KItemPos);
+            UnicornUIHelper.ForceRefreshLayout(KItemPos);
             //KItemPos.Dispose();
             //KItemPos.Dispose();
 
@@ -813,7 +813,7 @@ namespace XFramework
 
         bool TryGetLevelUpCosts(long equipuid, out List<Vector3> costs)
         {
-            ResourcesSingleton.Instance.equipmentData.equipments.TryGetValue(equipuid, out var myGameEquip);
+            ResourcesSingletonOld.Instance.equipmentData.equipments.TryGetValue(equipuid, out var myGameEquip);
             var attr_variableConfig = ConfigManager.Instance.Tables.Tbattr_variable;
             var equip_levelConfig = ConfigManager.Instance.Tables.Tbequip_level;
             var player_skill = ConfigManager.Instance.Tables.Tbskill;
@@ -871,7 +871,7 @@ namespace XFramework
 
         public void OnEquipWearResponse(object sender, WebMessageHandlerOld.Execute e)
         {
-            //WebMessageHandlerOld.Instance.RemoveHandler(CMD.EQUIPWEAR, OnEquipWearResponse);
+            //WebMessageHandlerOld.Instance.RemoveHandler(CMDOld.EQUIPWEAR, OnEquipWearResponse);
             // GameEquip gameEquip = new GameEquip();
             // gameEquip.MergeFrom(e.data);
             Log.Debug("OnEquipWearOrUnwearResponse", Color.red);
@@ -886,7 +886,7 @@ namespace XFramework
 
         public void OnEquipAllUpGradeResponse(object sender, WebMessageHandlerOld.Execute e)
         {
-            WebMessageHandlerOld.Instance.RemoveHandler(CMD.EQUIPALLUPGRADE, OnEquipAllUpGradeResponse);
+            WebMessageHandlerOld.Instance.RemoveHandler(CMDOld.EQUIPALLUPGRADE, OnEquipAllUpGradeResponse);
             GameEquip gameEquip = new GameEquip();
             gameEquip.MergeFrom(e.data);
 
@@ -901,7 +901,7 @@ namespace XFramework
 
         public void OnEquipUpGradeResponse(object sender, WebMessageHandlerOld.Execute e)
         {
-            WebMessageHandlerOld.Instance.RemoveHandler(CMD.EQUIPUPGRADE, OnEquipUpGradeResponse);
+            WebMessageHandlerOld.Instance.RemoveHandler(CMDOld.EQUIPUPGRADE, OnEquipUpGradeResponse);
             GameEquip gameEquip = new GameEquip();
             gameEquip.MergeFrom(e.data);
 
@@ -911,7 +911,7 @@ namespace XFramework
                 return;
             }
 
-            if (!ResourcesSingleton.Instance.equipmentData.equipments.ContainsKey(gameEquip.PartId))
+            if (!ResourcesSingletonOld.Instance.equipmentData.equipments.ContainsKey(gameEquip.PartId))
             {
                 Log.Error($"装备升级后返回不存在的装备uid", Color.red);
                 return;
@@ -924,20 +924,20 @@ namespace XFramework
 
         protected override void OnClose()
         {
-            if (JiYuUIHelper.TryGetUI(UIType.UIPanel_Equipment, out var ui))
+            if (UnicornUIHelper.TryGetUI(UIType.UIPanel_Equipment, out var ui))
             {
                 var uiequip = ui as UIPanel_Equipment;
                 uiequip.DestorySelected();
                 //uiequip.lastClickTipItem = btnui;
             }
 
-            //WebMessageHandlerOld.Instance.RemoveHandler(CMD.QUERYPROPERTY, OnQueryPropertyResponse);
-            //WebMessageHandlerOld.Instance.RemoveHandler(CMD.EQUIPUNWEAR, OnEquipWearResponse);
-            //WebMessageHandlerOld.Instance.RemoveHandler(CMD.EQUIPWEAR, OnEquipWearResponse);
+            //WebMessageHandlerOld.Instance.RemoveHandler(CMDOld.QUERYPROPERTY, OnQueryPropertyResponse);
+            //WebMessageHandlerOld.Instance.RemoveHandler(CMDOld.EQUIPUNWEAR, OnEquipWearResponse);
+            //WebMessageHandlerOld.Instance.RemoveHandler(CMDOld.EQUIPWEAR, OnEquipWearResponse);
 
-            WebMessageHandlerOld.Instance.RemoveHandler(CMD.EQUIPUPGRADE, OnEquipUpGradeResponse);
-            WebMessageHandlerOld.Instance.RemoveHandler(CMD.EQUIPDOWNGRADE, OnEquipUpGradeResponse);
-            WebMessageHandlerOld.Instance.RemoveHandler(CMD.EQUIPALLUPGRADE, OnEquipAllUpGradeResponse);
+            WebMessageHandlerOld.Instance.RemoveHandler(CMDOld.EQUIPUPGRADE, OnEquipUpGradeResponse);
+            WebMessageHandlerOld.Instance.RemoveHandler(CMDOld.EQUIPDOWNGRADE, OnEquipUpGradeResponse);
+            WebMessageHandlerOld.Instance.RemoveHandler(CMDOld.EQUIPALLUPGRADE, OnEquipAllUpGradeResponse);
 
 
             base.OnClose();

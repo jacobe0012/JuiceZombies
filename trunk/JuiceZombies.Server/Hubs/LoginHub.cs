@@ -43,7 +43,7 @@ public class LoginHub : Hub
         return responseBody;
     }
 
-    public async void Login(GameUser player)
+    public async void Login(S2C_UserResData player)
     {
         // Console.WriteLine($"serverLogin:{player}");
         // var db = _redis.GetDatabase();
@@ -52,7 +52,7 @@ public class LoginHub : Hub
         // //var playerdata = await db.StringGetAsync(player.Id.ToString());
         // var userInfoJson = await GetSessionJson(player.OtherData.Code);
         // Console.WriteLine($"userInfoJson:{userInfoJson}");
-        // //var userData = JsonConvert.DeserializeObject<GameUser>(jsonData);
+        // //var userData = JsonConvert.DeserializeObject<S2C_UserResData>(jsonData);
         // string jsonData = JsonConvert.SerializeObject(player);
         // await db.StringSetAsync(player.ThirdId, jsonData);
 

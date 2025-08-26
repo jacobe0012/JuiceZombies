@@ -1,5 +1,5 @@
 //---------------------------------------------------------------------
-// JiYuStudio
+// UnicornStudio
 // Author: xxx
 // Time: #CreateTime#
 //---------------------------------------------------------------------
@@ -57,16 +57,16 @@ namespace XFramework
 
         public async void Initialize()
         {
-            await JiYuUIHelper.InitBlur(this);
+            await UnicornUIHelper.InitBlur(this);
             SetUpdate();
-            WebMessageHandlerOld.Instance.AddHandler(CMD.SENDGIFTCODE, OnSendGiftCodeResponse);
+            WebMessageHandlerOld.Instance.AddHandler(CMDOld.SENDGIFTCODE, OnSendGiftCodeResponse);
             OnClickEvent();
             Init().Forget();
         }
 
         private void OnSendGiftCodeResponse(object sender, WebMessageHandlerOld.Execute e)
         {
-            //WebMessageHandlerOld.Instance.RemoveHandler(CMD.SENDGIFTCODE, OnSendGiftCodeResponse);
+            //WebMessageHandlerOld.Instance.RemoveHandler(CMDOld.SENDGIFTCODE, OnSendGiftCodeResponse);
             var strValue = new StringValue();
             strValue.MergeFrom(e.data);
 
@@ -80,7 +80,7 @@ namespace XFramework
 
             if (str.Contains("fail"))
             {
-                JiYuUIHelper.ClearCommonResource();
+                UnicornUIHelper.ClearCommonResource();
                 UIHelper.CreateAsync(UIType.UICommon_Resource,
                     languageConfig.Get("test_exchange_fail").current).Forget();
             }
@@ -89,8 +89,8 @@ namespace XFramework
                 var KGiftCode = GetFromReference(UIPanel_Settings.KGiftCode);
                 var KInput_GiftCodeInput = GetFromReference(UIPanel_Settings.KInput_GiftCodeInput);
                 KInput_GiftCodeInput.GetTMP_InputField().SetText(languageConfig.Get("setting_giftid_text").current);
-                NetWorkManager.Instance.SendMessage(CMD.INITPLAYER);
-                JiYuUIHelper.ClearCommonResource();
+                NetWorkManager.Instance.SendMessage(CMDOld.INITPLAYER);
+                UnicornUIHelper.ClearCommonResource();
                 UIHelper.CreateAsync(UIType.UICommon_Resource,
                     languageConfig.Get("test_exchange_success").current).Forget();
 
@@ -130,7 +130,7 @@ namespace XFramework
 
             AudioManager.Instance.PlayFModAudio(1241);
             //setting_giftid_text
-            JiYuUIHelper.LoadImage($"share_icon{ResourcesSingleton.Instance.gameShare.Id}.png", KBtn_SharePos);
+            UnicornUIHelper.LoadImage($"share_icon{ResourcesSingletonOld.Instance.gameShare.Id}.png", KBtn_SharePos);
 
             KInput_GiftCodeInput.GetTMP_InputField().SetText(languageConfig.Get("setting_giftid_text").current);
             KInput_GiftCodeInput.GetTMP_InputField().OnSelect.Add((a) =>
@@ -140,15 +140,15 @@ namespace XFramework
                 KInput_GiftCodeInput.GetTMP_InputField().Get().ActivateInputField();
             });
             KText_BtnGiftCode.GetTextMeshPro().SetTMPText(languageConfig.Get("common_state_exchange").current);
-            JiYuTweenHelper.DoScaleTweenOnClickAndLongPress(KBtn_GiftCode, () =>
+            UnicornTweenHelper.DoScaleTweenOnClickAndLongPress(KBtn_GiftCode, () =>
             {
                 //TODO���һ�
                 var str = KInput_GiftCodeInput.GetTMP_InputField().Content.DeleteEmtypStr();
-                str = JiYuUIHelper.HandleStr(str);
+                str = UnicornUIHelper.HandleStr(str);
                 var sendStr = new StringValue();
                 sendStr.Value = str;
 
-                NetWorkManager.Instance.SendMessage(CMD.SENDGIFTCODE, sendStr);
+                NetWorkManager.Instance.SendMessage(CMDOld.SENDGIFTCODE, sendStr);
             });
             KGiftCode.SetActive(false);
             var content = KSortList.GetScrollRect().Content;
@@ -173,9 +173,9 @@ namespace XFramework
 
 
                 KText_Mid.GetTextMeshPro()
-                    .SetTMPText(JiYuUIHelper.GetRewardTextIconName("img_chineseflag") +
+                    .SetTMPText(UnicornUIHelper.GetRewardTextIconName("img_chineseflag") +
                                 languageConfig.Get(setting_languageConfig.DataList[i].name).current);
-                if ((int)ResourcesSingleton.Instance.settingData.CurrentL10N == index + 1)
+                if ((int)ResourcesSingletonOld.Instance.settingData.CurrentL10N == index + 1)
                 {
                     KImg_Btn.GetImage().SetAlpha(1f);
                 }
@@ -184,22 +184,22 @@ namespace XFramework
                     KImg_Btn.GetImage().SetAlpha(0.5f);
                 }
 
-                JiYuTweenHelper.DoScaleTweenOnClickAndLongPress(KBtn_Common,
+                UnicornTweenHelper.DoScaleTweenOnClickAndLongPress(KBtn_Common,
                     () =>
                     {
-                        if ((int)ResourcesSingleton.Instance.settingData.CurrentL10N == index + 1)
+                        if ((int)ResourcesSingletonOld.Instance.settingData.CurrentL10N == index + 1)
                         {
                             KLanguageListPos.SetActive(false);
                             return;
                         }
 
-                        languageSortList.GetChildAt((int)ResourcesSingleton.Instance.settingData.CurrentL10N - 1)
+                        languageSortList.GetChildAt((int)ResourcesSingletonOld.Instance.settingData.CurrentL10N - 1)
                             .GetFromReference(UISubPanel_CommonBtn.KImg_Btn)
                             .GetImage()
                             .SetAlpha(1);
                         KImg_Btn.GetImage().SetAlpha(0.5f);
                         //Log.Error($"{(Tblanguage.L10N)(index + 1)}");
-                        JiYuUIHelper.RefreshAllPanelL10N(index + 1);
+                        UnicornUIHelper.RefreshAllPanelL10N(index + 1);
                         RemoveTimer();
                         this.Initialize();
                         KLanguageListPos.SetActive(false);
@@ -225,11 +225,11 @@ namespace XFramework
             var count = tbconstant.Get("share_reward").constantValue;
             var maxCount = tbconstant.Get("share_reward_limit").constantValue;
             var numStr =
-                $"{languageConfig.Get("setting_share_no_text").current} {JiYuUIHelper.GetRewardTextIconName($"icon_diamond")}{count}";
+                $"{languageConfig.Get("setting_share_no_text").current} {UnicornUIHelper.GetRewardTextIconName($"icon_diamond")}{count}";
             KText_IsNotGetLeft.GetTextMeshPro().SetTMPText(numStr);
             KText_IsGot.GetTextMeshPro().SetTMPText(languageConfig.Get("setting_share_yes_text").current);
 
-            var shareTime = ResourcesSingleton.Instance.gameShare.IsShare ? 1 : 0;
+            var shareTime = ResourcesSingletonOld.Instance.gameShare.IsShare ? 1 : 0;
             if (shareTime < maxCount)
             {
                 //can get
@@ -274,7 +274,7 @@ namespace XFramework
                 btnRec.SetHeight(82f);
                 btnRec.SetAnchoredPosition(0, 0);
                 //TODO:
-                if ((int)ResourcesSingleton.Instance.settingData.Quality == index)
+                if ((int)ResourcesSingletonOld.Instance.settingData.Quality == index)
                 {
                     KBtn_Common.GetImage().SetAlpha(1);
                 }
@@ -283,9 +283,9 @@ namespace XFramework
                 {
                     case 0:
                         KText_AllText.GetTextMeshPro().SetTMPText(languageConfig.Get("setting_6_1_name").current);
-                        JiYuTweenHelper.DoScaleTweenOnClickAndLongPress(KBtn_Common, () =>
+                        UnicornTweenHelper.DoScaleTweenOnClickAndLongPress(KBtn_Common, () =>
                         {
-                            if ((int)ResourcesSingleton.Instance.settingData.Quality == index)
+                            if ((int)ResourcesSingletonOld.Instance.settingData.Quality == index)
                                 return;
                             foreach (var VARIABLE in qualityList.Children)
                             {
@@ -294,17 +294,17 @@ namespace XFramework
                                 KBtn_Common.GetImage().SetAlpha(0.5f);
                             }
 
-                            ResourcesSingleton.Instance.settingData.Quality = index;
+                            ResourcesSingletonOld.Instance.settingData.Quality = index;
                             KBtn_Common.GetImage().SetAlpha(1);
 
-                            JiYuUIHelper.SetFrameRate(true);
+                            UnicornUIHelper.SetFrameRate(true);
                         });
                         break;
                     case 1:
                         KText_AllText.GetTextMeshPro().SetTMPText(languageConfig.Get("setting_6_2_name").current);
-                        JiYuTweenHelper.DoScaleTweenOnClickAndLongPress(KBtn_Common, () =>
+                        UnicornTweenHelper.DoScaleTweenOnClickAndLongPress(KBtn_Common, () =>
                         {
-                            if ((int)ResourcesSingleton.Instance.settingData.Quality == index)
+                            if ((int)ResourcesSingletonOld.Instance.settingData.Quality == index)
                                 return;
                             foreach (var VARIABLE in qualityList.Children)
                             {
@@ -313,16 +313,16 @@ namespace XFramework
                                 KBtn_Common.GetImage().SetAlpha(0.5f);
                             }
 
-                            ResourcesSingleton.Instance.settingData.Quality = index;
+                            ResourcesSingletonOld.Instance.settingData.Quality = index;
                             KBtn_Common.GetImage().SetAlpha(1);
-                            JiYuUIHelper.SetFrameRate(false, 60);
+                            UnicornUIHelper.SetFrameRate(false, 60);
                         });
                         break;
                     case 2:
                         KText_AllText.GetTextMeshPro().SetTMPText(languageConfig.Get("setting_6_3_name").current);
-                        JiYuTweenHelper.DoScaleTweenOnClickAndLongPress(KBtn_Common, () =>
+                        UnicornTweenHelper.DoScaleTweenOnClickAndLongPress(KBtn_Common, () =>
                         {
-                            if ((int)ResourcesSingleton.Instance.settingData.Quality == index)
+                            if ((int)ResourcesSingletonOld.Instance.settingData.Quality == index)
                                 return;
                             foreach (var VARIABLE in qualityList.Children)
                             {
@@ -331,9 +331,9 @@ namespace XFramework
                                 KBtn_Common.GetImage().SetAlpha(0.5f);
                             }
 
-                            ResourcesSingleton.Instance.settingData.Quality = index;
+                            ResourcesSingletonOld.Instance.settingData.Quality = index;
                             KBtn_Common.GetImage().SetAlpha(1);
-                            JiYuUIHelper.SetFrameRate(false, 30);
+                            UnicornUIHelper.SetFrameRate(false, 30);
                         });
                         break;
                 }
@@ -370,7 +370,7 @@ namespace XFramework
                 // }
                 KImg_IconBgOpen.SetActive(false);
                 KImg_IconBgClose.SetActive(false);
-                if (JiYuUIHelper.InitEnableSettings(index))
+                if (UnicornUIHelper.InitEnableSettings(index))
                 {
                     KIcon.GetImage().SetSpriteAsync(setting.pic1, false).Forget();
                     KImg_IconBgOpen.SetActive(true);
@@ -386,12 +386,12 @@ namespace XFramework
                 }
 
 
-                JiYuTweenHelper.DoScaleTweenOnClickAndLongPress(KBtn_Item, () =>
+                UnicornTweenHelper.DoScaleTweenOnClickAndLongPress(KBtn_Item, () =>
                 {
                     KImg_IconBgOpen.SetActive(false);
                     KImg_IconBgClose.SetActive(false);
 
-                    if (JiYuUIHelper.InitEnableSettings(index, true))
+                    if (UnicornUIHelper.InitEnableSettings(index, true))
                     {
                         KIcon.GetImage().SetSpriteAsync(setting.pic1, false).Forget();
                         KImg_IconBgOpen.SetActive(true);
@@ -442,11 +442,11 @@ namespace XFramework
                     case 0:
                         KBtn_Common.GetImage().SetSpriteAsync($"icon_btn_red_3", true).Forget();
                         KText_AllText.GetTextMeshPro().SetTMPText(languageConfig.Get("setting_quit_name").current);
-                        JiYuTweenHelper.DoScaleTweenOnClickAndLongPress(KBtn_Common,
+                        UnicornTweenHelper.DoScaleTweenOnClickAndLongPress(KBtn_Common,
                             async () =>
                             {
-                                NetWorkManager.Instance.SendMessage(CMD.SWITCHACCOUNT);
-                                // NetWorkManager.Instance.SendMessage(CMD.SWITCHACCOUNT, new StringValue
+                                NetWorkManager.Instance.SendMessage(CMDOld.SWITCHACCOUNT);
+                                // NetWorkManager.Instance.SendMessage(CMDOld.SWITCHACCOUNT, new StringValue
                                 // {
                                 //     Value = JsonManager.Instance.userData.privateKey
                                 // });
@@ -462,18 +462,18 @@ namespace XFramework
                     case 1:
                         KBtn_Common.GetImage().SetSpriteAsync($"icon_btn_red_3", true).Forget();
                         KText_AllText.GetTextMeshPro().SetTMPText(languageConfig.Get("setting_fix_name").current);
-                        JiYuTweenHelper.DoScaleTweenOnClickAndLongPress(KBtn_Common,
+                        UnicornTweenHelper.DoScaleTweenOnClickAndLongPress(KBtn_Common,
                             async () =>
                             {
                                 await ResourcesManager.Instance.Loader.ClearPackageAllCacheBundleFiles();
-                                JiYuSceneHelper.RestartApplication();
+                                UnicornSceneHelper.RestartApplication();
                             });
                         break;
                     case 2:
 
                         KBtn_Common.GetImage().SetSpriteAsync($"icon_btn_blue_33", true).Forget();
                         KText_AllText.GetTextMeshPro().SetTMPText(languageConfig.Get("setting_feedback_name").current);
-                        JiYuTweenHelper.DoScaleTweenOnClickAndLongPress(KBtn_Common,
+                        UnicornTweenHelper.DoScaleTweenOnClickAndLongPress(KBtn_Common,
                             async () => { UIHelper.CreateAsync(UIType.UIPanel_Quest); });
                         break;
                     case 3:
@@ -481,7 +481,7 @@ namespace XFramework
                         KBtn_Common.GetImage().SetSpriteAsync($"icon_btn_yellow_3", true).Forget();
                         KBtn_Common.GetRectTransform().SetAnchoredPositionX(37f);
                         KText_AllText.GetTextMeshPro().SetTMPText(languageConfig.Get("setting_giftid_name").current);
-                        JiYuTweenHelper.DoScaleTweenOnClickAndLongPress(KBtn_Common,
+                        UnicornTweenHelper.DoScaleTweenOnClickAndLongPress(KBtn_Common,
                             () =>
                             {
                                 KGiftCode.SetActive(!KGiftCode.GameObject.activeSelf);
@@ -516,7 +516,7 @@ namespace XFramework
                 KBtn_Common.GetImage().SetSpriteAsync($"icon_btn_blue_33", true).Forget();
                 KText_AllText.GetTextMeshPro().SetTMPText(languageConfig.Get("setting_7_name").current);
 
-                JiYuTweenHelper.DoScaleTweenOnClickAndLongPress(KBtn_Common,
+                UnicornTweenHelper.DoScaleTweenOnClickAndLongPress(KBtn_Common,
                     () =>
                     {
                         ClearAllTips();
@@ -524,11 +524,11 @@ namespace XFramework
                     });
             }
 
-            JiYuUIHelper.ForceRefreshLayout(content);
-            JiYuUIHelper.ForceRefreshLayout(KQualityHorizontal);
-            JiYuUIHelper.ForceRefreshLayout(KMidHorizontal);
-            JiYuUIHelper.ForceRefreshLayout(KBottomHorizontal);
-            JiYuUIHelper.ForceRefreshLayout(KLanguage);
+            UnicornUIHelper.ForceRefreshLayout(content);
+            UnicornUIHelper.ForceRefreshLayout(KQualityHorizontal);
+            UnicornUIHelper.ForceRefreshLayout(KMidHorizontal);
+            UnicornUIHelper.ForceRefreshLayout(KBottomHorizontal);
+            UnicornUIHelper.ForceRefreshLayout(KLanguage);
         }
 
         private void SetUpdate()
@@ -581,21 +581,21 @@ namespace XFramework
 
             KBg.GetXButton().OnClick.Add(DisableLanguageList);
             KMask.GetXButton().OnClick.Add(async () => ClosePanel());
-            JiYuTweenHelper.DoScaleTweenOnClickAndLongPress(KBtn_Close, async () => ClosePanel());
-            JiYuTweenHelper.DoScaleTweenOnClickAndLongPress(KBtn_SharePos,
+            UnicornTweenHelper.DoScaleTweenOnClickAndLongPress(KBtn_Close, async () => ClosePanel());
+            UnicornTweenHelper.DoScaleTweenOnClickAndLongPress(KBtn_SharePos,
                 () => { UIHelper.CreateAsync(UIType.UIPanel_Share); });
 
-            JiYuTweenHelper.DoScaleTweenOnClickAndLongPress(KText_Protocol);
-            JiYuTweenHelper.DoScaleTweenOnClickAndLongPress(KText_PersonalInfo);
-            JiYuTweenHelper.DoScaleTweenOnClickAndLongPress(KText_Probability);
+            UnicornTweenHelper.DoScaleTweenOnClickAndLongPress(KText_Protocol);
+            UnicornTweenHelper.DoScaleTweenOnClickAndLongPress(KText_PersonalInfo);
+            UnicornTweenHelper.DoScaleTweenOnClickAndLongPress(KText_Probability);
         }
 
         private async UniTask ClosePanel()
         {
-            JiYuTweenHelper.SetEaseAlphaAndPosUtoB(GetFromReference(UIPanel_Settings.KMid), 0 - 100, 100, cts.Token,
+            UnicornTweenHelper.SetEaseAlphaAndPosUtoB(GetFromReference(UIPanel_Settings.KMid), 0 - 100, 100, cts.Token,
                 0.15f,
                 false);
-            JiYuTweenHelper.SetEaseAlphaAndPosRtoL(GetFromReference(UIPanel_Settings.KMid), 0 - 100, 100, cts.Token,
+            UnicornTweenHelper.SetEaseAlphaAndPosRtoL(GetFromReference(UIPanel_Settings.KMid), 0 - 100, 100, cts.Token,
                 0.15f,
                 false);
             GetFromReference(UIPanel_Settings.KMid).GetComponent<CanvasGroup>().alpha = 1f;
@@ -610,39 +610,39 @@ namespace XFramework
             RemoveTimer();
             cts.Cancel();
             cts.Dispose();
-            // NetWorkManager.Instance.SendMessage(CMD.CHANGESETTINGS, new SettingDate
+            // NetWorkManager.Instance.SendMessage(CMDOld.CHANGESETTINGS, new SettingDate
             // {
-            //     Quality = (int)ResourcesSingleton.Instance.settingsData.quality,
-            //     EnableFx = ResourcesSingleton.Instance.settingsData.enableFx,
-            //     EnableBgm = ResourcesSingleton.Instance.settingsData.enableBgm,
-            //     EnableShock = ResourcesSingleton.Instance.settingsData.enableShock,
-            //     EnableWeakEffect = ResourcesSingleton.Instance.settingsData.enableWeakEffect,
-            //     EnableShowStick = ResourcesSingleton.Instance.settingsData.enableShowStick,
-            //     CurrentL10N = (int)ResourcesSingleton.Instance.settingsData.currentL10N,
+            //     Quality = (int)ResourcesSingletonOld.Instance.settingsData.quality,
+            //     EnableFx = ResourcesSingletonOld.Instance.settingsData.enableFx,
+            //     EnableBgm = ResourcesSingletonOld.Instance.settingsData.enableBgm,
+            //     EnableShock = ResourcesSingletonOld.Instance.settingsData.enableShock,
+            //     EnableWeakEffect = ResourcesSingletonOld.Instance.settingsData.enableWeakEffect,
+            //     EnableShowStick = ResourcesSingletonOld.Instance.settingsData.enableShowStick,
+            //     CurrentL10N = (int)ResourcesSingletonOld.Instance.settingsData.currentL10N,
             // });
 
-            if (!(ResourcesSingleton.Instance.settingData.CurrentL10N == 0))
+            if (!(ResourcesSingletonOld.Instance.settingData.CurrentL10N == 0))
             {
-                JsonManager.Instance.sharedData.l10N = ResourcesSingleton.Instance.settingData.CurrentL10N;
+                JsonManager.Instance.sharedData.l10N = ResourcesSingletonOld.Instance.settingData.CurrentL10N;
             }
 
             JsonManager.Instance.SaveSharedData(JsonManager.Instance.sharedData);
             var settings = new SettingDate
             {
-                RoleId = ResourcesSingleton.Instance.settingData.RoleId,
-                Quality = ResourcesSingleton.Instance.settingData.Quality,
-                EnableFx = ResourcesSingleton.Instance.settingData.EnableFx,
-                EnableBgm = ResourcesSingleton.Instance.settingData.EnableBgm,
-                EnableShock = ResourcesSingleton.Instance.settingData.EnableShock,
-                EnableWeakEffect = ResourcesSingleton.Instance.settingData.EnableWeakEffect,
-                EnableShowStick = ResourcesSingleton.Instance.settingData.EnableShowStick,
-                CurrentL10N = ResourcesSingleton.Instance.settingData.CurrentL10N,
+                RoleId = ResourcesSingletonOld.Instance.settingData.RoleId,
+                Quality = ResourcesSingletonOld.Instance.settingData.Quality,
+                EnableFx = ResourcesSingletonOld.Instance.settingData.EnableFx,
+                EnableBgm = ResourcesSingletonOld.Instance.settingData.EnableBgm,
+                EnableShock = ResourcesSingletonOld.Instance.settingData.EnableShock,
+                EnableWeakEffect = ResourcesSingletonOld.Instance.settingData.EnableWeakEffect,
+                EnableShowStick = ResourcesSingletonOld.Instance.settingData.EnableShowStick,
+                CurrentL10N = ResourcesSingletonOld.Instance.settingData.CurrentL10N,
                 GuideList = { },
                 UnlockMap = { }
             };
 
-            NetWorkManager.Instance.SendMessage(CMD.CHANGESETTINGS, settings);
-            WebMessageHandlerOld.Instance.RemoveHandler(CMD.SENDGIFTCODE, OnSendGiftCodeResponse);
+            NetWorkManager.Instance.SendMessage(CMDOld.CHANGESETTINGS, settings);
+            WebMessageHandlerOld.Instance.RemoveHandler(CMDOld.SENDGIFTCODE, OnSendGiftCodeResponse);
 
             base.OnClose();
         }

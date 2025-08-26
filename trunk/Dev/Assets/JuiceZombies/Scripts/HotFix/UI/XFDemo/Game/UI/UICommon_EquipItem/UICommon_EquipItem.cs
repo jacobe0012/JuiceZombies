@@ -1,5 +1,5 @@
 //---------------------------------------------------------------------
-// JiYuStudio
+// UnicornStudio
 // Author: xxx
 // Time: #CreateTime#
 //---------------------------------------------------------------------
@@ -46,7 +46,7 @@ namespace XFramework
         {
             uid = myGameEquip.equip.PartId;
             equip = myGameEquip;
-            JiYuUIHelper.SetEquipIcon(myGameEquip, this, panelType);
+            UnicornUIHelper.SetEquipIcon(myGameEquip, this, panelType);
             this.GetFromReference(KBtn_Item).GetRectTransform().SetScale3(1);
             var group= this.GetFromReference(KBtn_Item).GetComponent<CanvasGroup>();
             if (group!=null)

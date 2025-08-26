@@ -23,7 +23,7 @@ namespace XFramework
             ConfigManager.Instance.Dispose();
             WebMessageHandlerOld.Instance.Dispose();
             NetWorkManager.Instance.Dispose();
-            ResourcesSingleton.Instance.Dispose();
+            ResourcesSingletonOld.Instance.Dispose();
             //RedPointMgr.instance.Dispose();
             JsonManager.Instance.Dispose();
             RedDotManager.Instance.Dispose();
@@ -77,7 +77,7 @@ namespace XFramework
             //ObjectFactory.Create<RedDotManager>(); // 红点管理
 
             NetWorkManager.Instance.Init();
-            ResourcesSingleton.Instance.Init();
+            ResourcesSingletonOld.Instance.Init();
             JsonManager.Instance.Init();
             RedDotManager.Instance.Init();
         }

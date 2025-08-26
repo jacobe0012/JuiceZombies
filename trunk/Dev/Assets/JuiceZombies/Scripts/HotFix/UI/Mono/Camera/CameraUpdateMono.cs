@@ -1,6 +1,6 @@
 ﻿//---------------------------------------------------------------------
-// JiYuStudio
-// Author: 格伦
+// UnicornStudio
+// Author: jaco0012
 // Time: 2023-07-31 10:50:10
 //---------------------------------------------------------------------
 
@@ -218,7 +218,7 @@ namespace HotFix_UI
             //Debug.LogError($"{rect}");
 
 
-            var mapId = sceneConfig.Get(levelsConfig.Get(ResourcesSingleton.Instance.levelInfo.levelId).sceneId).mapId;
+            var mapId = sceneConfig.Get(levelsConfig.Get(ResourcesSingletonOld.Instance.levelInfo.levelId).sceneId).mapId;
             var map = scene_moduleConfig.Get(mapId);
 
             //const float scale = 11.71875f;

@@ -1,5 +1,5 @@
 //---------------------------------------------------------------------
-// JiYuStudio
+// UnicornStudio
 // Author: xxx
 // Time: #CreateTime#
 //---------------------------------------------------------------------
@@ -62,7 +62,7 @@ namespace XFramework
 
         public async void Initialize(int activityId)
         {
-            await JiYuUIHelper.InitBlur(this);
+            await UnicornUIHelper.InitBlur(this);
             InitJsonConfig();
             StartTimer();
             id = tbActivity.GetOrDefault(activityId).link;
@@ -81,7 +81,7 @@ namespace XFramework
 
         public void StartTimer()
         {
-            //¿ªÆôÒ»¸öÃ¿Ö¡Ö´ÐÐµÄÈÎÎñ£¬Ïàµ±ÓÚUpdate
+            //ï¿½ï¿½ï¿½ï¿½Ò»ï¿½ï¿½Ã¿Ö¡Ö´ï¿½Ðµï¿½ï¿½ï¿½ï¿½ï¿½ï¿½àµ±ï¿½ï¿½Update
             var timerMgr = TimerManager.Instance;
             timerId = timerMgr.StartRepeatedTimer(2500, this.Update);
         }
@@ -98,13 +98,13 @@ namespace XFramework
         private async void InitEffect()
         {
             var KContainerItem = this.GetFromReference(UIPanel_Activity_EnergyShop.KContainerItem);
-            JiYuTweenHelper.SetEaseAlphaAndScaleWithFour(GetFromReference(KTip),cancellationToken:cts.Token);
-            JiYuTweenHelper.PlayUIImageTranstionFX(GetFromReference(KImg_Rabbit),cancellationToken:cts.Token);
+            UnicornTweenHelper.SetEaseAlphaAndScaleWithFour(GetFromReference(KTip),cancellationToken:cts.Token);
+            UnicornTweenHelper.PlayUIImageTranstionFX(GetFromReference(KImg_Rabbit),cancellationToken:cts.Token);
 
             GetFromReference(KTip).GetComponent<CanvasGroup>().alpha = 0f;
             GetFromReference(KTip).GetComponent<CanvasGroup>().DOFade(1f, 1.5f).SetEase(Ease.InQuad).SetUpdate(true);
             var height1 = KContainerItem.GetRectTransform().AnchoredPosition().y;
-            JiYuTweenHelper.SetEaseAlphaAndPosB2U(KContainerItem, height1, 100, cts.Token, 0.3f, true,
+            UnicornTweenHelper.SetEaseAlphaAndPosB2U(KContainerItem, height1, 100, cts.Token, 0.3f, true,
                 true);
 
             
@@ -113,7 +113,7 @@ namespace XFramework
             foreach (var item in list)
             {
                 var items = item as UISubPanel_EnergyShopItem;
-                JiYuTweenHelper.ChangeSoftness(items.GetFromReference(UISubPanel_EnergyShopItem.KMid), 300, 0.35f, cancellationToken: cts.Token);
+                UnicornTweenHelper.ChangeSoftness(items.GetFromReference(UISubPanel_EnergyShopItem.KMid), 300, 0.35f, cancellationToken: cts.Token);
             }
 
             var parent1 = this.GetFromReference(UIPanel_Activity_EnergyShop.KItemPosBott);
@@ -121,7 +121,7 @@ namespace XFramework
             foreach (var item in list1)
             {
                 var items = item as UISubPanel_EnergyShopItem;
-                JiYuTweenHelper.ChangeSoftness(items.GetFromReference(UISubPanel_EnergyShopItem.KMid), 300, 0.35f, cancellationToken: cts.Token);
+                UnicornTweenHelper.ChangeSoftness(items.GetFromReference(UISubPanel_EnergyShopItem.KMid), 300, 0.35f, cancellationToken: cts.Token);
             }
 
         }
@@ -135,11 +135,11 @@ namespace XFramework
 
         private void InitTimeSet(int activityId)
         {
-            Log.Debug($"»î¶¯id{activityId}");
-            endTime = ResourcesSingleton.Instance.activity.activityMap.ActivityMap_[activityId].EnergyRecord.EndTime -
-                      (ResourcesSingleton.Instance.serverDeltaTime / 1000);
+            Log.Debug($"ï¿½î¶¯id{activityId}");
+            endTime = ResourcesSingletonOld.Instance.activity.activityMap.ActivityMap_[activityId].EnergyRecord.EndTime -
+                      (ResourcesSingletonOld.Instance.serverDeltaTime / 1000);
 
-            if (!ResourcesSingleton.Instance.activity.activityMap.ActivityMap_.TryGetValue(activityId,
+            if (!ResourcesSingletonOld.Instance.activity.activityMap.ActivityMap_.TryGetValue(activityId,
                     out var gameActivity))
             {
                 Close();
@@ -159,9 +159,9 @@ namespace XFramework
         {
             Log.Debug($"InitContainer");
 
-            long clientT = JiYuUIHelper.GetServerTimeStamp(true);
+            long clientT = UnicornUIHelper.GetServerTimeStamp(true);
             string timeStr = "";
-            if (!JiYuUIHelper.TryGetRemainingTime(clientT, endTime, out timeStr))
+            if (!UnicornUIHelper.TryGetRemainingTime(clientT, endTime, out timeStr))
             {
                 CloseThisPanel();
                 Log.Debug($"Close");
@@ -188,9 +188,9 @@ namespace XFramework
         {
             //Log.Debug($"UpdateTimer");
 
-            long clientT = JiYuUIHelper.GetServerTimeStamp(true);
+            long clientT = UnicornUIHelper.GetServerTimeStamp(true);
             string timeStr = "";
-            if (!JiYuUIHelper.TryGetRemainingTime(clientT, tillTime, out timeStr))
+            if (!UnicornUIHelper.TryGetRemainingTime(clientT, tillTime, out timeStr))
             {
                 CloseThisPanel();
             }
@@ -225,7 +225,7 @@ namespace XFramework
         private void CloseThisPanel()
         {
             CloseUpdate();
-            JiYuUIHelper.DestoryAllTips();
+            UnicornUIHelper.DestoryAllTips();
             Close();
         }
 
@@ -283,9 +283,9 @@ namespace XFramework
             var goldIcon = tbItem.Get(goldId).icon;
             img_Gold.GetImage().SetSpriteAsync(goldIcon, false);
             img_Gold_Big.GetImage().SetSpriteAsync(goldIcon, false);
-            if (ResourcesSingleton.Instance.items.ContainsKey(goldId))
+            if (ResourcesSingletonOld.Instance.items.ContainsKey(goldId))
             {
-                txt_GoldNum.GetTextMeshPro().SetTMPText(ResourcesSingleton.Instance.items[goldId].ToString());
+                txt_GoldNum.GetTextMeshPro().SetTMPText(ResourcesSingletonOld.Instance.items[goldId].ToString());
             }
             else
             {
@@ -294,7 +294,7 @@ namespace XFramework
 
             btnClose.GetXButton().OnClick.Add(() => CloseThisPanel());
             var btnClose1 = GetFromReference(UIPanel_Activity_EnergyShop.KBtnClose1);
-            btnClose1.GetXButton().OnClick.Add(() => JiYuUIHelper.DestoryAllTips());
+            btnClose1.GetXButton().OnClick.Add(() => UnicornUIHelper.DestoryAllTips());
             //btnClose.GetComponent<Button>()
             //TODO:
 
@@ -316,9 +316,9 @@ namespace XFramework
             var txt_Time = GetFromReference(UIPanel_Activity_EnergyShop.KTxt_Time);
             var btnClose = GetFromReference(UIPanel_Activity_EnergyShop.KBtnClose);
             var goldId = tbConstant.GetOrDefault("energy_shop_item").constantValue;
-            if (ResourcesSingleton.Instance.items.ContainsKey(goldId))
+            if (ResourcesSingletonOld.Instance.items.ContainsKey(goldId))
             {
-                txt_GoldNum.GetTextMeshPro().SetTMPText(ResourcesSingleton.Instance.items[goldId].ToString());
+                txt_GoldNum.GetTextMeshPro().SetTMPText(ResourcesSingletonOld.Instance.items[goldId].ToString());
             }
             else
             {
@@ -348,7 +348,7 @@ namespace XFramework
             Log.Debug($"itemCount:{itemCount}");
             if (itemCount == 5)
             {
-                #region Éú³É ÓÐ¿ÕÒýÓÃ¶ªÊ§
+                #region ï¿½ï¿½ï¿½ï¿½ ï¿½Ð¿ï¿½ï¿½ï¿½ï¿½Ã¶ï¿½Ê§
 
                 var parent = this.GetFromReference(UIPanel_Activity_EnergyShop.KItemPos);
                 var list = parent.GetList();
@@ -363,7 +363,7 @@ namespace XFramework
                         var uis = ui as UISubPanel_EnergyShopItem;
                         uis.DisplayLock(false);
                     }
-                    //JiYuUIHelper.ForceRefreshLayout(ui.GetFromReference(UISubPanel_EnergyShopItem.KPosLeftRight));
+                    //UnicornUIHelper.ForceRefreshLayout(ui.GetFromReference(UISubPanel_EnergyShopItem.KPosLeftRight));
                 }
 
                 list.Sort((a, b) =>
@@ -386,7 +386,7 @@ namespace XFramework
                         var uis = ui as UISubPanel_EnergyShopItem;
                         uis.DisplayLock(false);
                     }
-                    // JiYuUIHelper.ForceRefreshLayout(ui.GetFromReference(UISubPanel_EnergyShopItem.KPosLeftRight));
+                    // UnicornUIHelper.ForceRefreshLayout(ui.GetFromReference(UISubPanel_EnergyShopItem.KPosLeftRight));
                 }
 
                 list1.Sort((a, b) =>
@@ -412,7 +412,7 @@ namespace XFramework
             }
             else
             {
-                //ÓÐ¶à¸ö²»¶¨ÊýÁ¿ÐèÇóÔÙ¼Ó
+                //ï¿½Ð¶ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ù¼ï¿½
             }
         }
 

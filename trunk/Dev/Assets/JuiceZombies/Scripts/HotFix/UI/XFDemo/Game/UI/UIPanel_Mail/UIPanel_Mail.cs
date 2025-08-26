@@ -1,5 +1,5 @@
 //---------------------------------------------------------------------
-// JiYuStudio
+// UnicornStudio
 // Author: xxx
 // Time: #CreateTime#
 //---------------------------------------------------------------------
@@ -59,7 +59,7 @@ namespace XFramework
 
         public async void Initialize()
         {
-            await JiYuUIHelper.InitBlur(this);
+            await UnicornUIHelper.InitBlur(this);
             tbmail = ConfigManager.Instance.Tables.Tbmail;
             tblanguage = ConfigManager.Instance.Tables.Tblanguage;
             InitRedDot();
@@ -98,18 +98,18 @@ namespace XFramework
 
 
             KMaskBtn.GetXButton().OnClick.Add(async () => { await ClosePanel(); });
-            JiYuTweenHelper.DoScaleTweenOnClickAndLongPress(KBtn_Close, async () => await ClosePanel());
+            UnicornTweenHelper.DoScaleTweenOnClickAndLongPress(KBtn_Close, async () => await ClosePanel());
             await InitMailPanel();
 
             FirstMailRead();
 
-            JiYuTweenHelper.DoScaleTweenOnClickAndLongPress(KCommon_Btn, () =>
+            UnicornTweenHelper.DoScaleTweenOnClickAndLongPress(KCommon_Btn, () =>
             {
-                JiYuUIHelper.DestoryAllTips();
+                UnicornUIHelper.DestoryAllTips();
                 OnClickReceiveBtn();
             });
-            KImg_Title.GetXButton().OnClick.Add(() => { JiYuUIHelper.DestoryAllTips(); });
-            KBg_Main.GetXButton().OnClick.Add(() => { JiYuUIHelper.DestoryAllTips(); });
+            KImg_Title.GetXButton().OnClick.Add(() => { UnicornUIHelper.DestoryAllTips(); });
+            KBg_Main.GetXButton().OnClick.Add(() => { UnicornUIHelper.DestoryAllTips(); });
         }
 
         void InitRedDot()
@@ -124,9 +124,9 @@ namespace XFramework
 
         private async UniTask ClosePanel()
         {
-            JiYuTweenHelper.SetEaseAlphaAndPosUtoB(GetFromReference(UIPanel_Mail.KMain), 0 - 100, 100, cts.Token, 0.15f,
+            UnicornTweenHelper.SetEaseAlphaAndPosUtoB(GetFromReference(UIPanel_Mail.KMain), 0 - 100, 100, cts.Token, 0.15f,
                 false);
-            JiYuTweenHelper.SetEaseAlphaAndPosRtoL(GetFromReference(UIPanel_Mail.KMain), 0 - 100, 100, cts.Token, 0.15f,
+            UnicornTweenHelper.SetEaseAlphaAndPosRtoL(GetFromReference(UIPanel_Mail.KMain), 0 - 100, 100, cts.Token, 0.15f,
                 false);
             GetFromReference(UIPanel_Mail.KMain).GetComponent<CanvasGroup>().alpha = 1f;
             GetFromReference(UIPanel_Mail.KMain).GetComponent<CanvasGroup>().DOFade(0, 0.3f).SetEase(Ease.InQuad);
@@ -212,7 +212,7 @@ namespace XFramework
                         int.Parse(rewardSplit[2])));
                 }
 
-                //TODO:·¢¼þÈË ÓÊ¼þid
+                //TODO:ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½Ê¼ï¿½id
                 mail = new mail(mailInfo.MailModuleId, mailInfo.Type + 1, mailInfo.Title, mailInfo.Content, paraList,
                     "Jiyu-Studio",
                     99, rewards);
@@ -225,7 +225,7 @@ namespace XFramework
 
             if (mail == null)
             {
-                Log.Error($"id:{mailInfo.MailModuleId} ±íÖÐÓÊ¼þÄÃ²»µ½");
+                Log.Error($"id:{mailInfo.MailModuleId} ï¿½ï¿½ï¿½ï¿½ï¿½Ê¼ï¿½ï¿½Ã²ï¿½ï¿½ï¿½");
                 return;
             }
 
@@ -290,8 +290,8 @@ namespace XFramework
                     KScroller_BiggerContent.SetActive(false);
                     KTxt_Content.GetTextMeshPro().SetTMPText(contentText);
 
-                    scrollRect_Reward.OnDrag.Add((a) => { JiYuUIHelper.DestoryAllTips(); });
-                    scrollRect_Content.OnDrag.Add((a) => { JiYuUIHelper.DestoryAllTips(); });
+                    scrollRect_Reward.OnDrag.Add((a) => { UnicornUIHelper.DestoryAllTips(); });
+                    scrollRect_Content.OnDrag.Add((a) => { UnicornUIHelper.DestoryAllTips(); });
 
                     SetReceiveBtn(mailInfo);
 
@@ -307,22 +307,22 @@ namespace XFramework
 
                         //ui.SetParent(this, false);
                         common_RewardItem.GetRectTransform().SetScale(new Vector2(1f, 1f));
-                        JiYuUIHelper.SetRewardOnClick(reward, common_RewardItem);
+                        UnicornUIHelper.SetRewardOnClick(reward, common_RewardItem);
                     }
 
-                    list.Sort(JiYuUIHelper.RewardUIComparer);
+                    list.Sort(UnicornUIHelper.RewardUIComparer);
                     break;
             }
 
-            ResourcesSingleton.Instance.UpdateResourceUI();
+            ResourcesSingletonOld.Instance.UpdateResourceUI();
         }
 
 
         void FirstMailRead()
         {
-            if (ResourcesSingleton.Instance.mails.Count < 1)
+            if (ResourcesSingletonOld.Instance.mails.Count < 1)
                 return;
-            mailItemsDic[ResourcesSingleton.Instance.mails[0].Id].OnClickMailList(ResourcesSingleton.Instance.mails[0]);
+            mailItemsDic[ResourcesSingletonOld.Instance.mails[0].Id].OnClickMailList(ResourcesSingletonOld.Instance.mails[0]);
         }
 
 
@@ -354,7 +354,7 @@ namespace XFramework
             StartTimer();
 
 
-            if (ResourcesSingleton.Instance.mails.Count < 1)
+            if (ResourcesSingletonOld.Instance.mails.Count < 1)
             {
                 var KScroller_MailList = GetFromReference(UIPanel_Mail.KScroller_MailList);
                 KScroller_MailList.SetActive(false);
@@ -387,7 +387,7 @@ namespace XFramework
             var scrollRect = scroller_MailList.GetScrollRect();
             var list = scrollRect.Content.GetList();
             list.Clear();
-            foreach (var mailInfo in ResourcesSingleton.Instance.mails)
+            foreach (var mailInfo in ResourcesSingletonOld.Instance.mails)
             {
                 var ui =
                     await list.CreateWithUITypeAsync(UIType.UISubPanel_MailItem, mailInfo,
@@ -431,17 +431,17 @@ namespace XFramework
         }
 
         /// <summary>
-        /// ¿ªÆô¶¨Ê±Æ÷
+        /// ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ê±ï¿½ï¿½
         /// </summary>
         public void StartTimer()
         {
-            //¿ªÆôÒ»¸öÃ¿Ö¡Ö´ÐÐµÄÈÎÎñ£¬Ïàµ±ÓÚUpdate
+            //ï¿½ï¿½ï¿½ï¿½Ò»ï¿½ï¿½Ã¿Ö¡Ö´ï¿½Ðµï¿½ï¿½ï¿½ï¿½ï¿½ï¿½àµ±ï¿½ï¿½Update
             var timerMgr = TimerManager.Instance;
             timerId = timerMgr.StartRepeatedTimer(2500, this.Update);
         }
 
         /// <summary>
-        /// ÒÆ³ý¶¨Ê±Æ÷
+        /// ï¿½Æ³ï¿½ï¿½ï¿½Ê±ï¿½ï¿½
         /// </summary>
         public void RemoveTimer()
         {
@@ -458,7 +458,7 @@ namespace XFramework
             mailItemsDic.Clear();
 
             lastUI = 0;
-            JiYuUIHelper.DestoryAllTips();
+            UnicornUIHelper.DestoryAllTips();
             cts.Cancel();
             cts.Dispose();
             base.OnClose();

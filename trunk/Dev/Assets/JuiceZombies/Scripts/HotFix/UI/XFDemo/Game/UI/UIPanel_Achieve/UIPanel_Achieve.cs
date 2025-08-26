@@ -1,5 +1,5 @@
 ﻿//---------------------------------------------------------------------
-// JiYuStudio
+// UnicornStudio
 // Author: xxx
 // Time: #CreateTime#
 //---------------------------------------------------------------------
@@ -62,21 +62,21 @@ namespace XFramework
 
         public async void Initialize()
         {
-            await JiYuUIHelper.InitBlur(this);
+            await UnicornUIHelper.InitBlur(this);
             InitJson();
             StartTimer();
             var KImg_Achieve = GetFromReference(UIPanel_Achieve.KImg_Achieve);
             KImg_Achieve.SetActive(false);
-            WebMessageHandlerOld.Instance.AddHandler(CMD.QUERYACHIEVEMENT, OnQueryAchievementResponse);
+            WebMessageHandlerOld.Instance.AddHandler(CMDOld.QUERYACHIEVEMENT, OnQueryAchievementResponse);
 
             //tagFunc = daysSign.tagFunc;
 
-            //JiYuUIHelper.EnableLoading(true);
-            NetWorkManager.Instance.SendMessage(CMD.QUERYACHIEVEMENT);
+            //UnicornUIHelper.EnableLoading(true);
+            NetWorkManager.Instance.SendMessage(CMDOld.QUERYACHIEVEMENT);
 
-            JiYuTweenHelper.SetEaseAlphaAndPosB2U(this.GetFromReference(UIPanel_Achieve.KMid), 180, 100, cts.Token, 0.15f,
+            UnicornTweenHelper.SetEaseAlphaAndPosB2U(this.GetFromReference(UIPanel_Achieve.KMid), 180, 100, cts.Token, 0.15f,
                 false);
-            JiYuTweenHelper.SetEaseAlphaAndPosLtoR(GetFromReference(UIPanel_Achieve.KMid), 0, 100, cts.Token, 0.15f,
+            UnicornTweenHelper.SetEaseAlphaAndPosLtoR(GetFromReference(UIPanel_Achieve.KMid), 0, 100, cts.Token, 0.15f,
                 false);
             GetFromReference(UIPanel_Achieve.KMid).GetComponent<CanvasGroup>().alpha = 0f;
             GetFromReference(UIPanel_Achieve.KMid).GetComponent<CanvasGroup>().DOFade(1, 0.3f).SetEase(Ease.InQuad);
@@ -117,9 +117,9 @@ namespace XFramework
 
             //TODO:等级
 
-            JiYuTweenHelper.PlayUIImageTranstionFX(KImg_Achieve, cancellationToken: cts.Token);
+            UnicornTweenHelper.PlayUIImageTranstionFX(KImg_Achieve, cancellationToken: cts.Token);
             DataInit();
-            ShowLevelExp(ResourcesSingleton.Instance.achieveInfo.ScoreSum);
+            ShowLevelExp(ResourcesSingletonOld.Instance.achieveInfo.ScoreSum);
             InitRedDot();
             ScrollConteneInit();
             await CreateGroup();
@@ -132,11 +132,11 @@ namespace XFramework
             // var KBtn_Strong = GetFromReference(UIPanel_Achieve.KBtn_Strong);
             // var KBtn_Achieve_Gift = this.GetFromReference(UIPanel_Achieve.KBtn_Achieve_Gift);
             //DoTweenEffect.DoScaleTweenOnClickAndLongPress(KBtn_Strong, () => { CreateTips(); });
-            JiYuTweenHelper.DoScaleTweenOnClickAndLongPress(KBtn_Achieve_Gift, async () =>
+            UnicornTweenHelper.DoScaleTweenOnClickAndLongPress(KBtn_Achieve_Gift, async () =>
             {
-                var lastAchieve = ResourcesSingleton.Instance.achieveInfo.Achieve;
+                var lastAchieve = ResourcesSingletonOld.Instance.achieveInfo.Achieve;
                 CloseStrongTip();
-                JiYuUIHelper.DestoryItemTips();
+                UnicornUIHelper.DestoryItemTips();
                 if (NowLevel - lastAchieve.Id >= 2)
                 {
                     GetGift(NowLevel);
@@ -192,9 +192,9 @@ namespace XFramework
         private async UniTask ClosePanel()
         {
             RemoveTimer();
-            JiYuTweenHelper.SetEaseAlphaAndPosUtoB(GetFromReference(UIPanel_Achieve.KMid), 0 - 100, 100, cts.Token, 0.15f,
+            UnicornTweenHelper.SetEaseAlphaAndPosUtoB(GetFromReference(UIPanel_Achieve.KMid), 0 - 100, 100, cts.Token, 0.15f,
                 false);
-            JiYuTweenHelper.SetEaseAlphaAndPosRtoL(GetFromReference(UIPanel_Achieve.KMid), 0 - 100, 100, cts.Token, 0.15f,
+            UnicornTweenHelper.SetEaseAlphaAndPosRtoL(GetFromReference(UIPanel_Achieve.KMid), 0 - 100, 100, cts.Token, 0.15f,
                 false);
             GetFromReference(UIPanel_Achieve.KMid).GetComponent<CanvasGroup>().alpha = 1f;
             GetFromReference(UIPanel_Achieve.KMid).GetComponent<CanvasGroup>().DOFade(0, 0.3f).SetEase(Ease.InQuad);
@@ -205,7 +205,7 @@ namespace XFramework
         public void Update()
         {
             DataInit();
-            ShowLevelExp(ResourcesSingleton.Instance.achieveInfo.ScoreSum);
+            ShowLevelExp(ResourcesSingletonOld.Instance.achieveInfo.ScoreSum);
             //InitRedDot();
             //ScrollConteneInit();
             CreateGroup().Forget();
@@ -368,7 +368,7 @@ namespace XFramework
 
             groupIDs = helpDic;
 
-            ResourcesSingleton.Instance.groupIDs = helpDic;
+            ResourcesSingletonOld.Instance.groupIDs = helpDic;
 
             #endregion
         }
@@ -405,7 +405,7 @@ namespace XFramework
             foreach (var groupId in achieveGroup.groupId)
             {
                 //Log.Debug($"{groupId} is null", Color.green);
-                var list = ResourcesSingleton.Instance.achieveInfo.TaskInfoList.Where(a => a.Group == groupId)
+                var list = ResourcesSingletonOld.Instance.achieveInfo.TaskInfoList.Where(a => a.Group == groupId)
                     .ToList();
                 if (list.Count <= 0)
                 {
@@ -457,7 +457,7 @@ namespace XFramework
                 foreach (var groupId in achieveGroup.groupId)
                 {
                     //Log.Debug($"{groupId} is null", Color.green);
-                    var list = ResourcesSingleton.Instance.achieveInfo.TaskInfoList.Where(a => a.Group == groupId)
+                    var list = ResourcesSingletonOld.Instance.achieveInfo.TaskInfoList.Where(a => a.Group == groupId)
                         .ToList();
                     if (list.Count <= 0)
                     {
@@ -495,7 +495,7 @@ namespace XFramework
                 KText_Group_Para.GetTextMeshPro()
                     .SetTMPText(paraStr);
 
-                JiYuTweenHelper.DoScaleTweenOnClickAndLongPress(KBtn, async () =>
+                UnicornTweenHelper.DoScaleTweenOnClickAndLongPress(KBtn, async () =>
                 {
                     //Debug.Log(ihelp);
                     CloseStrongTip();
@@ -519,8 +519,8 @@ namespace XFramework
         /// </summary>
         public void UpdateGroup()
         {
-            Debug.Log("update group and ResourcesSingleton.Instance.achieve.boxes.count" +
-                      ResourcesSingleton.Instance.achieve.boxes.Count);
+            Debug.Log("update group and ResourcesSingletonOld.Instance.achieve.boxes.count" +
+                      ResourcesSingletonOld.Instance.achieve.boxes.Count);
             // foreach (var d in groupDic)
             // {
             //     GroupSet(d.Key, d.Value);
@@ -551,7 +551,7 @@ namespace XFramework
                 for (int i = 0; i < groupIDs[gid].Count; i++)
                 {
                     int taskID = groupIDs[gid][i];
-                    if (ResourcesSingleton.Instance.achieve.tasks[taskID][0] == 1)
+                    if (ResourcesSingletonOld.Instance.achieve.tasks[taskID][0] == 1)
                     {
                         num++;
                     }
@@ -581,7 +581,7 @@ namespace XFramework
 
             var itemStrUp = $"{m_RedDotName}|Up";
 
-            var lastAchieve = ResourcesSingleton.Instance.achieveInfo.Achieve;
+            var lastAchieve = ResourcesSingletonOld.Instance.achieveInfo.Achieve;
 
             if (NowLevel - lastAchieve.Id >= 2)
             {
@@ -608,7 +608,7 @@ namespace XFramework
             //RedPointMgr.instance.Init(UIPanel_Battle.Battle_Red_Point_Root, KBtn_Achieve_Gift,
             //    (RedPointState state, int data) =>
             //    {
-            //        if (JiYuUIHelper.TryGetUI(UIType.UIPanel_Achieve, out UI ui))
+            //        if (UnicornUIHelper.TryGetUI(UIType.UIPanel_Achieve, out UI ui))
             //        {
             //            this.GetFromReference(KImg_Gift_RedPoint).SetActive(state == RedPointState.Show);
             //        }
@@ -639,7 +639,7 @@ namespace XFramework
                     {
                         int taskID = groupIDs[id][i];
                         //如果已领取，那么获得经验
-                        if (ResourcesSingleton.Instance.achieve.tasks[taskID][0] == 1)
+                        if (ResourcesSingletonOld.Instance.achieve.tasks[taskID][0] == 1)
                         {
                             exp += tbtask.Get(taskID).score;
                         }
@@ -665,14 +665,14 @@ namespace XFramework
                     //Debug.Log("i" + i);
                     //Debug.Log("i - 1:" + (i - 1).ToString());
                     //Debug.Log("tbachieve.DataList[i - 1].id" + tbachieve.DataList[i - 1].id);
-                    //Debug.Log("ResourcesSingleton.Instance.achieve.boxes.count" + ResourcesSingleton.Instance.achieve.boxes.Count);
-                    //foreach (var box in ResourcesSingleton.Instance.achieve.boxes)
+                    //Debug.Log("ResourcesSingletonOld.Instance.achieve.boxes.count" + ResourcesSingletonOld.Instance.achieve.boxes.Count);
+                    //foreach (var box in ResourcesSingletonOld.Instance.achieve.boxes)
                     //{
                     //    Debug.Log("box.key" + box.Key + "; box.value.x" + box.Value.x + "; box.value.y" + box.Value.y);
                     //}
-                    var b = ResourcesSingleton.Instance.achieve.boxes[tbachieve.DataList[i - 1].id][0] == 1;
+                    var b = ResourcesSingletonOld.Instance.achieve.boxes[tbachieve.DataList[i - 1].id][0] == 1;
                     if (exp >= tbachieve.DataList[i - 1].score &&
-                        ResourcesSingleton.Instance.achieve.boxes[tbachieve.DataList[i - 1].id][0] == 1)
+                        ResourcesSingletonOld.Instance.achieve.boxes[tbachieve.DataList[i - 1].id][0] == 1)
                     {
                         level = tbachieve.DataList[i].id;
                     }
@@ -740,7 +740,7 @@ namespace XFramework
 
         private void CreateTips()
         {
-            //ResourcesSingleton
+            //ResourcesSingletonOld
             if (StrongTipIsActive == false)
             {
                 StrongTipIsActive = true;
@@ -790,7 +790,7 @@ namespace XFramework
             UIHelper.Create(UIType.UICommon_Reward, reList);
 
             //WebMessageHandlerOld.Instance.AddHandler(3, 4, OnQueryAchievementResponse);
-            NetWorkManager.Instance.SendMessage(CMD.QUERYACHIEVEMENT);
+            NetWorkManager.Instance.SendMessage(CMDOld.QUERYACHIEVEMENT);
         }
 
         private async void OnQueryAchievementResponse(object sender, WebMessageHandlerOld.Execute e)
@@ -800,7 +800,7 @@ namespace XFramework
             roleTaskInfo.MergeFrom(e.data);
             //Debug.Log(e);
             //this.roleTaskInfo = roleTaskInfo;
-            ResourcesSingleton.Instance.achieveInfo = roleTaskInfo;
+            ResourcesSingletonOld.Instance.achieveInfo = roleTaskInfo;
             Log.Debug($"roleTaskInfo:{roleTaskInfo.ToString()}", Color.green);
             //roleTaskInfo.
             if (e.data.IsEmpty)
@@ -819,25 +819,25 @@ namespace XFramework
                 Update();
             }
 
-            //JiYuUIHelper.EnableLoading(false);
+            //UnicornUIHelper.EnableLoading(false);
             return;
-            //Log.Debug($"TaskScoreList:{ResourcesSingleton.Instance.achieveInfo.TaskScoreList.ToString()}", Color.green);
-            //Log.Debug($"AchieveList:{ResourcesSingleton.Instance.achieveInfo.AchieveList.ToString()}", Color.green);
+            //Log.Debug($"TaskScoreList:{ResourcesSingletonOld.Instance.achieveInfo.TaskScoreList.ToString()}", Color.green);
+            //Log.Debug($"AchieveList:{ResourcesSingletonOld.Instance.achieveInfo.AchieveList.ToString()}", Color.green);
 
 
-            ResourcesSingleton.Instance.achieve.tasks.Clear();
-            ResourcesSingleton.Instance.achieve.boxes.Clear();
+            ResourcesSingletonOld.Instance.achieve.tasks.Clear();
+            ResourcesSingletonOld.Instance.achieve.boxes.Clear();
 
             foreach (var t in roleTaskInfo.TaskInfoList)
             {
                 //status为领取状态0未领取，1领取， para任务参数
-                ResourcesSingleton.Instance.achieve.tasks.Add(t.Id, new Vector2(t.Status, t.Para));
+                ResourcesSingletonOld.Instance.achieve.tasks.Add(t.Id, new Vector2(t.Status, t.Para));
             }
 
             // foreach (var s in roleTaskInfo.AchieveList)
             // {
             //     //status为领取状态0未领取，1领取， valid生效与否0未生效1生效
-            //     ResourcesSingleton.Instance.achieve.boxes.Add(s.Id, new Vector2(s.Status, 0));
+            //     ResourcesSingletonOld.Instance.achieve.boxes.Add(s.Id, new Vector2(s.Status, 0));
             // }
 
             UpdateGroup();
@@ -845,7 +845,7 @@ namespace XFramework
 
         protected override void OnClose()
         {
-            WebMessageHandlerOld.Instance.RemoveHandler(CMD.QUERYACHIEVEMENT, OnQueryAchievementResponse);
+            WebMessageHandlerOld.Instance.RemoveHandler(CMDOld.QUERYACHIEVEMENT, OnQueryAchievementResponse);
             CloseStrongTip();
             //groupDic.Clear();
             //this.GetFromReference(KScrollView).GetScrollRect().Content.GetList().Clear();

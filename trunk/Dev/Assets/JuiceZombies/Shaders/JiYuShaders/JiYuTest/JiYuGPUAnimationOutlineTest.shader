@@ -1,4 +1,4 @@
-Shader "JiYuStudio/JiYuGPUAnimationOutlineTest"
+Shader "UnicornStudio/JiYuGPUAnimationOutlineTest"
 {
     Properties
     {

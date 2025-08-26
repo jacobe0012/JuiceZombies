@@ -8,20 +8,15 @@ using Microsoft.EntityFrameworkCore;
 
 namespace HotFix_UI
 {
-#if SERVER_BUILD
-    [Index(nameof(UserId))]
-#endif
     [MessagePackObject]
-    public class GameShop : IMessagePack
+    public class S2C_ShopData : IMessagePack
     {
 #if SERVER_BUILD
         [System.ComponentModel.DataAnnotations.Key]
 #endif
-        [IgnoreMember]
-        public long Id { get; set; }
+        [IgnoreMember] public long Id { get; set; }
 
-        [IgnoreMember] 
-        public long UserId { get; set; }
+        [IgnoreMember] public long GameUserId { get; set; }
 
         /// <summary>
         /// 是否购买免广告卡

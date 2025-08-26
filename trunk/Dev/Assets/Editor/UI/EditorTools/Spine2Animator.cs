@@ -12,7 +12,7 @@ public class Spine2Animator : EditorWindow
 
     private string wsUrl;
 
-    [MenuItem("JiYuStudio Tools/Spine转Animator工具")]
+    [MenuItem("UnicornStudio Tools/Spine转Animator工具")]
     private static void ShowWindow(MenuCommand command)
     {
         SkeletonBakingWindow.Init(command);

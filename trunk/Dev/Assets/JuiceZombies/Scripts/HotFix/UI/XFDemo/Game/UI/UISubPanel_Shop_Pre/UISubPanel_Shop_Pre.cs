@@ -1,5 +1,5 @@
 ﻿//---------------------------------------------------------------------
-// JiYuStudio
+// UnicornStudio
 // Author: huangjinguo
 // Time: #CreateTime#
 //---------------------------------------------------------------------
@@ -59,8 +59,8 @@ namespace XFramework
 
         public async void Initialize(int BoxID)
         {
-            await JiYuUIHelper.InitBlur(this);
-            if (JiYuUIHelper.TryGetUI(UIType.UICommon_ResourceNotEnough, out UI ui))
+            await UnicornUIHelper.InitBlur(this);
+            if (UnicornUIHelper.TryGetUI(UIType.UICommon_ResourceNotEnough, out UI ui))
             {
                 ui.Dispose();
             }
@@ -131,7 +131,7 @@ namespace XFramework
         //            reList.Add(vector3);
         //        }
 
-        //        JiYuUIHelper.SortRewards(reList);
+        //        UnicornUIHelper.SortRewards(reList);
 
         //        int reHelpCount = reCount / rowInt;
         //        if (reCount % rowInt > 0)
@@ -261,7 +261,7 @@ namespace XFramework
         //                return 1;
         //            }
         //        });
-        //        JiYuUIHelper.ForceRefreshLayout(ui.GetFromReference(UISubPanel_Shop_PreBg.KBg));
+        //        UnicornUIHelper.ForceRefreshLayout(ui.GetFromReference(UISubPanel_Shop_PreBg.KBg));
 
         //        if (haveBlank && banner == db)
         //        {
@@ -299,7 +299,7 @@ namespace XFramework
         //        }
 
         //        sortHelpDic.Add(ui, i);
-        //        JiYuUIHelper.ForceRefreshLayout(this.GetFromReference(KScrollView).GetScrollRect().Content);
+        //        UnicornUIHelper.ForceRefreshLayout(this.GetFromReference(KScrollView).GetScrollRect().Content);
         //        i++;
         //    }
         //    ContentList.Sort((UI ui1, UI ui2) =>
@@ -391,7 +391,7 @@ namespace XFramework
                     reList.Add(vector3);
                 }
 
-                JiYuUIHelper.SortRewards(reList);
+                UnicornUIHelper.SortRewards(reList);
 
                 int reHelpCount = reCount / rowInt;
                 if (reCount % rowInt > 0)
@@ -451,7 +451,7 @@ namespace XFramework
                         return 1;
                     }
                 });
-                JiYuUIHelper.ForceRefreshLayout(ui.GetFromReference(UISubPanel_Shop_PreBg.KBg));
+                UnicornUIHelper.ForceRefreshLayout(ui.GetFromReference(UISubPanel_Shop_PreBg.KBg));
 
                 ui.GetFromReference(UISubPanel_Shop_PreBg.KBg).GetRectTransform()
                     .SetHeight(reHelpCount * (cellSize + Hspacing));
@@ -468,7 +468,7 @@ namespace XFramework
                              Hspacing;
 
                 sortHelpDic.Add(ui, i);
-                JiYuUIHelper.ForceRefreshLayout(this.GetFromReference(KScrollView).GetScrollRect().Content);
+                UnicornUIHelper.ForceRefreshLayout(this.GetFromReference(KScrollView).GetScrollRect().Content);
                 i++;
             }
 
@@ -514,7 +514,7 @@ namespace XFramework
             //bottomUi.GetImage().SetAlpha(0);
             var horizontalUi = bottomUi.GetFromReference(UICommon_Bottom.KScrollView_Item0);
             var backUi = bottomUi.GetFromReference(UICommon_Bottom.KBtn_Close);
-            JiYuTweenHelper.DoScaleTweenOnClickAndLongPress(backUi, () => { Close(); });
+            UnicornTweenHelper.DoScaleTweenOnClickAndLongPress(backUi, () => { Close(); });
             //int tbdbCount = tbdraw_Box.DataList.Count;
             var scrollRect = horizontalUi.GetScrollRect();
 
@@ -536,7 +536,7 @@ namespace XFramework
                     //itemUi.GetRectTransform().SetScale(new Vector2(1.1f, 1.1f));
                 }
 
-                JiYuTweenHelper.DoScaleTweenOnClickAndLongPress(itemUi, () =>
+                UnicornTweenHelper.DoScaleTweenOnClickAndLongPress(itemUi, () =>
                 {
                     if (lastBtn != itemUi)
                     {
@@ -561,7 +561,7 @@ namespace XFramework
         private List<int> GetBoxList()
         {
             //1101
-            var module1101HelpList = ResourcesSingleton.Instance.shopMap.IndexModuleMap[1101].BoxInfoList;
+            var module1101HelpList = ResourcesSingletonOld.Instance.shopMap.IndexModuleMap[1101].BoxInfoList;
             List<int> module1101List = new List<int>();
             foreach (var binfo in module1101HelpList)
             {
@@ -698,7 +698,7 @@ namespace XFramework
         //        //        lastRow = ThisRow;
         //        //    }
         //        //});
-        //        JiYuTweenHelper.DoScaleTweenOnClickAndLongPress(reBtn, () =>
+        //        UnicornTweenHelper.DoScaleTweenOnClickAndLongPress(reBtn, () =>
         //        {
         //            if (lastItemI == ihelp && lastDB == db && lastRow == ThisRow)
         //            {
@@ -731,7 +731,7 @@ namespace XFramework
         //            return 1;
         //        }
         //    });
-        //    JiYuUIHelper.ForceRefreshLayout(ui);
+        //    UnicornUIHelper.ForceRefreshLayout(ui);
         //}
 
         #endregion
@@ -763,7 +763,7 @@ namespace XFramework
                 float titleH = uiBg.GetFromReference(UISubPanel_Shop_PreBg.KTitleImg).GetRectTransform().Height();
                 var thisBgRowList = uiBg.GetFromReference(UISubPanel_Shop_PreBg.KBg).GetList();
                 var reBtn = reui.GetFromReference(UICommon_RewardItem.KBtn_Item);
-                JiYuTweenHelper.DoScaleTweenOnClickAndLongPress(reBtn,
+                UnicornTweenHelper.DoScaleTweenOnClickAndLongPress(reBtn,
                     () => { CreateTipHelp(uiBg, titleH, thisBgRowList, V3, ihelp, reui, thisRow, thisBgIndex); });
 
                 #endregion
@@ -771,7 +771,7 @@ namespace XFramework
                 #region 生成tip新代码
 
                 //var reBtn = reui.GetFromReference(UICommon_RewardItem.KBtn_Item);
-                //JiYuTweenHelper.DoScaleTweenOnClickAndLongPress(reBtn, () =>
+                //UnicornTweenHelper.DoScaleTweenOnClickAndLongPress(reBtn, () =>
                 //{
 
                 //});
@@ -790,7 +790,7 @@ namespace XFramework
                     return 1;
                 }
             });
-            JiYuUIHelper.ForceRefreshLayout(ui);
+            UnicornUIHelper.ForceRefreshLayout(ui);
         }
 
         #endregion
@@ -817,8 +817,8 @@ namespace XFramework
                         .SetHeight(contentH - lastH - Hspacing);
                     this.GetFromReference(KScrollView).GetScrollRect().Content.GetRectTransform().SetOffsetWithLeft(0);
                     this.GetFromReference(KScrollView).GetScrollRect().Content.GetRectTransform().SetOffsetWithRight(0);
-                    JiYuUIHelper.ForceRefreshLayout(uiBg.GetFromReference(UISubPanel_Shop_PreBg.KBg));
-                    JiYuUIHelper.ForceRefreshLayout(this.GetFromReference(KScrollView).GetScrollRect().Content);
+                    UnicornUIHelper.ForceRefreshLayout(uiBg.GetFromReference(UISubPanel_Shop_PreBg.KBg));
+                    UnicornUIHelper.ForceRefreshLayout(this.GetFromReference(KScrollView).GetScrollRect().Content);
 
                     lastRowUI.Dispose();
                 }
@@ -840,8 +840,8 @@ namespace XFramework
                 this.GetFromReference(KScrollView).GetScrollRect().Content.GetRectTransform().SetOffsetWithLeft(0);
                 this.GetFromReference(KScrollView).GetScrollRect().Content.GetRectTransform().SetOffsetWithRight(0);
                 ChangeRowIndex(uiRow, thisRow);
-                JiYuUIHelper.ForceRefreshLayout(uiBg.GetFromReference(UISubPanel_Shop_PreBg.KBg));
-                JiYuUIHelper.ForceRefreshLayout(this.GetFromReference(KScrollView).GetScrollRect().Content);
+                UnicornUIHelper.ForceRefreshLayout(uiBg.GetFromReference(UISubPanel_Shop_PreBg.KBg));
+                UnicornUIHelper.ForceRefreshLayout(this.GetFromReference(KScrollView).GetScrollRect().Content);
                 InScreenOrNot(thisBgIndex, uiRow, tipH, thisRow, uiBg);
                 lastItemUI = reui;
                 lastRowUI = uiRow;
@@ -867,8 +867,8 @@ namespace XFramework
                             this.GetFromReference(KScrollView).GetScrollRect().Content.GetRectTransform()
                                 .SetOffsetWithRight(0);
                             lastRowUI.Dispose();
-                            JiYuUIHelper.ForceRefreshLayout(uiBg.GetFromReference(UISubPanel_Shop_PreBg.KBg));
-                            JiYuUIHelper.ForceRefreshLayout(this.GetFromReference(KScrollView).GetScrollRect().Content);
+                            UnicornUIHelper.ForceRefreshLayout(uiBg.GetFromReference(UISubPanel_Shop_PreBg.KBg));
+                            UnicornUIHelper.ForceRefreshLayout(this.GetFromReference(KScrollView).GetScrollRect().Content);
 
                             await UniTask.Yield();
                         }
@@ -893,8 +893,8 @@ namespace XFramework
                         this.GetFromReference(KScrollView).GetScrollRect().Content.GetRectTransform()
                             .SetOffsetWithRight(0);
                         ChangeRowIndex(uiRow, thisRow);
-                        JiYuUIHelper.ForceRefreshLayout(uiBg.GetFromReference(UISubPanel_Shop_PreBg.KBg));
-                        JiYuUIHelper.ForceRefreshLayout(this.GetFromReference(KScrollView).GetScrollRect().Content);
+                        UnicornUIHelper.ForceRefreshLayout(uiBg.GetFromReference(UISubPanel_Shop_PreBg.KBg));
+                        UnicornUIHelper.ForceRefreshLayout(this.GetFromReference(KScrollView).GetScrollRect().Content);
                         InScreenOrNot(thisBgIndex, uiRow, tipH, thisRow, uiBg);
                         lastItemUI = reui;
                         lastRowUI = uiRow;
@@ -920,8 +920,8 @@ namespace XFramework
                         .SetHeight(contentH - tipH - Hspacing);
                     this.GetFromReference(KScrollView).GetScrollRect().Content.GetRectTransform().SetOffsetWithLeft(0);
                     this.GetFromReference(KScrollView).GetScrollRect().Content.GetRectTransform().SetOffsetWithRight(0);
-                    JiYuUIHelper.ForceRefreshLayout(uiBg.GetFromReference(UISubPanel_Shop_PreBg.KBg));
-                    JiYuUIHelper.ForceRefreshLayout(this.GetFromReference(KScrollView).GetScrollRect().Content);
+                    UnicornUIHelper.ForceRefreshLayout(uiBg.GetFromReference(UISubPanel_Shop_PreBg.KBg));
+                    UnicornUIHelper.ForceRefreshLayout(this.GetFromReference(KScrollView).GetScrollRect().Content);
                 }
             }
 

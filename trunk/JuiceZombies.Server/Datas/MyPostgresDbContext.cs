@@ -10,7 +10,7 @@ public class MyPostgresDbContext : DbContext
     {
     }
     
-    public DbSet<GameShop> GameShops { get; set; }
+    public DbSet<S2C_ShopData> GameShops { get; set; }
     
-    public DbSet<GameUser> GameUsers { get; set; }
+    public DbSet<S2C_UserResData> GameUsers { get; set; }
 }

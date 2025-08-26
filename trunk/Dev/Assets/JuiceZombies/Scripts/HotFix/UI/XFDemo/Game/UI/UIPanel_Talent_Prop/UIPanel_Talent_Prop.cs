@@ -1,5 +1,5 @@
 //---------------------------------------------------------------------
-// JiYuStudio
+// UnicornStudio
 // Author: xxx
 // Time: #CreateTime#
 //---------------------------------------------------------------------
@@ -45,7 +45,7 @@ namespace XFramework
 
         public async void Initialize(int type)
         {
-            await JiYuUIHelper.InitBlur(this);
+            await UnicornUIHelper.InitBlur(this);
             this.type = type;
 
             InitJson();
@@ -76,7 +76,7 @@ namespace XFramework
             KBtn_TitleInfo.SetActive(false);
             KText_BottomTitle.SetActive(false);
             KBtn_Close.GetXButton().RemoveAllListeners();
-            JiYuTweenHelper.DoScaleTweenOnClickAndLongPress(KBtn_Close, () => { this.Close(); });
+            UnicornTweenHelper.DoScaleTweenOnClickAndLongPress(KBtn_Close, () => { this.Close(); });
 
             var content = KScrollView_Item0.GetScrollRect().Content;
             var bottomList = content.GetList();
@@ -92,7 +92,7 @@ namespace XFramework
                 KBg_Mask.SetActive(true);
                 KBg_Mask1.SetActive(true);
 
-                JiYuTweenHelper.DoScaleTweenOnClickAndLongPress(ui, () =>
+                UnicornTweenHelper.DoScaleTweenOnClickAndLongPress(ui, () =>
                 {
                     if (type == index)
                     {
@@ -209,14 +209,14 @@ namespace XFramework
                         UIType.UICommon_Btn2, tbtanlent.DataList[i].id, false) as UICommon_Btn2;
                     ui.index = ihelp;
 
-                    JiYuTweenHelper.SetEaseAlphaAndPosB2U(ui.GetFromReference(UICommon_Btn2.KMid), 0, 20,
+                    UnicornTweenHelper.SetEaseAlphaAndPosB2U(ui.GetFromReference(UICommon_Btn2.KMid), 0, 20,
                         cancellationToken: cts.Token,
                         0.35f, false,
                         false);
 
 
-                    //JiYuUIHelper.ChangePaddingLR(this, 50, 0.2f);
-                    JiYuTweenHelper.ChangeSoftness(ui, 300, 0.35f, cancellationToken: cts.Token);
+                    //UnicornUIHelper.ChangePaddingLR(this, 50, 0.2f);
+                    UnicornTweenHelper.ChangeSoftness(ui, 300, 0.35f, cancellationToken: cts.Token);
                 }
             }
 
@@ -264,7 +264,7 @@ namespace XFramework
             ObjectHelper.Awake(ui, talent.level);
             if (talent.level <= 7)
             {
-                JiYuTweenHelper.SetEaseAlphaAndPosB2U(ui.GetFromReference(UIContainer_Bar.KBg), 0, 50,
+                UnicornTweenHelper.SetEaseAlphaAndPosB2U(ui.GetFromReference(UIContainer_Bar.KBg), 0, 50,
                     cancellationToken: cts.Token,
                     0.35f + 0.02f * (talent.level), true, true);
             }

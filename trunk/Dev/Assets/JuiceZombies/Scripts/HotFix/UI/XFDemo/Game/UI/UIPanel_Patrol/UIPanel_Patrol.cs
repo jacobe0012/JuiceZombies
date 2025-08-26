@@ -1,5 +1,5 @@
 //---------------------------------------------------------------------
-// JiYuStudio
+// UnicornStudio
 // Author: 迅捷蟹
 // Time: #CreateTime#
 //---------------------------------------------------------------------
@@ -94,10 +94,10 @@ namespace XFramework
 
         public async void Initialize()
         {
-            await JiYuUIHelper.InitBlur(this);
+            await UnicornUIHelper.InitBlur(this);
             isAnimationActive = true;
             InitJsonFile();
-            chapterID = ResourcesSingleton.Instance.levelInfo.maxPassChapterID;
+            chapterID = ResourcesSingletonOld.Instance.levelInfo.maxPassChapterID;
             Debug.Log($"chapterID:{chapterID}");
             if (chapterID <= 0)
             {
@@ -105,9 +105,9 @@ namespace XFramework
             }
             SetCloseTip(GetFromReference(KBg_Close));
             RemoveTimer();
-            WebMessageHandlerOld.Instance.AddHandler(CMD.INITPLAYER, OnReceiveAddVaule);
-            WebMessageHandlerOld.Instance.AddHandler(CMD.QUERYAUTOPATROL, OnReceiveAutoPatrol);
-            NetWorkManager.Instance.SendMessage(CMD.INITPLAYER);
+            WebMessageHandlerOld.Instance.AddHandler(CMDOld.INITPLAYER, OnReceiveAddVaule);
+            WebMessageHandlerOld.Instance.AddHandler(CMDOld.QUERYAUTOPATROL, OnReceiveAutoPatrol);
+            NetWorkManager.Instance.SendMessage(CMDOld.INITPLAYER);
             InitWidgetAction();
 
             InitUIEffect();
@@ -133,17 +133,17 @@ namespace XFramework
 
         public void SetCloseTip(UI ui)
         {
-            ui.GetButton().OnClick?.Add(() => { JiYuUIHelper.DestoryAllTips(); ui.SetActive(false); });
+            ui.GetButton().OnClick?.Add(() => { UnicornUIHelper.DestoryAllTips(); ui.SetActive(false); });
         }
         private void InitUIEffect()
         {
-            JiYuTweenHelper.PlayUIImageTranstionFX(this.GetFromReference(KImgTop));
+            UnicornTweenHelper.PlayUIImageTranstionFX(this.GetFromReference(KImgTop));
 
             var height1 = this.GetFromReference(KImage_AutoPatrol).GetRectTransform().AnchoredPosition().y;
             this.GetFromReference(KImage_AutoPatrol).GetComponent<CanvasGroup>().alpha = 0.5f;
             this.GetFromReference(KImage_RapidPatrol).GetComponent<CanvasGroup>().alpha = 0.5f;
 
-            JiYuTweenHelper.SetEaseAlphaAndPosB2U(this.GetFromReference(KImage_AutoPatrol), height1, 100, cts.Token, 0.3f,
+            UnicornTweenHelper.SetEaseAlphaAndPosB2U(this.GetFromReference(KImage_AutoPatrol), height1, 100, cts.Token, 0.3f,
                 false,
                 true);
 
@@ -151,24 +151,24 @@ namespace XFramework
             this.GetFromReference(KImage_RapidPatrol).GetComponent<CanvasGroup>().DOFade(1, 0.2f).SetEase(Ease.InQuad);
 
             var height2 = this.GetFromReference(KImage_RapidPatrol).GetRectTransform().AnchoredPosition().y;
-            JiYuTweenHelper.SetEaseAlphaAndPosB2U(this.GetFromReference(KImage_RapidPatrol), height2, 100, cts.Token,
+            UnicornTweenHelper.SetEaseAlphaAndPosB2U(this.GetFromReference(KImage_RapidPatrol), height2, 100, cts.Token,
                 0.3f, false,
                 true);
 
 
             var titleHeight1 = this.GetFromReference(KImage_AutoTitle).GetRectTransform().AnchoredPosition().y;
             var titleHeight2 = this.GetFromReference(KImage_RapidTitle).GetRectTransform().AnchoredPosition().y;
-            JiYuTweenHelper.SetEaseAlphaAndPosB2U(this.GetFromReference(KImage_AutoTitle), titleHeight1, 20, cts.Token,
+            UnicornTweenHelper.SetEaseAlphaAndPosB2U(this.GetFromReference(KImage_AutoTitle), titleHeight1, 20, cts.Token,
                 0.3f, false,
                 true);
-            JiYuTweenHelper.SetEaseAlphaAndPosB2U(this.GetFromReference(KImage_RapidTitle), titleHeight2, 20, cts.Token,
+            UnicornTweenHelper.SetEaseAlphaAndPosB2U(this.GetFromReference(KImage_RapidTitle), titleHeight2, 20, cts.Token,
                 0.3f, false,
                 true);
         }
 
         private void OnReceiveAddVaule(object sender, WebMessageHandlerOld.Execute e)
         {
-            WebMessageHandlerOld.Instance.RemoveHandler(CMD.INITPLAYER, OnReceiveAddVaule);
+            WebMessageHandlerOld.Instance.RemoveHandler(CMDOld.INITPLAYER, OnReceiveAddVaule);
             var gameRole = new GameRole();
             gameRole.MergeFrom(e.data);
             if (e.data.IsEmpty)
@@ -177,13 +177,13 @@ namespace XFramework
                 return;
             }
 
-            ResourcesSingleton.Instance.UserInfo.PatrolGainName = gameRole.PatrolGainName;
+            ResourcesSingletonOld.Instance.UserInfo.PatrolGainName = gameRole.PatrolGainName;
 
 
             long timeValue = TimeHelper.ClientNowSeconds();
             var partorlValue = new LongValue();
             partorlValue.Value = timeValue;
-            NetWorkManager.Instance.SendMessage(CMD.QUERYAUTOPATROL, partorlValue);
+            NetWorkManager.Instance.SendMessage(CMDOld.QUERYAUTOPATROL, partorlValue);
         }
 
 
@@ -201,12 +201,12 @@ namespace XFramework
             GetFromReference(KCloseMask).GetXButton().RemoveAllListeners();
 
             this.GetButton(KBg_Patrol)?.OnClick.Add(async () => await ClosePanel());
-            JiYuTweenHelper.DoScaleTweenOnClickAndLongPress(this.GetFromReference(Kbtn_consume_strength),
+            UnicornTweenHelper.DoScaleTweenOnClickAndLongPress(this.GetFromReference(Kbtn_consume_strength),
                 ConsumeStrengthToBuy);
-            JiYuTweenHelper.DoScaleTweenOnClickAndLongPress(this.GetFromReference(Kbtn_consumeAD), BuyADFunc);
+            UnicornTweenHelper.DoScaleTweenOnClickAndLongPress(this.GetFromReference(Kbtn_consumeAD), BuyADFunc);
             //this.GetButton()?.OnClick.Add(ConsumeStrengthToBuy);
             //this.GetButton(Kbtn_consumeAD)?.OnClick.Add(BuyADFunc);
-            JiYuTweenHelper.DoScaleTweenOnClickAndLongPress(this.GetFromReference(KBtnGet), AutoPatrolFuc);
+            UnicornTweenHelper.DoScaleTweenOnClickAndLongPress(this.GetFromReference(KBtnGet), AutoPatrolFuc);
 
             this.GetButton(KImage_AutoMoney)?.OnClick.Add(() => AutoMoneyTipsFuncAsync().Forget());
             this.GetButton(KImage_AutoExp)?.OnClick.Add(() => AutoExpTipsFunc().Forget());
@@ -217,8 +217,8 @@ namespace XFramework
 
         private async UniTask ClosePanel()
         {
-            //JiYuTweenHelper.SetEaseAlphaAndPosUtoB(GetFromReference(UIPanel_Patrol.KPos_Patrol), 0 - 100, 100, 0.15f, false);
-            //JiYuTweenHelper.SetEaseAlphaAndPosRtoL(GetFromReference(UIPanel_Patrol.KPos_Patrol), 0 - 100, 100, 0.15f, false);
+            //UnicornTweenHelper.SetEaseAlphaAndPosUtoB(GetFromReference(UIPanel_Patrol.KPos_Patrol), 0 - 100, 100, 0.15f, false);
+            //UnicornTweenHelper.SetEaseAlphaAndPosRtoL(GetFromReference(UIPanel_Patrol.KPos_Patrol), 0 - 100, 100, 0.15f, false);
             //GetFromReference(UIPanel_Patrol.KPos_Patrol).GetComponent<CanvasGroup>().alpha = 1f;
             //GetFromReference(UIPanel_Patrol.KPos_Patrol).GetComponent<CanvasGroup>().DOFade(0, 0.3f).SetEase(Ease.InQuad);
             //await UniTask.Delay(150);
@@ -315,7 +315,7 @@ namespace XFramework
             ClearAllTips();
             if (playerEnergy < tbconstant.Get("patrol_once_cost_energy").constantValue)
             {
-                if (!JiYuUIHelper.TryGetUI(UIType.UIPanel_BuyEnergy, out var ui))
+                if (!UnicornUIHelper.TryGetUI(UIType.UIPanel_BuyEnergy, out var ui))
                 {
                     UIHelper.CreateAsync(UIType.UIPanel_BuyEnergy).Forget();
                 }
@@ -328,10 +328,10 @@ namespace XFramework
                 NetWorkManager.Instance.SendMessage(6, 1, intType);
 
 
-                ResourcesSingleton.Instance.UserInfo.RoleAssets.Energy -=
+                ResourcesSingletonOld.Instance.UserInfo.RoleAssets.Energy -=
                     tbconstant.Get("patrol_once_cost_energy").constantValue;
-                playerEnergy = ResourcesSingleton.Instance.UserInfo.RoleAssets.Energy;
-                ResourcesSingleton.Instance.UpdateResourceUI();
+                playerEnergy = ResourcesSingletonOld.Instance.UserInfo.RoleAssets.Energy;
+                ResourcesSingletonOld.Instance.UpdateResourceUI();
             }
 
             ClearAllTips();
@@ -346,7 +346,7 @@ namespace XFramework
             //TimeLine = 86395;
             //advertiseCount = 1;
             //energyCount = 3;
-            playerEnergy = ResourcesSingleton.Instance.UserInfo.RoleAssets.Energy;
+            playerEnergy = ResourcesSingletonOld.Instance.UserInfo.RoleAssets.Energy;
             //测试加成
             //AddValue = 2600;
         }
@@ -365,7 +365,7 @@ namespace XFramework
         //初始化多语言文本,这个和控件状态无关
         public void InitLanguageWidget()
         {
-            playerEnergy = ResourcesSingleton.Instance.UserInfo.RoleAssets.Energy;
+            playerEnergy = ResourcesSingletonOld.Instance.UserInfo.RoleAssets.Energy;
 
             #region 自动巡逻和快速巡逻标题tips
 
@@ -404,7 +404,7 @@ namespace XFramework
             string str = "";
             if (!AddValue.Equals(0))
             {
-                str = JiYuUIHelper.GetRewardTextIconName(JiYuUIHelper.GetVector3(JiYuUIHelper.Vector3Type.DOLLARS));
+                str = UnicornUIHelper.GetRewardTextIconName(UnicornUIHelper.GetVector3(UnicornUIHelper.Vector3Type.DOLLARS));
                 str += "<color #" +
                        tbquality.Get(2).fontColor + ">" +
                        addHourMoney.ToString() + "</color>"
@@ -412,7 +412,7 @@ namespace XFramework
                            .current;
                 GetFromReference(KTMP_AutoMoney).GetTextMeshPro().SetTMPText(str);
 
-                str = JiYuUIHelper.GetRewardTextIconName(JiYuUIHelper.GetVector3(JiYuUIHelper.Vector3Type.EXP));
+                str = UnicornUIHelper.GetRewardTextIconName(UnicornUIHelper.GetVector3(UnicornUIHelper.Vector3Type.EXP));
                 str += "<color #" +
                        tbquality.Get(2).fontColor + ">" +
                        addHourExp.ToString() + "</color>" +
@@ -421,13 +421,13 @@ namespace XFramework
             }
             else
             {
-                str = JiYuUIHelper.GetRewardTextIconName(JiYuUIHelper.GetVector3(JiYuUIHelper.Vector3Type.DOLLARS));
+                str = UnicornUIHelper.GetRewardTextIconName(UnicornUIHelper.GetVector3(UnicornUIHelper.Vector3Type.DOLLARS));
                 str += normalHourMoney.ToString() + "/" + tblanguage.Get("time_hour_2").current;
 
                 GetFromReference(KTMP_AutoMoney).GetTextMeshPro()
                     .SetTMPText(str);
 
-                str = JiYuUIHelper.GetRewardTextIconName(JiYuUIHelper.GetVector3(JiYuUIHelper.Vector3Type.EXP));
+                str = UnicornUIHelper.GetRewardTextIconName(UnicornUIHelper.GetVector3(UnicornUIHelper.Vector3Type.EXP));
                 str += normalHourExp.ToString() + "/" + tblanguage.Get("time_hour_2").current;
                 GetFromReference(KTMP_AutoExp).GetTextMeshPro()
                     .SetTMPText(str);
@@ -443,7 +443,7 @@ namespace XFramework
             ////经验图标
             //this.GetImage(KImage_ExpIcon).SetSprite(tbuser_varible.Get(4).icon, false);
             //体力图标
-            str = JiYuUIHelper.GetRewardTextIconName(JiYuUIHelper.GetVector3(JiYuUIHelper.Vector3Type.ENEERGY));
+            str = UnicornUIHelper.GetRewardTextIconName(UnicornUIHelper.GetVector3(UnicornUIHelper.Vector3Type.ENEERGY));
             str += "15";
             this.GetTextMeshPro(KTMP_PhyNum).SetTMPText(str);
             //广告图标
@@ -472,7 +472,7 @@ namespace XFramework
             //    //return;
             //}
 
-            var str = JiYuUIHelper.GetRewardTextIconName("icon_advertise");
+            var str = UnicornUIHelper.GetRewardTextIconName("icon_advertise");
             str += tblanguage.Get("common_free_text").current + "(" + advertiseCount.ToString() + ")";
 
             //免费广告次数
@@ -785,7 +785,7 @@ namespace XFramework
                 AddClick(UIitem0, new Vector3(Awards[i].x, Awards[i].y, Awards[i].z));
             }
 
-            JiYuUIHelper.ForceRefreshLayout(this.GetFromReference(KImage_RewardInfo2));
+            UnicornUIHelper.ForceRefreshLayout(this.GetFromReference(KImage_RewardInfo2));
         }
 
 
@@ -794,7 +794,7 @@ namespace XFramework
         {
             //this.GetFromReference(KSubPanel_CommonTips).SetActive(false);
             ClearAllTips();
-            JiYuUIHelper.SetRewardOnClick(reward, ui,GetFromReference(KBg_Close));
+            UnicornUIHelper.SetRewardOnClick(reward, ui,GetFromReference(KBg_Close));
         }
 
 
@@ -834,13 +834,13 @@ namespace XFramework
                 AddClick(UIitem0, new Vector3(Rewards[i].x, Rewards[i].y, Rewards[i].z));
             }
 
-            JiYuUIHelper.ForceRefreshLayout(this.GetFromReference(KImage_RewardInfo));
+            UnicornUIHelper.ForceRefreshLayout(this.GetFromReference(KImage_RewardInfo));
         }
 
         //清空Tips;
         private void ClearAllTips()
         {
-            JiYuUIHelper.DestoryAllTips();
+            UnicornUIHelper.DestoryAllTips();
             GetFromReference(KCommon_ItemTipsAutoExp).SetActive(false);
             GetFromReference(KCommon_ItemTipsAutoMoney).SetActive(false);
         }
@@ -857,7 +857,7 @@ namespace XFramework
                 AddTimer();
                 SetUpdate();
                 Log.Debug("e.data.IsEmpty", Color.red);
-                WebMessageHandlerOld.Instance.RemoveHandler(CMD.QUERYAUTOPATROL, OnReceiveAutoPatrol);
+                WebMessageHandlerOld.Instance.RemoveHandler(CMDOld.QUERYAUTOPATROL, OnReceiveAutoPatrol);
                 return;
             }
 
@@ -866,12 +866,12 @@ namespace XFramework
             //改变广告次数和体力次数
             advertiseCount = patrolRes.PatrolConfig.PatrolOnceAdTimes;
             energyCount = patrolRes.PatrolConfig.PatrolOnceTimesDay;
-            AddValue = ResourcesSingleton.Instance.UserInfo.PatrolGainName;
+            AddValue = ResourcesSingletonOld.Instance.UserInfo.PatrolGainName;
             Log.Debug(
                 $"AddValue:{AddValue}",
                 Color.cyan);
             Log.Debug(
-                $"ResourcesSingleton.Instance.UserInfo.PatrolGainName{ResourcesSingleton.Instance.UserInfo.PatrolGainName}",
+                $"ResourcesSingletonOld.Instance.UserInfo.PatrolGainName{ResourcesSingletonOld.Instance.UserInfo.PatrolGainName}",
                 Color.cyan);
 
             var BackTimeLine = patrolRes.PatrolGain.PatrolTime;
@@ -934,15 +934,15 @@ namespace XFramework
             }
 
             UI CommonReWard = UIHelper.Create(UIType.UICommon_Reward, RewardList2);
-            WebMessageHandlerOld.Instance.AddHandler(CMD.QUERYAUTOPATROL, OnUpdatePatrolTime);
-            NetWorkManager.Instance.SendMessage(CMD.QUERYAUTOPATROL);
+            WebMessageHandlerOld.Instance.AddHandler(CMDOld.QUERYAUTOPATROL, OnUpdatePatrolTime);
+            NetWorkManager.Instance.SendMessage(CMDOld.QUERYAUTOPATROL);
             GetFromReference(KImage_RewardInfo).GetList().Clear();
-            JiYuUIHelper.ForceRefreshLayout(this.GetFromReference(KImage_RewardInfo));
+            UnicornUIHelper.ForceRefreshLayout(this.GetFromReference(KImage_RewardInfo));
         }
 
         private void OnUpdatePatrolTime(object sender, WebMessageHandlerOld.Execute e)
         {
-            WebMessageHandlerOld.Instance.RemoveHandler(CMD.QUERYAUTOPATROL, OnUpdatePatrolTime);
+            WebMessageHandlerOld.Instance.RemoveHandler(CMDOld.QUERYAUTOPATROL, OnUpdatePatrolTime);
             var patrolRes = new PatrolRes();
             patrolRes.MergeFrom(e.data);
             if (e.data.IsEmpty)
@@ -952,7 +952,7 @@ namespace XFramework
                 AddTimer();
                 SetUpdate();
                 Log.Debug("e.data.IsEmpty", Color.red);
-                WebMessageHandlerOld.Instance.RemoveHandler(CMD.QUERYAUTOPATROL, OnReceiveAutoPatrol);
+                WebMessageHandlerOld.Instance.RemoveHandler(CMDOld.QUERYAUTOPATROL, OnReceiveAutoPatrol);
                 return;
             }
 
@@ -1036,7 +1036,7 @@ namespace XFramework
             //改变广告次数和体力次数
             advertiseCount = patrolRes.PatrolConfig.PatrolOnceAdTimes;
             energyCount = patrolRes.PatrolConfig.PatrolOnceTimesDay;
-            AddValue = ResourcesSingleton.Instance.UserInfo.PatrolGainName;
+            AddValue = ResourcesSingletonOld.Instance.UserInfo.PatrolGainName;
 
             var BackTimeLine = patrolRes.PatrolGain.PatrolTime;
             var MoenyNum = patrolRes.PatrolGain.Money;

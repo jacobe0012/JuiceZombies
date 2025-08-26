@@ -1,5 +1,5 @@
 ﻿//---------------------------------------------------------------------
-// JiYuStudio
+// UnicornStudio
 // Author: huangjinguo
 // Time: #CreateTime#
 //---------------------------------------------------------------------
@@ -80,19 +80,19 @@ namespace XFramework
             var KText_Gold = GetFromReference(UIPanel_Person.KText_Gold);
             var KText_Energy = GetFromReference(UIPanel_Person.KText_Energy);
 
-            var icon = JiYuUIHelper.GetRewardTextIconName(JiYuUIHelper.GetVector3(JiYuUIHelper.Vector3Type.BITCOIN));
+            var icon = UnicornUIHelper.GetRewardTextIconName(UnicornUIHelper.GetVector3(UnicornUIHelper.Vector3Type.BITCOIN));
             // icon= UnityHelper.RichTextSize(icon, 50);
-            KText_Gem.GetTextMeshPro().SetTMPText(icon + JiYuUIHelper.ReturnFormatResourceNum(1));
+            KText_Gem.GetTextMeshPro().SetTMPText(icon + UnicornUIHelper.ReturnFormatResourceNum(1));
 
-            icon = JiYuUIHelper.GetRewardTextIconName(JiYuUIHelper.GetVector3(JiYuUIHelper.Vector3Type.DOLLARS));
+            icon = UnicornUIHelper.GetRewardTextIconName(UnicornUIHelper.GetVector3(UnicornUIHelper.Vector3Type.DOLLARS));
             /// icon = UnityHelper.RichTextSize(icon, 50);
-            KText_Gold.GetTextMeshPro().SetTMPText(icon + JiYuUIHelper.ReturnFormatResourceNum(2));
+            KText_Gold.GetTextMeshPro().SetTMPText(icon + UnicornUIHelper.ReturnFormatResourceNum(2));
 
-            icon = JiYuUIHelper.GetRewardTextIconName(JiYuUIHelper.GetVector3(JiYuUIHelper.Vector3Type.ENEERGY));
+            icon = UnicornUIHelper.GetRewardTextIconName(UnicornUIHelper.GetVector3(UnicornUIHelper.Vector3Type.ENEERGY));
             // icon = UnityHelper.RichTextSize(icon, 50);
             KText_Energy.GetTextMeshPro()
-                .SetTMPText(icon + JiYuUIHelper.ReturnFormatResourceNum(3) + "/" +
-                            $"{ResourcesSingleton.Instance.UserInfo.RoleAssets.EnergyMax}");
+                .SetTMPText(icon + UnicornUIHelper.ReturnFormatResourceNum(3) + "/" +
+                            $"{ResourcesSingletonOld.Instance.UserInfo.RoleAssets.EnergyMax}");
         }
 
         private void OnHttpTestResponse(object sender, WebMessageHandlerOld.Execute e)
@@ -102,7 +102,7 @@ namespace XFramework
 
         private void DataInit()
         {
-            UserInfo = ResourcesSingleton.Instance.UserInfo;
+            UserInfo = ResourcesSingletonOld.Instance.UserInfo;
             tblanguage = ConfigManager.Instance.Tables.Tblanguage;
             tbtag_Func = ConfigManager.Instance.Tables.Tbtag_func;
             tbuser_Avatar = ConfigManager.Instance.Tables.Tbuser_avatar;
@@ -143,7 +143,7 @@ namespace XFramework
 
         private async void OnChangeNameStatusResponse(object sender, WebMessageHandlerOld.Execute e)
         {
-            WebMessageHandlerOld.Instance.RemoveHandler(CMD.CHANGESTATUS, OnChangeNameStatusResponse);
+            WebMessageHandlerOld.Instance.RemoveHandler(CMDOld.CHANGESTATUS, OnChangeNameStatusResponse);
             var checkResult = new CheckResult();
             checkResult.MergeFrom(e.data);
             Debug.Log(checkResult);
@@ -162,7 +162,7 @@ namespace XFramework
 
         private async void CreatePrompt(string str)
         {
-            JiYuUIHelper.ClearCommonResource();
+            UnicornUIHelper.ClearCommonResource();
             await UIHelper.CreateAsync(UIType.UICommon_Resource, str);
         }
 
@@ -177,23 +177,23 @@ namespace XFramework
             // BtnImgSet(tbtag_Func.Get(achiveID), curImg, false);
 
 
-            // JiYuTweenHelper.DoScaleTweenOnClickAndLongPress(curBtn,
+            // UnicornTweenHelper.DoScaleTweenOnClickAndLongPress(curBtn,
             //     async () => { await UIHelper.CreateAsync(UIType.UIPanel_Achieve); });
 
 
             //#region 临时
-            //JiYuTweenHelper.DoScaleTweenOnClickAndLongPress(this.GetFromReference(KBtn_Settings), () => { UIHelper.CreateAsync(UIType.UIPanel_Settings); });
+            //UnicornTweenHelper.DoScaleTweenOnClickAndLongPress(this.GetFromReference(KBtn_Settings), () => { UIHelper.CreateAsync(UIType.UIPanel_Settings); });
             ////await UIHelper.CreateAsync(UIType.UIPanel_Settings);
             //#endregion
 
             UIDic2.Clear();
-            JiYuTweenHelper.DoScaleTweenOnClickAndLongPress(this.GetFromReference(KBtn_Name), () =>
+            UnicornTweenHelper.DoScaleTweenOnClickAndLongPress(this.GetFromReference(KBtn_Name), () =>
             {
-                WebMessageHandlerOld.Instance.AddHandler(CMD.CHANGESTATUS, OnChangeNameStatusResponse);
-                NetWorkManager.Instance.SendMessage(CMD.CHANGESTATUS);
+                WebMessageHandlerOld.Instance.AddHandler(CMDOld.CHANGESTATUS, OnChangeNameStatusResponse);
+                NetWorkManager.Instance.SendMessage(CMDOld.CHANGESTATUS);
             },1104);
 
-            JiYuTweenHelper.DoScaleTweenOnClickAndLongPress(this.GetFromReference(KBtn_ID), () =>
+            UnicornTweenHelper.DoScaleTweenOnClickAndLongPress(this.GetFromReference(KBtn_ID), () =>
             {
                 GUIUtility.systemCopyBuffer = UserInfo.UserId.ToString();
                 CreatePrompt(tblanguage.Get("text_copy_success").current);
@@ -202,7 +202,7 @@ namespace XFramework
 
             this.GetFromReference(KTxtChangeZhuangban).GetTextMeshPro()
                 .SetTMPText(tblanguage.Get(tblanguage.Get("func_5101_name").current).current);
-            JiYuTweenHelper.DoScaleTweenOnClickAndLongPress(this.GetFromReference(KBtn_ChangeZhuangban),
+            UnicornTweenHelper.DoScaleTweenOnClickAndLongPress(this.GetFromReference(KBtn_ChangeZhuangban),
                 () =>
                 {
                     //UIHelper.Create(UIType.UISubPanel_Person_UserInfo);
@@ -215,7 +215,7 @@ namespace XFramework
 
                 var path = NodeNames.GetTagFuncRedDotName(tf.id);
 
-                if (ResourcesSingleton.Instance.redDots.TryGetValue(tf.id, out var value))
+                if (ResourcesSingletonOld.Instance.redDots.TryGetValue(tf.id, out var value))
                 {
                 }
 
@@ -228,7 +228,7 @@ namespace XFramework
                         strName = tf.name;
                         curUI.GetTextMeshPro().SetTMPText(tblanguage.Get(strName).current);
                         BtnImgSet(tf, curImg, false);
-                        JiYuTweenHelper.DoScaleTweenOnClickAndLongPress(curBtn, () => { Btn51OnClick(tf.id); },1104);
+                        UnicornTweenHelper.DoScaleTweenOnClickAndLongPress(curBtn, () => { Btn51OnClick(tf.id); },1104);
                         break;
                     case 5103:
 
@@ -238,7 +238,7 @@ namespace XFramework
                         strName = tf.name;
                         curUI.GetTextMeshPro().SetTMPText(tblanguage.Get(strName).current);
                         BtnImgSet(tf, curImg, false);
-                        JiYuTweenHelper.DoScaleTweenOnClickAndLongPress(curBtn, () => { Btn51OnClick(tf.id); },1104);
+                        UnicornTweenHelper.DoScaleTweenOnClickAndLongPress(curBtn, () => { Btn51OnClick(tf.id); },1104);
                         break;
                     case 5104:
                         curUI = this.GetFromReference(KTxt_Monster);
@@ -249,7 +249,7 @@ namespace XFramework
                         BtnImgSet(tf, curImg, false);
 
 
-                        JiYuTweenHelper.DoScaleTweenOnClickAndLongPress(curBtn, () => { Btn51OnClick(tf.id); });
+                        UnicornTweenHelper.DoScaleTweenOnClickAndLongPress(curBtn, () => { Btn51OnClick(tf.id); });
 
                         var KImg_MonsterRedDot = GetFromReference(UIPanel_Person.KImg_MonsterRedDot);
 
@@ -266,7 +266,7 @@ namespace XFramework
                         BtnImgSet(tf, curImg, false);
 
 
-                        JiYuTweenHelper.DoScaleTweenOnClickAndLongPress(curBtn, () => { Btn51OnClick(tf.id); },1104);
+                        UnicornTweenHelper.DoScaleTweenOnClickAndLongPress(curBtn, () => { Btn51OnClick(tf.id); },1104);
 
                         var KImg_AchieveRedDot = GetFromReference(UIPanel_Person.KImg_AchieveRedDot);
 
@@ -281,7 +281,7 @@ namespace XFramework
             //var KImg_AchieveRedDot = GetFromReference(UIPanel_Person.KImg_AchieveRedDot);
             //UIDic1.Add(tf.id, curUI);
 
-            //JiYuUIHelper.ForceRefreshLayout(this.GetFromReference(KPos_Btn1));
+            //UnicornUIHelper.ForceRefreshLayout(this.GetFromReference(KPos_Btn1));
 
 
             #region 格伦新增
@@ -326,9 +326,9 @@ namespace XFramework
                 ui.GetFromReference(UISubPanel_Person_Btn52.KText).GetTextMeshPro()
                     .SetTMPText(tblanguage.Get(tf.name).current);
                 var btn52 = ui.GetFromReference(UISubPanel_Person_Btn52.KBtn);
-                JiYuTweenHelper.DoScaleTweenOnClickAndLongPress(btn52, () => { Btn52OnClick(tf.id); }, 1104);
+                UnicornTweenHelper.DoScaleTweenOnClickAndLongPress(btn52, () => { Btn52OnClick(tf.id); }, 1104);
                 KImg_RedPoint.SetActive(false);
-                if (ResourcesSingleton.Instance.redDots.TryGetValue(tf.id, out var value))
+                if (ResourcesSingletonOld.Instance.redDots.TryGetValue(tf.id, out var value))
                 {
                     KImg_RedPoint.SetActive(value > 0);
                 }
@@ -350,7 +350,7 @@ namespace XFramework
                 RedDotManager.Instance.AddListener(m_RedDotName, (num) => { KImg_RedPoint?.SetActive(num > 0); });
             }
 
-            JiYuUIHelper.ForceRefreshLayout(this.GetFromReference(KPos_Btn2));
+            UnicornUIHelper.ForceRefreshLayout(this.GetFromReference(KPos_Btn2));
             //PosSet();
         }
 
@@ -421,7 +421,7 @@ namespace XFramework
 
         private void OnShopTestResponse(object sender, WebMessageHandlerOld.Execute e)
         {
-            WebMessageHandlerOld.Instance.RemoveHandler(CMD.QUERYBANK, OnShopTestResponse);
+            WebMessageHandlerOld.Instance.RemoveHandler(CMDOld.QUERYBANK, OnShopTestResponse);
             var shopMap = new GoldPig();
             shopMap.MergeFrom(e.data);
             Debug.Log(shopMap);
@@ -445,8 +445,8 @@ namespace XFramework
         //public async UniTaskVoid UpdateDataByServerOneDay(CancellationToken cancellationToken)
         //{
         //    //CancellationTokenSource cts = new CancellationTokenSource();
-        //    var dTime = ResourcesSingleton.Instance.ServerDeltaTime;
-        //    var uTime = ResourcesSingleton.Instance.UpdateTime;
+        //    var dTime = ResourcesSingletonOld.Instance.ServerDeltaTime;
+        //    var uTime = ResourcesSingletonOld.Instance.UpdateTime;
         //    long updateTime = uTime - dTime / 1000 + 1;
         //    await UniTask.Delay((int)(updateTime - TimeHelper.ClientNowSeconds()) * 1000, false, PlayerLoopTiming.Update, cancellationToken);
         //    SetTest();
@@ -454,8 +454,8 @@ namespace XFramework
 
         public void SetTest()
         {
-            WebMessageHandlerOld.Instance.AddHandler(CMD.QUERYBANK, OnShopTestResponse);
-            NetWorkManager.Instance.SendMessage(CMD.QUERYBANK);
+            WebMessageHandlerOld.Instance.AddHandler(CMDOld.QUERYBANK, OnShopTestResponse);
+            NetWorkManager.Instance.SendMessage(CMDOld.QUERYBANK);
         }
 
         private async void Btn52OnClick(int input)
@@ -464,9 +464,9 @@ namespace XFramework
             {
                 case 5201:
                     var ui = await UIHelper.CreateAsync(UIType.UIPanel_Mail);
-                    JiYuTweenHelper.SetEaseAlphaAndPosB2U(ui.GetFromReference(UIPanel_Mail.KMain), 0, 100, cts.Token,
+                    UnicornTweenHelper.SetEaseAlphaAndPosB2U(ui.GetFromReference(UIPanel_Mail.KMain), 0, 100, cts.Token,
                         0.15f, false);
-                    JiYuTweenHelper.SetEaseAlphaAndPosLtoR(ui.GetFromReference(UIPanel_Mail.KMain), 0, 100, cts.Token,
+                    UnicornTweenHelper.SetEaseAlphaAndPosLtoR(ui.GetFromReference(UIPanel_Mail.KMain), 0, 100, cts.Token,
                         0.15f, false);
                     ui.GetFromReference(UIPanel_Mail.KMain).GetComponent<CanvasGroup>().alpha = 0f;
                     ui.GetFromReference(UIPanel_Mail.KMain).GetComponent<CanvasGroup>().DOFade(1, 0.3f)
@@ -478,10 +478,10 @@ namespace XFramework
 
                     Debug.Log("5202");
                     ui = UIHelper.Create(UIType.UIPanel_Notice);
-                    JiYuTweenHelper.SetEaseAlphaAndPosB2U(ui.GetFromReference(UIPanel_Notice.KImg_Bg), 0, 100, cts.Token,
+                    UnicornTweenHelper.SetEaseAlphaAndPosB2U(ui.GetFromReference(UIPanel_Notice.KImg_Bg), 0, 100, cts.Token,
                         0.15f,
                         false);
-                    JiYuTweenHelper.SetEaseAlphaAndPosLtoR(ui.GetFromReference(UIPanel_Notice.KImg_Bg), 0, 100, cts.Token,
+                    UnicornTweenHelper.SetEaseAlphaAndPosLtoR(ui.GetFromReference(UIPanel_Notice.KImg_Bg), 0, 100, cts.Token,
                         0.15f,
                         false);
                     ui.GetFromReference(UIPanel_Notice.KImg_Bg).GetComponent<CanvasGroup>().alpha = 0f;
@@ -491,10 +491,10 @@ namespace XFramework
                 case 5204:
                     Debug.Log("5204");
                     ui = await UIHelper.CreateAsync(UIType.UIPanel_Settings);
-                    JiYuTweenHelper.SetEaseAlphaAndPosB2U(ui.GetFromReference(UIPanel_Settings.KMid), 0, 100, cts.Token,
+                    UnicornTweenHelper.SetEaseAlphaAndPosB2U(ui.GetFromReference(UIPanel_Settings.KMid), 0, 100, cts.Token,
                         0.15f,
                         false);
-                    JiYuTweenHelper.SetEaseAlphaAndPosLtoR(ui.GetFromReference(UIPanel_Settings.KMid), 0, 100, cts.Token,
+                    UnicornTweenHelper.SetEaseAlphaAndPosLtoR(ui.GetFromReference(UIPanel_Settings.KMid), 0, 100, cts.Token,
                         0.15f,
                         false);
                     ui.GetFromReference(UIPanel_Settings.KMid).GetComponent<CanvasGroup>().alpha = 0f;
@@ -527,9 +527,9 @@ namespace XFramework
         private async void HeadImgInit()
         {
             await this.GetFromReference(KImg_Head).GetImage()
-                .SetSpriteAsync(tbuser_Avatar[ResourcesSingleton.Instance.UserInfo.RoleAvatar].icon, false);
+                .SetSpriteAsync(tbuser_Avatar[ResourcesSingletonOld.Instance.UserInfo.RoleAvatar].icon, false);
             //await this.GetFromReference(KBg_Head).GetImage()
-            //    .SetSpriteAsync(tbuser_Avatar[ResourcesSingleton.Instance.UserInfo.RoleAvatarFrame].icon, false);
+            //    .SetSpriteAsync(tbuser_Avatar[ResourcesSingletonOld.Instance.UserInfo.RoleAvatarFrame].icon, false);
         }
 
         private void BtnImgSet(tag_func tf, UI ui, bool isNactiveSize = false)
@@ -553,7 +553,7 @@ namespace XFramework
         {
             //InitRedPoint();
             //SetRedPoint();
-            ResourcesSingleton.Instance.UpdateResourceUI();
+            ResourcesSingletonOld.Instance.UpdateResourceUI();
         }
 
         //private void InitRedPoint()

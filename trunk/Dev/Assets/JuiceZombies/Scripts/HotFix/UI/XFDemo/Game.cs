@@ -32,7 +32,7 @@ namespace XFramework
         {
             // entry?.Dispose();
             // Start();
-            ResourcesSingleton.Instance.FromRunTimeScene = false;
+            ResourcesSingletonOld.Instance.FromRunTimeScene = false;
 
             var global = Common.Instance.Get<Global>();
             global.SetResolution();
@@ -40,8 +40,8 @@ namespace XFramework
             NetWorkManager.Instance.Close();
             NetWorkManager.Instance.Init();
 
-            ResourcesSingleton.Instance.Clear();
-            ResourcesSingleton.Instance.Init();
+            ResourcesSingletonOld.Instance.Clear();
+            ResourcesSingletonOld.Instance.Init();
 
             RedDotManager.Instance.Clear();
             WebMessageHandlerOld.Instance.Clear();

@@ -60,8 +60,8 @@
 //     private void InitPlayerInfo()
 //     {
 //         NetWorkManager.Instance.SendMessage(2, 7);
-//         AtkText.text = ResourcesSingleton.Instance.playerProperty.playerData.defaultProperty.atk.ToString();
-//         HpText.text = ResourcesSingleton.Instance.playerProperty.playerData.defaultProperty.maxHp.ToString();
+//         AtkText.text = ResourcesSingletonOld.Instance.playerProperty.playerData.defaultProperty.atk.ToString();
+//         HpText.text = ResourcesSingletonOld.Instance.playerProperty.playerData.defaultProperty.maxHp.ToString();
 //     }
 //
 //     public void OnEnable()
@@ -117,7 +117,7 @@
 //                 EquipItemBtnTest.EquipmentPanel = false;
 //                 lastClickTime = Time.time;
 //                 //动画效果
-//                 JiYuTweenHelper.GradualChange(ComplexButton.gameObject, 1.2f, 0.12f, 0.12f);
+//                 UnicornTweenHelper.GradualChange(ComplexButton.gameObject, 1.2f, 0.12f, 0.12f);
 //
 //                 Invoke("OpenCompoundPanelAsync", 0.1f);
 //             }
@@ -130,7 +130,7 @@
 //             {
 //                 lastClickTime = Time.time;
 //                 //动画效果
-//                 JiYuTweenHelper.GradualChange(SortButton.gameObject, 1.2f, 0.12f, 0.12f);
+//                 UnicornTweenHelper.GradualChange(SortButton.gameObject, 1.2f, 0.12f, 0.12f);
 //                 //测试通用面板
 //                 //await UIHelper.CreateAsync(UIType.UIGeneralMaterial, UILayer.Mid);
 //                 //UIHelper.Create(UIType.UIRapidCompound, UILayer.Mid);
@@ -157,7 +157,7 @@
 //             {
 //                 lastClickTime = Time.time;
 //                 //动画效果
-//                 JiYuTweenHelper.GradualChange(AtkButton.gameObject, 1.2f, 0.12f, 0.12f);
+//                 UnicornTweenHelper.GradualChange(AtkButton.gameObject, 1.2f, 0.12f, 0.12f);
 //
 //                 Invoke("OpenPropertyPanel", 0.1f);
 //             }
@@ -170,7 +170,7 @@
 //             {
 //                 lastClickTime = Time.time;
 //                 //动画效果
-//                 JiYuTweenHelper.GradualChange(HpButton.gameObject, 1.2f, 0.12f, 0.12f);
+//                 UnicornTweenHelper.GradualChange(HpButton.gameObject, 1.2f, 0.12f, 0.12f);
 //
 //                 Invoke("OpenPropertyPanel", 0.1f);
 //             }

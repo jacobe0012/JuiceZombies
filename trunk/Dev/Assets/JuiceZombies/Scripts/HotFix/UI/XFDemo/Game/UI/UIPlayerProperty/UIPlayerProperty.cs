@@ -1,5 +1,5 @@
 //---------------------------------------------------------------------
-// JiYuStudio
+// UnicornStudio
 // Author: xxx
 // Time: #CreateTime#
 //---------------------------------------------------------------------
@@ -36,20 +36,20 @@ namespace XFramework
             this.GetButton(KCloseBack)?.OnClick.Add(Close);
             this.GetButton(KCloseBtn)?.OnClick.Add(Close);
 
-            //╨С╤к╤ах║
-            var playerProperty = ResourcesSingleton.Instance.playerProperty;
+            //О©╫О©╫к╤О©╫х║
+            var playerProperty = ResourcesSingletonOld.Instance.playerProperty;
             var battleVaribles = ConfigManager.Instance.Tables.Tbattr_variable.DataMap;
             int bvCount = battleVaribles.Count;
-            //╢╢╫╗р╩╦ЖеепРсц╣дйЩвИ
+            //О©╫О©╫О©╫О©╫р╩О©╫О©╫О©╫О©╫О©╫О©╫О©╫ц╣О©╫О©╫О©╫О©╫О©╫
             int[] variblesHelp = new int[bvCount];
             variblesHelp = VariblesSorting(variblesHelp, battleVaribles, bvCount);
             int vCount = VariblesCount(variblesHelp);
             if (vCount > 20) vCount = 20;
 
-            //╟╢уукЁпРотй╬йТпт
+            //О©╫О©╫О©╫О©╫кЁО©╫О©╫О©╫О©╫й╬О©╫О©╫О©╫О©╫
             for (int i = 0; i < vCount; i++)
             {
-                //1н╙уШпнё╛2н╙мР╥ж╠х
+                //1н╙О©╫О©╫О©╫нёО©╫2н╙О©╫О©╫ж╠О©╫
                 if (battleVaribles[variblesHelp[i]].type == 1)
                 {
                     this.GetFromReference("PropertyTxt" + i.ToString()).GetTextMeshPro()
@@ -71,13 +71,13 @@ namespace XFramework
         }
 
         /// <summary>
-        /// ╦Ы╬щ╤а╠Мю╢еепРйТпт╣дотй╬кЁпР
+        /// О©╫О©╫О©╫щ╤О©╫О©╫О©╫О©╫О©╫О©╫О©╫О©╫О©╫О©╫О©╫О©╫т╣О©╫О©╫О©╫й╬кЁО©╫О©╫
         /// </summary>
         private int[] VariblesSorting(int[] variblesHelp, Dictionary<int, attr_variable> battleVaribles, int bvCount)
         {
             foreach (KeyValuePair<int, attr_variable> kvp in battleVaribles)
             {
-                //еп╤оеепРкЁпРйг╥Ян╙0
+                //О©╫п╤О©╫О©╫О©╫О©╫О©╫кЁО©╫О©╫О©╫г╥О©╫н╙0
                 if (kvp.Value.displayOrder != 0)
                 {
                     variblesHelp[kvp.Value.displayOrder - 1] = kvp.Key;
@@ -88,7 +88,7 @@ namespace XFramework
         }
 
         /// <summary>
-        /// еп╤од©г╟отй╬еепРжппХр╙отй╬╣др╩╧╡сп╪╦н╩
+        /// О©╫п╤О©╫д©г╟О©╫О©╫й╬О©╫О©╫О©╫О©╫О©╫О©╫О©╫О©╫р╙О©╫О©╫й╬О©╫О©╫р╩О©╫О©╫О©╫п╪О©╫н╩
         /// </summary>
         private int VariblesCount(int[] variblesHelp)
         {
@@ -102,7 +102,7 @@ namespace XFramework
         }
 
         /// <summary>
-        /// пч╦дмР╥ж╠хйЩж╣╣дотй╬вж╥Ш╢╝
+        /// О©╫ч╦О©╫О©╫О©╫ж╠О©╫О©╫О©╫ж╣О©╫О©╫О©╫О©╫й╬О©╫ж╥О©╫О©╫О©╫
         /// </summary>
         private string PercentageStr(int input)
         {

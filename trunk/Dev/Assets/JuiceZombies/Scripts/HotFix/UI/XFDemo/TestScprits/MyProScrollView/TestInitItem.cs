@@ -67,11 +67,11 @@ public class TestInitItem : MonoBehaviour
 
         EquipitemCache.Darwitems.Clear();
         //这个是图纸
-        if (ResourcesSingleton.Instance.items.Count != 0)
+        if (ResourcesSingletonOld.Instance.items.Count != 0)
         {
             var tbitem = ConfigManager.Instance.Tables.Tbitem;
-            //ResourcesSingleton.Instance.SortBagItem(ResourcesSingleton.Instance.items);
-            foreach (var item in ResourcesSingleton.Instance.items)
+            //ResourcesSingletonOld.Instance.SortBagItem(ResourcesSingletonOld.Instance.items);
+            foreach (var item in ResourcesSingletonOld.Instance.items)
             {
                 if (item.Key >= tbitem.DataList[2].id && item.Key <= tbitem.DataList[8].id)
                 {

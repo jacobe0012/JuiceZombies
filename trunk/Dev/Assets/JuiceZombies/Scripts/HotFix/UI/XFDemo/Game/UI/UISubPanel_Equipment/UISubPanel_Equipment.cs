@@ -1,5 +1,5 @@
 //---------------------------------------------------------------------
-// JiYuStudio
+// UnicornStudio
 // Author: xxx
 // Time: #CreateTime#
 //---------------------------------------------------------------------
@@ -136,7 +136,7 @@ namespace XFramework
 
                 ui.ChageState(false);
 
-                JiYuTweenHelper.DoScaleTweenOnClickAndLongPress(KBtn, () => OnBtnClickEvent(tag.posType));
+                UnicornTweenHelper.DoScaleTweenOnClickAndLongPress(KBtn, () => OnBtnClickEvent(tag.posType));
 
                 //如果页签为1
                 if (tag.posType == 1)
@@ -185,7 +185,7 @@ namespace XFramework
             //     switch (lastPosId)
             //     {
             //         case 1:
-            //             if (JiYuUIHelper.TryGetUI(UIType.UIPanel_Equipment, out var ui2))
+            //             if (UnicornUIHelper.TryGetUI(UIType.UIPanel_Equipment, out var ui2))
             //             {
             //                 var uis = ui2 as UIPanel_Equipment;
             //                 uis.scrollRect.SetEnabled(true);
@@ -195,7 +195,7 @@ namespace XFramework
             //
             //             break;
             //         case 2:
-            //             if (JiYuUIHelper.TryGetUI(UIType.UIPanel_Talent, out UI ui))
+            //             if (UnicornUIHelper.TryGetUI(UIType.UIPanel_Talent, out UI ui))
             //             {
             //                 //Log.Debug("TryGetUI(UIType.UIPanel_Talent,out UI ui)",Color.cyan);
             //                 var talent = ui as UIPanel_Talent;
@@ -229,7 +229,7 @@ namespace XFramework
                         ModuleS, KContents.GetComponent<RectTransform>());
 
                     UIHelper.TryGetUIManager().TryAddAllUIs(UIType.UIPanel_Equipment, Contentsui);
-                    if (ResourcesSingleton.Instance.isUIInit)
+                    if (ResourcesSingletonOld.Instance.isUIInit)
                     {
                         AudioManager.Instance.PlayFModAudio(1220);
                     }
@@ -247,7 +247,7 @@ namespace XFramework
                         KContents.GetComponent<RectTransform>());
                     UIHelper.TryGetUIManager().TryAddAllUIs(UIType.UIPanel_Talent, Contentsui);
                   
-                    if (ResourcesSingleton.Instance.isUIInit)
+                    if (ResourcesSingletonOld.Instance.isUIInit)
                     {
                         AudioManager.Instance.PlayFModAudio(1222);
                     }

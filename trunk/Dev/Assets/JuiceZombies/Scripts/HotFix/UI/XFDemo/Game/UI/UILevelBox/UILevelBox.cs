@@ -1,5 +1,5 @@
 //---------------------------------------------------------------------
-// JiYuStudio
+// UnicornStudio
 // Author: xxx
 // Time: #CreateTime#
 //---------------------------------------------------------------------
@@ -46,7 +46,7 @@ namespace XFramework
         {
             rewardItems = new List<GameObject>(4);
             WebMessageHandlerOld.Instance.AddHandler(2, 4, GetChapterBoxInfo);
-            //GetBoxShow(ResourcesSingleton.Instance.levelInfo.levelBox.minNotGetBoxID);
+            //GetBoxShow(ResourcesSingletonOld.Instance.levelInfo.levelBox.minNotGetBoxID);
 
             this.GetButton(KBackButton)?.OnClick.Add(Close);
             this.GetButton(KGetButton)?.OnClick.Add(onGetButtonClicked);
@@ -109,17 +109,17 @@ namespace XFramework
 
             Log.Debug(
                 $"boxID:{minNoGetBoxID}", Color.blue);
-            //ResourcesSingleton.Instance.levelInfo.levelBox.minNotGetBoxID = minNoGetBoxID;
-            ResourcesSingleton.Instance.levelInfo.levelBox.minNotLockBoxID = minNotLockBoxID;
+            //ResourcesSingletonOld.Instance.levelInfo.levelBox.minNotGetBoxID = minNoGetBoxID;
+            ResourcesSingletonOld.Instance.levelInfo.levelBox.minNotLockBoxID = minNotLockBoxID;
             UIHelper.Create(UIType.UIAwardGet, minNoGetBoxID);
             GetBoxShow(minNoGetBoxID);
         }
 
         private async void onGetButtonClicked()
         {
-            //int lastBoxID = ResourcesSingleton.Instance.levelInfo.levelBox.minNotGetBoxID;
+            //int lastBoxID = ResourcesSingletonOld.Instance.levelInfo.levelBox.minNotGetBoxID;
             // Log.Debug($"lastBoxID:{lastBoxID}");
-            // int boxLockID= ResourcesSingleton.Instance.levelInfo.levelBox.minNotLockBoxID;
+            // int boxLockID= ResourcesSingletonOld.Instance.levelInfo.levelBox.minNotLockBoxID;
             //NetWorkManager.Instance.SendMessage(2, 8, new IntValue { Value = lastBoxID });
             //NetWorkManager.Instance.SendMessage(2, 4);
 
@@ -141,7 +141,7 @@ namespace XFramework
             //    }
             //}
 
-            //ResourcesSingleton.Instance.levelInfo.levelBox.minNotGetBoxID = minNoGetBoxID;
+            //ResourcesSingletonOld.Instance.levelInfo.levelBox.minNotGetBoxID = minNoGetBoxID;
 
 
             //UIHelper.Create(UIType.UIAwardGet, minNoGetBoxID);
@@ -150,18 +150,18 @@ namespace XFramework
             //var boxMap = ConfigManager.Instance.Tables.Tbchapter_box.DataMap;
             //var rewards = boxMap[minNoGetBoxID].reward;
 
-            //JiYuUIHelper.AddReward(rewards, true);
+            //UnicornUIHelper.AddReward(rewards, true);
 
 
-            ResourcesSingleton.Instance.UpdateResourceUI();
+            ResourcesSingletonOld.Instance.UpdateResourceUI();
         }
 
         private void GetBoxShow(int nextBoxID)
         {
             Log.Debug($"5555555555555555555555555", Color.green);
 
-            // int minNoGetBoxID = ResourcesSingleton.Instance.levelInfo.levelBox.minNotGetBoxID;
-            int minNotLockBoxID = ResourcesSingleton.Instance.levelInfo.levelBox.minNotLockBoxID;
+            // int minNoGetBoxID = ResourcesSingletonOld.Instance.levelInfo.levelBox.minNotGetBoxID;
+            int minNotLockBoxID = ResourcesSingletonOld.Instance.levelInfo.levelBox.minNotLockBoxID;
             // Log.Debug($"minNoGetBoxID{minNoGetBoxID}minNotLockBoxID{minNotLockBoxID}",Color.green);
             //ͨ��û��ȡ��boxID����box����
             //int boxID = 101;
@@ -200,7 +200,7 @@ namespace XFramework
             var boxMap = ConfigManager.Instance.Tables.Tbchapter_box.DataMap;
             var rewardArray = boxMap[boxID].reward;
 
-            JiYuUIHelper.SortRewards(rewardArray);
+            UnicornUIHelper.SortRewards(rewardArray);
             foreach (var reward in rewardArray)
             {
                 float rewardID = reward.x;

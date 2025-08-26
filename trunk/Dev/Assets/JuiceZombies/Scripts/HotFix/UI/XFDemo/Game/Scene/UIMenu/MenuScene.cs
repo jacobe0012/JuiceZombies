@@ -44,15 +44,15 @@ namespace XFramework
 
         protected async override void OnCompleted()
         {
-            ResourcesSingleton.Instance.isUIInit = false;
+            ResourcesSingletonOld.Instance.isUIInit = false;
             //cts = new CancellationTokenSource();
             UnityHelper.BeginTime();
             RedDotManager.Instance.Clear();
             RedDotManager.Instance.CreateRedTreeTag();
 
-            if (!ResourcesSingleton.Instance.FromRunTimeScene)
+            if (!ResourcesSingletonOld.Instance.FromRunTimeScene)
             {
-                JiYuTweenHelper.EnableLoading(true);
+                UnicornTweenHelper.EnableLoading(true);
             }
 
             AudioManager.Instance.StopFModSFX(false);
@@ -64,52 +64,52 @@ namespace XFramework
                 return;
             }
 
-            JiYuUIHelper.DownloadNotice().Forget();
+            UnicornUIHelper.DownloadNotice().Forget();
 
             Log.Debug($"进入UIMenu场景 屏幕刷新率:{Screen.currentResolution.refreshRateRatio}", Color.green);
 
             #region 基础数据
 
-            WebMessageHandlerOld.Instance.AddHandler(CMD.INITPLAYER, OnOpenMainPanelResponse, 1);
-            WebMessageHandlerOld.Instance.AddHandler(CMD.OPENBAG, OnOpenBagPanelResponse, 1);
-            //WebMessageHandlerOld.Instance.AddHandler(CMD.QUERYPROPERTY, OnInitPlayerPropertyResponse, 1);
-            WebMessageHandlerOld.Instance.AddHandler(CMD.QUERYLEVEL, OnLevelRequsetResponse, 1);
-            WebMessageHandlerOld.Instance.AddHandler(CMD.QUERYSETTINGS, OnQuerySettingsResponse, 1);
-            WebMessageHandlerOld.Instance.AddHandler(CMD.GETMAINPROPERTY, OnGetMainPropertyResponse, 1);
-            WebMessageHandlerOld.Instance.AddHandler(CMD.QUERYREDDOT, OnQueryRedDotResponse);
+            WebMessageHandlerOld.Instance.AddHandler(CMDOld.INITPLAYER, OnOpenMainPanelResponse, 1);
+            WebMessageHandlerOld.Instance.AddHandler(CMDOld.OPENBAG, OnOpenBagPanelResponse, 1);
+            //WebMessageHandlerOld.Instance.AddHandler(CMDOld.QUERYPROPERTY, OnInitPlayerPropertyResponse, 1);
+            WebMessageHandlerOld.Instance.AddHandler(CMDOld.QUERYLEVEL, OnLevelRequsetResponse, 1);
+            WebMessageHandlerOld.Instance.AddHandler(CMDOld.QUERYSETTINGS, OnQuerySettingsResponse, 1);
+            WebMessageHandlerOld.Instance.AddHandler(CMDOld.GETMAINPROPERTY, OnGetMainPropertyResponse, 1);
+            WebMessageHandlerOld.Instance.AddHandler(CMDOld.QUERYREDDOT, OnQueryRedDotResponse);
 
             #endregion
 
             #region 上层数据
 
-            WebMessageHandlerOld.Instance.AddHandler(CMD.PREPAY, OnPrePayResponse);
-            WebMessageHandlerOld.Instance.AddHandler(CMD.CHAPTERINFO, OnLevelInfoShowResponse, 2);
-            WebMessageHandlerOld.Instance.AddHandler(CMD.SERVERTIME, OnServerTimeResponse, 2);
-            WebMessageHandlerOld.Instance.AddHandler(CMD.UPDATETIME, OnQueryUpdateTimeResponse, 2);
-            WebMessageHandlerOld.Instance.AddHandler(CMD.QUERYEQUIP, OnQueryEquipResponse, 2);
-            WebMessageHandlerOld.Instance.AddHandler(CMD.QUERYMAIL, OnQueryMailResponse, 2);
+            WebMessageHandlerOld.Instance.AddHandler(CMDOld.PREPAY, OnPrePayResponse);
+            WebMessageHandlerOld.Instance.AddHandler(CMDOld.CHAPTERINFO, OnLevelInfoShowResponse, 2);
+            WebMessageHandlerOld.Instance.AddHandler(CMDOld.SERVERTIME, OnServerTimeResponse, 2);
+            WebMessageHandlerOld.Instance.AddHandler(CMDOld.UPDATETIME, OnQueryUpdateTimeResponse, 2);
+            WebMessageHandlerOld.Instance.AddHandler(CMDOld.QUERYEQUIP, OnQueryEquipResponse, 2);
+            WebMessageHandlerOld.Instance.AddHandler(CMDOld.QUERYMAIL, OnQueryMailResponse, 2);
             //WebMessageHandlerOld.Instance.AddHandler(11, 1, OnShopInitResponse);
-            WebMessageHandlerOld.Instance.AddHandler(CMD.QUERYSHOP, OnShopInitResponse, 2);
-            WebMessageHandlerOld.Instance.AddHandler(CMD.QUERYWEAR, OnQueryWearingEquipResponse);
-            //WebMessageHandlerOld.Instance.AddHandler(CMD.QUERYDAYANDWEEKTASK, OnDayAndWeekResponse, 2);
-            //WebMessageHandlerOld.Instance.AddHandler(CMD.QUERYACHIEVE, OnAchieveResponse, 2);
+            WebMessageHandlerOld.Instance.AddHandler(CMDOld.QUERYSHOP, OnShopInitResponse, 2);
+            WebMessageHandlerOld.Instance.AddHandler(CMDOld.QUERYWEAR, OnQueryWearingEquipResponse);
+            //WebMessageHandlerOld.Instance.AddHandler(CMDOld.QUERYDAYANDWEEKTASK, OnDayAndWeekResponse, 2);
+            //WebMessageHandlerOld.Instance.AddHandler(CMDOld.QUERYACHIEVE, OnAchieveResponse, 2);
             WebMessageHandlerOld.Instance.AddHandler(12, 1, OnSignResponse, 2);
             //WebMessageHandlerOld.Instance.AddHandler(13, 1, OnNoticeResponse);
-            WebMessageHandlerOld.Instance.AddHandler(CMD.QUERYTALENT, OnQueryTalentResponse, 2);
+            WebMessageHandlerOld.Instance.AddHandler(CMDOld.QUERYTALENT, OnQueryTalentResponse, 2);
 
-            WebMessageHandlerOld.Instance.AddHandler(CMD.QUERYCHALLENGE, OnQueryChallengeResponse, 2);
-            WebMessageHandlerOld.Instance.AddHandler(CMD.QUERYMONSTERCOLLECTION, OnQueryMonsterCollectionResponse, 2);
-            WebMessageHandlerOld.Instance.AddHandler(CMD.QUERYCHARGE, OnFirstChargeResponse, 2);
-            WebMessageHandlerOld.Instance.AddHandler(CMD.QUERYBANK, OnQueryBankResponse, 2);
-            //WebMessageHandlerOld.Instance.AddHandler(CMD.PASSTIME, OnPassTimeResponse, 2);
-            //WebMessageHandlerOld.Instance.AddHandler(CMD.QUERYPASS, OnQueryPassResponse, 2);
-            WebMessageHandlerOld.Instance.AddHandler(CMD.QUERYACTIVITY, OnQueryActivityResponse, 2);
-            //WebMessageHandlerOld.Instance.AddHandler(CMD.QUERYACTIVITYTASK, OnQueryMonopolyTaskResponse, 2);
-            WebMessageHandlerOld.Instance.AddHandler(CMD.QUERYACTIVITYREDDOT, OnQueryActivityRedDotResponse, 2);
-            WebMessageHandlerOld.Instance.AddHandler(CMD.PASSEXP, OnQueryPassExpReddot, 2);
-            WebMessageHandlerOld.Instance.AddHandler(CMD.QUERYSHARE, OnShareInfoInitResponse, 2);
+            WebMessageHandlerOld.Instance.AddHandler(CMDOld.QUERYCHALLENGE, OnQueryChallengeResponse, 2);
+            WebMessageHandlerOld.Instance.AddHandler(CMDOld.QUERYMONSTERCOLLECTION, OnQueryMonsterCollectionResponse, 2);
+            WebMessageHandlerOld.Instance.AddHandler(CMDOld.QUERYCHARGE, OnFirstChargeResponse, 2);
+            WebMessageHandlerOld.Instance.AddHandler(CMDOld.QUERYBANK, OnQueryBankResponse, 2);
+            //WebMessageHandlerOld.Instance.AddHandler(CMDOld.PASSTIME, OnPassTimeResponse, 2);
+            //WebMessageHandlerOld.Instance.AddHandler(CMDOld.QUERYPASS, OnQueryPassResponse, 2);
+            WebMessageHandlerOld.Instance.AddHandler(CMDOld.QUERYACTIVITY, OnQueryActivityResponse, 2);
+            //WebMessageHandlerOld.Instance.AddHandler(CMDOld.QUERYACTIVITYTASK, OnQueryMonopolyTaskResponse, 2);
+            WebMessageHandlerOld.Instance.AddHandler(CMDOld.QUERYACTIVITYREDDOT, OnQueryActivityRedDotResponse, 2);
+            WebMessageHandlerOld.Instance.AddHandler(CMDOld.PASSEXP, OnQueryPassExpReddot, 2);
+            WebMessageHandlerOld.Instance.AddHandler(CMDOld.QUERYSHARE, OnShareInfoInitResponse, 2);
 
-            WebMessageHandlerOld.Instance.AddHandler(CMD.QUERYDAILYREDDOT, OnQueryDailyRedDotResponse, 2);
+            WebMessageHandlerOld.Instance.AddHandler(CMDOld.QUERYDAILYREDDOT, OnQueryDailyRedDotResponse, 2);
 
             #endregion
 
@@ -118,83 +118,83 @@ namespace XFramework
 
             WebMessageHandlerOld.Instance.AddHandler(99, 2, OnGiftChangeResponse);
             WebMessageHandlerOld.Instance.AddHandler(99, 6, OnFirstChargeChangeResponse);
-            //WebMessageHandlerOld.Instance.AddHandler(CMD.BOARDCASTUPDATEPROPERTY, OnInitPlayerPropertyBoardResponse);
+            //WebMessageHandlerOld.Instance.AddHandler(CMDOld.BOARDCASTUPDATEPROPERTY, OnInitPlayerPropertyBoardResponse);
             WebMessageHandlerOld.Instance.AddHandler(99, 3, OnNoticeStatusChangeResponse);
             // WebMessageHandlerOld.Instance.AddHandler(100, 1, OnTaskChangeResponse);
-            WebMessageHandlerOld.Instance.AddHandler(CMD.BOARDCASTMAIL, OnBoardCastMail);
-            WebMessageHandlerOld.Instance.AddHandler(CMD.BOARDCASTUPDATEFUCTASK, OnBoardCastUpdateFuncTaskResponse);
-            WebMessageHandlerOld.Instance.AddHandler(CMD.BOARDCASTPAYRESPONSE, OnBoardCastPaymentResponse);
+            WebMessageHandlerOld.Instance.AddHandler(CMDOld.BOARDCASTMAIL, OnBoardCastMail);
+            WebMessageHandlerOld.Instance.AddHandler(CMDOld.BOARDCASTUPDATEFUCTASK, OnBoardCastUpdateFuncTaskResponse);
+            WebMessageHandlerOld.Instance.AddHandler(CMDOld.BOARDCASTPAYRESPONSE, OnBoardCastPaymentResponse);
 
             #endregion
 
             QueryAllRedDot();
 
-            NetWorkManager.Instance.SendMessage(CMD.INITPLAYER);
-            NetWorkManager.Instance.SendMessage(CMD.OPENBAG);
-            //NetWorkManager.Instance.SendMessage(CMD.QUERYPROPERTY);
-            NetWorkManager.Instance.SendMessage(CMD.QUERYLEVEL);
-            NetWorkManager.Instance.SendMessage(CMD.GETMAINPROPERTY);
+            NetWorkManager.Instance.SendMessage(CMDOld.INITPLAYER);
+            NetWorkManager.Instance.SendMessage(CMDOld.OPENBAG);
+            //NetWorkManager.Instance.SendMessage(CMDOld.QUERYPROPERTY);
+            NetWorkManager.Instance.SendMessage(CMDOld.QUERYLEVEL);
+            NetWorkManager.Instance.SendMessage(CMDOld.GETMAINPROPERTY);
 
             //13,2 查询设置*
-            NetWorkManager.Instance.SendMessage(CMD.QUERYSETTINGS);
+            NetWorkManager.Instance.SendMessage(CMDOld.QUERYSETTINGS);
             WebMessageHandlerOld.Instance.AddTagEvnetHandler(1, (a, b) =>
             {
                 //2,4 查询章节信息 精简 *
-                NetWorkManager.Instance.SendMessage(CMD.CHAPTERINFO);
+                NetWorkManager.Instance.SendMessage(CMDOld.CHAPTERINFO);
                 //9,5查询所有装备*
-                NetWorkManager.Instance.SendMessage(CMD.QUERYEQUIP);
+                NetWorkManager.Instance.SendMessage(CMDOld.QUERYEQUIP);
                 //8,1 查询活动相关信息
-                NetWorkManager.Instance.SendMessage(CMD.QUERYACTIVITY);
+                NetWorkManager.Instance.SendMessage(CMDOld.QUERYACTIVITY);
                 //8,8 查询单个活动红点*
-                NetWorkManager.Instance.SendMessage(CMD.QUERYACTIVITYREDDOT);
+                NetWorkManager.Instance.SendMessage(CMDOld.QUERYACTIVITYREDDOT);
 
                 //8,8 查询单个活动红点*
-                NetWorkManager.Instance.SendMessage(CMD.PASSEXP);
+                NetWorkManager.Instance.SendMessage(CMDOld.PASSEXP);
                 //19,1 服务器当前时间戳*
-                NetWorkManager.Instance.SendMessage(CMD.SERVERTIME);
+                NetWorkManager.Instance.SendMessage(CMDOld.SERVERTIME);
                 //19,2 服务器每天更新时间*
-                NetWorkManager.Instance.SendMessage(CMD.UPDATETIME);
+                NetWorkManager.Instance.SendMessage(CMDOld.UPDATETIME);
 
                 //5,1  查询邮件*
-                NetWorkManager.Instance.SendMessage(CMD.QUERYMAIL);
+                NetWorkManager.Instance.SendMessage(CMDOld.QUERYMAIL);
                 //11,10 查询商店信息*
-                NetWorkManager.Instance.SendMessage(CMD.QUERYSHOP);
+                NetWorkManager.Instance.SendMessage(CMDOld.QUERYSHOP);
                 //2,10查询解锁天赋*
-                NetWorkManager.Instance.SendMessage(CMD.QUERYTALENT);
+                NetWorkManager.Instance.SendMessage(CMDOld.QUERYTALENT);
                 //NetWorkManager.Instance.SendMessage(13, 1);
                 NetWorkManager.Instance.SendMessage(12, 1);
-                //NetWorkManager.Instance.SendMessage(CMD.QUERYDAYANDWEEKTASK);
+                //NetWorkManager.Instance.SendMessage(CMDOld.QUERYDAYANDWEEKTASK);
                 //3,4 查询成就*
-                //NetWorkManager.Instance.SendMessage(CMD.QUERYACHIEVE);
+                //NetWorkManager.Instance.SendMessage(CMDOld.QUERYACHIEVE);
                 //2,13*
-                NetWorkManager.Instance.SendMessage(CMD.QUERYCHALLENGE);
+                NetWorkManager.Instance.SendMessage(CMDOld.QUERYCHALLENGE);
                 //18,1 查询怪物图鉴*
-                NetWorkManager.Instance.SendMessage(CMD.QUERYMONSTERCOLLECTION);
+                NetWorkManager.Instance.SendMessage(CMDOld.QUERYMONSTERCOLLECTION);
                 NetWorkManager.Instance.SendMessage(17, 1);
-                NetWorkManager.Instance.SendMessage(CMD.QUERYBANK);
+                NetWorkManager.Instance.SendMessage(CMDOld.QUERYBANK);
                 //14,6 查询通行证解锁时间*
-                //NetWorkManager.Instance.SendMessage(CMD.PASSTIME);
+                //NetWorkManager.Instance.SendMessage(CMDOld.PASSTIME);
                 //14,2 查询通行证信息*
-                //NetWorkManager.Instance.SendMessage(CMD.QUERYPASS);
-                NetWorkManager.Instance.SendMessage(CMD.QUERYSHARE);
+                //NetWorkManager.Instance.SendMessage(CMDOld.QUERYPASS);
+                NetWorkManager.Instance.SendMessage(CMDOld.QUERYSHARE);
                 //3-8 查询日常周常红点
-                NetWorkManager.Instance.SendMessage(CMD.QUERYDAILYREDDOT);
-                //NetWorkManager.Instance.SendMessage(CMD.QUERYAUTOPATROL, partorlValue);
-                //Log.Error("SendMessage(CMD.CHALLENGEQUERY)");
+                NetWorkManager.Instance.SendMessage(CMDOld.QUERYDAILYREDDOT);
+                //NetWorkManager.Instance.SendMessage(CMDOld.QUERYAUTOPATROL, partorlValue);
+                //Log.Error("SendMessage(CMDOld.CHALLENGEQUERY)");
                 //Log.Debug($"进入UIMenu场景SendMessageDone", Color.green);
             });
             WebMessageHandlerOld.Instance.AddTagEvnetHandler(2, async (a, b) =>
             {
                 //Log.Error("CreateUIPanel_JiyuGame");
-                if (!JiYuUIHelper.TryGetUI(UIType.UISubPanel_RawBackground, out var ui))
+                if (!UnicornUIHelper.TryGetUI(UIType.UISubPanel_RawBackground, out var ui))
                 {
                     await UIHelper.CreateAsync(UIType.UISubPanel_RawBackground);
                 }
 
-                if (!JiYuUIHelper.TryGetUI(UIType.UIPanel_JiyuGame, out var ui1))
+                if (!UnicornUIHelper.TryGetUI(UIType.UIPanel_JiyuGame, out var ui1))
                 {
                     //Log.Error("CreateUIPanel_JiyuGame1");
-                    UIHelper.CreateAsync(UIType.UIPanel_JiyuGame, ResourcesSingleton.Instance.UserInfo).Forget();
+                    UIHelper.CreateAsync(UIType.UIPanel_JiyuGame, ResourcesSingletonOld.Instance.UserInfo).Forget();
                 }
             });
 
@@ -207,7 +207,7 @@ namespace XFramework
             var tbtag_func = ConfigManager.Instance.Tables.Tbtag_func;
             foreach (var tagFunc in tbtag_func.DataList)
             {
-                NetWorkManager.Instance.SendMessage(CMD.QUERYREDDOT, new IntValue
+                NetWorkManager.Instance.SendMessage(CMDOld.QUERYREDDOT, new IntValue
                 {
                     Value = tagFunc.id
                 });
@@ -216,20 +216,20 @@ namespace XFramework
 
         private async UniTaskVoid SetUpdateDataFromServer()
         {
-            var dTime = ResourcesSingleton.Instance.serverDeltaTime;
-            var uTime = ResourcesSingleton.Instance.updateTime;
+            var dTime = ResourcesSingletonOld.Instance.serverDeltaTime;
+            var uTime = ResourcesSingletonOld.Instance.updateTime;
             long updateTime = uTime - dTime / 1000 + 1;
             // await UniTask.Delay((int)(updateTime - TimeHelper.ClientNowSeconds()) * 1000, false,
-            //     PlayerLoopTiming.Update, ResourcesSingleton.Instance.UpdateCTS.Token);
+            //     PlayerLoopTiming.Update, ResourcesSingletonOld.Instance.UpdateCTS.Token);
             //SendUpdateMessage();
         }
 
         // private void SendUpdateMessage()
         // {
-        //     WebMessageHandlerOld.Instance.AddHandler(CMD.QUERYSHOP, OnShopInitResponse);
-        //     NetWorkManager.Instance.SendMessage(CMD.QUERYSHOP);
-        //     WebMessageHandlerOld.Instance.AddHandler(CMD.PASSTIME, OnPassTimeResponse);
-        //     NetWorkManager.Instance.SendMessage(CMD.PASSTIME);
+        //     WebMessageHandlerOld.Instance.AddHandler(CMDOld.QUERYSHOP, OnShopInitResponse);
+        //     NetWorkManager.Instance.SendMessage(CMDOld.QUERYSHOP);
+        //     WebMessageHandlerOld.Instance.AddHandler(CMDOld.PASSTIME, OnPassTimeResponse);
+        //     NetWorkManager.Instance.SendMessage(CMDOld.PASSTIME);
         // }
 
         void OnQueryRedDotResponse(object sender, WebMessageHandlerOld.Execute e)
@@ -249,13 +249,13 @@ namespace XFramework
                 var strs = stringValue.Value.Split(";");
                 int str0 = int.Parse(strs[0]);
                 int str1 = int.Parse(strs[1]);
-                if (ResourcesSingleton.Instance.redDots.ContainsKey(str0))
+                if (ResourcesSingletonOld.Instance.redDots.ContainsKey(str0))
                 {
-                    ResourcesSingleton.Instance.redDots[str0] = str1;
+                    ResourcesSingletonOld.Instance.redDots[str0] = str1;
                 }
                 else
                 {
-                    ResourcesSingleton.Instance.redDots.Add(str0, str1);
+                    ResourcesSingletonOld.Instance.redDots.Add(str0, str1);
                 }
             }
         }
@@ -266,7 +266,7 @@ namespace XFramework
 
         async public void OnQueryMonopolyTaskResponse(object sender, WebMessageHandlerOld.Execute e)
         {
-            WebMessageHandlerOld.Instance.RemoveHandler(CMD.QUERYACTIVITYTASK, OnQueryMonopolyTaskResponse);
+            WebMessageHandlerOld.Instance.RemoveHandler(CMDOld.QUERYACTIVITYTASK, OnQueryMonopolyTaskResponse);
 
             ByteValueList taskList = new ByteValueList();
 
@@ -278,12 +278,12 @@ namespace XFramework
                 return;
             }
 
-            if (!JiYuUIHelper.TryGetActivityLink(23, out var activityId, out var link))
+            if (!UnicornUIHelper.TryGetActivityLink(23, out var activityId, out var link))
             {
                 return;
             }
 
-            ResourcesSingleton.Instance.activity.activityTaskDic.TryRemove(activityId, out var list);
+            ResourcesSingletonOld.Instance.activity.activityTaskDic.TryRemove(activityId, out var list);
 
             var tasks = new List<GameTaskInfo>();
             Log.Debug($"gameTaskInfo", Color.green);
@@ -329,12 +329,12 @@ namespace XFramework
             var node = RedDotManager.Instance.GetNode(m_RedDotName);
             node.PrintTree();
 
-            ResourcesSingleton.Instance.activity.activityTaskDic.TryAdd(activityId, tasks);
+            ResourcesSingletonOld.Instance.activity.activityTaskDic.TryAdd(activityId, tasks);
         }
 
         private void OnLevelRequsetResponse(object sender, WebMessageHandlerOld.Execute e)
         {
-            WebMessageHandlerOld.Instance.RemoveHandler(CMD.QUERYLEVEL, OnLevelRequsetResponse);
+            WebMessageHandlerOld.Instance.RemoveHandler(CMDOld.QUERYLEVEL, OnLevelRequsetResponse);
 
             var chapterList = ConfigManager.Instance.Tables.Tbchapter.DataList;
             var config = new ConfigurationLoad();
@@ -348,12 +348,12 @@ namespace XFramework
 
 
             //Log.Error($"1111111111111111111111111后端返回的当前关卡id:{currentID}", Color.cyan);
-            ResourcesSingleton.Instance.levelInfo.levelId = currentID;
+            ResourcesSingletonOld.Instance.levelInfo.levelId = currentID;
         }
 
         private void OnServerTimeResponse(object sender, WebMessageHandlerOld.Execute e)
         {
-            WebMessageHandlerOld.Instance.RemoveHandler(CMD.SERVERTIME, OnServerTimeResponse);
+            WebMessageHandlerOld.Instance.RemoveHandler(CMDOld.SERVERTIME, OnServerTimeResponse);
             LongValue longValue = new LongValue();
             longValue.MergeFrom(e.data);
             Log.Debug($"服务器时间戳: {longValue}", Color.green);
@@ -363,13 +363,13 @@ namespace XFramework
                 return;
             }
 
-            ResourcesSingleton.Instance.serverDeltaTime = TimeHelper.ClientNow() - longValue.Value;
-            Log.Debug($"ServerDeltaTime: {ResourcesSingleton.Instance.serverDeltaTime}", Color.green);
+            ResourcesSingletonOld.Instance.serverDeltaTime = TimeHelper.ClientNow() - longValue.Value;
+            Log.Debug($"ServerDeltaTime: {ResourcesSingletonOld.Instance.serverDeltaTime}", Color.green);
         }
 
         private void OnShareInfoInitResponse(object sender, WebMessageHandlerOld.Execute e)
         {
-            WebMessageHandlerOld.Instance.RemoveHandler(CMD.QUERYSHARE, OnShareInfoInitResponse);
+            WebMessageHandlerOld.Instance.RemoveHandler(CMDOld.QUERYSHARE, OnShareInfoInitResponse);
             var shareData = new GameShare();
             shareData.MergeFrom(e.data);
             Log.Debug($"OnShareInfoResponse {shareData}", Color.green);
@@ -380,8 +380,8 @@ namespace XFramework
                 return;
             }
 
-            ResourcesSingleton.Instance.gameShare = shareData;
-            JiYuUIHelper.DownloadShare().Forget();
+            ResourcesSingletonOld.Instance.gameShare = shareData;
+            UnicornUIHelper.DownloadShare().Forget();
         }
 
         private void OnQueryPassExpReddot(object sender, WebMessageHandlerOld.Execute e)
@@ -395,8 +395,8 @@ namespace XFramework
                 return;
             }
 
-            ResourcesSingleton.Instance.gamePassExp = longValue.Value == null ? 0 : longValue.Value;
-            if (JiYuUIHelper.TryGetUI(UIType.UIPanel_Main, out var ui))
+            ResourcesSingletonOld.Instance.gamePassExp = longValue.Value == null ? 0 : longValue.Value;
+            if (UnicornUIHelper.TryGetUI(UIType.UIPanel_Main, out var ui))
             {
                 var uis = ui as UIPanel_Main;
                 uis.ShowPassLevelExp(longValue.Value);
@@ -405,7 +405,7 @@ namespace XFramework
 
         private void OnQueryActivityRedDotResponse(object sender, WebMessageHandlerOld.Execute e)
         {
-            WebMessageHandlerOld.Instance.RemoveHandler(CMD.QUERYACTIVITYREDDOT, OnQueryActivityRedDotResponse);
+            WebMessageHandlerOld.Instance.RemoveHandler(CMDOld.QUERYACTIVITYREDDOT, OnQueryActivityRedDotResponse);
             ActivityFlag activityMap = new ActivityFlag();
             activityMap.MergeFrom(e.data);
             if (e.data.IsEmpty)
@@ -420,13 +420,13 @@ namespace XFramework
             //     Log.Debug($"{active.Key}", Color.green);
             // }
 
-            ResourcesSingleton.Instance.activity.ActivityFlag = activityMap;
+            ResourcesSingletonOld.Instance.activity.ActivityFlag = activityMap;
         }
 
 
         private void OnQueryDailyRedDotResponse(object sender, WebMessageHandlerOld.Execute e)
         {
-            WebMessageHandlerOld.Instance.RemoveHandler(CMD.QUERYDAILYREDDOT, OnQueryDailyRedDotResponse);
+            WebMessageHandlerOld.Instance.RemoveHandler(CMDOld.QUERYDAILYREDDOT, OnQueryDailyRedDotResponse);
             TaskRedFlag taskRedFlag = new TaskRedFlag();
             taskRedFlag.MergeFrom(e.data);
             if (e.data.IsEmpty)
@@ -441,12 +441,12 @@ namespace XFramework
             //     Log.Debug($"{active.Key}", Color.green);
             // }
 
-            ResourcesSingleton.Instance.taskRedFlag = taskRedFlag;
+            ResourcesSingletonOld.Instance.taskRedFlag = taskRedFlag;
         }
 
         private void OnQueryActivityResponse(object sender, WebMessageHandlerOld.Execute e)
         {
-            WebMessageHandlerOld.Instance.RemoveHandler(CMD.QUERYACTIVITY, OnQueryActivityResponse);
+            WebMessageHandlerOld.Instance.RemoveHandler(CMDOld.QUERYACTIVITY, OnQueryActivityResponse);
             ActivityMap activityMap = new ActivityMap();
             activityMap.MergeFrom(e.data);
             if (e.data.IsEmpty)
@@ -461,22 +461,22 @@ namespace XFramework
                 Log.Debug($"{active.Key}", Color.green);
             }
 
-            ResourcesSingleton.Instance.activity.activityMap = activityMap;
+            ResourcesSingletonOld.Instance.activity.activityMap = activityMap;
         }
 
 
         private void OnPassTimeResponse(object sender, WebMessageHandlerOld.Execute e)
         {
-            // WebMessageHandlerOld.Instance.RemoveHandler(CMD.PASSTIME, OnPassTimeResponse);
+            // WebMessageHandlerOld.Instance.RemoveHandler(CMDOld.PASSTIME, OnPassTimeResponse);
             // if (e.data.IsEmpty)
             // {
-            //     // ResourcesSingleton.Instance.passTime.id = 0;
-            //     // ResourcesSingleton.Instance.passTime.gamePassStartTime = 0;
-            //     // ResourcesSingleton.Instance.passTime.gamePassEndTime = 0;
+            //     // ResourcesSingletonOld.Instance.passTime.id = 0;
+            //     // ResourcesSingletonOld.Instance.passTime.gamePassStartTime = 0;
+            //     // ResourcesSingletonOld.Instance.passTime.gamePassEndTime = 0;
             //     //
-            //     ResourcesSingleton.Instance.gamePassStart = false;
-            //     ResourcesSingleton.Instance.gamePassStartTime = 0;
-            //     ResourcesSingleton.Instance.gamePassEndTime = 0;
+            //     ResourcesSingletonOld.Instance.gamePassStart = false;
+            //     ResourcesSingletonOld.Instance.gamePassStartTime = 0;
+            //     ResourcesSingletonOld.Instance.gamePassEndTime = 0;
             //
             //     Log.Debug($"OnPassTimeResponse empty", Color.green);
             //     return;
@@ -498,63 +498,63 @@ namespace XFramework
             //
             // if (strs.Length != 3)
             // {
-            //     ResourcesSingleton.Instance.gamePassStart = false;
-            //     ResourcesSingleton.Instance.gamePassStartTime = 0;
-            //     ResourcesSingleton.Instance.gamePassEndTime = 0;
+            //     ResourcesSingletonOld.Instance.gamePassStart = false;
+            //     ResourcesSingletonOld.Instance.gamePassStartTime = 0;
+            //     ResourcesSingletonOld.Instance.gamePassEndTime = 0;
             // }
             // else if (int.Parse(strs[0]) == 0)
             // {
-            //     ResourcesSingleton.Instance.gamePassStart = false;
-            //     ResourcesSingleton.Instance.gamePassStartTime = 0;
-            //     ResourcesSingleton.Instance.gamePassEndTime = 0;
+            //     ResourcesSingletonOld.Instance.gamePassStart = false;
+            //     ResourcesSingletonOld.Instance.gamePassStartTime = 0;
+            //     ResourcesSingletonOld.Instance.gamePassEndTime = 0;
             // }
             // else if (int.Parse(strs[0]) != 0)
             // {
-            //     ResourcesSingleton.Instance.gamePassStartTime = long.Parse(strs[1]);
-            //     ResourcesSingleton.Instance.gamePassEndTime = long.Parse(strs[2]);
-            //     long nowTime = TimeHelper.ClientNowSeconds() - (ResourcesSingleton.Instance.ServerDeltaTime / 1000);
+            //     ResourcesSingletonOld.Instance.gamePassStartTime = long.Parse(strs[1]);
+            //     ResourcesSingletonOld.Instance.gamePassEndTime = long.Parse(strs[2]);
+            //     long nowTime = TimeHelper.ClientNowSeconds() - (ResourcesSingletonOld.Instance.ServerDeltaTime / 1000);
             //
             //
-            //     if (nowTime >= ResourcesSingleton.Instance.gamePassStartTime &&
-            //         nowTime <= ResourcesSingleton.Instance.gamePassEndTime)
+            //     if (nowTime >= ResourcesSingletonOld.Instance.gamePassStartTime &&
+            //         nowTime <= ResourcesSingletonOld.Instance.gamePassEndTime)
             //     {
-            //         ResourcesSingleton.Instance.gamePassStart = true;
+            //         ResourcesSingletonOld.Instance.gamePassStart = true;
             //     }
-            //     else if (nowTime < ResourcesSingleton.Instance.gamePassStartTime)
+            //     else if (nowTime < ResourcesSingletonOld.Instance.gamePassStartTime)
             //     {
             //         Log.Debug(
-            //             $"判断通行证没有开启 客户端时间戳:{nowTime} 服务器开始时间戳:{ResourcesSingleton.Instance.gamePassStartTime} 服务器结束时间戳:{ResourcesSingleton.Instance.gamePassEndTime}",
+            //             $"判断通行证没有开启 客户端时间戳:{nowTime} 服务器开始时间戳:{ResourcesSingletonOld.Instance.gamePassStartTime} 服务器结束时间戳:{ResourcesSingletonOld.Instance.gamePassEndTime}",
             //             Color.green);
-            //         ResourcesSingleton.Instance.gamePassStart = false;
-            //         if (ResourcesSingleton.Instance.gamePassStartTime < TimeHelper.GetToRecentUpdateTime())
+            //         ResourcesSingletonOld.Instance.gamePassStart = false;
+            //         if (ResourcesSingletonOld.Instance.gamePassStartTime < TimeHelper.GetToRecentUpdateTime())
             //         {
-            //             SendPassTimeMessageDelay((int)(ResourcesSingleton.Instance.gamePassStartTime - nowTime))
+            //             SendPassTimeMessageDelay((int)(ResourcesSingletonOld.Instance.gamePassStartTime - nowTime))
             //                 .Forget();
             //         }
             //     }
             //     else
             //     {
-            //         ResourcesSingleton.Instance.gamePassStart = false;
-            //         if (ResourcesSingleton.Instance.gamePassEndTime < TimeHelper.GetToRecentUpdateTime())
+            //         ResourcesSingletonOld.Instance.gamePassStart = false;
+            //         if (ResourcesSingletonOld.Instance.gamePassEndTime < TimeHelper.GetToRecentUpdateTime())
             //         {
-            //             SendPassTimeMessageDelay((int)(ResourcesSingleton.Instance.gamePassEndTime - nowTime)).Forget();
+            //             SendPassTimeMessageDelay((int)(ResourcesSingletonOld.Instance.gamePassEndTime - nowTime)).Forget();
             //         }
             //     }
             // }
             // else
             // {
-            //     ResourcesSingleton.Instance.gamePassStart = false;
-            //     ResourcesSingleton.Instance.gamePassStartTime = 0;
-            //     ResourcesSingleton.Instance.gamePassEndTime = 0;
+            //     ResourcesSingletonOld.Instance.gamePassStart = false;
+            //     ResourcesSingletonOld.Instance.gamePassStartTime = 0;
+            //     ResourcesSingletonOld.Instance.gamePassEndTime = 0;
             // }
             //
-            // if (ResourcesSingleton.Instance.gamePassStart && ResourcesSingleton.Instance.gamePasses.Count == 0)
+            // if (ResourcesSingletonOld.Instance.gamePassStart && ResourcesSingletonOld.Instance.gamePasses.Count == 0)
             // {
-            //     WebMessageHandlerOld.Instance.AddHandler(CMD.QUERYPASS, OnQueryPassResponse);
-            //     NetWorkManager.Instance.SendMessage(CMD.QUERYPASS);
+            //     WebMessageHandlerOld.Instance.AddHandler(CMDOld.QUERYPASS, OnQueryPassResponse);
+            //     NetWorkManager.Instance.SendMessage(CMDOld.QUERYPASS);
             // }
             //
-            // if (JiYuUIHelper.TryGetUI(UIType.UIPanel_Main, out UI ui))
+            // if (UnicornUIHelper.TryGetUI(UIType.UIPanel_Main, out UI ui))
             // {
             //     var uis = ui as UIPanel_Main;
             //     uis.PassUpdate();
@@ -565,13 +565,13 @@ namespace XFramework
         {
             // if (input < 0) return;
             // await UniTask.Delay(input * 1000, false, PlayerLoopTiming.Update, cts.Token);
-            // WebMessageHandlerOld.Instance.AddHandler(CMD.PASSTIME, OnPassTimeResponse);
-            // NetWorkManager.Instance.SendMessage(CMD.PASSTIME);
+            // WebMessageHandlerOld.Instance.AddHandler(CMDOld.PASSTIME, OnPassTimeResponse);
+            // NetWorkManager.Instance.SendMessage(CMDOld.PASSTIME);
         }
 
         private void OnQueryUpdateTimeResponse(object sender, WebMessageHandlerOld.Execute e)
         {
-            WebMessageHandlerOld.Instance.RemoveHandler(CMD.UPDATETIME, OnQueryUpdateTimeResponse);
+            WebMessageHandlerOld.Instance.RemoveHandler(CMDOld.UPDATETIME, OnQueryUpdateTimeResponse);
             LongValue longValue = new LongValue();
             longValue.MergeFrom(e.data);
 
@@ -581,15 +581,15 @@ namespace XFramework
                 return;
             }
 
-            ResourcesSingleton.Instance.updateTime = longValue.Value;
+            ResourcesSingletonOld.Instance.updateTime = longValue.Value;
             SetUpdateDataFromServer().Forget();
         }
 
         private void OnQueryMonsterCollectionResponse(object sender, WebMessageHandlerOld.Execute e)
         {
             Log.Debug($"接收到后端数据,刷新怪物图鉴数据", Color.cyan);
-            WebMessageHandlerOld.Instance.RemoveHandler(CMD.QUERYMONSTERCOLLECTION, OnQueryMonsterCollectionResponse);
-            //ResourcesSingleton.Instance.resMonster.MonsterMap.Clear();
+            WebMessageHandlerOld.Instance.RemoveHandler(CMDOld.QUERYMONSTERCOLLECTION, OnQueryMonsterCollectionResponse);
+            //ResourcesSingletonOld.Instance.resMonster.MonsterMap.Clear();
             if (e.data.IsEmpty)
             {
                 Log.Debug("怪物图鉴数据为空", Color.yellow);
@@ -606,14 +606,14 @@ namespace XFramework
             var tbweapon = ConfigManager.Instance.Tables.Tbweapon;
             var tbmonster_model = ConfigManager.Instance.Tables.Tbmonster_model;
 
-            ResourcesSingleton.Instance.resMonster = resMonster;
+            ResourcesSingletonOld.Instance.resMonster = resMonster;
             //TODO:Test
-            // ResourcesSingleton.Instance.resMonster.MonsterMap.Add(1011, 2);
-            // ResourcesSingleton.Instance.resMonster.MonsterMap.Add(2021, 2);
-            // ResourcesSingleton.Instance.resMonster.MonsterMap.Add(1031, 2);
-            // ResourcesSingleton.Instance.resMonster.WeaponMap.Add(101, 2);
-            // ResourcesSingleton.Instance.resMonster.WeaponMap.Add(201, 2);
-            // ResourcesSingleton.Instance.resMonster.WeaponMap.Add(10201, 2);
+            // ResourcesSingletonOld.Instance.resMonster.MonsterMap.Add(1011, 2);
+            // ResourcesSingletonOld.Instance.resMonster.MonsterMap.Add(2021, 2);
+            // ResourcesSingletonOld.Instance.resMonster.MonsterMap.Add(1031, 2);
+            // ResourcesSingletonOld.Instance.resMonster.WeaponMap.Add(101, 2);
+            // ResourcesSingletonOld.Instance.resMonster.WeaponMap.Add(201, 2);
+            // ResourcesSingletonOld.Instance.resMonster.WeaponMap.Add(10201, 2);
 
             int tagfuncId = 5104;
             string m_RedDotName = NodeNames.GetTagFuncRedDotName(tagfuncId);
@@ -628,7 +628,7 @@ namespace XFramework
 
             Log.Debug($"{resMonster.MonsterMap.ToString()}", Color.green);
 
-            foreach (var item in ResourcesSingleton.Instance.resMonster.MonsterMap)
+            foreach (var item in ResourcesSingletonOld.Instance.resMonster.MonsterMap)
             {
                 var monster = tbmonster_model.GetOrDefault(item.Key);
 
@@ -644,7 +644,7 @@ namespace XFramework
                 RedDotManager.Instance.SetRedPointCnt(itemStr, item.Value == 2 ? 1 : 0);
             }
 
-            foreach (var item in ResourcesSingleton.Instance.resMonster.WeaponMap)
+            foreach (var item in ResourcesSingletonOld.Instance.resMonster.WeaponMap)
             {
                 var weapon = tbweapon.GetOrDefault(item.Key);
 
@@ -668,7 +668,7 @@ namespace XFramework
         private void OnQueryChallengeResponse(object sender, WebMessageHandlerOld.Execute e)
         {
             //Log.Error("QueryChallengeResponse");
-            WebMessageHandlerOld.Instance.RemoveHandler(CMD.QUERYCHALLENGE, OnQueryChallengeResponse);
+            WebMessageHandlerOld.Instance.RemoveHandler(CMDOld.QUERYCHALLENGE, OnQueryChallengeResponse);
             var tbChallenge = ConfigManager.Instance.Tables.Tbchallenge;
             var tbChallengeList = tbChallenge.DataList;
             Dictionary<int, int> switchID = new Dictionary<int, int>();
@@ -693,7 +693,7 @@ namespace XFramework
             {
                 GameChallenge gameChallenge = new GameChallenge();
                 gameChallenge.MergeFrom(challenge);
-                var challengeMap = ResourcesSingleton.Instance.challengeInfo.challengeStateMap;
+                var challengeMap = ResourcesSingletonOld.Instance.challengeInfo.challengeStateMap;
 
                 var challengeID = switchID[gameChallenge.LevelId];
                 if (challengeMap.ContainsKey(challengeID))
@@ -725,8 +725,8 @@ namespace XFramework
             }
 
             Log.Debug($"maxMainChallengeID:{maxMainChallengeID},maxAreaChallengeID:{maxAreaChallengeID}", Color.cyan);
-            ResourcesSingleton.Instance.challengeInfo.maxAreaChallengeID = maxAreaChallengeID;
-            ResourcesSingleton.Instance.challengeInfo.maxMainChallengeID = maxMainChallengeID;
+            ResourcesSingletonOld.Instance.challengeInfo.maxAreaChallengeID = maxAreaChallengeID;
+            ResourcesSingletonOld.Instance.challengeInfo.maxMainChallengeID = maxMainChallengeID;
         }
 
 
@@ -764,29 +764,29 @@ namespace XFramework
                 }
             };
             var tbchapter = ConfigManager.Instance.Tables.Tbchapter;
-            // ResourcesSingleton.Instance.UserInfo.RoleAssets.Energy = gameRole.RoleAssets.Energy;
-            // ResourcesSingleton.Instance.playerResources.maxEnergy = gameRole.RoleAssets.EnergyMax;
-            // ResourcesSingleton.Instance.UserInfo.RoleAssets.Bitcoin = gameRole.RoleAssets.Bitcoin;
-            // ResourcesSingleton.Instance.UserInfo.RoleAssets.UsBill = gameRole.RoleAssets.UsBill;
+            // ResourcesSingletonOld.Instance.UserInfo.RoleAssets.Energy = gameRole.RoleAssets.Energy;
+            // ResourcesSingletonOld.Instance.playerResources.maxEnergy = gameRole.RoleAssets.EnergyMax;
+            // ResourcesSingletonOld.Instance.UserInfo.RoleAssets.Bitcoin = gameRole.RoleAssets.Bitcoin;
+            // ResourcesSingletonOld.Instance.UserInfo.RoleAssets.UsBill = gameRole.RoleAssets.UsBill;
             //var totalExp = gameRole.RoleAssets.Exp;
-            //ResourcesSingleton.Instance.UserInfo.RoleAssets.Exp = totalExp;
+            //ResourcesSingletonOld.Instance.UserInfo.RoleAssets.Exp = totalExp;
 
-            ResourcesSingleton.Instance.levelInfo.maxMainBlockID =
+            ResourcesSingletonOld.Instance.levelInfo.maxMainBlockID =
                 tbchapter.DataList[tbchapter.DataList.Count - 1].blockId;
-            ResourcesSingleton.Instance.levelInfo.maxUnLockChapterID =
+            ResourcesSingletonOld.Instance.levelInfo.maxUnLockChapterID =
                 tbchapter.DataList[tbchapter.DataList.Count - 1].id;
 
             if (JsonManager.Instance.userData.chapterId == 0)
             {
-                JsonManager.Instance.userData.chapterId = ResourcesSingleton.Instance.levelInfo.maxUnLockChapterID + 1;
-                JsonManager.Instance.userData.blockId = ResourcesSingleton.Instance.levelInfo.maxMainBlockID + 1;
+                JsonManager.Instance.userData.chapterId = ResourcesSingletonOld.Instance.levelInfo.maxUnLockChapterID + 1;
+                JsonManager.Instance.userData.blockId = ResourcesSingletonOld.Instance.levelInfo.maxMainBlockID + 1;
                 JsonManager.Instance.userData.lastChapterId = 1;
                 JsonManager.Instance.SavePlayerData(JsonManager.Instance.userData);
             }
 
             #region 黄金国新增
 
-            ResourcesSingleton.Instance.UserInfo = gameRole;
+            ResourcesSingletonOld.Instance.UserInfo = gameRole;
 
             #endregion
 
@@ -796,26 +796,26 @@ namespace XFramework
             var tbguide = ConfigManager.Instance.Tables.Tbguide;
             foreach (var tag in tbtag.DataList)
             {
-                ResourcesSingleton.Instance.settingData.UnlockMap.TryAdd(tag.id, 0);
+                ResourcesSingletonOld.Instance.settingData.UnlockMap.TryAdd(tag.id, 0);
             }
 
             foreach (var tag in tbtag_func.DataList)
             {
-                ResourcesSingleton.Instance.settingData.UnlockMap.TryAdd(tag.id, 0);
+                ResourcesSingletonOld.Instance.settingData.UnlockMap.TryAdd(tag.id, 0);
             }
 
             // foreach (var guide in tbguide.DataList)
             // {
-            //     if (!ResourcesSingleton.Instance.settingData.GuideList.Contains(guide.group))
+            //     if (!ResourcesSingletonOld.Instance.settingData.GuideList.Contains(guide.group))
             //     {
-            //         ResourcesSingleton.Instance.settingData.GuideList.Add(guide.group);
+            //         ResourcesSingletonOld.Instance.settingData.GuideList.Add(guide.group);
             //     }
             // }
 
-            ResourcesSingleton.Instance.items.TryAdd(4010001, 200);
-            ResourcesSingleton.Instance.items.TryAdd(4010002, 200);
+            ResourcesSingletonOld.Instance.items.TryAdd(4010001, 200);
+            ResourcesSingletonOld.Instance.items.TryAdd(4010002, 200);
             InitSettings();
-            ResourcesSingleton.Instance.UpdateResourceUI();
+            ResourcesSingletonOld.Instance.UpdateResourceUI();
             //Log.Error($"单机模式：UIPanel_JiyuGame");
 
             await UIHelper.CreateAsync(UIType.UISubPanel_RawBackground);
@@ -824,30 +824,30 @@ namespace XFramework
 
         void InitSettings()
         {
-            switch (ResourcesSingleton.Instance.settingData.Quality)
+            switch (ResourcesSingletonOld.Instance.settingData.Quality)
             {
                 case (int)GraphicQuality.HD:
-                    JiYuUIHelper.SetFrameRate(true);
+                    UnicornUIHelper.SetFrameRate(true);
                     break;
                 case (int)GraphicQuality.Normal:
-                    JiYuUIHelper.SetFrameRate(false, 60);
+                    UnicornUIHelper.SetFrameRate(false, 60);
                     break;
                 case (int)GraphicQuality.Flow:
-                    JiYuUIHelper.SetFrameRate(false, 30);
+                    UnicornUIHelper.SetFrameRate(false, 30);
                     break;
             }
 
-            //JiYuUIHelper.InitAudioSettings();
+            //UnicornUIHelper.InitAudioSettings();
 
-            ConfigManager.Instance.SwitchLanguages(ResourcesSingleton.Instance.settingData.CurrentL10N);
+            ConfigManager.Instance.SwitchLanguages(ResourcesSingletonOld.Instance.settingData.CurrentL10N);
 
-            // if (JiYuUIHelper.TryGetUI(UIType.UIPanel_JiyuGame, out var ui0))
+            // if (UnicornUIHelper.TryGetUI(UIType.UIPanel_JiyuGame, out var ui0))
             // {
             //     var uijiyu = ui0 as UIPanel_JiyuGame;
             //     uijiyu.RefreshToggleLanguage();
             // }
             //
-            // if (JiYuUIHelper.TryGetUI(UIType.UIPanel_Person, out var ui))
+            // if (UnicornUIHelper.TryGetUI(UIType.UIPanel_Person, out var ui))
             // {
             //     var uiperson = ui as UIPanel_Person;
             //     uiperson.Initialize();
@@ -857,9 +857,9 @@ namespace XFramework
         private void OnQueryEquipResponse(object sender, WebMessageHandlerOld.Execute e)
         {
             Log.Debug($"接收到后端数据,刷新装备缓存数据", Color.cyan);
-            //WebMessageHandlerOld.Instance.RemoveHandler(CMD.QUERYEQUIP, OnQueryEquipResponse);
-            ResourcesSingleton.Instance.equipmentData.equipments.Clear();
-            ResourcesSingleton.Instance.equipmentData.isMaterials.Clear();
+            //WebMessageHandlerOld.Instance.RemoveHandler(CMDOld.QUERYEQUIP, OnQueryEquipResponse);
+            ResourcesSingletonOld.Instance.equipmentData.equipments.Clear();
+            ResourcesSingletonOld.Instance.equipmentData.isMaterials.Clear();
             ByteValueList gameEquips = new ByteValueList();
             gameEquips.MergeFrom(e.data.ToByteArray());
             var materialDic = new Dictionary<Vector3, int>();
@@ -875,7 +875,7 @@ namespace XFramework
                     canCompound = false
                 };
                 int equipId = equip.EquipId * 100 + equip.Quality;
-                if (JiYuUIHelper.IsCompositeEquipReward(myGameEquip.equip))
+                if (UnicornUIHelper.IsCompositeEquipReward(myGameEquip.equip))
                 {
                     //Log.Error($"{item.Value.equip}");
 
@@ -892,23 +892,23 @@ namespace XFramework
                 }
                 else
                 {
-                    ResourcesSingleton.Instance.equipmentData.equipments.TryAdd(equip.PartId, myGameEquip);
+                    ResourcesSingletonOld.Instance.equipmentData.equipments.TryAdd(equip.PartId, myGameEquip);
                 }
 
                 Log.Debug($"接收到后端装备数据{equip}", Color.green);
             }
 
-            ResourcesSingleton.Instance.equipmentData.isMaterials = materialDic;
-            JiYuUIHelper.SetCanCompound();
-            JiYuUIHelper.SortEquipments();
-            //JiYuUIHelper.SetMaterialDic();
-            NetWorkManager.Instance.SendMessage(CMD.QUERYWEAR);
+            ResourcesSingletonOld.Instance.equipmentData.isMaterials = materialDic;
+            UnicornUIHelper.SetCanCompound();
+            UnicornUIHelper.SortEquipments();
+            //UnicornUIHelper.SetMaterialDic();
+            NetWorkManager.Instance.SendMessage(CMDOld.QUERYWEAR);
         }
 
 
         private void OnLevelInfoShowResponse(object sender, WebMessageHandlerOld.Execute e)
         {
-            WebMessageHandlerOld.Instance.RemoveHandler(CMD.CHAPTERINFO, OnLevelInfoShowResponse);
+            WebMessageHandlerOld.Instance.RemoveHandler(CMDOld.CHAPTERINFO, OnLevelInfoShowResponse);
             //Log.Error($"OnLevelInfoShowResponse {333333}", Color.green);
             var roleInfo = new RoleChapters();
             roleInfo.MergeFrom(e.data);
@@ -920,7 +920,7 @@ namespace XFramework
 
             Log.Debug($"roleInfo:{roleInfo.ToString()}", Color.yellow);
 
-            ResourcesSingleton.Instance.levelInfo.levelBox.boxStateDic.Clear();
+            ResourcesSingletonOld.Instance.levelInfo.levelBox.boxStateDic.Clear();
 
             var tbchapter = ConfigManager.Instance.Tables.Tbchapter;
 
@@ -961,7 +961,7 @@ namespace XFramework
                 //Log.Debug($"level{roleInfo.ChapterList[i]}", Color.green);
                 if (roleInfo.ChapterList[i].ChapterId == minNoPassChpterID)
                 {
-                    ResourcesSingleton.Instance.levelInfo.maxUnLockChapterSurviveTime =
+                    ResourcesSingletonOld.Instance.levelInfo.maxUnLockChapterSurviveTime =
                         (int)roleInfo.ChapterList[i].MaxLiveTime;
                     Log.Debug(
                         $"maxLcokLevelID{maxLcokChapterID},minNoPassID{minNoPassChpterID},overTime{roleInfo.ChapterList[i].MaxLiveTime}",
@@ -971,9 +971,9 @@ namespace XFramework
             }
 
             //var tbchapter = ConfigManager.Instance.Tables.Tbchapter;
-            //ResourcesSingleton.Instance.levelInfo.levelId = tbchapter.Get(maxLcokChapterID).levelId;
-            ResourcesSingleton.Instance.levelInfo.maxUnLockChapterID = maxLcokChapterID;
-            ResourcesSingleton.Instance.levelInfo.maxPassChapterID = maxPassChapterID;
+            //ResourcesSingletonOld.Instance.levelInfo.levelId = tbchapter.Get(maxLcokChapterID).levelId;
+            ResourcesSingletonOld.Instance.levelInfo.maxUnLockChapterID = maxLcokChapterID;
+            ResourcesSingletonOld.Instance.levelInfo.maxPassChapterID = maxPassChapterID;
 
 
             //拿到最小未解锁的boxID
@@ -1021,8 +1021,8 @@ namespace XFramework
             Log.Debug(
                 $"minNotLockBoxID：{minNotLockBoxID},minNotGetBoxID:{minNoGetBoxID}", Color.blue);
 
-            ResourcesSingleton.Instance.levelInfo.levelBox.minNotLockBoxID = minNotLockBoxID;
-            ResourcesSingleton.Instance.levelInfo.levelBox.minNotGetBoxID = minNoGetBoxID;
+            ResourcesSingletonOld.Instance.levelInfo.levelBox.minNotLockBoxID = minNotLockBoxID;
+            ResourcesSingletonOld.Instance.levelInfo.levelBox.minNotGetBoxID = minNoGetBoxID;
             for (int i = 0; i < roleInfo.ChapterList.Count; i++)
             {
                 for (int j = 0; j < roleInfo.ChapterList[i].BoxStatusList.Count; j++)
@@ -1043,72 +1043,72 @@ namespace XFramework
                     var boxArray = result.Split(':');
                     if (int.Parse(boxArray[0]) < minNotLockBoxID)
                     {
-                        ResourcesSingleton.Instance.levelInfo.levelBox.boxStateDic.Add(int.Parse(boxArray[0]),
+                        ResourcesSingletonOld.Instance.levelInfo.levelBox.boxStateDic.Add(int.Parse(boxArray[0]),
                             boxArray[2] == "false" ? false : true);
                     }
                 }
             }
 
-            var keys = ResourcesSingleton.Instance.levelInfo.levelBox.boxStateDic.Keys.ToArray();
+            var keys = ResourcesSingletonOld.Instance.levelInfo.levelBox.boxStateDic.Keys.ToArray();
             for (int i = 0; i < keys.Length; i++)
             {
                 Log.Debug(
-                    $"boxStateDic：key:{keys[i]},value:{ResourcesSingleton.Instance.levelInfo.levelBox.boxStateDic[keys[i]]}",
+                    $"boxStateDic：key:{keys[i]},value:{ResourcesSingletonOld.Instance.levelInfo.levelBox.boxStateDic[keys[i]]}",
                     Color.blue);
             }
 
 
             var curBlockId = tbchapter.Get(maxLcokChapterID).blockId;
-            ResourcesSingleton.Instance.levelInfo.maxMainBlockID = curBlockId;
+            ResourcesSingletonOld.Instance.levelInfo.maxMainBlockID = curBlockId;
 
             //TODO:
-            // ResourcesSingleton.Instance.levelInfo.maxMainBlockID = 2;
-            // ResourcesSingleton.Instance.levelInfo.maxUnLockChapterID = 11;
-            // ResourcesSingleton.Instance.levelInfo.maxPassChapterID = 10;
+            // ResourcesSingletonOld.Instance.levelInfo.maxMainBlockID = 2;
+            // ResourcesSingletonOld.Instance.levelInfo.maxUnLockChapterID = 11;
+            // ResourcesSingletonOld.Instance.levelInfo.maxPassChapterID = 10;
 
             Log.Debug($"curBlockId {curBlockId}", Color.red);
             if (JsonManager.Instance.userData.chapterId == 0)
             {
-                JsonManager.Instance.userData.chapterId = ResourcesSingleton.Instance.levelInfo.maxUnLockChapterID + 1;
-                JsonManager.Instance.userData.blockId = ResourcesSingleton.Instance.levelInfo.maxMainBlockID + 1;
-                JsonManager.Instance.userData.lastChapterId = ResourcesSingleton.Instance.levelInfo.maxUnLockChapterID;
+                JsonManager.Instance.userData.chapterId = ResourcesSingletonOld.Instance.levelInfo.maxUnLockChapterID + 1;
+                JsonManager.Instance.userData.blockId = ResourcesSingletonOld.Instance.levelInfo.maxMainBlockID + 1;
+                JsonManager.Instance.userData.lastChapterId = ResourcesSingletonOld.Instance.levelInfo.maxUnLockChapterID;
             }
 
             JsonManager.Instance.userData.chapterId = Mathf.Clamp(JsonManager.Instance.userData.chapterId, 1,
-                ResourcesSingleton.Instance.levelInfo.maxUnLockChapterID + 1);
+                ResourcesSingletonOld.Instance.levelInfo.maxUnLockChapterID + 1);
             JsonManager.Instance.userData.blockId = Mathf.Clamp(JsonManager.Instance.userData.blockId, 1,
-                ResourcesSingleton.Instance.levelInfo.maxMainBlockID + 1);
+                ResourcesSingletonOld.Instance.levelInfo.maxMainBlockID + 1);
             JsonManager.Instance.userData.lastChapterId = Mathf.Clamp(JsonManager.Instance.userData.lastChapterId, 1,
-                ResourcesSingleton.Instance.levelInfo.maxUnLockChapterID);
+                ResourcesSingletonOld.Instance.levelInfo.maxUnLockChapterID);
 
 
             JsonManager.Instance.SavePlayerData(JsonManager.Instance.userData);
             // if (JsonManager.Instance.userData.chapterId == 0)
             // {
-            //     JsonManager.Instance.userData.lastChapterId = ResourcesSingleton.Instance.levelInfo.maxUnLockChapterID;
+            //     JsonManager.Instance.userData.lastChapterId = ResourcesSingletonOld.Instance.levelInfo.maxUnLockChapterID;
             // }
             // else
             // {
-            //     JsonManager.Instance.userData.chapterId = ResourcesSingleton.Instance.levelInfo.maxUnLockChapterID + 1;
-            //     JsonManager.Instance.userData.blockId = ResourcesSingleton.Instance.levelInfo.maxMainBlockID + 1;
+            //     JsonManager.Instance.userData.chapterId = ResourcesSingletonOld.Instance.levelInfo.maxUnLockChapterID + 1;
+            //     JsonManager.Instance.userData.blockId = ResourcesSingletonOld.Instance.levelInfo.maxMainBlockID + 1;
             // }
             // if (JsonManager.Instance.userData.chapterId == 0)
             // {
-            //     JsonManager.Instance.userData.chapterId = ResourcesSingleton.Instance.levelInfo.maxUnLockChapterID + 1;
-            //     JsonManager.Instance.userData.blockId = ResourcesSingleton.Instance.levelInfo.maxMainBlockID + 1;
-            //     JsonManager.Instance.userData.lastChapterId = ResourcesSingleton.Instance.levelInfo.maxUnLockChapterID;
+            //     JsonManager.Instance.userData.chapterId = ResourcesSingletonOld.Instance.levelInfo.maxUnLockChapterID + 1;
+            //     JsonManager.Instance.userData.blockId = ResourcesSingletonOld.Instance.levelInfo.maxMainBlockID + 1;
+            //     JsonManager.Instance.userData.lastChapterId = ResourcesSingletonOld.Instance.levelInfo.maxUnLockChapterID;
             // }
             // else
             // {
-            //     JsonManager.Instance.userData.chapterId = ResourcesSingleton.Instance.levelInfo.maxUnLockChapterID + 1;
-            //     JsonManager.Instance.userData.blockId = ResourcesSingleton.Instance.levelInfo.maxMainBlockID + 1;
+            //     JsonManager.Instance.userData.chapterId = ResourcesSingletonOld.Instance.levelInfo.maxUnLockChapterID + 1;
+            //     JsonManager.Instance.userData.blockId = ResourcesSingletonOld.Instance.levelInfo.maxMainBlockID + 1;
             // }
 
 
             //JsonManager.Instance.userData.lastChapterId = Mathf.Max(JsonManager.Instance.userData.lastChapterId, 1);
 
 
-            if (JiYuUIHelper.TryGetUI(UIType.UIPanel_Battle, out UI ui))
+            if (UnicornUIHelper.TryGetUI(UIType.UIPanel_Battle, out UI ui))
             {
                 var ui1 = ui as UIPanel_Battle;
                 //ui1.SetChapterBoxInfo(roleInfo);
@@ -1130,7 +1130,7 @@ namespace XFramework
             //        $"{m_RedDotName}|Pos1|Task";
             //    RedDotManager.Instance.InsterNode(taskListStr);
 
-            //    NetWorkManager.Instance.SendMessage(CMD.QUERYACTIVITYTASK, new IntValue
+            //    NetWorkManager.Instance.SendMessage(CMDOld.QUERYACTIVITYTASK, new IntValue
             //    {
             //        Value = ac.Key
             //    });
@@ -1145,15 +1145,15 @@ namespace XFramework
         private void OnFirstChargeChangeResponse(object sender, WebMessageHandlerOld.Execute e)
         {
             WebMessageHandlerOld.Instance.RemoveHandler(99, 6, OnFirstChargeChangeResponse);
-            WebMessageHandlerOld.Instance.AddHandler(CMD.QUERYCHARGE, OnFirstChargeResponse);
-            NetWorkManager.Instance.SendMessage(CMD.QUERYCHARGE);
+            WebMessageHandlerOld.Instance.AddHandler(CMDOld.QUERYCHARGE, OnFirstChargeResponse);
+            NetWorkManager.Instance.SendMessage(CMDOld.QUERYCHARGE);
         }
 
         private void OnQueryTalentResponse(object sender, WebMessageHandlerOld.Execute e)
         {
             WebMessageHandlerOld.Instance.RemoveHandler(2, 10, OnQueryTalentResponse);
-            ResourcesSingleton.Instance.talentID.talentPropID = 0;
-            ResourcesSingleton.Instance.talentID.talentSkillID = 0;
+            ResourcesSingletonOld.Instance.talentID.talentPropID = 0;
+            ResourcesSingletonOld.Instance.talentID.talentSkillID = 0;
             var tanlentInfo = new IntValueList();
             tanlentInfo.MergeFrom(e.data);
             if (e.data.IsEmpty)
@@ -1178,11 +1178,11 @@ namespace XFramework
 
                 if (tanlentInfo.Values[0] / 10000 == 2)
                 {
-                    ResourcesSingleton.Instance.talentID.talentSkillID = tanlentInfo.Values[0];
+                    ResourcesSingletonOld.Instance.talentID.talentSkillID = tanlentInfo.Values[0];
                 }
                 else
                 {
-                    ResourcesSingleton.Instance.talentID.talentPropID = tanlentInfo.Values[0];
+                    ResourcesSingletonOld.Instance.talentID.talentPropID = tanlentInfo.Values[0];
                 }
             }
 
@@ -1193,11 +1193,11 @@ namespace XFramework
                     Log.Debug($"id:{item}", Color.cyan);
                 }
 
-                ResourcesSingleton.Instance.talentID.talentPropID = tanlentInfo.Values[0];
-                ResourcesSingleton.Instance.talentID.talentSkillID = tanlentInfo.Values[1];
+                ResourcesSingletonOld.Instance.talentID.talentPropID = tanlentInfo.Values[0];
+                ResourcesSingletonOld.Instance.talentID.talentSkillID = tanlentInfo.Values[1];
             }
 
-            //if (JiYuUIHelper.TryGetUI(UIType.UIPanel_JiyuGame, out UI ui))
+            //if (UnicornUIHelper.TryGetUI(UIType.UIPanel_JiyuGame, out UI ui))
             //{
             //    var jiyu = ui as UIPanel_JiyuGame;
             //    //isTalentRequest = true;
@@ -1208,8 +1208,8 @@ namespace XFramework
         private void OnQueryWearingEquipResponse(object sender, WebMessageHandlerOld.Execute e)
         {
             //Log.Error($"接收到后端数据,刷新装备缓存数据222", Color.green);
-            //WebMessageHandlerOld.Instance.RemoveHandler(CMD.QUERYWEAR, OnQueryWearingEquipResponse);
-            ResourcesSingleton.Instance.equipmentData.isWearingEquipments.Clear();
+            //WebMessageHandlerOld.Instance.RemoveHandler(CMDOld.QUERYWEAR, OnQueryWearingEquipResponse);
+            ResourcesSingletonOld.Instance.equipmentData.isWearingEquipments.Clear();
             ByteValueList gameEquips = new ByteValueList();
             gameEquips.MergeFrom(e.data);
             // if (e.data.IsEmpty)
@@ -1232,8 +1232,8 @@ namespace XFramework
                     isWearing = true,
                     canCompound = false
                 };
-                ResourcesSingleton.Instance.equipmentData.isWearingEquipments.TryAdd(equip_data.posId, myGameEquip);
-                if (ResourcesSingleton.Instance.equipmentData.equipments.TryGetValue(equip.PartId, out var wearEquip))
+                ResourcesSingletonOld.Instance.equipmentData.isWearingEquipments.TryAdd(equip_data.posId, myGameEquip);
+                if (ResourcesSingletonOld.Instance.equipmentData.equipments.TryGetValue(equip.PartId, out var wearEquip))
                 {
                     wearEquip.isWearing = true;
                 }
@@ -1242,7 +1242,7 @@ namespace XFramework
                 Log.Debug($"wearequip{equip.ToString()}", Color.cyan);
             }
 
-            if (JiYuUIHelper.TryGetUI(UIType.UIPanel_Equipment, out var ui))
+            if (UnicornUIHelper.TryGetUI(UIType.UIPanel_Equipment, out var ui))
             {
                 var uiequip = ui as UIPanel_Equipment;
 
@@ -1255,7 +1255,7 @@ namespace XFramework
 
         private void OnFirstChargeResponse(object sender, WebMessageHandlerOld.Execute e)
         {
-            WebMessageHandlerOld.Instance.RemoveHandler(CMD.QUERYCHARGE, OnFirstChargeResponse);
+            WebMessageHandlerOld.Instance.RemoveHandler(CMDOld.QUERYCHARGE, OnFirstChargeResponse);
             IntValue intValue = new IntValue();
             intValue.MergeFrom(e.data);
             Log.Debug($"OnFirstChargeResponse:{intValue.Value}", Color.green);
@@ -1265,22 +1265,22 @@ namespace XFramework
                 return;
             }
 
-            ResourcesSingleton.Instance.firstChargeInt = intValue.Value;
+            ResourcesSingletonOld.Instance.firstChargeInt = intValue.Value;
         }
 
         private void OnQueryMailResponse(object sender, WebMessageHandlerOld.Execute e)
         {
-            WebMessageHandlerOld.Instance.RemoveHandler(CMD.QUERYMAIL, OnQueryMailResponse);
+            WebMessageHandlerOld.Instance.RemoveHandler(CMDOld.QUERYMAIL, OnQueryMailResponse);
 
             var resultMailList = new ResultMailList();
             resultMailList.MergeFrom(e.data);
 
-            ResourcesSingleton.Instance.mails.Clear();
+            ResourcesSingletonOld.Instance.mails.Clear();
 
             if (isInit)
             {
                 isInit = false;
-                ResourcesSingleton.Instance.mails.Add(new MailInfo
+                ResourcesSingletonOld.Instance.mails.Add(new MailInfo
                 {
                     Id = UnityEngine.Random.Range(10, 9999999),
                     MailModuleId = 30001,
@@ -1290,7 +1290,7 @@ namespace XFramework
                     SendTime = 1699260000,
                     ExpireDate = 1699265918
                 });
-                ResourcesSingleton.Instance.mails.Add(new MailInfo
+                ResourcesSingletonOld.Instance.mails.Add(new MailInfo
                 {
                     Id = UnityEngine.Random.Range(10, 9999999),
                     MailModuleId = 10002,
@@ -1300,7 +1300,7 @@ namespace XFramework
                     SendTime = 1699260000,
                     ExpireDate = 1728463238
                 });
-                ResourcesSingleton.Instance.mails.Add(new MailInfo
+                ResourcesSingletonOld.Instance.mails.Add(new MailInfo
                 {
                     Id = UnityEngine.Random.Range(10, 9999999),
                     MailModuleId = 30002,
@@ -1310,7 +1310,7 @@ namespace XFramework
                     SendTime = 1699260000,
                     ExpireDate = 1728431238
                 });
-                ResourcesSingleton.Instance.mails.Add(new MailInfo
+                ResourcesSingletonOld.Instance.mails.Add(new MailInfo
                 {
                     Id = UnityEngine.Random.Range(10, 9999999),
                     MailModuleId = 10002,
@@ -1320,7 +1320,7 @@ namespace XFramework
                     SendTime = 1699260000,
                     ExpireDate = 1728431238
                 });
-                ResourcesSingleton.Instance.mails.Add(new MailInfo
+                ResourcesSingletonOld.Instance.mails.Add(new MailInfo
                 {
                     Id = UnityEngine.Random.Range(10, 9999999),
                     MailModuleId = 20002,
@@ -1330,7 +1330,7 @@ namespace XFramework
                     SendTime = 1699260000,
                     ExpireDate = 17284363238
                 });
-                ResourcesSingleton.Instance.mails.Add(new MailInfo
+                ResourcesSingletonOld.Instance.mails.Add(new MailInfo
                 {
                     Id = UnityEngine.Random.Range(10, 9999999),
                     MailModuleId = 30004,
@@ -1345,14 +1345,14 @@ namespace XFramework
 
             foreach (var mailInfo in resultMailList.MailInfoList)
             {
-                ResourcesSingleton.Instance.mails.Add(mailInfo);
+                ResourcesSingletonOld.Instance.mails.Add(mailInfo);
                 Log.Debug($"{mailInfo.ToString()}", Color.green);
             }
 
-            ResourcesSingleton.Instance.mails.Sort(new MailInfosComparer());
+            ResourcesSingletonOld.Instance.mails.Sort(new MailInfosComparer());
 
 
-            if (JiYuUIHelper.TryGetUI(UIType.UIPanel_Mail, out UI ui))
+            if (UnicornUIHelper.TryGetUI(UIType.UIPanel_Mail, out UI ui))
             {
                 Log.Debug($"刷新Mail界面", Color.green);
                 UIHelper.Remove(UIType.UIPanel_Mail);
@@ -1361,7 +1361,7 @@ namespace XFramework
 
 
             Log.Debug($"UpdateResourceUI", Color.green);
-            ResourcesSingleton.Instance.UpdateResourceUI();
+            ResourcesSingletonOld.Instance.UpdateResourceUI();
         }
 
         void GetActivityId(int tagFunId)
@@ -1436,14 +1436,14 @@ namespace XFramework
 
 
             var tblanguage = ConfigManager.Instance.Tables.Tblanguage;
-            var rewards = JiYuUIHelper.TurnShopBoardCastStrReward2List(stringListValue.Value);
+            var rewards = UnicornUIHelper.TurnShopBoardCastStrReward2List(stringListValue.Value);
             if (rewards.Count > 0)
             {
                 var ui = await UIHelper.CreateAsync(UIType.UICommon_Reward, rewards);
             }
             else
             {
-                JiYuUIHelper.ClearCommonResource();
+                UnicornUIHelper.ClearCommonResource();
                 var ui = await UIHelper.CreateAsync(UIType.UICommon_Resource,
                     tblanguage.Get($"text_buy_success").current);
             }
@@ -1463,14 +1463,14 @@ namespace XFramework
                 // {
                 //     case 3301:
                 //         //23:活动类型
-                //         if (!JiYuUIHelper.TryGetActivityLink(21, out var activityId, out var link))
+                //         if (!UnicornUIHelper.TryGetActivityLink(21, out var activityId, out var link))
                 //         {
                 //             return;
                 //         }
                 //
                 //         Log.Debug($"查询 {intValue} 所属的活动接口", Color.green);
                 //
-                //         // NetWorkManager.Instance.SendMessage(CMD.QUERTSINGLEACTIVITY, new IntValue
+                //         // NetWorkManager.Instance.SendMessage(CMDOld.QUERTSINGLEACTIVITY, new IntValue
                 //         // {
                 //         //     Value = activityId
                 //         // });
@@ -1480,15 +1480,15 @@ namespace XFramework
                 //intdd.MergeFrom(intValue);
             }
 
-            // WebMessageHandlerOld.Instance.AddHandler(CMD.QUERYMAIL, OnQueryMailResponse);
-            // NetWorkManager.Instance.SendMessage(CMD.QUERYMAIL);
+            // WebMessageHandlerOld.Instance.AddHandler(CMDOld.QUERYMAIL, OnQueryMailResponse);
+            // NetWorkManager.Instance.SendMessage(CMDOld.QUERYMAIL);
         }
 
         void OnBoardCastMail(object sender, WebMessageHandlerOld.Execute e)
         {
             Log.Debug($"OnBoardCastMail", Color.cyan);
-            WebMessageHandlerOld.Instance.AddHandler(CMD.QUERYMAIL, OnQueryMailResponse);
-            NetWorkManager.Instance.SendMessage(CMD.QUERYMAIL);
+            WebMessageHandlerOld.Instance.AddHandler(CMDOld.QUERYMAIL, OnQueryMailResponse);
+            NetWorkManager.Instance.SendMessage(CMDOld.QUERYMAIL);
         }
 
         /// <summary>
@@ -1517,11 +1517,11 @@ namespace XFramework
             var playerData = new PlayerData();
             var chaStats = new ChaStats();
             Log.Debug($"{battleProperty.Properties}", Color.green);
-            JiYuUIHelper.InitPlayerProperty(ref playerData, ref chaStats, battleProperty);
+            UnicornUIHelper.InitPlayerProperty(ref playerData, ref chaStats, battleProperty);
 
-            ResourcesSingleton.Instance.playerProperty.playerData = playerData;
-            ResourcesSingleton.Instance.playerProperty.chaProperty = chaStats.chaProperty;
-            JiYuUIHelper.RefreshPlayerPropertyEquipPanelUI();
+            ResourcesSingletonOld.Instance.playerProperty.playerData = playerData;
+            ResourcesSingletonOld.Instance.playerProperty.chaProperty = chaStats.chaProperty;
+            UnicornUIHelper.RefreshPlayerPropertyEquipPanelUI();
         }
 
 
@@ -1538,23 +1538,23 @@ namespace XFramework
             }
 
             Log.Debug($"OnGetMainPropertyResponse:{battleProperty.Properties}", Color.green);
-            ResourcesSingleton.Instance.mainProperty.Clear();
+            ResourcesSingletonOld.Instance.mainProperty.Clear();
             foreach (var property in battleProperty.Properties)
             {
                 var strings = property.Split(";");
                 var id = int.Parse(strings[0]);
                 var value = int.Parse(strings[1]);
-                ResourcesSingleton.Instance.mainProperty.Add(id, value);
+                ResourcesSingletonOld.Instance.mainProperty.Add(id, value);
             }
 
-            foreach (var kv in ResourcesSingleton.Instance.mainProperty)
+            foreach (var kv in ResourcesSingletonOld.Instance.mainProperty)
             {
                 Log.Debug($"mainProperty:{kv.Key} : {kv.Value}");
             }
 
             //挪到装备获取后
-            JiYuUIHelper.RefreshPlayerPropertyEquipPanelUI();
-            //ResourcesSingleton.Instance.mainProperty = battleProperty;
+            UnicornUIHelper.RefreshPlayerPropertyEquipPanelUI();
+            //ResourcesSingletonOld.Instance.mainProperty = battleProperty;
         }
 
         /// <summary>
@@ -1583,20 +1583,20 @@ namespace XFramework
             var playerData = new PlayerData();
             var chaStats = new ChaStats();
             Log.Debug($"{battleProperty.Properties}", Color.green);
-            JiYuUIHelper.InitPlayerProperty(ref playerData, ref chaStats, battleProperty);
+            UnicornUIHelper.InitPlayerProperty(ref playerData, ref chaStats, battleProperty);
 
-            ResourcesSingleton.Instance.playerProperty.playerData = playerData;
-            ResourcesSingleton.Instance.playerProperty.chaProperty = chaStats.chaProperty;
-            JiYuUIHelper.RefreshPlayerPropertyEquipPanelUI();
+            ResourcesSingletonOld.Instance.playerProperty.playerData = playerData;
+            ResourcesSingletonOld.Instance.playerProperty.chaProperty = chaStats.chaProperty;
+            UnicornUIHelper.RefreshPlayerPropertyEquipPanelUI();
         }
 
         void OnOpenBagPanelResponse(object sender, WebMessageHandlerOld.Execute e)
         {
-            WebMessageHandlerOld.Instance.RemoveHandler(CMD.OPENBAG, OnOpenBagPanelResponse);
+            WebMessageHandlerOld.Instance.RemoveHandler(CMDOld.OPENBAG, OnOpenBagPanelResponse);
             var valueList = new ByteValueList();
             valueList.MergeFrom(e.data);
 
-            ResourcesSingleton.Instance.items.Clear();
+            ResourcesSingletonOld.Instance.items.Clear();
             Log.Debug($"背包信息", Color.red);
             foreach (var bagItem in valueList.Values)
             {
@@ -1608,14 +1608,14 @@ namespace XFramework
                     continue;
                 }
 
-                ResourcesSingleton.Instance.items.TryAdd(bag.ItemId, bag.Count);
+                ResourcesSingletonOld.Instance.items.TryAdd(bag.ItemId, bag.Count);
             }
 
             Tbitem item = ConfigManager.Instance.Tables.Tbitem;
 
 
             var bagList = new List<BagItem>();
-            foreach (var VARIABLE in ResourcesSingleton.Instance.items)
+            foreach (var VARIABLE in ResourcesSingletonOld.Instance.items)
             {
                 bagList.Add(new BagItem
                 {
@@ -1637,7 +1637,7 @@ namespace XFramework
             bagList.Sort(new BagItemComparer());
             foreach (var VARIABLE in bagList)
             {
-                if (!ResourcesSingleton.Instance.items.TryAdd(VARIABLE.ItemId, VARIABLE.Count))
+                if (!ResourcesSingletonOld.Instance.items.TryAdd(VARIABLE.ItemId, VARIABLE.Count))
                 {
                     //Log.Debug($"{VARIABLE.ItemId}", Color.cyan);
                 }
@@ -1648,7 +1648,7 @@ namespace XFramework
 
         async void OnOpenMainPanelResponse(object sender, WebMessageHandlerOld.Execute e)
         {
-            //WebMessageHandlerOld.Instance.RemoveHandler(CMD.INITPLAYER, OnOpenMainPanelResponse);
+            //WebMessageHandlerOld.Instance.RemoveHandler(CMDOld.INITPLAYER, OnOpenMainPanelResponse);
             var gameRole = new GameRole();
             gameRole.MergeFrom(e.data);
             if (e.data.IsEmpty)
@@ -1658,25 +1658,25 @@ namespace XFramework
             }
 
             //var tbuserLevel = ConfigManager.Instance.Tables.Tbuser_level;
-            // ResourcesSingleton.Instance.UserInfo.RoleAssets.Energy = gameRole.RoleAssets.Energy;
-            // ResourcesSingleton.Instance.playerResources.maxEnergy = gameRole.RoleAssets.EnergyMax;
-            // ResourcesSingleton.Instance.UserInfo.RoleAssets.Bitcoin = gameRole.RoleAssets.Bitcoin;
-            // ResourcesSingleton.Instance.UserInfo.RoleAssets.UsBill = gameRole.RoleAssets.UsBill;
-            // ResourcesSingleton.Instance.UserInfo.RoleAssets.Level = gameRole.RoleAssets.Level;
-            // ResourcesSingleton.Instance.UserInfo.RoleAssets.Exp = gameRole.RoleAssets.Exp;
+            // ResourcesSingletonOld.Instance.UserInfo.RoleAssets.Energy = gameRole.RoleAssets.Energy;
+            // ResourcesSingletonOld.Instance.playerResources.maxEnergy = gameRole.RoleAssets.EnergyMax;
+            // ResourcesSingletonOld.Instance.UserInfo.RoleAssets.Bitcoin = gameRole.RoleAssets.Bitcoin;
+            // ResourcesSingletonOld.Instance.UserInfo.RoleAssets.UsBill = gameRole.RoleAssets.UsBill;
+            // ResourcesSingletonOld.Instance.UserInfo.RoleAssets.Level = gameRole.RoleAssets.Level;
+            // ResourcesSingletonOld.Instance.UserInfo.RoleAssets.Exp = gameRole.RoleAssets.Exp;
 
             #region 黄金国新增
 
             //gameRole.RoleAssets.Level = 2;
-            ResourcesSingleton.Instance.UserInfo = gameRole;
+            ResourcesSingletonOld.Instance.UserInfo = gameRole;
             //Log.Debug($"EnergyCountdown{gameRole.RoleAssets.EnergyCountdown}",Color.cyan);
 
             #endregion
 
             //gameRole.RoleAssets.
-            ResourcesSingleton.Instance.UpdateResourceUI();
+            ResourcesSingletonOld.Instance.UpdateResourceUI();
 
-            //ResourcesSingleton.Instance.SetJiYuGamePanel(uiType);
+            //ResourcesSingletonOld.Instance.SetJiYuGamePanel(uiType);
 
 
             Log.Debug($"{gameRole}", Color.red);
@@ -1685,7 +1685,7 @@ namespace XFramework
 
         private void OnQueryBankResponse(object sender, WebMessageHandlerOld.Execute e)
         {
-            WebMessageHandlerOld.Instance.RemoveHandler(CMD.QUERYBANK, OnQueryBankResponse);
+            WebMessageHandlerOld.Instance.RemoveHandler(CMDOld.QUERYBANK, OnQueryBankResponse);
             var gameBank = new GoldPig();
             gameBank.MergeFrom(e.data);
             Debug.Log("menu scene game bank:" + gameBank);
@@ -1697,7 +1697,7 @@ namespace XFramework
             }
 
             gameBank.PigLevel = gameBank.PigLevel % 100;
-            ResourcesSingleton.Instance.goldPig = gameBank;
+            ResourcesSingletonOld.Instance.goldPig = gameBank;
         }
 
         private void OnGiftChangeResponse(object sender, WebMessageHandlerOld.Execute e)
@@ -1717,19 +1717,19 @@ namespace XFramework
                 indexModule.MergeFrom(item);
                 Debug.Log(indexModule);
 
-                if (ResourcesSingleton.Instance.shopMap.IndexModuleMap.ContainsKey(indexModule.ModuleId))
+                if (ResourcesSingletonOld.Instance.shopMap.IndexModuleMap.ContainsKey(indexModule.ModuleId))
                 {
-                    ResourcesSingleton.Instance.shopMap.IndexModuleMap[indexModule.ModuleId] = indexModule;
+                    ResourcesSingletonOld.Instance.shopMap.IndexModuleMap[indexModule.ModuleId] = indexModule;
                 }
                 else
                 {
-                    ResourcesSingleton.Instance.shopMap.IndexModuleMap.Add(indexModule.ModuleId, indexModule);
+                    ResourcesSingletonOld.Instance.shopMap.IndexModuleMap.Add(indexModule.ModuleId, indexModule);
                 }
                 //List<long> GiftHelp = new List<long>();
                 //Dictionary<int, List<long>> ModuleHelp = new Dictionary<int, List<long>>();
 
                 //if ()
-                //if (ResourcesSingleton.Instance.shopInit.shopHelpDic.ContainsKey(indexModule.ModuleId))
+                //if (ResourcesSingletonOld.Instance.shopInit.shopHelpDic.ContainsKey(indexModule.ModuleId))
                 //{
                 //    for (int i = 0; i < indexModule.GiftInfoList.Count; i++)
                 //    {
@@ -1741,7 +1741,7 @@ namespace XFramework
                 //            GiftHelp.Add(indexModule.GiftInfoList[ihelp].Times);
                 //            //GiftHelp.Add(gift.Times);
                 //            ModuleHelp.Add(indexModule.GiftInfoList[ihelp].GiftId, GiftHelp);
-                //            ResourcesSingleton.Instance.shopInit.shopHelpDic.Add(indexModule.ModuleId, ModuleHelp);
+                //            ResourcesSingletonOld.Instance.shopInit.shopHelpDic.Add(indexModule.ModuleId, ModuleHelp);
                 //            GiftHelp.Clear();
                 //            ModuleHelp.Clear();
                 //        }
@@ -1750,7 +1750,7 @@ namespace XFramework
                 //            GiftHelp.Add(indexModule.GiftInfoList[ihelp].EndTime);
                 //            GiftHelp.Add(indexModule.GiftInfoList[ihelp].CreateTime);
                 //            GiftHelp.Add(indexModule.GiftInfoList[ihelp].Times);
-                //            ResourcesSingleton.Instance.shopInit.shopHelpDic[indexModule.ModuleId]
+                //            ResourcesSingletonOld.Instance.shopInit.shopHelpDic[indexModule.ModuleId]
                 //                .Add(indexModule.GiftInfoList[ihelp].GiftId, GiftHelp);
                 //            GiftHelp.Clear();
                 //            ModuleHelp.Clear();
@@ -1765,32 +1765,32 @@ namespace XFramework
                 //        GiftHelp.Add(indexModule.GiftInfoList[ihelp].EndTime);
                 //        GiftHelp.Add(indexModule.GiftInfoList[ihelp].CreateTime);
                 //        GiftHelp.Add(indexModule.GiftInfoList[ihelp].Times);
-                //        if (ResourcesSingleton.Instance.shopInit.shopHelpDic.TryGetValue(indexModule.ModuleId,
+                //        if (ResourcesSingletonOld.Instance.shopInit.shopHelpDic.TryGetValue(indexModule.ModuleId,
                 //                out var a))
                 //        {
-                //            ResourcesSingleton.Instance.shopInit.shopHelpDic[indexModule.ModuleId]
+                //            ResourcesSingletonOld.Instance.shopInit.shopHelpDic[indexModule.ModuleId]
                 //                .Add(indexModule.GiftInfoList[ihelp].GiftId, GiftHelp);
                 //        }
                 //        else
                 //        {
                 //            Dictionary<int, List<long>> h = new Dictionary<int, List<long>>();
                 //            h.Add(indexModule.GiftInfoList[ihelp].GiftId, GiftHelp);
-                //            ResourcesSingleton.Instance.shopInit.shopHelpDic.Add(indexModule.ModuleId, h);
+                //            ResourcesSingletonOld.Instance.shopInit.shopHelpDic.Add(indexModule.ModuleId, h);
                 //        }
 
                 //        GiftHelp.Clear();
                 //        ModuleHelp.Clear();
                 //    }
                 //}
-                //ResourcesSingleton.Instance.shopInit.shopHelpDic.Get()
+                //ResourcesSingletonOld.Instance.shopInit.shopHelpDic.Get()
             }
 
-            ResourcesSingleton.Instance.UpdateResourceUI();
+            ResourcesSingletonOld.Instance.UpdateResourceUI();
         }
 
         private void OnShopInitResponse(object sender, WebMessageHandlerOld.Execute e)
         {
-            WebMessageHandlerOld.Instance.RemoveHandler(CMD.QUERYSHOP, OnShopInitResponse);
+            WebMessageHandlerOld.Instance.RemoveHandler(CMDOld.QUERYSHOP, OnShopInitResponse);
             var shopMap = new GameShopMap();
             shopMap.MergeFrom(e.data);
             Debug.Log(shopMap);
@@ -1806,8 +1806,8 @@ namespace XFramework
                 return;
             }
 
-            ResourcesSingleton.Instance.shopMap = shopMap;
-            ResourcesSingleton.Instance.UpdateResourceUI();
+            ResourcesSingletonOld.Instance.shopMap = shopMap;
+            ResourcesSingletonOld.Instance.UpdateResourceUI();
 
             //Tbshop_daily tbshop_Daily = ConfigManager.Instance.Tables.Tbshop_daily;
 
@@ -1866,18 +1866,18 @@ namespace XFramework
             //        ModuleHelp.Add(tbshop_Daily.Get(daily.Sign).pos, dailyHelp);
             //    }
 
-            //    if (ResourcesSingleton.Instance.shopInit.shopHelpDic.TryGetValue(module.ModuleId,
+            //    if (ResourcesSingletonOld.Instance.shopInit.shopHelpDic.TryGetValue(module.ModuleId,
             //            out Dictionary<int, List<long>> a))
             //    {
-            //        ResourcesSingleton.Instance.shopInit.shopHelpDic[module.ModuleId] = ModuleHelp;
+            //        ResourcesSingletonOld.Instance.shopInit.shopHelpDic[module.ModuleId] = ModuleHelp;
             //    }
             //    else
             //    {
-            //        ResourcesSingleton.Instance.shopInit.shopHelpDic.Add(module.ModuleId, ModuleHelp);
+            //        ResourcesSingletonOld.Instance.shopInit.shopHelpDic.Add(module.ModuleId, ModuleHelp);
             //    }
             //}
 
-            //ResourcesSingleton.Instance.UpdateResourceUI();
+            //ResourcesSingletonOld.Instance.UpdateResourceUI();
             //await UniTask.Delay(1000 * (int)TimeHelper.GetToTomorrowTime());
             //WebMessageHandlerOld.Instance.AddHandler(11, 1, OnShopInitResponse);
             //NetWorkManager.Instance.SendMessage(11, 1);
@@ -1898,8 +1898,8 @@ namespace XFramework
 
             //Debug.Log("100 - 1 Task change");
 
-            // WebMessageHandlerOld.Instance.AddHandler(CMD.QUERYDAYANDWEEKTASK, OnDayAndWeekResponse);
-            // NetWorkManager.Instance.SendMessage(CMD.QUERYDAYANDWEEKTASK);
+            // WebMessageHandlerOld.Instance.AddHandler(CMDOld.QUERYDAYANDWEEKTASK, OnDayAndWeekResponse);
+            // NetWorkManager.Instance.SendMessage(CMDOld.QUERYDAYANDWEEKTASK);
 
             // WebMessageHandlerOld.Instance.AddHandler(3, 4, OnAchieveResponse);
             // NetWorkManager.Instance.SendMessage(3, 4);
@@ -1907,45 +1907,45 @@ namespace XFramework
 
         private void OnDayAndWeekResponse(object sender, WebMessageHandlerOld.Execute e)
         {
-            WebMessageHandlerOld.Instance.RemoveHandler(CMD.QUERYDAYANDWEEKTASK, OnDayAndWeekResponse);
+            WebMessageHandlerOld.Instance.RemoveHandler(CMDOld.QUERYDAYANDWEEKTASK, OnDayAndWeekResponse);
             RoleTaskInfo roleTaskInfo = new RoleTaskInfo();
             roleTaskInfo.MergeFrom(e.data);
 
             Debug.Log($"OnDayAndWeekResponse:{roleTaskInfo}");
             if (e.data.IsEmpty)
             {
-                ResourcesSingleton.Instance.dayWeekTask.tasks.Clear();
-                ResourcesSingleton.Instance.dayWeekTask.boxes.Clear();
+                ResourcesSingletonOld.Instance.dayWeekTask.tasks.Clear();
+                ResourcesSingletonOld.Instance.dayWeekTask.boxes.Clear();
                 foreach (var t in ConfigManager.Instance.Tables.Tbtask.DataList)
                 {
-                    ResourcesSingleton.Instance.dayWeekTask.tasks.Add(t.id, new Vector2(0, 0));
+                    ResourcesSingletonOld.Instance.dayWeekTask.tasks.Add(t.id, new Vector2(0, 0));
                 }
 
                 foreach (var ts in ConfigManager.Instance.Tables.Tbtask_score.DataList)
                 {
-                    ResourcesSingleton.Instance.dayWeekTask.boxes.Add(ts.id, new Vector2(0, 0));
+                    ResourcesSingletonOld.Instance.dayWeekTask.boxes.Add(ts.id, new Vector2(0, 0));
                 }
 
                 Log.Debug("3-1RoleTaskInfo.data.IsEmpty", Color.red);
                 return;
             }
 
-            ResourcesSingleton.Instance.dayWeekTask.tasks.Clear();
-            ResourcesSingleton.Instance.dayWeekTask.boxes.Clear();
+            ResourcesSingletonOld.Instance.dayWeekTask.tasks.Clear();
+            ResourcesSingletonOld.Instance.dayWeekTask.boxes.Clear();
 
             foreach (var t in roleTaskInfo.TaskInfoList)
             {
                 //status为领取状态0未领取，1领取， para任务参数
-                ResourcesSingleton.Instance.dayWeekTask.tasks.Add(t.Id, new Vector2(t.Status, t.Para));
+                ResourcesSingletonOld.Instance.dayWeekTask.tasks.Add(t.Id, new Vector2(t.Status, t.Para));
             }
 
             foreach (var s in roleTaskInfo.TaskScoreList)
             {
                 //status为领取状态0未领取，1领取， valid生效与否0未生效1生效
-                ResourcesSingleton.Instance.dayWeekTask.boxes.Add(s.Id, new Vector2(s.Status, s.Valid));
+                ResourcesSingletonOld.Instance.dayWeekTask.boxes.Add(s.Id, new Vector2(s.Status, s.Valid));
             }
 
-            if (JiYuUIHelper.TryGetUI(UIType.UIPanel_Battle, out UI ui))
+            if (UnicornUIHelper.TryGetUI(UIType.UIPanel_Battle, out UI ui))
             {
                 var ui1 = ui as UIPanel_Battle;
                 //ui1.RedPointSetState();
@@ -1954,7 +1954,7 @@ namespace XFramework
 
         private void OnAchieveResponse(object sender, WebMessageHandlerOld.Execute e)
         {
-            WebMessageHandlerOld.Instance.RemoveHandler(CMD.QUERYACHIEVE, OnAchieveResponse);
+            WebMessageHandlerOld.Instance.RemoveHandler(CMDOld.QUERYACHIEVE, OnAchieveResponse);
             RoleTaskInfo roleTaskInfo = new RoleTaskInfo();
             roleTaskInfo.MergeFrom(e.data);
             Log.Debug($"OnAchieveResponse {roleTaskInfo.ToString()}", Color.green);
@@ -1968,7 +1968,7 @@ namespace XFramework
                 //     helpDic.Add(t.id, new Vector2(0, 0));
                 // }
                 //
-                // ResourcesSingleton.Instance.achieve.tasks = helpDic;
+                // ResourcesSingletonOld.Instance.achieve.tasks = helpDic;
                 //
                 // //成就等级宝箱空数据
                 // Dictionary<int, Vector2> scoreDic = new Dictionary<int, Vector2>();
@@ -1977,19 +1977,19 @@ namespace XFramework
                 //     scoreDic.Add(ac.id, new Vector2(0, 0));
                 // }
                 //
-                // ResourcesSingleton.Instance.achieve.boxes = scoreDic;
+                // ResourcesSingletonOld.Instance.achieve.boxes = scoreDic;
                 Log.Debug("e.data.IsEmpty", Color.red);
                 return;
             }
 
             Log.Debug($"接收到成就消息", Color.green);
-            ResourcesSingleton.Instance.achieve.tasks.Clear();
-            ResourcesSingleton.Instance.achieve.boxes.Clear();
+            ResourcesSingletonOld.Instance.achieve.tasks.Clear();
+            ResourcesSingletonOld.Instance.achieve.boxes.Clear();
 
             foreach (var t in roleTaskInfo.TaskInfoList)
             {
                 //status为领取状态0未领取，1领取， para任务参数
-                ResourcesSingleton.Instance.achieve.tasks.Add(t.Id, new Vector2(t.Status, t.Para));
+                ResourcesSingletonOld.Instance.achieve.tasks.Add(t.Id, new Vector2(t.Status, t.Para));
                 //Debug.Log("t.id" + t.Id + ";t.Para = " + t.Para);
             }
 
@@ -1997,13 +1997,13 @@ namespace XFramework
             // {
             //     //status为领取状态0未领取，1领取， 0为凑数的
             //     //Debug.Log("GameAchieve.id: " + s.Id);
-            //     ResourcesSingleton.Instance.achieve.boxes.Add(s.Id, new Vector2(s.Status, 0));
+            //     ResourcesSingletonOld.Instance.achieve.boxes.Add(s.Id, new Vector2(s.Status, 0));
             // }
 
             //Debug.Log("menu scene roleTaskInfo.AchieveList.count:" + roleTaskInfo.AchieveList.Count);
-            Debug.Log("game achieve list cont: " + ResourcesSingleton.Instance.achieve.boxes.Count);
+            Debug.Log("game achieve list cont: " + ResourcesSingletonOld.Instance.achieve.boxes.Count);
 
-            if (JiYuUIHelper.TryGetUI(UIType.UIPanel_Battle, out UI ui))
+            if (UnicornUIHelper.TryGetUI(UIType.UIPanel_Battle, out UI ui))
             {
                 var ui1 = ui as UIPanel_Battle;
                 //ui1.RedPointSetState();
@@ -2018,13 +2018,13 @@ namespace XFramework
             Debug.Log(gameCheckIn);
             if (e.data.IsEmpty)
             {
-                ResourcesSingleton.Instance.signData = new GameCheckIn();
+                ResourcesSingletonOld.Instance.signData = new GameCheckIn();
                 Log.Debug("e.data.IsEmpty", Color.red);
                 return;
             }
 
-            ResourcesSingleton.Instance.signData = gameCheckIn;
-            if (JiYuUIHelper.TryGetUI(UIType.UIPanel_Battle, out UI ui))
+            ResourcesSingletonOld.Instance.signData = gameCheckIn;
+            if (UnicornUIHelper.TryGetUI(UIType.UIPanel_Battle, out UI ui))
             {
                 var ui1 = ui as UIPanel_Battle;
                 //ui1.RedPointSetState();
@@ -2047,14 +2047,14 @@ namespace XFramework
                 return;
             }
 
-            ResourcesSingleton.Instance.signData = gameCheckIn;
-            // if (JiYuUIHelper.TryGetUI(UIType.UIPanel_Notice, out UI uuii))
+            ResourcesSingletonOld.Instance.signData = gameCheckIn;
+            // if (UnicornUIHelper.TryGetUI(UIType.UIPanel_Notice, out UI uuii))
             // {
             //
             // }
             // else
             // {
-            //     if (JiYuUIHelper.TryGetUI(UIType.UIPanel_Battle, out UI ui))
+            //     if (UnicornUIHelper.TryGetUI(UIType.UIPanel_Battle, out UI ui))
             //     {
             //         var ui1 = ui as UIPanel_Battle;
             //         ui1.RedPointSetState();
@@ -2067,12 +2067,12 @@ namespace XFramework
 
         private void OnNoticeStatusChangeResponse(object sender, WebMessageHandlerOld.Execute e)
         {
-            JiYuUIHelper.DownloadNotice().Forget();
+            UnicornUIHelper.DownloadNotice().Forget();
         }
 
         private async void OnQuerySettingsResponse(object sender, WebMessageHandlerOld.Execute e)
         {
-            WebMessageHandlerOld.Instance.RemoveHandler(CMD.QUERYSETTINGS, OnQuerySettingsResponse);
+            WebMessageHandlerOld.Instance.RemoveHandler(CMDOld.QUERYSETTINGS, OnQuerySettingsResponse);
             SettingDate settingDate = new SettingDate();
             settingDate.MergeFrom(e.data);
             Log.Debug($"OnQuerySettingsResponse{settingDate}", Color.green);
@@ -2100,33 +2100,33 @@ namespace XFramework
             //     enableShock = settingDate.EnableShock,
             //     enableWeakEffect = settingDate.EnableWeakEffect,
             //     enableShowStick = settingDate.EnableShowStick,
-            //     version = ResourcesSingleton.Instance.settingsData.version,
+            //     version = ResourcesSingletonOld.Instance.settingsData.version,
             //     isShared = false,
             //     currentL10N = (Tblanguage.L10N)settingDate.CurrentL10N
             // };
-            //ResourcesSingleton.Instance.settingsData = settingsData;
+            //ResourcesSingletonOld.Instance.settingsData = settingsData;
 
             //settingDate.CurrentL10N = Mathf.Max(1, settingDate.CurrentL10N);
 
 
-            ResourcesSingleton.Instance.settingData = settingDate;
+            ResourcesSingletonOld.Instance.settingData = settingDate;
 
 
-            JsonManager.Instance.sharedData.l10N = ResourcesSingleton.Instance.settingData.CurrentL10N;
+            JsonManager.Instance.sharedData.l10N = ResourcesSingletonOld.Instance.settingData.CurrentL10N;
             JsonManager.Instance.SaveSharedData(JsonManager.Instance.sharedData);
-            //ResourcesSingleton.Instance.settingData.GuideList.Clear();
+            //ResourcesSingletonOld.Instance.settingData.GuideList.Clear();
             // //TODO:改
-            // ResourcesSingleton.Instance.settingData.UnlockList.Clear();
+            // ResourcesSingletonOld.Instance.settingData.UnlockList.Clear();
             // var tbtag = ConfigManager.Instance.Tables.Tbtag;
             // var tbtag_func = ConfigManager.Instance.Tables.Tbtag_func;
             // foreach (var tag in tbtag.DataList)
             // {
-            //     ResourcesSingleton.Instance.settingData.UnlockList.Add(tag.id);
+            //     ResourcesSingletonOld.Instance.settingData.UnlockList.Add(tag.id);
             // }
             //
             // foreach (var tag in tbtag_func.DataList)
             // {
-            //     ResourcesSingleton.Instance.settingData.UnlockList.Add(tag.id);
+            //     ResourcesSingletonOld.Instance.settingData.UnlockList.Add(tag.id);
             // }
 
             InitSettings();
@@ -2138,15 +2138,15 @@ namespace XFramework
             {
                 isInit = true;
                 Log.Debug($"OnBoardCast", Color.cyan);
-                WebMessageHandlerOld.Instance.AddHandler(CMD.QUERYMAIL, OnQueryMailResponse);
-                NetWorkManager.Instance.SendMessage(CMD.QUERYMAIL);
+                WebMessageHandlerOld.Instance.AddHandler(CMDOld.QUERYMAIL, OnQueryMailResponse);
+                NetWorkManager.Instance.SendMessage(CMDOld.QUERYMAIL);
             }
 
 
             if (Input.GetKeyDown(KeyCode.T))
             {
                 Log.Debug($"加一封文本邮件", Color.green);
-                ResourcesSingleton.Instance.mails.Add(new MailInfo
+                ResourcesSingletonOld.Instance.mails.Add(new MailInfo
                 {
                     Id = UnityEngine.Random.Range(10, 9999999),
                     MailModuleId = 10002,
@@ -2165,12 +2165,12 @@ namespace XFramework
                 }
 
 
-                ResourcesSingleton.Instance.UpdateResourceUI();
+                ResourcesSingletonOld.Instance.UpdateResourceUI();
             }
 
             if (Input.GetKeyDown(KeyCode.D))
             {
-                ResourcesSingleton.Instance.mails.Clear();
+                ResourcesSingletonOld.Instance.mails.Clear();
 
                 var uiManager = Common.Instance.Get<UIManager>();
                 if (uiManager.TryGet(UIType.UIPanel_Mail, out var ui))
@@ -2180,7 +2180,7 @@ namespace XFramework
                     await UIHelper.CreateAsync(UIType.UIPanel_Mail);
                 }
 
-                ResourcesSingleton.Instance.UpdateResourceUI();
+                ResourcesSingletonOld.Instance.UpdateResourceUI();
             }
 
             if (Input.GetKeyDown(KeyCode.F))
@@ -2209,15 +2209,15 @@ namespace XFramework
         {
             Log.Debug("离开Menu场景");
             //cts.Cancel();
-            WebMessageHandlerOld.Instance.RemoveHandler(CMD.BOARDCASTMAIL, OnBoardCastMail);
+            WebMessageHandlerOld.Instance.RemoveHandler(CMDOld.BOARDCASTMAIL, OnBoardCastMail);
             WebMessageHandlerOld.Instance.RemoveHandler(99, 2, OnGiftChangeResponse);
             WebMessageHandlerOld.Instance.RemoveHandler(99, 3, OnNoticeStatusChangeResponse);
             WebMessageHandlerOld.Instance.RemoveHandler(99, 6, OnFirstChargeChangeResponse);
             WebMessageHandlerOld.Instance.RemoveHandler(100, 1, OnTaskChangeResponse);
-            WebMessageHandlerOld.Instance.RemoveHandler(CMD.QUERYWEAR, OnQueryWearingEquipResponse);
-            WebMessageHandlerOld.Instance.RemoveHandler(CMD.QUERYEQUIP, OnQueryEquipResponse);
-            WebMessageHandlerOld.Instance.RemoveHandler(CMD.QUERYPROPERTY, OnInitPlayerPropertyResponse);
-            WebMessageHandlerOld.Instance.RemoveHandler(CMD.INITPLAYER, OnOpenMainPanelResponse);
+            WebMessageHandlerOld.Instance.RemoveHandler(CMDOld.QUERYWEAR, OnQueryWearingEquipResponse);
+            WebMessageHandlerOld.Instance.RemoveHandler(CMDOld.QUERYEQUIP, OnQueryEquipResponse);
+            WebMessageHandlerOld.Instance.RemoveHandler(CMDOld.QUERYPROPERTY, OnInitPlayerPropertyResponse);
+            WebMessageHandlerOld.Instance.RemoveHandler(CMDOld.INITPLAYER, OnOpenMainPanelResponse);
             base.OnDestroy();
         }
 

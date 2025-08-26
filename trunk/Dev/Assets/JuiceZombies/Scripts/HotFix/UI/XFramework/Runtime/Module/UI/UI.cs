@@ -760,7 +760,7 @@ namespace XFramework
             //    UIHelper.Remove(Name);
             //else
             //    Dispose();
-            JiYuUIHelper.DestoryAllTips();
+            UnicornUIHelper.DestoryAllTips();
             this.Dispose();
         }
 

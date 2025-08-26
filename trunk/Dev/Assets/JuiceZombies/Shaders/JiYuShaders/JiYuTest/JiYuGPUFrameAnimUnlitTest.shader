@@ -1,5 +1,5 @@
 
-Shader "JiYuStudio/JiYuGPUFrameAnimUnlitTest"
+Shader "UnicornStudio/JiYuGPUFrameAnimUnlitTest"
 {
 	Properties
 	{

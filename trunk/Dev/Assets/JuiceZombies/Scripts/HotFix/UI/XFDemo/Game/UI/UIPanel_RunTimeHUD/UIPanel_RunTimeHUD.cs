@@ -1,5 +1,5 @@
 //---------------------------------------------------------------------
-// JiYuStudio
+// UnicornStudio
 // Author: xxx
 // Time: #CreateTime#
 //---------------------------------------------------------------------
@@ -185,7 +185,7 @@ namespace XFramework
 
             playerInput.AddChild(touchui);
 
-            if (ResourcesSingleton.Instance.settingData.EnableShowStick)
+            if (ResourcesSingletonOld.Instance.settingData.EnableShowStick)
             {
                 KBase.GetImage().SetEnabled(true);
                 KStick.GetImage().SetEnabled(true);
@@ -197,14 +197,14 @@ namespace XFramework
             }
 
 
-            JiYuTweenHelper.DoScaleTweenOnClickAndLongPress(KBtn_Pause, () =>
+            UnicornTweenHelper.DoScaleTweenOnClickAndLongPress(KBtn_Pause, () =>
             {
-                //JiYuUIHelper.StartStopTime(false);
+                //UnicornUIHelper.StartStopTime(false);
                 UIHelper.CreateAsync(UIType.UIPanel_BattleInfo);
             });
             UnityHelper.EnableTime(true);
             EnableInputBar(false);
-            //JiYuUIHelper.StartStopTime(true);
+            //UnicornUIHelper.StartStopTime(true);
             var order = tbguide.DataList.Where(a => a.group == args).OrderBy(a => a.order).ToList()[0];
             Log.Debug($"enter runtimeHud group:{args} order:{order}");
             IntroGuideOrder(order.order).Forget();
@@ -228,7 +228,7 @@ namespace XFramework
             KUISpecialEffect.SetActive(true);
             var spineUI = this.GetFromReference(spineName);
             var sg = spineUI.GetComponent<SkeletonGraphic>();
-            var duration = JiYuUIHelper.GetAnimaionDuration(sg, spineName);
+            var duration = UnicornUIHelper.GetAnimaionDuration(sg, spineName);
             float scale = (duration / 1000f) / time;
             sg.timeScale = scale;
             sg.Initialize(true);
@@ -297,22 +297,22 @@ namespace XFramework
             var obsPos1 = new float3(25f, boss1Pos.y + 30, 0);
             var obsPos2 = new float3(0, boss1Pos.y + 10, 0);
 
-            JiYuUIHelper.SpawnMapElement(20001, obsPos);
-            JiYuUIHelper.SpawnMapElement(20001, obsPos1);
+            UnicornUIHelper.SpawnMapElement(20001, obsPos);
+            UnicornUIHelper.SpawnMapElement(20001, obsPos1);
 
             obsPos2.x -= 15;
-            JiYuUIHelper.SpawnMapElement("pic_guide_obstancle1", obsPos2, 15);
+            UnicornUIHelper.SpawnMapElement("pic_guide_obstancle1", obsPos2, 15);
             obsPos2.x -= 10;
-            JiYuUIHelper.SpawnMapElement("pic_guide_obstancle1", obsPos2, 15);
+            UnicornUIHelper.SpawnMapElement("pic_guide_obstancle1", obsPos2, 15);
             obsPos2.x -= 10;
-            JiYuUIHelper.SpawnMapElement("pic_guide_obstancle1", obsPos2, 15);
+            UnicornUIHelper.SpawnMapElement("pic_guide_obstancle1", obsPos2, 15);
             obsPos2.x = 0;
             obsPos2.x += 15;
-            JiYuUIHelper.SpawnMapElement("pic_guide_obstancle1", obsPos2, 15);
+            UnicornUIHelper.SpawnMapElement("pic_guide_obstancle1", obsPos2, 15);
             obsPos2.x += 10;
-            JiYuUIHelper.SpawnMapElement("pic_guide_obstancle1", obsPos2, 15);
+            UnicornUIHelper.SpawnMapElement("pic_guide_obstancle1", obsPos2, 15);
             obsPos2.x += 10;
-            JiYuUIHelper.SpawnMapElement("pic_guide_obstancle1", obsPos2, 15);
+            UnicornUIHelper.SpawnMapElement("pic_guide_obstancle1", obsPos2, 15);
 
 
             while (!TryGetMonster(monsterId, out var e1, out var chaStats1))
@@ -326,7 +326,7 @@ namespace XFramework
             entityManager.SetComponentData(e, chaStats);
             //await UniTask.Delay(2000);
 
-            //JiYuUIHelper.TypeWriteEffect()
+            //UnicornUIHelper.TypeWriteEffect()
         }
 
         bool TryGetMonster(int monsterId, out Entity entity, out ChaStats chaStats)
@@ -351,7 +351,7 @@ namespace XFramework
 
         public async void OnGuideOrderFinished(int guideId)
         {
-            JiYuUIHelper.TryFinishGuide(guideId);
+            UnicornUIHelper.TryFinishGuide(guideId);
 
             await UniTask.Delay(500);
             var order = tbguide.Get(guideId).order;
@@ -371,7 +371,7 @@ namespace XFramework
 
         async UniTask IntroGuideOrder(int order)
         {
-            //ResourcesSingleton.Instance.equipmentData.
+            //ResourcesSingletonOld.Instance.equipmentData.
             const int Normal = 90;
             const int Special = 70;
             var global = Common.Instance.Get<Global>();
@@ -384,29 +384,29 @@ namespace XFramework
                 switch (guide.guideType)
                 {
                     case 101:
-                        JiYuUIHelper.EnableGuide(false);
-                        await JiYuTweenHelper.EnableLoading(true, UIManager.LoadingType.TranstionShattersEnter);
+                        UnicornUIHelper.EnableGuide(false);
+                        await UnicornTweenHelper.EnableLoading(true, UIManager.LoadingType.TranstionShattersEnter);
                         OnGuideOrderFinished(guide.id);
                         break;
                     case 102:
-                        JiYuUIHelper.EnableGuide(true);
-                        await JiYuTweenHelper.EnableLoading(true, UIManager.LoadingType.TranstionShattersExit);
+                        UnicornUIHelper.EnableGuide(true);
+                        await UnicornTweenHelper.EnableLoading(true, UIManager.LoadingType.TranstionShattersExit);
                         OnGuideOrderFinished(guide.id);
                         break;
                     case 103:
-                        JiYuUIHelper.EnableGuide(false);
-                        //await JiYuTweenHelper.EnableLoading(true, UIManager.LoadingType.TranstionShattersExit);
+                        UnicornUIHelper.EnableGuide(false);
+                        //await UnicornTweenHelper.EnableLoading(true, UIManager.LoadingType.TranstionShattersExit);
                         OnGuideOrderFinished(guide.id);
                         break;
                     case 104:
-                        JiYuUIHelper.EnableGuide(true);
-                        //await JiYuTweenHelper.EnableLoading(true, UIManager.LoadingType.TranstionShattersExit);
+                        UnicornUIHelper.EnableGuide(true);
+                        //await UnicornTweenHelper.EnableLoading(true, UIManager.LoadingType.TranstionShattersExit);
                         OnGuideOrderFinished(guide.id);
                         break;
                     case 900:
-                        JiYuUIHelper.EnableGuide(false);
+                        UnicornUIHelper.EnableGuide(false);
                         InitGuidScene();
-                        await JiYuTweenHelper.EnableLoading(true, UIManager.LoadingType.TranstionShattersEnter);
+                        await UnicornTweenHelper.EnableLoading(true, UIManager.LoadingType.TranstionShattersEnter);
                         OnGuideOrderFinished(guide.id);
                         break;
                     case 301:
@@ -493,7 +493,7 @@ namespace XFramework
                         //玩家
                         if (para1 == 1)
                         {
-                            await JiYuUIHelper.DoPlayerPos(new float2(0, para2 / 1000f), para3 / 1000f);
+                            await UnicornUIHelper.DoPlayerPos(new float2(0, para2 / 1000f), para3 / 1000f);
                         }
                         //怪物
                         else if (para1 >= 1000000 && para1 <= 9999999)
@@ -502,12 +502,12 @@ namespace XFramework
                             {
                                 var player = playerquery.ToEntityArray(Allocator.Temp)[0];
                                 var tran = entityManager.GetComponentData<LocalTransform>(player);
-                                await JiYuUIHelper.DoMonsterPos(para1, new float2(0, tran.Position.y + 60),
+                                await UnicornUIHelper.DoMonsterPos(para1, new float2(0, tran.Position.y + 60),
                                     para3 / 1000f);
                             }
                             else
                             {
-                                await JiYuUIHelper.DoMonsterPos(para1, new float2(0, para2 / 1000f), para3 / 1000f);
+                                await UnicornUIHelper.DoMonsterPos(para1, new float2(0, para2 / 1000f), para3 / 1000f);
                             }
                         }
 
@@ -523,7 +523,7 @@ namespace XFramework
                         //怪物
                         else if (para1 >= 1000000 && para1 <= 9999999)
                         {
-                            JiYuUIHelper.DestroyMonster(para1);
+                            UnicornUIHelper.DestroyMonster(para1);
                         }
 
 
@@ -536,12 +536,12 @@ namespace XFramework
                     //     //玩家
                     //     if (para1 == 1)
                     //     {
-                    //         await JiYuUIHelper.DoPlayerPos(new float2(0, para2 / 1000f), para3 / 1000f);
+                    //         await UnicornUIHelper.DoPlayerPos(new float2(0, para2 / 1000f), para3 / 1000f);
                     //     }
                     //     //怪物
                     //     else if (para1 >= 1000000 && para1 <= 9999999)
                     //     {
-                    //         var enemy = await JiYuUIHelper.DoMonsterPos(para1, new float2(0, para2 / 1000f),
+                    //         var enemy = await UnicornUIHelper.DoMonsterPos(para1, new float2(0, para2 / 1000f),
                     //             para3 / 1000f);
                     //         entityManager.DestroyEntity(enemy);
                     //     }
@@ -566,7 +566,7 @@ namespace XFramework
                         para1 = int.Parse(guide.guidePara[0]);
                         para2 = int.Parse(guide.guidePara[1]);
                         itemDropPos = new float3(0, para2 / 1000f, 0);
-                        JiYuUIHelper.SpawnDropItem(para1, new float3(0, para2 / 1000f, 0));
+                        UnicornUIHelper.SpawnDropItem(para1, new float3(0, para2 / 1000f, 0));
                         OnGuideOrderFinished(guide.id);
                         break;
                     case 203:
@@ -696,20 +696,20 @@ namespace XFramework
                         var player904 = playerquery.ToEntityArray(Allocator.Temp)[0];
                         var enemy904Tran = entityManager.GetComponentData<LocalTransform>(enemy904);
                         var player904Tran = entityManager.GetComponentData<LocalTransform>(player904);
-                        //JiYuUIHelper.DestoryWbe();
-                        JiYuUIHelper.DestoryWbe();
+                        //UnicornUIHelper.DestoryWbe();
+                        UnicornUIHelper.DestoryWbe();
                         WebMessageHandlerOld.Instance.Clear();
                         var sceneController = XFramework.Common.Instance.Get<SceneController>();
                         var sceneObj0 = sceneController.LoadSceneAsync<MenuScene>(SceneName.UIMenu);
                         await SceneResManager.WaitForCompleted(sceneObj0);
-                        JiYuUIHelper.EnterChapter(1);
-                        WebMessageHandlerOld.Instance.AddHandler(CMD.QUERYCANSTART, OnClick1PlayBtnResponse);
+                        UnicornUIHelper.EnterChapter(1);
+                        WebMessageHandlerOld.Instance.AddHandler(CMDOld.QUERYCANSTART, OnClick1PlayBtnResponse);
                         var battleGain = new BattleGain
                         {
-                            LevelId = ResourcesSingleton.Instance.levelInfo.levelId
+                            LevelId = ResourcesSingletonOld.Instance.levelInfo.levelId
                         };
 
-                        NetWorkManager.Instance.SendMessage(CMD.QUERYCANSTART, battleGain);
+                        NetWorkManager.Instance.SendMessage(CMDOld.QUERYCANSTART, battleGain);
 
                         //var sceneController = Common.Instance.Get<SceneController>();
                         // var sceneObj = sceneController.LoadSceneAsync<RunTimeScene>(SceneName.RunTime);
@@ -744,7 +744,7 @@ namespace XFramework
 
         void OnClick1PlayBtnResponse(object sender, WebMessageHandlerOld.Execute e)
         {
-            WebMessageHandlerOld.Instance.RemoveHandler(CMD.QUERYCANSTART, OnClick1PlayBtnResponse);
+            WebMessageHandlerOld.Instance.RemoveHandler(CMDOld.QUERYCANSTART, OnClick1PlayBtnResponse);
             var longValue = new LongValue();
             longValue.MergeFrom(e.data);
             if (e.data.IsEmpty)
@@ -756,7 +756,7 @@ namespace XFramework
             Log.Debug($"验证对局是否可以开始:{longValue.Value}", Color.green);
             if (longValue.Value != null && longValue.Value > 0)
             {
-                ResourcesSingleton.Instance.battleData.battleId = longValue.Value;
+                ResourcesSingletonOld.Instance.battleData.battleId = longValue.Value;
                 //this.GetParent<UIPanel_JiyuGame>().DestoryAllToggle();
                 //this.Close();
                 //Close();
@@ -840,8 +840,8 @@ namespace XFramework
             InitJson();
             InitBindingsData();
             entityManager = World.DefaultGameObjectInjectionWorld.EntityManager;
-            sucList = levelConfig.Get(ResourcesSingleton.Instance.levelInfo.levelId).success;
-            //failList = levelConfig.Get(ResourcesSingleton.Instance.levelInfo.levelId).fail;
+            sucList = levelConfig.Get(ResourcesSingletonOld.Instance.levelInfo.levelId).success;
+            //failList = levelConfig.Get(ResourcesSingletonOld.Instance.levelInfo.levelId).fail;
 
             sucBoolDic = new Dictionary<int, bool>(sucList.Count);
             for (int i = 0; i < sucList.Count; i++)
@@ -870,7 +870,7 @@ namespace XFramework
             playerInput.AddChild(touchui);
             var KBase = touchui.GetFromReference(UITouchController.KBase);
             var KStick = touchui.GetFromReference(UITouchController.KStick);
-            if (ResourcesSingleton.Instance.settingData.EnableShowStick)
+            if (ResourcesSingletonOld.Instance.settingData.EnableShowStick)
             {
                 KBase.GetImage().SetEnabled(true);
                 KStick.GetImage().SetEnabled(true);
@@ -882,12 +882,12 @@ namespace XFramework
             }
 
 
-            JiYuTweenHelper.DoScaleTweenOnClickAndLongPress(KBtn_Pause, () =>
+            UnicornTweenHelper.DoScaleTweenOnClickAndLongPress(KBtn_Pause, () =>
             {
-                //JiYuUIHelper.StartStopTime(false);
+                //UnicornUIHelper.StartStopTime(false);
                 UIHelper.CreateAsync(UIType.UIPanel_BattleInfo);
             });
-            JiYuUIHelper.StartStopTime(true);
+            UnicornUIHelper.StartStopTime(true);
 
             //await UniTask.Delay(3000);
 
@@ -917,7 +917,7 @@ namespace XFramework
             var monster = tbmonster.Get(monsterId);
             var monsterAttr = tbmonster_attr.GetOrDefault(monster.monsterAttrId);
             var monsterModel = tbmonster_model.GetOrDefault(monsterAttr.bookId);
-            var closeStr = JiYuUIHelper.GetBulletTypeStr(tblanguage.Get(monsterModel.name).current);
+            var closeStr = UnicornUIHelper.GetBulletTypeStr(tblanguage.Get(monsterModel.name).current);
             KText_BossHp.GetTextMeshPro().SetTMPText(closeStr);
         }
 
@@ -957,9 +957,9 @@ namespace XFramework
             //     if (guide.targetId == panelId)
             //     {
             //         if (guide.triggerType == 5 &&
-            //             guide.triggerPara[0] == ResourcesSingleton.Instance.levelInfo.chapterID)
+            //             guide.triggerPara[0] == ResourcesSingletonOld.Instance.levelInfo.chapterID)
             //         {
-            //             if (ResourcesSingleton.Instance.settingData.GuideList.Contains(guide.group))
+            //             if (ResourcesSingletonOld.Instance.settingData.GuideList.Contains(guide.group))
             //             {
             //                 await UIHelper.CreateAsync(this, UIType.UISubPanel_Guid, guide.id,
             //                     this.GameObject.transform);
@@ -1344,11 +1344,11 @@ namespace XFramework
                 }
             }
 
-            if (suc && !JiYuUIHelper.TryGetUI(UIType.UIPanel_Success, out var _))
+            if (suc && !UnicornUIHelper.TryGetUI(UIType.UIPanel_Success, out var _))
             {
                 UIHelper.Remove(UIType.UIPanel_Fail);
                 UIHelper.Remove(UIType.UIPanel_Rebirth);
-                //JiYuUIHelper.StartStopTime(false);
+                //UnicornUIHelper.StartStopTime(false);
                 UIHelper.Create(UIType.UIPanel_Success);
             }
 
@@ -1358,27 +1358,27 @@ namespace XFramework
             }
             //failCondition
             /*
-            if (chaStats.chaResource.hp <= 0 && !JiYuUIHelper.TryGetUI(UIType.UIPanel_Rebirth, out var _) &&
-                !JiYuUIHelper.TryGetUI(UIType.UIPanel_Fail, out var _) &&
-                !JiYuUIHelper.TryGetUI(UIType.UIPanel_Success, out var _) &&
-                !JiYuUIHelper.TryGetUI(UIType.UIPanel_BattleInfo, out var _))
+            if (chaStats.chaResource.hp <= 0 && !UnicornUIHelper.TryGetUI(UIType.UIPanel_Rebirth, out var _) &&
+                !UnicornUIHelper.TryGetUI(UIType.UIPanel_Fail, out var _) &&
+                !UnicornUIHelper.TryGetUI(UIType.UIPanel_Success, out var _) &&
+                !UnicornUIHelper.TryGetUI(UIType.UIPanel_BattleInfo, out var _))
             {
 
                 if (chaStats.chaProperty.rebirthCount1 > 0)
                 {
                     chaStats.chaProperty.rebirthCount1--;
                     entityManager.SetComponentData(player, chaStats);
-                    JiYuUIHelper.RebirthPlayer();
+                    UnicornUIHelper.RebirthPlayer();
                 }
                 else if (chaStats.chaProperty.rebirthCount > 0)
                 {
                     chaStats.chaProperty.rebirthCount--;
                     entityManager.SetComponentData(player, chaStats);
-                    JiYuUIHelper.RebirthPlayer();
+                    UnicornUIHelper.RebirthPlayer();
                 }
                 else
                 {
-                    //JiYuUIHelper.StartStopTime(false);
+                    //UnicornUIHelper.StartStopTime(false);
                     UIHelper.Create(UIType.UIPanel_Rebirth);
                 }
             }
@@ -1418,7 +1418,7 @@ namespace XFramework
 
         protected override void OnClose()
         {
-            JiYuUIHelper.StartStopTime(false);
+            UnicornUIHelper.StartStopTime(false);
             isClose = true;
             sucBoolDic.Clear();
             bindingsDic.Clear();

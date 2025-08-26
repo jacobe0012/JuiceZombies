@@ -1,5 +1,5 @@
 //---------------------------------------------------------------------
-// JiYuStudio
+// UnicornStudio
 // Author: xxx
 // Time: #CreateTime#
 //---------------------------------------------------------------------
@@ -64,7 +64,7 @@ namespace XFramework
 
         async UniTaskVoid InitNode()
         {
-            WebMessageHandlerOld.Instance.AddHandler(CMD.SELFCHOOSEBOX, OnSelfChooseBoxResponse);
+            WebMessageHandlerOld.Instance.AddHandler(CMDOld.SELFCHOOSEBOX, OnSelfChooseBoxResponse);
 
             var KImg_Bg = GetFromReference(UIPanel_SelectBoxNomal.KImg_Bg);
             var KText_Tittle = GetFromReference(UIPanel_SelectBoxNomal.KText_Tittle);
@@ -87,11 +87,11 @@ namespace XFramework
             var KBtn_CloseTips0 = GetFromReference(UIPanel_SelectBoxNomal.KBtn_CloseTips0);
 
             //var KCommon_Blur = GetFromReference(UIPanel_SelectBoxNomal.KCommon_Blur);
-            await JiYuUIHelper.InitBlur(this);
+            await UnicornUIHelper.InitBlur(this);
 
 
-            JiYuUIHelper.SetRewardIconAndCountText(reward, KCommon_RewardItem);
-            JiYuUIHelper.SetRewardIconAndCountText(reward, KCommon_RewardItem0);
+            UnicornUIHelper.SetRewardIconAndCountText(reward, KCommon_RewardItem);
+            UnicornUIHelper.SetRewardIconAndCountText(reward, KCommon_RewardItem0);
             var item = tbitem.Get((int)reward.y);
             var boxCount = (int)reward.z;
             boxCount = Mathf.Min(boxCount, 999);
@@ -110,8 +110,8 @@ namespace XFramework
                 KUp.SetActive(true);
             }
 
-            KText_BoxName.GetTextMeshPro().SetTMPText(JiYuUIHelper.GetRewardName(reward));
-            KText_BoxName0.GetTextMeshPro().SetTMPText(JiYuUIHelper.GetRewardName(reward));
+            KText_BoxName.GetTextMeshPro().SetTMPText(UnicornUIHelper.GetRewardName(reward));
+            KText_BoxName0.GetTextMeshPro().SetTMPText(UnicornUIHelper.GetRewardName(reward));
 
             KText_Name.GetTextMeshPro().SetTMPText(tblanguage.Get("common_state_confirm").current);
             KText_Number.GetTextMeshPro().SetTMPText($"{itemCount}/{boxCount}");
@@ -123,7 +123,7 @@ namespace XFramework
 
             var scrollRect = KScrollView.GetXScrollRect();
             scrollRect.SetVerticalNormalizedPosition(0);
-            scrollRect.OnBeginDrag.Add(() => { JiYuUIHelper.DestoryAllTips(); });
+            scrollRect.OnBeginDrag.Add(() => { UnicornUIHelper.DestoryAllTips(); });
             var list = scrollRect.Content.GetList();
             list.Clear();
             foreach (var dropItem in dropList)
@@ -137,10 +137,10 @@ namespace XFramework
                 var KCommon_RewardItemDrop = ui.GetFromReference(UISubPanel_SelectBoxItem.KCommon_RewardItem);
 
                 var KImg_Selected0 = KCommon_RewardItemDrop.GetFromReference(UICommon_RewardItem.KImg_Selected);
-                JiYuUIHelper.SetRewardOnClick(dropItem.reward[0], KCommon_RewardItemDrop);
+                UnicornUIHelper.SetRewardOnClick(dropItem.reward[0], KCommon_RewardItemDrop);
 
 
-                JiYuTweenHelper.DoScaleTweenOnClickAndLongPress(KBtn_Selected, async () =>
+                UnicornTweenHelper.DoScaleTweenOnClickAndLongPress(KBtn_Selected, async () =>
                 {
                     if (KImg_Selected.GameObject.activeSelf)
                     {
@@ -153,7 +153,7 @@ namespace XFramework
                     {
                         if (rewardsList.Count() >= chooseMaxCount)
                         {
-                            JiYuUIHelper.ClearCommonResource();
+                            UnicornUIHelper.ClearCommonResource();
                             UIHelper.CreateAsync(UIType.UICommon_Resource,
                                 tblanguage.Get("text_item_selection_limit_exceeded").current).Forget();
 
@@ -168,14 +168,14 @@ namespace XFramework
                 });
             }
 
-            list.Sort(JiYuUIHelper.SelectedBoxItemUIComparer);
+            list.Sort(UnicornUIHelper.SelectedBoxItemUIComparer);
 
 
-            JiYuTweenHelper.DoScaleTweenOnClickAndLongPress(KBtnGet, () =>
+            UnicornTweenHelper.DoScaleTweenOnClickAndLongPress(KBtnGet, () =>
             {
                 if (rewardsList.Count() < chooseMaxCount)
                 {
-                    JiYuUIHelper.ClearCommonResource();
+                    UnicornUIHelper.ClearCommonResource();
                     var str = string.Format(tblanguage.Get("text_item_choose_more").current,
                         chooseMaxCount - rewardsList.Count());
                     UIHelper.CreateAsync(UIType.UICommon_Resource, str).Forget();
@@ -187,19 +187,19 @@ namespace XFramework
                 bagItem.ItemId = item.id;
                 bagItem.Count = itemCount;
                 useItemParam.ItemVal = bagItem;
-                JiYuUIHelper.TurnList2StrReward(useItemParam.Reward, rewardsList);
+                UnicornUIHelper.TurnList2StrReward(useItemParam.Reward, rewardsList);
 
                 Log.Debug($"Use:useItemParam {useItemParam}", Color.green);
-                NetWorkManager.Instance.SendMessage(CMD.SELFCHOOSEBOX, useItemParam);
+                NetWorkManager.Instance.SendMessage(CMDOld.SELFCHOOSEBOX, useItemParam);
                 //rewards.Add()
                 //useItemParam.Reward
                 //useItemParam.
             });
-            JiYuTweenHelper.DoScaleTweenOnClickAndLongPress(KBtnAddOne, () =>
+            UnicornTweenHelper.DoScaleTweenOnClickAndLongPress(KBtnAddOne, () =>
             {
                 if (itemCount >= boxCount)
                 {
-                    JiYuUIHelper.ClearCommonResource();
+                    UnicornUIHelper.ClearCommonResource();
                     var str = tblanguage.Get("text_item_selection_limit_exceeded").current;
                     UIHelper.CreateAsync(UIType.UICommon_Resource, str).Forget();
                     return;
@@ -208,12 +208,12 @@ namespace XFramework
                 itemCount++;
                 KText_Number.GetTextMeshPro().SetTMPText($"{itemCount}/{boxCount}");
             });
-            JiYuTweenHelper.DoScaleTweenOnClickAndLongPress(KBtnAddMax, () =>
+            UnicornTweenHelper.DoScaleTweenOnClickAndLongPress(KBtnAddMax, () =>
             {
                 itemCount = boxCount;
                 KText_Number.GetTextMeshPro().SetTMPText($"{itemCount}/{boxCount}");
             });
-            JiYuTweenHelper.DoScaleTweenOnClickAndLongPress(KBtnDealOne, () =>
+            UnicornTweenHelper.DoScaleTweenOnClickAndLongPress(KBtnDealOne, () =>
             {
                 if (itemCount <= 1)
                 {
@@ -223,14 +223,14 @@ namespace XFramework
                 itemCount--;
                 KText_Number.GetTextMeshPro().SetTMPText($"{itemCount}/{boxCount}");
             });
-            JiYuTweenHelper.DoScaleTweenOnClickAndLongPress(KBtnDealMin, () =>
+            UnicornTweenHelper.DoScaleTweenOnClickAndLongPress(KBtnDealMin, () =>
             {
                 itemCount = 1;
                 KText_Number.GetTextMeshPro().SetTMPText($"{itemCount}/{boxCount}");
             });
             KImg_Bg.GetButton().OnClick.Add(() => { Close(); });
-            KBg_Container.GetButton().OnClick.Add(() => { JiYuUIHelper.DestoryAllTips(); });
-            KBtn_CloseTips.GetButton().OnClick.Add(() => { JiYuUIHelper.DestoryAllTips(); });
+            KBg_Container.GetButton().OnClick.Add(() => { UnicornUIHelper.DestoryAllTips(); });
+            KBtn_CloseTips.GetButton().OnClick.Add(() => { UnicornUIHelper.DestoryAllTips(); });
             KBtn_CloseTips0.GetButton().OnClick.Add(() => { Close(); });
             await UniTask.Yield();
             var totalH = scrollRect.Content.GetRectTransform().Height() + KBtn_CloseTips.GetRectTransform().Height();
@@ -251,7 +251,7 @@ namespace XFramework
                 return;
             }
 
-            var reward = JiYuUIHelper.TurnStrReward2List(rawList.Values);
+            var reward = UnicornUIHelper.TurnStrReward2List(rawList.Values);
 
             var ui = await UIHelper.CreateAsync(UIType.UICommon_Reward, reward);
             //var KBtn_Close = ui.GetFromReference(UICommon_Reward.KBtn_Close);
@@ -267,8 +267,8 @@ namespace XFramework
 
         protected override void OnClose()
         {
-            JiYuUIHelper.DestoryAllTips();
-            WebMessageHandlerOld.Instance.RemoveHandler(CMD.SELFCHOOSEBOX, OnSelfChooseBoxResponse);
+            UnicornUIHelper.DestoryAllTips();
+            WebMessageHandlerOld.Instance.RemoveHandler(CMDOld.SELFCHOOSEBOX, OnSelfChooseBoxResponse);
             rewardsList.Clear();
             base.OnClose();
         }

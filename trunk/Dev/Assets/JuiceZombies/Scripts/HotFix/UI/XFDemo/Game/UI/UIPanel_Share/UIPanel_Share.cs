@@ -1,5 +1,5 @@
 ﻿//---------------------------------------------------------------------
-// JiYuStudio
+// UnicornStudio
 // Author: huangjinguo
 // Time: #CreateTime#
 //---------------------------------------------------------------------
@@ -56,10 +56,10 @@ namespace XFramework
 
         public async void Initialize()
         {
-            await JiYuUIHelper.InitBlur(this);
+            await UnicornUIHelper.InitBlur(this);
             InitJson();
             WebInit();
-            NetWorkManager.Instance.SendMessage(CMD.QUERYSHARE);
+            NetWorkManager.Instance.SendMessage(CMDOld.QUERYSHARE);
             this.GetFromReference(KBtn_Close).GetXButton().OnClick?.Add(() =>
             {
                 //testCanvas.transform.SetParent(testCanvasTrasnform);
@@ -80,14 +80,14 @@ namespace XFramework
 
         private void WebInit()
         {
-            WebMessageHandlerOld.Instance.AddHandler(CMD.QUERYSHARE, OnShareInfoResponse);
-            WebMessageHandlerOld.Instance.AddHandler(CMD.SETSHARE, OnSetShareResponse);
+            WebMessageHandlerOld.Instance.AddHandler(CMDOld.QUERYSHARE, OnShareInfoResponse);
+            WebMessageHandlerOld.Instance.AddHandler(CMDOld.SETSHARE, OnSetShareResponse);
         }
 
         private void OnSetShareResponse(object sender, WebMessageHandlerOld.Execute e)
         {
             Log.Debug($"OnShareResponse ", Color.green);
-            NetWorkManager.Instance.SendMessage(CMD.QUERYSHARE);
+            NetWorkManager.Instance.SendMessage(CMDOld.QUERYSHARE);
         }
 
         private void OnShareInfoResponse(object sender, WebMessageHandlerOld.Execute e)
@@ -102,13 +102,13 @@ namespace XFramework
                 return;
             }
 
-            ResourcesSingleton.Instance.gameShare = shareData;
+            ResourcesSingletonOld.Instance.gameShare = shareData;
             // shareTime = 0;
             // if (shareData.IsShare == true)
             // {
             //     shareTime = 1;
             // }
-            if (ResourcesSingleton.Instance.gameShare.IsShare == null || !ResourcesSingleton.Instance.gameShare.IsShare)
+            if (ResourcesSingletonOld.Instance.gameShare.IsShare == null || !ResourcesSingletonOld.Instance.gameShare.IsShare)
             {
                 
             }
@@ -128,14 +128,14 @@ namespace XFramework
             var KText_Num = GetFromReference(UIPanel_Share.KText_Num);
             var KText_Received = GetFromReference(UIPanel_Share.KText_Received);
             var KImg_Mid = GetFromReference(UIPanel_Share.KImg_Mid);
-            JiYuUIHelper.LoadImage($"share_pic{ResourcesSingleton.Instance.gameShare.Id}.png", KImg_Mid);
+            UnicornUIHelper.LoadImage($"share_pic{ResourcesSingletonOld.Instance.gameShare.Id}.png", KImg_Mid);
             var count = tbconstant.Get("share_reward").constantValue;
             var maxCount = tbconstant.Get("share_reward_limit").constantValue;
             var numStr =
-                $"{tblanguage.Get("setting_share_no_text").current} {JiYuUIHelper.GetRewardTextIconName($"icon_diamond")}{count}";
+                $"{tblanguage.Get("setting_share_no_text").current} {UnicornUIHelper.GetRewardTextIconName($"icon_diamond")}{count}";
             KText_Num.GetTextMeshPro().SetTMPText(numStr);
             KText_Received.GetTextMeshPro().SetTMPText(tblanguage.Get("setting_share_yes_text").current);
-            var shareTime = ResourcesSingleton.Instance.gameShare.IsShare ? 1 : 0;
+            var shareTime = ResourcesSingletonOld.Instance.gameShare.IsShare ? 1 : 0;
             if (shareTime < maxCount)
             {
                 //can get
@@ -177,13 +177,13 @@ namespace XFramework
                 KText_IconBtn.GetTextMeshPro().SetTMPText(tblanguage.Get(item.name).current);
                 KImg_IconBtn.GetImage().SetSpriteAsync(item.pic, true);
 
-                JiYuTweenHelper.DoScaleTweenOnClickAndLongPress(KImg_IconBtn, () =>
+                UnicornTweenHelper.DoScaleTweenOnClickAndLongPress(KImg_IconBtn, () =>
                 {
-                    if (!ResourcesSingleton.Instance.gameShare.IsShare)
+                    if (!ResourcesSingletonOld.Instance.gameShare.IsShare)
                     {
-                        NetWorkManager.Instance.SendMessage(CMD.SETSHARE, new LongValue
+                        NetWorkManager.Instance.SendMessage(CMDOld.SETSHARE, new LongValue
                         {
-                            Value = ResourcesSingleton.Instance.gameShare.Id
+                            Value = ResourcesSingletonOld.Instance.gameShare.Id
                         });
                     }
 
@@ -235,17 +235,17 @@ namespace XFramework
             var shotUI = UIHelper.Create(UIType.UISubPanel_Share_Shot, canvas.gameObject.transform, false);
 
             shotUI.GetFromReference(UISubPanel_Share_Shot.KText_Name).GetTextMeshPro()
-                .SetTMPText(ResourcesSingleton.Instance.UserInfo.Nickname);
+                .SetTMPText(ResourcesSingletonOld.Instance.UserInfo.Nickname);
             shotUI.GetFromReference(UISubPanel_Share_Shot.KText_ID).GetTextMeshPro().SetTMPText("ID:" +
-                ResourcesSingleton.Instance.UserInfo.UserId.ToString());
+                ResourcesSingletonOld.Instance.UserInfo.UserId.ToString());
             shotUI.GetFromReference(UISubPanel_Share_Shot.KImg_Head).GetImage().SetSpriteAsync(
-                tbuser_Avatar.Get(ResourcesSingleton.Instance.UserInfo.RoleAvatar).icon, false);
+                tbuser_Avatar.Get(ResourcesSingletonOld.Instance.UserInfo.RoleAvatar).icon, false);
         }
 
         protected override void OnClose()
         {
-            WebMessageHandlerOld.Instance.RemoveHandler(CMD.QUERYSHARE, OnShareInfoResponse);
-            WebMessageHandlerOld.Instance.RemoveHandler(CMD.SETSHARE, OnSetShareResponse);
+            WebMessageHandlerOld.Instance.RemoveHandler(CMDOld.QUERYSHARE, OnShareInfoResponse);
+            WebMessageHandlerOld.Instance.RemoveHandler(CMDOld.SETSHARE, OnSetShareResponse);
 
             base.OnClose();
         }

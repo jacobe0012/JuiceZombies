@@ -1,5 +1,5 @@
 //---------------------------------------------------------------------
-// JiYuStudio
+// UnicornStudio
 // Author: xxx
 // Time: #CreateTime#
 //---------------------------------------------------------------------
@@ -40,12 +40,12 @@ namespace XFramework
 
         public async void Initialize()
         {
-            await JiYuUIHelper.InitBlur(this);
+            await UnicornUIHelper.InitBlur(this);
             entityManager = World.DefaultGameObjectInjectionWorld.EntityManager;
             playerQuery = entityManager.CreateEntityQuery(typeof(PlayerData), typeof(ChaStats));
             InitJson();
             InitNode();
-            JiYuTweenHelper.SetScaleWithBounce(GetFromReference(UIPanel_BattleDamageInfo.KMid));
+            UnicornTweenHelper.SetScaleWithBounce(GetFromReference(UIPanel_BattleDamageInfo.KMid));
         }
 
         async void InitNode()
@@ -62,8 +62,8 @@ namespace XFramework
 
             var list = KContainerPos.GetList();
             list.Clear();
-            var weaponId = ResourcesSingleton.Instance.playerProperty.playerData.playerOtherData.weaponId;
-            //var weaponQuality = ResourcesSingleton.Instance.playerProperty.playerData.playerOtherData.weaponQuality;
+            var weaponId = ResourcesSingletonOld.Instance.playerProperty.playerData.playerOtherData.weaponId;
+            //var weaponQuality = ResourcesSingletonOld.Instance.playerProperty.playerData.playerOtherData.weaponQuality;
 
             var equip_data = tbequip_data.Get(weaponId);
             var sumDamage = playerData.playerOtherData.playerDamageSumInfo.weaponDamage +
@@ -146,7 +146,7 @@ namespace XFramework
 
 
             KBtn_Mask.GetButton().OnClick.Add(async() => {
-                JiYuTweenHelper.SetScaleWithBounceClose(GetFromReference(UIPanel_BattleDamageInfo.KMid));
+                UnicornTweenHelper.SetScaleWithBounceClose(GetFromReference(UIPanel_BattleDamageInfo.KMid));
                 await UniTask.Delay(200,true);
                 Close(); });
         }

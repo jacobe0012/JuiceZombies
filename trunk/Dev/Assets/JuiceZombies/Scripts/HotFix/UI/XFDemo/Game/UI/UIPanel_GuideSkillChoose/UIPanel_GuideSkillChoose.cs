@@ -1,5 +1,5 @@
 //---------------------------------------------------------------------
-// JiYuStudio
+// UnicornStudio
 // Author: xxx
 // Time: #CreateTime#
 //---------------------------------------------------------------------
@@ -121,7 +121,7 @@ namespace XFramework
 
                     KImg_Choose0.GetImage().SetSpriteAsync(picStr1, false);
                     //UIHelper.CreateAsync(UIType.UIPanel_GuideSkillConfirm, skillBindingId);
-                    if (JiYuUIHelper.TryGetUI(UIType.UIPanel_GuideSkillConfirm, out var ui))
+                    if (UnicornUIHelper.TryGetUI(UIType.UIPanel_GuideSkillConfirm, out var ui))
                     {
                         var uis = ui as UIPanel_GuideSkillConfirm;
                         uis.Refresh(skillBindingId);
@@ -138,7 +138,7 @@ namespace XFramework
 
                     KImg_Choose1.GetImage().SetSpriteAsync(picStr1, false);
                     //UIHelper.CreateAsync(UIType.UIPanel_GuideSkillConfirm, skillBindingId);
-                    if (JiYuUIHelper.TryGetUI(UIType.UIPanel_GuideSkillConfirm, out var ui))
+                    if (UnicornUIHelper.TryGetUI(UIType.UIPanel_GuideSkillConfirm, out var ui))
                     {
                         var uis = ui as UIPanel_GuideSkillConfirm;
                         uis.Refresh(skillBindingId);
@@ -155,7 +155,7 @@ namespace XFramework
 
                     KImg_Choose2.GetImage().SetSpriteAsync(picStr1, false);
                     //UIHelper.CreateAsync(UIType.UIPanel_GuideSkillConfirm, skillBindingId);
-                    if (JiYuUIHelper.TryGetUI(UIType.UIPanel_GuideSkillConfirm, out var ui))
+                    if (UnicornUIHelper.TryGetUI(UIType.UIPanel_GuideSkillConfirm, out var ui))
                     {
                         var uis = ui as UIPanel_GuideSkillConfirm;
                         uis.Refresh(skillBindingId);
@@ -172,7 +172,7 @@ namespace XFramework
 
                     KImg_Choose3.GetImage().SetSpriteAsync(picStr1, false);
                     //UIHelper.CreateAsync(UIType.UIPanel_GuideSkillConfirm, skillBindingId);
-                    if (JiYuUIHelper.TryGetUI(UIType.UIPanel_GuideSkillConfirm, out var ui))
+                    if (UnicornUIHelper.TryGetUI(UIType.UIPanel_GuideSkillConfirm, out var ui))
                     {
                         var uis = ui as UIPanel_GuideSkillConfirm;
                         uis.Refresh(skillBindingId);
@@ -188,7 +188,7 @@ namespace XFramework
                     KImg_Choose1.GetImage().SetSpriteAsync(picStr0, false);
                     KImg_Choose2.GetImage().SetSpriteAsync(picStr0, false);
                     KImg_Choose3.GetImage().SetSpriteAsync(picStr0, false);
-                    if (JiYuUIHelper.TryGetUI(UIType.UIPanel_GuideSkillConfirm, out var ui))
+                    if (UnicornUIHelper.TryGetUI(UIType.UIPanel_GuideSkillConfirm, out var ui))
                     {
                         var uis = ui as UIPanel_GuideSkillConfirm;
                         uis.SetActive(false);

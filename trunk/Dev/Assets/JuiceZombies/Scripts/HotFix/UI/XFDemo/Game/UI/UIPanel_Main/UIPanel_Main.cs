@@ -1,5 +1,5 @@
 ﻿//---------------------------------------------------------------------
-// JiYuStudio
+// UnicornStudio
 // Author: xxx
 // Time: #CreateTime#
 //---------------------------------------------------------------------
@@ -157,18 +157,18 @@ namespace XFramework
         {
             var KPass = this.GetFromReference(UIPanel_Main.KPass);
 
-            KPass.SetActive(ResourcesSingleton.Instance.settingData.UnlockMap.ContainsKey(3201));
+            KPass.SetActive(ResourcesSingletonOld.Instance.settingData.UnlockMap.ContainsKey(3201));
 
             //this.GetFromReference(KImg_PassIcon).GetImage().SetSpriteAsync(tbtag_func.Get(3201).icon, false);
             this.GetFromReference(KText_PassTitle).GetTextMeshPro()
                 .SetTMPText(tblanguage.Get(tbtag_func.Get(3201).name).current);
 
-            // Log.Debug($"gamePassStart {ResourcesSingleton.Instance.gamePassStart}", Color.green);
+            // Log.Debug($"gamePassStart {ResourcesSingletonOld.Instance.gamePassStart}", Color.green);
             //
-            // if (ResourcesSingleton.Instance.gamePassStart)
+            // if (ResourcesSingletonOld.Instance.gamePassStart)
             // {
             //     KPass.SetActive(true);
-            //     var gamePassList = ResourcesSingleton.Instance.gamePasses;
+            //     var gamePassList = ResourcesSingletonOld.Instance.gamePasses;
             //     int passEXP = gamePassList[gamePassList.Count - 1].Exp;
             //
             //     int passLevel = 1;
@@ -219,7 +219,7 @@ namespace XFramework
 
         async UniTaskVoid InitNode()
         {
-            //WebMessageHandlerOld.Instance.AddHandler(CMD.QUERYACTIVITYTASK, OnQueryMonopolyTaskResponse);
+            //WebMessageHandlerOld.Instance.AddHandler(CMDOld.QUERYACTIVITYTASK, OnQueryMonopolyTaskResponse);
 
             var KScrollView = GetFromReference(UIPanel_Main.KScrollView);
             var KIconBtnPos = GetFromReference(UIPanel_Main.KIconBtnPos);
@@ -266,7 +266,7 @@ namespace XFramework
             var KImg_PassRedDot = GetFromReference(UIPanel_Main.KImg_PassRedDot);
 
 
-            JiYuUIHelper.TryGetUI(UIType.UIPanel_JiyuGame, out var jiyuUI);
+            UnicornUIHelper.TryGetUI(UIType.UIPanel_JiyuGame, out var jiyuUI);
             var KBg_JiYuMask = jiyuUI.GetFromReference(UIPanel_JiyuGame.KBg_JiYuMask);
 
             // var guidRect = KBg_TestGuid.GetXImage().Get().hollowArea;
@@ -282,7 +282,7 @@ namespace XFramework
             //     new Vector4(guidRect.x, guidRect.y, guidRect.width, guidRect.height));
             KPass.SetActive(false);
             KActivityPos.SetActive(false);
-            JiYuTweenHelper.JiYuOnClickNoAnim(KBtn_Player, async () =>
+            UnicornTweenHelper.JiYuOnClickNoAnim(KBtn_Player, async () =>
             {
                 if (playerState != 0)
                 {
@@ -338,7 +338,7 @@ namespace XFramework
             {
                 curWidth = 0;
                 scrollRect.Get().vertical = true;
-                if (JiYuUIHelper.TryGetUI(UIType.UIPanel_JiyuGame, out var ui))
+                if (UnicornUIHelper.TryGetUI(UIType.UIPanel_JiyuGame, out var ui))
                 {
                     var uis = ui as UIPanel_JiyuGame;
                     uis.OnEndDrag();
@@ -375,9 +375,9 @@ namespace XFramework
             KText_StartTitle.GetTextMeshPro().SetTMPText(tblanguage.Get("func_3801_name").current);
 
 
-            ShowLevelExp(ResourcesSingleton.Instance.UserInfo, KImg_FilledImgExp,
+            ShowLevelExp(ResourcesSingletonOld.Instance.UserInfo, KImg_FilledImgExp,
                 KText_PlayerLevel);
-            ShowPassLevelExp(ResourcesSingleton.Instance.gamePassExp);
+            ShowPassLevelExp(ResourcesSingletonOld.Instance.gamePassExp);
 
             KImg_Arrow.SetActive(false);
             KContainer_Treasure.SetActive(false);
@@ -412,7 +412,7 @@ namespace XFramework
                 //         break;
                 // }
 
-                if (!ResourcesSingleton.Instance.settingData.UnlockMap.ContainsKey(tagId))
+                if (!ResourcesSingletonOld.Instance.settingData.UnlockMap.ContainsKey(tagId))
                 {
                     continue;
                 }
@@ -428,7 +428,7 @@ namespace XFramework
 
                 KText_IconBtn.GetTextMeshPro().SetTMPText(tblanguage.Get(tbtag_func.Get(tagId).name).current);
                 KImg_IconBtn.GetImage().SetSpriteAsync(tbtag_func.Get(tagId).icon, false).Forget();
-                JiYuTweenHelper.DoScaleTweenOnClickAndLongPress(KImg_IconBtn, () => { OnClickTagFunc(tagId, ui); },
+                UnicornTweenHelper.DoScaleTweenOnClickAndLongPress(KImg_IconBtn, () => { OnClickTagFunc(tagId, ui); },
                     1104);
                 var m_RedDotName = NodeNames.GetTagFuncRedDotName(tagId);
                 RedDotManager.Instance.AddListener(m_RedDotName, num =>
@@ -456,7 +456,7 @@ namespace XFramework
             //             break;
             //     }
             //
-            //     if (!ResourcesSingleton.Instance.settingData.UnlockMap.ContainsKey(tagId))
+            //     if (!ResourcesSingletonOld.Instance.settingData.UnlockMap.ContainsKey(tagId))
             //     {
             //         continue;
             //     }
@@ -471,7 +471,7 @@ namespace XFramework
             //
             //     KText_IconBtn.GetTextMeshPro().SetTMPText(tblanguage.Get(tbtag_func.Get(tagId).name).current);
             //     KImg_IconBtn.GetImage().SetSpriteAsync(tbtag_func.Get(tagId).icon, false).Forget();
-            //     JiYuTweenHelper.DoScaleTweenOnClickAndLongPress(KImg_IconBtn, () => { OnClickTagFunc(tagId, ui); });
+            //     UnicornTweenHelper.DoScaleTweenOnClickAndLongPress(KImg_IconBtn, () => { OnClickTagFunc(tagId, ui); });
             //     var m_RedDotName = NodeNames.GetTagFuncRedDotName(tagId);
             //     RedDotManager.Instance.AddListener(m_RedDotName, num =>
             //     {
@@ -484,9 +484,9 @@ namespace XFramework
 
             var activityList = KActivityPos.GetList();
             activityList.Clear();
-            var activityFlag = ResourcesSingleton.Instance.activity.ActivityFlag;
+            var activityFlag = ResourcesSingletonOld.Instance.activity.ActivityFlag;
             // long nowTime = TimeHelper.ClientNowSeconds() -
-            //                ResourcesSingleton.Instance.ServerDeltaTime / 1000;
+            //                ResourcesSingletonOld.Instance.ServerDeltaTime / 1000;
 
             KPass.SetActive(false);
             bool activityEnable = false;
@@ -499,7 +499,7 @@ namespace XFramework
                     //通行证	
                     case 11:
                         var battlepass = tbbattlepass.Get(activity.link);
-                        if (ResourcesSingleton.Instance.settingData.UnlockMap.ContainsKey(battlepass.tagFunc))
+                        if (ResourcesSingletonOld.Instance.settingData.UnlockMap.ContainsKey(battlepass.tagFunc))
                         {
                             // var KPass = GetFromReference(UIPanel_Main.KPass);
                             // var KImg_PassFilledImg = GetFromReference(UIPanel_Main.KImg_PassFilledImg);
@@ -516,7 +516,7 @@ namespace XFramework
                                 Log.Debug($"{m_RedDotName11} {num}", Color.cyan);
                                 KImg_RedDot11?.SetActive(num > 0);
                             });
-                            JiYuTweenHelper.DoScaleTweenOnClickAndLongPress(KPass,
+                            UnicornTweenHelper.DoScaleTweenOnClickAndLongPress(KPass,
                                 () => { UIHelper.CreateAsync(UIType.UIPanel_Pass, ac.Key); }, 1104);
 
                             KPass.SetActive(true);
@@ -528,7 +528,7 @@ namespace XFramework
                     case 21:
 
                         var daysChallenge = tbdays_challenge.Get(activity.link);
-                        if (ResourcesSingleton.Instance.settingData.UnlockMap.ContainsKey(daysChallenge.tagFunc))
+                        if (ResourcesSingletonOld.Instance.settingData.UnlockMap.ContainsKey(daysChallenge.tagFunc))
                         {
                             activityEnable = true;
                             var ac21ui =
@@ -547,7 +547,7 @@ namespace XFramework
 
                             ac21ui.GetFromReference(UISubPanel_ActivityItem.KText_ActivityItem).GetTextMeshPro()
                                 .SetTMPText(tblanguage.Get(tbtag_func.Get(daysChallenge.tagFunc).name).current);
-                            JiYuTweenHelper.DoScaleTweenOnClickAndLongPress(ac21ui,
+                            UnicornTweenHelper.DoScaleTweenOnClickAndLongPress(ac21ui,
                                 () => { UIHelper.CreateAsync(UIType.UIPanel_Activity_Challenge, ac.Key); }, 1104);
                             Log.Debug($"活跃度挑战{daysChallenge.tagFunc}");
                         }
@@ -558,7 +558,7 @@ namespace XFramework
 
 
                         var daysSign = tbdays_sign.Get(activity.link);
-                        if (ResourcesSingleton.Instance.settingData.UnlockMap.ContainsKey(daysSign.tagFunc))
+                        if (ResourcesSingletonOld.Instance.settingData.UnlockMap.ContainsKey(daysSign.tagFunc))
                         {
                             activityEnable = true;
                             var ac22ui =
@@ -584,7 +584,7 @@ namespace XFramework
                             });
 
 
-                            JiYuTweenHelper.DoScaleTweenOnClickAndLongPress(ac22ui,
+                            UnicornTweenHelper.DoScaleTweenOnClickAndLongPress(ac22ui,
                                 () => { UIHelper.CreateAsync<int>(UIType.UIPanel_Activity_NewSign, ac.Key); }, 1104);
                         }
 
@@ -594,7 +594,7 @@ namespace XFramework
 
 
                         var monopoly = tbmonopoly.Get(activity.link);
-                        if (ResourcesSingleton.Instance.settingData.UnlockMap.ContainsKey(monopoly.tagFunc))
+                        if (ResourcesSingletonOld.Instance.settingData.UnlockMap.ContainsKey(monopoly.tagFunc))
                         {
                             activityEnable = true;
                             var ac23ui =
@@ -607,7 +607,7 @@ namespace XFramework
                             var m_RedDotName23 = NodeNames.GetTagFuncRedDotName(monopoly.tagFunc);
                             KText_ActivityItem23.GetTextMeshPro()
                                 .SetTMPText(tblanguage.Get(tbtag_func.Get(monopoly.tagFunc).name).current);
-                            JiYuTweenHelper.DoScaleTweenOnClickAndLongPress(ac23ui,
+                            UnicornTweenHelper.DoScaleTweenOnClickAndLongPress(ac23ui,
                                 () =>
                                 {
                                     //TODO：
@@ -618,7 +618,7 @@ namespace XFramework
                             // var diceStr = $"{m_RedDotName}|Pos0";
                             //
                             // RedDotManager.Instance.SetRedPointCnt(diceStr,
-                            //     (int)JiYuUIHelper.GetRewardCount(diceReward));
+                            //     (int)UnicornUIHelper.GetRewardCount(diceReward));
 
                             //KImg_RedDot23.SetActive(RedDotManager.Instance.GetRedPointCnt(m_RedDotName) > 0);
                             KImg_RedDot23.SetActive(ac.Value > 0 ? true : false);
@@ -640,7 +640,7 @@ namespace XFramework
 
 
                         var energyShop = tbenergy_shop.Get(activity.link);
-                        if (ResourcesSingleton.Instance.settingData.UnlockMap.ContainsKey(energyShop.tagFunc))
+                        if (ResourcesSingletonOld.Instance.settingData.UnlockMap.ContainsKey(energyShop.tagFunc))
                         {
                             activityEnable = true;
                             var ac24ui =
@@ -653,7 +653,7 @@ namespace XFramework
 
                             KText_ActivityItem24.GetTextMeshPro()
                                 .SetTMPText(tblanguage.Get(tbtag_func.Get(energyShop.tagFunc).name).current);
-                            JiYuTweenHelper.DoScaleTweenOnClickAndLongPress(ac24ui,
+                            UnicornTweenHelper.DoScaleTweenOnClickAndLongPress(ac24ui,
                                 () => { UIHelper.CreateAsync(UIType.UIPanel_Activity_EnergyShop, ac.Key); }, 1104);
                             KImg_RedDot24.SetActive(false);
                             // var m_RedDotName = NodeNames.GetTagFuncRedDotName(energyShop.tagFunc);
@@ -687,14 +687,14 @@ namespace XFramework
             KIconBtnPosList.Clear();
             foreach (var tag in upItemList)
             {
-                if (!ResourcesSingleton.Instance.settingData.UnlockMap.ContainsKey(tag.id))
+                if (!ResourcesSingletonOld.Instance.settingData.UnlockMap.ContainsKey(tag.id))
                 {
                     continue;
                 }
 
                 if (tag.id == 3401)
                 {
-                    int chargeInt = ResourcesSingleton.Instance.firstChargeInt;
+                    int chargeInt = ResourcesSingletonOld.Instance.firstChargeInt;
                     if (chargeInt == 4)
                     {
                         continue;
@@ -713,7 +713,7 @@ namespace XFramework
                 InitMainPanelRedDot(ui, tagId);
 
 
-                JiYuTweenHelper.DoScaleTweenOnClickAndLongPress(KImg_IconBtn, () => { OnClickTagFunc(tagId, ui); },
+                UnicornTweenHelper.DoScaleTweenOnClickAndLongPress(KImg_IconBtn, () => { OnClickTagFunc(tagId, ui); },
                     1104);
 
                 #region huangjinguo add
@@ -722,8 +722,8 @@ namespace XFramework
                 {
                     ui.GetFromReference(UISubPanel_IconBtnItem.KTip).SetActive(true);
                     ui.GetFromReference(UISubPanel_IconBtnItem.KText_Diamond).GetTextMeshPro()
-                        .SetTMPText(JiYuUIHelper.GetRewardTextIconName("icon_diamond") +
-                                    ResourcesSingleton.Instance.goldPig.GoldBank.ToString());
+                        .SetTMPText(UnicornUIHelper.GetRewardTextIconName("icon_diamond") +
+                                    ResourcesSingletonOld.Instance.goldPig.GoldBank.ToString());
                 }
 
                 #endregion
@@ -747,8 +747,8 @@ namespace XFramework
                 return tagA.sort.CompareTo(tagB.sort);
             });
 
-            var maxChapterID = ResourcesSingleton.Instance.levelInfo.maxUnLockChapterID;
-            var maxBlockID = ResourcesSingleton.Instance.levelInfo.maxMainBlockID;
+            var maxChapterID = ResourcesSingletonOld.Instance.levelInfo.maxUnLockChapterID;
+            var maxBlockID = ResourcesSingletonOld.Instance.levelInfo.maxMainBlockID;
 
             var savedChapterId = JsonManager.Instance.userData.chapterId;
             var savedBlockId = JsonManager.Instance.userData.blockId;
@@ -811,7 +811,7 @@ namespace XFramework
                     KImg_Arrow.SetActive(false);
                     KContainer_Treasure.SetActive(false);
 
-                    JiYuUIHelper.DestoryAllTips();
+                    UnicornUIHelper.DestoryAllTips();
                 });
 
                 //KBtn_CloudMask.SetActive(!(blockId == 1));
@@ -858,7 +858,7 @@ namespace XFramework
                     nodeui.GetRectTransform().SetAnchoredPosition(nodePos);
 
                     string title = $"{tbchapter.Get(chapterId).num}";
-                    var timeInSeconds = ResourcesSingleton.Instance.levelInfo.maxUnLockChapterSurviveTime;
+                    var timeInSeconds = ResourcesSingletonOld.Instance.levelInfo.maxUnLockChapterSurviveTime;
                     var minutes = timeInSeconds / 60;
                     var seconds = timeInSeconds % 60;
                     string cont = $"{tblanguage.Get("chapter_survival_maxtime_text").current}{minutes}m{seconds}s";
@@ -868,7 +868,7 @@ namespace XFramework
 
                     var nodeWorldPos = (float2)nodePos + (float2)mainMapPos;
                     nodeWorldPos.y += pageHeight / 2f;
-                    if (ResourcesSingleton.Instance.levelInfo.maxPassChapterID == 0 && chapterId == 1)
+                    if (ResourcesSingletonOld.Instance.levelInfo.maxPassChapterID == 0 && chapterId == 1)
                     {
                         KPlayer.GetRectTransform().SetAnchoredPosition(nodeWorldPos);
                     }
@@ -887,7 +887,7 @@ namespace XFramework
                     //     // var nodeWorldPosTemp = (float2)nodePosTemp + (float2)mainMapPos;
                     //     // nodeWorldPosTemp.y += pageHeight / 2f;
                     //
-                    //     if (ResourcesSingleton.Instance.levelInfo.maxPassChapterID == 0 && chapterId == 1)
+                    //     if (ResourcesSingletonOld.Instance.levelInfo.maxPassChapterID == 0 && chapterId == 1)
                     //     {
                     //         KPlayer.GetRectTransform().SetAnchoredPosition(nodeWorldPos);
                     //     }
@@ -930,7 +930,7 @@ namespace XFramework
                     //     .SetWidth(Mathf.Max(KText_LevelItemTitle.GetTextMeshPro().Get().preferredWidth, 80f) +
                     //               20);
 
-                    if (curChapterID == ResourcesSingleton.Instance.levelInfo.maxUnLockChapterID &&
+                    if (curChapterID == ResourcesSingletonOld.Instance.levelInfo.maxUnLockChapterID &&
                         curChapterID == chapterId)
                     {
                         KBg_LevelItemDown.SetActive(true);
@@ -956,7 +956,7 @@ namespace XFramework
 
 
                     //已解锁未通关
-                    if (chapterId == ResourcesSingleton.Instance.levelInfo.maxUnLockChapterID)
+                    if (chapterId == ResourcesSingletonOld.Instance.levelInfo.maxUnLockChapterID)
                     {
                         //curChapterID = chapterId;
 
@@ -999,7 +999,7 @@ namespace XFramework
                             {
                                 var contents = content as UISubPanel_MainMap;
 
-                                if (contents.blockId <= ResourcesSingleton.Instance.levelInfo.maxMainBlockID)
+                                if (contents.blockId <= ResourcesSingletonOld.Instance.levelInfo.maxMainBlockID)
                                 {
                                     var KNodePos = contents.GetFromReference(UISubPanel_MainMap.KNodePos);
                                     var nodeList = KNodePos.GetList();
@@ -1068,7 +1068,7 @@ namespace XFramework
                             }
 
                             cts = new CancellationTokenSource();
-                            await UniTask.Delay(JiYuUIHelper.GetAnimaionDuration(skeletonGraphic, "flash"), false,
+                            await UniTask.Delay(UnicornUIHelper.GetAnimaionDuration(skeletonGraphic, "flash"), false,
                                 PlayerLoopTiming.Update, cts.Token);
                             //Debug.LogError($"111111");
                             skeletonGraphic.AnimationState.SetAnimation(0, "idle", true);
@@ -1080,7 +1080,7 @@ namespace XFramework
                         });
                     }
                     //未解锁
-                    else if (chapterId > ResourcesSingleton.Instance.levelInfo.maxUnLockChapterID)
+                    else if (chapterId > ResourcesSingletonOld.Instance.levelInfo.maxUnLockChapterID)
                     {
                         //KBg_LevelItemDown.GetImage().SetColor("9CA3B0");
                         //KBg_LevelItemUp.GetImage().SetColor("9CA3B0");
@@ -1090,7 +1090,7 @@ namespace XFramework
 
                         KBg_LevelItemUp.GetButton().OnClick.Add(() =>
                         {
-                            JiYuUIHelper.ClearCommonResource();
+                            UnicornUIHelper.ClearCommonResource();
                             UIHelper.CreateAsync(UIType.UICommon_Resource,
                                 tblanguage.Get("challenge_2_unlock_text").current);
                         });
@@ -1138,7 +1138,7 @@ namespace XFramework
                             {
                                 var contents = content as UISubPanel_MainMap;
 
-                                if (contents.blockId <= ResourcesSingleton.Instance.levelInfo.maxMainBlockID)
+                                if (contents.blockId <= ResourcesSingletonOld.Instance.levelInfo.maxMainBlockID)
                                 {
                                     var KNodePos = contents.GetFromReference(UISubPanel_MainMap.KNodePos);
                                     var nodeList = KNodePos.GetList();
@@ -1206,7 +1206,7 @@ namespace XFramework
 
                             cts = new CancellationTokenSource();
 
-                            await UniTask.Delay(JiYuUIHelper.GetAnimaionDuration(skeletonGraphic, "flash"), false,
+                            await UniTask.Delay(UnicornUIHelper.GetAnimaionDuration(skeletonGraphic, "flash"), false,
                                 PlayerLoopTiming.Update, cts.Token);
                             skeletonGraphic?.AnimationState?.SetAnimation(0, "idle", true);
                             playerState = 0;
@@ -1215,7 +1215,7 @@ namespace XFramework
                     }
 
 
-                    //KImg_UnlockIcon.SetActive(chapterId > ResourcesSingleton.Instance.levelInfo.maxUnLockChapterID);
+                    //KImg_UnlockIcon.SetActive(chapterId > ResourcesSingletonOld.Instance.levelInfo.maxUnLockChapterID);
                 }
             }
 
@@ -1243,13 +1243,13 @@ namespace XFramework
             //bool isCrossBlock = false
             if (savedBlockId == maxBlockID)
             {
-                if (ResourcesSingleton.Instance.FromRunTimeScene)
+                if (ResourcesSingletonOld.Instance.FromRunTimeScene)
                 {
-                    await JiYuTweenHelper.EnableLoading(true, UIManager.LoadingType.TranstionFXExit);
+                    await UnicornTweenHelper.EnableLoading(true, UIManager.LoadingType.TranstionFXExit);
                 }
                 else
                 {
-                    await JiYuTweenHelper.EnableLoading(false);
+                    await UnicornTweenHelper.EnableLoading(false);
                 }
 
                 //isCrossBlock = true;
@@ -1392,13 +1392,13 @@ namespace XFramework
             //章节动画
             else if (savedChapterId == maxChapterID)
             {
-                if (ResourcesSingleton.Instance.FromRunTimeScene)
+                if (ResourcesSingletonOld.Instance.FromRunTimeScene)
                 {
-                    await JiYuTweenHelper.EnableLoading(true, UIManager.LoadingType.TranstionFXExit);
+                    await UnicornTweenHelper.EnableLoading(true, UIManager.LoadingType.TranstionFXExit);
                 }
                 else
                 {
-                    await JiYuTweenHelper.EnableLoading(false);
+                    await UnicornTweenHelper.EnableLoading(false);
                 }
 
                 var ui = await UIHelper.CreateAsync(UIType.UIPanel_UnlockBlock, new Vector2(1, maxChapterID));
@@ -1501,26 +1501,26 @@ namespace XFramework
             }
             else
             {
-                if (ResourcesSingleton.Instance.FromRunTimeScene)
+                if (ResourcesSingletonOld.Instance.FromRunTimeScene)
                 {
-                    JiYuTweenHelper.EnableLoading(true, UIManager.LoadingType.TranstionFXExit);
+                    UnicornTweenHelper.EnableLoading(true, UIManager.LoadingType.TranstionFXExit);
                 }
                 else
                 {
-                    JiYuTweenHelper.EnableLoading(false);
+                    UnicornTweenHelper.EnableLoading(false);
                 }
             }
 
-            JiYuTweenHelper.DoScaleTweenOnClickAndLongPress(KBtn_Start,
+            UnicornTweenHelper.DoScaleTweenOnClickAndLongPress(KBtn_Start,
                 () => { OnStartButtonClick(curChapterID); }, 0, 1);
 
-            JiYuTweenHelper.DoScaleTweenOnClickAndLongPress(KBtn_Test,
+            UnicornTweenHelper.DoScaleTweenOnClickAndLongPress(KBtn_Test,
                 () => { OnStartButtonClick(curChapterID, true); });
             //ShowTimeView();
-            JiYuTweenHelper.DoScaleTweenOnClickAndLongPress(KBtn_PlayerImage,
+            UnicornTweenHelper.DoScaleTweenOnClickAndLongPress(KBtn_PlayerImage,
                 () =>
                 {
-                    if (!JiYuUIHelper.TryGetUI(UIType.UIPanel_JiyuGame, out var ui))
+                    if (!UnicornUIHelper.TryGetUI(UIType.UIPanel_JiyuGame, out var ui))
                         return;
                     var uis = ui as UIPanel_JiyuGame;
                     uis.GoToTagId(5);
@@ -1528,14 +1528,14 @@ namespace XFramework
                     //OpenPlayerInfo();
                 });
 
-            JiYuTweenHelper.DoScaleTweenOnClickAndLongPress(KBtn_Energy,
+            UnicornTweenHelper.DoScaleTweenOnClickAndLongPress(KBtn_Energy,
                 () => { OnBuyEnergyBtnClick(); });
 
-            JiYuTweenHelper.DoScaleTweenOnClickAndLongPress(KBtn_Money,
+            UnicornTweenHelper.DoScaleTweenOnClickAndLongPress(KBtn_Money,
                 () => { GoToChongZhi(); });
-            JiYuTweenHelper.DoScaleTweenOnClickAndLongPress(KBtn_Diamond,
+            UnicornTweenHelper.DoScaleTweenOnClickAndLongPress(KBtn_Diamond,
                 () => { GoToChongZhi(); });
-            JiYuTweenHelper.DoScaleTweenOnClickAndLongPress(KBtn_Treasure,
+            UnicornTweenHelper.DoScaleTweenOnClickAndLongPress(KBtn_Treasure,
                 () => OnBtnTreasure());
             // content.GetRectTransform().GetChild(0).GetComponent<SplineAnimate>()
             //     .Container.Spline.RemoveAt();
@@ -1547,17 +1547,17 @@ namespace XFramework
             // }
             //PassSet();
             //AudioManager.Instance.SetFModSFXMute(false);
-            if (JiYuUIHelper.TryGetUI(UIType.UIPanel_JiyuGame, out var uijiyu))
+            if (UnicornUIHelper.TryGetUI(UIType.UIPanel_JiyuGame, out var uijiyu))
             {
                 var uis = uijiyu as UIPanel_JiyuGame;
                 uis.ForceRefreshToggles();
             }
 
 
-            JiYuUIHelper.InitUIPosInfo();
-            ResourcesSingleton.Instance.isUIInit = true;
+            UnicornUIHelper.InitUIPosInfo();
+            ResourcesSingletonOld.Instance.isUIInit = true;
             //await UniTask.Delay(1000);
-            JiYuUIHelper.InitAudioSettings();
+            UnicornUIHelper.InitAudioSettings();
 
             Guide().Forget();
         }
@@ -1568,7 +1568,7 @@ namespace XFramework
             var KImg_Frame = GetFromReference(UIPanel_Main.KImg_Frame);
             var KText_PlayerName = GetFromReference(UIPanel_Main.KText_PlayerName);
 
-            var gamerole = ResourcesSingleton.Instance.UserInfo;
+            var gamerole = ResourcesSingletonOld.Instance.UserInfo;
             Log.Debug($" gamerole.RoleAvatar{gamerole.RoleAvatar} gamerole.RoleAvatarFrame{gamerole.RoleAvatarFrame}");
 
             KImg_HeadImage.GetImage()
@@ -1583,7 +1583,7 @@ namespace XFramework
             Log.Debug($"开始guide.id:{guideId}");
             if (isFinished)
             {
-                JiYuUIHelper.TryFinishGuide(guideId);
+                UnicornUIHelper.TryFinishGuide(guideId);
             }
 
             await UniTask.Delay(500);
@@ -1607,12 +1607,12 @@ namespace XFramework
             switch (guide.guideType)
             {
                 case 315:
-                    WebMessageHandlerOld.Instance.AddHandler(CMD.CHANGESTATUS, OnChangeNameStatusResponse);
-                    NetWorkManager.Instance.SendMessage(CMD.CHANGESTATUS);
+                    WebMessageHandlerOld.Instance.AddHandler(CMDOld.CHANGESTATUS, OnChangeNameStatusResponse);
+                    NetWorkManager.Instance.SendMessage(CMDOld.CHANGESTATUS);
                     break;
                 case 316:
 
-                    if (ResourcesSingleton.Instance.settingData.UnlockMap.ContainsKey(2))
+                    if (ResourcesSingletonOld.Instance.settingData.UnlockMap.ContainsKey(2))
                     {
                         var guideUI = await UIHelper.CreateAsync(UIType.UISubPanel_Guid, guide.id, 1);
                         //guideUI.GetFromReference(UISubPanel_Guid.)
@@ -1624,7 +1624,7 @@ namespace XFramework
 
                     break;
                 case 317:
-                    if (ResourcesSingleton.Instance.settingData.UnlockMap.ContainsKey(1))
+                    if (ResourcesSingletonOld.Instance.settingData.UnlockMap.ContainsKey(1))
                     {
                         var guideUI = await UIHelper.CreateAsync(UIType.UISubPanel_Guid, guide.id, 1);
                     }
@@ -1640,7 +1640,7 @@ namespace XFramework
 
         async UniTaskVoid Guide()
         {
-            if (ResourcesSingleton.Instance.settingData.GuideList.Contains(1))
+            if (ResourcesSingletonOld.Instance.settingData.GuideList.Contains(1))
             {
                 return;
             }
@@ -1654,7 +1654,7 @@ namespace XFramework
             foreach (var temp in guideTempList)
             {
                 var guide = tbguide.DataList.Where(a => a.guideType == temp).FirstOrDefault();
-                if (ResourcesSingleton.Instance.settingData.GuideList.Contains(guide.group))
+                if (ResourcesSingletonOld.Instance.settingData.GuideList.Contains(guide.group))
                 {
                     _guides.Add(guide);
                 }
@@ -1671,7 +1671,7 @@ namespace XFramework
 
         private async void OnChangeNameStatusResponse(object sender, WebMessageHandlerOld.Execute e)
         {
-            WebMessageHandlerOld.Instance.RemoveHandler(CMD.CHANGESTATUS, OnChangeNameStatusResponse);
+            WebMessageHandlerOld.Instance.RemoveHandler(CMDOld.CHANGESTATUS, OnChangeNameStatusResponse);
             var checkResult = new CheckResult();
             checkResult.MergeFrom(e.data);
             Debug.Log(checkResult);
@@ -1691,7 +1691,7 @@ namespace XFramework
         private void GoToChongZhi()
         {
             var str = "type=1;para=[141]";
-            JiYuUIHelper.GoToSomePanel(str);
+            UnicornUIHelper.GoToSomePanel(str);
             //Close();
         }
 
@@ -1702,7 +1702,7 @@ namespace XFramework
             switch (tagId)
             {
                 case 3601:
-                    var dailyCanSignOrNot = ResourcesSingleton.Instance.signData.OnDayStatus;
+                    var dailyCanSignOrNot = ResourcesSingletonOld.Instance.signData.OnDayStatus;
                     if (dailyCanSignOrNot == 0)
                     {
                         Log.Debug("dailyCanSignOrNot==0", Color.cyan);
@@ -1722,14 +1722,14 @@ namespace XFramework
             var ui = await UIHelper.CreateAsync(UIType.UIPanel_BuyEnergy);
 
 
-            // JiYuTweenHelper.SetEaseAlphaAndPosB2U(ui, 0);
+            // UnicornTweenHelper.SetEaseAlphaAndPosB2U(ui, 0);
             // await UniTask.Delay(100);
             //
             // float incremental = 200f;
-            // JiYuTweenHelper.SetEaseAlphaAndPosLtoR(ui.GetFromReference(UIPanel_BuyEnergy.KContainerDiamondBuy), 0, 200,
+            // UnicornTweenHelper.SetEaseAlphaAndPosLtoR(ui.GetFromReference(UIPanel_BuyEnergy.KContainerDiamondBuy), 0, 200,
             //     cts.Token, 0.35f);
             // //await UniTask.Delay(200);
-            // JiYuTweenHelper.SetEaseAlphaAndPosLtoR(ui.GetFromReference(UIPanel_BuyEnergy.KContainerAdvertiseBuy), 0, 400f,
+            // UnicornTweenHelper.SetEaseAlphaAndPosLtoR(ui.GetFromReference(UIPanel_BuyEnergy.KContainerAdvertiseBuy), 0, 400f,
             //     cts.Token, 0.35f);
             //ui.GetFromReference(UIPanel_BuyEnergy.KContainerAdvertiseBuy).GetRectTransform().SetAnchoredPositionX(-incremental);
             //ui.GetFromReference(UIPanel_BuyEnergy.KContainerAdvertiseBuy).GetComponent<CanvasGroup>().alpha = 0f;
@@ -1811,7 +1811,7 @@ namespace XFramework
             {
                 var contents = content as UISubPanel_MainMap;
 
-                if (contents.blockId <= ResourcesSingleton.Instance.levelInfo.maxMainBlockID)
+                if (contents.blockId <= ResourcesSingletonOld.Instance.levelInfo.maxMainBlockID)
                 {
                     var KNodePos = contents.GetFromReference(UISubPanel_MainMap.KNodePos);
                     var nodeList = KNodePos.GetList();
@@ -1844,7 +1844,7 @@ namespace XFramework
 
                         if (childs.chapterId == chapterID)
                         {
-                            var timeInSeconds = ResourcesSingleton.Instance.levelInfo.maxUnLockChapterSurviveTime;
+                            var timeInSeconds = ResourcesSingletonOld.Instance.levelInfo.maxUnLockChapterSurviveTime;
                             var minutes = timeInSeconds / 60;
                             var seconds = timeInSeconds % 60;
                             string cont =
@@ -1876,7 +1876,7 @@ namespace XFramework
 
         async public void OnQueryMonopolyTaskResponse(object sender, WebMessageHandlerOld.Execute e)
         {
-            WebMessageHandlerOld.Instance.RemoveHandler(CMD.QUERYACTIVITYTASK, OnQueryMonopolyTaskResponse);
+            WebMessageHandlerOld.Instance.RemoveHandler(CMDOld.QUERYACTIVITYTASK, OnQueryMonopolyTaskResponse);
 
             ByteValueList taskList = new ByteValueList();
 
@@ -1889,12 +1889,12 @@ namespace XFramework
             }
 
             //23:活动类型
-            if (!JiYuUIHelper.TryGetActivityLink(23, out var activityId, out var link))
+            if (!UnicornUIHelper.TryGetActivityLink(23, out var activityId, out var link))
             {
                 return;
             }
 
-            ResourcesSingleton.Instance.activity.activityTaskDic.TryRemove(activityId, out var list);
+            ResourcesSingletonOld.Instance.activity.activityTaskDic.TryRemove(activityId, out var list);
 
             var tasks = new List<GameTaskInfo>();
             Log.Debug($"gameTaskInfo", Color.green);
@@ -1938,15 +1938,15 @@ namespace XFramework
             // var node = RedDotManager.Instance.GetNode(m_RedDotName);
             // node.PrintTree();
 
-            ResourcesSingleton.Instance.activity.activityTaskDic.TryAdd(activityId, tasks);
+            ResourcesSingletonOld.Instance.activity.activityTaskDic.TryAdd(activityId, tasks);
         }
 
 
         private int GetRedDotCount()
         {
             //var chapterBoxConfig = tbchapter_box.DataList;
-            int minNotLockBoxID = ResourcesSingleton.Instance.levelInfo.levelBox.minNotLockBoxID;
-            int minNotGetBoxID = ResourcesSingleton.Instance.levelInfo.levelBox.minNotGetBoxID;
+            int minNotLockBoxID = ResourcesSingletonOld.Instance.levelInfo.levelBox.minNotLockBoxID;
+            int minNotGetBoxID = ResourcesSingletonOld.Instance.levelInfo.levelBox.minNotGetBoxID;
             int boxID = 0, redDOtCount = 0;
             if (minNotGetBoxID < minNotLockBoxID)
             {
@@ -1961,13 +1961,13 @@ namespace XFramework
             //        {
             //            redDOtCount++;
             //        }
-            //        //if (!ResourcesSingleton.Instance.levelInfo.levelBox.boxStateDic.ContainsKey(boxID))
+            //        //if (!ResourcesSingletonOld.Instance.levelInfo.levelBox.boxStateDic.ContainsKey(boxID))
             //        //{
             //        //    continue;
             //        //}
             //        //else
             //        //{
-            //        //    if (ResourcesSingleton.Instance.levelInfo.levelBox.boxStateDic[boxID])
+            //        //    if (ResourcesSingletonOld.Instance.levelInfo.levelBox.boxStateDic[boxID])
             //        //    {
             //        //        continue;
             //        //    }
@@ -2044,12 +2044,12 @@ namespace XFramework
 
         private async UniTaskVoid OnBtnTreasure()
         {
-            if (JiYuUIHelper.TryGetUI(UIType.UICommon_ItemTips, out var ui))
+            if (UnicornUIHelper.TryGetUI(UIType.UICommon_ItemTips, out var ui))
             {
                 UIHelper.Remove(UIType.UICommon_ItemTips);
             }
 
-            if (JiYuUIHelper.TryGetUI(UIType.UICommon_Reward_Tip, out var ui1))
+            if (UnicornUIHelper.TryGetUI(UIType.UICommon_Reward_Tip, out var ui1))
             {
                 UIHelper.Remove(UIType.UICommon_Reward_Tip);
             }
@@ -2065,9 +2065,9 @@ namespace XFramework
 
             UpdateTreasure().Forget();
 
-            // if (JiYuUIHelper.TryGetUI(UIType.UICommon_ItemTips, out var ui))
+            // if (UnicornUIHelper.TryGetUI(UIType.UICommon_ItemTips, out var ui))
             // {
-            //       JiYuUIHelper.DestoryAllTips();;
+            //       UnicornUIHelper.DestoryAllTips();;
             // }
 
             //int redDotCount = 0;
@@ -2076,12 +2076,12 @@ namespace XFramework
 
 
             //GetFromReference(UIPanel_Main.KContainer_Treasure)?.GetComponent<RectTransform>().SetWidth(maxWidth);
-            //\  if (JiYuUIHelper.TryGetUI(UIType.UIPanel_Battle, out UI ui))
+            //\  if (UnicornUIHelper.TryGetUI(UIType.UIPanel_Battle, out UI ui))
             //    //     {
             //    //         var ui1 = ui as UIPanel_Battle;
             //    //         ui1.RedPointSetState();
             //    //     }
-            //    if (JiYuUIHelper.TryGetUI(UIType.cont))
+            //    if (UnicornUIHelper.TryGetUI(UIType.cont))
         }
 
         public void BtnTreasure()
@@ -2114,8 +2114,8 @@ namespace XFramework
 
         public async UniTaskVoid UpdateTreasure()
         {
-            int minNotLockBoxID = ResourcesSingleton.Instance.levelInfo.levelBox.minNotLockBoxID;
-            int minNotGetBoxID = ResourcesSingleton.Instance.levelInfo.levelBox.minNotGetBoxID;
+            int minNotLockBoxID = ResourcesSingletonOld.Instance.levelInfo.levelBox.minNotLockBoxID;
+            int minNotGetBoxID = ResourcesSingletonOld.Instance.levelInfo.levelBox.minNotGetBoxID;
             var kPos_Treasure = GetFromReference(UIPanel_Main.KPosTreasure);
             var treasureInfoList = kPos_Treasure.GetList();
 
@@ -2180,13 +2180,13 @@ namespace XFramework
                 var uib = b as UIContainerBoxBar;
                 return uia.index.CompareTo(uib.index);
             });
-            //JiYuUIHelper.ForceRefreshLayout(kPos_Treasure);
+            //UnicornUIHelper.ForceRefreshLayout(kPos_Treasure);
         }
 
         public void DisplayRedRot()
         {
-            int minNotLockBoxID = ResourcesSingleton.Instance.levelInfo.levelBox.minNotLockBoxID;
-            int minNotGetBoxID = ResourcesSingleton.Instance.levelInfo.levelBox.minNotGetBoxID;
+            int minNotLockBoxID = ResourcesSingletonOld.Instance.levelInfo.levelBox.minNotLockBoxID;
+            int minNotGetBoxID = ResourcesSingletonOld.Instance.levelInfo.levelBox.minNotGetBoxID;
             int boxID = 0, redDotCount = 0;
             if (minNotGetBoxID < minNotLockBoxID)
             {
@@ -2231,7 +2231,7 @@ namespace XFramework
             {
                 case 3502:
 
-                    var chapterID = ResourcesSingleton.Instance.levelInfo.maxPassChapterID;
+                    var chapterID = ResourcesSingletonOld.Instance.levelInfo.maxPassChapterID;
                     if (chapterID <= 0)
                     {
                         string value = string.Format("未解锁");
@@ -2240,8 +2240,8 @@ namespace XFramework
                     }
 
                     var uiPatrol = await UIHelper.CreateAsync(UIType.UIPanel_Patrol);
-                    //JiYuTweenHelper.SetEaseAlphaAndPosB2U(uiPatrol.GetFromReference(UIPanel_Patrol.KPos_Patrol), 0, 100, 0.15f, false);
-                    //JiYuTweenHelper.SetEaseAlphaAndPosLtoR(uiPatrol.GetFromReference(UIPanel_Patrol.KPos_Patrol), 0, 100, 0.15f, false);
+                    //UnicornTweenHelper.SetEaseAlphaAndPosB2U(uiPatrol.GetFromReference(UIPanel_Patrol.KPos_Patrol), 0, 100, 0.15f, false);
+                    //UnicornTweenHelper.SetEaseAlphaAndPosLtoR(uiPatrol.GetFromReference(UIPanel_Patrol.KPos_Patrol), 0, 100, 0.15f, false);
                     //uiPatrol.GetFromReference(UIPanel_Patrol.KPos_Patrol).GetComponent<CanvasGroup>().alpha = 0f;
                     //uiPatrol.GetFromReference(UIPanel_Patrol.KPos_Patrol).GetComponent<CanvasGroup>().DOFade(1, 0.3f).SetEase(Ease.InQuad);
 
@@ -2257,8 +2257,8 @@ namespace XFramework
                 //break;
                 case 3605:
                     var uiSweep = await UIHelper.CreateAsync(UIType.UIPanel_Sweep);
-                    //JiYuTweenHelper.SetEaseAlphaAndPosB2U(uiSweep.GetFromReference(UIPanel_Sweep.KContainer), 0, 100, 0.15f, false);
-                    //JiYuTweenHelper.SetEaseAlphaAndPosLtoR(uiSweep.GetFromReference(UIPanel_Sweep.KContainer), 0, 100, 0.15f, false);
+                    //UnicornTweenHelper.SetEaseAlphaAndPosB2U(uiSweep.GetFromReference(UIPanel_Sweep.KContainer), 0, 100, 0.15f, false);
+                    //UnicornTweenHelper.SetEaseAlphaAndPosLtoR(uiSweep.GetFromReference(UIPanel_Sweep.KContainer), 0, 100, 0.15f, false);
                     //uiSweep.GetFromReference(UIPanel_Sweep.KContainer).GetComponent<CanvasGroup>().alpha = 0f;
                     // uiSweep.GetFromReference(UIPanel_Sweep.KContainer).GetComponent<CanvasGroup>().DOFade(1, 0.3f).SetEase(Ease.InQuad);
                     break;
@@ -2292,22 +2292,22 @@ namespace XFramework
 
         void Update()
         {
-            //NetWorkManager.Instance.SendMessage(CMD.INITPLAYER);
+            //NetWorkManager.Instance.SendMessage(CMDOld.INITPLAYER);
             UpdateTimeView();
         }
 
         private void UpdateTimeView()
         {
-            if (ResourcesSingleton.Instance.UserInfo.RoleAssets.Energy <
-                ResourcesSingleton.Instance.UserInfo.RoleAssets.EnergyMax)
+            if (ResourcesSingletonOld.Instance.UserInfo.RoleAssets.Energy <
+                ResourcesSingletonOld.Instance.UserInfo.RoleAssets.EnergyMax)
             {
                 int energy_restore = tbconstant.Get("energy_restore").constantValue;
-                long clientT = JiYuUIHelper.GetServerTimeStamp(true);
+                long clientT = UnicornUIHelper.GetServerTimeStamp(true);
 
-                if (clientT - ResourcesSingleton.Instance.UserInfo.RoleAssets.EnergyUpdate > energy_restore)
+                if (clientT - ResourcesSingletonOld.Instance.UserInfo.RoleAssets.EnergyUpdate > energy_restore)
                 {
-                    ResourcesSingleton.Instance.UserInfo.RoleAssets.Energy++;
-                    ResourcesSingleton.Instance.UserInfo.RoleAssets.EnergyUpdate = clientT;
+                    ResourcesSingletonOld.Instance.UserInfo.RoleAssets.Energy++;
+                    ResourcesSingletonOld.Instance.UserInfo.RoleAssets.EnergyUpdate = clientT;
                     RefreshResourceUI();
                 }
             }
@@ -2330,7 +2330,7 @@ namespace XFramework
 
         public async void OpenPlayerInfo()
         {
-            var ui = await UIHelper.CreateAsync(UIType.UIPlayerInformtion, ResourcesSingleton.Instance.UserInfo);
+            var ui = await UIHelper.CreateAsync(UIType.UIPlayerInformtion, ResourcesSingletonOld.Instance.UserInfo);
             ui.SetParent(this, false);
         }
 
@@ -2342,22 +2342,22 @@ namespace XFramework
             var KText_Money = GetFromReference(UIPanel_Main.KText_Money);
             var KText_Energy = GetFromReference(UIPanel_Main.KText_Energy);
 
-            var icon = JiYuUIHelper.GetRewardTextIconName("icon_money_add");
+            var icon = UnicornUIHelper.GetRewardTextIconName("icon_money_add");
             // icon= UnityHelper.RichTextSize(icon, 50);
-            KText_Money.GetTextMeshPro().SetTMPText(icon + JiYuUIHelper.ReturnFormatResourceNum(2));
+            KText_Money.GetTextMeshPro().SetTMPText(icon + UnicornUIHelper.ReturnFormatResourceNum(2));
 
-            icon = JiYuUIHelper.GetRewardTextIconName("icon_diamond_add");
+            icon = UnicornUIHelper.GetRewardTextIconName("icon_diamond_add");
             /// icon = UnityHelper.RichTextSize(icon, 50);
-            KText_Diamond.GetTextMeshPro().SetTMPText(icon + JiYuUIHelper.ReturnFormatResourceNum(1));
+            KText_Diamond.GetTextMeshPro().SetTMPText(icon + UnicornUIHelper.ReturnFormatResourceNum(1));
 
-            icon = JiYuUIHelper.GetRewardTextIconName("icon_energy_add");
+            icon = UnicornUIHelper.GetRewardTextIconName("icon_energy_add");
             // icon = UnityHelper.RichTextSize(icon, 50);
             KText_Energy.GetTextMeshPro()
-                .SetTMPText(icon + JiYuUIHelper.ReturnFormatResourceNum(3) + "/" +
-                            $"{ResourcesSingleton.Instance.UserInfo.RoleAssets.EnergyMax}");
-            ShowLevelExp(ResourcesSingleton.Instance.UserInfo, KImg_FilledImgExp,
+                .SetTMPText(icon + UnicornUIHelper.ReturnFormatResourceNum(3) + "/" +
+                            $"{ResourcesSingletonOld.Instance.UserInfo.RoleAssets.EnergyMax}");
+            ShowLevelExp(ResourcesSingletonOld.Instance.UserInfo, KImg_FilledImgExp,
                 KText_PlayerLevel);
-            //ResourcesSingleton.Instance.UserInfo.RoleAssets.Level
+            //ResourcesSingletonOld.Instance.UserInfo.RoleAssets.Level
         }
 
         public string ReturnFormatResourceNum(int resourceType)
@@ -2366,11 +2366,11 @@ namespace XFramework
             //比特币
             if (resourceType == 1)
             {
-                num = ResourcesSingleton.Instance.UserInfo.RoleAssets.Bitcoin;
+                num = ResourcesSingletonOld.Instance.UserInfo.RoleAssets.Bitcoin;
             }
             else if (resourceType == 2)
             {
-                num = ResourcesSingleton.Instance.UserInfo.RoleAssets.UsBill;
+                num = ResourcesSingletonOld.Instance.UserInfo.RoleAssets.UsBill;
             }
 
             if (num / 1000 == 0)
@@ -2419,7 +2419,7 @@ namespace XFramework
                 arr.Add(levellist.exp);
             }
 
-            int result = JiYuUIHelper.FindFirstGreaterThan(arr, exp);
+            int result = UnicornUIHelper.FindFirstGreaterThan(arr, exp);
             long curExp = 0;
             long levelUpNeedExp = 0;
             //int level = 0;
@@ -2437,7 +2437,7 @@ namespace XFramework
                 slideUI.GetImage().DoFillAmount((float)expRatios, 0.3f);
 
 
-                //ResourcesSingleton.Instance.UserInfo.RoleAssets.Level = level;
+                //ResourcesSingletonOld.Instance.UserInfo.RoleAssets.Level = level;
                 arr.Clear();
                 return;
             }
@@ -2456,7 +2456,7 @@ namespace XFramework
 
             //Log.Error($"fsafsf {expRatios}  {curExp}  {(double)levelUpNeedExp}");
             levelTextUI.GetTextMeshPro().SetTMPText(level.ToString());
-            //ResourcesSingleton.Instance.UserInfo.RoleAssets.Level = level;
+            //ResourcesSingletonOld.Instance.UserInfo.RoleAssets.Level = level;
             arr.Clear();
         }
 
@@ -2466,12 +2466,12 @@ namespace XFramework
             var KImg_PassFilledImg = GetFromReference(UIPanel_Main.KImg_PassFilledImg);
             var KText_PassLevel = GetFromReference(UIPanel_Main.KText_PassLevel);
             var KText_PassExp = GetFromReference(UIPanel_Main.KText_PassExp);
-            JiYuUIHelper.ShowPassLevelExp(exp, KImg_PassFilledImg, KText_PassLevel, KText_PassExp);
+            UnicornUIHelper.ShowPassLevelExp(exp, KImg_PassFilledImg, KText_PassLevel, KText_PassExp);
         }
 
         private UI GetToggle(int index)
         {
-            if (JiYuUIHelper.TryGetUI(UIType.UIPanel_JiyuGame, out UI ui))
+            if (UnicornUIHelper.TryGetUI(UIType.UIPanel_JiyuGame, out UI ui))
             {
                 var uis = ui as UIPanel_JiyuGame;
                 if (uis.toggleUIList.Count >= index)
@@ -2502,9 +2502,9 @@ namespace XFramework
             var cost = tbchapter.Get(curChapterID).cost;
 
             //KText_StartNum.GetTextMeshPro().SetTMPText(cost[0].z.ToString());
-            //var cost = tbchapter.Get(ResourcesSingleton.Instance.levelInfo.chapterID).cost;
+            //var cost = tbchapter.Get(ResourcesSingletonOld.Instance.levelInfo.chapterID).cost;
 
-            if (!JiYuUIHelper.IsRewardsEnough(cost))
+            if (!UnicornUIHelper.IsRewardsEnough(cost))
             {
                 //UIHelper.CreateAsync(UIType.UICommon_Resource, tblanguage.Get("common_lack_1_text").current);
                 var ui = await UIHelper.CreateAsync(UIType.UIPanel_BuyEnergy);
@@ -2534,22 +2534,22 @@ namespace XFramework
             JsonManager.Instance.userData.tagId = 3;
             JsonManager.Instance.userData.lastChapterId = curChapterID;
             JsonManager.Instance.SavePlayerData(JsonManager.Instance.userData);
-            JiYuUIHelper.EnableISystem<SpawnEnemySystem>(false);
-            JiYuTweenHelper.EnableLoading(true, UIManager.LoadingType.TranstionFXEnter);
+            UnicornUIHelper.EnableISystem<SpawnEnemySystem>(false);
+            UnicornTweenHelper.EnableLoading(true, UIManager.LoadingType.TranstionFXEnter);
             await UniTask.Delay(1000, true);
             if (global.isStandAlone)
             {
                 //curChapterID = 2;
                 var levelId = tbchapter.Get(curChapterID).levelId;
                 Log.Debug($"curChapterID {curChapterID} {levelId}");
-                ResourcesSingleton.Instance.levelInfo.levelId = tbchapter.Get(curChapterID).levelId;
+                ResourcesSingletonOld.Instance.levelInfo.levelId = tbchapter.Get(curChapterID).levelId;
                 int adNum = (int)tblevel.Get(levelId).reviveNum[0].x;
                 int reviveNum = (int)tblevel.Get(levelId).reviveNum[0].y;
 
-                ResourcesSingleton.Instance.levelInfo.rebirthNum = reviveNum;
-                ResourcesSingleton.Instance.levelInfo.adRebirthNum = adNum;
+                ResourcesSingletonOld.Instance.levelInfo.rebirthNum = reviveNum;
+                ResourcesSingletonOld.Instance.levelInfo.adRebirthNum = adNum;
 
-                // JiYuSceneHelper.LoadRunTime();
+                // UnicornSceneHelper.LoadRunTime();
 
                 var sceneController = Common.Instance.Get<SceneController>();
                 var sceneObj = sceneController.LoadSceneAsync<RunTimeScene>(SceneName.RunTime, LoadSceneMode.Additive);
@@ -2558,11 +2558,11 @@ namespace XFramework
             else
             {
                 var levelId = tbchapter.Get(curChapterID).levelId;
-                ResourcesSingleton.Instance.levelInfo.levelId = tbchapter.Get(curChapterID).levelId;
+                ResourcesSingletonOld.Instance.levelInfo.levelId = tbchapter.Get(curChapterID).levelId;
                 int adNum = (int)tblevel.Get(levelId).reviveNum[0].x;
                 int reviveNum = (int)tblevel.Get(levelId).reviveNum[0].y;
-                ResourcesSingleton.Instance.levelInfo.rebirthNum = reviveNum;
-                ResourcesSingleton.Instance.levelInfo.adRebirthNum = adNum;
+                ResourcesSingletonOld.Instance.levelInfo.rebirthNum = reviveNum;
+                ResourcesSingletonOld.Instance.levelInfo.adRebirthNum = adNum;
 
                 //
                 // var tbguide = ConfigManager.Instance.Tables.Tbguide;
@@ -2570,24 +2570,24 @@ namespace XFramework
                 // {
                 //     if (guide.closeType == 2 && guide.buttonId == 31101)
                 //     {
-                //         JiYuUIHelper.FinishGuide(guide.id);
+                //         UnicornUIHelper.FinishGuide(guide.id);
                 //     }
                 // }
             }
 
-            //WebMessageHandlerOld.Instance.AddHandler(CMD.REQUESTBATTLEID, OnClickPlayBtnBeforeResponse);
-            WebMessageHandlerOld.Instance.AddHandler(CMD.QUERYCANSTART, OnClickPlayBtnResponse);
+            //WebMessageHandlerOld.Instance.AddHandler(CMDOld.REQUESTBATTLEID, OnClickPlayBtnBeforeResponse);
+            WebMessageHandlerOld.Instance.AddHandler(CMDOld.QUERYCANSTART, OnClickPlayBtnResponse);
             var battleGain = new BattleGain
             {
-                LevelId = ResourcesSingleton.Instance.levelInfo.levelId
+                LevelId = ResourcesSingletonOld.Instance.levelInfo.levelId
             };
 
-            NetWorkManager.Instance.SendMessage(CMD.QUERYCANSTART, battleGain);
+            NetWorkManager.Instance.SendMessage(CMDOld.QUERYCANSTART, battleGain);
         }
 
         void OnClickPlayBtnResponse(object sender, WebMessageHandlerOld.Execute e)
         {
-            WebMessageHandlerOld.Instance.RemoveHandler(CMD.QUERYCANSTART, OnClickPlayBtnResponse);
+            WebMessageHandlerOld.Instance.RemoveHandler(CMDOld.QUERYCANSTART, OnClickPlayBtnResponse);
             var longValue = new LongValue();
             longValue.MergeFrom(e.data);
             if (e.data.IsEmpty)
@@ -2599,7 +2599,7 @@ namespace XFramework
             Log.Debug($"验证对局是否可以开始:{longValue.Value}", Color.green);
             if (longValue.Value != null && longValue.Value > 0)
             {
-                ResourcesSingleton.Instance.battleData.battleId = longValue.Value;
+                ResourcesSingletonOld.Instance.battleData.battleId = longValue.Value;
                 //this.GetParent<UIPanel_JiyuGame>().DestoryAllToggle();
                 entityManager = World.DefaultGameObjectInjectionWorld.EntityManager;
                 switchSceneQuery = entityManager.CreateEntityQuery(typeof(SwitchSceneData));
@@ -2634,7 +2634,7 @@ namespace XFramework
 
             if (preferHorizontal)
             {
-                if (JiYuUIHelper.TryGetUI(UIType.UIPanel_JiyuGame, out var ui))
+                if (UnicornUIHelper.TryGetUI(UIType.UIPanel_JiyuGame, out var ui))
                 {
                     var uis = ui as UIPanel_JiyuGame;
                     uis.m_IsEndMove = false;

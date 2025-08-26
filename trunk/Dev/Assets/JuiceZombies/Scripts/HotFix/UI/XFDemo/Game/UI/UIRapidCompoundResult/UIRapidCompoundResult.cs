@@ -1,5 +1,5 @@
 //---------------------------------------------------------------------
-// JiYuStudio
+// UnicornStudio
 // Author: xxx
 // Time: #CreateTime#
 //---------------------------------------------------------------------
@@ -40,8 +40,8 @@ namespace XFramework
             //刷新装备页面,也就是这里需要注册一下事件
             InitEquipPanel?.Invoke();
             //刷新一下资产
-            //WebMessageHandlerOld.Instance.AddHandler(CMD.INITPLAYER, OnOpenMainPanelResponse);
-            //NetWorkManager.Instance.SendMessage(CMD.INITPLAYER);
+            //WebMessageHandlerOld.Instance.AddHandler(CMDOld.INITPLAYER, OnOpenMainPanelResponse);
+            //NetWorkManager.Instance.SendMessage(CMDOld.INITPLAYER);
 
 
             Close();
@@ -61,24 +61,24 @@ namespace XFramework
         //     }
         //
         //     var tbuserLevel = ConfigManager.Instance.Tables.Tbuser_level;
-        //     ResourcesSingleton.Instance.UserInfo.RoleAssets.Energy = gameRole.RoleAssets.Energy;
-        //     ResourcesSingleton.Instance.UserInfo.RoleAssets.Bitcoin = gameRole.RoleAssets.Bitcoin;
-        //     ResourcesSingleton.Instance.UserInfo.RoleAssets.UsBill = gameRole.RoleAssets.UsBill;
+        //     ResourcesSingletonOld.Instance.UserInfo.RoleAssets.Energy = gameRole.RoleAssets.Energy;
+        //     ResourcesSingletonOld.Instance.UserInfo.RoleAssets.Bitcoin = gameRole.RoleAssets.Bitcoin;
+        //     ResourcesSingletonOld.Instance.UserInfo.RoleAssets.UsBill = gameRole.RoleAssets.UsBill;
         //     var totalExp = gameRole.RoleAssets.Level > 1
         //         ? tbuserLevel.Get(gameRole.RoleAssets.Level - 1).exp + gameRole.RoleAssets.Exp
         //         : gameRole.RoleAssets.Exp;
-        //     ResourcesSingleton.Instance.UserInfo.RoleAssets.Exp = totalExp;
+        //     ResourcesSingletonOld.Instance.UserInfo.RoleAssets.Exp = totalExp;
         //
-        //     ResourcesSingleton.Instance.UpdateResourceUI();
+        //     ResourcesSingletonOld.Instance.UpdateResourceUI();
         //
         //     //var uiType = await UIHelper.CreateAsync(UIType.UIPanel_JiyuGame, gameRole) as UIPanel_JiyuGame;
         //
-        //     //ResourcesSingleton.Instance.SetJiYuGamePanel(uiType);
+        //     //ResourcesSingletonOld.Instance.SetJiYuGamePanel(uiType);
         //
         //
         //     Log.Debug($"{gameRole}", Color.red);
         //
-        //     WebMessageHandlerOld.Instance.RemoveHandler(CMD.INITPLAYER, OnOpenMainPanelResponse);
+        //     WebMessageHandlerOld.Instance.RemoveHandler(CMDOld.INITPLAYER, OnOpenMainPanelResponse);
         // }
         //
 

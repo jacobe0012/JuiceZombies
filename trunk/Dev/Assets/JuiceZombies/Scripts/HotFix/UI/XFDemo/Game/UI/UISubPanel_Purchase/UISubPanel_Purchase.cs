@@ -1,5 +1,5 @@
 //---------------------------------------------------------------------
-// JiYuStudio
+// UnicornStudio
 // Author: xxx
 // Time: #CreateTime#
 //---------------------------------------------------------------------
@@ -38,7 +38,7 @@ namespace XFramework
 
         protected override void OnClose()
         {
-            WebMessageHandlerOld.Instance.RemoveHandler(CMD.LOCKTALENT, JudegeLockTalent);
+            WebMessageHandlerOld.Instance.RemoveHandler(CMDOld.LOCKTALENT, JudegeLockTalent);
             Log.Debug("ClosePanel");
             base.OnClose();
         }
@@ -56,15 +56,15 @@ namespace XFramework
             isLockSucess = true;
             if (isLockSucess)
             {
-                //NetWorkManager.Instance.SendMessage(CMD.QUERYPROPERTY);
+                //NetWorkManager.Instance.SendMessage(CMDOld.QUERYPROPERTY);
                 Log.Debug("wewqeeeeeeeeeeeeeeeeeee");
-                ResourcesSingleton.Instance.talentID.talentPropID = currentTalentID;
+                ResourcesSingletonOld.Instance.talentID.talentPropID = currentTalentID;
 
                 var cost = new Vector3(talentMap[currentTalentID].cost[0].x, talentMap[currentTalentID].cost[0].y,
                     talentMap[currentTalentID].cost[0].z);
-                JiYuUIHelper.TryReduceReward(cost);
+                UnicornUIHelper.TryReduceReward(cost);
 
-                if (JiYuUIHelper.TryGetUI(UIType.UIPanel_Talent, out UI ui))
+                if (UnicornUIHelper.TryGetUI(UIType.UIPanel_Talent, out UI ui))
                 {
                     var uiPanel_Talent = ui as UIPanel_Talent;
                     uiPanel_Talent?.UpdateContainer();
@@ -77,7 +77,7 @@ namespace XFramework
         private void OnButtonLockClick()
         {
             //�����츳
-            NetWorkManager.Instance.SendMessage(CMD.LOCKTALENT, new IntValue { Value = currentTalentID });
+            NetWorkManager.Instance.SendMessage(CMDOld.LOCKTALENT, new IntValue { Value = currentTalentID });
         }
 
 
@@ -97,8 +97,8 @@ namespace XFramework
                 var cost = talentMap.GetOrDefault(args.talentID).cost[0].z;
                 GetFromReference(KText_Mid).GetTextMeshPro().SetTMPText(cost.ToString());
                 GetFromReference(KText_Right).GetTextMeshPro().SetTMPText(lang.Get("talent_attr_unlock").current);
-                JiYuTweenHelper.DoScaleTweenOnClickAndLongPress(this.GetFromReference(KBtn_Common), () => OnButtonLockClick());
-                WebMessageHandlerOld.Instance.AddHandler(CMD.LOCKTALENT, JudegeLockTalent);
+                UnicornTweenHelper.DoScaleTweenOnClickAndLongPress(this.GetFromReference(KBtn_Common), () => OnButtonLockClick());
+                WebMessageHandlerOld.Instance.AddHandler(CMDOld.LOCKTALENT, JudegeLockTalent);
                 this.GetFromReference(KBtn_Close)?.GetComponent<XButton>()?.onClick.Add(Close);
             }
             else

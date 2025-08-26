@@ -1,5 +1,5 @@
 //---------------------------------------------------------------------
-// JiYuStudio
+// UnicornStudio
 // Author: xxx
 // Time: #CreateTime#
 //---------------------------------------------------------------------
@@ -40,12 +40,12 @@ namespace XFramework
             monsterId = args;
 
 
-            JiYuTweenHelper.SetEaseAlphaAndPosB2U(this.GetFromReference(UISubPanel_Collection_Item.KMid), 0, 50,
+            UnicornTweenHelper.SetEaseAlphaAndPosB2U(this.GetFromReference(UISubPanel_Collection_Item.KMid), 0, 50,
                 cts.Token, 0.35f, false, false);
 
 
-            //JiYuUIHelper.ChangePaddingLR(this, 50, 0.2f);
-            JiYuTweenHelper.ChangeSoftness(this, 300, 0.2f);
+            //UnicornUIHelper.ChangePaddingLR(this, 50, 0.2f);
+            UnicornTweenHelper.ChangeSoftness(this, 300, 0.2f);
         }
 
         protected override void OnClose()

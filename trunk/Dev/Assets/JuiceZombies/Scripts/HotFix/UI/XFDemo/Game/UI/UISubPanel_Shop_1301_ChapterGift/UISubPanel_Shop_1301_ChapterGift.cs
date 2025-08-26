@@ -1,5 +1,5 @@
 ﻿//---------------------------------------------------------------------
-// JiYuStudio
+// UnicornStudio
 // Author: xxx
 // Time: #CreateTime#
 //---------------------------------------------------------------------
@@ -69,14 +69,14 @@ namespace XFramework
 
         private void InitEffect()
         {
-            JiYuTweenHelper.SetEaseAlphaAndPosB2U(GetFromReference(KImg), -20,cancellationToken:cts.Token);
+            UnicornTweenHelper.SetEaseAlphaAndPosB2U(GetFromReference(KImg), -20,cancellationToken:cts.Token);
           
-            JiYuTweenHelper.SetEaseAlphaAndPosB2U(GetFromReference(KImgHand),0,cancellationToken:cts.Token);
+            UnicornTweenHelper.SetEaseAlphaAndPosB2U(GetFromReference(KImgHand),0,cancellationToken:cts.Token);
             var giftList = this.GetFromReference(KContent).GetList();
             //foreach (var gift in giftList.Children)
             //{
             //    var item = gift as UISubPanel_Shop_Gift_Item;
-            //    JiYuTweenHelper.SetEaseAlphaAndPosLtoR(item.GetFromReference(UISubPanel_Shop_Gift_Item.KBg), 0, 100, cts.Token, 0.15f,
+            //    UnicornTweenHelper.SetEaseAlphaAndPosLtoR(item.GetFromReference(UISubPanel_Shop_Gift_Item.KBg), 0, 100, cts.Token, 0.15f,
             //    false, true);
             //}
 
@@ -106,13 +106,13 @@ namespace XFramework
             var leftBtn = this.GetFromReference(KBtn_Left);
             var rightBtn = this.GetFromReference(KBtn_Right);
 
-            JiYuTweenHelper.DoScaleTweenOnClickAndLongPress(leftBtn, () =>
+            UnicornTweenHelper.DoScaleTweenOnClickAndLongPress(leftBtn, () =>
             {
                 NowIndex -= 1;
                 DoToMove();
             });
 
-            JiYuTweenHelper.DoScaleTweenOnClickAndLongPress(rightBtn, () =>
+            UnicornTweenHelper.DoScaleTweenOnClickAndLongPress(rightBtn, () =>
             {
                 NowIndex += 1;
                 DoToMove();
@@ -122,7 +122,7 @@ namespace XFramework
             scroll.OnEndDrag.Add(() => { GetIndexAndMove(); });
             //this.GetFromReference(KScrollView).GetScrollRect().OnValueChanged
 
-            scroll.OnBeginDrag.Add(JiYuUIHelper.DestoryAllTips);
+            scroll.OnBeginDrag.Add(UnicornUIHelper.DestoryAllTips);
 
             // JiYuScrollRect scroll = this.GetFromReference(KScrollView).GetComponent<JiYuScrollRect>();
             // scroll.SetOnEndDragAcrion(() =>
@@ -134,8 +134,8 @@ namespace XFramework
         private void CalculateCountAndCreateItem(bool createItem = false)
         {
             Dictionary<int, GiftInfo> IDGiftInfoDic = new Dictionary<int, GiftInfo>();
-            var shopGiftList = ResourcesSingleton.Instance.shopMap.IndexModuleMap[ThisModuleID].GiftInfoList;
-            //Debug.Log(ResourcesSingleton.Instance.shopMap.IndexModuleMap[ThisModuleID].GiftInfoList);
+            var shopGiftList = ResourcesSingletonOld.Instance.shopMap.IndexModuleMap[ThisModuleID].GiftInfoList;
+            //Debug.Log(ResourcesSingletonOld.Instance.shopMap.IndexModuleMap[ThisModuleID].GiftInfoList);
 
             //fund times > 0 gift by server
             Log.Debug($"shopGiftList {shopGiftList}");
@@ -232,7 +232,7 @@ namespace XFramework
                     List<Vector3> vector3s = new List<Vector3>();
                     vector3s = g.reward;
 
-                    JiYuUIHelper.SortRewards(vector3s);
+                    UnicornUIHelper.SortRewards(vector3s);
 
                     #region set reward
 
@@ -263,7 +263,7 @@ namespace XFramework
                                 re4.SetActive(false);
                                 re5.SetActive(false);
 
-                                JiYuUIHelper.SetRewardIconAndCountText(vector3s[0], re0);
+                                UnicornUIHelper.SetRewardIconAndCountText(vector3s[0], re0);
 
                                 SetRewardOnclickIn1301(re0, vector3s[0]);
                                 break;
@@ -275,8 +275,8 @@ namespace XFramework
                                 re4.SetActive(false);
                                 re5.SetActive(false);
 
-                                JiYuUIHelper.SetRewardIconAndCountText(vector3s[0], re0);
-                                JiYuUIHelper.SetRewardIconAndCountText(vector3s[1], re1);
+                                UnicornUIHelper.SetRewardIconAndCountText(vector3s[0], re0);
+                                UnicornUIHelper.SetRewardIconAndCountText(vector3s[1], re1);
 
                                 SetRewardOnclickIn1301(re0, vector3s[0]);
                                 SetRewardOnclickIn1301(re1, vector3s[1]);
@@ -289,9 +289,9 @@ namespace XFramework
                                 re4.SetActive(false);
                                 re5.SetActive(false);
 
-                                JiYuUIHelper.SetRewardIconAndCountText(vector3s[0], re0);
-                                JiYuUIHelper.SetRewardIconAndCountText(vector3s[1], re1);
-                                JiYuUIHelper.SetRewardIconAndCountText(vector3s[2], re2);
+                                UnicornUIHelper.SetRewardIconAndCountText(vector3s[0], re0);
+                                UnicornUIHelper.SetRewardIconAndCountText(vector3s[1], re1);
+                                UnicornUIHelper.SetRewardIconAndCountText(vector3s[2], re2);
 
                                 SetRewardOnclickIn1301(re0, vector3s[0]);
                                 SetRewardOnclickIn1301(re1, vector3s[1]);
@@ -305,10 +305,10 @@ namespace XFramework
                                 re4.SetActive(false);
                                 re5.SetActive(false);
 
-                                JiYuUIHelper.SetRewardIconAndCountText(vector3s[0], re0);
-                                JiYuUIHelper.SetRewardIconAndCountText(vector3s[1], re1);
-                                JiYuUIHelper.SetRewardIconAndCountText(vector3s[2], re2);
-                                JiYuUIHelper.SetRewardIconAndCountText(vector3s[3], re3);
+                                UnicornUIHelper.SetRewardIconAndCountText(vector3s[0], re0);
+                                UnicornUIHelper.SetRewardIconAndCountText(vector3s[1], re1);
+                                UnicornUIHelper.SetRewardIconAndCountText(vector3s[2], re2);
+                                UnicornUIHelper.SetRewardIconAndCountText(vector3s[3], re3);
 
                                 SetRewardOnclickIn1301(re0, vector3s[0]);
                                 SetRewardOnclickIn1301(re1, vector3s[1]);
@@ -323,11 +323,11 @@ namespace XFramework
                                 re4.SetActive(true);
                                 re5.SetActive(false);
 
-                                JiYuUIHelper.SetRewardIconAndCountText(vector3s[0], re0);
-                                JiYuUIHelper.SetRewardIconAndCountText(vector3s[1], re1);
-                                JiYuUIHelper.SetRewardIconAndCountText(vector3s[2], re2);
-                                JiYuUIHelper.SetRewardIconAndCountText(vector3s[3], re3);
-                                JiYuUIHelper.SetRewardIconAndCountText(vector3s[4], re4);
+                                UnicornUIHelper.SetRewardIconAndCountText(vector3s[0], re0);
+                                UnicornUIHelper.SetRewardIconAndCountText(vector3s[1], re1);
+                                UnicornUIHelper.SetRewardIconAndCountText(vector3s[2], re2);
+                                UnicornUIHelper.SetRewardIconAndCountText(vector3s[3], re3);
+                                UnicornUIHelper.SetRewardIconAndCountText(vector3s[4], re4);
 
                                 SetRewardOnclickIn1301(re0, vector3s[0]);
                                 SetRewardOnclickIn1301(re1, vector3s[1]);
@@ -343,12 +343,12 @@ namespace XFramework
                                 re4.SetActive(true);
                                 re5.SetActive(true);
 
-                                JiYuUIHelper.SetRewardIconAndCountText(vector3s[0], re0);
-                                JiYuUIHelper.SetRewardIconAndCountText(vector3s[1], re1);
-                                JiYuUIHelper.SetRewardIconAndCountText(vector3s[2], re2);
-                                JiYuUIHelper.SetRewardIconAndCountText(vector3s[3], re3);
-                                JiYuUIHelper.SetRewardIconAndCountText(vector3s[4], re4);
-                                JiYuUIHelper.SetRewardIconAndCountText(vector3s[5], re5);
+                                UnicornUIHelper.SetRewardIconAndCountText(vector3s[0], re0);
+                                UnicornUIHelper.SetRewardIconAndCountText(vector3s[1], re1);
+                                UnicornUIHelper.SetRewardIconAndCountText(vector3s[2], re2);
+                                UnicornUIHelper.SetRewardIconAndCountText(vector3s[3], re3);
+                                UnicornUIHelper.SetRewardIconAndCountText(vector3s[4], re4);
+                                UnicornUIHelper.SetRewardIconAndCountText(vector3s[5], re5);
 
                                 SetRewardOnclickIn1301(re0, vector3s[0]);
                                 SetRewardOnclickIn1301(re1, vector3s[1]);
@@ -368,12 +368,12 @@ namespace XFramework
                         re4.SetActive(true);
                         re5.SetActive(true);
 
-                        JiYuUIHelper.SetRewardIconAndCountText(vector3s[0], re0);
-                        JiYuUIHelper.SetRewardIconAndCountText(vector3s[1], re1);
-                        JiYuUIHelper.SetRewardIconAndCountText(vector3s[2], re2);
-                        JiYuUIHelper.SetRewardIconAndCountText(vector3s[3], re3);
-                        JiYuUIHelper.SetRewardIconAndCountText(vector3s[4], re4);
-                        JiYuUIHelper.SetRewardIconAndCountText(vector3s[5], re5);
+                        UnicornUIHelper.SetRewardIconAndCountText(vector3s[0], re0);
+                        UnicornUIHelper.SetRewardIconAndCountText(vector3s[1], re1);
+                        UnicornUIHelper.SetRewardIconAndCountText(vector3s[2], re2);
+                        UnicornUIHelper.SetRewardIconAndCountText(vector3s[3], re3);
+                        UnicornUIHelper.SetRewardIconAndCountText(vector3s[4], re4);
+                        UnicornUIHelper.SetRewardIconAndCountText(vector3s[5], re5);
 
                         SetRewardOnclickIn1301(re0, vector3s[0]);
                         SetRewardOnclickIn1301(re1, vector3s[1]);
@@ -386,7 +386,7 @@ namespace XFramework
                     #endregion
 
                     var buyBtn = ui.GetFromReference(UISubPanel_Shop_Gift_Item.KBtn);
-                    JiYuTweenHelper.DoScaleTweenOnClickAndLongPress(buyBtn, () =>
+                    UnicornTweenHelper.DoScaleTweenOnClickAndLongPress(buyBtn, () =>
                     {
                         IntValue intValue = new IntValue();
                         intValue.Value = g.id;
@@ -420,7 +420,7 @@ namespace XFramework
                     tipUI.GetFromReference(UICommon_EquipTips.KBottom).SetActive(false);
                     tipUI.GetFromReference(UICommon_EquipTips.KBtn_Decrease).SetActive(false);
 
-                    var itemPos = JiYuUIHelper.GetUIPos(rewardUI);
+                    var itemPos = UnicornUIHelper.GetUIPos(rewardUI);
 
                     float tipMidH = tipUI.GetFromReference(UICommon_EquipTips.KMid).GetRectTransform().Height();
                     float tipTopH = tipUI.GetFromReference(UICommon_EquipTips.KImg_TopArraw).GetRectTransform()
@@ -458,7 +458,7 @@ namespace XFramework
             }
             else
             {
-                JiYuUIHelper.SetRewardOnClick(rewardV3, rewardUI);
+                UnicornUIHelper.SetRewardOnClick(rewardV3, rewardUI);
             }
         }
 
@@ -484,10 +484,10 @@ namespace XFramework
 
             int index = 0;
             for (int i = 0;
-                 i < ResourcesSingleton.Instance.shopMap.IndexModuleMap[ThisModuleID].GiftInfoList.Count;
+                 i < ResourcesSingletonOld.Instance.shopMap.IndexModuleMap[ThisModuleID].GiftInfoList.Count;
                  i++)
             {
-                if (NowGiftID == ResourcesSingleton.Instance.shopMap.IndexModuleMap[ThisModuleID].GiftInfoList[i]
+                if (NowGiftID == ResourcesSingletonOld.Instance.shopMap.IndexModuleMap[ThisModuleID].GiftInfoList[i]
                         .GiftId)
                 {
                     index = i;
@@ -495,9 +495,9 @@ namespace XFramework
                 }
             }
 
-            ResourcesSingleton.Instance.shopMap.IndexModuleMap[ThisModuleID].GiftInfoList[index].Times -= 1;
+            ResourcesSingletonOld.Instance.shopMap.IndexModuleMap[ThisModuleID].GiftInfoList[index].Times -= 1;
             Log.Debug(
-                $"礼包id:{ResourcesSingleton.Instance.shopMap.IndexModuleMap[ThisModuleID].GiftInfoList[index].GiftId},次数:{ResourcesSingleton.Instance.shopMap.IndexModuleMap[ThisModuleID].GiftInfoList[index].Times}",
+                $"礼包id:{ResourcesSingletonOld.Instance.shopMap.IndexModuleMap[ThisModuleID].GiftInfoList[index].GiftId},次数:{ResourcesSingletonOld.Instance.shopMap.IndexModuleMap[ThisModuleID].GiftInfoList[index].Times}",
                 Color.cyan);
             if (IDandUIDic[NowGiftID] != null)
             {
@@ -513,7 +513,7 @@ namespace XFramework
                 CalculateCountAndCreateItem(false);
             }
 
-            ResourcesSingleton.Instance.UpdateResourceUI();
+            ResourcesSingletonOld.Instance.UpdateResourceUI();
             NetLock = true;
         }
 

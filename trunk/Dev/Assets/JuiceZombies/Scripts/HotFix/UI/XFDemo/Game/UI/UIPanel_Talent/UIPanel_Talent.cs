@@ -1,5 +1,5 @@
 //---------------------------------------------------------------------
-// JiYuStudio
+// UnicornStudio
 // Author: xxx
 // Time: #CreateTime#
 //---------------------------------------------------------------------
@@ -74,7 +74,7 @@ namespace XFramework
             UpdateContainer();
             UpdateResource();
             this.GetButton(KBtn_CloseDetails)?.OnClick.Add(CloseDeatails);
-            JiYuTweenHelper.DoScaleTweenOnClickAndLongPress(this.GetFromReference(KBtn_Prop),
+            UnicornTweenHelper.DoScaleTweenOnClickAndLongPress(this.GetFromReference(KBtn_Prop),
                 () => { OpenPropPanel(1); });
             //this.GetButton(KBtn_Prop)?.OnClick.Add(() => OpenPropPanel(1));
             SetTalentSkill();
@@ -83,12 +83,12 @@ namespace XFramework
 
         async UniTaskVoid Anim()
         {
-            JiYuTweenHelper.SetEaseAlphaAndPosB2U(
+            UnicornTweenHelper.SetEaseAlphaAndPosB2U(
                 this.GetFromReference(UIPanel_Talent.KContainer_Prop_Root), 0, cancellationToken: cts.Token);
             await UniTask.Delay(50, cancellationToken: cts.Token);
-            JiYuTweenHelper.SetEaseAlphaAndPosB2U(this.GetFromReference(UIPanel_Talent.KContainer_Prop), 0,
+            UnicornTweenHelper.SetEaseAlphaAndPosB2U(this.GetFromReference(UIPanel_Talent.KContainer_Prop), 0,
                 100, cts.Token, 0.2f);
-            JiYuTweenHelper.SetEaseAlphaAndPosRtoL(
+            UnicornTweenHelper.SetEaseAlphaAndPosRtoL(
                 this.GetFromReference(UIPanel_Talent.KContainer_Tanlent_Skill), -75, cancellationToken: cts.Token);
         }
 
@@ -100,21 +100,21 @@ namespace XFramework
         //    var KText_Money = GetFromReference(UIPanel_Main.KText_Money);
         //    var KText_Energy = GetFromReference(UIPanel_Main.KText_Energy);
 
-        //    var icon = JiYuUIHelper.GetRewardTextIconName(JiYuUIHelper.GetVector3(JiYuUIHelper.Vector3Type.BITCOIN));
+        //    var icon = UnicornUIHelper.GetRewardTextIconName(UnicornUIHelper.GetVector3(UnicornUIHelper.Vector3Type.BITCOIN));
         //    // icon= UnityHelper.RichTextSize(icon, 50);
-        //    KText_Gem.GetTextMeshPro().SetTMPText(icon + JiYuUIHelper.ReturnFormatResourceNum(1));
+        //    KText_Gem.GetTextMeshPro().SetTMPText(icon + UnicornUIHelper.ReturnFormatResourceNum(1));
 
-        //    icon = JiYuUIHelper.GetRewardTextIconName(JiYuUIHelper.GetVector3(JiYuUIHelper.Vector3Type.DOLLARS));
+        //    icon = UnicornUIHelper.GetRewardTextIconName(UnicornUIHelper.GetVector3(UnicornUIHelper.Vector3Type.DOLLARS));
         //    /// icon = UnityHelper.RichTextSize(icon, 50);
-        //    KText_Gold.GetTextMeshPro().SetTMPText(icon + JiYuUIHelper.ReturnFormatResourceNum(2));
+        //    KText_Gold.GetTextMeshPro().SetTMPText(icon + UnicornUIHelper.ReturnFormatResourceNum(2));
 
-        //    icon = JiYuUIHelper.GetRewardTextIconName(JiYuUIHelper.GetVector3(JiYuUIHelper.Vector3Type.ENEERGY));
+        //    icon = UnicornUIHelper.GetRewardTextIconName(UnicornUIHelper.GetVector3(UnicornUIHelper.Vector3Type.ENEERGY));
         //    // icon = UnityHelper.RichTextSize(icon, 50);
         //    KText_Energy.GetTextMeshPro()
-        //        .SetTMPText(icon + JiYuUIHelper.ReturnFormatResourceNum(3) + "/" +
-        //                    $"{ResourcesSingleton.Instance.UserInfo.RoleAssets.EnergyMax}");
+        //        .SetTMPText(icon + UnicornUIHelper.ReturnFormatResourceNum(3) + "/" +
+        //                    $"{ResourcesSingletonOld.Instance.UserInfo.RoleAssets.EnergyMax}");
 
-        //    //ResourcesSingleton.Instance.UserInfo.RoleAssets.Level
+        //    //ResourcesSingletonOld.Instance.UserInfo.RoleAssets.Level
         //}
 
         public void UpdateResource()
@@ -125,18 +125,18 @@ namespace XFramework
 
             this.GetImage(KImgResove)?.SetSprite(itemMap[resoveID].icon, false);
 
-            this.GetTextMeshPro(KTxtGold)?.SetTMPText(JiYuUIHelper.ReturnFormatResourceNum(2));
-            //this.GetTextMeshPro(KTxtGold)?.SetTMPText(ResourcesSingleton.Instance.UserInfo.RoleAssets.UsBill.ToString());
+            this.GetTextMeshPro(KTxtGold)?.SetTMPText(UnicornUIHelper.ReturnFormatResourceNum(2));
+            //this.GetTextMeshPro(KTxtGold)?.SetTMPText(ResourcesSingletonOld.Instance.UserInfo.RoleAssets.UsBill.ToString());
 
-            var resovleNum = ResourcesSingleton.Instance.items.ContainsKey(resoveID)
-                ? ResourcesSingleton.Instance.items[resoveID]
+            var resovleNum = ResourcesSingletonOld.Instance.items.ContainsKey(resoveID)
+                ? ResourcesSingletonOld.Instance.items[resoveID]
                 : 0;
 
             Log.Debug($"resovleNum:{resovleNum}");
 
             this.GetTextMeshPro(KTxtResove)?.SetTMPText(resovleNum.ToString());
 
-            JiYuTweenHelper.SetEaseAlphaAndPosRtoL(GetFromReference(KContainer_Resouce), 45f,
+            UnicornTweenHelper.SetEaseAlphaAndPosRtoL(GetFromReference(KContainer_Resouce), 45f,
                 cancellationToken: cts.Token);
         }
 
@@ -163,14 +163,14 @@ namespace XFramework
         {
             var itemID = (int)talentMap.Get(20001).cost[0].y;
             long itemCount = 0;
-            if (ResourcesSingleton.Instance.items.ContainsKey(itemID))
+            if (ResourcesSingletonOld.Instance.items.ContainsKey(itemID))
             {
-                itemCount = ResourcesSingleton.Instance.items[itemID];
+                itemCount = ResourcesSingletonOld.Instance.items[itemID];
             }
 
             this.GetTextMeshPro(KTxtResove)?.SetTMPText(itemCount.ToString());
             this.GetTextMeshPro(KTxtGold)
-                ?.SetTMPText(ResourcesSingleton.Instance.UserInfo.RoleAssets.UsBill.ToString());
+                ?.SetTMPText(ResourcesSingletonOld.Instance.UserInfo.RoleAssets.UsBill.ToString());
         }
 
         private async void ActPlyarAnimation()
@@ -188,7 +188,7 @@ namespace XFramework
             playerSkeleton.Initialize(true);
             playerSkeleton.MatchRectTransformWithBounds();
 
-            int currentLockPropId = ResourcesSingleton.Instance.talentID.talentPropID;
+            int currentLockPropId = ResourcesSingletonOld.Instance.talentID.talentPropID;
             if (currentLockPropId == 0)
             {
                 playerSkeleton.AnimationState.SetAnimation(0, "idle", true);
@@ -216,7 +216,7 @@ namespace XFramework
                 }
 
                 playerSkeleton.AnimationState.SetAnimation(0, strAnim, false);
-                await UniTask.Delay(JiYuUIHelper.GetAnimaionDuration(playerSkeleton, strAnim),
+                await UniTask.Delay(UnicornUIHelper.GetAnimaionDuration(playerSkeleton, strAnim),
                     cancellationToken: cts.Token);
                 playerSkeleton.AnimationState.SetAnimation(0, "idle", true);
             }
@@ -224,7 +224,7 @@ namespace XFramework
 
         private void JudegeLockTalentSkill(object sender, WebMessageHandlerOld.Execute e)
         {
-            WebMessageHandlerOld.Instance.RemoveHandler(CMD.LOCKTALENT, JudegeLockTalentSkill);
+            WebMessageHandlerOld.Instance.RemoveHandler(CMDOld.LOCKTALENT, JudegeLockTalentSkill);
             var value = new StringValue();
             value.MergeFrom(e.data);
             Log.Debug(value.Value, Color.cyan);
@@ -241,9 +241,9 @@ namespace XFramework
 
                 var cost = new Vector3(talentMap[nextTalentSkillID].cost[0].x, talentMap[nextTalentSkillID].cost[0].y,
                     talentMap[nextTalentSkillID].cost[0].z);
-                JiYuUIHelper.TryReduceReward(cost);
+                UnicornUIHelper.TryReduceReward(cost);
                 //技能解锁
-                ResourcesSingleton.Instance.talentID.talentSkillID = nextTalentSkillID;
+                ResourcesSingletonOld.Instance.talentID.talentSkillID = nextTalentSkillID;
                 int nexID = 0;
                 for (int i = 0; i < talentList.Count; i++)
                 {
@@ -284,7 +284,7 @@ namespace XFramework
             GetFromReference(KText_Prop_Descript).GetTextMeshPro()
                 .SetTMPText(lang.Get(talentMap[skillID].desc).current);
             var KBtn_Add = GetFromReference(UIPanel_Talent.KBtn_Add);
-            JiYuTweenHelper.DoScaleTweenOnClickAndLongPress(KBtn_Add, () => onSkillAddButtonClicked());
+            UnicornTweenHelper.DoScaleTweenOnClickAndLongPress(KBtn_Add, () => onSkillAddButtonClicked());
         }
 
         private void onSkillAddButtonClicked()
@@ -298,7 +298,7 @@ namespace XFramework
 
             this.GetXButton(KBtn_Resovle).RemoveAllListeners();
             GetFromReference(KContainer_Tanlent_Details).SetActive(true);
-            int playerLevel = ResourcesSingleton.Instance.UserInfo.RoleAssets.Level;
+            int playerLevel = ResourcesSingletonOld.Instance.UserInfo.RoleAssets.Level;
 
             SetTalentSkillDetail(nextTalentSkillID);
             if (isLimit)
@@ -319,7 +319,7 @@ namespace XFramework
             if (isCanLock(nextTalentSkillID, ref marginCount))
             {
                 DisplayEvolustion(nextTalentSkillID);
-                JiYuTweenHelper.DoScaleTweenOnClickAndLongPress(this.GetFromReference(KBtn_Resovle),
+                UnicornTweenHelper.DoScaleTweenOnClickAndLongPress(this.GetFromReference(KBtn_Resovle),
                     () => OnClickEvolustion(nextTalentSkillID));
             }
             else
@@ -332,7 +332,7 @@ namespace XFramework
 
 
                 GetFromReference(KText_Mid).GetTextMeshPro().SetTMPText(lang.Get("goto_tag_4").current);
-                JiYuTweenHelper.DoScaleTweenOnClickAndLongPress(this.GetFromReference(KBtn_Resovle), () => GotoTag4());
+                UnicornTweenHelper.DoScaleTweenOnClickAndLongPress(this.GetFromReference(KBtn_Resovle), () => GotoTag4());
                 GetFromReference(KContainer_SkillWarn).SetActive(true);
                 GetFromReference(KContainer_SkillWarn).GetRectTransform().GetChild(0).GetComponent<TMP_Text>()
                     .SetTMPText(lang.Get("common_lack_5_title").current + lang.Get("common_demand").current);
@@ -406,9 +406,9 @@ namespace XFramework
             }
 
             var str = $"type=1;para=[411]";
-            JiYuUIHelper.GoToSomePanel(str);
+            UnicornUIHelper.GoToSomePanel(str);
             //跳转页签4
-            // if (JiYuUIHelper.TryGetUI(UIType.UIPanel_JiyuGame, out UI jiyu))
+            // if (UnicornUIHelper.TryGetUI(UIType.UIPanel_JiyuGame, out UI jiyu))
             // {
             //     var ui = jiyu as UIPanel_JiyuGame;
             //     var tagMap = ConfigManager.Instance.Tables.Tbtag;
@@ -420,8 +420,8 @@ namespace XFramework
         {
             Log.Debug($"talentID:{nextId}", Color.cyan);
             nextTalentSkillID = nextId;
-            WebMessageHandlerOld.Instance.AddHandler(CMD.LOCKTALENT, JudegeLockTalentSkill);
-            NetWorkManager.Instance.SendMessage(CMD.LOCKTALENT, new IntValue { Value = nextId });
+            WebMessageHandlerOld.Instance.AddHandler(CMDOld.LOCKTALENT, JudegeLockTalentSkill);
+            NetWorkManager.Instance.SendMessage(CMDOld.LOCKTALENT, new IntValue { Value = nextId });
         }
 
         private void DisplayEvolustion(int nextTalentSkillID)
@@ -443,7 +443,7 @@ namespace XFramework
             GetFromReference(KContainer_Tanlent_Skill).SetActive(!isDisplayDetail);
             GetFromReference(KContainer_Tanlent_Details).SetActive(isDisplayDetail);
             GetFromReference(KImg_Up).SetActive(false);
-            int currentLockSkillId = ResourcesSingleton.Instance.talentID.talentSkillID;
+            int currentLockSkillId = ResourcesSingletonOld.Instance.talentID.talentSkillID;
             bool isLimit = false;
             Log.Debug(currentLockSkillId.ToString(), Color.cyan);
             if (currentLockSkillId < 20001)
@@ -486,9 +486,9 @@ namespace XFramework
 
             uiTalentProps = new List<UI>(5);
             int nextTalentPropID = 0;
-            int playerLevel = ResourcesSingleton.Instance.UserInfo.RoleAssets.Level;
+            int playerLevel = ResourcesSingletonOld.Instance.UserInfo.RoleAssets.Level;
 
-            int currentLockPropId = ResourcesSingleton.Instance.talentID.talentPropID;
+            int currentLockPropId = ResourcesSingletonOld.Instance.talentID.talentPropID;
 
             int maxPropID = GetPropMaxID(currentLockPropId);
             if (currentLockPropId == 0)
@@ -557,12 +557,12 @@ namespace XFramework
             switch (vector3.x)
             {
                 case 1:
-                    return ResourcesSingleton.Instance.UserInfo.RoleAssets.Energy >= vector3.z ? true : false;
+                    return ResourcesSingletonOld.Instance.UserInfo.RoleAssets.Energy >= vector3.z ? true : false;
                 case 2:
-                    return ResourcesSingleton.Instance.UserInfo.RoleAssets.Bitcoin >= vector3.z ? true : false;
+                    return ResourcesSingletonOld.Instance.UserInfo.RoleAssets.Bitcoin >= vector3.z ? true : false;
                 case 3:
 
-                    return ResourcesSingleton.Instance.UserInfo.RoleAssets.UsBill >= vector3.z ? true : false;
+                    return ResourcesSingletonOld.Instance.UserInfo.RoleAssets.UsBill >= vector3.z ? true : false;
                 case 5:
                     return isItemEnough((int)vector3.y, (int)vector3.z, ref marginCount);
             }
@@ -572,15 +572,15 @@ namespace XFramework
 
         private bool isItemEnough(int itemID, int needCount, ref long marginCount)
         {
-            if (!ResourcesSingleton.Instance.items.ContainsKey(itemID))
+            if (!ResourcesSingletonOld.Instance.items.ContainsKey(itemID))
             {
                 marginCount = needCount;
                 return false;
             }
 
-            if (ResourcesSingleton.Instance.items[itemID] < needCount)
+            if (ResourcesSingletonOld.Instance.items[itemID] < needCount)
             {
-                marginCount = needCount - ResourcesSingleton.Instance.items[itemID];
+                marginCount = needCount - ResourcesSingletonOld.Instance.items[itemID];
                 return false;
             }
 
@@ -691,7 +691,7 @@ namespace XFramework
 
         private void SetTalentPropTitle()
         {
-            int currentLockPropId = ResourcesSingleton.Instance.talentID.talentPropID;
+            int currentLockPropId = ResourcesSingletonOld.Instance.talentID.talentPropID;
             int nextId = 0;
             foreach (var item in talentList)
             {
@@ -723,7 +723,7 @@ namespace XFramework
 
         protected override void OnClose()
         {
-            WebMessageHandlerOld.Instance.RemoveHandler(CMD.LOCKTALENT, JudegeLockTalentSkill);
+            WebMessageHandlerOld.Instance.RemoveHandler(CMDOld.LOCKTALENT, JudegeLockTalentSkill);
             if (uiTalentProps.Count > 0)
             {
                 foreach (var child in uiTalentProps)

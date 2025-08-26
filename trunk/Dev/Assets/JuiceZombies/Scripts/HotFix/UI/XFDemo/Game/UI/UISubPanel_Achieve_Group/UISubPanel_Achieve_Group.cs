@@ -1,5 +1,5 @@
 //---------------------------------------------------------------------
-// JiYuStudio
+// UnicornStudio
 // Author: xxx
 // Time: #CreateTime#
 //---------------------------------------------------------------------
@@ -35,7 +35,7 @@ namespace XFramework
             //RedPointMgr.instance.Init(UIPanel_Battle.Battle_Red_Point_Root, "achieve_group" + id.ToString(),
             //    (RedPointState state, int data) =>
             //    {
-            //        if (JiYuUIHelper.TryGetUI(UIType.UIPanel_Achieve, out UI uuii))
+            //        if (UnicornUIHelper.TryGetUI(UIType.UIPanel_Achieve, out UI uuii))
             //        {
             //            this.GetFromReference(KImg_RedPoint).SetActive(state == RedPointState.Show);
             //        }

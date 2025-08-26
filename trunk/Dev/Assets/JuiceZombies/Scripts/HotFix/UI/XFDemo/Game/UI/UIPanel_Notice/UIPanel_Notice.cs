@@ -1,5 +1,5 @@
 ﻿//---------------------------------------------------------------------
-// JiYuStudio
+// UnicornStudio
 // Author: xxx
 // Time: #CreateTime#
 //---------------------------------------------------------------------
@@ -55,14 +55,14 @@ namespace XFramework
 
         public async void Initialize()
         {
-            await JiYuUIHelper.InitBlur(this);
+            await UnicornUIHelper.InitBlur(this);
             InitJson();
             InitRedDot();
             StartTimer();
             var KBtn_Bg = GetFromReference(UIPanel_Notice.KBtn_Bg);
             var KBtn_Close = GetFromReference(UIPanel_Notice.KBtn_Close);
             KBtn_Bg.GetXButton().OnClick.Add(async () => { ClosePanel(); });
-            JiYuTweenHelper.DoScaleTweenOnClickAndLongPress(KBtn_Close, async () => { ClosePanel(); });
+            UnicornTweenHelper.DoScaleTweenOnClickAndLongPress(KBtn_Close, async () => { ClosePanel(); });
             await DataInit();
             InitNode();
 
@@ -85,9 +85,9 @@ namespace XFramework
 
         private async UniTask ClosePanel()
         {
-            JiYuTweenHelper.SetEaseAlphaAndPosUtoB(GetFromReference(UIPanel_Notice.KImg_Bg), 0 - 100, 100, cts.Token,
+            UnicornTweenHelper.SetEaseAlphaAndPosUtoB(GetFromReference(UIPanel_Notice.KImg_Bg), 0 - 100, 100, cts.Token,
                 0.15f, false);
-            JiYuTweenHelper.SetEaseAlphaAndPosRtoL(GetFromReference(UIPanel_Notice.KImg_Bg), 0 - 100, 100, cts.Token,
+            UnicornTweenHelper.SetEaseAlphaAndPosRtoL(GetFromReference(UIPanel_Notice.KImg_Bg), 0 - 100, 100, cts.Token,
                 0.15f, false);
             GetFromReference(UIPanel_Notice.KImg_Bg).GetComponent<CanvasGroup>().alpha = 1f;
             GetFromReference(UIPanel_Notice.KImg_Bg).GetComponent<CanvasGroup>().DOFade(0, 0.3f).SetEase(Ease.InQuad);
@@ -111,7 +111,7 @@ namespace XFramework
 
 
             var closeStr =
-                $"{JiYuUIHelper.GetRewardTextIconName("common_bullet_logo_left")}  {tblanguage.Get("text_window_close").current}  {JiYuUIHelper.GetRewardTextIconName("common_bullet_logo_right")}";
+                $"{UnicornUIHelper.GetRewardTextIconName("common_bullet_logo_left")}  {tblanguage.Get("text_window_close").current}  {UnicornUIHelper.GetRewardTextIconName("common_bullet_logo_right")}";
             KText_Close.GetTextMeshPro().SetTMPText(closeStr);
 
 
@@ -129,7 +129,7 @@ namespace XFramework
             // nlist.Clear();
             if (JsonManager.Instance.sharedData.noticesList == null)
             {
-                await JiYuUIHelper.DownloadNotice();
+                await UnicornUIHelper.DownloadNotice();
             }
             // else
             // {
@@ -143,7 +143,7 @@ namespace XFramework
             //     }
             // }
 
-            //noticeL10N = (Tblanguage.L10N)ResourcesSingleton.Instance.settingData.CurrentL10N;
+            //noticeL10N = (Tblanguage.L10N)ResourcesSingletonOld.Instance.settingData.CurrentL10N;
         }
 
 
@@ -299,37 +299,37 @@ namespace XFramework
         //     // switch (noticeL10N)
         //     // {
         //     //     case Tblanguage.L10N.en:
-        //     //         picName = JiYuUIHelper.GetNameStringFormUrl(input.enPic);
+        //     //         picName = UnicornUIHelper.GetNameStringFormUrl(input.enPic);
         //     //         break;
         //     //     case Tblanguage.L10N.zh_cn:
-        //     //         picName = JiYuUIHelper.GetNameStringFormUrl(input.zhCnPic);
+        //     //         picName = UnicornUIHelper.GetNameStringFormUrl(input.zhCnPic);
         //     //         break;
         //     //     case Tblanguage.L10N.kr:
         //     //         //notice do not have kr
-        //     //         picName = JiYuUIHelper.GetNameStringFormUrl(input.enPic);
+        //     //         picName = UnicornUIHelper.GetNameStringFormUrl(input.enPic);
         //     //         break;
         //     //     case Tblanguage.L10N.jp:
-        //     //         picName = JiYuUIHelper.GetNameStringFormUrl(input.ryPic);
+        //     //         picName = UnicornUIHelper.GetNameStringFormUrl(input.ryPic);
         //     //         break;
         //     //     case Tblanguage.L10N.fr:
-        //     //         picName = JiYuUIHelper.GetNameStringFormUrl(input.frPic);
+        //     //         picName = UnicornUIHelper.GetNameStringFormUrl(input.frPic);
         //     //         break;
         //     //     case Tblanguage.L10N.de:
-        //     //         picName = JiYuUIHelper.GetNameStringFormUrl(input.dePic);
+        //     //         picName = UnicornUIHelper.GetNameStringFormUrl(input.dePic);
         //     //         break;
         //     //     case Tblanguage.L10N.ru:
         //     //         //do not have ru
-        //     //         picName = JiYuUIHelper.GetNameStringFormUrl(input.enPic);
+        //     //         picName = UnicornUIHelper.GetNameStringFormUrl(input.enPic);
         //     //         break;
         //     //     case Tblanguage.L10N.th:
         //     //         //do not have th
-        //     //         picName = JiYuUIHelper.GetNameStringFormUrl(input.enPic);
+        //     //         picName = UnicornUIHelper.GetNameStringFormUrl(input.enPic);
         //     //         break;
         //     //     case Tblanguage.L10N.es:
-        //     //         picName = JiYuUIHelper.GetNameStringFormUrl(input.esPic);
+        //     //         picName = UnicornUIHelper.GetNameStringFormUrl(input.esPic);
         //     //         break;
         //     //     default:
-        //     //         picName = JiYuUIHelper.GetNameStringFormUrl(input.enPic);
+        //     //         picName = UnicornUIHelper.GetNameStringFormUrl(input.enPic);
         //     //         break;
         //     // }
         //
@@ -407,18 +407,18 @@ namespace XFramework
                 KImg_RedPoint.SetActive(noticeMulti.readStatus == 0);
                 string iconName = Path.GetFileName(noticeSingle.icon);
                 string picName = Path.GetFileName(noticeSingle.pic);
-                JiYuUIHelper.LoadImage(iconName, KImg);
+                UnicornUIHelper.LoadImage(iconName, KImg);
                 if (index == 0)
                 {
                     KText_Name.GetTextMeshPro().SetTMPText(noticeSingle.title);
                     KText_Notice.GetTextMeshPro().SetTMPText(noticeSingle.content);
-                    JiYuUIHelper.LoadImage(picName, KImg_Notice);
+                    UnicornUIHelper.LoadImage(picName, KImg_Notice);
                 }
 
                 var itemStr = $"{m_RedDotName}|Pos{index}";
                 RedDotManager.Instance.InsterNode(itemStr);
                 RedDotManager.Instance.SetRedPointCnt(itemStr, noticeMulti.readStatus == 0 ? 1 : 0);
-                JiYuTweenHelper.DoScaleTweenOnClickAndLongPress(KButton, () =>
+                UnicornTweenHelper.DoScaleTweenOnClickAndLongPress(KButton, () =>
                 {
                     if (lastNoticeId == noticeMulti.id)
                     {
@@ -427,7 +427,7 @@ namespace XFramework
 
                     KText_Name.GetTextMeshPro().SetTMPText(noticeSingle.title);
                     KText_Notice.GetTextMeshPro().SetTMPText(noticeSingle.content);
-                    JiYuUIHelper.LoadImage(picName, KImg_Notice);
+                    UnicornUIHelper.LoadImage(picName, KImg_Notice);
                     noticeMulti.readStatus = 1;
                     RedDotManager.Instance.SetRedPointCnt(itemStr, 0);
                     KImg_RedPoint.SetActive(noticeMulti.readStatus == 0);
@@ -459,7 +459,7 @@ namespace XFramework
             //         //RedPointMgr.instance.Init(Person_Red_Point_Root, "notice" + nlist[ihelp].id.ToString(),
             //         //    (RedPointState state, int data) =>
             //         //    {
-            //         //        if (JiYuUIHelper.TryGetUI(UIType.UIPanel_Notice, out UI uuii))
+            //         //        if (UnicornUIHelper.TryGetUI(UIType.UIPanel_Notice, out UI uuii))
             //         //        {
             //         //            uiItem.GetFromReference(UISubPanel_Notice_Item.KImg_RedPoint)
             //         //                .SetActive(state == RedPointState.Show);
@@ -484,8 +484,8 @@ namespace XFramework
             //             uiItem.GetFromReference(UISubPanel_Notice_Item.KImg_Select).SetActive(true);
             //             //RedPointMgr.instance.SetState(Person_Red_Point_Root, "notice" + nlist[ihelp].id.ToString(),
             //             //    RedPointState.Hide);
-            //             JiYuUIHelper.SetNoticeReadStatusByID(nlist[ihelp].id);
-            //             ResourcesSingleton.Instance.UpdateResourceUI();
+            //             UnicornUIHelper.SetNoticeReadStatusByID(nlist[ihelp].id);
+            //             ResourcesSingletonOld.Instance.UpdateResourceUI();
             //             lastItem = uiItem;
             //         }
             //         else
@@ -494,7 +494,7 @@ namespace XFramework
             //         }
             //
             //         var btn = uiItem.GetFromReference(UISubPanel_Notice_Item.KButton);
-            //         JiYuTweenHelper.DoScaleTweenOnClickAndLongPress(btn, () =>
+            //         UnicornTweenHelper.DoScaleTweenOnClickAndLongPress(btn, () =>
             //         {
             //             uiItem.GetFromReference(UISubPanel_Notice_Item.KImg_Select).SetActive(true);
             //             if (lastItem != uiItem)
@@ -516,10 +516,10 @@ namespace XFramework
             //                 }
             //
             //                 //set redpoint state hide
-            //                 JiYuUIHelper.SetNoticeReadStatusByID(nlist[ihelp].id);
+            //                 UnicornUIHelper.SetNoticeReadStatusByID(nlist[ihelp].id);
             //             }
             //
-            //             ResourcesSingleton.Instance.UpdateResourceUI();
+            //             ResourcesSingletonOld.Instance.UpdateResourceUI();
             //         });
             //
             //         //int id = fakenews[ihelp].ID;
@@ -530,7 +530,7 @@ namespace XFramework
             //         SetSpriteByLocalPath(picPath, uiItem.GetFromReference(UISubPanel_Notice_Item.KImg));
             //     }
             //
-            //     JiYuUIHelper.ForceRefreshLayout(this.GetFromReference(KScrollView).GetScrollRect().Content);
+            //     UnicornUIHelper.ForceRefreshLayout(this.GetFromReference(KScrollView).GetScrollRect().Content);
             //
             //     #endregion
             // }

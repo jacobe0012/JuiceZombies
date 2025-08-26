@@ -1,5 +1,5 @@
 ﻿//---------------------------------------------------------------------
-// JiYuStudio
+// UnicornStudio
 // Author: xxx
 // Time: #CreateTime#
 //---------------------------------------------------------------------
@@ -65,16 +65,16 @@ namespace XFramework
             //UILevelScrollView.ChangeEvent += ChangeLevelSprite;
 
 
-            //JiYuTweenHelper.DoScaleTweenOnClickAndLongPress(this.GetFromReference(KextendButton),
+            //UnicornTweenHelper.DoScaleTweenOnClickAndLongPress(this.GetFromReference(KextendButton),
             //    () => { OnExtendButtonClick(); });
 
-            //JiYuTweenHelper.DoScaleTweenOnClickAndLongPress(this.GetFromReference(KBtn_pass),
+            //UnicornTweenHelper.DoScaleTweenOnClickAndLongPress(this.GetFromReference(KBtn_pass),
             //    () => { OnPassButtonClick(); });
-            //JiYuTweenHelper.DoScaleTweenOnClickAndLongPress(this.GetFromReference(KBtn_specialLevel),
+            //UnicornTweenHelper.DoScaleTweenOnClickAndLongPress(this.GetFromReference(KBtn_specialLevel),
             //    () => { OnSpecialLevelButtonClick(); });
 
 
-            //JiYuTweenHelper.DoScaleTweenOnClickAndLongPress(this.GetFromReference(KLevelImage),
+            //UnicornTweenHelper.DoScaleTweenOnClickAndLongPress(this.GetFromReference(KLevelImage),
             //    () =>
             //    {
             //        DisableTipPanel();
@@ -83,24 +83,24 @@ namespace XFramework
             ////this.GetFromReference(KLevelImage).GetComponent<Button>()
             ////    ?.onClick.Add(async () => onLevelImageClicked());
 
-            //JiYuTweenHelper.DoScaleTweenOnClickAndLongPress(this.GetFromReference(KBtn_chapterBox),
+            //UnicornTweenHelper.DoScaleTweenOnClickAndLongPress(this.GetFromReference(KBtn_chapterBox),
             //    () => { onTresureButtonClick(); });
 
-            //JiYuTweenHelper.DoScaleTweenOnClickAndLongPress(this.GetFromReference(KBtn_cruiser),
+            //UnicornTweenHelper.DoScaleTweenOnClickAndLongPress(this.GetFromReference(KBtn_cruiser),
             //    () => { onCruiserButtonClick(); });
 
-            //JiYuTweenHelper.DoScaleTweenOnClickAndLongPress(this.GetFromReference(KBtn_task),
+            //UnicornTweenHelper.DoScaleTweenOnClickAndLongPress(this.GetFromReference(KBtn_task),
             //    () => { onTaskButtonClick(); });
 
             //#region bottom panel
 
-            //JiYuTweenHelper.DoScaleTweenOnClickAndLongPress(this.GetFromReference(KBtn_dailyChallege),
+            //UnicornTweenHelper.DoScaleTweenOnClickAndLongPress(this.GetFromReference(KBtn_dailyChallege),
             //    () => { OnDailyChallegeClick(); });
 
-            //JiYuTweenHelper.DoScaleTweenOnClickAndLongPress(this.GetFromReference(KBtn_start),
+            //UnicornTweenHelper.DoScaleTweenOnClickAndLongPress(this.GetFromReference(KBtn_start),
             //    () => { OnStartButtonClick(); });
 
-            //JiYuTweenHelper.DoScaleTweenOnClickAndLongPress(this.GetFromReference(KBtn_dailyActive),
+            //UnicornTweenHelper.DoScaleTweenOnClickAndLongPress(this.GetFromReference(KBtn_dailyActive),
             //    () => { OnDailyActiveButtonClick(); });
 
             //#endregion
@@ -193,8 +193,8 @@ namespace XFramework
         //        }
         //    }
 
-        //    //ResourcesSingleton.Instance.levelInfo.levelBox.minNotGetBoxID = minNoGetBoxID;
-        //    ResourcesSingleton.Instance.levelInfo.levelBox.minNotLockBoxID = minNotLockBoxID;
+        //    //ResourcesSingletonOld.Instance.levelInfo.levelBox.minNotGetBoxID = minNoGetBoxID;
+        //    ResourcesSingletonOld.Instance.levelInfo.levelBox.minNotLockBoxID = minNotLockBoxID;
 
         //    Log.Debug($"minNoGetBoxID{minNoGetBoxID},minNotLockBoxID{minNotLockBoxID}", Color.yellow);
         //}
@@ -205,9 +205,9 @@ namespace XFramework
         //    var chapterTable = ConfigManager.Instance.Tables.Tbchapter;
 
         //    Log.Debug("UpdateLevelShow", Color.cyan);
-        //    var levelInfo = ResourcesSingleton.Instance.levelInfo;
+        //    var levelInfo = ResourcesSingletonOld.Instance.levelInfo;
         //    var maxLockChapterID = levelInfo.maxUnLockChapterID;
-        //    var currentID = ResourcesSingleton.Instance.levelInfo.levelId;
+        //    var currentID = ResourcesSingletonOld.Instance.levelInfo.levelId;
         //    var popLevelID = JsonManager.Instance.userData.chapterId;
         //    Log.Debug($"PopLevelID:{popLevelID}", Color.yellow);
         //    if (currentID == popLevelID)
@@ -328,19 +328,19 @@ namespace XFramework
         //        return;
         //    }
 
-        //    ResourcesSingleton.Instance.dayWeekTask.tasks.Clear();
-        //    ResourcesSingleton.Instance.dayWeekTask.boxes.Clear();
+        //    ResourcesSingletonOld.Instance.dayWeekTask.tasks.Clear();
+        //    ResourcesSingletonOld.Instance.dayWeekTask.boxes.Clear();
 
         //    foreach (var t in roleTaskInfo.TaskInfoList)
         //    {
         //        //statusΪ��ȡ״̬0δ��ȡ��1��ȡ�� para�������
-        //        ResourcesSingleton.Instance.dayWeekTask.tasks.Add(t.Id, new Vector2(t.Status, t.Para));
+        //        ResourcesSingletonOld.Instance.dayWeekTask.tasks.Add(t.Id, new Vector2(t.Status, t.Para));
         //    }
 
         //    foreach (var s in roleTaskInfo.TaskScoreList)
         //    {
         //        //statusΪ��ȡ״̬0δ��ȡ��1��ȡ�� valid��Ч���0δ��Ч1��Ч
-        //        ResourcesSingleton.Instance.dayWeekTask.boxes.Add(s.Id, new Vector2(s.Status, s.Valid));
+        //        ResourcesSingletonOld.Instance.dayWeekTask.boxes.Add(s.Id, new Vector2(s.Status, s.Valid));
         //    }
 
         //    await UIHelper.CreateAsync<bool>(UIType.UIPanel_Task_DailyAndWeekly, false);
@@ -464,7 +464,7 @@ namespace XFramework
         //{
         //    #region set red point state
 
-        //    foreach (var t in ResourcesSingleton.Instance.dayWeekTask.tasks)
+        //    foreach (var t in ResourcesSingletonOld.Instance.dayWeekTask.tasks)
         //    {
         //        if (t.Value.x == 0)
         //        {
@@ -541,28 +541,28 @@ namespace XFramework
         //        }
         //    }
 
-        //    ResourcesSingleton.Instance.groupIDs = helpDic;
+        //    ResourcesSingletonOld.Instance.groupIDs = helpDic;
 
         //    //ÿ���ɾ͵ĺ��
         //    Dictionary<int, List<Vector3>> SortDic = new Dictionary<int, List<Vector3>>();
         //    SortDic.Clear();
         //    bool isLast = false;
         //    bool isCompleted = false;
-        //    Debug.Log("ResourcesSingleton.Instance.achieve.tasks.Count" +
-        //              ResourcesSingleton.Instance.achieve.tasks.Count.ToString());
-        //    if (ResourcesSingleton.Instance.achieve.tasks.Count == 0)
+        //    Debug.Log("ResourcesSingletonOld.Instance.achieve.tasks.Count" +
+        //              ResourcesSingletonOld.Instance.achieve.tasks.Count.ToString());
+        //    if (ResourcesSingletonOld.Instance.achieve.tasks.Count == 0)
         //    {
         //        //û�ӵ����ݣ��Լ����ɿ�����
-        //        ResourcesSingleton.Instance.achieve.tasks.Clear();
-        //        ResourcesSingleton.Instance.achieve.boxes.Clear();
+        //        ResourcesSingletonOld.Instance.achieve.tasks.Clear();
+        //        ResourcesSingletonOld.Instance.achieve.boxes.Clear();
         //        foreach (var t in ConfigManager.Instance.Tables.Tbtask.DataList)
         //        {
-        //            ResourcesSingleton.Instance.achieve.tasks.Add(t.id, new Vector2(0, 0));
+        //            ResourcesSingletonOld.Instance.achieve.tasks.Add(t.id, new Vector2(0, 0));
         //        }
 
         //        foreach (var ts in ConfigManager.Instance.Tables.Tbtask_score.DataList)
         //        {
-        //            ResourcesSingleton.Instance.achieve.boxes.Add(ts.id, new Vector2(0, 0));
+        //            ResourcesSingletonOld.Instance.achieve.boxes.Add(ts.id, new Vector2(0, 0));
         //        }
 
         //        Debug.Log("û�ӵ����ݣ��Լ����ɿ�����");
@@ -578,15 +578,15 @@ namespace XFramework
         //            //�ڶ����ҵ�ÿ��������
         //            //��ѯ����ǰ������Ӧ����ʾ��task��id��������Ӧ�����ж�״̬
         //            int helpID = 0;
-        //            for (int i = 0; i < ResourcesSingleton.Instance.groupIDs[taskGroupID].Count; i++)
+        //            for (int i = 0; i < ResourcesSingletonOld.Instance.groupIDs[taskGroupID].Count; i++)
         //            {
         //                //����������ÿ���������ڲ���������б������ö�Ӧ״̬
         //                //��ǰ����id
-        //                int thisTaskID = ResourcesSingleton.Instance.groupIDs[taskGroupID][i];
-        //                if (ResourcesSingleton.Instance.achieve.tasks[thisTaskID][0] == 1)
+        //                int thisTaskID = ResourcesSingletonOld.Instance.groupIDs[taskGroupID][i];
+        //                if (ResourcesSingletonOld.Instance.achieve.tasks[thisTaskID][0] == 1)
         //                {
         //                    helpID = thisTaskID;
-        //                    if (i == ResourcesSingleton.Instance.groupIDs[taskGroupID].Count - 1)
+        //                    if (i == ResourcesSingletonOld.Instance.groupIDs[taskGroupID].Count - 1)
         //                    {
         //                        //��ǰ������ȫ����ɣ���Ӧ״̬2
         //                        isLast = true;
@@ -595,7 +595,7 @@ namespace XFramework
         //                else
         //                {
         //                    helpID = thisTaskID;
-        //                    if (ResourcesSingleton.Instance.achieve.tasks[thisTaskID][1] >=
+        //                    if (ResourcesSingletonOld.Instance.achieve.tasks[thisTaskID][1] >=
         //                        ConfigManager.Instance.Tables.Tbtask.Get(helpID).para[0])
         //                    {
         //                        //��ǰ��������ʾ�����Ѿ���ɣ�����δ��ȡ����Ӧ״̬0
@@ -669,7 +669,7 @@ namespace XFramework
         //            {
         //                int taskID = groupIDs[id][i];
         //                //�������ȡ����ô��þ���
-        //                if (ResourcesSingleton.Instance.achieve.tasks[taskID][0] == 1)
+        //                if (ResourcesSingletonOld.Instance.achieve.tasks[taskID][0] == 1)
         //                {
         //                    achieveExp += ConfigManager.Instance.Tables.Tbtask.Get(taskID).score;
         //                }
@@ -691,7 +691,7 @@ namespace XFramework
         //        else
         //        {
         //            if (achieveExp >= ConfigManager.Instance.Tables.Tbachieve.DataList[i - 1].score &&
-        //                ResourcesSingleton.Instance.achieve.boxes[
+        //                ResourcesSingletonOld.Instance.achieve.boxes[
         //                    ConfigManager.Instance.Tables.Tbachieve.DataList[i - 1].id][0] == 1)
         //            {
         //                achieveLevel = ConfigManager.Instance.Tables.Tbachieve.DataList[i].id;
@@ -715,7 +715,7 @@ namespace XFramework
         //    }
 
         //    //����ǩ�����
-        //    if (ResourcesSingleton.Instance.signData.OnDayStatus == 0)
+        //    if (ResourcesSingletonOld.Instance.signData.OnDayStatus == 0)
         //    {
         //        RedPointMgr.instance.SetState(Battle_Red_Point_Root, "sign_daily", RedPointState.Show);
         //    }
@@ -783,11 +783,11 @@ namespace XFramework
         //private bool accCanBeGetOrNot()
         //{
         //    bool accRe = false;
-        //    if (ResourcesSingleton.Instance.signData.OnDayStatus == 1)
+        //    if (ResourcesSingletonOld.Instance.signData.OnDayStatus == 1)
         //    {
-        //        if (ResourcesSingleton.Instance.signData.BoxOnDayStatus == 0)
+        //        if (ResourcesSingletonOld.Instance.signData.BoxOnDayStatus == 0)
         //        {
-        //            int CheckInDayHelp = (int)(ResourcesSingleton.Instance.signData.CheckInDay
+        //            int CheckInDayHelp = (int)(ResourcesSingletonOld.Instance.signData.CheckInDay
         //                                       % ConfigManager.Instance.Tables.Tbsign_acc
         //                                           .DataList[
         //                                               ConfigManager.Instance.Tables.Tbsign_acc.DataList.Count - 1]
@@ -908,7 +908,7 @@ namespace XFramework
 
         //                if (funcTable[i].id == 3606)
         //                {
-        //                    var pos = JiYuUIHelper.GetUIPos(ui);
+        //                    var pos = UnicornUIHelper.GetUIPos(ui);
         //                    var global = Common.Instance.Get<Global>();
         //                    global.GameObjects.BagPos = pos;
         //                }
@@ -930,8 +930,8 @@ namespace XFramework
         //        }
         //    }
 
-        //    JiYuUIHelper.ForceRefreshLayout(leftPanel);
-        //    JiYuUIHelper.ForceRefreshLayout(rightPanel);
+        //    UnicornUIHelper.ForceRefreshLayout(leftPanel);
+        //    UnicornUIHelper.ForceRefreshLayout(rightPanel);
         //}
 
         ///// <summary>
@@ -956,19 +956,19 @@ namespace XFramework
         //        }
         //    }
 
-        //    //Log.Debug($"lockTalentProp:{ResourcesSingleton.Instance.talentID.talentPropID}");
+        //    //Log.Debug($"lockTalentProp:{ResourcesSingletonOld.Instance.talentID.talentPropID}");
 
 
         //    int nextPropID = 0, nexSkillID = 0;
 
         //    for (int i = 0; i < talentList.Count; i++)
         //    {
-        //        if (talentList[i].preId == ResourcesSingleton.Instance.talentID.talentPropID)
+        //        if (talentList[i].preId == ResourcesSingletonOld.Instance.talentID.talentPropID)
         //        {
         //            nextPropID = talentList[i].id;
         //        }
 
-        //        if (talentList[i].preId == ResourcesSingleton.Instance.talentID.talentSkillID)
+        //        if (talentList[i].preId == ResourcesSingletonOld.Instance.talentID.talentSkillID)
         //        {
         //            nexSkillID = talentList[i].id;
         //        }
@@ -1000,11 +1000,11 @@ namespace XFramework
         //        nexSkillID = initSkillID;
         //    }
 
-        //    //Log.Debug($"nextPropID:{nextPropID},level:{ResourcesSingleton.Instance.level},currentLevel{talentMap[nextPropID].level}", Color.cyan);
+        //    //Log.Debug($"nextPropID:{nextPropID},level:{ResourcesSingletonOld.Instance.level},currentLevel{talentMap[nextPropID].level}", Color.cyan);
         //    if (nextPropID <= maxTalentProp)
         //    {
-        //        if (ResourcesSingleton.Instance.UserInfo.RoleAssets.UsBill >= talentMap[nextPropID].cost[0].z &&
-        //            ResourcesSingleton.Instance.UserInfo.RoleAssets.Level >= talentMap[nextPropID].level)
+        //        if (ResourcesSingletonOld.Instance.UserInfo.RoleAssets.UsBill >= talentMap[nextPropID].cost[0].z &&
+        //            ResourcesSingletonOld.Instance.UserInfo.RoleAssets.Level >= talentMap[nextPropID].level)
         //        {
         //            return true;
         //        }
@@ -1012,10 +1012,10 @@ namespace XFramework
 
         //    if (nexSkillID <= maxTalentSkill)
         //    {
-        //        if (ResourcesSingleton.Instance.items.ContainsKey((int)talentMap[nexSkillID].cost[0].y))
+        //        if (ResourcesSingletonOld.Instance.items.ContainsKey((int)talentMap[nexSkillID].cost[0].y))
         //        {
-        //            if (ResourcesSingleton.Instance.UserInfo.RoleAssets.Level >= talentMap[nexSkillID].level &&
-        //                ResourcesSingleton.Instance.items[(int)talentMap[nexSkillID].cost[0].y] >=
+        //            if (ResourcesSingletonOld.Instance.UserInfo.RoleAssets.Level >= talentMap[nexSkillID].level &&
+        //                ResourcesSingletonOld.Instance.items[(int)talentMap[nexSkillID].cost[0].y] >=
         //                talentMap[nexSkillID].cost[0].z)
         //            {
         //                return true;
@@ -1117,7 +1117,7 @@ namespace XFramework
         //private async void onCruiserButtonClick()
         //{
         //    Debug.Log($"cruiserButtonClick");
-        //    chapterID = ResourcesSingleton.Instance.levelInfo.maxPassChapterID;
+        //    chapterID = ResourcesSingletonOld.Instance.levelInfo.maxPassChapterID;
         //    if (chapterID <= 0)
         //    {
         //        string value = string.Format("未解锁");
@@ -1269,13 +1269,13 @@ namespace XFramework
         //    InitExtendDetails(KemailButton_BG, funcID);
         //    funcID = 5202;
         //    InitExtendDetails(KNoteButton_BG, funcID);
-        //    JiYuTweenHelper.DoScaleTweenOnClickAndLongPress(this.GetFromReference(KemailButton_BG), OnMailClick);
-        //    JiYuTweenHelper.DoScaleTweenOnClickAndLongPress(this.GetFromReference(KsettingsButton_BG),
+        //    UnicornTweenHelper.DoScaleTweenOnClickAndLongPress(this.GetFromReference(KemailButton_BG), OnMailClick);
+        //    UnicornTweenHelper.DoScaleTweenOnClickAndLongPress(this.GetFromReference(KsettingsButton_BG),
         //        OnSettingsButtonClick);
-        //    JiYuTweenHelper.DoScaleTweenOnClickAndLongPress(this.GetFromReference(KNoteButton_BG), OnNoteButtonClick);
+        //    UnicornTweenHelper.DoScaleTweenOnClickAndLongPress(this.GetFromReference(KNoteButton_BG), OnNoteButtonClick);
 
         //    var emailRedDot = GetFromReference(KemailButton_BG)?.GetRectTransform().GetChild(0).gameObject;
-        //    if (JiYuUIHelper.IsMailRedDot())
+        //    if (UnicornUIHelper.IsMailRedDot())
         //    {
         //        emailRedDot.SetActive(true);
         //    }
@@ -1405,7 +1405,7 @@ namespace XFramework
         //    var battleGain = new BattleGain
         //    {
         //        BattleId = longValue.Value,
-        //        LevelId = ResourcesSingleton.Instance.levelInfo.levelId,
+        //        LevelId = ResourcesSingletonOld.Instance.levelInfo.levelId,
         //        Type = 0,
         //        RoleId = 0,
         //        PassStatus = "",

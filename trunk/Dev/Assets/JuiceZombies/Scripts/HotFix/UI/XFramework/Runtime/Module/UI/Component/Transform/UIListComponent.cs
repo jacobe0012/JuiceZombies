@@ -684,7 +684,7 @@ namespace XFramework
             }
 
             //TODO：自加的强制重新排列
-            JiYuUIHelper.ForceRefreshLayout(this.Parent);
+            UnicornUIHelper.ForceRefreshLayout(this.Parent);
         }
 
         

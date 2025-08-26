@@ -1,4 +1,4 @@
-﻿Shader "JiYuStudio/JiYuSecKillDNumberTest"
+﻿Shader "UnicornStudio/JiYuSecKillDNumberTest"
 {
 	Properties
 	{

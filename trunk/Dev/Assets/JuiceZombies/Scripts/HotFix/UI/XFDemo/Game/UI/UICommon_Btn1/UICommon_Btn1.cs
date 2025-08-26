@@ -1,5 +1,5 @@
 //---------------------------------------------------------------------
-// JiYuStudio
+// UnicornStudio
 // Author: xxx
 // Time: #CreateTime#
 //---------------------------------------------------------------------
@@ -43,7 +43,7 @@ namespace XFramework
 
         public void UpdateBtnState(UI thisUi, int talentID, bool isDisplayArrow, bool isOnlyDisplay)
         {
-            int currentUnlocked = ResourcesSingleton.Instance.talentID.talentPropID;
+            int currentUnlocked = ResourcesSingletonOld.Instance.talentID.talentPropID;
             var tanlentMap = ConfigManager.Instance.Tables.Tbtalent;
             var tanlentList = ConfigManager.Instance.Tables.Tbtalent.DataList;
             var lang = ConfigManager.Instance.Tables.Tblanguage;
@@ -126,7 +126,7 @@ namespace XFramework
                 currentPara.talentID = talentId;
                 currentPara.parentUI = this;
                 tipUI = await UIHelper.CreateAsync<Parameter>(UIType.UISubPanel_Purchase, currentPara);
-                JiYuUIHelper.SetTipPos(this, tipUI, UISubPanel_Purchase.KContent, UISubPanel_Purchase.KImg_Arrow,
+                UnicornUIHelper.SetTipPos(this, tipUI, UISubPanel_Purchase.KContent, UISubPanel_Purchase.KImg_Arrow,
                     UISubPanel_Purchase.KImg_Arrow);
                 var pos = new Vector2(-tipUI.GetRectTransform().AnchoredPosition().x,
                     -tipUI.GetRectTransform().AnchoredPosition().y);
@@ -137,7 +137,7 @@ namespace XFramework
             else if (lockType == 2)
             {
                 tipUI = await UIHelper.CreateAsync<int>(UIType.UISubPanel_NotPurchase, talentId);
-                JiYuUIHelper.SetTipPos(this, tipUI, UISubPanel_NotPurchase.KContent, UISubPanel_NotPurchase.KImg_Arrow,
+                UnicornUIHelper.SetTipPos(this, tipUI, UISubPanel_NotPurchase.KContent, UISubPanel_NotPurchase.KImg_Arrow,
                     UISubPanel_NotPurchase.KImg_Arrow);
                 var pos = new Vector2(-tipUI.GetRectTransform().AnchoredPosition().x,
                     -tipUI.GetRectTransform().AnchoredPosition().y);
@@ -147,7 +147,7 @@ namespace XFramework
             else
             {
                 var lang = ConfigManager.Instance.Tables.Tblanguage;
-                JiYuUIHelper.ClearCommonResource();
+                UnicornUIHelper.ClearCommonResource();
 
                 await UIHelper.CreateAsync(UIType.UICommon_Resource, lang.Get("talent_tip_unlock").current);
             }
@@ -191,12 +191,12 @@ namespace XFramework
             switch (vector3.x)
             {
                 case 1:
-                    return ResourcesSingleton.Instance.UserInfo.RoleAssets.Energy >= vector3.z ? true : false;
+                    return ResourcesSingletonOld.Instance.UserInfo.RoleAssets.Energy >= vector3.z ? true : false;
                 case 2:
-                    return ResourcesSingleton.Instance.UserInfo.RoleAssets.Bitcoin >= vector3.z ? true : false;
+                    return ResourcesSingletonOld.Instance.UserInfo.RoleAssets.Bitcoin >= vector3.z ? true : false;
                 case 3:
 
-                    return ResourcesSingleton.Instance.UserInfo.RoleAssets.UsBill >= vector3.z ? true : false;
+                    return ResourcesSingletonOld.Instance.UserInfo.RoleAssets.UsBill >= vector3.z ? true : false;
             }
 
             return false;
@@ -213,11 +213,11 @@ namespace XFramework
             tipUI = default;
             UpdateBtnState(this, args.talentID, args.isDisplayArrow, args.isOnlyDisplay);
 
-            //JiYuTweenHelper.SetEaseAlphaAndPosB2U(this.GetFromReference(UICommon_Btn1.KMid), 0, 20, 0.35f, false, false);
+            //UnicornTweenHelper.SetEaseAlphaAndPosB2U(this.GetFromReference(UICommon_Btn1.KMid), 0, 20, 0.35f, false, false);
 
 
-            //JiYuUIHelper.ChangePaddingLR(this, 50, 0.2f);
-            //JiYuTweenHelper.ChangeSoftness(this, 300, 0.35f);
+            //UnicornUIHelper.ChangePaddingLR(this, 50, 0.2f);
+            //UnicornTweenHelper.ChangeSoftness(this, 300, 0.35f);
         }
     }
 }

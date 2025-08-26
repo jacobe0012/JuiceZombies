@@ -1,5 +1,5 @@
 //---------------------------------------------------------------------
-// JiYuStudio
+// UnicornStudio
 // Author: xxx
 // Time: #CreateTime#
 //---------------------------------------------------------------------
@@ -38,7 +38,7 @@ namespace XFramework
             this.GetFromReference(KBtn_Close)?.GetComponent<XButton>().onClick.Add(Close);
             this.GetFromReference(KTxt_Title)?.GetTextMeshPro() 
                 .SetTMPText(lang.Get("common_lack_3_title").current + lang.Get("common_demand").current);
-            long needCount = (long)tanlentMap[talentID].cost[0].z - ResourcesSingleton.Instance.UserInfo.RoleAssets.UsBill;
+            long needCount = (long)tanlentMap[talentID].cost[0].z - ResourcesSingletonOld.Instance.UserInfo.RoleAssets.UsBill;
             this.GetButton(KBtn_Common)?.OnClick.Add(GotoShop);
             this.GetFromReference(KTxt_Num).GetTextMeshPro().SetTMPText(needCount.ToString());
         }
@@ -46,7 +46,7 @@ namespace XFramework
         private void GotoShop()
         {
             //?????4
-            if (JiYuUIHelper.TryGetUI(UIType.UIPanel_JiyuGame, out UI jiyu))
+            if (UnicornUIHelper.TryGetUI(UIType.UIPanel_JiyuGame, out UI jiyu))
             {
                 var ui = jiyu as UIPanel_JiyuGame;
                 var tagMap = ConfigManager.Instance.Tables.Tbtag.DataMap;

@@ -1,5 +1,5 @@
 //---------------------------------------------------------------------
-// JiYuStudio
+// UnicornStudio
 // Author: 黄金国
 // Time: 2023-9-27
 //---------------------------------------------------------------------
@@ -46,14 +46,14 @@ namespace XFramework
 
         public async void Initialize()
         {
-            await JiYuUIHelper.InitBlur(this);
-            JiYuUIHelper.StartStopTime(false);
+            await UnicornUIHelper.InitBlur(this);
+            UnicornUIHelper.StartStopTime(false);
 
             AudioManager.Instance.PlayFModAudio(2203);
             language = ConfigManager.Instance.Tables.Tblanguage;
 
-            WebMessageHandlerOld.Instance.AddHandler(CMD.BATTLEGAIN, OnBattleGainResponse);
-            //NetWorkManager.Instance.SendMessage(CMD.BATTLEGAIN);
+            WebMessageHandlerOld.Instance.AddHandler(CMDOld.BATTLEGAIN, OnBattleGainResponse);
+            //NetWorkManager.Instance.SendMessage(CMDOld.BATTLEGAIN);
 
             QueryBattleGain();
             //初始化文本
@@ -71,15 +71,15 @@ namespace XFramework
 
             KBtn_Confirm.GetRectTransform().SetScale(Vector2.one);
             KBtn_DamageInfo.GetRectTransform().SetScale(Vector2.one);
-            JiYuTweenHelper.DoScaleTweenOnClickAndLongPress(KBtn_Confirm, () =>
+            UnicornTweenHelper.DoScaleTweenOnClickAndLongPress(KBtn_Confirm, () =>
             {
                 Close();
-                JiYuUIHelper.ExitRunTimeScene();
+                UnicornUIHelper.ExitRunTimeScene();
                 // var sceneController = Common.Instance.Get<SceneController>();
                 // var sceneObj = sceneController.LoadSceneAsync<MenuScene>(SceneName.UIMenu);
                 // SceneResManager.WaitForCompleted(sceneObj).ToCoroutine();
             });
-            JiYuTweenHelper.DoScaleTweenOnClickAndLongPress(KBtn_DamageInfo,
+            UnicornTweenHelper.DoScaleTweenOnClickAndLongPress(KBtn_DamageInfo,
                 () => { UIHelper.CreateAsync(UIType.UIPanel_BattleDamageInfo); });
         }
 
@@ -109,12 +109,12 @@ namespace XFramework
         void QueryBattleGain()
         {
             UnityHelper.OutPlayerGoldAndLiveTime(out var gameTimeData, out var playerData, out var chaStats);
-            var battleGain = JiYuUIHelper.GetBattleGain(gameTimeData.logicTime.elapsedTime, playerData, chaStats, true);
+            var battleGain = UnicornUIHelper.GetBattleGain(gameTimeData.logicTime.elapsedTime, playerData, chaStats, true);
             Log.Debug($"battleGain {battleGain}");
 
-            NetWorkManager.Instance.SendMessage(CMD.BATTLEGAIN, battleGain);
+            NetWorkManager.Instance.SendMessage(CMDOld.BATTLEGAIN, battleGain);
 
-            if (JiYuUIHelper.TryGetUI(UIType.UIPanel_RunTimeHUD, out var ui))
+            if (UnicornUIHelper.TryGetUI(UIType.UIPanel_RunTimeHUD, out var ui))
             {
                 var uis = ui as UIPanel_RunTimeHUD;
                 RepeatedField<int> skills = new RepeatedField<int>();
@@ -127,8 +127,8 @@ namespace XFramework
                 skills.AddRange(uis.displaySelectedTechs);
                 var battleLog = new BattleLog
                 {
-                    BattleId = ResourcesSingleton.Instance.battleData.battleId,
-                    LevelId = ResourcesSingleton.Instance.levelInfo.levelId,
+                    BattleId = ResourcesSingletonOld.Instance.battleData.battleId,
+                    LevelId = ResourcesSingletonOld.Instance.levelInfo.levelId,
                     PassLevel = 1,
                     Attr = chaStats.chaProperty.atk,
                     Hp = chaStats.chaProperty.maxHp,
@@ -138,7 +138,7 @@ namespace XFramework
                 };
                 battleLog.SkillList.AddRange(skills);
 
-                NetWorkManager.Instance.SendMessage(CMD.SETBATTLEINFO, battleLog);
+                NetWorkManager.Instance.SendMessage(CMDOld.SETBATTLEINFO, battleLog);
             }
 
             //设置杀敌数
@@ -146,11 +146,11 @@ namespace XFramework
                 .SetTMPText(playerData.playerData.killEnemy.ToString());
             //设置章节id
             var tblevel = ConfigManager.Instance.Tables.Tblevel;
-            if (tblevel[ResourcesSingleton.Instance.levelInfo.levelId].type == 1) //如果是主线章节的话
+            if (tblevel[ResourcesSingletonOld.Instance.levelInfo.levelId].type == 1) //如果是主线章节的话
             {
                 this.GetFromReference(KLevelText).GetTextMeshPro().SetTMPText(
                     language.Get("common_chapter_name").current + " "
-                                                                + tblevel[ResourcesSingleton.Instance.levelInfo.levelId]
+                                                                + tblevel[ResourcesSingletonOld.Instance.levelInfo.levelId]
                                                                     .num.ToString());
             }
             else
@@ -178,7 +178,7 @@ namespace XFramework
             //    this.GetFromReference(KNewRecordTxt).SetActive(false);
             //}
 
-            var rewards = JiYuUIHelper.TurnStrReward2List(levelInfo.Args);
+            var rewards = UnicornUIHelper.TurnStrReward2List(levelInfo.Args);
             InitReWardItem(rewards);
         }
 
@@ -191,10 +191,10 @@ namespace XFramework
             foreach (var reward in args)
             {
                 var ui = await list.CreateWithUITypeAsync(UIType.UICommon_RewardItem, reward, false);
-                JiYuUIHelper.SetRewardOnClick(reward, ui);
+                UnicornUIHelper.SetRewardOnClick(reward, ui);
             }
 
-            list.Sort(JiYuUIHelper.RewardUIComparer);
+            list.Sort(UnicornUIHelper.RewardUIComparer);
 
             // list.Sort((obj11, obj21) =>
             // {
@@ -216,7 +216,7 @@ namespace XFramework
             //     var obj2rewardy = (int)obj2.y;
             //     var obj2rewardz = (int)obj2.z;
             //
-            //     if (JiYuUIHelper.IsResourceReward(obj1) && JiYuUIHelper.IsResourceReward(obj2))
+            //     if (UnicornUIHelper.IsResourceReward(obj1) && UnicornUIHelper.IsResourceReward(obj2))
             //     {
             //         if (obj1rewardx < obj2rewardx)
             //             return -1;
@@ -224,9 +224,9 @@ namespace XFramework
             //             return 1;
             //     }
             //
-            //     if (JiYuUIHelper.IsResourceReward(obj1) && !JiYuUIHelper.IsResourceReward(obj2))
+            //     if (UnicornUIHelper.IsResourceReward(obj1) && !UnicornUIHelper.IsResourceReward(obj2))
             //         return -1;
-            //     else if (!JiYuUIHelper.IsResourceReward(obj1) && JiYuUIHelper.IsResourceReward(obj2))
+            //     else if (!UnicornUIHelper.IsResourceReward(obj1) && UnicornUIHelper.IsResourceReward(obj2))
             //         return 1;
             //     // if (obj1rewardx != 5 && obj2rewardx == 5)
             //     //     return -1;
@@ -253,11 +253,11 @@ namespace XFramework
             //
             //     if (obj1rewardx == 11 && obj2rewardx == 11)
             //     {
-            //         if (!JiYuUIHelper.IsCompositeEquipReward(obj1) &&
-            //             JiYuUIHelper.IsCompositeEquipReward(obj2))
+            //         if (!UnicornUIHelper.IsCompositeEquipReward(obj1) &&
+            //             UnicornUIHelper.IsCompositeEquipReward(obj2))
             //             return -1;
-            //         else if (JiYuUIHelper.IsCompositeEquipReward(obj1) &&
-            //                  !JiYuUIHelper.IsCompositeEquipReward(obj2))
+            //         else if (UnicornUIHelper.IsCompositeEquipReward(obj1) &&
+            //                  !UnicornUIHelper.IsCompositeEquipReward(obj2))
             //             return 1;
             //
             //         if (equip_data.Get(obj1rewardy).quality >
@@ -300,7 +300,7 @@ namespace XFramework
         {
             //初始化成功标题
             this.GetFromReference(KSuccessTitle).GetXImage()
-                .SetSprite(JiYuUIHelper.GetL10NPicName("level_success"), true);
+                .SetSprite(UnicornUIHelper.GetL10NPicName("level_success"), true);
             //初始化新纪录文本
             //this.GetFromReference(KNewRecordTxt).GetTextMeshPro().SetTMPText(language.Get("level_new_record").current);
             this.GetFromReference(KNewRecordTxt).SetActive(false);
@@ -317,7 +317,7 @@ namespace XFramework
             //读取level表
             var tblevel = ConfigManager.Instance.Tables.Tblevel;
             //读取关卡ID
-            publicLevelID = ResourcesSingleton.Instance.levelInfo.levelId;
+            publicLevelID = ResourcesSingletonOld.Instance.levelInfo.levelId;
             //设置章节id
             var level = tblevel.GetOrDefault(publicLevelID);
             if (level.type == 1)
@@ -351,14 +351,14 @@ namespace XFramework
             //     ui.SetParent(this, true);
             //     uiList.Add(ui);
             // }
-            JiYuUIHelper.ForceRefreshLayout(GetFromReference(KMoney));
-            JiYuUIHelper.ForceRefreshLayout(GetFromReference(KKillRecordImage));
+            UnicornUIHelper.ForceRefreshLayout(GetFromReference(KMoney));
+            UnicornUIHelper.ForceRefreshLayout(GetFromReference(KKillRecordImage));
         }
 
         protected override void OnClose()
         {
-            WebMessageHandlerOld.Instance.RemoveHandler(CMD.BATTLEGAIN, OnBattleGainResponse);
-            JiYuUIHelper.StartStopTime(true);
+            WebMessageHandlerOld.Instance.RemoveHandler(CMDOld.BATTLEGAIN, OnBattleGainResponse);
+            UnicornUIHelper.StartStopTime(true);
 
             base.OnClose();
         }

@@ -1,5 +1,5 @@
 //---------------------------------------------------------------------
-// JiYuStudio
+// UnicornStudio
 // Author: xxx
 // Time: #CreateTime#
 //---------------------------------------------------------------------
@@ -66,7 +66,7 @@ namespace XFramework
             var icon = this.GetFromReference(KIcon);
             icon.GetImage().SetSpriteAsync(tbtag.DataList[this.sort - 1].icon, false).Forget();
           
-            //JiYuTweenHelper.DoScaleTweenOnClickAndLongPress(this);
+            //UnicornTweenHelper.DoScaleTweenOnClickAndLongPress(this);
 
 
             var uiBtn = KImg_Btn.GetXButton();
@@ -78,27 +78,27 @@ namespace XFramework
 
             uiBtn.SetPointerActive(true);
 
-            uiBtn.SetLongPressInterval(JiYuTweenHelper.LongPressInterval);
+            uiBtn.SetLongPressInterval(UnicornTweenHelper.LongPressInterval);
 
-            uiBtn.SetMaxLongPressCount(JiYuTweenHelper.MaxLongPressCount);
+            uiBtn.SetMaxLongPressCount(UnicornTweenHelper.MaxLongPressCount);
 
 
             uiBtn.OnClick.Add(() =>
             {
-                if (!ResourcesSingleton.Instance.settingData.UnlockMap.ContainsKey(this.tagId))
+                if (!ResourcesSingletonOld.Instance.settingData.UnlockMap.ContainsKey(this.tagId))
                 {
                     return;
                 }
 
                 //uiBtn.SetEnabled(false);
-                KContent.GetRectTransform().DoScale(new Vector3(0.85f, 1.445f, 1), JiYuTweenHelper.OnClickAnimTime)
+                KContent.GetRectTransform().DoScale(new Vector3(0.85f, 1.445f, 1), UnicornTweenHelper.OnClickAnimTime)
                     .AddOnCompleted(() =>
                     {
-                        KContent.GetRectTransform().DoScale(new Vector3(1.1f, 1.87f, 1), JiYuTweenHelper.OnClickAnimTime)
+                        KContent.GetRectTransform().DoScale(new Vector3(1.1f, 1.87f, 1), UnicornTweenHelper.OnClickAnimTime)
                             .AddOnCompleted(() =>
                             {
                                 KContent.GetRectTransform().DoScale(new Vector3(1, 1.7f, 1),
-                                    JiYuTweenHelper.OnClickAnimTime / 2f);
+                                    UnicornTweenHelper.OnClickAnimTime / 2f);
                                 //uiBtn.SetEnabled(true);
                             });
                     });
@@ -106,7 +106,7 @@ namespace XFramework
             });
             uiBtn.OnLongPress.Add((f) =>
             {
-                if (!ResourcesSingleton.Instance.settingData.UnlockMap.ContainsKey(this.tagId))
+                if (!ResourcesSingletonOld.Instance.settingData.UnlockMap.ContainsKey(this.tagId))
                 {
                     return;
                 }
@@ -115,11 +115,11 @@ namespace XFramework
 
                 if (lastId == this.sort)
                 {
-                    KContent.GetRectTransform().DoScale(new Vector3(0.85f, 1.445f, 1), JiYuTweenHelper.OnClickAnimTime);
+                    KContent.GetRectTransform().DoScale(new Vector3(0.85f, 1.445f, 1), UnicornTweenHelper.OnClickAnimTime);
                 }
                 else
                 {
-                    KContent.GetRectTransform().DoScale(new Vector3(0.85f, 0.85f, 1), JiYuTweenHelper.OnClickAnimTime);
+                    KContent.GetRectTransform().DoScale(new Vector3(0.85f, 0.85f, 1), UnicornTweenHelper.OnClickAnimTime);
                 }
 
                 uiBtn.OnPointerExit.Add(() =>
@@ -127,22 +127,22 @@ namespace XFramework
                     var lastId = this.GetParent<UIPanel_JiyuGame>().GetLastTabId();
                     if (lastId == this.sort)
                     {
-                        KContent.GetRectTransform().DoScale(new Vector3(1.1f, 1.87f, 1), JiYuTweenHelper.OnClickAnimTime)
+                        KContent.GetRectTransform().DoScale(new Vector3(1.1f, 1.87f, 1), UnicornTweenHelper.OnClickAnimTime)
                             .AddOnCompleted(
                                 () =>
                                 {
                                     KContent.GetRectTransform().DoScale(new Vector3(1, 1.7f, 1),
-                                        JiYuTweenHelper.OnClickAnimTime / 2f);
+                                        UnicornTweenHelper.OnClickAnimTime / 2f);
                                 });
                     }
                     else
                     {
-                        KContent.GetRectTransform().DoScale(new Vector3(1.1f, 1.1f, 1), JiYuTweenHelper.OnClickAnimTime)
+                        KContent.GetRectTransform().DoScale(new Vector3(1.1f, 1.1f, 1), UnicornTweenHelper.OnClickAnimTime)
                             .AddOnCompleted(
                                 () =>
                                 {
                                     KContent.GetRectTransform().DoScale(new Vector3(1, 1f, 1),
-                                        JiYuTweenHelper.OnClickAnimTime / 2f);
+                                        UnicornTweenHelper.OnClickAnimTime / 2f);
                                 });
                     }
                 });
@@ -150,7 +150,7 @@ namespace XFramework
 
             uiBtn.OnLongPressEnd.Add((f) =>
             {
-                if (!ResourcesSingleton.Instance.settingData.UnlockMap.ContainsKey(this.tagId))
+                if (!ResourcesSingletonOld.Instance.settingData.UnlockMap.ContainsKey(this.tagId))
                 {
                     return;
                 }
@@ -158,22 +158,22 @@ namespace XFramework
                 var lastId = this.GetParent<UIPanel_JiyuGame>().GetLastTabId();
                 if (lastId == this.sort)
                 {
-                    KContent.GetRectTransform().DoScale(new Vector3(1.1f, 1.87f, 1), JiYuTweenHelper.OnClickAnimTime)
+                    KContent.GetRectTransform().DoScale(new Vector3(1.1f, 1.87f, 1), UnicornTweenHelper.OnClickAnimTime)
                         .AddOnCompleted(
                             () =>
                             {
                                 KContent.GetRectTransform().DoScale(new Vector3(1, 1.7f, 1),
-                                    JiYuTweenHelper.OnClickAnimTime / 2f);
+                                    UnicornTweenHelper.OnClickAnimTime / 2f);
                             });
                 }
                 else
                 {
-                    KContent.GetRectTransform().DoScale(new Vector3(1.1f, 1.1f, 1), JiYuTweenHelper.OnClickAnimTime)
+                    KContent.GetRectTransform().DoScale(new Vector3(1.1f, 1.1f, 1), UnicornTweenHelper.OnClickAnimTime)
                         .AddOnCompleted(
                             () =>
                             {
                                 KContent.GetRectTransform().DoScale(new Vector3(1, 1f, 1),
-                                    JiYuTweenHelper.OnClickAnimTime / 2f);
+                                    UnicornTweenHelper.OnClickAnimTime / 2f);
                             });
                 }
             });
@@ -186,7 +186,7 @@ namespace XFramework
             var uiBtn = this.GetXButton();
             //uiBtn.SetEnabled(true);
             icon.GetImage().SetAlpha(1f);
-            if (!ResourcesSingleton.Instance.settingData.UnlockMap.ContainsKey(this.tagId))
+            if (!ResourcesSingletonOld.Instance.settingData.UnlockMap.ContainsKey(this.tagId))
             {
                 //uiBtn.SetEnabled(false);
                 icon.GetImage().SetAlpha(0.5f);

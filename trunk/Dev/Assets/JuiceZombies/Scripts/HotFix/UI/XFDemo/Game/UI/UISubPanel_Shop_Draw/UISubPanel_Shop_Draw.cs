@@ -1,5 +1,5 @@
 ﻿//---------------------------------------------------------------------
-// JiYuStudio
+// UnicornStudio
 // Author: xxx
 // Time: #CreateTime#
 //---------------------------------------------------------------------
@@ -106,7 +106,7 @@ namespace XFramework
             }
 
             v3HelpList.Remove(v3Help);
-            JiYuUIHelper.AddReward(v3HelpList, false,false);
+            UnicornUIHelper.AddReward(v3HelpList, false,false);
             AddMoneyReward(v3HelpList);
 
 
@@ -137,7 +137,7 @@ namespace XFramework
             DisplayInit();
           
             var buyBtn = this.GetFromReference(KBtn_Common);
-            JiYuTweenHelper.DoScaleTweenOnClickAndLongPress(buyBtn, BuyBtnOnClick);
+            UnicornTweenHelper.DoScaleTweenOnClickAndLongPress(buyBtn, BuyBtnOnClick);
 
             this.GetFromReference(KBg).GetXButton().OnClick.Add(async () =>
             {
@@ -176,10 +176,10 @@ namespace XFramework
             var oneReward = GetFromReference(KPos_Reward).GetList().Children[0] as UICommon_RewardItem;
             oneReward.SetActive(true);
             GetFromReference(KBg_txt).SetActive(true);
-            JiYuTweenHelper.SetEaseAlphaAndScaleWithBounce(GetFromReference(KBg_txt), 0.3f, false, 2, 1).Forget();
-            JiYuTweenHelper.SetEaseAlphaAndScaleWithBounce(oneReward.GetFromReference(UICommon_RewardItem.KBtn_Item), 0.3f, false, 2, 1).Forget();
+            UnicornTweenHelper.SetEaseAlphaAndScaleWithBounce(GetFromReference(KBg_txt), 0.3f, false, 2, 1).Forget();
+            UnicornTweenHelper.SetEaseAlphaAndScaleWithBounce(oneReward.GetFromReference(UICommon_RewardItem.KBtn_Item), 0.3f, false, 2, 1).Forget();
             UniTask.Delay(200,cancellationToken:cts.Token);
-            JiYuTweenHelper.SetEaseAlphaAndPosB2U(GetFromReference(KBtn_Container), -280f,cancellationToken:cts.Token,duration:0.2f);
+            UnicornTweenHelper.SetEaseAlphaAndPosB2U(GetFromReference(KBtn_Container), -280f,cancellationToken:cts.Token,duration:0.2f);
         }
         private async void DisplayInit()
         {
@@ -190,8 +190,8 @@ namespace XFramework
 
             #region 采集数据
 
-            diaNum = ResourcesSingleton.Instance.UserInfo.RoleAssets.Bitcoin;
-            if (ResourcesSingleton.Instance.items.TryGetValue(tbdraw_Box[BoxID].item, out long value))
+            diaNum = ResourcesSingletonOld.Instance.UserInfo.RoleAssets.Bitcoin;
+            if (ResourcesSingletonOld.Instance.items.TryGetValue(tbdraw_Box[BoxID].item, out long value))
             {
                 keyNum = value;
             }
@@ -334,7 +334,7 @@ namespace XFramework
                     uiRe.GetFromReference(UICommon_RewardItem.KBtn_Item).GetComponent<CanvasGroup>().alpha = 0;
 
                 }
-            JiYuUIHelper.ForceRefreshLayout(GetFromReference(KPos_Reward));
+            UnicornUIHelper.ForceRefreshLayout(GetFromReference(KPos_Reward));
            await SetEffectForItem(list);
             isCancelClick = true;
            
@@ -355,14 +355,14 @@ namespace XFramework
                     uiRe.GetFromReference(UICommon_RewardItem.KEffect).SetActive(true);
                     this.GetFromReference(KBtn_Animation).SetActive(true);
                     var equip = v3List[i + 1];
-                    JiYuUIHelper.SetIconOnly(equip, this.GetFromReference(KImgrotateCenter));
+                    UnicornUIHelper.SetIconOnly(equip, this.GetFromReference(KImgrotateCenter));
                     this.GetButton(KBtn_Animation)?.OnClick.Clear();
                     this.GetButton(KBtn_Animation).OnClick.Add(CloseDisplayS);
                     await WaitForButtonClickAsync(this.GetFromReference(KBtn_Animation));
                    
                     try
                     {
-                        await JiYuTweenHelper.SetScaleWithBounce(uiRe.GetFromReference(UICommon_RewardItem.KBtn_Item), 0.15f, 4f, 4, 1, cancellationToken: cts.Token);
+                        await UnicornTweenHelper.SetScaleWithBounce(uiRe.GetFromReference(UICommon_RewardItem.KBtn_Item), 0.15f, 4f, 4, 1, cancellationToken: cts.Token);
                         await UniTask.Delay(250, cancellationToken: cts.Token);
                        
                     }
@@ -383,10 +383,10 @@ namespace XFramework
 
                     try
                     {
-                        JiYuTweenHelper.SetEaseAlphaAndPosRtoL(uiRe.GetFromReference(UICommon_RewardItem.KBtn_Item), 0, 200, cts.Token, 0.2f - i * 0.02f, false, false);
-                        JiYuTweenHelper.SetAngleRotateXZ(uiRe.GetFromReference(UICommon_RewardItem.KBtn_Item), 0, 0, cts.Token, 80, 25, 0.2f);
-                        //JiYuUIHelper.SetAngleRotateX(uiRe.GetFromReference(UICommon_RewardItem.KBtn_Item), 0, 80, 0.2f);
-                        //JiYuTweenHelper.SetAngleRotate(uiRe.GetFromReference(UICommon_RewardItem.KBtn_Item), 0, 25, 0.2f);
+                        UnicornTweenHelper.SetEaseAlphaAndPosRtoL(uiRe.GetFromReference(UICommon_RewardItem.KBtn_Item), 0, 200, cts.Token, 0.2f - i * 0.02f, false, false);
+                        UnicornTweenHelper.SetAngleRotateXZ(uiRe.GetFromReference(UICommon_RewardItem.KBtn_Item), 0, 0, cts.Token, 80, 25, 0.2f);
+                        //UnicornUIHelper.SetAngleRotateX(uiRe.GetFromReference(UICommon_RewardItem.KBtn_Item), 0, 80, 0.2f);
+                        //UnicornTweenHelper.SetAngleRotate(uiRe.GetFromReference(UICommon_RewardItem.KBtn_Item), 0, 25, 0.2f);
                         await UniTask.Delay(100, cancellationToken: cts.Token);
                     }
                     catch (OperationCanceledException)
@@ -638,7 +638,7 @@ namespace XFramework
             }
 
             v3HelpList.Remove(v3Help);
-            JiYuUIHelper.AddReward(v3HelpList, false,false);
+            UnicornUIHelper.AddReward(v3HelpList, false,false);
             AddMoneyReward(v3HelpList);
             if (RewardList.Count == 2)
             {
@@ -656,21 +656,21 @@ namespace XFramework
             //前端缓存
             if (isKey == true && isDia == false)
             {
-                ResourcesSingleton.Instance.items[tbdraw_Box[BoxID].item] -= DrawCount;
+                ResourcesSingletonOld.Instance.items[tbdraw_Box[BoxID].item] -= DrawCount;
             }
             else if (isKey == false && isDia == true)
             {
                 if (DrawCount == 1)
                 {
-                    ResourcesSingleton.Instance.UserInfo.RoleAssets.Bitcoin -= tbdraw_Box[BoxID].one;
+                    ResourcesSingletonOld.Instance.UserInfo.RoleAssets.Bitcoin -= tbdraw_Box[BoxID].one;
                 }
                 else if (DrawCount == 10)
                 {
-                    ResourcesSingleton.Instance.UserInfo.RoleAssets.Bitcoin -= tbdraw_Box[BoxID].ten;
+                    ResourcesSingletonOld.Instance.UserInfo.RoleAssets.Bitcoin -= tbdraw_Box[BoxID].ten;
                 }
             }
 
-            ResourcesSingleton.Instance.UpdateResourceUI();
+            ResourcesSingletonOld.Instance.UpdateResourceUI();
 
             //设置父界面文本
             var box1102 = this.GetParent<UISubPanel_Shop_1102_SBox>();
@@ -726,7 +726,7 @@ namespace XFramework
             }
 
             v3HelpList.Remove(v3Help);
-            JiYuUIHelper.AddReward(v3HelpList, false,false);
+            UnicornUIHelper.AddReward(v3HelpList, false,false);
             AddMoneyReward(v3HelpList);
             if (RewardList.Count == 2)
             {
@@ -744,11 +744,11 @@ namespace XFramework
             //前端缓存
             if (tbdraw_Box.Get(BoxID).limitType == 3 || tbdraw_Box.Get(BoxID).limitType == 4)
             {
-                for (int i = 0; i < ResourcesSingleton.Instance.shopMap.IndexModuleMap[1101].BoxInfoList.Count; i++)
+                for (int i = 0; i < ResourcesSingletonOld.Instance.shopMap.IndexModuleMap[1101].BoxInfoList.Count; i++)
                 {
-                    if (ResourcesSingleton.Instance.shopMap.IndexModuleMap[1101].BoxInfoList[i].Id == BoxID)
+                    if (ResourcesSingletonOld.Instance.shopMap.IndexModuleMap[1101].BoxInfoList[i].Id == BoxID)
                     {
-                        ResourcesSingleton.Instance.shopMap.IndexModuleMap[1101].BoxInfoList[i].DrawCount -= DrawCount;
+                        ResourcesSingletonOld.Instance.shopMap.IndexModuleMap[1101].BoxInfoList[i].DrawCount -= DrawCount;
                         break;
                     }
                 }
@@ -756,21 +756,21 @@ namespace XFramework
 
             if (isKey == true && isDia == false)
             {
-                ResourcesSingleton.Instance.items[tbdraw_Box[BoxID].item] -= DrawCount;
+                ResourcesSingletonOld.Instance.items[tbdraw_Box[BoxID].item] -= DrawCount;
             }
             else if (isKey == false && isDia == true)
             {
                 if (DrawCount == 1)
                 {
-                    ResourcesSingleton.Instance.UserInfo.RoleAssets.Bitcoin -= tbdraw_Box[BoxID].one;
+                    ResourcesSingletonOld.Instance.UserInfo.RoleAssets.Bitcoin -= tbdraw_Box[BoxID].one;
                 }
                 else if (DrawCount == 10)
                 {
-                    ResourcesSingleton.Instance.UserInfo.RoleAssets.Bitcoin -= tbdraw_Box[BoxID].ten;
+                    ResourcesSingletonOld.Instance.UserInfo.RoleAssets.Bitcoin -= tbdraw_Box[BoxID].ten;
                 }
             }
 
-            ResourcesSingleton.Instance.UpdateResourceUI();
+            ResourcesSingletonOld.Instance.UpdateResourceUI();
 
             //设置父界面文本
             var box1102 = this.GetParent<UISubPanel_Shop_1102_SBox>();
@@ -828,7 +828,7 @@ namespace XFramework
             }
 
             v3HelpList.Remove(v3Help);
-            JiYuUIHelper.AddReward(v3HelpList, false,false);
+            UnicornUIHelper.AddReward(v3HelpList, false,false);
             AddMoneyReward(v3HelpList);
             if (RewardList.Count == 2)
             {
@@ -846,21 +846,21 @@ namespace XFramework
             //前端缓存
             if (isKey == true && isDia == false)
             {
-                ResourcesSingleton.Instance.items[tbdraw_Box[BoxID].item] -= DrawCount;
+                ResourcesSingletonOld.Instance.items[tbdraw_Box[BoxID].item] -= DrawCount;
             }
             else if (isKey == false && isDia == true)
             {
                 if (DrawCount == 1)
                 {
-                    ResourcesSingleton.Instance.UserInfo.RoleAssets.Bitcoin -= tbdraw_Box[BoxID].one;
+                    ResourcesSingletonOld.Instance.UserInfo.RoleAssets.Bitcoin -= tbdraw_Box[BoxID].one;
                 }
                 else if (DrawCount == 10)
                 {
-                    ResourcesSingleton.Instance.UserInfo.RoleAssets.Bitcoin -= tbdraw_Box[BoxID].ten;
+                    ResourcesSingletonOld.Instance.UserInfo.RoleAssets.Bitcoin -= tbdraw_Box[BoxID].ten;
                 }
             }
 
-            ResourcesSingleton.Instance.UpdateResourceUI();
+            ResourcesSingletonOld.Instance.UpdateResourceUI();
 
             //设置父界面文本
             var box1102 = this.GetParent<UISubPanel_Shop_1102_SBox>();
@@ -897,7 +897,7 @@ namespace XFramework
             this.GetFromReference(KBtn_Container).GetRectTransform().SetWidth(btnW);
             //this.GetFromReference(KPos_Btn).GetRectTransform().SetWidth(btnW);
             //LayoutRebuilder.ForceRebuildLayoutImmediate(this.GetFromReference(KPos_Btn).GetComponent<RectTransform>());
-            JiYuUIHelper.ForceRefreshLayout(GetFromReference(KPosLeftRight));
+            UnicornUIHelper.ForceRefreshLayout(GetFromReference(KPosLeftRight));
         }
 
         private void AddMoneyReward(List<Vector3> vector3s)
@@ -914,7 +914,7 @@ namespace XFramework
             Debug.Log("money: " + money);
             Debug.Log("vector3s.Count: " + vector3s.Count);
             Vector3 reward = new Vector3(3, 0, money * vector3s.Count);
-            JiYuUIHelper.AddReward(reward, false).Forget();
+            UnicornUIHelper.AddReward(reward, false).Forget();
         }
 
         private void DestroyItem()
@@ -928,7 +928,7 @@ namespace XFramework
             {
                 if (tbdraw_Box.Get(BoxID).limitType == 3 || tbdraw_Box.Get(BoxID).limitType == 4)
                 {
-                    var boxList = ResourcesSingleton.Instance.shopMap.IndexModuleMap[1101].BoxInfoList;
+                    var boxList = ResourcesSingletonOld.Instance.shopMap.IndexModuleMap[1101].BoxInfoList;
                     foreach (var b in boxList)
                     {
                         if (b.Id == BoxID)
@@ -945,13 +945,13 @@ namespace XFramework
                     }
                 }
             }
-            //var boxList = ResourcesSingleton.Instance.shopMap.IndexModuleMap[1101].
+            //var boxList = ResourcesSingletonOld.Instance.shopMap.IndexModuleMap[1101].
         }
 
         protected override void OnClose()
         {
             cts.Cancel();
-            NetWorkManager.Instance.SendMessage(CMD.QUERYEQUIP);
+            NetWorkManager.Instance.SendMessage(CMDOld.QUERYEQUIP);
             DestroyItem();
             base.OnClose();
         }

@@ -1,5 +1,5 @@
 //---------------------------------------------------------------------
-// JiYuStudio
+// UnicornStudio
 // Author: xxx
 // Time: #CreateTime#
 //---------------------------------------------------------------------
@@ -43,11 +43,11 @@ namespace XFramework
         }
 
         /// <summary>
-        /// ¿ªÆô¶¨Ê±Æ÷
+        /// ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ê±ï¿½ï¿½
         /// </summary>
         public void StartTimer()
         {
-            //¿ªÆôÒ»¸öÃ¿Ö¡Ö´ÐÐµÄÈÎÎñ£¬Ïàµ±ÓÚUpdate
+            //ï¿½ï¿½ï¿½ï¿½Ò»ï¿½ï¿½Ã¿Ö¡Ö´ï¿½Ðµï¿½ï¿½ï¿½ï¿½ï¿½ï¿½àµ±ï¿½ï¿½Update
             var timerMgr = TimerManager.Instance;
             timerId = timerMgr.RepeatedFrameTimer(Update);
         }
@@ -60,7 +60,7 @@ namespace XFramework
         }
 
         /// <summary>
-        /// ÒÆ³ý¶¨Ê±Æ÷
+        /// ï¿½Æ³ï¿½ï¿½ï¿½Ê±ï¿½ï¿½
         /// </summary>
         public void RemoveTimer()
         {
