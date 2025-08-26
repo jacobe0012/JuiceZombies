@@ -121,6 +121,7 @@ public struct ConfigData
     public ConfigTbgoodss configTbgoodss;
     public ConfigTbItemss configTbItemss;
     public ConfigTbmonthCards configTbmonthCards;
+    public ConfigTbheroBoxs configTbheroBoxs;
     public ConfigTbachieves configTbachieves;
     public ConfigTbachieve_groups configTbachieve_groups;
     public ConfigTbchallenges configTbchallenges;
@@ -840,6 +841,13 @@ public static BlobAssetReference<ConfigData> CreateBlob(Tables tables)
     for (var i = 0; i < tables.TbmonthCard.DataList.Count; i++)
     {   
         ConfigTbmonthCard.Create(i,ref builder,ref configTbmonthCards,tables);
+    }
+    BlobBuilderArray<ConfigTbheroBox> configTbheroBoxs = builder.Allocate(
+        ref root.configTbheroBoxs.configTbheroBoxs,
+        tables.TbheroBox.DataList.Count);
+    for (var i = 0; i < tables.TbheroBox.DataList.Count; i++)
+    {   
+        ConfigTbheroBox.Create(i,ref builder,ref configTbheroBoxs,tables);
     }
     BlobBuilderArray<ConfigTbachieve> configTbachieves = builder.Allocate(
         ref root.configTbachieves.configTbachieves,

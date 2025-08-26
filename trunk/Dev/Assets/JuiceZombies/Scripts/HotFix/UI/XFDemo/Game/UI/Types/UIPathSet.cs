@@ -373,6 +373,8 @@ namespace XFramework
 
 		public const string UIItemMonCardIDes = "ItemMonCardIDes";
 
+		public const string UIItemBoxNormal = "ItemBoxNormal";
+
         #endregion 1
 
 

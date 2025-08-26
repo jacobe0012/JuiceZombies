@@ -353,6 +353,8 @@ namespace XFramework
 
 		public const string UIItemMonCardIDes = nameof(XFramework.UIItemMonCardIDes);
 
+		public const string UIItemBoxNormal = nameof(XFramework.UIItemBoxNormal);
+
         #endregion 1
 
 
