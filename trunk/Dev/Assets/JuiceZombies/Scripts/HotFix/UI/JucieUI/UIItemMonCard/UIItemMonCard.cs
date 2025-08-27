@@ -79,8 +79,8 @@ namespace XFramework
             tbItems = ConfigManager.Instance.Tables.TbItems;
             switch (type)
             {
-                //type 1 月卡 2免广告卡
-                case 1:
+                //type 1免广告卡  2 月卡
+                case 2:
                     KBg.GetImage().SetColor(monthColorBg);
                     KGradient_Bottom.GetImage().SetColor(monthColorBg);
                     KBorder.GetImage().SetColor(monthColorBorder);
@@ -90,7 +90,7 @@ namespace XFramework
                     NetWorkManager.Instance.SendMsg(CMD.Shop.C2S_QUERYSHOP);
                     Log.Debug("SendMsg", Color.cyan);
                     break;
-                case 2:
+                case 1:
                     KBg.GetImage().SetColor(noAdColorBg);
                     KGradient_Bottom.GetImage().SetColor(noAdColorBg);
                     KBorder.GetImage().SetColor(noAdColorBorder);
@@ -131,13 +131,13 @@ namespace XFramework
 
         private void OnRequreMonthTime(object sender, WebMsgHandler.Execute e)
         {
-            var data1 = NetWorkManager.Instance.UnPackMsg<int>(e, out var _);
-            Log.Debug($"OnRequreMonthTime1:{data1}");
+
             var data = NetWorkManager.Instance.UnPackMsg<S2C_ShopData>(e, out var _);
             ResourcesSingletonOld.Instance.monCardTime = data.buyedMonthCardms;
             //var receivedMessage = MessagePackSerializer.Deserialize<MyMessage>(e.data, options);
 
             Log.Debug($"OnRequreMonthTime:{data.buyedMonthCardms}");
+            ResourcesSingletonOld.Instance.monCardTime=data.buyedMonthCardms/(1000*60*60*24);
             var time = ResourcesSingletonOld.Instance.monCardTime;
             if (time <= 0)
             {

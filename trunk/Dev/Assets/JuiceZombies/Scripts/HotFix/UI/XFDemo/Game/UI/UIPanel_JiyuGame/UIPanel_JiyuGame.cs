@@ -585,7 +585,7 @@ namespace XFramework
                 case 3:
                     ui = await UIHelper.CreateAsyncNew(this, UIType.UIPanel_Main, tran);
                     var list = ui.GetFromReference(UIPanel_Main.Ktest).GetList();
-                    list.CreateWithUIType<int>(UIType.UIItemMonCard, 1, false);
+                    list.CreateWithUIType<int>(UIType.UIItemMonCard, 2, false);
                     break;
                 case 4:
                     var maxChapterID = ResourcesSingletonOld.Instance.levelInfo.maxPassChapterID;

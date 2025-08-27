@@ -375,6 +375,8 @@ namespace XFramework
 
 		public const string UIItemBoxNormal = "ItemBoxNormal";
 
+		public const string UIJuiceCommonBtn = "JuiceCommonBtn";
+
         #endregion 1
 
 

@@ -74,7 +74,9 @@ namespace XFramework
                     KBorder.GetImage().SetColor("46FFA1");
                     break;
 				case 3:
-				break;
+                    KBg_Mask.GetImage().SetColor("FFDD00");
+                    KBorder.GetImage().SetColor("FDF9DD");
+                    break;
 				default:
 				break;
             }

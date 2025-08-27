@@ -355,6 +355,8 @@ namespace XFramework
 
 		public const string UIItemBoxNormal = nameof(XFramework.UIItemBoxNormal);
 
+		public const string UIJuiceCommonBtn = nameof(XFramework.UIJuiceCommonBtn);
+
         #endregion 1
 
 
