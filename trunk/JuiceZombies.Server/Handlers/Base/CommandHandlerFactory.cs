@@ -20,7 +20,7 @@ public class CommandHandlerFactory
     private readonly IMapper _mapper;
     private readonly MyPostgresDbContext _context;
 
-    public CommandHandlerFactory(IMapper mapper,MyPostgresDbContext context)
+    public CommandHandlerFactory(IMapper mapper, MyPostgresDbContext context)
     {
         _mapper = mapper;
         _context = context;
@@ -32,12 +32,12 @@ public class CommandHandlerFactory
     /// <param name="commandType">消息类型（如：typeof(C2S_Login)）</param>
     /// <param name="serviceProvider">依赖注入容器</param>
     /// <returns>处理程序实例</returns>
-    public ICommandHandler CreateHandler(string command)
+    public ICommandHandler CreateHandler(int command)
     {
         return command switch
         {
-            "C2S_LoginRequest" => new LoginCommandHandler(_mapper,_context),
-            "C2S_QueryShop" => new QueryGameShopHandler(_mapper,_context),
+            CMD.Auth.C2S_LOGIN => new LoginCommandHandler(_mapper, _context),
+            CMD.Shop.C2S_QUERYSHOP => new QueryGameShopHandler(_mapper, _context),
             // CMD.QUERYRESOURCE => new QueryPlayerResourceHandler(_redis, _connections),
             // CMD.RECEIVEDAILYSIGN => new ReceiveDailySignHandler(_redis, _connections),
             // CMD.RECEIVEACHIEVEITEM => new ReceiveAchieveItemHandler(_redis, _connections),

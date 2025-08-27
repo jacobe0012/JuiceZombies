@@ -4,7 +4,7 @@ using MessagePack;
 namespace HotFix_UI
 {
     [MessagePackObject]
-    public class S2C_UserResData : IMessagePack
+    public class S2C_UserResData
     {
         /// <summary>
         /// 用户昵称

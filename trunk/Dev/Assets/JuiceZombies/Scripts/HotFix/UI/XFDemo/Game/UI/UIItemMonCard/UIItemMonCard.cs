@@ -86,8 +86,8 @@ namespace XFramework
                     KBorder.GetImage().SetColor(monthColorBorder);
                     KText_Title.GetTextMeshPro().SetTMPText(tblanguage.Get("title_moncard").current);
                     SetContainerItem(type);
-                    //WebMsgHandler.Instance.AddHandler(CMD.Shop.C2S_QUERYSHOP, OnRequreMonthTime);
-                    NetWorkManager.Instance.SendMsg(new S2C_ShopData());
+                    WebMsgHandler.Instance.AddHandler(CMD.Shop.C2S_QUERYSHOP, OnRequreMonthTime);
+                    NetWorkManager.Instance.SendMsg(CMD.Shop.C2S_QUERYSHOP);
                     Log.Debug("SendMsg", Color.cyan);
                     break;
                 case 2:
@@ -98,6 +98,7 @@ namespace XFramework
                     break;
             }
         }
+
 
         private async Task SetContainerItem(int type)
         {
@@ -127,9 +128,12 @@ namespace XFramework
             });
         }
 
-        [MsgHandler(typeof(S2C_ShopData))]
-        private void OnRequreMonthTime(S2C_ShopData data)
+
+        private void OnRequreMonthTime(object sender, WebMsgHandler.Execute e)
         {
+            var data1 = NetWorkManager.Instance.UnPackMsg<int>(e, out var _);
+            Log.Debug($"OnRequreMonthTime1:{data1}");
+            var data = NetWorkManager.Instance.UnPackMsg<S2C_ShopData>(e, out var _);
             ResourcesSingletonOld.Instance.monCardTime = data.buyedMonthCardms;
             //var receivedMessage = MessagePackSerializer.Deserialize<MyMessage>(e.data, options);
 

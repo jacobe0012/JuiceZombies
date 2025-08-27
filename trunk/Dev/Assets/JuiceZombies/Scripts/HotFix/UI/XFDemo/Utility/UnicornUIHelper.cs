@@ -227,7 +227,7 @@ namespace HotFix_UI
                 PhoneType = UnicornUIHelper.GetPhoneTypeStr(),
             };
 
-            NetWorkManager.Instance.SendMsg(loginRequest);
+            NetWorkManager.Instance.SendMsg(CMD.Auth.C2S_LOGIN, loginRequest);
         }
 
         public async static void ReConnect()

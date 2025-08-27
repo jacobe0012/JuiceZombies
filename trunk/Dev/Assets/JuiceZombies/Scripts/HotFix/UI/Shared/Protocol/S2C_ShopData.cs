@@ -4,7 +4,7 @@ using MessagePack;
 namespace HotFix_UI
 {
     [MessagePackObject]
-    public class S2C_ShopData : IMessagePack
+    public class S2C_ShopData 
     {
         /// <summary>
         /// 是否购买免广告卡

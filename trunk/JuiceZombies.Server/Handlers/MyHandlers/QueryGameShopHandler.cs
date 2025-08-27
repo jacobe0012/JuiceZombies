@@ -40,7 +40,7 @@ public class QueryGameShopHandler : HandleBase,  ICommandHandler
 
 
         message.Content =
-            MessagePackSerializer.Serialize(gameShop, options);
+            MessagePackSerializer.Serialize(122, options);
 
         var outputContentStr = gameShop.ToString();
 
@@ -52,6 +52,5 @@ public class QueryGameShopHandler : HandleBase,  ICommandHandler
         };
         return context;
     }
-
-  
+    
 }

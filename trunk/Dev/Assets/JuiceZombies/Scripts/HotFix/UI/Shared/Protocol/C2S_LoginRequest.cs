@@ -4,7 +4,7 @@ using MessagePack;
 namespace HotFix_UI
 {
     [MessagePackObject]
-    public class C2S_LoginRequest : IMessagePack
+    public class C2S_LoginRequest
     {
         /// <summary>
         /// 用户昵称

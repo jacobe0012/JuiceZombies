@@ -57,6 +57,7 @@ namespace XFramework
 
             AudioManager.Instance.StopFModSFX(false);
             var global = Common.Instance.Get<Global>();
+            global.isStandAlone = true;
             if (global.isStandAlone)
             {
                 Log.Debug($"进入UIMenu场景 isStandAlone ", Color.green);
@@ -812,8 +813,9 @@ namespace XFramework
             //     }
             // }
 
-            ResourcesSingletonOld.Instance.items.TryAdd(4010001, 200);
-            ResourcesSingletonOld.Instance.items.TryAdd(4010002, 200);
+            // ResourcesSingletonOld.Instance.items.TryAdd(4010001, 200);
+            // ResourcesSingletonOld.Instance.items.TryAdd(4010002, 200);
+            
             InitSettings();
             ResourcesSingletonOld.Instance.UpdateResourceUI();
             //Log.Error($"单机模式：UIPanel_JiyuGame");
