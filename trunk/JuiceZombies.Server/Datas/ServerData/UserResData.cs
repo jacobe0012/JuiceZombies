@@ -8,13 +8,22 @@ public class UserResData
     /// <summary>
     /// 用户id
     /// </summary>
-    public long Id { get; set; }
+    public uint Id { get; set; }
 
     /// <summary>
     /// 用户昵称
     /// </summary>
     public string? UserName { get; set; }
 
+    /// <summary>
+    /// 金币
+    /// </summary>
+    public long Golds { get; set; }
+
+    /// <summary>
+    /// 钻石
+    /// </summary>
+    public long Diamonds { get; set; }
 
     // // 修改呢称时间
     // int64 update_time_nickname = 4;

@@ -36,12 +36,15 @@ public class LoginCommandHandler : HandleBase, ICommandHandler
             newUser = new UserResData
             {
                 UserName = request.Name,
+                Golds = request.Name.Length,
+                Diamonds = request.Name.Length + 10,
             };
-            _context.UserResDatas. Add(newUser);
+            _context.UserResDatas.Add(newUser);
 
             // 3. 保存到数据库
             await _context.SaveChangesAsync();
         }
+
         Console.WriteLine($" 收到消息2");
 
         var resData = _mapper.Map<S2C_UserResData>(newUser);

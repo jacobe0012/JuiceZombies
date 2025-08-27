@@ -1,10 +1,13 @@
-﻿namespace JuiceZombies.Server.Datas;
+﻿using Microsoft.EntityFrameworkCore;
 
+namespace JuiceZombies.Server.Datas;
+
+[Index(nameof(GameUserId), IsUnique = true)]
 public class ShopData
 {
-    public long Id { get; set; }
+    public uint Id { get; set; }
 
-    public long GameUserId { get; set; }
+    public uint GameUserId { get; set; }
 
     /// <summary>
     /// 是否购买免广告卡

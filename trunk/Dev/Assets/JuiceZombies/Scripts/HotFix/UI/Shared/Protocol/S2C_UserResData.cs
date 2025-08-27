@@ -12,7 +12,17 @@ namespace HotFix_UI
         [Key(0)]
         public string? UserName { get; set; }
 
+        /// <summary>
+        /// 金币
+        /// </summary>
+        [Key(1)]
+        public long Golds { get; set; }
 
+        /// <summary>
+        /// 钻石
+        /// </summary>
+        [Key(2)]
+        public long Diamonds { get; set; }
         // // 修改呢称时间
         // int64 update_time_nickname = 4;
         // // 头像id
