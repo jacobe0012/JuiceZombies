@@ -29,6 +29,7 @@ public class LoginCommandHandler : HandleBase, ICommandHandler
         if (user != null)
         {
             newUser = user;
+            
         }
         else
         {

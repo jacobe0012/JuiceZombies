@@ -9,13 +9,13 @@ using StackExchange.Redis;
 
 namespace JuiceZombies.Server.Handlers;
 
-public class QueryGameShopHandler : HandleBase,  ICommandHandler
+public class QueryGameShopHandler : HandleBase, ICommandHandler
 {
-    public QueryGameShopHandler(IMapper mapper,MyPostgresDbContext context
-    ) : base(mapper,context)
+    public QueryGameShopHandler(IMapper mapper, MyPostgresDbContext context
+    ) : base(mapper, context)
     {
     }
- 
+
     public async Task<Context> HandleAsync(MyMessage message)
     {
         // _context.GameShops.FindAsync(1);
@@ -34,8 +34,8 @@ public class QueryGameShopHandler : HandleBase,  ICommandHandler
         gameShop = new S2C_ShopData
         {
             isBuyADCard = false,
-            isBuyMonthCard = false,
-            buyedMonthCardms = 0
+            isBuyMonthCard = true,
+            buyedMonthCardms = 20 * 24 * 60 * 60 * 1000
         };
 
 
@@ -52,5 +52,4 @@ public class QueryGameShopHandler : HandleBase,  ICommandHandler
         };
         return context;
     }
-    
 }

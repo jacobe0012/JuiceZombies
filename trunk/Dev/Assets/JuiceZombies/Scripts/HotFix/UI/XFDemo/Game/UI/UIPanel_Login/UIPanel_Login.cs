@@ -247,7 +247,7 @@ namespace XFramework
         void C2S_LOGINResponse(object sender, WebMsgHandler.Execute e)
         {
             var data = NetWorkManager.Instance.UnPackMsg<S2C_UserResData>(e, out var args);
-            Log.Debug($"data.UserName:{data.UserName}");   
+            Log.Debug($"data.UserName:{data.UserName} {data.Golds} {data.Diamonds}");   
             var sceneController = Common.Instance.Get<SceneController>(); // 场景控制
             var sceneObj = sceneController.LoadSceneAsync<MenuScene>(SceneName.UIMenu);
             SceneResManager.WaitForCompleted(sceneObj).ToCoroutine(); // 等待场景加载完毕
