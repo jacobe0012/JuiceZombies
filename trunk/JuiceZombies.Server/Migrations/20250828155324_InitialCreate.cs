@@ -12,6 +12,37 @@ namespace JuiceZombies.Server.Migrations
         protected override void Up(MigrationBuilder migrationBuilder)
         {
             migrationBuilder.CreateTable(
+                name: "GachaDatas",
+                columns: table => new
+                {
+                    Id = table.Column<long>(type: "bigint", nullable: false)
+                        .Annotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn),
+                    UserId = table.Column<long>(type: "bigint", nullable: false),
+                    Pity_IdCounter = table.Column<string>(type: "text", nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_GachaDatas", x => x.Id);
+                });
+
+            migrationBuilder.CreateTable(
+                name: "HeroDatas",
+                columns: table => new
+                {
+                    Id = table.Column<long>(type: "bigint", nullable: false)
+                        .Annotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn),
+                    UserId = table.Column<long>(type: "bigint", nullable: false),
+                    ConfigId = table.Column<int>(type: "integer", nullable: false),
+                    Exp = table.Column<int>(type: "integer", nullable: false),
+                    Level = table.Column<int>(type: "integer", nullable: false),
+                    Quality = table.Column<int>(type: "integer", nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_HeroDatas", x => x.Id);
+                });
+
+            migrationBuilder.CreateTable(
                 name: "ShopDatas",
                 columns: table => new
                 {
@@ -43,6 +74,18 @@ namespace JuiceZombies.Server.Migrations
                 });
 
             migrationBuilder.CreateIndex(
+                name: "IX_GachaDatas_UserId",
+                table: "GachaDatas",
+                column: "UserId",
+                unique: true);
+
+            migrationBuilder.CreateIndex(
+                name: "IX_HeroDatas_UserId",
+                table: "HeroDatas",
+                column: "UserId",
+                unique: true);
+
+            migrationBuilder.CreateIndex(
                 name: "IX_ShopDatas_UserId",
                 table: "ShopDatas",
                 column: "UserId",
@@ -58,6 +101,12 @@ namespace JuiceZombies.Server.Migrations
         /// <inheritdoc />
         protected override void Down(MigrationBuilder migrationBuilder)
         {
+            migrationBuilder.DropTable(
+                name: "GachaDatas");
+
+            migrationBuilder.DropTable(
+                name: "HeroDatas");
+
             migrationBuilder.DropTable(
                 name: "ShopDatas");
 

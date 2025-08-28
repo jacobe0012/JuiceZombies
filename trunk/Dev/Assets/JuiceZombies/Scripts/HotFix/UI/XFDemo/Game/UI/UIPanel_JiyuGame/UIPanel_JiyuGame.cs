@@ -841,7 +841,8 @@ namespace XFramework
                     foreach (var box in boxList)
                     {
                         long ItemNum;
-                        if (ResourcesSingletonOld.Instance.items.TryGetValue(tbdraw_Box.Get(box.Id).item, out long value))
+                        if (ResourcesSingletonOld.Instance.items.TryGetValue(tbdraw_Box.Get(box.Id).item,
+                                out long value))
                         {
                             ItemNum = value;
                         }
@@ -1060,7 +1061,8 @@ namespace XFramework
                     {
                         //Determine if there are red dots
                         bool haveRedDotOrNot = false;
-                        foreach (var gf in ResourcesSingletonOld.Instance.shopMap.IndexModuleMap[1403].GameFoundationList)
+                        foreach (var gf in ResourcesSingletonOld.Instance.shopMap.IndexModuleMap[1403]
+                                     .GameFoundationList)
                         {
                             if (gf.FoundId == fundReverseSortList[ihelp].id)
                             {
@@ -1596,7 +1598,15 @@ namespace XFramework
                 //Log.Debug($"horizontalNormalizedPosition:{scrollRect.horizontalNormalizedPosition}");
             }
 
-
+            if (Input.GetKeyDown(KeyCode.Q))
+            {
+                NetWorkManager.Instance.SendMsg(CMD.Shop.C2S_DRAWS, new C2S_GachaRequest
+                {
+                    BoxId =1,
+                    Type = 2
+                });
+            }
+            
             // if (Input.GetKeyDown(KeyCode.O))
             // {
             //     var test = this.GetComponent<MonsterWeaponTest>();
@@ -1730,6 +1740,7 @@ namespace XFramework
             // {
             //     UIHelper.CreateAsync(UIType.UIPanel_MonsterCollection);
             // }
+
 
             if (Input.GetKeyDown(KeyCode.F8))
             {
@@ -1949,7 +1960,8 @@ namespace XFramework
                             Log.Debug("UISubPanel_Equipment", Color.cyan);
                             var uis = ui2 as UISubPanel_Equipment;
                             uis.Refresh();
-                            UnicornTweenHelper.SetEaseAlphaAndPosUtoB(uis.GetFromReference(UISubPanel_Equipment.KTops), 20,
+                            UnicornTweenHelper.SetEaseAlphaAndPosUtoB(uis.GetFromReference(UISubPanel_Equipment.KTops),
+                                20,
                                 50f);
                         }
 

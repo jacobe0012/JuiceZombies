@@ -47,19 +47,21 @@ public class GachaHandler : HandleBase, ICommandHandler
         if (tbGacha.ensureCount <= counter)
         {
             counter = 0;
+            
+            var heroList = MyConfig.Tables.TbItem.DataList.Where(a => a.type == 4).ToList();
+            heroList = heroList.OrderBy(x => Random.Shared.NextInt64()).ToList();
+            id = new Vector2(heroList[0].id, 1);
+        }
+        else
+        {
             id = PreGetOneGachaId(tbGacha, totalPower);
             if ((int)id.x == 4)
             {
+                counter = 0;
                 var heroList = MyConfig.Tables.TbItem.DataList.Where(a => a.type == 4).ToList();
                 heroList = heroList.OrderBy(x => Random.Shared.NextInt64()).ToList();
                 id = new Vector2(heroList[0].id, 1);
             }
-        }
-        else
-        {
-            var heroList = MyConfig.Tables.TbItem.DataList.Where(a => a.type == 4).ToList();
-            heroList = heroList.OrderBy(x => Random.Shared.NextInt64()).ToList();
-            id = new Vector2(heroList[0].id, 1);
         }
 
         return id;
@@ -84,17 +86,20 @@ public class GachaHandler : HandleBase, ICommandHandler
             gachaData = new GachaData
             {
                 UserId = context.UserId,
-                Pity_IdCounter = new ConcurrentDictionary<int, int>()
+                //Pity_IdCounter = new ConcurrentDictionary<int, int>()
             };
         }
 
-        gachaData.Pity_IdCounter.TryAdd(request.BoxId, 0);
-        int counter = gachaData.Pity_IdCounter[request.BoxId];
+        var tempIdCounter = gachaData.MyPity_IdCounter;
+
+
+        tempIdCounter.TryAdd(request.BoxId, 0);
+        int counter = tempIdCounter[request.BoxId];
 
         int totalPower = 0;
         foreach (var power in tbGacha.power)
         {
-            totalPower += (int)power.y;
+            totalPower += (int)power.z;
         }
 
 
@@ -124,9 +129,13 @@ public class GachaHandler : HandleBase, ICommandHandler
                 break;
         }
 
-        gachaData.Pity_IdCounter[request.BoxId] = counter;
+        tempIdCounter[request.BoxId] = counter;
+        gachaData.MyPity_IdCounter = tempIdCounter;
+      
+        var a = JsonConvert.SerializeObject(gachaData);
+        Console.WriteLine($"gachaData:{a}");
         _dataBase.GachaDatas.Update(gachaData);
-
+        await _dataBase.SaveChangesAsync();
 
         message.Content =
             MessagePackSerializer.Serialize(S2C_RewardsData, options);
