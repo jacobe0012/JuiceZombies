@@ -1,48 +1,45 @@
 using Bright.Serialization;
+using System.Collections.Generic;
 using SimpleJSON;
+using Unity.Collections;
+using Unity.Entities;
+using Unity.Mathematics;
+
 {{
     name = x.name
     namespace = x.namespace
     tables = x.tables
 }}
 
-{{cs_start_name_space_grace x.namespace}} 
+namespace cfg.blobstruct{
    
-public sealed partial class {{name}}
+public static class GenGenBlobAssetReference
 {
-    {{~for table in tables ~}}
-{{~if table.comment != '' ~}}
-    /// <summary>
-    /// {{table.escape_comment}}
-    /// </summary>
-{{~end~}}
-    public {{table.full_name}} {{table.name}} {get; }
-    {{~end~}}
-
-    public {{name}}(System.Func<string, JSONNode> loader)
-    {
-        var tables = new System.Collections.Generic.Dictionary<string, object>();
-        {{~for table in tables ~}}
-        {{table.name}} = new {{table.full_name}}(loader("{{table.output_data_file}}")); 
-        tables.Add("{{table.full_name}}", {{table.name}});
-        {{~end~}}
-        PostInit();
-
-        {{~for table in tables ~}}
-        {{table.name}}.Resolve(tables); 
-        {{~end~}}
-        PostResolve();
-    }
-
-    public void TranslateText(System.Func<string, string, string> translator)
-    {
-        {{~for table in tables ~}}
-        {{table.name}}.TranslateText(translator); 
-        {{~end~}}
-    }
-    
-    partial void PostInit();
-    partial void PostResolve();
+   
+public struct ConfigData
+{
+{{~for table in tables ~}}
+    public Config{{table.name}}s config{{table.name}}s;
+{{~end~}} 
 }
 
-{{cs_end_name_space_grace x.namespace}}
+
+
+public static BlobAssetReference<ConfigData> CreateBlob(Tables tables)
+{
+    var builder = new BlobBuilder(Allocator.Temp);
+    ref var root = ref builder.ConstructRoot<ConfigData>();
+    {{~for table in tables ~}}
+    BlobBuilderArray<Config{{table.name}}> config{{table.name}}s = builder.Allocate(
+        ref root.config{{table.name}}s.config{{table.name}}s,
+        tables.{{table.name}}.DataList.Count);
+    for (var i = 0; i < tables.{{table.name}}.DataList.Count; i++)
+    {   {{ newVariable = table.name | string.slice(2) }}
+        ConfigTb{{newVariable}}.Create(i,ref builder,ref config{{table.name}}s,tables);
+    }
+    {{~end~}}
+    var result = builder.CreateBlobAssetReference<ConfigData>(Allocator.Persistent);
+    builder.Dispose();
+    return result;
+}
+}}

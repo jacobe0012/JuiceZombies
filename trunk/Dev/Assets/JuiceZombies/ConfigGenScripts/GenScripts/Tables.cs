@@ -115,7 +115,7 @@ public sealed partial class Tables
     public config.Tbgoods Tbgoods {get; private set; }
     public config.TbItem TbItem {get; private set; }
     public config.TbMonthCard TbMonthCard {get; private set; }
-    public config.TbHeroBox TbHeroBox {get; private set; }
+    public config.TbGacha TbGacha {get; private set; }
     public config.Tbachieve Tbachieve {get; private set; }
     public config.Tbachieve_group Tbachieve_group {get; private set; }
     public config.Tbchallenge Tbchallenge {get; private set; }
@@ -333,8 +333,8 @@ public sealed partial class Tables
         tables.Add("config.TbItem", TbItem);
         TbMonthCard = new config.TbMonthCard(loader("config_tbmonthcard")); 
         tables.Add("config.TbMonthCard", TbMonthCard);
-        TbHeroBox = new config.TbHeroBox(loader("config_tbherobox")); 
-        tables.Add("config.TbHeroBox", TbHeroBox);
+        TbGacha = new config.TbGacha(loader("config_tbgacha")); 
+        tables.Add("config.TbGacha", TbGacha);
         Tbachieve = new config.Tbachieve(loader("config_tbachieve")); 
         tables.Add("config.Tbachieve", Tbachieve);
         Tbachieve_group = new config.Tbachieve_group(loader("config_tbachieve_group")); 
@@ -461,7 +461,7 @@ public sealed partial class Tables
         Tbgoods.Resolve(tables); 
         TbItem.Resolve(tables); 
         TbMonthCard.Resolve(tables); 
-        TbHeroBox.Resolve(tables); 
+        TbGacha.Resolve(tables); 
         Tbachieve.Resolve(tables); 
         Tbachieve_group.Resolve(tables); 
         Tbchallenge.Resolve(tables); 
@@ -680,8 +680,8 @@ public sealed partial class Tables
         tables.Add("config.TbItem", TbItem);
         TbMonthCard = new config.TbMonthCard(await loader("config_tbmonthcard")); 
         tables.Add("config.TbMonthCard", TbMonthCard);
-        TbHeroBox = new config.TbHeroBox(await loader("config_tbherobox")); 
-        tables.Add("config.TbHeroBox", TbHeroBox);
+        TbGacha = new config.TbGacha(await loader("config_tbgacha")); 
+        tables.Add("config.TbGacha", TbGacha);
         Tbachieve = new config.Tbachieve(await loader("config_tbachieve")); 
         tables.Add("config.Tbachieve", Tbachieve);
         Tbachieve_group = new config.Tbachieve_group(await loader("config_tbachieve_group")); 
@@ -808,7 +808,7 @@ public sealed partial class Tables
         Tbgoods.Resolve(tables); 
         TbItem.Resolve(tables); 
         TbMonthCard.Resolve(tables); 
-        TbHeroBox.Resolve(tables); 
+        TbGacha.Resolve(tables); 
         Tbachieve.Resolve(tables); 
         Tbachieve_group.Resolve(tables); 
         Tbchallenge.Resolve(tables); 
@@ -926,7 +926,7 @@ public sealed partial class Tables
         Tbgoods.TranslateText(translator); 
         TbItem.TranslateText(translator); 
         TbMonthCard.TranslateText(translator); 
-        TbHeroBox.TranslateText(translator); 
+        TbGacha.TranslateText(translator); 
         Tbachieve.TranslateText(translator); 
         Tbachieve_group.TranslateText(translator); 
         Tbchallenge.TranslateText(translator); 

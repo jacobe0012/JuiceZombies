@@ -26,7 +26,7 @@ public class LoginCommandHandler : HandleBase, ICommandHandler
         // 1. 查找现有用户
         var user = await _dataBase.UserResDatas
             .FirstOrDefaultAsync(u => u.UserName == request.Name);
-
+        
         // 如果找到，直接返回
         if (user != null)
         {

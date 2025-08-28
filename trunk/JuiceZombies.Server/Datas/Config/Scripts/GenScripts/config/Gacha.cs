@@ -22,12 +22,12 @@ public sealed partial class Gacha :  Bright.Config.BeanBase
         { if(!_json["time"].IsNumber) { throw new SerializationException(); }  time = _json["time"]; }
         { if(!_json["price1"].IsNumber) { throw new SerializationException(); }  price1 = _json["price1"]; }
         { if(!_json["price2"].IsNumber) { throw new SerializationException(); }  price2 = _json["price2"]; }
-        { var __json0 = _json["power"]; if(!__json0.IsArray) { throw new SerializationException(); } power = new System.Collections.Generic.List<UnityEngine.Vector2>(__json0.Count); foreach(JSONNode __e0 in __json0.Children) { UnityEngine.Vector2 __v0;  { var _json2 = __e0; if(!_json2.IsObject) { throw new SerializationException(); }  float __x; { if(!_json2["x"].IsNumber) { throw new SerializationException(); }  __x = _json2["x"]; } float __y; { if(!_json2["y"].IsNumber) { throw new SerializationException(); }  __y = _json2["y"]; } __v0 = new UnityEngine.Vector2(__x, __y); }  power.Add(__v0); }   }
+        { var __json0 = _json["power"]; if(!__json0.IsArray) { throw new SerializationException(); } power = new System.Collections.Generic.List<UnityEngine.Vector3>(__json0.Count); foreach(JSONNode __e0 in __json0.Children) { UnityEngine.Vector3 __v0;  { var _json2 = __e0; if(!_json2.IsObject) { throw new SerializationException(); } float __x; { if(!_json2["x"].IsNumber) { throw new SerializationException(); }  __x = _json2["x"]; } float __y; { if(!_json2["y"].IsNumber) { throw new SerializationException(); }  __y = _json2["y"]; } float __z; { if(!_json2["z"].IsNumber) { throw new SerializationException(); }  __z = _json2["z"]; }  __v0 = new UnityEngine.Vector3(__x, __y,__z); }  power.Add(__v0); }   }
         { if(!_json["ensure_count"].IsNumber) { throw new SerializationException(); }  ensureCount = _json["ensure_count"]; }
         PostInit();
     }
 
-    public Gacha(int id, int time, int price1, int price2, System.Collections.Generic.List<UnityEngine.Vector2> power, int ensure_count ) 
+    public Gacha(int id, int time, int price1, int price2, System.Collections.Generic.List<UnityEngine.Vector3> power, int ensure_count ) 
     {
         this.id = id;
         this.time = time;
@@ -62,7 +62,7 @@ public sealed partial class Gacha :  Bright.Config.BeanBase
     /// <summary>
     /// 十连抽
     /// </summary>
-    public System.Collections.Generic.List<UnityEngine.Vector2> power { get; private set; }
+    public System.Collections.Generic.List<UnityEngine.Vector3> power { get; private set; }
     /// <summary>
     /// 保底数
     /// </summary>

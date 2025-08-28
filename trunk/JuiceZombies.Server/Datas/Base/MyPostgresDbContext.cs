@@ -13,4 +13,9 @@ public class MyPostgresDbContext : DbContext
     public DbSet<ShopData> ShopDatas { get; set; }
     
     public DbSet<UserResData> UserResDatas { get; set; }
+    
+    public DbSet<HeroData> HeroDatas { get; set; }
+    
+    public DbSet<GachaData> GachaDatas { get; set; }
+    
 }

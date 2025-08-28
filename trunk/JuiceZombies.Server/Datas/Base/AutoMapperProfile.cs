@@ -14,5 +14,7 @@ public class AutoMapperProfile : Profile
         
         CreateMap<S2C_UserResData, UserResData>();
         CreateMap<UserResData, S2C_UserResData>();
+        
+        
     }
 }

@@ -16,26 +16,26 @@ using Unity.Mathematics;
 
 namespace cfg.blobstruct{
 
-public  struct ConfigTbHeroBox
+public  struct ConfigTbGacha
 {
-    public static void Create(int i,ref BlobBuilder builder,ref BlobBuilderArray<ConfigTbHeroBox> configTbHeroBoxs,Tables tables)
+    public static void Create(int i,ref BlobBuilder builder,ref BlobBuilderArray<ConfigTbGacha> configTbGachas,Tables tables)
     { 
-        configTbHeroBoxs[i].id = tables.TbHeroBox.DataList[i].id;
-        configTbHeroBoxs[i].time = tables.TbHeroBox.DataList[i].time;
-        configTbHeroBoxs[i].name = tables.TbHeroBox.DataList[i].name;
-        configTbHeroBoxs[i].desc = tables.TbHeroBox.DataList[i].desc;
-        configTbHeroBoxs[i].icon = tables.TbHeroBox.DataList[i].icon;
-        configTbHeroBoxs[i].sort = tables.TbHeroBox.DataList[i].sort;
-        configTbHeroBoxs[i].price1 = tables.TbHeroBox.DataList[i].price1;
-        configTbHeroBoxs[i].price2 = tables.TbHeroBox.DataList[i].price2;
+        configTbGachas[i].id = tables.TbGacha.DataList[i].id;
+        configTbGachas[i].time = tables.TbGacha.DataList[i].time;
+        configTbGachas[i].name = tables.TbGacha.DataList[i].name;
+        configTbGachas[i].desc = tables.TbGacha.DataList[i].desc;
+        configTbGachas[i].icon = tables.TbGacha.DataList[i].icon;
+        configTbGachas[i].sort = tables.TbGacha.DataList[i].sort;
+        configTbGachas[i].price1 = tables.TbGacha.DataList[i].price1;
+        configTbGachas[i].price2 = tables.TbGacha.DataList[i].price2;
         var allocatepowers =
-        builder.Allocate(ref configTbHeroBoxs[i].power,
-        tables.TbHeroBox.DataList[i].power.Count);
-        for (var powers = 0; powers < tables.TbHeroBox.DataList[i].power.Count; powers++)
+        builder.Allocate(ref configTbGachas[i].power,
+        tables.TbGacha.DataList[i].power.Count);
+        for (var powers = 0; powers < tables.TbGacha.DataList[i].power.Count; powers++)
         {
-            allocatepowers[powers] = (int2) math.round(tables.TbHeroBox.DataList[i].power[powers]);
+            allocatepowers[powers] = (int3) math.round(tables.TbGacha.DataList[i].power[powers]);
         }
-        configTbHeroBoxs[i].ensureCount = tables.TbHeroBox.DataList[i].ensureCount;
+        configTbGachas[i].ensureCount = tables.TbGacha.DataList[i].ensureCount;
     }
 
 
@@ -74,7 +74,7 @@ public  struct ConfigTbHeroBox
     /// <summary>
     /// 十连抽
     /// </summary>
-    public BlobArray<int2> power;  
+    public BlobArray<int3> power;  
     /// <summary>
     /// 保底数
     /// </summary>
