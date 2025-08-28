@@ -42,7 +42,7 @@ namespace XFramework
             bagIndex = data.bagIndex;
             itemId = data.itemId;
             var language = ConfigManager.Instance.Tables.Tblanguage;
-            var item = ConfigManager.Instance.Tables.Tbitem;
+            var item = ConfigManager.Instance.Tables.TbitemOld;
 
             var titleText = GetFromReference(KTitleText);
             var desText = GetFromReference(KDesText);

@@ -14,25 +14,31 @@ using SimpleJSON;
 namespace cfg.config
 { 
 
-public sealed partial class item :  Bright.Config.BeanBase 
+public sealed partial class Item :  Bright.Config.BeanBase 
 {
-    public item(JSONNode _json) 
+    public Item(JSONNode _json) 
     {
         { if(!_json["id"].IsNumber) { throw new SerializationException(); }  id = _json["id"]; }
-        { if(!_json["init_enable"].IsNumber) { throw new SerializationException(); }  initEnable = _json["init_enable"]; }
+        { if(!_json["type"].IsNumber) { throw new SerializationException(); }  type = _json["type"]; }
+        { if(!_json["quality"].IsNumber) { throw new SerializationException(); }  quality = _json["quality"]; }
+        { if(!_json["use_yn"].IsNumber) { throw new SerializationException(); }  useYn = _json["use_yn"]; }
+        { var __json0 = _json["use_drop"]; if(!__json0.IsArray) { throw new SerializationException(); } useDrop = new System.Collections.Generic.List<UnityEngine.Vector3>(__json0.Count); foreach(JSONNode __e0 in __json0.Children) { UnityEngine.Vector3 __v0;  { var _json2 = __e0; if(!_json2.IsObject) { throw new SerializationException(); } float __x; { if(!_json2["x"].IsNumber) { throw new SerializationException(); }  __x = _json2["x"]; } float __y; { if(!_json2["y"].IsNumber) { throw new SerializationException(); }  __y = _json2["y"]; } float __z; { if(!_json2["z"].IsNumber) { throw new SerializationException(); }  __z = _json2["z"]; }  __v0 = new UnityEngine.Vector3(__x, __y,__z); }  useDrop.Add(__v0); }   }
         PostInit();
     }
 
-    public item(int id, int init_enable ) 
+    public Item(int id, int type, int quality, int use_yn, System.Collections.Generic.List<UnityEngine.Vector3> use_drop ) 
     {
         this.id = id;
-        this.initEnable = init_enable;
+        this.type = type;
+        this.quality = quality;
+        this.useYn = use_yn;
+        this.useDrop = use_drop;
         PostInit();
     }
 
-    public static item Deserializeitem(JSONNode _json)
+    public static Item DeserializeItem(JSONNode _json)
     {
-        return new config.item(_json);
+        return new config.Item(_json);
     }
 
     /// <summary>
@@ -40,11 +46,23 @@ public sealed partial class item :  Bright.Config.BeanBase
     /// </summary>
     public int id { get; private set; }
     /// <summary>
-    /// 初始号是否携带
+    /// 道具类型
     /// </summary>
-    public int initEnable { get; private set; }
+    public int type { get; private set; }
+    /// <summary>
+    /// 道具品质
+    /// </summary>
+    public int quality { get; private set; }
+    /// <summary>
+    /// 可否使用
+    /// </summary>
+    public int useYn { get; private set; }
+    /// <summary>
+    /// 使用获得
+    /// </summary>
+    public System.Collections.Generic.List<UnityEngine.Vector3> useDrop { get; private set; }
 
-    public const int __ID__ = -28054977;
+    public const int __ID__ = -29008289;
     public override int GetTypeId() => __ID__;
 
     public  void Resolve(Dictionary<string, object> _tables)
@@ -60,7 +78,10 @@ public sealed partial class item :  Bright.Config.BeanBase
     {
         return "{ "
         + "id:" + id + ","
-        + "initEnable:" + initEnable + ","
+        + "type:" + type + ","
+        + "quality:" + quality + ","
+        + "useYn:" + useYn + ","
+        + "useDrop:" + Bright.Common.StringUtil.CollectionToString(useDrop) + ","
         + "}";
     }
     

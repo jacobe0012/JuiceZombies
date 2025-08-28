@@ -34,7 +34,7 @@ namespace XFramework
     {
         private Tblanguage tblanguage;
         private Tbuser_variable tbuser_Variable;
-        private Tbitem tbItem;
+        private TbitemOld tbItem;
 
         public void Initialize(Vector3 v3)
         {
@@ -46,7 +46,7 @@ namespace XFramework
         {
             tblanguage = ConfigManager.Instance.Tables.Tblanguage;
             tbuser_Variable = ConfigManager.Instance.Tables.Tbuser_variable;
-            tbItem = tbItem = ConfigManager.Instance.Tables.Tbitem;
+            tbItem = tbItem = ConfigManager.Instance.Tables.TbitemOld;
         }
 
         private void SetText(Vector3 v3)

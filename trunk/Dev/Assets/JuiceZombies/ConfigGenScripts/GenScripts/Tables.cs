@@ -103,7 +103,7 @@ public sealed partial class Tables
     public config.Tbequip_quality Tbequip_quality {get; private set; }
     public config.Tbgift Tbgift {get; private set; }
     public config.Tbgift_group Tbgift_group {get; private set; }
-    public config.Tbitem Tbitem {get; private set; }
+    public config.TbitemOld TbitemOld {get; private set; }
     public config.Tbshop_daily Tbshop_daily {get; private set; }
     public config.Tbfund Tbfund {get; private set; }
     public config.Tbfund_reward Tbfund_reward {get; private set; }
@@ -113,9 +113,9 @@ public sealed partial class Tables
     public config.Tbfr Tbfr {get; private set; }
     public config.Tbmonthly Tbmonthly {get; private set; }
     public config.Tbgoods Tbgoods {get; private set; }
-    public config.TbItems TbItems {get; private set; }
-    public config.TbmonthCard TbmonthCard {get; private set; }
-    public config.TbheroBox TbheroBox {get; private set; }
+    public config.TbItem TbItem {get; private set; }
+    public config.TbMonthCard TbMonthCard {get; private set; }
+    public config.TbHeroBox TbHeroBox {get; private set; }
     public config.Tbachieve Tbachieve {get; private set; }
     public config.Tbachieve_group Tbachieve_group {get; private set; }
     public config.Tbchallenge Tbchallenge {get; private set; }
@@ -309,8 +309,8 @@ public sealed partial class Tables
         tables.Add("config.Tbgift", Tbgift);
         Tbgift_group = new config.Tbgift_group(loader("config_tbgift_group")); 
         tables.Add("config.Tbgift_group", Tbgift_group);
-        Tbitem = new config.Tbitem(loader("config_tbitem")); 
-        tables.Add("config.Tbitem", Tbitem);
+        TbitemOld = new config.TbitemOld(loader("config_tbitemold")); 
+        tables.Add("config.TbitemOld", TbitemOld);
         Tbshop_daily = new config.Tbshop_daily(loader("config_tbshop_daily")); 
         tables.Add("config.Tbshop_daily", Tbshop_daily);
         Tbfund = new config.Tbfund(loader("config_tbfund")); 
@@ -329,12 +329,12 @@ public sealed partial class Tables
         tables.Add("config.Tbmonthly", Tbmonthly);
         Tbgoods = new config.Tbgoods(loader("config_tbgoods")); 
         tables.Add("config.Tbgoods", Tbgoods);
-        TbItems = new config.TbItems(loader("config_tbitems")); 
-        tables.Add("config.TbItems", TbItems);
-        TbmonthCard = new config.TbmonthCard(loader("config_tbmonthcard")); 
-        tables.Add("config.TbmonthCard", TbmonthCard);
-        TbheroBox = new config.TbheroBox(loader("config_tbherobox")); 
-        tables.Add("config.TbheroBox", TbheroBox);
+        TbItem = new config.TbItem(loader("config_tbitem")); 
+        tables.Add("config.TbItem", TbItem);
+        TbMonthCard = new config.TbMonthCard(loader("config_tbmonthcard")); 
+        tables.Add("config.TbMonthCard", TbMonthCard);
+        TbHeroBox = new config.TbHeroBox(loader("config_tbherobox")); 
+        tables.Add("config.TbHeroBox", TbHeroBox);
         Tbachieve = new config.Tbachieve(loader("config_tbachieve")); 
         tables.Add("config.Tbachieve", Tbachieve);
         Tbachieve_group = new config.Tbachieve_group(loader("config_tbachieve_group")); 
@@ -449,7 +449,7 @@ public sealed partial class Tables
         Tbequip_quality.Resolve(tables); 
         Tbgift.Resolve(tables); 
         Tbgift_group.Resolve(tables); 
-        Tbitem.Resolve(tables); 
+        TbitemOld.Resolve(tables); 
         Tbshop_daily.Resolve(tables); 
         Tbfund.Resolve(tables); 
         Tbfund_reward.Resolve(tables); 
@@ -459,9 +459,9 @@ public sealed partial class Tables
         Tbfr.Resolve(tables); 
         Tbmonthly.Resolve(tables); 
         Tbgoods.Resolve(tables); 
-        TbItems.Resolve(tables); 
-        TbmonthCard.Resolve(tables); 
-        TbheroBox.Resolve(tables); 
+        TbItem.Resolve(tables); 
+        TbMonthCard.Resolve(tables); 
+        TbHeroBox.Resolve(tables); 
         Tbachieve.Resolve(tables); 
         Tbachieve_group.Resolve(tables); 
         Tbchallenge.Resolve(tables); 
@@ -656,8 +656,8 @@ public sealed partial class Tables
         tables.Add("config.Tbgift", Tbgift);
         Tbgift_group = new config.Tbgift_group(await loader("config_tbgift_group")); 
         tables.Add("config.Tbgift_group", Tbgift_group);
-        Tbitem = new config.Tbitem(await loader("config_tbitem")); 
-        tables.Add("config.Tbitem", Tbitem);
+        TbitemOld = new config.TbitemOld(await loader("config_tbitemold")); 
+        tables.Add("config.TbitemOld", TbitemOld);
         Tbshop_daily = new config.Tbshop_daily(await loader("config_tbshop_daily")); 
         tables.Add("config.Tbshop_daily", Tbshop_daily);
         Tbfund = new config.Tbfund(await loader("config_tbfund")); 
@@ -676,12 +676,12 @@ public sealed partial class Tables
         tables.Add("config.Tbmonthly", Tbmonthly);
         Tbgoods = new config.Tbgoods(await loader("config_tbgoods")); 
         tables.Add("config.Tbgoods", Tbgoods);
-        TbItems = new config.TbItems(await loader("config_tbitems")); 
-        tables.Add("config.TbItems", TbItems);
-        TbmonthCard = new config.TbmonthCard(await loader("config_tbmonthcard")); 
-        tables.Add("config.TbmonthCard", TbmonthCard);
-        TbheroBox = new config.TbheroBox(await loader("config_tbherobox")); 
-        tables.Add("config.TbheroBox", TbheroBox);
+        TbItem = new config.TbItem(await loader("config_tbitem")); 
+        tables.Add("config.TbItem", TbItem);
+        TbMonthCard = new config.TbMonthCard(await loader("config_tbmonthcard")); 
+        tables.Add("config.TbMonthCard", TbMonthCard);
+        TbHeroBox = new config.TbHeroBox(await loader("config_tbherobox")); 
+        tables.Add("config.TbHeroBox", TbHeroBox);
         Tbachieve = new config.Tbachieve(await loader("config_tbachieve")); 
         tables.Add("config.Tbachieve", Tbachieve);
         Tbachieve_group = new config.Tbachieve_group(await loader("config_tbachieve_group")); 
@@ -796,7 +796,7 @@ public sealed partial class Tables
         Tbequip_quality.Resolve(tables); 
         Tbgift.Resolve(tables); 
         Tbgift_group.Resolve(tables); 
-        Tbitem.Resolve(tables); 
+        TbitemOld.Resolve(tables); 
         Tbshop_daily.Resolve(tables); 
         Tbfund.Resolve(tables); 
         Tbfund_reward.Resolve(tables); 
@@ -806,9 +806,9 @@ public sealed partial class Tables
         Tbfr.Resolve(tables); 
         Tbmonthly.Resolve(tables); 
         Tbgoods.Resolve(tables); 
-        TbItems.Resolve(tables); 
-        TbmonthCard.Resolve(tables); 
-        TbheroBox.Resolve(tables); 
+        TbItem.Resolve(tables); 
+        TbMonthCard.Resolve(tables); 
+        TbHeroBox.Resolve(tables); 
         Tbachieve.Resolve(tables); 
         Tbachieve_group.Resolve(tables); 
         Tbchallenge.Resolve(tables); 
@@ -914,7 +914,7 @@ public sealed partial class Tables
         Tbequip_quality.TranslateText(translator); 
         Tbgift.TranslateText(translator); 
         Tbgift_group.TranslateText(translator); 
-        Tbitem.TranslateText(translator); 
+        TbitemOld.TranslateText(translator); 
         Tbshop_daily.TranslateText(translator); 
         Tbfund.TranslateText(translator); 
         Tbfund_reward.TranslateText(translator); 
@@ -924,9 +924,9 @@ public sealed partial class Tables
         Tbfr.TranslateText(translator); 
         Tbmonthly.TranslateText(translator); 
         Tbgoods.TranslateText(translator); 
-        TbItems.TranslateText(translator); 
-        TbmonthCard.TranslateText(translator); 
-        TbheroBox.TranslateText(translator); 
+        TbItem.TranslateText(translator); 
+        TbMonthCard.TranslateText(translator); 
+        TbHeroBox.TranslateText(translator); 
         Tbachieve.TranslateText(translator); 
         Tbachieve_group.TranslateText(translator); 
         Tbchallenge.TranslateText(translator); 

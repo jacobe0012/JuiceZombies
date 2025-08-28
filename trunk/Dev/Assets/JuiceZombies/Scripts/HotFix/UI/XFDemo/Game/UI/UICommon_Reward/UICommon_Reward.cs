@@ -205,7 +205,7 @@ namespace XFramework
             // {
             //     Tblanguage language = ConfigManager.Instance.Tables.Tblanguage;
             //     Tbuser_variable user_varibles = ConfigManager.Instance.Tables.Tbuser_variable;
-            //     Tbitem item = ConfigManager.Instance.Tables.Tbitem;
+            //     TbitemOld item = ConfigManager.Instance.Tables.TbitemOld;
             //     Tbequip_data equip_data = ConfigManager.Instance.Tables.Tbequip_data;
             //     Tbequip_quality equip_quality = ConfigManager.Instance.Tables.Tbequip_quality;
             //     Tbquality quality = ConfigManager.Instance.Tables.Tbquality;

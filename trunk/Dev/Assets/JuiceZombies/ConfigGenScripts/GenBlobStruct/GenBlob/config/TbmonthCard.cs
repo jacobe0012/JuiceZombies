@@ -16,21 +16,21 @@ using UnityEngine;
 
 
 namespace cfg.blobstruct{
-public struct ConfigTbmonthCards
+public struct ConfigTbMonthCards
 {
-    public BlobArray<ConfigTbmonthCard> configTbmonthCards;
+    public BlobArray<ConfigTbMonthCard> configTbMonthCards;
 
-    public ref ConfigTbmonthCard Get(int id)
+    public ref ConfigTbMonthCard Get(int id)
     {
-        for (int i = 0; i < configTbmonthCards.Length; i++)
+        for (int i = 0; i < configTbMonthCards.Length; i++)
         {
-            if (configTbmonthCards[i].id == id)
+            if (configTbMonthCards[i].id == id)
             {
-                return ref configTbmonthCards[i];
+                return ref configTbMonthCards[i];
             }
         }
-        Debug.LogError($"Error! Can't find config with key->id:{id} in TbmonthCard,Check Config Plz!");
-        return ref configTbmonthCards[0];
+        Debug.LogError($"Error! Can't find config with key->id:{id} in TbMonthCard,Check Config Plz!");
+        return ref configTbMonthCards[0];
     }
 
 }

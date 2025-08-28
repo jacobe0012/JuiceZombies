@@ -213,7 +213,7 @@ namespace XFramework
             }
 
 
-            var itemConfig = ConfigManager.Instance.Tables.Tbitem;
+            var itemConfig = ConfigManager.Instance.Tables.TbitemOld;
 
             if ((int)type >= 8 && (int)type <= 10)
             {
@@ -333,7 +333,7 @@ namespace XFramework
                 return;
             }
 
-            var itemConfig = ConfigManager.Instance.Tables.Tbitem;
+            var itemConfig = ConfigManager.Instance.Tables.TbitemOld;
             var language = ConfigManager.Instance.Tables.Tblanguage;
             var KText_Label = GetFromReference(UICommon_Label.KText_Label);
             var KContainer_Content = GetFromReference(UICommon_Label.KContainer_Content);

@@ -35,7 +35,7 @@ namespace XFramework
 	{
 
 		public int currentBoxId;
-        private cfg.config.TbheroBox tbheroBox;
+        private cfg.config.TbHeroBox tbheroBox;
         private Tblanguage tblanguage;
 
         public void Initialize(int boxId)
@@ -48,7 +48,7 @@ namespace XFramework
 
         private void InitConfig()
         {
-            tbheroBox=ConfigManager.Instance.Tables.TbheroBox;
+            tbheroBox=ConfigManager.Instance.Tables.TbHeroBox;
             tblanguage = ConfigManager.Instance.Tables.Tblanguage;
         }
 

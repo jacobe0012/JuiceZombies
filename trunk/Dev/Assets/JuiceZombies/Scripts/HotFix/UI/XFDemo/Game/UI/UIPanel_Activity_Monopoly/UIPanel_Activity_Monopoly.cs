@@ -72,7 +72,7 @@ namespace XFramework
         private Tbtask_group tbtask_group;
         private Tbtask_type tbtask_type;
         private Tbtask tbtask;
-        private Tbitem tbitem;
+        private TbitemOld tbitem;
         private int lastGridIndex;
         private int tagFunc;
         private RectTransform[] cellRectList;
@@ -185,7 +185,7 @@ namespace XFramework
             tbtask_group = ConfigManager.Instance.Tables.Tbtask_group;
             tbtask_type = ConfigManager.Instance.Tables.Tbtask_type;
             tbtask = ConfigManager.Instance.Tables.Tbtask;
-            tbitem = ConfigManager.Instance.Tables.Tbitem;
+            tbitem = ConfigManager.Instance.Tables.TbitemOld;
             tbquality = ConfigManager.Instance.Tables.Tbquality;
         }
 

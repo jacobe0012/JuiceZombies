@@ -16,58 +16,33 @@ using Unity.Mathematics;
 
 namespace cfg.blobstruct{
 
-public  struct ConfigTbitem
+public  struct ConfigTbItem
 {
-    public static void Create(int i,ref BlobBuilder builder,ref BlobBuilderArray<ConfigTbitem> configTbitems,Tables tables)
+    public static void Create(int i,ref BlobBuilder builder,ref BlobBuilderArray<ConfigTbItem> configTbItems,Tables tables)
     { 
-        configTbitems[i].id = tables.Tbitem.DataList[i].id;
-        configTbitems[i].value = tables.Tbitem.DataList[i].value;
-        configTbitems[i].valueCoin = tables.Tbitem.DataList[i].valueCoin;
-        configTbitems[i].type = tables.Tbitem.DataList[i].type;
-        configTbitems[i].subtype = tables.Tbitem.DataList[i].subtype;
-        configTbitems[i].quality = tables.Tbitem.DataList[i].quality;
-        configTbitems[i].page = tables.Tbitem.DataList[i].page;
-        configTbitems[i].purchaseYn = tables.Tbitem.DataList[i].purchaseYn;
-        configTbitems[i].useYn = tables.Tbitem.DataList[i].useYn;
-        configTbitems[i].useContinuousYn = tables.Tbitem.DataList[i].useContinuousYn;
-        var allocateuseEffects =
-        builder.Allocate(ref configTbitems[i].useEffect,
-        tables.Tbitem.DataList[i].useEffect.Count);
-        for (var useEffects = 0; useEffects < tables.Tbitem.DataList[i].useEffect.Count; useEffects++)
-        {
-            allocateuseEffects[useEffects] = (int2) math.round(tables.Tbitem.DataList[i].useEffect[useEffects]);
-        }
+        configTbItems[i].id = tables.TbItem.DataList[i].id;
+        configTbItems[i].type = tables.TbItem.DataList[i].type;
+        configTbItems[i].quality = tables.TbItem.DataList[i].quality;
+        configTbItems[i].useYn = tables.TbItem.DataList[i].useYn;
         var allocateuseDrops =
-        builder.Allocate(ref configTbitems[i].useDrop,
-        tables.Tbitem.DataList[i].useDrop.Count);
-        for (var useDrops = 0; useDrops < tables.Tbitem.DataList[i].useDrop.Count; useDrops++)
+        builder.Allocate(ref configTbItems[i].useDrop,
+        tables.TbItem.DataList[i].useDrop.Count);
+        for (var useDrops = 0; useDrops < tables.TbItem.DataList[i].useDrop.Count; useDrops++)
         {
-            allocateuseDrops[useDrops] = (int3) math.round(tables.Tbitem.DataList[i].useDrop[useDrops]);
+            allocateuseDrops[useDrops] = (int3) math.round(tables.TbItem.DataList[i].useDrop[useDrops]);
         }
-        configTbitems[i].pileYn = tables.Tbitem.DataList[i].pileYn;
-        configTbitems[i].name = tables.Tbitem.DataList[i].name;
-        configTbitems[i].desc = tables.Tbitem.DataList[i].desc;
+        configTbItems[i].pileYn = tables.TbItem.DataList[i].pileYn;
+        configTbItems[i].name = tables.TbItem.DataList[i].name;
+        configTbItems[i].desc = tables.TbItem.DataList[i].desc;
         var allocatedescValues =
-        builder.Allocate(ref configTbitems[i].descValue,
-        tables.Tbitem.DataList[i].descValue.Count);
-        for (var descValues = 0; descValues < tables.Tbitem.DataList[i].descValue.Count; descValues++)
+        builder.Allocate(ref configTbItems[i].descValue,
+        tables.TbItem.DataList[i].descValue.Count);
+        for (var descValues = 0; descValues < tables.TbItem.DataList[i].descValue.Count; descValues++)
         {
-            allocatedescValues[descValues] = tables.Tbitem.DataList[i].descValue[descValues];
+            allocatedescValues[descValues] = tables.TbItem.DataList[i].descValue[descValues];
         }
-        configTbitems[i].icon = tables.Tbitem.DataList[i].icon;
-        configTbitems[i].openDesc = tables.Tbitem.DataList[i].openDesc;
-        var allocaterecoverys =
-        builder.Allocate(ref configTbitems[i].recovery,
-        tables.Tbitem.DataList[i].recovery.Count);
-        for (var recoverys = 0; recoverys < tables.Tbitem.DataList[i].recovery.Count; recoverys++)
-        {
-            allocaterecoverys[recoverys] = (int3) math.round(tables.Tbitem.DataList[i].recovery[recoverys]);
-        }
-        configTbitems[i].displayYn = tables.Tbitem.DataList[i].displayYn;
-        configTbitems[i].tipsType = tables.Tbitem.DataList[i].tipsType;
-        configTbitems[i].qualityYn = tables.Tbitem.DataList[i].qualityYn;
-        configTbitems[i].sort = tables.Tbitem.DataList[i].sort;
-        configTbitems[i].goto0 = tables.Tbitem.DataList[i].goto0;
+        configTbItems[i].icon = tables.TbItem.DataList[i].icon;
+        configTbItems[i].sort = tables.TbItem.DataList[i].sort;
     }
 
 
@@ -76,45 +51,17 @@ public  struct ConfigTbitem
     /// </summary>
     public int id;
     /// <summary>
-    /// 钻石价值
-    /// </summary>
-    public int value;
-    /// <summary>
-    /// 金币价值
-    /// </summary>
-    public int valueCoin;
-    /// <summary>
     /// 道具类型
     /// </summary>
     public int type;
-    /// <summary>
-    /// 道具子类
-    /// </summary>
-    public int subtype;
     /// <summary>
     /// 道具品质
     /// </summary>
     public int quality;
     /// <summary>
-    /// 背包切页
-    /// </summary>
-    public int page;
-    /// <summary>
-    /// 可否商城购买
-    /// </summary>
-    public int purchaseYn;
-    /// <summary>
     /// 可否使用
     /// </summary>
     public int useYn;
-    /// <summary>
-    /// 可否连续使用
-    /// </summary>
-    public int useContinuousYn;
-    /// <summary>
-    /// 使用效果1
-    /// </summary>
-    public BlobArray<int2> useEffect;  
     /// <summary>
     /// 使用获得
     /// </summary>
@@ -136,36 +83,12 @@ public  struct ConfigTbitem
     /// </summary>
     public BlobArray<int> descValue;    
     /// <summary>
-    /// 图标(图片资源)
+    /// 图标
     /// </summary>
     public FixedString128Bytes icon;
-    /// <summary>
-    /// 道具开启类型
-    /// </summary>
-    public FixedString128Bytes openDesc;
-    /// <summary>
-    /// 道具回收
-    /// </summary>
-    public BlobArray<int3> recovery;  
-    /// <summary>
-    /// 是否显示
-    /// </summary>
-    public int displayYn;
-    /// <summary>
-    /// 弹板类型
-    /// </summary>
-    public int tipsType;
-    /// <summary>
-    /// 是否显示品质文本
-    /// </summary>
-    public int qualityYn;
     /// <summary>
     /// 排序
     /// </summary>
     public int sort;
-    /// <summary>
-    /// 前往
-    /// </summary>
-    public FixedString128Bytes goto0;
 }
 }

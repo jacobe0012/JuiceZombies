@@ -37,7 +37,7 @@ namespace XFramework
         private Tbattr_variable tbattr_variable;
         private Tbequip_quality tbequip_quality;
         private Tbquality tbquality;
-        private Tbitem tb_item;
+        private TbitemOld tb_item;
         private Tbequip_level tbequip_level;
         private Tbskill tbplayer_skill;
         private GameEquip equip = new GameEquip();
@@ -96,7 +96,7 @@ namespace XFramework
             tbattr_variable = ConfigManager.Instance.Tables.Tbattr_variable;
             tbequip_quality = ConfigManager.Instance.Tables.Tbequip_quality;
             tbquality = ConfigManager.Instance.Tables.Tbquality;
-            tb_item = ConfigManager.Instance.Tables.Tbitem;
+            tb_item = ConfigManager.Instance.Tables.TbitemOld;
             tbequip_level = ConfigManager.Instance.Tables.Tbequip_level;
             tbplayer_skill = ConfigManager.Instance.Tables.Tbskill;
         }

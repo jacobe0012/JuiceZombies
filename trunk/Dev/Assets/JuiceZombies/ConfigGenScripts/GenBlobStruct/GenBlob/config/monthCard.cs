@@ -16,30 +16,30 @@ using Unity.Mathematics;
 
 namespace cfg.blobstruct{
 
-public  struct ConfigTbmonthCard
+public  struct ConfigTbMonthCard
 {
-    public static void Create(int i,ref BlobBuilder builder,ref BlobBuilderArray<ConfigTbmonthCard> configTbmonthCards,Tables tables)
+    public static void Create(int i,ref BlobBuilder builder,ref BlobBuilderArray<ConfigTbMonthCard> configTbMonthCards,Tables tables)
     { 
-        configTbmonthCards[i].id = tables.TbmonthCard.DataList[i].id;
-        configTbmonthCards[i].time = tables.TbmonthCard.DataList[i].time;
-        configTbmonthCards[i].name = tables.TbmonthCard.DataList[i].name;
+        configTbMonthCards[i].id = tables.TbMonthCard.DataList[i].id;
+        configTbMonthCards[i].time = tables.TbMonthCard.DataList[i].time;
+        configTbMonthCards[i].name = tables.TbMonthCard.DataList[i].name;
         var allocatedescparas =
-        builder.Allocate(ref configTbmonthCards[i].descpara,
-        tables.TbmonthCard.DataList[i].descpara.Count);
-        for (var descparas = 0; descparas < tables.TbmonthCard.DataList[i].descpara.Count; descparas++)
+        builder.Allocate(ref configTbMonthCards[i].descpara,
+        tables.TbMonthCard.DataList[i].descpara.Count);
+        for (var descparas = 0; descparas < tables.TbMonthCard.DataList[i].descpara.Count; descparas++)
         {
-            allocatedescparas[descparas] = (int2) math.round(tables.TbmonthCard.DataList[i].descpara[descparas]);
+            allocatedescparas[descparas] = (int2) math.round(tables.TbMonthCard.DataList[i].descpara[descparas]);
         }
         var allocatedescs =
-        builder.Allocate(ref configTbmonthCards[i].desc,
-        tables.TbmonthCard.DataList[i].desc.Count);
-        for (var descs = 0; descs < tables.TbmonthCard.DataList[i].desc.Count; descs++)
+        builder.Allocate(ref configTbMonthCards[i].desc,
+        tables.TbMonthCard.DataList[i].desc.Count);
+        for (var descs = 0; descs < tables.TbMonthCard.DataList[i].desc.Count; descs++)
         {
-            allocatedescs[descs] = tables.TbmonthCard.DataList[i].desc[descs];
+            allocatedescs[descs] = tables.TbMonthCard.DataList[i].desc[descs];
         }
-        configTbmonthCards[i].icon = tables.TbmonthCard.DataList[i].icon;
-        configTbmonthCards[i].sort = tables.TbmonthCard.DataList[i].sort;
-        configTbmonthCards[i].price = tables.TbmonthCard.DataList[i].price;
+        configTbMonthCards[i].icon = tables.TbMonthCard.DataList[i].icon;
+        configTbMonthCards[i].sort = tables.TbMonthCard.DataList[i].sort;
+        configTbMonthCards[i].price = tables.TbMonthCard.DataList[i].price;
     }
 
 

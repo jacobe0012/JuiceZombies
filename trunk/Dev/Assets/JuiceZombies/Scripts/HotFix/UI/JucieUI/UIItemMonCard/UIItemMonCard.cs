@@ -40,9 +40,9 @@ namespace XFramework
         const string monthColorBorder = "FDB2FD";
         const string noAdColorBorder = "A7CAF2";
         const string noAdColorBg = "4D9CF4";
-        private TbmonthCard tbmonthCard;
+        private TbMonthCard tbmonthCard;
         private Tblanguage tblanguage;
-        private TbItems tbItems;
+        private TbItem tbItems;
 
         enum MonCardState
         {
@@ -74,9 +74,9 @@ namespace XFramework
             var KBuyBtn = GetFromReference(UIItemMonCard.KBuyBtn);
             var KTextBtn = GetFromReference(UIItemMonCard.KTextBtn);
             var KTextGet = GetFromReference(UIItemMonCard.KTextGet);
-            tbmonthCard = ConfigManager.Instance.Tables.TbmonthCard;
+            tbmonthCard = ConfigManager.Instance.Tables.TbMonthCard;
             tblanguage = ConfigManager.Instance.Tables.Tblanguage;
-            tbItems = ConfigManager.Instance.Tables.TbItems;
+            tbItems = ConfigManager.Instance.Tables.TbItem;
             switch (type)
             {
                 //type 1免广告卡  2 月卡

@@ -40,7 +40,7 @@ namespace XFramework
     public partial class UIPanel_SelectBoxNomal : UI, IAwake<Vector3>
     {
         private Tblanguage tblanguage;
-        private Tbitem tbitem;
+        private TbitemOld tbitem;
         private Tbdrop tbdrop;
         public Vector3 reward;
         public int itemCount = 1;
@@ -58,7 +58,7 @@ namespace XFramework
         void InitJson()
         {
             tblanguage = ConfigManager.Instance.Tables.Tblanguage;
-            tbitem = ConfigManager.Instance.Tables.Tbitem;
+            tbitem = ConfigManager.Instance.Tables.TbitemOld;
             tbdrop = ConfigManager.Instance.Tables.Tbdrop;
         }
 

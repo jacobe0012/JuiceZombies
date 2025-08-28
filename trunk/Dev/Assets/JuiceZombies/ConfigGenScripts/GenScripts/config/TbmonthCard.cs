@@ -14,31 +14,31 @@ using SimpleJSON;
 namespace cfg.config
 { 
 
-public sealed partial class TbmonthCard
+public sealed partial class TbMonthCard
 {
-    private readonly Dictionary<int, config.monthCard> _dataMap;
-    private readonly List<config.monthCard> _dataList;
+    private readonly Dictionary<int, config.MonthCard> _dataMap;
+    private readonly List<config.MonthCard> _dataList;
     
-    public TbmonthCard(JSONNode _json)
+    public TbMonthCard(JSONNode _json)
     {
-        _dataMap = new Dictionary<int, config.monthCard>();
-        _dataList = new List<config.monthCard>();
+        _dataMap = new Dictionary<int, config.MonthCard>();
+        _dataList = new List<config.MonthCard>();
         
         foreach(JSONNode _row in _json.Children)
         {
-            var _v = config.monthCard.DeserializemonthCard(_row);
+            var _v = config.MonthCard.DeserializeMonthCard(_row);
             _dataList.Add(_v);
             _dataMap.Add(_v.id, _v);
         }
         PostInit();
     }
 
-    public Dictionary<int, config.monthCard> DataMap => _dataMap;
-    public List<config.monthCard> DataList => _dataList;
+    public Dictionary<int, config.MonthCard> DataMap => _dataMap;
+    public List<config.MonthCard> DataList => _dataList;
 
-    public config.monthCard GetOrDefault(int key) => _dataMap.TryGetValue(key, out var v) ? v : null;
-    public config.monthCard Get(int key) => _dataMap[key];
-    public config.monthCard this[int key] => _dataMap[key];
+    public config.MonthCard GetOrDefault(int key) => _dataMap.TryGetValue(key, out var v) ? v : null;
+    public config.MonthCard Get(int key) => _dataMap[key];
+    public config.MonthCard this[int key] => _dataMap[key];
 
     public void Resolve(Dictionary<string, object> _tables)
     {

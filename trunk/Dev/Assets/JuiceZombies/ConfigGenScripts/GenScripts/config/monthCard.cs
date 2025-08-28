@@ -14,9 +14,9 @@ using SimpleJSON;
 namespace cfg.config
 { 
 
-public sealed partial class monthCard :  Bright.Config.BeanBase 
+public sealed partial class MonthCard :  Bright.Config.BeanBase 
 {
-    public monthCard(JSONNode _json) 
+    public MonthCard(JSONNode _json) 
     {
         { if(!_json["id"].IsNumber) { throw new SerializationException(); }  id = _json["id"]; }
         { if(!_json["time"].IsNumber) { throw new SerializationException(); }  time = _json["time"]; }
@@ -29,7 +29,7 @@ public sealed partial class monthCard :  Bright.Config.BeanBase
         PostInit();
     }
 
-    public monthCard(int id, int time, string name, System.Collections.Generic.List<UnityEngine.Vector2> descpara, System.Collections.Generic.List<string> desc, string icon, int sort, int price ) 
+    public MonthCard(int id, int time, string name, System.Collections.Generic.List<UnityEngine.Vector2> descpara, System.Collections.Generic.List<string> desc, string icon, int sort, int price ) 
     {
         this.id = id;
         this.time = time;
@@ -43,9 +43,9 @@ public sealed partial class monthCard :  Bright.Config.BeanBase
         PostInit();
     }
 
-    public static monthCard DeserializemonthCard(JSONNode _json)
+    public static MonthCard DeserializeMonthCard(JSONNode _json)
     {
-        return new config.monthCard(_json);
+        return new config.MonthCard(_json);
     }
 
     /// <summary>
@@ -80,7 +80,7 @@ public sealed partial class monthCard :  Bright.Config.BeanBase
     /// 价格
     /// </summary>
     public int price { get; private set; }
-    public const int __ID__ = -291570172;
+    public const int __ID__ = 1712397796;
     public override int GetTypeId() => __ID__;
 
     public  void Resolve(Dictionary<string, object> _tables)

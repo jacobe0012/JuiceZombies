@@ -69,7 +69,7 @@ public class TestInitItem : MonoBehaviour
         //这个是图纸
         if (ResourcesSingletonOld.Instance.items.Count != 0)
         {
-            var tbitem = ConfigManager.Instance.Tables.Tbitem;
+            var tbitem = ConfigManager.Instance.Tables.TbitemOld;
             //ResourcesSingletonOld.Instance.SortBagItem(ResourcesSingletonOld.Instance.items);
             foreach (var item in ResourcesSingletonOld.Instance.items)
             {

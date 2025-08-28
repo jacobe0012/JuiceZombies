@@ -16,18 +16,26 @@ using Unity.Mathematics;
 
 namespace cfg.blobstruct{
 
-public  struct ConfigTbheroBox
+public  struct ConfigTbHeroBox
 {
-    public static void Create(int i,ref BlobBuilder builder,ref BlobBuilderArray<ConfigTbheroBox> configTbheroBoxs,Tables tables)
+    public static void Create(int i,ref BlobBuilder builder,ref BlobBuilderArray<ConfigTbHeroBox> configTbHeroBoxs,Tables tables)
     { 
-        configTbheroBoxs[i].id = tables.TbheroBox.DataList[i].id;
-        configTbheroBoxs[i].time = tables.TbheroBox.DataList[i].time;
-        configTbheroBoxs[i].name = tables.TbheroBox.DataList[i].name;
-        configTbheroBoxs[i].desc = tables.TbheroBox.DataList[i].desc;
-        configTbheroBoxs[i].icon = tables.TbheroBox.DataList[i].icon;
-        configTbheroBoxs[i].sort = tables.TbheroBox.DataList[i].sort;
-        configTbheroBoxs[i].price1 = tables.TbheroBox.DataList[i].price1;
-        configTbheroBoxs[i].price2 = tables.TbheroBox.DataList[i].price2;
+        configTbHeroBoxs[i].id = tables.TbHeroBox.DataList[i].id;
+        configTbHeroBoxs[i].time = tables.TbHeroBox.DataList[i].time;
+        configTbHeroBoxs[i].name = tables.TbHeroBox.DataList[i].name;
+        configTbHeroBoxs[i].desc = tables.TbHeroBox.DataList[i].desc;
+        configTbHeroBoxs[i].icon = tables.TbHeroBox.DataList[i].icon;
+        configTbHeroBoxs[i].sort = tables.TbHeroBox.DataList[i].sort;
+        configTbHeroBoxs[i].price1 = tables.TbHeroBox.DataList[i].price1;
+        configTbHeroBoxs[i].price2 = tables.TbHeroBox.DataList[i].price2;
+        var allocatepowers =
+        builder.Allocate(ref configTbHeroBoxs[i].power,
+        tables.TbHeroBox.DataList[i].power.Count);
+        for (var powers = 0; powers < tables.TbHeroBox.DataList[i].power.Count; powers++)
+        {
+            allocatepowers[powers] = (int2) math.round(tables.TbHeroBox.DataList[i].power[powers]);
+        }
+        configTbHeroBoxs[i].ensureCount = tables.TbHeroBox.DataList[i].ensureCount;
     }
 
 
@@ -63,5 +71,13 @@ public  struct ConfigTbheroBox
     /// 价格
     /// </summary>
     public int price2;
+    /// <summary>
+    /// 十连抽
+    /// </summary>
+    public BlobArray<int2> power;  
+    /// <summary>
+    /// 保底数
+    /// </summary>
+    public int ensureCount;
 }
 }

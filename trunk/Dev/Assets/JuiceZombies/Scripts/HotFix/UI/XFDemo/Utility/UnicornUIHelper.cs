@@ -2172,7 +2172,7 @@ namespace HotFix_UI
         {
             Tblanguage language = ConfigManager.Instance.Tables.Tblanguage;
             Tbuser_variable user_varibles = ConfigManager.Instance.Tables.Tbuser_variable;
-            Tbitem item = ConfigManager.Instance.Tables.Tbitem;
+            TbitemOld item = ConfigManager.Instance.Tables.TbitemOld;
             Tbequip_data equip_data = ConfigManager.Instance.Tables.Tbequip_data;
             Tbequip_quality equip_quality = ConfigManager.Instance.Tables.Tbequip_quality;
             Tbquality quality = ConfigManager.Instance.Tables.Tbquality;
@@ -2268,7 +2268,7 @@ namespace HotFix_UI
         {
             Tblanguage language = ConfigManager.Instance.Tables.Tblanguage;
             Tbuser_variable user_varibles = ConfigManager.Instance.Tables.Tbuser_variable;
-            Tbitem item = ConfigManager.Instance.Tables.Tbitem;
+            TbitemOld item = ConfigManager.Instance.Tables.TbitemOld;
             Tbequip_data equip_data = ConfigManager.Instance.Tables.Tbequip_data;
             Tbequip_quality equip_quality = ConfigManager.Instance.Tables.Tbequip_quality;
             Tbquality quality = ConfigManager.Instance.Tables.Tbquality;
@@ -2729,7 +2729,7 @@ namespace HotFix_UI
         {
             var language = ConfigManager.Instance.Tables.Tblanguage;
             var user_varibles = ConfigManager.Instance.Tables.Tbuser_variable;
-            var item = ConfigManager.Instance.Tables.Tbitem;
+            var item = ConfigManager.Instance.Tables.TbitemOld;
             var equip_data = ConfigManager.Instance.Tables.Tbequip_data;
             var equip_quality = ConfigManager.Instance.Tables.Tbequip_quality;
             var equip_pos = ConfigManager.Instance.Tables.Tbequip_pos;
@@ -2948,7 +2948,7 @@ namespace HotFix_UI
         {
             var language = ConfigManager.Instance.Tables.Tblanguage;
             var user_varibles = ConfigManager.Instance.Tables.Tbuser_variable;
-            var item = ConfigManager.Instance.Tables.Tbitem;
+            var item = ConfigManager.Instance.Tables.TbitemOld;
             var equip_data = ConfigManager.Instance.Tables.Tbequip_data;
             var equip_quality = ConfigManager.Instance.Tables.Tbequip_quality;
             var equip_pos = ConfigManager.Instance.Tables.Tbequip_pos;
@@ -3079,7 +3079,7 @@ namespace HotFix_UI
         {
             var language = ConfigManager.Instance.Tables.Tblanguage;
             var user_varibles = ConfigManager.Instance.Tables.Tbuser_variable;
-            var item = ConfigManager.Instance.Tables.Tbitem;
+            var item = ConfigManager.Instance.Tables.TbitemOld;
             var equip_data = ConfigManager.Instance.Tables.Tbequip_data;
             var equip_quality = ConfigManager.Instance.Tables.Tbequip_quality;
             var equip_pos = ConfigManager.Instance.Tables.Tbequip_pos;
@@ -3236,7 +3236,7 @@ namespace HotFix_UI
         {
             var language = ConfigManager.Instance.Tables.Tblanguage;
             var user_varibles = ConfigManager.Instance.Tables.Tbuser_variable;
-            var item = ConfigManager.Instance.Tables.Tbitem;
+            var item = ConfigManager.Instance.Tables.TbitemOld;
             var equip_data = ConfigManager.Instance.Tables.Tbequip_data;
             var equip_quality = ConfigManager.Instance.Tables.Tbequip_quality;
             var equip_pos = ConfigManager.Instance.Tables.Tbequip_pos;
@@ -3322,7 +3322,7 @@ namespace HotFix_UI
         {
             var language = ConfigManager.Instance.Tables.Tblanguage;
             var user_varibles = ConfigManager.Instance.Tables.Tbuser_variable;
-            var item = ConfigManager.Instance.Tables.Tbitem;
+            var item = ConfigManager.Instance.Tables.TbitemOld;
             var equip_data = ConfigManager.Instance.Tables.Tbequip_data;
             var equip_quality = ConfigManager.Instance.Tables.Tbequip_quality;
             var equip_pos = ConfigManager.Instance.Tables.Tbequip_pos;
@@ -3380,7 +3380,7 @@ namespace HotFix_UI
         public static void SetIconOnly(Vector3 reward, UI icon)
         {
             var user_varibles = ConfigManager.Instance.Tables.Tbuser_variable;
-            var item = ConfigManager.Instance.Tables.Tbitem;
+            var item = ConfigManager.Instance.Tables.TbitemOld;
             var equip_data = ConfigManager.Instance.Tables.Tbequip_data;
 
             var rewardx = (int)reward.x;
@@ -3508,7 +3508,7 @@ namespace HotFix_UI
         {
             var language = ConfigManager.Instance.Tables.Tblanguage;
             var user_varibles = ConfigManager.Instance.Tables.Tbuser_variable;
-            var item = ConfigManager.Instance.Tables.Tbitem;
+            var item = ConfigManager.Instance.Tables.TbitemOld;
             var equip_data = ConfigManager.Instance.Tables.Tbequip_data;
             var equip_quality = ConfigManager.Instance.Tables.Tbequip_quality;
             var quality = ConfigManager.Instance.Tables.Tbquality;
@@ -3762,7 +3762,7 @@ namespace HotFix_UI
 
             var language = ConfigManager.Instance.Tables.Tblanguage;
             var user_varibles = ConfigManager.Instance.Tables.Tbuser_variable;
-            var item = ConfigManager.Instance.Tables.Tbitem;
+            var item = ConfigManager.Instance.Tables.TbitemOld;
             var equip_data = ConfigManager.Instance.Tables.Tbequip_data;
             var equip_quality = ConfigManager.Instance.Tables.Tbequip_quality;
             var quality = ConfigManager.Instance.Tables.Tbquality;
@@ -4046,7 +4046,7 @@ namespace HotFix_UI
         //{
         //    var language = ConfigManager.Instance.Tables.Tblanguage;
         //    var user_varibles = ConfigManager.Instance.Tables.Tbuser_variable;
-        //    var item = ConfigManager.Instance.Tables.Tbitem;
+        //    var item = ConfigManager.Instance.Tables.TbitemOld;
         //    var equip_data = ConfigManager.Instance.Tables.Tbequip_data;
         //    var equip_quality = ConfigManager.Instance.Tables.Tbequip_quality;
         //    var quality = ConfigManager.Instance.Tables.Tbquality;
@@ -4256,7 +4256,7 @@ namespace HotFix_UI
             const float delay = 0.9f;
             var language = ConfigManager.Instance.Tables.Tblanguage;
             var user_varibles = ConfigManager.Instance.Tables.Tbuser_variable;
-            var item = ConfigManager.Instance.Tables.Tbitem;
+            var item = ConfigManager.Instance.Tables.TbitemOld;
 
             var rewardx = (int)reward.x;
             var rewardy = (int)reward.y;
@@ -4375,7 +4375,7 @@ namespace HotFix_UI
             const float delay = 0.9f;
             var language = ConfigManager.Instance.Tables.Tblanguage;
             var user_varibles = ConfigManager.Instance.Tables.Tbuser_variable;
-            var item = ConfigManager.Instance.Tables.Tbitem;
+            var item = ConfigManager.Instance.Tables.TbitemOld;
             var rewardx = (int)reward.x;
             var rewardy = (int)reward.y;
             var rewardz = Mathf.Abs((int)reward.z);
@@ -4489,7 +4489,7 @@ namespace HotFix_UI
         {
             var language = ConfigManager.Instance.Tables.Tblanguage;
             var user_varibles = ConfigManager.Instance.Tables.Tbuser_variable;
-            var item = ConfigManager.Instance.Tables.Tbitem;
+            var item = ConfigManager.Instance.Tables.TbitemOld;
             var rewardx = (int)reward.x;
             var rewardy = (int)reward.y;
             var rewardz = Mathf.Abs((int)reward.z);
@@ -5938,7 +5938,7 @@ namespace HotFix_UI
         {
             var language = ConfigManager.Instance.Tables.Tblanguage;
             var user_varibles = ConfigManager.Instance.Tables.Tbuser_variable;
-            var item = ConfigManager.Instance.Tables.Tbitem;
+            var item = ConfigManager.Instance.Tables.TbitemOld;
             var equip_data = ConfigManager.Instance.Tables.Tbequip_data;
             var equip_quality = ConfigManager.Instance.Tables.Tbequip_quality;
             var quality = ConfigManager.Instance.Tables.Tbquality;
@@ -5977,7 +5977,7 @@ namespace HotFix_UI
         {
             Tblanguage language = ConfigManager.Instance.Tables.Tblanguage;
             Tbuser_variable user_varibles = ConfigManager.Instance.Tables.Tbuser_variable;
-            Tbitem item = ConfigManager.Instance.Tables.Tbitem;
+            TbitemOld item = ConfigManager.Instance.Tables.TbitemOld;
             Tbequip_data equip_data = ConfigManager.Instance.Tables.Tbequip_data;
             Tbequip_quality equip_quality = ConfigManager.Instance.Tables.Tbequip_quality;
             Tbquality quality = ConfigManager.Instance.Tables.Tbquality;

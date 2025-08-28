@@ -109,7 +109,7 @@ public struct ConfigData
     public ConfigTbequip_qualitys configTbequip_qualitys;
     public ConfigTbgifts configTbgifts;
     public ConfigTbgift_groups configTbgift_groups;
-    public ConfigTbitems configTbitems;
+    public ConfigTbitemOlds configTbitemOlds;
     public ConfigTbshop_dailys configTbshop_dailys;
     public ConfigTbfunds configTbfunds;
     public ConfigTbfund_rewards configTbfund_rewards;
@@ -119,9 +119,9 @@ public struct ConfigData
     public ConfigTbfrs configTbfrs;
     public ConfigTbmonthlys configTbmonthlys;
     public ConfigTbgoodss configTbgoodss;
-    public ConfigTbItemss configTbItemss;
-    public ConfigTbmonthCards configTbmonthCards;
-    public ConfigTbheroBoxs configTbheroBoxs;
+    public ConfigTbItems configTbItems;
+    public ConfigTbMonthCards configTbMonthCards;
+    public ConfigTbHeroBoxs configTbHeroBoxs;
     public ConfigTbachieves configTbachieves;
     public ConfigTbachieve_groups configTbachieve_groups;
     public ConfigTbchallenges configTbchallenges;
@@ -758,12 +758,12 @@ public static BlobAssetReference<ConfigData> CreateBlob(Tables tables)
     {   
         ConfigTbgift_group.Create(i,ref builder,ref configTbgift_groups,tables);
     }
-    BlobBuilderArray<ConfigTbitem> configTbitems = builder.Allocate(
-        ref root.configTbitems.configTbitems,
-        tables.Tbitem.DataList.Count);
-    for (var i = 0; i < tables.Tbitem.DataList.Count; i++)
+    BlobBuilderArray<ConfigTbitemOld> configTbitemOlds = builder.Allocate(
+        ref root.configTbitemOlds.configTbitemOlds,
+        tables.TbitemOld.DataList.Count);
+    for (var i = 0; i < tables.TbitemOld.DataList.Count; i++)
     {   
-        ConfigTbitem.Create(i,ref builder,ref configTbitems,tables);
+        ConfigTbitemOld.Create(i,ref builder,ref configTbitemOlds,tables);
     }
     BlobBuilderArray<ConfigTbshop_daily> configTbshop_dailys = builder.Allocate(
         ref root.configTbshop_dailys.configTbshop_dailys,
@@ -828,26 +828,26 @@ public static BlobAssetReference<ConfigData> CreateBlob(Tables tables)
     {   
         ConfigTbgoods.Create(i,ref builder,ref configTbgoodss,tables);
     }
-    BlobBuilderArray<ConfigTbItems> configTbItemss = builder.Allocate(
-        ref root.configTbItemss.configTbItemss,
-        tables.TbItems.DataList.Count);
-    for (var i = 0; i < tables.TbItems.DataList.Count; i++)
+    BlobBuilderArray<ConfigTbItem> configTbItems = builder.Allocate(
+        ref root.configTbItems.configTbItems,
+        tables.TbItem.DataList.Count);
+    for (var i = 0; i < tables.TbItem.DataList.Count; i++)
     {   
-        ConfigTbItems.Create(i,ref builder,ref configTbItemss,tables);
+        ConfigTbItem.Create(i,ref builder,ref configTbItems,tables);
     }
-    BlobBuilderArray<ConfigTbmonthCard> configTbmonthCards = builder.Allocate(
-        ref root.configTbmonthCards.configTbmonthCards,
-        tables.TbmonthCard.DataList.Count);
-    for (var i = 0; i < tables.TbmonthCard.DataList.Count; i++)
+    BlobBuilderArray<ConfigTbMonthCard> configTbMonthCards = builder.Allocate(
+        ref root.configTbMonthCards.configTbMonthCards,
+        tables.TbMonthCard.DataList.Count);
+    for (var i = 0; i < tables.TbMonthCard.DataList.Count; i++)
     {   
-        ConfigTbmonthCard.Create(i,ref builder,ref configTbmonthCards,tables);
+        ConfigTbMonthCard.Create(i,ref builder,ref configTbMonthCards,tables);
     }
-    BlobBuilderArray<ConfigTbheroBox> configTbheroBoxs = builder.Allocate(
-        ref root.configTbheroBoxs.configTbheroBoxs,
-        tables.TbheroBox.DataList.Count);
-    for (var i = 0; i < tables.TbheroBox.DataList.Count; i++)
+    BlobBuilderArray<ConfigTbHeroBox> configTbHeroBoxs = builder.Allocate(
+        ref root.configTbHeroBoxs.configTbHeroBoxs,
+        tables.TbHeroBox.DataList.Count);
+    for (var i = 0; i < tables.TbHeroBox.DataList.Count; i++)
     {   
-        ConfigTbheroBox.Create(i,ref builder,ref configTbheroBoxs,tables);
+        ConfigTbHeroBox.Create(i,ref builder,ref configTbHeroBoxs,tables);
     }
     BlobBuilderArray<ConfigTbachieve> configTbachieves = builder.Allocate(
         ref root.configTbachieves.configTbachieves,

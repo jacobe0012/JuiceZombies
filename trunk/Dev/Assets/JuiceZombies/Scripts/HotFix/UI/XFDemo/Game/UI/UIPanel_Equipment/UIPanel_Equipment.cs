@@ -849,7 +849,7 @@ namespace XFramework
 
         public bool HasCommonLabel(CommonLabelType type)
         {
-            var itemConfig = ConfigManager.Instance.Tables.Tbitem;
+            var itemConfig = ConfigManager.Instance.Tables.TbitemOld;
             var equip_data = ConfigManager.Instance.Tables.Tbequip_data;
 
             switch (type)

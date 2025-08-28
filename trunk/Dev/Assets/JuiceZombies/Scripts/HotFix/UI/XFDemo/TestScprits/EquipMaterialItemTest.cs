@@ -267,7 +267,7 @@ public class EquipMaterialItemTest : MonoBehaviour
     //初始化图纸item,装备面板
     public void InitDrawItem(int DrawItemId, long number)
     {
-        var tbitem = ConfigManager.Instance.Tables.Tbitem;
+        var tbitem = ConfigManager.Instance.Tables.TbitemOld;
         var tblanguage = ConfigManager.Instance.Tables.Tblanguage;
         itemBG.sprite = ResourcesManager.LoadAsset<Sprite>("pic_quality_frame_1");
         ItemIcon.sprite = ResourcesManager.LoadAsset<Sprite>(tbitem.Get(DrawItemId).icon);
@@ -378,7 +378,7 @@ public class EquipMaterialItemTest : MonoBehaviour
     public void InitDrawingDecrease(GameEquip equip)
     {
         var equip_level = ConfigManager.Instance.Tables.Tbequip_level;
-        var DrawingItem = ConfigManager.Instance.Tables.Tbitem;
+        var DrawingItem = ConfigManager.Instance.Tables.TbitemOld;
         var pos = equip.PosId;
         //拿到对应的图纸
         ItemIcon.sprite = ResourcesManager.LoadAsset<Sprite>(DrawingItem.Get(1020000 + pos).icon);

@@ -11,7 +11,7 @@ namespace XFramework
 
         public void Initialize(List<BagItem> args)
         {
-            var config = ConfigManager.Instance.Tables.Tbitem;
+            var config = ConfigManager.Instance.Tables.TbitemOld;
             bagItems = args;
 
             // foreach (var bagItem in args)

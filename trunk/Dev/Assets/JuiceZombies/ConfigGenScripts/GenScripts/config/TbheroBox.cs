@@ -14,31 +14,31 @@ using SimpleJSON;
 namespace cfg.config
 { 
 
-public sealed partial class TbheroBox
+public sealed partial class TbHeroBox
 {
-    private readonly Dictionary<int, config.heroBox> _dataMap;
-    private readonly List<config.heroBox> _dataList;
+    private readonly Dictionary<int, config.HeroBox> _dataMap;
+    private readonly List<config.HeroBox> _dataList;
     
-    public TbheroBox(JSONNode _json)
+    public TbHeroBox(JSONNode _json)
     {
-        _dataMap = new Dictionary<int, config.heroBox>();
-        _dataList = new List<config.heroBox>();
+        _dataMap = new Dictionary<int, config.HeroBox>();
+        _dataList = new List<config.HeroBox>();
         
         foreach(JSONNode _row in _json.Children)
         {
-            var _v = config.heroBox.DeserializeheroBox(_row);
+            var _v = config.HeroBox.DeserializeHeroBox(_row);
             _dataList.Add(_v);
             _dataMap.Add(_v.id, _v);
         }
         PostInit();
     }
 
-    public Dictionary<int, config.heroBox> DataMap => _dataMap;
-    public List<config.heroBox> DataList => _dataList;
+    public Dictionary<int, config.HeroBox> DataMap => _dataMap;
+    public List<config.HeroBox> DataList => _dataList;
 
-    public config.heroBox GetOrDefault(int key) => _dataMap.TryGetValue(key, out var v) ? v : null;
-    public config.heroBox Get(int key) => _dataMap[key];
-    public config.heroBox this[int key] => _dataMap[key];
+    public config.HeroBox GetOrDefault(int key) => _dataMap.TryGetValue(key, out var v) ? v : null;
+    public config.HeroBox Get(int key) => _dataMap[key];
+    public config.HeroBox this[int key] => _dataMap[key];
 
     public void Resolve(Dictionary<string, object> _tables)
     {

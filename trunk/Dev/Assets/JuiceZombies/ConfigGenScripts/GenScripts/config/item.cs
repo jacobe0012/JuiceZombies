@@ -14,70 +14,44 @@ using SimpleJSON;
 namespace cfg.config
 { 
 
-public sealed partial class item :  Bright.Config.BeanBase 
+public sealed partial class Item :  Bright.Config.BeanBase 
 {
-    public item(JSONNode _json) 
+    public Item(JSONNode _json) 
     {
         { if(!_json["id"].IsNumber) { throw new SerializationException(); }  id = _json["id"]; }
-        { if(!_json["value"].IsNumber) { throw new SerializationException(); }  value = _json["value"]; }
-        { if(!_json["value_coin"].IsNumber) { throw new SerializationException(); }  valueCoin = _json["value_coin"]; }
         { if(!_json["type"].IsNumber) { throw new SerializationException(); }  type = _json["type"]; }
-        { if(!_json["subtype"].IsNumber) { throw new SerializationException(); }  subtype = _json["subtype"]; }
         { if(!_json["quality"].IsNumber) { throw new SerializationException(); }  quality = _json["quality"]; }
-        { if(!_json["page"].IsNumber) { throw new SerializationException(); }  page = _json["page"]; }
-        { if(!_json["purchase_yn"].IsNumber) { throw new SerializationException(); }  purchaseYn = _json["purchase_yn"]; }
         { if(!_json["use_yn"].IsNumber) { throw new SerializationException(); }  useYn = _json["use_yn"]; }
-        { if(!_json["use_continuous_yn"].IsNumber) { throw new SerializationException(); }  useContinuousYn = _json["use_continuous_yn"]; }
-        { var __json0 = _json["use_effect"]; if(!__json0.IsArray) { throw new SerializationException(); } useEffect = new System.Collections.Generic.List<UnityEngine.Vector2>(__json0.Count); foreach(JSONNode __e0 in __json0.Children) { UnityEngine.Vector2 __v0;  { var _json2 = __e0; if(!_json2.IsObject) { throw new SerializationException(); }  float __x; { if(!_json2["x"].IsNumber) { throw new SerializationException(); }  __x = _json2["x"]; } float __y; { if(!_json2["y"].IsNumber) { throw new SerializationException(); }  __y = _json2["y"]; } __v0 = new UnityEngine.Vector2(__x, __y); }  useEffect.Add(__v0); }   }
         { var __json0 = _json["use_drop"]; if(!__json0.IsArray) { throw new SerializationException(); } useDrop = new System.Collections.Generic.List<UnityEngine.Vector3>(__json0.Count); foreach(JSONNode __e0 in __json0.Children) { UnityEngine.Vector3 __v0;  { var _json2 = __e0; if(!_json2.IsObject) { throw new SerializationException(); } float __x; { if(!_json2["x"].IsNumber) { throw new SerializationException(); }  __x = _json2["x"]; } float __y; { if(!_json2["y"].IsNumber) { throw new SerializationException(); }  __y = _json2["y"]; } float __z; { if(!_json2["z"].IsNumber) { throw new SerializationException(); }  __z = _json2["z"]; }  __v0 = new UnityEngine.Vector3(__x, __y,__z); }  useDrop.Add(__v0); }   }
         { if(!_json["pile_yn"].IsNumber) { throw new SerializationException(); }  pileYn = _json["pile_yn"]; }
         { if(!_json["name"].IsString) { throw new SerializationException(); }  name = _json["name"]; }
         { if(!_json["desc"].IsString) { throw new SerializationException(); }  desc = _json["desc"]; }
         { var __json0 = _json["desc_value"]; if(!__json0.IsArray) { throw new SerializationException(); } descValue = new System.Collections.Generic.List<int>(__json0.Count); foreach(JSONNode __e0 in __json0.Children) { int __v0;  { if(!__e0.IsNumber) { throw new SerializationException(); }  __v0 = __e0; }  descValue.Add(__v0); }   }
         { if(!_json["icon"].IsString) { throw new SerializationException(); }  icon = _json["icon"]; }
-        { if(!_json["open_desc"].IsString) { throw new SerializationException(); }  openDesc = _json["open_desc"]; }
-        { var __json0 = _json["recovery"]; if(!__json0.IsArray) { throw new SerializationException(); } recovery = new System.Collections.Generic.List<UnityEngine.Vector3>(__json0.Count); foreach(JSONNode __e0 in __json0.Children) { UnityEngine.Vector3 __v0;  { var _json2 = __e0; if(!_json2.IsObject) { throw new SerializationException(); } float __x; { if(!_json2["x"].IsNumber) { throw new SerializationException(); }  __x = _json2["x"]; } float __y; { if(!_json2["y"].IsNumber) { throw new SerializationException(); }  __y = _json2["y"]; } float __z; { if(!_json2["z"].IsNumber) { throw new SerializationException(); }  __z = _json2["z"]; }  __v0 = new UnityEngine.Vector3(__x, __y,__z); }  recovery.Add(__v0); }   }
-        { if(!_json["display_yn"].IsNumber) { throw new SerializationException(); }  displayYn = _json["display_yn"]; }
-        { if(!_json["tips_type"].IsNumber) { throw new SerializationException(); }  tipsType = _json["tips_type"]; }
-        { if(!_json["quality_yn"].IsNumber) { throw new SerializationException(); }  qualityYn = _json["quality_yn"]; }
         { if(!_json["sort"].IsNumber) { throw new SerializationException(); }  sort = _json["sort"]; }
-        { if(!_json["goto_0"].IsString) { throw new SerializationException(); }  goto0 = _json["goto_0"]; }
         PostInit();
     }
 
-    public item(int id, int value, int value_coin, int type, int subtype, int quality, int page, int purchase_yn, int use_yn, int use_continuous_yn, System.Collections.Generic.List<UnityEngine.Vector2> use_effect, System.Collections.Generic.List<UnityEngine.Vector3> use_drop, int pile_yn, string name, string desc, System.Collections.Generic.List<int> desc_value, string icon, string open_desc, System.Collections.Generic.List<UnityEngine.Vector3> recovery, int display_yn, int tips_type, int quality_yn, int sort, string goto_0 ) 
+    public Item(int id, int type, int quality, int use_yn, System.Collections.Generic.List<UnityEngine.Vector3> use_drop, int pile_yn, string name, string desc, System.Collections.Generic.List<int> desc_value, string icon, int sort ) 
     {
         this.id = id;
-        this.value = value;
-        this.valueCoin = value_coin;
         this.type = type;
-        this.subtype = subtype;
         this.quality = quality;
-        this.page = page;
-        this.purchaseYn = purchase_yn;
         this.useYn = use_yn;
-        this.useContinuousYn = use_continuous_yn;
-        this.useEffect = use_effect;
         this.useDrop = use_drop;
         this.pileYn = pile_yn;
         this.name = name;
         this.desc = desc;
         this.descValue = desc_value;
         this.icon = icon;
-        this.openDesc = open_desc;
-        this.recovery = recovery;
-        this.displayYn = display_yn;
-        this.tipsType = tips_type;
-        this.qualityYn = quality_yn;
         this.sort = sort;
-        this.goto0 = goto_0;
         
         PostInit();
     }
 
-    public static item Deserializeitem(JSONNode _json)
+    public static Item DeserializeItem(JSONNode _json)
     {
-        return new config.item(_json);
+        return new config.Item(_json);
     }
 
     /// <summary>
@@ -85,45 +59,17 @@ public sealed partial class item :  Bright.Config.BeanBase
     /// </summary>
     public int id { get; private set; }
     /// <summary>
-    /// 钻石价值
-    /// </summary>
-    public int value { get; private set; }
-    /// <summary>
-    /// 金币价值
-    /// </summary>
-    public int valueCoin { get; private set; }
-    /// <summary>
     /// 道具类型
     /// </summary>
     public int type { get; private set; }
-    /// <summary>
-    /// 道具子类
-    /// </summary>
-    public int subtype { get; private set; }
     /// <summary>
     /// 道具品质
     /// </summary>
     public int quality { get; private set; }
     /// <summary>
-    /// 背包切页
-    /// </summary>
-    public int page { get; private set; }
-    /// <summary>
-    /// 可否商城购买
-    /// </summary>
-    public int purchaseYn { get; private set; }
-    /// <summary>
     /// 可否使用
     /// </summary>
     public int useYn { get; private set; }
-    /// <summary>
-    /// 可否连续使用
-    /// </summary>
-    public int useContinuousYn { get; private set; }
-    /// <summary>
-    /// 使用效果1
-    /// </summary>
-    public System.Collections.Generic.List<UnityEngine.Vector2> useEffect { get; private set; }
     /// <summary>
     /// 使用获得
     /// </summary>
@@ -145,38 +91,14 @@ public sealed partial class item :  Bright.Config.BeanBase
     /// </summary>
     public System.Collections.Generic.List<int> descValue { get; private set; }
     /// <summary>
-    /// 图标(图片资源)
+    /// 图标
     /// </summary>
     public string icon { get; private set; }
-    /// <summary>
-    /// 道具开启类型
-    /// </summary>
-    public string openDesc { get; private set; }
-    /// <summary>
-    /// 道具回收
-    /// </summary>
-    public System.Collections.Generic.List<UnityEngine.Vector3> recovery { get; private set; }
-    /// <summary>
-    /// 是否显示
-    /// </summary>
-    public int displayYn { get; private set; }
-    /// <summary>
-    /// 弹板类型
-    /// </summary>
-    public int tipsType { get; private set; }
-    /// <summary>
-    /// 是否显示品质文本
-    /// </summary>
-    public int qualityYn { get; private set; }
     /// <summary>
     /// 排序
     /// </summary>
     public int sort { get; private set; }
-    /// <summary>
-    /// 前往
-    /// </summary>
-    public string goto0 { get; private set; }
-    public const int __ID__ = -28054977;
+    public const int __ID__ = -29008289;
     public override int GetTypeId() => __ID__;
 
     public  void Resolve(Dictionary<string, object> _tables)
@@ -192,29 +114,16 @@ public sealed partial class item :  Bright.Config.BeanBase
     {
         return "{ "
         + "id:" + id + ","
-        + "value:" + value + ","
-        + "valueCoin:" + valueCoin + ","
         + "type:" + type + ","
-        + "subtype:" + subtype + ","
         + "quality:" + quality + ","
-        + "page:" + page + ","
-        + "purchaseYn:" + purchaseYn + ","
         + "useYn:" + useYn + ","
-        + "useContinuousYn:" + useContinuousYn + ","
-        + "useEffect:" + Bright.Common.StringUtil.CollectionToString(useEffect) + ","
         + "useDrop:" + Bright.Common.StringUtil.CollectionToString(useDrop) + ","
         + "pileYn:" + pileYn + ","
         + "name:" + name + ","
         + "desc:" + desc + ","
         + "descValue:" + Bright.Common.StringUtil.CollectionToString(descValue) + ","
         + "icon:" + icon + ","
-        + "openDesc:" + openDesc + ","
-        + "recovery:" + Bright.Common.StringUtil.CollectionToString(recovery) + ","
-        + "displayYn:" + displayYn + ","
-        + "tipsType:" + tipsType + ","
-        + "qualityYn:" + qualityYn + ","
         + "sort:" + sort + ","
-        + "goto0:" + goto0 + ","
         + "}";
     }
     

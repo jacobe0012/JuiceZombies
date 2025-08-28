@@ -14,9 +14,9 @@ using SimpleJSON;
 namespace cfg.config
 { 
 
-public sealed partial class heroBox :  Bright.Config.BeanBase 
+public sealed partial class HeroBox :  Bright.Config.BeanBase 
 {
-    public heroBox(JSONNode _json) 
+    public HeroBox(JSONNode _json) 
     {
         { if(!_json["id"].IsNumber) { throw new SerializationException(); }  id = _json["id"]; }
         { if(!_json["time"].IsNumber) { throw new SerializationException(); }  time = _json["time"]; }
@@ -26,10 +26,12 @@ public sealed partial class heroBox :  Bright.Config.BeanBase
         { if(!_json["sort"].IsNumber) { throw new SerializationException(); }  sort = _json["sort"]; }
         { if(!_json["price1"].IsNumber) { throw new SerializationException(); }  price1 = _json["price1"]; }
         { if(!_json["price2"].IsNumber) { throw new SerializationException(); }  price2 = _json["price2"]; }
+        { var __json0 = _json["power"]; if(!__json0.IsArray) { throw new SerializationException(); } power = new System.Collections.Generic.List<UnityEngine.Vector2>(__json0.Count); foreach(JSONNode __e0 in __json0.Children) { UnityEngine.Vector2 __v0;  { var _json2 = __e0; if(!_json2.IsObject) { throw new SerializationException(); }  float __x; { if(!_json2["x"].IsNumber) { throw new SerializationException(); }  __x = _json2["x"]; } float __y; { if(!_json2["y"].IsNumber) { throw new SerializationException(); }  __y = _json2["y"]; } __v0 = new UnityEngine.Vector2(__x, __y); }  power.Add(__v0); }   }
+        { if(!_json["ensure_count"].IsNumber) { throw new SerializationException(); }  ensureCount = _json["ensure_count"]; }
         PostInit();
     }
 
-    public heroBox(int id, int time, string name, string desc, string icon, int sort, int price1, int price2 ) 
+    public HeroBox(int id, int time, string name, string desc, string icon, int sort, int price1, int price2, System.Collections.Generic.List<UnityEngine.Vector2> power, int ensure_count ) 
     {
         this.id = id;
         this.time = time;
@@ -39,13 +41,15 @@ public sealed partial class heroBox :  Bright.Config.BeanBase
         this.sort = sort;
         this.price1 = price1;
         this.price2 = price2;
+        this.power = power;
+        this.ensureCount = ensure_count;
         
         PostInit();
     }
 
-    public static heroBox DeserializeheroBox(JSONNode _json)
+    public static HeroBox DeserializeHeroBox(JSONNode _json)
     {
-        return new config.heroBox(_json);
+        return new config.HeroBox(_json);
     }
 
     /// <summary>
@@ -80,7 +84,15 @@ public sealed partial class heroBox :  Bright.Config.BeanBase
     /// 价格
     /// </summary>
     public int price2 { get; private set; }
-    public const int __ID__ = 427994309;
+    /// <summary>
+    /// 十连抽
+    /// </summary>
+    public System.Collections.Generic.List<UnityEngine.Vector2> power { get; private set; }
+    /// <summary>
+    /// 保底数
+    /// </summary>
+    public int ensureCount { get; private set; }
+    public const int __ID__ = 2092647589;
     public override int GetTypeId() => __ID__;
 
     public  void Resolve(Dictionary<string, object> _tables)
@@ -103,6 +115,8 @@ public sealed partial class heroBox :  Bright.Config.BeanBase
         + "sort:" + sort + ","
         + "price1:" + price1 + ","
         + "price2:" + price2 + ","
+        + "power:" + Bright.Common.StringUtil.CollectionToString(power) + ","
+        + "ensureCount:" + ensureCount + ","
         + "}";
     }
     

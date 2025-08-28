@@ -55,7 +55,7 @@ namespace XFramework
         private Tbquality tbquality;
 
         //item表
-        private Tbitem tbitem;
+        private TbitemOld tbitem;
 
         //Tbuser_variable表
         private Tbuser_variable tbuser_Variable;
@@ -346,7 +346,7 @@ namespace XFramework
             //读取quality表
             tbquality = ConfigManager.Instance.Tables.Tbquality;
             //读取item表
-            tbitem = ConfigManager.Instance.Tables.Tbitem;
+            tbitem = ConfigManager.Instance.Tables.TbitemOld;
             //读取user_Variable表
             tbuser_Variable = ConfigManager.Instance.Tables.Tbuser_variable;
 

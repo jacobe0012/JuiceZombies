@@ -88,7 +88,7 @@ app.UseWebSockets(webSocketOptions);
 
 MyConfig.InitConfig();
 
-Console.WriteLine($"test config:{MyConfig.Tables.Tbitem.Get(1001).id}");
+Console.WriteLine($"test config:{MyConfig.Tables.TbItem.Get(101).id}");
 //app.UseDefaultFiles();
 //app.UseStaticFiles();
 

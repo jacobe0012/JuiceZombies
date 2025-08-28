@@ -59,7 +59,7 @@ namespace XFramework
         private Tblanguage tblanguage;
         private Tbequip_data tbequip_Data;
         private Tbdraw_box tbdraw_Box;
-        private Tbitem tbitem;
+        private TbitemOld tbitem;
         private Tbuser_variable tbuser_Variable;
         private DrawParam drawParam = new DrawParam();
         private int thisTag_func = 0;
@@ -90,7 +90,7 @@ namespace XFramework
             //读取draw_Box表
             tbdraw_Box = ConfigManager.Instance.Tables.Tbdraw_box;
             //读取item表
-            tbitem = ConfigManager.Instance.Tables.Tbitem;
+            tbitem = ConfigManager.Instance.Tables.TbitemOld;
             //读取tbuser_Variable表
             tbuser_Variable = ConfigManager.Instance.Tables.Tbuser_variable;
             BoxID = (int)shopDrawHelp.rewardList[0][0];

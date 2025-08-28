@@ -37,7 +37,7 @@ namespace XFramework
 
         private Tblanguage tblanguage;
         private Tbconstant tbconstant;
-        private Tbitem tbitem;
+        private TbitemOld tbitem;
         private Tbuser_variable tbuser_Variable;
 
         //0�Ǹ���������ȴ״̬����ʾ��ȴʱ�䣬1������޸ģ�2�Ǹ������޸ģ�3�Ǹ����ʲ��������ʲ����㣬4�Ǹ����ʲ��������ʲ�������
@@ -81,7 +81,7 @@ namespace XFramework
         {
             tblanguage = ConfigManager.Instance.Tables.Tblanguage;
             tbconstant = ConfigManager.Instance.Tables.Tbconstant;
-            tbitem = ConfigManager.Instance.Tables.Tbitem;
+            tbitem = ConfigManager.Instance.Tables.TbitemOld;
             tbuser_Variable = ConfigManager.Instance.Tables.Tbuser_variable;
         }
 

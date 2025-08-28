@@ -29,7 +29,6 @@ public class LoginCommandHandler : HandleBase, ICommandHandler
         if (user != null)
         {
             newUser = user;
-            
         }
         else
         {
@@ -37,8 +36,8 @@ public class LoginCommandHandler : HandleBase, ICommandHandler
             newUser = new UserResData
             {
                 UserName = request.Name,
-                Golds = request.Name.Length,
-                Diamonds = request.Name.Length + 10,
+                Golds = 0,
+                Diamonds = 0,
             };
             _context.UserResDatas.Add(newUser);
 
@@ -46,11 +45,9 @@ public class LoginCommandHandler : HandleBase, ICommandHandler
             await _context.SaveChangesAsync();
         }
 
-        Console.WriteLine($" 收到消息2");
-
         var resData = _mapper.Map<S2C_UserResData>(newUser);
         var outputContentStr = JsonConvert.SerializeObject(resData);
-        Console.WriteLine($" 收到消息3");
+
         message.Content = MessagePackSerializer.Serialize(resData, options);
         var context = new Context
         {
@@ -132,52 +129,51 @@ public class LoginCommandHandler : HandleBase, ICommandHandler
     /// </summary>
     /// <param name="db"></param>
     /// <param name="openId"></param>
-    private PlayerResource InitPlayerResource()
-    {
-        var itemInfos = MyConfig.Tables?.Tbitem.DataList.Where(a => a.initEnable == 1)
-            .Select(item => new Vector3(item.id, 1, 0)).ToList();
-
-        var initAchieveItemList = MyConfig.Tables?.Tbtask.DataList
-            .GroupBy(item => item.group) // 根据 group 分组
-            .Select(group => new AchieveItem // 直接创建 AchieveItem 对象
-            {
-                GroupId = group.Key, // 使用分组键作为 GroupId
-                CurPara = 0,
-                Type = group.First().type // 从组中获取第一个 item's type
-            })
-            .ToList(); // 转换为 List
-
-        List<MailItem> mailItems = new List<MailItem>();
-        mailItems.Add(new MailItem
-        {
-            Id = 1001,
-            TemplateId = 10001,
-            State = 0,
-            SendTimeStamp = GetCurrentUtcLong()
-        });
-        var playerRes = new PlayerResource
-        {
-            ItemList = itemInfos,
-            GameAchieve = new GameAchievement
-            {
-                AchieveItemList = initAchieveItemList,
-                Score = 0,
-                AchieveRewardBoxList = new List<int>()
-            },
-            GameMail = new GameMail
-            {
-                MailItems = mailItems
-            },
-            GameSign = new GameSign
-            {
-                isSignedToday = false
-            },
-            GameSignAcc7 = new GameSignAcc7(),
-            PlayerServerData = new PlayerServerData()
-        };
-        return playerRes;
-    }
-
+    // private PlayerResource InitPlayerResource()
+    // {
+    //     var itemInfos = MyConfig.Tables?.Tbitem.DataList.Where(a => a.initEnable == 1)
+    //         .Select(item => new Vector3(item.id, 1, 0)).ToList();
+    //
+    //     var initAchieveItemList = MyConfig.Tables?.Tbtask.DataList
+    //         .GroupBy(item => item.group) // 根据 group 分组
+    //         .Select(group => new AchieveItem // 直接创建 AchieveItem 对象
+    //         {
+    //             GroupId = group.Key, // 使用分组键作为 GroupId
+    //             CurPara = 0,
+    //             Type = group.First().type // 从组中获取第一个 item's type
+    //         })
+    //         .ToList(); // 转换为 List
+    //
+    //     List<MailItem> mailItems = new List<MailItem>();
+    //     mailItems.Add(new MailItem
+    //     {
+    //         Id = 1001,
+    //         TemplateId = 10001,
+    //         State = 0,
+    //         SendTimeStamp = GetCurrentUtcLong()
+    //     });
+    //     var playerRes = new PlayerResource
+    //     {
+    //         ItemList = itemInfos,
+    //         GameAchieve = new GameAchievement
+    //         {
+    //             AchieveItemList = initAchieveItemList,
+    //             Score = 0,
+    //             AchieveRewardBoxList = new List<int>()
+    //         },
+    //         GameMail = new GameMail
+    //         {
+    //             MailItems = mailItems
+    //         },
+    //         GameSign = new GameSign
+    //         {
+    //             isSignedToday = false
+    //         },
+    //         GameSignAcc7 = new GameSignAcc7(),
+    //         PlayerServerData = new PlayerServerData()
+    //     };
+    //     return playerRes;
+    // }
     public async Task<WXCode2Session>? GetSessionJson(string jsCode)
     {
         string appId = AppKeys.AppID;

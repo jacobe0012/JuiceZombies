@@ -58,7 +58,7 @@ namespace XFramework
         private List<talent_level> talentLevelList;
         private Tbtalent_level tanlentLevelMap;
         private Tblanguage lang;
-        private Tbitem itemMap;
+        private TbitemOld itemMap;
         private CancellationTokenSource cts = new CancellationTokenSource();
 
         public struct Parameter
@@ -147,7 +147,7 @@ namespace XFramework
             talentLevelList = ConfigManager.Instance.Tables.Tbtalent_level.DataList;
             tanlentLevelMap = ConfigManager.Instance.Tables.Tbtalent_level;
             lang = ConfigManager.Instance.Tables.Tblanguage;
-            itemMap = ConfigManager.Instance.Tables.Tbitem;
+            itemMap = ConfigManager.Instance.Tables.TbitemOld;
         }
 
         public void UpdateContainer()

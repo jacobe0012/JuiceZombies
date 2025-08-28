@@ -14,67 +14,32 @@ namespace cfg
    
 public sealed partial class Tables
 {
-    public config.Tbconstant Tbconstant {get; }
-    public config.Tbitem Tbitem {get; }
-    public config.Tbmail Tbmail {get; }
-    public config.Tbsign_daily Tbsign_daily {get; }
-    public config.Tbsign_acc7 Tbsign_acc7 {get; }
-    public config.Tbtag_func Tbtag_func {get; }
-    public config.Tbtask Tbtask {get; }
-    public config.Tbtask_type Tbtask_type {get; }
-    public config.Tbtask_group Tbtask_group {get; }
-    public config.Tbtask_score Tbtask_score {get; }
+    public config.TbItem TbItem {get; }
+    public config.TbMonthCard TbMonthCard {get; }
+    public config.TbHeroBox TbHeroBox {get; }
 
     public Tables(System.Func<string, JSONNode> loader)
     {
         var tables = new System.Collections.Generic.Dictionary<string, object>();
-        Tbconstant = new config.Tbconstant(loader("config_tbconstant")); 
-        tables.Add("config.Tbconstant", Tbconstant);
-        Tbitem = new config.Tbitem(loader("config_tbitem")); 
-        tables.Add("config.Tbitem", Tbitem);
-        Tbmail = new config.Tbmail(loader("config_tbmail")); 
-        tables.Add("config.Tbmail", Tbmail);
-        Tbsign_daily = new config.Tbsign_daily(loader("config_tbsign_daily")); 
-        tables.Add("config.Tbsign_daily", Tbsign_daily);
-        Tbsign_acc7 = new config.Tbsign_acc7(loader("config_tbsign_acc7")); 
-        tables.Add("config.Tbsign_acc7", Tbsign_acc7);
-        Tbtag_func = new config.Tbtag_func(loader("config_tbtag_func")); 
-        tables.Add("config.Tbtag_func", Tbtag_func);
-        Tbtask = new config.Tbtask(loader("config_tbtask")); 
-        tables.Add("config.Tbtask", Tbtask);
-        Tbtask_type = new config.Tbtask_type(loader("config_tbtask_type")); 
-        tables.Add("config.Tbtask_type", Tbtask_type);
-        Tbtask_group = new config.Tbtask_group(loader("config_tbtask_group")); 
-        tables.Add("config.Tbtask_group", Tbtask_group);
-        Tbtask_score = new config.Tbtask_score(loader("config_tbtask_score")); 
-        tables.Add("config.Tbtask_score", Tbtask_score);
+        TbItem = new config.TbItem(loader("config_tbitem")); 
+        tables.Add("config.TbItem", TbItem);
+        TbMonthCard = new config.TbMonthCard(loader("config_tbmonthcard")); 
+        tables.Add("config.TbMonthCard", TbMonthCard);
+        TbHeroBox = new config.TbHeroBox(loader("config_tbherobox")); 
+        tables.Add("config.TbHeroBox", TbHeroBox);
         PostInit();
 
-        Tbconstant.Resolve(tables); 
-        Tbitem.Resolve(tables); 
-        Tbmail.Resolve(tables); 
-        Tbsign_daily.Resolve(tables); 
-        Tbsign_acc7.Resolve(tables); 
-        Tbtag_func.Resolve(tables); 
-        Tbtask.Resolve(tables); 
-        Tbtask_type.Resolve(tables); 
-        Tbtask_group.Resolve(tables); 
-        Tbtask_score.Resolve(tables); 
+        TbItem.Resolve(tables); 
+        TbMonthCard.Resolve(tables); 
+        TbHeroBox.Resolve(tables); 
         PostResolve();
     }
 
     public void TranslateText(System.Func<string, string, string> translator)
     {
-        Tbconstant.TranslateText(translator); 
-        Tbitem.TranslateText(translator); 
-        Tbmail.TranslateText(translator); 
-        Tbsign_daily.TranslateText(translator); 
-        Tbsign_acc7.TranslateText(translator); 
-        Tbtag_func.TranslateText(translator); 
-        Tbtask.TranslateText(translator); 
-        Tbtask_type.TranslateText(translator); 
-        Tbtask_group.TranslateText(translator); 
-        Tbtask_score.TranslateText(translator); 
+        TbItem.TranslateText(translator); 
+        TbMonthCard.TranslateText(translator); 
+        TbHeroBox.TranslateText(translator); 
     }
     
     partial void PostInit();

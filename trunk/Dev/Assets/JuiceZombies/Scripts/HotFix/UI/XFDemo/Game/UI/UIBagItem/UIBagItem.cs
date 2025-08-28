@@ -44,7 +44,7 @@ namespace XFramework
 
         public void Initialize(int index)
         {
-            var item = ConfigManager.Instance.Tables.Tbitem;
+            var item = ConfigManager.Instance.Tables.TbitemOld;
 
             bagIndex = index;
             itemId = parentUI.GetItem(index).ItemId;

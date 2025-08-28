@@ -14,31 +14,31 @@ using SimpleJSON;
 namespace cfg.config
 { 
 
-public sealed partial class Tbitem
+public sealed partial class TbItem
 {
-    private readonly Dictionary<int, config.item> _dataMap;
-    private readonly List<config.item> _dataList;
+    private readonly Dictionary<int, config.Item> _dataMap;
+    private readonly List<config.Item> _dataList;
     
-    public Tbitem(JSONNode _json)
+    public TbItem(JSONNode _json)
     {
-        _dataMap = new Dictionary<int, config.item>();
-        _dataList = new List<config.item>();
+        _dataMap = new Dictionary<int, config.Item>();
+        _dataList = new List<config.Item>();
         
         foreach(JSONNode _row in _json.Children)
         {
-            var _v = config.item.Deserializeitem(_row);
+            var _v = config.Item.DeserializeItem(_row);
             _dataList.Add(_v);
             _dataMap.Add(_v.id, _v);
         }
         PostInit();
     }
 
-    public Dictionary<int, config.item> DataMap => _dataMap;
-    public List<config.item> DataList => _dataList;
+    public Dictionary<int, config.Item> DataMap => _dataMap;
+    public List<config.Item> DataList => _dataList;
 
-    public config.item GetOrDefault(int key) => _dataMap.TryGetValue(key, out var v) ? v : null;
-    public config.item Get(int key) => _dataMap[key];
-    public config.item this[int key] => _dataMap[key];
+    public config.Item GetOrDefault(int key) => _dataMap.TryGetValue(key, out var v) ? v : null;
+    public config.Item Get(int key) => _dataMap[key];
+    public config.Item this[int key] => _dataMap[key];
 
     public void Resolve(Dictionary<string, object> _tables)
     {

@@ -8,6 +8,10 @@ import shutil
 import re
 import sys
 import time
+
+
+
+
 def get_excel_files(folder_path):
     excel_files = []
     for root, dirs, files in os.walk(folder_path):
@@ -23,16 +27,20 @@ script_path = os.path.abspath(__file__)
 dir_path = os.path.dirname(script_path)
 parent_dir = os.path.dirname(dir_path)
 #打包工具需要
-parent_dir = os.path.dirname(parent_dir)
-dir_path = os.path.dirname(parent_dir)
-parent_dir = os.path.dirname(parent_dir)
-parent_dir = os.path.dirname(parent_dir)
-
+#parent_dir = os.path.dirname(parent_dir)
+#dir_path = os.path.dirname(parent_dir)
+#parent_dir = os.path.dirname(parent_dir)
+#parent_dir = os.path.dirname(parent_dir)
+       
+picWhiteListPath = parent_dir + r"\trunk\Dev\Assets\JuiceZombies\Art_Resources\PicsWhiteList"
 lubanOutputPath = dir_path + r"\Luban\ConfigRoot\Datas"
+
 my_excel = []
 folder_paths = []
 
-configDir =parent_dir + r"\config"  
+configDir = parent_dir + r"\config"
+
+
 folder_paths.append(configDir)
 # /// <summary>
 # /// 在这里加入需要转换未处理的excel文件，包含文件后缀
@@ -68,10 +76,42 @@ def gen_base(isClient):
 
     # 移出特定值的元素
     my_excel.remove(to_remove)
+    # 要保存的字符串
+    artStr = r""
 
+    # 使用集合来去重，避免重复值
+    generated_strings = set()
     for index, value in enumerate(my_excel):
-        exceltool.genfixedexcel(index, value,lubanOutputPath)
+        #exceltool.genfixedexcel(index, value,lubanOutputPath)
+        generated_string = exceltool.genfixedexcel(index, value, lubanOutputPath)
+        #print(generated_string)
+        # 输出结果
+        if generated_string is not None and generated_string != "":
+            # 将 generated_string 添加到集合中，避免重复
+            generated_strings.add(generated_string)
+            #print(generated_string)
+            # 将去重后的值连接成一个字符串，并用分号分隔
+    artStr = "&".join(generated_strings)
 
+
+
+    # 1. 使用分号分割字符串成块
+    chunks = artStr.split("&")
+
+    # 2. 使用 set 去重
+    unique_chunks = set(chunks)
+
+    # 3. 将去重后的块重新用分号连接成一个字符串
+    artStr = "&".join(unique_chunks)
+
+
+    # 确保目录存在，如果不存在则创建
+    os.makedirs(picWhiteListPath, exist_ok=True)
+    # 创建白名单文件并写入内容
+    file_path = os.path.join(picWhiteListPath, "whiteList.txt")
+    
+    with open(file_path, 'w', encoding='utf-8') as file:
+        file.write(artStr)
 
     # 检查文件是否存在
     if os.path.exists(skilleffectNewName):
@@ -83,15 +123,16 @@ def gen_base(isClient):
         #print(f'文件 {skilleffectNewName} 不存在，无需删除。')
             
     print('done!')
-    #isClient=sys.argv[1] 
+    #
 
     #打包工具需要
     #isClient = "True"
     folder_path =dir_path + r"\Luban\Luban.ClientServer\Templates\config\cs_unity_json"
     source_folder_class =dir_path + r"\CustomTem\class"
     source_folder_struct =dir_path + r"\CustomTem\struct"
-    source_folder_self =dir_path + r"\CustomTem\self"
-    if isClient == True:
+    source_folder_self =dir_path + r"\CustomTem\server"
+
+    if isClient =="True" :
         template.handle_template(source_folder_class,folder_path)
         os.system(dir_path + r"\Luban\gen_code_json.bat")
         print("client:已经生成class脚本和json数据")
@@ -103,7 +144,7 @@ def gen_base(isClient):
         os.system(dir_path + r"\Luban\gen_code_json_server.bat")
         print("server:已经生成json数据")
     
-gen_base(True)
+gen_base("True")
 
 #input("Press Enter to exit...")
 

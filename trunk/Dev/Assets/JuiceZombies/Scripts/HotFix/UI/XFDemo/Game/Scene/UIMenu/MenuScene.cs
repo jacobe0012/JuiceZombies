@@ -1613,7 +1613,7 @@ namespace XFramework
                 ResourcesSingletonOld.Instance.items.TryAdd(bag.ItemId, bag.Count);
             }
 
-            Tbitem item = ConfigManager.Instance.Tables.Tbitem;
+            TbitemOld item = ConfigManager.Instance.Tables.TbitemOld;
 
 
             var bagList = new List<BagItem>();
@@ -2260,7 +2260,7 @@ namespace XFramework
         {
             public int Compare(BagItem obj1, BagItem obj2)
             {
-                Tbitem item = ConfigManager.Instance.Tables.Tbitem;
+                TbitemOld item = ConfigManager.Instance.Tables.TbitemOld;
                 var item1 = item.GetOrDefault(obj1.ItemId);
                 var item2 = item.GetOrDefault(obj2.ItemId);
                 if (item1 == null || item2 == null)

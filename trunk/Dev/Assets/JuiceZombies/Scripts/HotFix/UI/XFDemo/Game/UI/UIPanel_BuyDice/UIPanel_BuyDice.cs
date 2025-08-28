@@ -39,7 +39,7 @@ namespace XFramework
         private Tbmonopoly_event tbmonopoly_event;
         private Tbmonopoly_shop tbmonopoly_shop;
         private Tbmonopoly_event_lotto tbmonopoly_event_lotto;
-        private Tbitem tbitem;
+        private TbitemOld tbitem;
         private Tblanguage tblanguage;
         private Tbactivity tbactivity;
         public int activityId;
@@ -61,7 +61,7 @@ namespace XFramework
             tbmonopoly_event = ConfigManager.Instance.Tables.Tbmonopoly_event;
             tbmonopoly_shop = ConfigManager.Instance.Tables.Tbmonopoly_shop;
             tbmonopoly_event_lotto = ConfigManager.Instance.Tables.Tbmonopoly_event_lotto;
-            tbitem = ConfigManager.Instance.Tables.Tbitem;
+            tbitem = ConfigManager.Instance.Tables.TbitemOld;
             tblanguage = ConfigManager.Instance.Tables.Tblanguage;
             tbactivity = ConfigManager.Instance.Tables.Tbactivity;
         }

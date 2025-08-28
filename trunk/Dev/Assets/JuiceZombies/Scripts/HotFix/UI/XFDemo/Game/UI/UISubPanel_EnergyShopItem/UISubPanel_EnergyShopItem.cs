@@ -45,7 +45,7 @@ namespace XFramework
         private Tbuser_variable tbUser_variable;
         private Tbenergy_shop_goods tbEnergy_shop_goods;
         private Tblanguage tblanguage;
-        private Tbitem tbItem;
+        private TbitemOld tbItem;
         private UI btn_Buy;
         private UI img_Saled;
         private UI txt_Saled;
@@ -308,7 +308,7 @@ namespace XFramework
             tbEnergy_shop_goods = ConfigManager.Instance.Tables.Tbenergy_shop_goods;
             tblanguage = ConfigManager.Instance.Tables.Tblanguage;
             //tbConstant = ConfigManager.Instance.Tables.Tbconstant;
-            tbItem = ConfigManager.Instance.Tables.Tbitem;
+            tbItem = ConfigManager.Instance.Tables.TbitemOld;
         }
 
         protected override void OnClose()

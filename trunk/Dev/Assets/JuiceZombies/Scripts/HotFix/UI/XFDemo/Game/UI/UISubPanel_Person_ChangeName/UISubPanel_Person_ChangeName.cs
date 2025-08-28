@@ -37,7 +37,7 @@ namespace XFramework
 
         private Tblanguage tblanguage;
         private Tbconstant tbconstant;
-        private Tbitem tbitem;
+        private TbitemOld tbitem;
         private Tbuser_variable tbuser_Variable;
 
         //0是改名进入冷却状态并显示冷却时间，1是免费修改，2是改名卡修改，3是付费资产改名且资产充足，4是付费资产改名且资产不充足
@@ -81,7 +81,7 @@ namespace XFramework
         {
             tblanguage = ConfigManager.Instance.Tables.Tblanguage;
             tbconstant = ConfigManager.Instance.Tables.Tbconstant;
-            tbitem = ConfigManager.Instance.Tables.Tbitem;
+            tbitem = ConfigManager.Instance.Tables.TbitemOld;
             tbuser_Variable = ConfigManager.Instance.Tables.Tbuser_variable;
         }
 

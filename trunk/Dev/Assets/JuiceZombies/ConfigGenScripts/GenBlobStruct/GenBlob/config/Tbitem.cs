@@ -16,21 +16,21 @@ using UnityEngine;
 
 
 namespace cfg.blobstruct{
-public struct ConfigTbitems
+public struct ConfigTbItems
 {
-    public BlobArray<ConfigTbitem> configTbitems;
+    public BlobArray<ConfigTbItem> configTbItems;
 
-    public ref ConfigTbitem Get(int id)
+    public ref ConfigTbItem Get(int id)
     {
-        for (int i = 0; i < configTbitems.Length; i++)
+        for (int i = 0; i < configTbItems.Length; i++)
         {
-            if (configTbitems[i].id == id)
+            if (configTbItems[i].id == id)
             {
-                return ref configTbitems[i];
+                return ref configTbItems[i];
             }
         }
-        Debug.LogError($"Error! Can't find config with key->id:{id} in Tbitem,Check Config Plz!");
-        return ref configTbitems[0];
+        Debug.LogError($"Error! Can't find config with key->id:{id} in TbItem,Check Config Plz!");
+        return ref configTbItems[0];
     }
 
 }
