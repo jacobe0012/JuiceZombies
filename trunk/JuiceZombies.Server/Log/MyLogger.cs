@@ -20,7 +20,7 @@ public class MyLogger
 ╔════════════════════════════════════════════════════════════════════════════════════╗
 ║-CMD:      {cmd}
 ║-Time:     {timeStamp}
-║-OpenId:   {userId}
+║-UserId:   {userId}
 ║-Input:    {input}
 ║-Output:   {output}
 ║-Duration: {stopwatch.ElapsedMilliseconds} ms

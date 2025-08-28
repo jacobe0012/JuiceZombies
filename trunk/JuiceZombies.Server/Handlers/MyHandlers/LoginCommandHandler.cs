@@ -2,6 +2,7 @@
 using JuiceZombies.Server.Datas;
 using JuiceZombies.Server.Datas.Config.Scripts;
 using HotFix_UI;
+using JuiceZombies.Server.Utility;
 using MessagePack;
 using Microsoft.EntityFrameworkCore;
 using Newtonsoft.Json;
@@ -15,14 +16,15 @@ public class LoginCommandHandler : HandleBase, ICommandHandler
     {
     }
 
-    public async Task<Context> HandleAsync(MyMessage message)
+    public async Task<OutputContext> HandleAsync(Context context)
     {
+        var message = context.Message;
+
         var request = MessagePackSerializer.Deserialize<C2S_LoginRequest>(message.Content, options);
 
-        Console.WriteLine($" 收到消息1");
         UserResData newUser = null;
         // 1. 查找现有用户
-        var user = await _context.UserResDatas
+        var user = await _dataBase.UserResDatas
             .FirstOrDefaultAsync(u => u.UserName == request.Name);
 
         // 如果找到，直接返回
@@ -39,26 +41,30 @@ public class LoginCommandHandler : HandleBase, ICommandHandler
                 Golds = 0,
                 Diamonds = 0,
             };
-            _context.UserResDatas.Add(newUser);
+            _dataBase.UserResDatas.Add(newUser);
 
             // 3. 保存到数据库
-            await _context.SaveChangesAsync();
+            await _dataBase.SaveChangesAsync();
         }
 
+        context.Controller.AddConn(context.webSocket, newUser.Id);
+
         var resData = _mapper.Map<S2C_UserResData>(newUser);
-        var outputContentStr = JsonConvert.SerializeObject(resData);
+        var contextStr = MyHelper.GetInputOutPutStr(request, resData);
+
 
         message.Content = MessagePackSerializer.Serialize(resData, options);
-        var context = new Context
+        var output = new OutputContext
         {
             message = message,
-            //inputContentStr = inputContentStr,
-            outputContentStr = outputContentStr
+            inputContentStr = contextStr.Item1,
+            outputContentStr = contextStr.Item2
         };
-        return context;
+        return output;
     }
 
-    // public async Task<Context> HandleAsync(MyMessage message, WebSocket webSocket)
+
+    // public async Task<OutputContext> HandleAsync(MyMessage message, WebSocket webSocket)
     // {
     //     Console.WriteLine($"message {message.ToString()}");
     //     var db = _redis.GetDatabase();
@@ -115,7 +121,7 @@ public class LoginCommandHandler : HandleBase, ICommandHandler
     //     message.Content = MessagePackSerializer.Serialize(playerData, options);
     //     var outputContentStr = JsonConvert.SerializeObject(playerData);
     //
-    //     var context = new Context
+    //     var context = new OutputContext
     //     {
     //         message = message,
     //         inputContentStr = inputContentStr,

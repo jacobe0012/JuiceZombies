@@ -23,6 +23,8 @@ namespace HotFix_UI
         /// </summary>
         [Key(2)]
         public long Diamonds { get; set; }
+        
+        
         // // 修改呢称时间
         // int64 update_time_nickname = 4;
         // // 头像id

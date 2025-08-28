@@ -133,11 +133,11 @@ namespace XFramework
         {
 
             var data = NetWorkManager.Instance.UnPackMsg<S2C_ShopData>(e, out var _);
-            ResourcesSingletonOld.Instance.monCardTime = data.buyedMonthCardms;
+            ResourcesSingletonOld.Instance.monCardTime = data.BuyedMonthCardms;
             //var receivedMessage = MessagePackSerializer.Deserialize<MyMessage>(e.data, options);
 
-            Log.Debug($"OnRequreMonthTime:{data.buyedMonthCardms}");
-            ResourcesSingletonOld.Instance.monCardTime=data.buyedMonthCardms/(1000*60*60*24);
+            Log.Debug($"OnRequreMonthTime:{data.BuyedMonthCardms}");
+            ResourcesSingletonOld.Instance.monCardTime=data.BuyedMonthCardms/(1000*60*60*24);
             var time = ResourcesSingletonOld.Instance.monCardTime;
             if (time <= 0)
             {

@@ -3,7 +3,9 @@ using System.Net.WebSockets;
 using AutoMapper;
 using JuiceZombies.Server.Datas;
 using HotFix_UI;
+using JuiceZombies.Server.Utility;
 using MessagePack;
+using Microsoft.EntityFrameworkCore;
 using Newtonsoft.Json;
 using StackExchange.Redis;
 
@@ -16,40 +18,43 @@ public class QueryGameShopHandler : HandleBase, ICommandHandler
     {
     }
 
-    public async Task<Context> HandleAsync(MyMessage message)
+    public async Task<OutputContext> HandleAsync(Context context)
     {
+        var message = context.Message;
+        //var request = MessagePackSerializer.Deserialize<C2S_QueryShop>(message.Content, options);
         // _context.GameShops.FindAsync(1);
         // Console.WriteLine($"message1 {message.ToString()}");
-        S2C_ShopData gameShop;
-        // if (!_connections.TryGetValue(webSocket, out var openId))
-        // {
-        //     //Console.WriteLine($"webSocket:{webSocket.} not found");
-        //     //用户未登记
-        //     message.ErrorCode = 1001;
-        // }
-        //
-        // var db = _redis.GetDatabase();
-        //var rv = await db.StringGetAsync(GetRedisDBStr(1, openId));
-        //gameShop = JsonConvert.DeserializeObject<GameShop>(rv);
-        gameShop = new S2C_ShopData
-        {
-            isBuyADCard = false,
-            isBuyMonthCard = true,
-            buyedMonthCardms = 20 * 24 * 60 * 60 * 1000
-        };
+        ShopData? shopData;
 
+        shopData = await _dataBase.ShopDatas
+            .FirstOrDefaultAsync(u => u.UserId == context.UserId);
+
+        // 如果没有找到，直接返回
+        if (shopData == null)
+        {
+            shopData = new ShopData
+            {
+                UserId = context.UserId,
+                IsBuyADCard = false,
+                IsBuyMonthCard = false,
+                BuyedMonthCardms = 0
+            };
+            _dataBase.ShopDatas.Add(shopData);
+            await _dataBase.SaveChangesAsync();
+        }
+
+        var S2C_ShopData = _mapper.Map<S2C_ShopData>(shopData);
 
         message.Content =
-            MessagePackSerializer.Serialize(122, options);
-
-        var outputContentStr = gameShop.ToString();
-
-        var context = new Context
+            MessagePackSerializer.Serialize(S2C_ShopData, options);
+        
+        var contextStr = MyHelper.GetInputOutPutStr(null, S2C_ShopData);
+        var output = new OutputContext
         {
             message = message,
-            inputContentStr = "",
-            outputContentStr = outputContentStr
+            inputContentStr = contextStr.Item1,
+            outputContentStr = contextStr.Item2
         };
-        return context;
+        return output;
     }
 }

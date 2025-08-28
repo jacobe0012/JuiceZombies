@@ -72,13 +72,13 @@ public class LoginHub : Hub
 
     public override async Task OnConnectedAsync()
     {
-        var httpContext = Context.GetHttpContext();
-        var url = httpContext.Request.GetEncodedUrl();
-
-        // 你可以在这里记录URL或者执行其他操作
-        Console.WriteLine("Client connected with ConnectionId: " + Context.ConnectionId);
-        Console.WriteLine("Client connected with URL: " + url);
-
-        await base.OnConnectedAsync();
+        // var httpContext = OutputContext.GetHttpContext();
+        // var url = httpContext.Request.GetEncodedUrl();
+        //
+        // // 你可以在这里记录URL或者执行其他操作
+        // Console.WriteLine("Client connected with ConnectionId: " + OutputContext.ConnectionId);
+        // Console.WriteLine("Client connected with URL: " + url);
+        //
+        // await base.OnConnectedAsync();
     }
 }

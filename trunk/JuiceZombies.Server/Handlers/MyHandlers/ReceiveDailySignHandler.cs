@@ -15,7 +15,7 @@
 //     {
 //     }
 //
-//     public async Task<Context> HandleAsync(MyMessage message, WebSocket webSocket)
+//     public async Task<OutputContext> HandleAsync(MyMessage message, WebSocket webSocket)
 //     {
 //         var rewards = new Rewards { };
 //         if (!_connections.TryGetValue(webSocket, out var openId))
@@ -62,7 +62,7 @@
 //         message.Content =
 //             MessagePackSerializer.Serialize(rewards, options);
 //
-//         var context = new Context
+//         var context = new OutputContext
 //         {
 //             message = message,
 //             inputContentStr = signType.ToString(),

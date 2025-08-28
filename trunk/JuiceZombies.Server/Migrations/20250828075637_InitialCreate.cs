@@ -17,10 +17,10 @@ namespace JuiceZombies.Server.Migrations
                 {
                     Id = table.Column<long>(type: "bigint", nullable: false)
                         .Annotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn),
-                    GameUserId = table.Column<long>(type: "bigint", nullable: false),
-                    isBuyADCard = table.Column<bool>(type: "boolean", nullable: false),
-                    isBuyMonthCard = table.Column<bool>(type: "boolean", nullable: false),
-                    buyedMonthCardms = table.Column<int>(type: "integer", nullable: false)
+                    UserId = table.Column<long>(type: "bigint", nullable: false),
+                    IsBuyADCard = table.Column<bool>(type: "boolean", nullable: false),
+                    IsBuyMonthCard = table.Column<bool>(type: "boolean", nullable: false),
+                    BuyedMonthCardms = table.Column<int>(type: "integer", nullable: false)
                 },
                 constraints: table =>
                 {
@@ -43,9 +43,9 @@ namespace JuiceZombies.Server.Migrations
                 });
 
             migrationBuilder.CreateIndex(
-                name: "IX_ShopDatas_GameUserId",
+                name: "IX_ShopDatas_UserId",
                 table: "ShopDatas",
-                column: "GameUserId",
+                column: "UserId",
                 unique: true);
 
             migrationBuilder.CreateIndex(

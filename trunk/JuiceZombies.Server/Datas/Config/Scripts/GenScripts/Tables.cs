@@ -16,7 +16,7 @@ public sealed partial class Tables
 {
     public config.TbItem TbItem {get; }
     public config.TbMonthCard TbMonthCard {get; }
-    public config.TbHeroBox TbHeroBox {get; }
+    public config.TbGacha TbGacha {get; }
 
     public Tables(System.Func<string, JSONNode> loader)
     {
@@ -25,13 +25,13 @@ public sealed partial class Tables
         tables.Add("config.TbItem", TbItem);
         TbMonthCard = new config.TbMonthCard(loader("config_tbmonthcard")); 
         tables.Add("config.TbMonthCard", TbMonthCard);
-        TbHeroBox = new config.TbHeroBox(loader("config_tbherobox")); 
-        tables.Add("config.TbHeroBox", TbHeroBox);
+        TbGacha = new config.TbGacha(loader("config_tbgacha")); 
+        tables.Add("config.TbGacha", TbGacha);
         PostInit();
 
         TbItem.Resolve(tables); 
         TbMonthCard.Resolve(tables); 
-        TbHeroBox.Resolve(tables); 
+        TbGacha.Resolve(tables); 
         PostResolve();
     }
 
@@ -39,7 +39,7 @@ public sealed partial class Tables
     {
         TbItem.TranslateText(translator); 
         TbMonthCard.TranslateText(translator); 
-        TbHeroBox.TranslateText(translator); 
+        TbGacha.TranslateText(translator); 
     }
     
     partial void PostInit();

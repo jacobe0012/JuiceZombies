@@ -11,7 +11,7 @@ using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 namespace JuiceZombies.Server.Migrations
 {
     [DbContext(typeof(MyPostgresDbContext))]
-    [Migration("20250828022737_InitialCreate")]
+    [Migration("20250828075637_InitialCreate")]
     partial class InitialCreate
     {
         /// <inheritdoc />
@@ -32,21 +32,21 @@ namespace JuiceZombies.Server.Migrations
 
                     NpgsqlPropertyBuilderExtensions.UseIdentityByDefaultColumn(b.Property<long>("Id"));
 
-                    b.Property<long>("GameUserId")
-                        .HasColumnType("bigint");
-
-                    b.Property<int>("buyedMonthCardms")
+                    b.Property<int>("BuyedMonthCardms")
                         .HasColumnType("integer");
 
-                    b.Property<bool>("isBuyADCard")
+                    b.Property<bool>("IsBuyADCard")
                         .HasColumnType("boolean");
 
-                    b.Property<bool>("isBuyMonthCard")
+                    b.Property<bool>("IsBuyMonthCard")
                         .HasColumnType("boolean");
+
+                    b.Property<long>("UserId")
+                        .HasColumnType("bigint");
 
                     b.HasKey("Id");
 
-                    b.HasIndex("GameUserId")
+                    b.HasIndex("UserId")
                         .IsUnique();
 
                     b.ToTable("ShopDatas");

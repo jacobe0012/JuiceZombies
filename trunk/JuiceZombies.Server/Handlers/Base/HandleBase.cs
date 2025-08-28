@@ -3,7 +3,9 @@ using System.Net.WebSockets;
 using AutoMapper;
 using JuiceZombies.Server.Datas;
 using HotFix_UI;
+using JuiceZombies.Server.Controllers;
 using MessagePack;
+using Microsoft.AspNetCore.Mvc;
 using Newtonsoft.Json;
 using StackExchange.Redis;
 
@@ -12,19 +14,19 @@ namespace JuiceZombies.Server.Handlers;
 public abstract class HandleBase
 {
     const int Hour = 6;
-    protected readonly MyPostgresDbContext _context;
+    protected readonly MyPostgresDbContext _dataBase;
     //protected readonly IConnectionMultiplexer _redis;
-    
+
     protected readonly IMapper _mapper;
+
     protected static MessagePackSerializerOptions options =
         MessagePackSerializerOptions.Standard.WithCompression(MessagePackCompression.Lz4Block);
 
-    public HandleBase(IMapper mapper,MyPostgresDbContext context)
+    public HandleBase(IMapper mapper, MyPostgresDbContext dataBase)
     {
-        _context = context;
+        _dataBase = dataBase;
         _mapper = mapper;
         //_redis = redis;
-
     }
 
 
@@ -120,23 +122,34 @@ public abstract class HandleBase
     // }
 }
 
-public struct Context
+public struct OutputContext
 {
     public MyMessage message;
 
     public string inputContentStr;
     public string outputContentStr;
 }
+
 // 通用处理程序接口
 public interface ICommandHandler<T>
 {
-    Task<Context> HandleAsync(T command);
+    Task<OutputContext> HandleAsync(T command);
 }
+
 public interface ICommandHandler
 {
-    Task<Context> HandleAsync(MyMessage command);
+    Task<OutputContext> HandleAsync(Context command);
 }
+
+public struct Context
+{
+    public MyMessage Message;
+    public WebSocketController Controller;
+    public WebSocket webSocket;
+    public uint UserId;
+}
+
 // public interface ICommandHandler
 // {
-//     Task<Context> HandleAsync(MyMessage message, WebSocket webSocket);
+//     Task<OutputContext> HandleAsync(MyMessage message, WebSocket webSocket);
 // }

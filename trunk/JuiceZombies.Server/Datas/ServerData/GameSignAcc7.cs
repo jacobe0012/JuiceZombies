@@ -4,7 +4,7 @@ using System.Collections.Generic;
 namespace HotFix_UI
 {
     [MessagePackObject]
-    public class GameSignAcc7 : IMessagePack
+    public class GameSignAcc7
     {
         /// <summary>
         /// 七天签到奖励组id

@@ -14,9 +14,9 @@ using SimpleJSON;
 namespace cfg.config
 { 
 
-public sealed partial class HeroBox :  Bright.Config.BeanBase 
+public sealed partial class Gacha :  Bright.Config.BeanBase 
 {
-    public HeroBox(JSONNode _json) 
+    public Gacha(JSONNode _json) 
     {
         { if(!_json["id"].IsNumber) { throw new SerializationException(); }  id = _json["id"]; }
         { if(!_json["time"].IsNumber) { throw new SerializationException(); }  time = _json["time"]; }
@@ -27,7 +27,7 @@ public sealed partial class HeroBox :  Bright.Config.BeanBase
         PostInit();
     }
 
-    public HeroBox(int id, int time, int price1, int price2, System.Collections.Generic.List<UnityEngine.Vector2> power, int ensure_count ) 
+    public Gacha(int id, int time, int price1, int price2, System.Collections.Generic.List<UnityEngine.Vector2> power, int ensure_count ) 
     {
         this.id = id;
         this.time = time;
@@ -38,9 +38,9 @@ public sealed partial class HeroBox :  Bright.Config.BeanBase
         PostInit();
     }
 
-    public static HeroBox DeserializeHeroBox(JSONNode _json)
+    public static Gacha DeserializeGacha(JSONNode _json)
     {
-        return new config.HeroBox(_json);
+        return new config.Gacha(_json);
     }
 
     /// <summary>
@@ -68,7 +68,7 @@ public sealed partial class HeroBox :  Bright.Config.BeanBase
     /// </summary>
     public int ensureCount { get; private set; }
 
-    public const int __ID__ = 2092647589;
+    public const int __ID__ = -901672010;
     public override int GetTypeId() => __ID__;
 
     public  void Resolve(Dictionary<string, object> _tables)

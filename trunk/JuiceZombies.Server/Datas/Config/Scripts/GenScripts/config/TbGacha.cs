@@ -14,31 +14,31 @@ using SimpleJSON;
 namespace cfg.config
 { 
 
-public sealed partial class TbHeroBox
+public sealed partial class TbGacha
 {
-    private readonly Dictionary<int, config.HeroBox> _dataMap;
-    private readonly List<config.HeroBox> _dataList;
+    private readonly Dictionary<int, config.Gacha> _dataMap;
+    private readonly List<config.Gacha> _dataList;
     
-    public TbHeroBox(JSONNode _json)
+    public TbGacha(JSONNode _json)
     {
-        _dataMap = new Dictionary<int, config.HeroBox>();
-        _dataList = new List<config.HeroBox>();
+        _dataMap = new Dictionary<int, config.Gacha>();
+        _dataList = new List<config.Gacha>();
         
         foreach(JSONNode _row in _json.Children)
         {
-            var _v = config.HeroBox.DeserializeHeroBox(_row);
+            var _v = config.Gacha.DeserializeGacha(_row);
             _dataList.Add(_v);
             _dataMap.Add(_v.id, _v);
         }
         PostInit();
     }
 
-    public Dictionary<int, config.HeroBox> DataMap => _dataMap;
-    public List<config.HeroBox> DataList => _dataList;
+    public Dictionary<int, config.Gacha> DataMap => _dataMap;
+    public List<config.Gacha> DataList => _dataList;
 
-    public config.HeroBox GetOrDefault(int key) => _dataMap.TryGetValue(key, out var v) ? v : null;
-    public config.HeroBox Get(int key) => _dataMap[key];
-    public config.HeroBox this[int key] => _dataMap[key];
+    public config.Gacha GetOrDefault(int key) => _dataMap.TryGetValue(key, out var v) ? v : null;
+    public config.Gacha Get(int key) => _dataMap[key];
+    public config.Gacha this[int key] => _dataMap[key];
 
     public void Resolve(Dictionary<string, object> _tables)
     {

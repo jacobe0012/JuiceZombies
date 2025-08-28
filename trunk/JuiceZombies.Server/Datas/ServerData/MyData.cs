@@ -5,7 +5,7 @@ namespace HotFix_UI
 {
 
     [MessagePackObject]
-    public class MyData : IMessagePack
+    public class MyData
     {
         [Key(0)] public int Age { get; set; }
 

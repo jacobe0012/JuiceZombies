@@ -4,7 +4,7 @@ using System.Collections.Generic;
 namespace HotFix_UI
 {
     [MessagePackObject]
-    public class GameAchievement : IMessagePack
+    public class GameAchievement
     {
         /// <summary>
         /// 用户成就信息
@@ -42,7 +42,7 @@ namespace HotFix_UI
 
 
     [MessagePackObject]
-    public class AchieveItem : IMessagePack
+    public class AchieveItem
     {
         /// <summary>
         /// 成就组id

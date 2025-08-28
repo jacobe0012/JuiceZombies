@@ -4,7 +4,7 @@ using System.Collections.Generic;
 namespace HotFix_UI
 {
     [MessagePackObject]
-    public class GameSign : IMessagePack
+    public class GameSign
     {
         /// <summary>
         /// 今日是否已经签到过

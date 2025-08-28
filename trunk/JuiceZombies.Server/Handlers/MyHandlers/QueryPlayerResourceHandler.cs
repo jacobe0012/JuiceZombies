@@ -14,7 +14,7 @@
 //     {
 //     }
 //
-//     public async Task<Context> HandleAsync(MyMessage message, WebSocket webSocket)
+//     public async Task<OutputContext> HandleAsync(MyMessage message, WebSocket webSocket)
 //     {
 //         PlayerResource playerRes;
 //         if (!_connections.TryGetValue(webSocket, out var openId))
@@ -38,7 +38,7 @@
 //
 //         var outputContentStr = playerRes.ToString();
 //
-//         var context = new Context
+//         var context = new OutputContext
 //         {
 //             message = message,
 //             inputContentStr = "",

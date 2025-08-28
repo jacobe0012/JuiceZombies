@@ -6,7 +6,7 @@ using Newtonsoft.Json;
 namespace HotFix_UI
 {
     [MessagePackObject]
-    public class PlayerResource : IMessagePack
+    public class PlayerResource
     {
         /// <summary>
         /// 用户item资产

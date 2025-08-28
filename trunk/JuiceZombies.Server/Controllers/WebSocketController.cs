@@ -27,10 +27,10 @@ public class WebSocketController : ControllerBase
         MessagePackSerializerOptions.Standard.WithCompression(MessagePackCompression.Lz4Block);
 
     //链接 openid
-    private static readonly ConcurrentDictionary<WebSocket, string> _connections = new();
+    private static readonly ConcurrentDictionary<WebSocket, uint> _connections = new();
 
     public WebSocketController(MyPostgresDbContext context, IConnectionMultiplexer redis, HttpClient httpClient,
-        IRedisCacheService redisCache, IServiceProvider serviceProvider,IMapper mapper)
+        IRedisCacheService redisCache, IServiceProvider serviceProvider, IMapper mapper)
     {
         _context = context;
         _redis = redis;
@@ -83,10 +83,10 @@ public class WebSocketController : ControllerBase
                     return;
                 }
 
-               
+
                 //webSocket.
                 var receivedMessage = MessagePackSerializer.Deserialize<MyMessage>(buffer, _options);
-               
+
                 // 处理消息并生成回复
                 var responseMessage = await ProcessMessage(receivedMessage, webSocket);
 
@@ -137,19 +137,30 @@ public class WebSocketController : ControllerBase
         }
     }
 
+    public void AddConn(WebSocket webSocket, uint userId)
+    {
+        _connections.TryAdd(webSocket, userId);
+    }
+
     private async Task<MyMessage> ProcessMessage(MyMessage message, WebSocket webSocket)
     {
         var stopwatch = new Stopwatch();
         stopwatch.Start();
-
+        _connections.TryGetValue(webSocket, out var userId);
         var commandHandlerFactory = new CommandHandlerFactory(_mapper, _context);
         var handler = commandHandlerFactory.CreateHandler(message.Cmd);
-        var context = await handler.HandleAsync(message);
+        var context = await handler.HandleAsync(new Context
+        {
+            Message = message,
+            Controller = this,
+            webSocket = webSocket,
+            UserId = userId
+        });
 
         string errorStr = message.ErrorCode != 0 ? $"ErrorCode:{message.ErrorCode},Content:" : "";
         stopwatch.Stop();
-        _connections.TryGetValue(webSocket, out var openId);
-        MyLogger.Log(message.Cmd.ToString(), openId, context.inputContentStr,
+
+        MyLogger.Log(message.Cmd.ToString(), userId.ToString(), context.inputContentStr,
             $"{errorStr}{context.outputContentStr}",
             stopwatch);
         // 调用处理器的 HandleAsync 方法
@@ -159,7 +170,7 @@ public class WebSocketController : ControllerBase
 
     #region BoardCast
 
-    private async Task NotifyUserAsync(string openId, MyMessage message)
+    private async Task NotifyUserAsync(uint openId, MyMessage message)
     {
         var ws = _connections.Where(a => a.Value == openId).FirstOrDefault();
         if (ws.Key != null)
@@ -181,7 +192,7 @@ public class WebSocketController : ControllerBase
             stopwatch.Stop();
             string errorStr = message.ErrorCode != 0 ? $"ErrorCode:{message.ErrorCode}" : "";
 
-            MyLogger.Log(message.Cmd.ToString(), _connections[webSocket], $"ToUser:{openId}",
+            MyLogger.Log(message.Cmd.ToString(), _connections[webSocket].ToString(), $"ToUser:{openId}",
                 $"ErrorCode:{errorStr},Content:",
                 stopwatch);
         }

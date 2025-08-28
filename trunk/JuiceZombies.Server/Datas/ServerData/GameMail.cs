@@ -4,14 +4,14 @@ using System.Collections.Generic;
 namespace HotFix_UI
 {
     [MessagePackObject]
-    public class GameMail : IMessagePack
+    public class GameMail
     {
         [Key(0)] public List<MailItem> MailItems { get; set; }
     }
 
 
     [MessagePackObject]
-    public class MailItem : IMessagePack
+    public class MailItem
     {
         /// <summary>
         /// 邮件id

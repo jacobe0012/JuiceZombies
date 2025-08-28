@@ -4,7 +4,7 @@ using System.Collections.Generic;
 namespace HotFix_UI
 {
     [MessagePackObject]
-    public class Rewards : IMessagePack
+    public class Rewards
     {
         [Key(0)] public List<UnityEngine.Vector3> rewards { get; set; }
     }
