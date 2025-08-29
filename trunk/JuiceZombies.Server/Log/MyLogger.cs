@@ -13,8 +13,15 @@ public class MyLogger
         //methodToExecute.Invoke();
         //Console.SetBufferSize(1000, Console.BufferHeight);
         // 获取当前时间
-        string timeStamp = DateTime.UtcNow.ToString("yyyy-MM-dd HH:mm:ss");
+        //string timeStamp = DateTime.UtcNow.ToString("yyyy-MM-dd HH:mm:ss");
+            // 获取北京时区（中国标准时间）
+        TimeZoneInfo beijingZone = TimeZoneInfo.FindSystemTimeZoneById("China Standard Time");
 
+        // 将 UTC 时间转换成北京时间
+        DateTime beijingTime = TimeZoneInfo.ConvertTimeFromUtc(DateTime.UtcNow, beijingZone);
+
+        // 格式化为字符串
+        string timeStamp = beijingTime.ToString("yyyy-MM-dd HH:mm:ss");
         // 格式化输出日志
         string outputStr = $@"
 ╔════════════════════════════════════════════════════════════════════════════════════╗
