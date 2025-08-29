@@ -11,9 +11,9 @@ using StackExchange.Redis;
 
 namespace JuiceZombies.Server.Handlers;
 
-public class QueryGameShopHandler : HandleBase, ICommandHandler
+public class QueryShopDataHandler : HandleBase, ICommandHandler
 {
-    public QueryGameShopHandler(IMapper mapper, MyPostgresDbContext context
+    public QueryShopDataHandler(IMapper mapper, MyPostgresDbContext context
     ) : base(mapper, context)
     {
     }

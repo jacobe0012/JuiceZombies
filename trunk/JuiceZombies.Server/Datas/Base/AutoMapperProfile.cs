@@ -8,13 +8,13 @@ public class AutoMapperProfile : Profile
 {
     public AutoMapperProfile()
     {
-
         CreateMap<ShopData, S2C_ShopData>();
         CreateMap<S2C_ShopData, ShopData>();
-        
+
         CreateMap<S2C_UserResData, UserResData>();
         CreateMap<UserResData, S2C_UserResData>();
-        
-        
+
+        CreateMap<S2C_HeroData, HeroData>();
+        CreateMap<HeroData, S2C_HeroData>();
     }
 }

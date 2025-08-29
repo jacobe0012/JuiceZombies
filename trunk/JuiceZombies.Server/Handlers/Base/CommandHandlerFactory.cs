@@ -37,7 +37,7 @@ public class CommandHandlerFactory
         return command switch
         {
             CMD.Auth.C2S_LOGIN => new LoginCommandHandler(_mapper, _context),
-            CMD.Shop.C2S_QUERYSHOP => new QueryGameShopHandler(_mapper, _context),
+            CMD.Shop.C2S_QUERYSHOP => new QueryShopDataHandler(_mapper, _context),
             CMD.Shop.C2S_DRAWS => new GachaHandler(_mapper, _context),
             
             // CMD.QUERYRESOURCE => new QueryPlayerResourceHandler(_redis, _connections),

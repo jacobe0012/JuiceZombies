@@ -4,15 +4,15 @@ using MessagePack;
 
 namespace HotFix_UI
 {
-    [MessagePackObject]
-    public class S2C_HeroesData
-    {
-        /// <summary>
-        /// 是否购买免广告卡
-        /// </summary>
-        [Key(0)]
-        public List<S2C_HeroData> Heroes { get; set; }
-    }
+    // [MessagePackObject]
+    // public class S2C_HeroesData
+    // {
+    //     /// <summary>
+    //     /// 是否购买免广告卡
+    //     /// </summary>
+    //     [Key(0)]
+    //     public List<S2C_HeroData> Heroes { get; set; }
+    // }
 
     [MessagePackObject]
     public class S2C_HeroData
