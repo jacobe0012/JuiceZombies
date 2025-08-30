@@ -25,22 +25,22 @@ namespace XFramework.Editor
         private UIReferenceConfig config;
 
         ///// <summary>
-        ///// ´úÂëÄ£°åÎÄ¼şÂ·¾¶
+        ///// ä»£ç æ¨¡æ¿æ–‡ä»¶è·¯å¾„
         ///// </summary>
         //private const string TemplateFilePath = "./Template/UICodeTemplate.txt";
 
         ///// <summary>
-        ///// UI¼¯ºÏµÄÂ·¾¶
+        ///// UIé›†åˆçš„è·¯å¾„
         ///// </summary>
         //private const string SetFilePath = "Assets/Scripts/XFramework/Runtime/Module/UI/UISet.cs";
 
         ///// <summary>
-        ///// UITypeÀàµÄÂ·¾¶
+        ///// UITypeç±»çš„è·¯å¾„
         ///// </summary>
         //private const string UITypeFilePath = "Assets/Scripts/XFramework/Runtime/Module/UI/UIType.cs";
 
         ///// <summary>
-        ///// UIÀàµÄÄ¿Â¼
+        ///// UIç±»çš„ç›®å½•
         ///// </summary>
         //private const string ClassExploer = "Assets/Scripts/XFramework/Runtime/World/Game/UI";
 
@@ -49,29 +49,29 @@ namespace XFramework.Editor
         private const string TextDataName = "_textData";
 
         /// <summary>
-        /// ÅäÖÃÎÄ¼şÂ·¾¶
+        /// é…ç½®æ–‡ä»¶è·¯å¾„
         /// </summary>
         private const string ConfigPath = "Assets/Editor/UI/Reference/Config/UIReferenceSetting.asset";
 
         /// <summary>
-        /// UIType×ó±ßµÄ²¿·Ö
+        /// UITypeå·¦è¾¹çš„éƒ¨åˆ†
         /// </summary>
         private const string UITypePrefix = "public const string (className) =";
 
         /// <summary>
-        /// UITypeµÄÖµ
+        /// UITypeçš„å€¼
         /// </summary>
         private const string UITypeValue = "nameof((NAMESPACE)(className));";
 
         private ResourceType resourceType = ResourceType.AA;
 
         /// <summary>
-        /// ²»´øµãµÄÃüÃû¿Õ¼äÃû³Æ
+        /// ä¸å¸¦ç‚¹çš„å‘½åç©ºé—´åç§°
         /// </summary>
         private string configNamespace;
 
         /// <summary>
-        /// ´øµãµÄÃüÃû¿Õ¼äÃû³Æ
+        /// å¸¦ç‚¹çš„å‘½åç©ºé—´åç§°
         /// </summary>
         private string configNamespaceAndPoint;
 
@@ -81,7 +81,7 @@ namespace XFramework.Editor
         private string usingContent;
 
         /// <summary>
-        /// ÕÛµş¶àÓïÑÔ¶ÔÏó
+        /// æŠ˜å å¤šè¯­è¨€å¯¹è±¡
         /// </summary>
         private static bool foldoutMultiObject = true;
 
@@ -125,22 +125,22 @@ namespace XFramework.Editor
 
             GUILayout.BeginHorizontal();
 
-            if (GUILayout.Button("µ¼³öKey", GUILayout.MinHeight(45) /*"Export Keys"*/))
+            if (GUILayout.Button("å¯¼å‡ºKey", GUILayout.MinHeight(45) /*"Export Keys"*/))
             {
                 ExportKeys();
             }
 
-            if (GUILayout.Button("Ë¢ĞÂ\n¶àÓïÑÔ¶ÔÏó", GUILayout.MinHeight(45)))
+            if (GUILayout.Button("åˆ·æ–°\nå¤šè¯­è¨€å¯¹è±¡", GUILayout.MinHeight(45)))
             {
                 RefreshAllIMultilingual();
             }
 
-            if (GUILayout.Button("µ¼³ö´úÂë\n(¶ÀÁ¢UI)", GUILayout.MinHeight(45) /*"Export All (AllowManagement)"*/))
+            if (GUILayout.Button("å¯¼å‡ºä»£ç \n(ç‹¬ç«‹UI)", GUILayout.MinHeight(45) /*"Export All (AllowManagement)"*/))
             {
                 ExportAll(true);
             }
 
-            if (GUILayout.Button("µ¼³ö´úÂë\n(¹«¹²UI)", GUILayout.MinHeight(45) /*"Export All (Common)"*/))
+            if (GUILayout.Button("å¯¼å‡ºä»£ç \n(å…¬å…±UI)", GUILayout.MinHeight(45) /*"Export All (Common)"*/))
             {
                 ExportAll(false);
             }
@@ -152,14 +152,14 @@ namespace XFramework.Editor
         }
 
         /// <summary>
-        /// µ¼³öËùÓĞµÄkey
+        /// å¯¼å‡ºæ‰€æœ‰çš„key
         /// </summary>
         private void ExportKeys()
         {
             string folderPath = GetFolderPath();
             if (folderPath.IsNullOrEmpty())
             {
-                Debug.LogError("Éú³ÉÄ¿Â¼Îª¿Õ£¡");
+                Debug.LogError("ç”Ÿæˆç›®å½•ä¸ºç©ºï¼");
                 return;
             }
 
@@ -170,7 +170,7 @@ namespace XFramework.Editor
         }
 
         /// <summary>
-        /// Éú³ÉUI´úÂë
+        /// ç”ŸæˆUIä»£ç 
         /// </summary>
         private void ExportAll(bool allowManagement)
         {
@@ -180,7 +180,7 @@ namespace XFramework.Editor
             string folderPath = GetFolderPath();
             if (folderPath.IsNullOrEmpty())
             {
-                Debug.LogError("Éú³ÉÄ¿Â¼Îª¿Õ£¡");
+                Debug.LogError("ç”Ÿæˆç›®å½•ä¸ºç©ºï¼");
                 return;
             }
 
@@ -195,7 +195,7 @@ namespace XFramework.Editor
         }
 
         /// <summary>
-        /// µ¼³ö´úÂë
+        /// å¯¼å‡ºä»£ç 
         /// </summary>
         /// <param name="className"></param>
         /// <param name="folderPath"></param>
@@ -207,7 +207,7 @@ namespace XFramework.Editor
 
             if (File.Exists(classFilePath))
             {
-                Debug.LogError($"{fileName}ÎÄ¼şÒÑ¾­´æÔÚ\nÂ·¾¶Îª{classFilePath}");
+                Debug.LogError($"{fileName}æ–‡ä»¶å·²ç»å­˜åœ¨\nè·¯å¾„ä¸º{classFilePath}");
                 return;
             }
 
@@ -215,7 +215,7 @@ namespace XFramework.Editor
 
             if (!File.Exists(templateFilePath))
             {
-                Debug.LogError($"´´½¨CodeµÄÁÙÊ±ÎÄ¼ş²»´æÔÚ, ²éÕÒÂ·¾¶Îª{templateFilePath}");
+                Debug.LogError($"åˆ›å»ºCodeçš„ä¸´æ—¶æ–‡ä»¶ä¸å­˜åœ¨, æŸ¥æ‰¾è·¯å¾„ä¸º{templateFilePath}");
                 return;
             }
 
@@ -266,7 +266,7 @@ namespace XFramework.Editor
             else
             {
                 template = template.Replace("(IUILayer)", string.Empty).Replace("(AllowManagement)", allowManagement.ToString().ToLower());
-                template = template.Replace("(IUILayerCode)", "// ´ËUIÊÇ²»ÊÜUIManager¹ÜÀíµÄ");
+                template = template.Replace("(IUILayerCode)", "// æ­¤UIæ˜¯ä¸å—UIManagerç®¡ç†çš„");
             }
 
             if (!Directory.Exists(folderPath))
@@ -276,11 +276,11 @@ namespace XFramework.Editor
 
             File.WriteAllText(classFilePath, template);
 
-            Debug.Log($"{fileName}Éú³É³É¹¦\nÂ·¾¶Îª{classFilePath}");
+            Debug.Log($"{fileName}ç”ŸæˆæˆåŠŸ\nè·¯å¾„ä¸º{classFilePath}");
         }
 
         /// <summary>
-        /// µ¼³öËùÓĞµÄKey
+        /// å¯¼å‡ºæ‰€æœ‰çš„Key
         /// </summary>
         private void ExportKeys(string className, string folderPath)
         {
@@ -288,7 +288,7 @@ namespace XFramework.Editor
             
             if (!File.Exists(templateFilePath))
             {
-                Debug.LogError($"´´½¨KeyµÄÁÙÊ±ÎÄ¼ş²»´æÔÚ, ²éÕÒÂ·¾¶Îª{templateFilePath}");
+                Debug.LogError($"åˆ›å»ºKeyçš„ä¸´æ—¶æ–‡ä»¶ä¸å­˜åœ¨, æŸ¥æ‰¾è·¯å¾„ä¸º{templateFilePath}");
                 return;
             }
 
@@ -330,11 +330,11 @@ namespace XFramework.Editor
             string classFilePath = $"{folderPath}/{fileName}";
             File.WriteAllText(classFilePath, template);
 
-            Debug.Log($"{fileName}Éú³É³É¹¦\nÂ·¾¶Îª{classFilePath}");
+            Debug.Log($"{fileName}ç”ŸæˆæˆåŠŸ\nè·¯å¾„ä¸º{classFilePath}");
         }
 
         /// <summary>
-        /// µ¼³öµ½UIType
+        /// å¯¼å‡ºåˆ°UIType
         /// </summary>
         /// <param name="className"></param>
         private void ExportUIType(string className)
@@ -343,7 +343,7 @@ namespace XFramework.Editor
 
             if (!File.Exists(filePath))
             {
-                Debug.LogError($"UIType.cs²»´æÔÚ£¬²éÕÒÂ·¾¶Îª{filePath}");
+                Debug.LogError($"UIType.csä¸å­˜åœ¨ï¼ŒæŸ¥æ‰¾è·¯å¾„ä¸º{filePath}");
                 return;
             }
 
@@ -368,17 +368,17 @@ namespace XFramework.Editor
                 }
                 else
                 {
-                    Debug.LogError($"UIType.csÀïÃ»ÓĞÕÒµ½±ê¼Ç{flag}");
+                    Debug.LogError($"UIType.csé‡Œæ²¡æœ‰æ‰¾åˆ°æ ‡è®°{flag}");
                     return;
                 }
             }
 
             File.WriteAllLines(filePath, lines);
-            Debug.Log($"{className}ÒÑÌí¼Óµ½UIType.csÀï");
+            Debug.Log($"{className}å·²æ·»åŠ åˆ°UIType.csé‡Œ");
         }
 
         /// <summary>
-        /// µ¼³öµ½UIPathSet
+        /// å¯¼å‡ºåˆ°UIPathSet
         /// </summary>
         /// <param name="className"></param>
         private void ExportUIPathSet(string className)
@@ -387,7 +387,7 @@ namespace XFramework.Editor
 
             if (!File.Exists(filePath))
             {
-                Debug.LogError($"UIPathSet.cs²»´æÔÚ£¬²éÕÒÂ·¾¶Îª{filePath}");
+                Debug.LogError($"UIPathSet.csä¸å­˜åœ¨ï¼ŒæŸ¥æ‰¾è·¯å¾„ä¸º{filePath}");
                 return;
             }
 
@@ -414,17 +414,17 @@ namespace XFramework.Editor
                 }
                 else
                 {
-                    Debug.LogError($"UIPathSet.csÀïÃ»ÓĞÕÒµ½±ê¼Ç{flag}");
+                    Debug.LogError($"UIPathSet.csé‡Œæ²¡æœ‰æ‰¾åˆ°æ ‡è®°{flag}");
                     return;
                 }
             }
 
             File.WriteAllLines(filePath, lines);
-            Debug.Log($"{className}ÒÑÌí¼Óµ½UIPathSet.csÀï");
+            Debug.Log($"{className}å·²æ·»åŠ åˆ°UIPathSet.csé‡Œ");
         }
 
         /// <summary>
-        /// »ñÈ¡ÀàÃû
+        /// è·å–ç±»å
         /// </summary>
         /// <returns></returns>
         private string GetClassName()
@@ -447,7 +447,7 @@ namespace XFramework.Editor
         }
 
         /// <summary>
-        /// Ä¿Â¼Â·¾¶
+        /// ç›®å½•è·¯å¾„
         /// </summary>
         /// <returns></returns>
         private string GetFolderPath()
@@ -462,7 +462,7 @@ namespace XFramework.Editor
         }
 
         /// <summary>
-        /// ×ÊÔ´Â·¾¶
+        /// èµ„æºè·¯å¾„
         /// </summary>
         /// <returns></returns>
         private string GetAssetPath()
@@ -509,7 +509,7 @@ namespace XFramework.Editor
         #region Language
 
         /// <summary>
-        /// Ë¢ĞÂ¸Ã¶ÔÏóÄÚËùÓĞµÄ¼Ì³ĞÁËIMultilingualµÄ×é¼ş²¢Ìí¼Óµ½UIReferenceÄÚ
+        /// åˆ·æ–°è¯¥å¯¹è±¡å†…æ‰€æœ‰çš„ç»§æ‰¿äº†IMultilingualçš„ç»„ä»¶å¹¶æ·»åŠ åˆ°UIReferenceå†…
         /// </summary>
         private void RefreshAllIMultilingual()
         {
@@ -545,7 +545,7 @@ namespace XFramework.Editor
         }
 
         /// <summary>
-        /// Ìí¼Óµ½ÒıÓÃÀï
+        /// æ·»åŠ åˆ°å¼•ç”¨é‡Œ
         /// </summary>
         /// <param name="dataProperty"></param>
         /// <param name="key"></param>

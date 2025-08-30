@@ -11,7 +11,7 @@ using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 namespace JuiceZombies.Server.Migrations
 {
     [DbContext(typeof(MyPostgresDbContext))]
-    [Migration("20250829014051_InitialCreate")]
+    [Migration("20250829113944_InitialCreate")]
     partial class InitialCreate
     {
         /// <inheritdoc />
