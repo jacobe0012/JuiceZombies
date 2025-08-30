@@ -1600,7 +1600,7 @@ namespace XFramework
 
             if (Input.GetKeyDown(KeyCode.Q))
             {
-                NetWorkManager.Instance.SendMsg(CMD.Shop.C2S_DRAWS, new C2S_GachaRequest
+                NetWorkManager.Instance.SendMsg(CMD.Shop.C2S_GACHAREQUEST, new C2S_GachaRequest
                 {
                     BoxId =1,
                     Type = 2

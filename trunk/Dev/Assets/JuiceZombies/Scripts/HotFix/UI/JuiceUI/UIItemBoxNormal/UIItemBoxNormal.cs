@@ -1,5 +1,5 @@
 //---------------------------------------------------------------------
-// JiYuStudio
+// UnicornStudio
 // Author: xxx
 // Time: 2025-08-26 22:44:06
 //---------------------------------------------------------------------
@@ -111,8 +111,8 @@ namespace XFramework
 
         private void OnGachaBtnClick(int type)
         {
-            WebMsgHandler.Instance.AddHandler(CMD.Shop.C2S_DRAWS, OnGachaResponse);
-            NetWorkManager.Instance.SendMsg(CMD.Shop.C2S_DRAWS);
+            WebMsgHandler.Instance.AddHandler(CMD.Shop.C2S_GACHAREQUEST, OnGachaResponse);
+            NetWorkManager.Instance.SendMsg(CMD.Shop.C2S_GACHAREQUEST);
 
         }
 

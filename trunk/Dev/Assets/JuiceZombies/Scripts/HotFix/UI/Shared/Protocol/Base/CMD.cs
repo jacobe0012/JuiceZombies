@@ -20,7 +20,7 @@
             /// <summary>
             /// 抽奖
             /// </summary>
-            public const int C2S_DRAWS = 20001;
+            public const int C2S_GACHAREQUEST = 20001;
         }
     }
 }
