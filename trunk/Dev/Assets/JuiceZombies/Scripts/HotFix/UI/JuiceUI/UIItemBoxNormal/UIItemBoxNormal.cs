@@ -107,18 +107,20 @@ namespace XFramework
                 GetFromReference(KOneBtn).SetActive(false);
             }
             UnicornTweenHelper.DoScaleTweenOnClickAndLongPress(GetFromReference(KOneBtn),()=>OnGachaBtnClick(1));
+            UnicornTweenHelper.DoScaleTweenOnClickAndLongPress(GetFromReference(KTenBtn), () => OnGachaBtnClick(2));
         }
 
         private void OnGachaBtnClick(int type)
         {
             WebMsgHandler.Instance.AddHandler(CMD.Shop.C2S_GACHAREQUEST, OnGachaResponse);
-            NetWorkManager.Instance.SendMsg(CMD.Shop.C2S_GACHAREQUEST);
+            NetWorkManager.Instance.SendMsg(CMD.Shop.C2S_GACHAREQUEST,new C2S_GachaRequest { BoxId=currentBoxId,Type=type});
 
         }
 
         private void OnGachaResponse(object sender, WebMsgHandler.Execute e)
         {
             var data = NetWorkManager.Instance.UnPackMsg<List<S2C_ItemData>>(e, out var _);
+
             foreach (var item in data)
             {
                 Log.Debug(item.ConfigId.ToString(),Color.cyan);

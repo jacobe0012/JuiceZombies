@@ -251,6 +251,11 @@ namespace XFramework
             var sceneController = Common.Instance.Get<SceneController>(); // 场景控制
             var sceneObj = sceneController.LoadSceneAsync<MenuScene>(SceneName.UIMenu);
             SceneResManager.WaitForCompleted(sceneObj).ToCoroutine(); // 等待场景加载完毕
+
+            foreach (var item in data.Items)
+            {
+                Log.Debug($"ConfigId:{item.ConfigId},id:{item.Id},count:{item.Count}");
+            }
         }
 
         async void OnLoginResponse()
