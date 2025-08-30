@@ -63,31 +63,27 @@ public class WebSocketController : ControllerBase
     {
         var buffer = new byte[1024 * 4];
         WebSocketReceiveResult receiveResult;
-        var timeoutCancellationTokenSource = new CancellationTokenSource(TimeSpan.FromMinutes(3)); // 超时设置为5分钟
 
         try
         {
-            while (!timeoutCancellationTokenSource.Token.IsCancellationRequested)
+            while (webSocket.State == WebSocketState.Open)
             {
-                receiveResult = await webSocket.ReceiveAsync(new ArraySegment<byte>(buffer),
-                    timeoutCancellationTokenSource.Token);
+                // 移除超时 CancellationToken，让 ReceiveAsync 无限期等待新消息
+                receiveResult = await webSocket.ReceiveAsync(new ArraySegment<byte>(buffer), CancellationToken.None);
 
                 if (receiveResult.MessageType == WebSocketMessageType.Close)
                 {
                     Console.WriteLine($"ConnectionId:{HttpContext.Connection.Id} Connection Closed");
                     _connections.TryRemove(webSocket, out _);
-                    // 正常关闭
                     await webSocket.CloseAsync(receiveResult.CloseStatus.Value, receiveResult.CloseStatusDescription,
                         CancellationToken.None);
-
                     return;
                 }
 
-
-                //webSocket.
-                var receivedMessage = MessagePackSerializer.Deserialize<MyMessage>(buffer, _options);
-
                 // 处理消息并生成回复
+                var receivedMessage =
+                    MessagePackSerializer.Deserialize<MyMessage>(
+                        new ReadOnlyMemory<byte>(buffer, 0, receiveResult.Count), _options);
                 var responseMessage = await ProcessMessage(receivedMessage, webSocket);
 
                 // 使用 MessagePack 序列化回复消息
@@ -101,28 +97,13 @@ public class WebSocketController : ControllerBase
                     CancellationToken.None);
             }
         }
-        catch (OperationCanceledException)
-        {
-            // 超时
-            Console.WriteLine($"ConnectionId:{HttpContext.Connection.Id} Connection timed out");
-            try
-            {
-                _connections.TryRemove(webSocket, out _);
-                await webSocket.CloseAsync(WebSocketCloseStatus.PolicyViolation, "Connection timed out",
-                    CancellationToken.None);
-            }
-            catch
-            {
-                // Ignore exceptions during close
-            }
-        }
         catch (Exception ex)
         {
-            // 处理其他异常
+            // 处理所有其他类型的异常，包括网络中断
             Console.WriteLine($"ConnectionId:{HttpContext.Connection.Id} Error: {ex.Message}");
+            _connections.TryRemove(webSocket, out _);
             try
             {
-                _connections.TryRemove(webSocket, out _);
                 await webSocket.CloseAsync(WebSocketCloseStatus.InternalServerError, "Error occurred",
                     CancellationToken.None);
             }
@@ -130,10 +111,6 @@ public class WebSocketController : ControllerBase
             {
                 // Ignore exceptions during close
             }
-        }
-        finally
-        {
-            timeoutCancellationTokenSource.Dispose();
         }
     }
 

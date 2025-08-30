@@ -1,4 +1,5 @@
-﻿using Microsoft.EntityFrameworkCore;
+﻿using HotFix_UI;
+using Microsoft.EntityFrameworkCore;
 
 namespace JuiceZombies.Server.Datas;
 
@@ -6,9 +7,12 @@ namespace JuiceZombies.Server.Datas;
 public abstract class ItemData
 {
     public uint Id { get; set; }
+    
     public uint UserId { get; set; }
 
     public int ConfigId { get; set; }
-    
+
     public long Count { get; set; }
+    
+    public ItemType ItemType { get; set; }
 }

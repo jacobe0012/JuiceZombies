@@ -23,16 +23,18 @@ public sealed partial class Item :  Bright.Config.BeanBase
         { if(!_json["quality"].IsNumber) { throw new SerializationException(); }  quality = _json["quality"]; }
         { if(!_json["use_yn"].IsNumber) { throw new SerializationException(); }  useYn = _json["use_yn"]; }
         { var __json0 = _json["use_drop"]; if(!__json0.IsArray) { throw new SerializationException(); } useDrop = new System.Collections.Generic.List<UnityEngine.Vector3>(__json0.Count); foreach(JSONNode __e0 in __json0.Children) { UnityEngine.Vector3 __v0;  { var _json2 = __e0; if(!_json2.IsObject) { throw new SerializationException(); } float __x; { if(!_json2["x"].IsNumber) { throw new SerializationException(); }  __x = _json2["x"]; } float __y; { if(!_json2["y"].IsNumber) { throw new SerializationException(); }  __y = _json2["y"]; } float __z; { if(!_json2["z"].IsNumber) { throw new SerializationException(); }  __z = _json2["z"]; }  __v0 = new UnityEngine.Vector3(__x, __y,__z); }  useDrop.Add(__v0); }   }
+        { if(!_json["pile_yn"].IsNumber) { throw new SerializationException(); }  pileYn = _json["pile_yn"]; }
         PostInit();
     }
 
-    public Item(int id, int type, int quality, int use_yn, System.Collections.Generic.List<UnityEngine.Vector3> use_drop ) 
+    public Item(int id, int type, int quality, int use_yn, System.Collections.Generic.List<UnityEngine.Vector3> use_drop, int pile_yn ) 
     {
         this.id = id;
         this.type = type;
         this.quality = quality;
         this.useYn = use_yn;
         this.useDrop = use_drop;
+        this.pileYn = pile_yn;
         PostInit();
     }
 
@@ -61,6 +63,10 @@ public sealed partial class Item :  Bright.Config.BeanBase
     /// 使用获得
     /// </summary>
     public System.Collections.Generic.List<UnityEngine.Vector3> useDrop { get; private set; }
+    /// <summary>
+    /// 可否堆叠
+    /// </summary>
+    public int pileYn { get; private set; }
 
     public const int __ID__ = -29008289;
     public override int GetTypeId() => __ID__;
@@ -82,6 +88,7 @@ public sealed partial class Item :  Bright.Config.BeanBase
         + "quality:" + quality + ","
         + "useYn:" + useYn + ","
         + "useDrop:" + Bright.Common.StringUtil.CollectionToString(useDrop) + ","
+        + "pileYn:" + pileYn + ","
         + "}";
     }
     

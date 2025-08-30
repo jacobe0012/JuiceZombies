@@ -26,7 +26,7 @@ public class LoginCommandHandler : HandleBase, ICommandHandler
         // 1. 查找现有用户
         var user = await _dataBase.UserResDatas
             .FirstOrDefaultAsync(u => u.UserName == request.Name);
-        
+       
         // 如果找到，直接返回
         if (user != null)
         {
@@ -44,10 +44,19 @@ public class LoginCommandHandler : HandleBase, ICommandHandler
             // 3. 保存到数据库
             await _dataBase.SaveChangesAsync();
         }
-
+        
         context.Controller.AddConn(context.webSocket, newUser.Id);
 
+        
+        var itemList = await _dataBase.ItemDatas
+            .Where(u => u.UserId == newUser.Id).ToListAsync();;
+        
+        var S2C_ItemData = _mapper.Map<List<S2C_ItemData>>(itemList);
+            
+       
         var resData = _mapper.Map<S2C_UserResData>(newUser);
+        resData.Items = S2C_ItemData;
+        
         var contextStr = MyHelper.GetInputOutPutStr(request, resData);
 
 

@@ -58,7 +58,10 @@ namespace JuiceZombies.Server.Migrations
                     b.Property<long>("Count")
                         .HasColumnType("bigint");
 
-                    b.Property<string>("ItemType")
+                    b.Property<int>("ItemType")
+                        .HasColumnType("integer");
+
+                    b.Property<string>("Type")
                         .IsRequired()
                         .HasMaxLength(8)
                         .HasColumnType("character varying(8)");
@@ -77,7 +80,7 @@ namespace JuiceZombies.Server.Migrations
 
                     b.ToTable("ItemDatas");
 
-                    b.HasDiscriminator<string>("ItemType").HasValue("ItemData");
+                    b.HasDiscriminator<string>("Type").HasValue("ItemData");
 
                     b.UseTphMappingStrategy();
                 });

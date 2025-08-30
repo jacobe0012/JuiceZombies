@@ -11,7 +11,7 @@ using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 namespace JuiceZombies.Server.Migrations
 {
     [DbContext(typeof(MyPostgresDbContext))]
-    [Migration("20250830141504_InitialCreate")]
+    [Migration("20250830172421_InitialCreate")]
     partial class InitialCreate
     {
         /// <inheritdoc />
@@ -61,7 +61,10 @@ namespace JuiceZombies.Server.Migrations
                     b.Property<long>("Count")
                         .HasColumnType("bigint");
 
-                    b.Property<string>("ItemType")
+                    b.Property<int>("ItemType")
+                        .HasColumnType("integer");
+
+                    b.Property<string>("Type")
                         .IsRequired()
                         .HasMaxLength(8)
                         .HasColumnType("character varying(8)");
@@ -80,7 +83,7 @@ namespace JuiceZombies.Server.Migrations
 
                     b.ToTable("ItemDatas");
 
-                    b.HasDiscriminator<string>("ItemType").HasValue("ItemData");
+                    b.HasDiscriminator<string>("Type").HasValue("ItemData");
 
                     b.UseTphMappingStrategy();
                 });

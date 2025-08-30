@@ -97,49 +97,37 @@ public class GachaHandler : HandleBase, ICommandHandler
         return getId;
     }
 
-    async Task<ItemData> StrogeReward(Vector2 reward, MyPostgresDbContext database, bool isStroge = true,
-        bool isStrogeImmediately = false)
+    ItemData Reward2ItemData(Vector2 reward, uint UserId = 0)
     {
         ItemData itemData = null;
         int configId = (int)reward.x;
         int count = (int)reward.y;
         var item = MyConfig.Tables.TbItem.Get(configId);
         var ensureItemType = (ItemType)item.type;
+
+
         switch (ensureItemType)
         {
             case ItemType.BagItem:
                 itemData = new BagItemData();
                 var bagItemData = itemData as BagItemData;
-                bagItemData.ConfigId = configId;
-                bagItemData.Count = count;
-                if (isStroge)
-                {
-                    database.ItemDatas.Add(bagItemData);
-                    if (isStrogeImmediately)
-                    {
-                        await _dataBase.SaveChangesAsync();
-                    }
-                }
 
                 break;
             case ItemType.HeroItem:
 
                 itemData = new HeroItemData();
                 var heroItemData = itemData as HeroItemData;
-                heroItemData.ConfigId = configId;
-                heroItemData.Count = count;
                 heroItemData.Level = 1;
-                if (isStroge)
-                {
-                    database.ItemDatas.Add(heroItemData);
-                    if (isStrogeImmediately)
-                    {
-                        await _dataBase.SaveChangesAsync();
-                    }
-                }
+
 
                 break;
         }
+
+        itemData.ItemType = ensureItemType;
+        itemData.ConfigId = configId;
+        itemData.Count = count;
+        itemData.UserId = UserId;
+
 
         return itemData;
     }
@@ -157,10 +145,44 @@ public class GachaHandler : HandleBase, ICommandHandler
         {
             var pool = GetOneFromPool(tbGacha.pool);
             int poolId = (int)pool.x;
+            if (poolId == tbGacha.ensurePoolId)
+                counter = 0;
+
             reward = GetOneFromPool(poolId);
         }
 
         return reward;
+    }
+
+    public List<ItemData> MergeItems(List<ItemData> sourceItems)
+    {
+        var mergedItems = new List<ItemData>();
+
+        var groupedItems = sourceItems.GroupBy(item => item.ConfigId);
+
+        foreach (var group in groupedItems)
+        {
+            var firstItem = group.First();
+            var tbItem = MyConfig.Tables.TbItem.Get(firstItem.ConfigId);
+            if (tbItem.pileYn == 1)
+            {
+                var totalCount = group.Sum(item => item.Count);
+
+                firstItem.ConfigId = firstItem.ConfigId;
+                firstItem.Count = totalCount;
+
+                mergedItems.Add(firstItem);
+            }
+            else
+            {
+                foreach (var item in group)
+                {
+                    mergedItems.Add(item);
+                }
+            }
+        }
+
+        return mergedItems;
     }
 
     public async Task<OutputContext> HandleAsync(Context context)
@@ -172,14 +194,13 @@ public class GachaHandler : HandleBase, ICommandHandler
         GachaPityCounterData gachaData = await _dataBase.GachaPityCounterDatas
             .FirstOrDefaultAsync(u => u.UserId == context.UserId);
 
-        List<S2C_ItemData> S2C_RewardsData = new List<S2C_ItemData>();
+        List<ItemData> itemDatas = new List<ItemData>();
 
         if (gachaData == null)
         {
             gachaData = new GachaPityCounterData
             {
                 UserId = context.UserId,
-                //Pity_IdCounter = new ConcurrentDictionary<int, int>()
             };
         }
 
@@ -196,11 +217,9 @@ public class GachaHandler : HandleBase, ICommandHandler
                 counter++;
 
                 var reward1 = GetOneGachaId(tbGacha, ref counter);
-                var itemData1 = await StrogeReward(reward1, _dataBase);
-                var S2C_ItemData1 = _mapper.Map<S2C_ItemData>(itemData1);
-                S2C_RewardsData.Add(S2C_ItemData1);
+                var itemData1 = Reward2ItemData(reward1, context.UserId);
+                itemDatas.Add(itemData1);
 
-                //TODO:入库
                 break;
             case 2:
 
@@ -209,27 +228,45 @@ public class GachaHandler : HandleBase, ICommandHandler
                 {
                     counter++;
                     var reward2 = GetOneGachaId(tbGacha, ref counter);
-                    var itemData2 = await StrogeReward(reward2, _dataBase);
-                    var S2C_ItemData2 = _mapper.Map<S2C_ItemData>(itemData2);
-                    S2C_RewardsData.Add(S2C_ItemData2);
+                    var itemData2 = Reward2ItemData(reward2, context.UserId);
+                    itemDatas.Add(itemData2);
                 }
 
                 break;
         }
 
+        var S2C_ItemDatas = _mapper.Map<List<S2C_ItemData>>(itemDatas);
+
         tempIdCounter[request.BoxId] = counter;
+        
         gachaData.MyPity_IdCounter = tempIdCounter;
+        _dataBase.GachaPityCounterDatas.Update(gachaData);
+
+        var confirmedItemDatas = MergeItems(itemDatas);
+        foreach (var item in confirmedItemDatas)
+        {
+            var itemData = await _dataBase.ItemDatas.FirstOrDefaultAsync(a =>
+                a.ConfigId == item.ConfigId && a.UserId == item.UserId);
+            if (itemData == null)
+            {
+                _dataBase.ItemDatas.Add(item);
+            }
+            else
+            {
+                itemData.Count += item.Count;
+            }
+        }
+
+        await _dataBase.SaveChangesAsync();
+        //await _dataBase.SaveChangesAsync();
+
+        message.Content =
+            MessagePackSerializer.Serialize(S2C_ItemDatas, options);
 
         var a = JsonConvert.SerializeObject(gachaData);
         Console.WriteLine($"gachaData:{a}");
-        _dataBase.GachaPityCounterDatas.Update(gachaData);
 
-        await _dataBase.SaveChangesAsync();
-
-        message.Content =
-            MessagePackSerializer.Serialize(S2C_RewardsData, options);
-
-        var contextStr = MyHelper.GetInputOutPutStr(request, S2C_RewardsData);
+        var contextStr = MyHelper.GetInputOutPutStr(request, S2C_ItemDatas);
         var output = new OutputContext
         {
             message = message,

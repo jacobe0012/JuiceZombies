@@ -17,7 +17,7 @@ public class MyPostgresDbContext : DbContext
         // 配置 ItemData 抽象类及其子类的继承关系
         // 使用 HasDiscriminator 来告诉 EF Core 使用 TPH 模式
         modelBuilder.Entity<ItemData>()
-            .HasDiscriminator<string>("ItemType") // "ItemType" 是鉴别器列的名称
+            .HasDiscriminator<string>("Type") // "ItemType" 是鉴别器列的名称
             .HasValue<HeroItemData>("Hero") // CurrencyData 对应鉴别器值为 "Currency"
             .HasValue<BagItemData>("Bag"); // EquipmentData 对应鉴别器值为 "Equipment"
     }
