@@ -28,13 +28,14 @@ public  struct ConfigTbGacha
         configTbGachas[i].sort = tables.TbGacha.DataList[i].sort;
         configTbGachas[i].price1 = tables.TbGacha.DataList[i].price1;
         configTbGachas[i].price2 = tables.TbGacha.DataList[i].price2;
-        var allocatepowers =
-        builder.Allocate(ref configTbGachas[i].power,
-        tables.TbGacha.DataList[i].power.Count);
-        for (var powers = 0; powers < tables.TbGacha.DataList[i].power.Count; powers++)
+        var allocatepools =
+        builder.Allocate(ref configTbGachas[i].pool,
+        tables.TbGacha.DataList[i].pool.Count);
+        for (var pools = 0; pools < tables.TbGacha.DataList[i].pool.Count; pools++)
         {
-            allocatepowers[powers] = (int3) math.round(tables.TbGacha.DataList[i].power[powers]);
+            allocatepools[pools] = (int2) math.round(tables.TbGacha.DataList[i].pool[pools]);
         }
+        configTbGachas[i].ensurePoolId = tables.TbGacha.DataList[i].ensurePoolId;
         configTbGachas[i].ensureCount = tables.TbGacha.DataList[i].ensureCount;
     }
 
@@ -72,9 +73,13 @@ public  struct ConfigTbGacha
     /// </summary>
     public int price2;
     /// <summary>
-    /// 十连抽
+    /// 十连抽随机池
     /// </summary>
-    public BlobArray<int3> power;  
+    public BlobArray<int2> pool;  
+    /// <summary>
+    /// 保底池子id
+    /// </summary>
+    public int ensurePoolId;
     /// <summary>
     /// 保底数
     /// </summary>

@@ -12,7 +12,7 @@ namespace JuiceZombies.Server.Migrations
         protected override void Up(MigrationBuilder migrationBuilder)
         {
             migrationBuilder.CreateTable(
-                name: "GachaDatas",
+                name: "GachaPityCounterDatas",
                 columns: table => new
                 {
                     Id = table.Column<long>(type: "bigint", nullable: false)
@@ -22,26 +22,7 @@ namespace JuiceZombies.Server.Migrations
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_GachaDatas", x => x.Id);
-                });
-
-            migrationBuilder.CreateTable(
-                name: "HeroDatas",
-                columns: table => new
-                {
-                    Id = table.Column<long>(type: "bigint", nullable: false)
-                        .Annotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn),
-                    UserId = table.Column<long>(type: "bigint", nullable: false),
-                    ConfigId = table.Column<int>(type: "integer", nullable: false),
-                    Count = table.Column<long>(type: "bigint", nullable: false),
-                    ItemType = table.Column<string>(type: "character varying(8)", maxLength: 8, nullable: false),
-                    Exp = table.Column<int>(type: "integer", nullable: true),
-                    Level = table.Column<int>(type: "integer", nullable: true),
-                    Quality = table.Column<int>(type: "integer", nullable: true)
-                },
-                constraints: table =>
-                {
-                    table.PrimaryKey("PK_HeroDatas", x => x.Id);
+                    table.PrimaryKey("PK_GachaPityCounterDatas", x => x.Id);
                 });
 
             migrationBuilder.CreateTable(
@@ -66,25 +47,53 @@ namespace JuiceZombies.Server.Migrations
                 {
                     Id = table.Column<long>(type: "bigint", nullable: false)
                         .Annotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn),
-                    UserName = table.Column<string>(type: "text", nullable: true),
-                    Golds = table.Column<long>(type: "bigint", nullable: false),
-                    Diamonds = table.Column<long>(type: "bigint", nullable: false)
+                    UserName = table.Column<string>(type: "text", nullable: true)
                 },
                 constraints: table =>
                 {
                     table.PrimaryKey("PK_UserResDatas", x => x.Id);
                 });
 
+            migrationBuilder.CreateTable(
+                name: "ItemDatas",
+                columns: table => new
+                {
+                    Id = table.Column<long>(type: "bigint", nullable: false)
+                        .Annotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn),
+                    UserId = table.Column<long>(type: "bigint", nullable: false),
+                    ConfigId = table.Column<int>(type: "integer", nullable: false),
+                    Count = table.Column<long>(type: "bigint", nullable: false),
+                    ItemType = table.Column<string>(type: "character varying(8)", maxLength: 8, nullable: false),
+                    UserResDataId = table.Column<long>(type: "bigint", nullable: true),
+                    Exp = table.Column<int>(type: "integer", nullable: true),
+                    Level = table.Column<int>(type: "integer", nullable: true),
+                    Quality = table.Column<int>(type: "integer", nullable: true)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_ItemDatas", x => x.Id);
+                    table.ForeignKey(
+                        name: "FK_ItemDatas_UserResDatas_UserResDataId",
+                        column: x => x.UserResDataId,
+                        principalTable: "UserResDatas",
+                        principalColumn: "Id");
+                });
+
             migrationBuilder.CreateIndex(
-                name: "IX_GachaDatas_UserId",
-                table: "GachaDatas",
+                name: "IX_GachaPityCounterDatas_UserId",
+                table: "GachaPityCounterDatas",
                 column: "UserId",
                 unique: true);
 
             migrationBuilder.CreateIndex(
-                name: "IX_HeroDatas_UserId",
-                table: "HeroDatas",
+                name: "IX_ItemDatas_UserId",
+                table: "ItemDatas",
                 column: "UserId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_ItemDatas_UserResDataId",
+                table: "ItemDatas",
+                column: "UserResDataId");
 
             migrationBuilder.CreateIndex(
                 name: "IX_ShopDatas_UserId",
@@ -103,10 +112,10 @@ namespace JuiceZombies.Server.Migrations
         protected override void Down(MigrationBuilder migrationBuilder)
         {
             migrationBuilder.DropTable(
-                name: "GachaDatas");
+                name: "GachaPityCounterDatas");
 
             migrationBuilder.DropTable(
-                name: "HeroDatas");
+                name: "ItemDatas");
 
             migrationBuilder.DropTable(
                 name: "ShopDatas");

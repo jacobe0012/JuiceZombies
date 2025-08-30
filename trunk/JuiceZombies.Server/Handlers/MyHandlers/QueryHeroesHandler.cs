@@ -25,12 +25,12 @@ public class QueryHeroesHandler : HandleBase, ICommandHandler
         // _context.GameShops.FindAsync(1);
         // Console.WriteLine($"message1 {message.ToString()}");
 
-        var heroList = await _dataBase.HeroDatas
-            .Where(u => u.UserId == context.UserId)
+        var heroList = await _dataBase.ItemDatas
+            .Where(u => u.UserId == context.UserId && u is HeroItemData)
             .ToListAsync();
 
         var s2cHeroList = _mapper.Map<List<S2C_HeroItemData>>(heroList);
-        
+
         message.Content =
             MessagePackSerializer.Serialize(s2cHeroList, options);
 

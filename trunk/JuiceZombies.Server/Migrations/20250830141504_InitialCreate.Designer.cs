@@ -11,7 +11,7 @@ using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 namespace JuiceZombies.Server.Migrations
 {
     [DbContext(typeof(MyPostgresDbContext))]
-    [Migration("20250830103729_InitialCreate")]
+    [Migration("20250830141504_InitialCreate")]
     partial class InitialCreate
     {
         /// <inheritdoc />
@@ -44,7 +44,7 @@ namespace JuiceZombies.Server.Migrations
                     b.HasIndex("UserId")
                         .IsUnique();
 
-                    b.ToTable("GachaDatas");
+                    b.ToTable("GachaPityCounterDatas");
                 });
 
             modelBuilder.Entity("JuiceZombies.Server.Datas.ItemData", b =>
@@ -69,11 +69,16 @@ namespace JuiceZombies.Server.Migrations
                     b.Property<long>("UserId")
                         .HasColumnType("bigint");
 
+                    b.Property<long?>("UserResDataId")
+                        .HasColumnType("bigint");
+
                     b.HasKey("Id");
 
                     b.HasIndex("UserId");
 
-                    b.ToTable("HeroDatas");
+                    b.HasIndex("UserResDataId");
+
+                    b.ToTable("ItemDatas");
 
                     b.HasDiscriminator<string>("ItemType").HasValue("ItemData");
 
@@ -116,12 +121,6 @@ namespace JuiceZombies.Server.Migrations
 
                     NpgsqlPropertyBuilderExtensions.UseIdentityByDefaultColumn(b.Property<long>("Id"));
 
-                    b.Property<long>("Diamonds")
-                        .HasColumnType("bigint");
-
-                    b.Property<long>("Golds")
-                        .HasColumnType("bigint");
-
                     b.Property<string>("UserName")
                         .HasColumnType("text");
 
@@ -154,6 +153,18 @@ namespace JuiceZombies.Server.Migrations
                         .HasColumnType("integer");
 
                     b.HasDiscriminator().HasValue("Hero");
+                });
+
+            modelBuilder.Entity("JuiceZombies.Server.Datas.ItemData", b =>
+                {
+                    b.HasOne("JuiceZombies.Server.Datas.UserResData", null)
+                        .WithMany("Items")
+                        .HasForeignKey("UserResDataId");
+                });
+
+            modelBuilder.Entity("JuiceZombies.Server.Datas.UserResData", b =>
+                {
+                    b.Navigation("Items");
                 });
 #pragma warning restore 612, 618
         }

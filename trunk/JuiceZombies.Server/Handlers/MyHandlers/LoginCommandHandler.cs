@@ -38,8 +38,6 @@ public class LoginCommandHandler : HandleBase, ICommandHandler
             newUser = new UserResData
             {
                 UserName = request.Name,
-                Golds = 0,
-                Diamonds = 0,
             };
             _dataBase.UserResDatas.Add(newUser);
 

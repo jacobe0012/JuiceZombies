@@ -12,7 +12,7 @@ namespace HotFix_UI
         public string? UserName { get; set; }
 
         /// <summary>
-        /// 金币
+        /// 用户所有资源
         /// </summary>
         [Key(1)]
         public System.Collections.Generic.List<S2C_ItemData> Items { get; set; }

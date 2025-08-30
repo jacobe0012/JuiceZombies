@@ -26,7 +26,7 @@ public class MyPostgresDbContext : DbContext
 
     public DbSet<UserResData> UserResDatas { get; set; }
 
-    public DbSet<ItemData> HeroDatas { get; set; }
+    public DbSet<ItemData> ItemDatas { get; set; }
 
-    public DbSet<GachaPityCounterData> GachaDatas { get; set; }
+    public DbSet<GachaPityCounterData> GachaPityCounterDatas { get; set; }
 }

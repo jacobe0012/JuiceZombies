@@ -21,13 +21,19 @@ public class GachaHandler : HandleBase, ICommandHandler
     {
     }
 
-    Vector2 PreGetOneGachaId(Gacha tbGacha, int totalPower)
+    Vector2 GetOneFromPool(int poolId)
     {
+        var tbPool = MyConfig.Tables.TbPool.Get(poolId);
         Vector2 getId = default;
+        int totalPower = 0;
+        foreach (var power in tbPool.power)
+        {
+            totalPower += (int)power.z;
+        }
 
         int randomValue = Random.Shared.Next(0, totalPower);
         int weightSum = 0;
-        foreach (var item in tbGacha.power)
+        foreach (var item in tbPool.power)
         {
             weightSum += (int)item.z;
             // 检查随机值是否在当前物品的权重范围内
@@ -41,30 +47,120 @@ public class GachaHandler : HandleBase, ICommandHandler
         return getId;
     }
 
-    Vector2 GetOneGachaId(Gacha tbGacha, ref int counter, int totalPower)
+    Vector2 GetOneFromPool(List<Vector3> poolList)
     {
-        Vector2 id;
-        if (tbGacha.ensureCount <= counter)
+        Vector2 getId = default;
+        int totalPower = 0;
+        foreach (var power in poolList)
         {
-            counter = 0;
-
-            var heroList = MyConfig.Tables.TbItem.DataList.Where(a => a.type == 4).ToList();
-            heroList = heroList.OrderBy(x => Random.Shared.NextInt64()).ToList();
-            id = new Vector2(heroList[0].id, 1);
+            totalPower += (int)power.z;
         }
-        else
+
+        int randomValue = Random.Shared.Next(0, totalPower);
+        int weightSum = 0;
+        foreach (var item in poolList)
         {
-            id = PreGetOneGachaId(tbGacha, totalPower);
-            if ((int)id.x == 4)
+            weightSum += (int)item.z;
+            // 检查随机值是否在当前物品的权重范围内
+            if (randomValue <= weightSum)
             {
-                counter = 0;
-                var heroList = MyConfig.Tables.TbItem.DataList.Where(a => a.type == 4).ToList();
-                heroList = heroList.OrderBy(x => Random.Shared.NextInt64()).ToList();
-                id = new Vector2(heroList[0].id, 1);
+                getId = new Vector2(item.x, item.y);
+                break;
             }
         }
 
-        return id;
+        return getId;
+    }
+
+    Vector2 GetOneFromPool(List<Vector2> poolList)
+    {
+        Vector2 getId = default;
+        int totalPower = 0;
+        foreach (var power in poolList)
+        {
+            totalPower += (int)power.y;
+        }
+
+        int randomValue = Random.Shared.Next(0, totalPower);
+        int weightSum = 0;
+        foreach (var item in poolList)
+        {
+            weightSum += (int)item.y;
+            // 检查随机值是否在当前物品的权重范围内
+            if (randomValue <= weightSum)
+            {
+                getId = new Vector2(item.x, item.y);
+                break;
+            }
+        }
+
+        return getId;
+    }
+
+    async Task<ItemData> StrogeReward(Vector2 reward, MyPostgresDbContext database, bool isStroge = true,
+        bool isStrogeImmediately = false)
+    {
+        ItemData itemData = null;
+        int configId = (int)reward.x;
+        int count = (int)reward.y;
+        var item = MyConfig.Tables.TbItem.Get(configId);
+        var ensureItemType = (ItemType)item.type;
+        switch (ensureItemType)
+        {
+            case ItemType.BagItem:
+                itemData = new BagItemData();
+                var bagItemData = itemData as BagItemData;
+                bagItemData.ConfigId = configId;
+                bagItemData.Count = count;
+                if (isStroge)
+                {
+                    database.ItemDatas.Add(bagItemData);
+                    if (isStrogeImmediately)
+                    {
+                        await _dataBase.SaveChangesAsync();
+                    }
+                }
+
+                break;
+            case ItemType.HeroItem:
+
+                itemData = new HeroItemData();
+                var heroItemData = itemData as HeroItemData;
+                heroItemData.ConfigId = configId;
+                heroItemData.Count = count;
+                heroItemData.Level = 1;
+                if (isStroge)
+                {
+                    database.ItemDatas.Add(heroItemData);
+                    if (isStrogeImmediately)
+                    {
+                        await _dataBase.SaveChangesAsync();
+                    }
+                }
+
+                break;
+        }
+
+        return itemData;
+    }
+
+    Vector2 GetOneGachaId(Gacha tbGacha, ref int counter)
+    {
+        //ItemData itemData = null;
+        Vector2 reward = default;
+        if (tbGacha.ensureCount <= counter)
+        {
+            counter = 0;
+            reward = GetOneFromPool(tbGacha.ensurePoolId);
+        }
+        else
+        {
+            var pool = GetOneFromPool(tbGacha.pool);
+            int poolId = (int)pool.x;
+            reward = GetOneFromPool(poolId);
+        }
+
+        return reward;
     }
 
     public async Task<OutputContext> HandleAsync(Context context)
@@ -73,10 +169,10 @@ public class GachaHandler : HandleBase, ICommandHandler
         var request = MessagePackSerializer.Deserialize<C2S_GachaRequest>(message.Content, options);
         var tbGacha = MyConfig.Tables.TbGacha.Get(request.BoxId);
 
-        GachaPityCounterData gachaData = await _dataBase.GachaDatas
+        GachaPityCounterData gachaData = await _dataBase.GachaPityCounterDatas
             .FirstOrDefaultAsync(u => u.UserId == context.UserId);
 
-        List<S2C_ItemData> S2C_RewardsData =new List<S2C_ItemData>();
+        List<S2C_ItemData> S2C_RewardsData = new List<S2C_ItemData>();
 
         if (gachaData == null)
         {
@@ -93,36 +189,31 @@ public class GachaHandler : HandleBase, ICommandHandler
         tempIdCounter.TryAdd(request.BoxId, 0);
         int counter = tempIdCounter[request.BoxId];
 
-        int totalPower = 0;
-        foreach (var power in tbGacha.power)
-        {
-            totalPower += (int)power.z;
-        }
-
 
         switch (request.Type)
         {
             case 1:
                 counter++;
 
-                var id = GetOneGachaId(tbGacha, ref counter, totalPower);
-                //S2C_RewardsData.Add(id);
+                var reward1 = GetOneGachaId(tbGacha, ref counter);
+                var itemData1 = await StrogeReward(reward1, _dataBase);
+                var S2C_ItemData1 = _mapper.Map<S2C_ItemData>(itemData1);
+                S2C_RewardsData.Add(S2C_ItemData1);
 
                 //TODO:入库
                 break;
             case 2:
 
-                List<Vector2> result = new List<Vector2>(10);
+
                 for (int i = 0; i < 10; i++)
                 {
                     counter++;
-                    var id0 = GetOneGachaId(tbGacha, ref counter, totalPower);
-                    result.Add(id0);
+                    var reward2 = GetOneGachaId(tbGacha, ref counter);
+                    var itemData2 = await StrogeReward(reward2, _dataBase);
+                    var S2C_ItemData2 = _mapper.Map<S2C_ItemData>(itemData2);
+                    S2C_RewardsData.Add(S2C_ItemData2);
                 }
 
-                //S2C_RewardsData.Result.AddRange(result);
-
-                //TODO:入库
                 break;
         }
 
@@ -131,7 +222,8 @@ public class GachaHandler : HandleBase, ICommandHandler
 
         var a = JsonConvert.SerializeObject(gachaData);
         Console.WriteLine($"gachaData:{a}");
-        _dataBase.GachaDatas.Update(gachaData);
+        _dataBase.GachaPityCounterDatas.Update(gachaData);
+
         await _dataBase.SaveChangesAsync();
 
         message.Content =

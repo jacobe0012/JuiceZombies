@@ -22,18 +22,20 @@ public sealed partial class Gacha :  Bright.Config.BeanBase
         { if(!_json["time"].IsNumber) { throw new SerializationException(); }  time = _json["time"]; }
         { if(!_json["price1"].IsNumber) { throw new SerializationException(); }  price1 = _json["price1"]; }
         { if(!_json["price2"].IsNumber) { throw new SerializationException(); }  price2 = _json["price2"]; }
-        { var __json0 = _json["power"]; if(!__json0.IsArray) { throw new SerializationException(); } power = new System.Collections.Generic.List<UnityEngine.Vector3>(__json0.Count); foreach(JSONNode __e0 in __json0.Children) { UnityEngine.Vector3 __v0;  { var _json2 = __e0; if(!_json2.IsObject) { throw new SerializationException(); } float __x; { if(!_json2["x"].IsNumber) { throw new SerializationException(); }  __x = _json2["x"]; } float __y; { if(!_json2["y"].IsNumber) { throw new SerializationException(); }  __y = _json2["y"]; } float __z; { if(!_json2["z"].IsNumber) { throw new SerializationException(); }  __z = _json2["z"]; }  __v0 = new UnityEngine.Vector3(__x, __y,__z); }  power.Add(__v0); }   }
+        { var __json0 = _json["pool"]; if(!__json0.IsArray) { throw new SerializationException(); } pool = new System.Collections.Generic.List<UnityEngine.Vector2>(__json0.Count); foreach(JSONNode __e0 in __json0.Children) { UnityEngine.Vector2 __v0;  { var _json2 = __e0; if(!_json2.IsObject) { throw new SerializationException(); }  float __x; { if(!_json2["x"].IsNumber) { throw new SerializationException(); }  __x = _json2["x"]; } float __y; { if(!_json2["y"].IsNumber) { throw new SerializationException(); }  __y = _json2["y"]; } __v0 = new UnityEngine.Vector2(__x, __y); }  pool.Add(__v0); }   }
+        { if(!_json["ensure_pool_id"].IsNumber) { throw new SerializationException(); }  ensurePoolId = _json["ensure_pool_id"]; }
         { if(!_json["ensure_count"].IsNumber) { throw new SerializationException(); }  ensureCount = _json["ensure_count"]; }
         PostInit();
     }
 
-    public Gacha(int id, int time, int price1, int price2, System.Collections.Generic.List<UnityEngine.Vector3> power, int ensure_count ) 
+    public Gacha(int id, int time, int price1, int price2, System.Collections.Generic.List<UnityEngine.Vector2> pool, int ensure_pool_id, int ensure_count ) 
     {
         this.id = id;
         this.time = time;
         this.price1 = price1;
         this.price2 = price2;
-        this.power = power;
+        this.pool = pool;
+        this.ensurePoolId = ensure_pool_id;
         this.ensureCount = ensure_count;
         PostInit();
     }
@@ -60,9 +62,13 @@ public sealed partial class Gacha :  Bright.Config.BeanBase
     /// </summary>
     public int price2 { get; private set; }
     /// <summary>
-    /// 十连抽
+    /// 十连抽随机池
     /// </summary>
-    public System.Collections.Generic.List<UnityEngine.Vector3> power { get; private set; }
+    public System.Collections.Generic.List<UnityEngine.Vector2> pool { get; private set; }
+    /// <summary>
+    /// 保底池子id
+    /// </summary>
+    public int ensurePoolId { get; private set; }
     /// <summary>
     /// 保底数
     /// </summary>
@@ -87,7 +93,8 @@ public sealed partial class Gacha :  Bright.Config.BeanBase
         + "time:" + time + ","
         + "price1:" + price1 + ","
         + "price2:" + price2 + ","
-        + "power:" + Bright.Common.StringUtil.CollectionToString(power) + ","
+        + "pool:" + Bright.Common.StringUtil.CollectionToString(pool) + ","
+        + "ensurePoolId:" + ensurePoolId + ","
         + "ensureCount:" + ensureCount + ","
         + "}";
     }
