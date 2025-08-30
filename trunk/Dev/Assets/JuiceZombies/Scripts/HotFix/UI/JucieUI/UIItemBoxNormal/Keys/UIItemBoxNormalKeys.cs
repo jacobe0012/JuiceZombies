@@ -14,5 +14,7 @@ namespace XFramework
 		public const string KText_Description = "Text_Description";
 		public const string KImg_Box = "Img_Box";
 		public const string KGroup_Btn = "Group_Btn";
+		public const string KOneBtn = "OneBtn";
+		public const string KTenBtn = "TenBtn";
 	}
 }

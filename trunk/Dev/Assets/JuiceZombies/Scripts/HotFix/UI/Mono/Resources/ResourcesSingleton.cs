@@ -17,6 +17,10 @@ namespace HotFix_UI
     /// </summary>
     public sealed class ResourcesSingleton : Singleton<ResourcesSingleton>, IDisposable
     {
+
+        public long monCardTime = 0;
+        public PlayerResource playerResource;
+
         public void Init()
         {
         }
@@ -31,5 +35,11 @@ namespace HotFix_UI
             Clear();
             Instance = null;
         }
+    }
+    public struct PlayerResource
+    {
+        public long diamond;
+
+        public long gold;
     }
 }

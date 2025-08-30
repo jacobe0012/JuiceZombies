@@ -41,7 +41,6 @@ namespace XFramework
 			var KBlue = GetFromReference(UIJuiceCommonBtn.KBlue);
 			var KPink = GetFromReference(UIJuiceCommonBtn.KPink);
 			var KText = GetFromReference(UIJuiceCommonBtn.KText);
-			var KRed = GetFromReference(UIJuiceCommonBtn.KRed);
 		}
 		protected override void OnClose()
 		{

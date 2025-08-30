@@ -53,6 +53,8 @@ namespace XFramework
 
         private void InitView()
         {
+            
+
             var KBg_Mask = GetFromReference(UIItemBoxNormal.KBg_Mask);
             var KBorder = GetFromReference(UIItemBoxNormal.KBorder);
             var KText_Title = GetFromReference(UIItemBoxNormal.KText_Title);
@@ -78,6 +80,29 @@ namespace XFramework
                     break;
                 default:
                     break;
+            }
+
+            SetBtnState();
+        }
+
+        private void SetBtnState()
+        {
+            GetFromReference(KOneBtn).SetActive(true);
+            GetFromReference(KTenBtn).SetActive(true);
+            var playerResource = ResourcesSingleton.Instance.playerResource;
+            GetFromReference(KTenBtn).GetFromReference(UIJuiceCommonBtn.KText).GetTextMeshPro().SetTMPText(tbGacha.Get(currentBoxId).price2.ToString());
+            GetFromReference(KOneBtn).GetFromReference(UIJuiceCommonBtn.KText).GetTextMeshPro().SetTMPText(tbGacha.Get(currentBoxId).price1.ToString());
+            if (playerResource.diamond >=tbGacha.Get(currentBoxId).price2)
+            { 
+            }
+            else if(playerResource.diamond <tbGacha.Get(currentBoxId).price2&& playerResource.diamond >= tbGacha.Get(currentBoxId).price2)
+            {
+                GetFromReference(KTenBtn).SetActive(false);
+            }
+            else
+            {
+                GetFromReference(KTenBtn).SetActive(false);
+                GetFromReference(KOneBtn).SetActive(false);
             }
         }
 
