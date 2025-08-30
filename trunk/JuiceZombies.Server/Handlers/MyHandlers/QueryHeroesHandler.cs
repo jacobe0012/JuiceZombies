@@ -29,7 +29,7 @@ public class QueryHeroesHandler : HandleBase, ICommandHandler
             .Where(u => u.UserId == context.UserId)
             .ToListAsync();
 
-        var s2cHeroList = _mapper.Map<List<S2C_HeroData>>(heroList);
+        var s2cHeroList = _mapper.Map<List<S2C_HeroItemData>>(heroList);
         
         message.Content =
             MessagePackSerializer.Serialize(s2cHeroList, options);

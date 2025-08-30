@@ -3,17 +3,12 @@
 namespace JuiceZombies.Server.Datas;
 
 [Index(nameof(UserId))]
-public class HeroData
+public abstract class ItemData
 {
     public uint Id { get; set; }
-
     public uint UserId { get; set; }
 
     public int ConfigId { get; set; }
-
-    public int Exp { get; set; }
-
-    public int Level { get; set; }
-
-    public int Quality { get; set; }
+    
+    public long Count { get; set; }
 }

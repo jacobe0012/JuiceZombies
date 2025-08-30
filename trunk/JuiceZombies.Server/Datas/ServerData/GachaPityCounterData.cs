@@ -6,7 +6,7 @@ using Newtonsoft.Json;
 namespace JuiceZombies.Server.Datas;
 
 [Index(nameof(UserId), IsUnique = true)]
-public class GachaData
+public class GachaPityCounterData
 {
     public uint Id { get; set; }
 

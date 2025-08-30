@@ -33,9 +33,11 @@ namespace JuiceZombies.Server.Migrations
                         .Annotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn),
                     UserId = table.Column<long>(type: "bigint", nullable: false),
                     ConfigId = table.Column<int>(type: "integer", nullable: false),
-                    Exp = table.Column<int>(type: "integer", nullable: false),
-                    Level = table.Column<int>(type: "integer", nullable: false),
-                    Quality = table.Column<int>(type: "integer", nullable: false)
+                    Count = table.Column<long>(type: "bigint", nullable: false),
+                    ItemType = table.Column<string>(type: "character varying(8)", maxLength: 8, nullable: false),
+                    Exp = table.Column<int>(type: "integer", nullable: true),
+                    Level = table.Column<int>(type: "integer", nullable: true),
+                    Quality = table.Column<int>(type: "integer", nullable: true)
                 },
                 constraints: table =>
                 {
@@ -82,8 +84,7 @@ namespace JuiceZombies.Server.Migrations
             migrationBuilder.CreateIndex(
                 name: "IX_HeroDatas_UserId",
                 table: "HeroDatas",
-                column: "UserId",
-                unique: true);
+                column: "UserId");
 
             migrationBuilder.CreateIndex(
                 name: "IX_ShopDatas_UserId",

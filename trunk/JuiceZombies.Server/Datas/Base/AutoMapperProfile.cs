@@ -14,7 +14,13 @@ public class AutoMapperProfile : Profile
         CreateMap<S2C_UserResData, UserResData>();
         CreateMap<UserResData, S2C_UserResData>();
 
-        CreateMap<S2C_HeroData, HeroData>();
-        CreateMap<HeroData, S2C_HeroData>();
+        CreateMap<S2C_ItemData, ItemData>();
+        CreateMap<ItemData, S2C_ItemData>();
+
+        CreateMap<S2C_HeroItemData, HeroItemData>();
+        CreateMap<HeroItemData, S2C_HeroItemData>();
+
+        CreateMap<S2C_BagItemData, BagItemData>();
+        CreateMap<BagItemData, S2C_BagItemData>();
     }
 }
