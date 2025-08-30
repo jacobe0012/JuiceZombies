@@ -10,6 +10,7 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Events;
 using UnityEngine.UI;
 
 namespace XFramework
@@ -39,6 +40,7 @@ namespace XFramework
 
         public void Initialize(int boxId)
         {
+            ResourcesSingleton.Instance.playerResource.diamond = 9999999999999999;
             currentBoxId = boxId;
             InitConfig();
             InitNode();
@@ -103,6 +105,23 @@ namespace XFramework
             {
                 GetFromReference(KTenBtn).SetActive(false);
                 GetFromReference(KOneBtn).SetActive(false);
+            }
+            UnicornTweenHelper.DoScaleTweenOnClickAndLongPress(GetFromReference(KOneBtn),()=>OnGachaBtnClick(1));
+        }
+
+        private void OnGachaBtnClick(int type)
+        {
+            WebMsgHandler.Instance.AddHandler(CMD.Shop.C2S_DRAWS, OnGachaResponse);
+            NetWorkManager.Instance.SendMsg(CMD.Shop.C2S_DRAWS);
+
+        }
+
+        private void OnGachaResponse(object sender, WebMsgHandler.Execute e)
+        {
+            var data = NetWorkManager.Instance.UnPackMsg<List<S2C_ItemData>>(e, out var _);
+            foreach (var item in data)
+            {
+                Log.Debug(item.ConfigId.ToString(),Color.cyan);
             }
         }
 

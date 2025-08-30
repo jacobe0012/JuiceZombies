@@ -377,6 +377,10 @@ namespace XFramework
 
 		public const string UIJuiceCommonBtn = "JuiceCommonBtn";
 
+		public const string UIItemGetFuc = "ItemGetFuc";
+
+		public const string UIPopup_Lack = "Popup_Lack";
+
         #endregion 1
 
 
