@@ -11,7 +11,7 @@ using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 namespace JuiceZombies.Server.Migrations
 {
     [DbContext(typeof(MyPostgresDbContext))]
-    [Migration("20250829113944_InitialCreate")]
+    [Migration("20250830103729_InitialCreate")]
     partial class InitialCreate
     {
         /// <inheritdoc />
@@ -24,7 +24,7 @@ namespace JuiceZombies.Server.Migrations
 
             NpgsqlModelBuilderExtensions.UseIdentityByDefaultColumns(modelBuilder);
 
-            modelBuilder.Entity("JuiceZombies.Server.Datas.GachaData", b =>
+            modelBuilder.Entity("JuiceZombies.Server.Datas.GachaPityCounterData", b =>
                 {
                     b.Property<long>("Id")
                         .ValueGeneratedOnAdd()
@@ -47,7 +47,7 @@ namespace JuiceZombies.Server.Migrations
                     b.ToTable("GachaDatas");
                 });
 
-            modelBuilder.Entity("JuiceZombies.Server.Datas.HeroData", b =>
+            modelBuilder.Entity("JuiceZombies.Server.Datas.ItemData", b =>
                 {
                     b.Property<long>("Id")
                         .ValueGeneratedOnAdd()
@@ -58,24 +58,26 @@ namespace JuiceZombies.Server.Migrations
                     b.Property<int>("ConfigId")
                         .HasColumnType("integer");
 
-                    b.Property<int>("Exp")
-                        .HasColumnType("integer");
+                    b.Property<long>("Count")
+                        .HasColumnType("bigint");
 
-                    b.Property<int>("Level")
-                        .HasColumnType("integer");
-
-                    b.Property<int>("Quality")
-                        .HasColumnType("integer");
+                    b.Property<string>("ItemType")
+                        .IsRequired()
+                        .HasMaxLength(8)
+                        .HasColumnType("character varying(8)");
 
                     b.Property<long>("UserId")
                         .HasColumnType("bigint");
 
                     b.HasKey("Id");
 
-                    b.HasIndex("UserId")
-                        .IsUnique();
+                    b.HasIndex("UserId");
 
                     b.ToTable("HeroDatas");
+
+                    b.HasDiscriminator<string>("ItemType").HasValue("ItemData");
+
+                    b.UseTphMappingStrategy();
                 });
 
             modelBuilder.Entity("JuiceZombies.Server.Datas.ShopData", b =>
@@ -129,6 +131,29 @@ namespace JuiceZombies.Server.Migrations
                         .IsUnique();
 
                     b.ToTable("UserResDatas");
+                });
+
+            modelBuilder.Entity("JuiceZombies.Server.Datas.BagItemData", b =>
+                {
+                    b.HasBaseType("JuiceZombies.Server.Datas.ItemData");
+
+                    b.HasDiscriminator().HasValue("Bag");
+                });
+
+            modelBuilder.Entity("JuiceZombies.Server.Datas.HeroItemData", b =>
+                {
+                    b.HasBaseType("JuiceZombies.Server.Datas.ItemData");
+
+                    b.Property<int>("Exp")
+                        .HasColumnType("integer");
+
+                    b.Property<int>("Level")
+                        .HasColumnType("integer");
+
+                    b.Property<int>("Quality")
+                        .HasColumnType("integer");
+
+                    b.HasDiscriminator().HasValue("Hero");
                 });
 #pragma warning restore 612, 618
         }
